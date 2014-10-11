@@ -10,7 +10,7 @@ class Command(BaseCommand):
         Creates test data to fill the dashboard with.
         """
         try:
-            user = creaget_or_create_admin_userte_admin_user()
+            user = get_or_create_admin_user()
             create_form_with_entries(user, create_entries_if_form_exist=False)
         except Exception as e:
             pass
