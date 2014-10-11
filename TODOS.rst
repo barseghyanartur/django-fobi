@@ -198,6 +198,7 @@ Should haves
   SQLAlchemy).
 - Fix the view saved form entries template (nicer look) for Foundation 5
   theme.
+- Add birthday field.
 - Fix the input_format option in the date and datetime fields.
 - Add an example of how to extend the existing themes with additional
   functionality. For example, how to take a Bootstrap 3 theme, extend it

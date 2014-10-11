@@ -99,7 +99,7 @@ Or latest stable version from BitBucket:
     INSTALLED_APPS = (
         # ...
         # Fobi core
-        'fobi',- Add birthday field.
+        'fobi',
 
         # Fobi themes
         'fobi.contrib.themes.bootstrap3', # Bootstrap 3 theme
