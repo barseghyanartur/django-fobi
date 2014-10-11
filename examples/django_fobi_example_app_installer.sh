@@ -3,8 +3,7 @@ virtualenv fobi
 source fobi/bin/activate
 mkdir django_fobi_example_app_installer/
 tar -xvf django_fobi_example_app_installer.tar.gz -C django_fobi_example_app_installer
-cd django_fobi_example_app_installer/django-fobi-stable/example/example/
-pip install Django
+cd django_fobi_example_app_installer/django-fobi-stable/examples/simple/
 pip install -r ../requirements.txt
 pip install -e git+https://github.com/barseghyanartur/django-fobi@stable#egg=django-fobi
 mkdir ../media/

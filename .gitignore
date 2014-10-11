@@ -10,6 +10,7 @@ MANIFEST.in~
 MIND_BUCKET.rst
 /tmp/
 .zip
+/demo/
 /release/
 /deploy/
 fobi/fobi.migrations.rst
