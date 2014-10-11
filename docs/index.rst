@@ -150,7 +150,7 @@ And the following to the context processors.
         # ...
         "fobi.context_processors.theme".
         # ...
-)
+    )
 
 Make sure that ``django.core.context_processors.request`` is in
 ``TEMPLATE_CONTEXT_PROCESSORS`` too.
@@ -215,8 +215,8 @@ Django admin interface:
 If quick installer doesn't work for you, see the manual steps on running the
 `example project <https://github.com/barseghyanartur/django-fobi/tree/stable/examples>`_.
 
-Also, the `example project <https://github.com/barseghyanartur/django-fobi/tree/stable/examples/simple/foo>`_
-has example theme, form element plugins, handlers and callbacks implemented.
+It also has an `example theme <https://github.com/barseghyanartur/django-fobi/tree/stable/examples/simple/foo>`_
+, form element plugins, handlers and callbacks implemented.
 Take it as a good example of how to customise and extend `Fobi`. Make sure to
 see how same is done for the `bundled packages <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/>`_.
 
@@ -934,7 +934,7 @@ of them you would never need to override. Some others, you would likely
 want to.
 
 Templates that you likely would want to re-write in your custom
-theme implemention are marked with three asterics (***):
+theme implemention are marked with three asterics (\*\*\*):
 
 .. code-block:: none
 
@@ -1065,11 +1065,11 @@ Content plugins are presentational plugins, that make your forms look more
 
 - `Dummy <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/dummy/>`_:
   Mainly for dev purposes.
-- `Image <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/image/>`_:
+- `Content image <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/image/>`_:
   Insert an image.
-- `Text <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/text/>`_:
+- `Content text <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/text/>`_:
   Add text.
-- `Video <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/video/>`_:
+- `Content video <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/video/>`_:
   Add an embed YouTube or Vimeo video.
 
 Bundled form handler plugins
