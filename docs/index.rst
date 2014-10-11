@@ -2,10 +2,10 @@
 django-fobi
 ===============================================
 `django-fobi` (later on named just `fobi`) is a customisable, modular,
-user-friendly form builder application for Django. With `fobi` you can
-build Django forms using a user-friendly GUI, save or mail posted form data.
-Developer-friendly API allows you to build or own form elements and form
-handlers (mechanisms for handling the submitted form data).
+user- and developer- friendly form builder application for Django. With `fobi`
+you can build Django forms using an intiutive GUI, save or mail posted form
+data. API allows you to build or own form elements and form handlers
+(mechanisms for handling the submitted form data).
 
 Prerequisites
 ===============================================
@@ -21,7 +21,7 @@ Key concepts
   into two groups:
 
   - (a) form fields (input field, textarea, hidden field, file field, etc.).
-  - (b) content (presentation) elements (text, image, embed video, etc.).
+  - (b) content (presentational) elements (text, image, embed video, etc.).
 
 - Each form may contain handlers. Handler processes the form data (for example,
   saves it or mails it). Amount of the handlers is not limited.
@@ -37,21 +37,21 @@ Key concepts
 
 Main features and highlights
 ===============================================
-- User-friendly GUI to quickly build forms. Most of the Django fields are
-  supported.
-- Large variety of form elements/fields (HTML5 fields are supported).
+- User-friendly GUI to quickly build forms. 
+- Large variety of form elements/fields. Most of the Django fields are
+  supported. HTML5 fields are supported as well.
 - In addition to standard form elements, there are cosmetic (presentational)
   form elements (for adding a piece of text, image or a embed video)
   alongside standard form elements.
 - Data handling in plugins (form handlers). Save the data, mail it to some
   address or repost it to some other endpoint.
 - Developer-friendly API, which allows to build new form fields and handlers 
-  with minimal efforts.
-- Supports custom user model.
+  without touching the core.
+- Support for custom user model.
 - Theming. There 3 ready to use themes bundled: Bootstrap 3, Foundation 5 
   and Simple (in style of Django admin).
-- Integration with FeinCMS (in a form of a FeinCMS Page widget).
-- Reorder form elements using drag-n-drop.
+- Implemented integration with FeinCMS (in a form of a FeinCMS Page widget).
+- Reordering of form elements using drag-n-drop.
 
 Roadmap
 ===============================================
@@ -99,7 +99,7 @@ Or latest stable version from BitBucket:
     INSTALLED_APPS = (
         # ...
         # Fobi core
-        'fobi',- Add birthday field.
+        'fobi',
 
         # Fobi themes
         'fobi.contrib.themes.bootstrap3', # Bootstrap 3 theme

@@ -1,5 +1,5 @@
-#Django>=1.5,<1.7
-Django>=1.5,<1.8
+Django>=1.5,<1.7
+#Django>=1.5,<1.8
 #FeinCMS>=1.9,<2.0
 Jinja2==2.7.2
 MarkupSafe==0.18

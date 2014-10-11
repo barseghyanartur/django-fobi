@@ -82,7 +82,7 @@ except:
 setup(
     name = 'django-fobi',
     version = version,
-    description = ("Customisable, modular forms builder for Django."),
+    description = ("Customisable, modular user- and developer- friendly form builder application for Django"),
     long_description = "{0}{1}".format(readme, screenshots),
     classifiers = [
         "Programming Language :: Python :: 2.6",
