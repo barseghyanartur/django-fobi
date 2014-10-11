@@ -27,6 +27,27 @@ $(document).ready(function() {
 
   // Choosing which tab is active on click
   fobiCore.handleTabs('.nav-tabs li');
+
+  // Some sort of a solution for the nasty bootstrap3 problem
+  // with drop-downs cut if parent container isn't long enough.
+  // Thus, it's checked whether the drop-down menu height 
+  // exceeds the height of the content container, the
+  // {'height': 'auto', 'overflow-x', 'hidden'} css is applied to the
+  // "dropdown-menu" element. Default "max-height" value of the 
+  // "dropdown-menu" is then 200 (px). If content container can fit more, 
+  // the css property "max-height" is changed accordingly.
+  $('.dropdown-toggle').click(function() {
+      var dropDownToggle = $(this);
+      var dropDownParent = dropDownToggle.parents('.tab-pane');
+      var dropDownMenu = dropDownParent.find('.dropdown-menu');
+      if (dropDownMenu.height() > dropDownParent.height()) {
+          //dropDownMenu.addClass('scrollable-menu');
+          dropDownMenu.css('height', 'auto');
+          dropDownMenu.css('overflow-x', 'hidden');
+          var dropDownMenuMinHeiht = (dropDownParent.height() > 200) ? dropDownParent.height() : 200;
+          dropDownMenu.css('max-height', dropDownMenuMinHeiht + 'px');
+      }
+  });
 });
 
 /**
