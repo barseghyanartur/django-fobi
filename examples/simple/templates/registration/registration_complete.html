@@ -1,0 +1,18 @@
+{% extends "registration/registration_base.html" %}
+
+{% load i18n %}
+
+{% block page-title %}{% trans "Activation email sent" %}{% endblock page-title %}
+
+{% block body-attrs %} class="standalone"{% endblock body-attrs %}
+
+{% block content %}
+    <div class="{{ fobi_theme.custom_data.page_header_html_class }}">
+      <h1>{% trans "Activation email sent" %}</h1>
+    </div>
+
+    <p>{% trans "An activation email has been sent." %}</p>
+    <p>
+      {% blocktrans %}Please check your email and click on the link to activate your account.{% endblocktrans %}
+    </p>
+{% endblock content %}

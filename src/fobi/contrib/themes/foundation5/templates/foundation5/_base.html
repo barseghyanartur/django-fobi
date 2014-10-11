@@ -1,0 +1,158 @@
+{% extends "fobi/generic/_base.html" %}
+
+{# Foundation 5 master base template #}
+
+{% load i18n static %}
+
+{% block html-attributes %} class="no-js"{% endblock html-attributes %}
+
+{% block navbar-wrapper %}
+<nav class="top-bar" data-topbar>
+    <ul class="title-area">
+
+        <li class="name">
+            <h1>
+            {% url 'fobi.dashboard' as fobi_dashboard_url %}
+            <a href="{{ fobi_dashboard_url }}">
+            {{ fobi_theme.project_name }}
+            </a>
+            </h1>
+        </li>
+
+        <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
+    </ul>
+
+    <section class="top-bar-section">
+        <ul class="right">
+            {% block navbar-menu-content %}
+            <li class="divider"></li>
+            <li class="has-dropdown">
+                <a href="#">Main Item 1</a>
+                <ul class="dropdown">
+                    <li><label>Section Name</label></li>
+                    <li class="has-dropdown">
+                        <a href="#" class="">Has Dropdown, Level 1</a>
+                        <ul class="dropdown">
+                            <li><a href="#">Dropdown Options</a></li>
+                            <li><a href="#">Dropdown Options</a></li>
+                            <li><a href="#">Level 2</a></li>
+                            <li><a href="#">Subdropdown Option</a></li>
+                            <li><a href="#">Subdropdown Option</a></li>
+                            <li><a href="#">Subdropdown Option</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#">Dropdown Option</a></li>
+                    <li><a href="#">Dropdown Option</a></li>
+                    <li class="divider"></li>
+                    <li><label>Section Name</label></li>
+                    <li><a href="#">Dropdown Option</a></li>
+                    <li><a href="#">Dropdown Option</a></li>
+                    <li><a href="#">Dropdown Option</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">See all &rarr;</a></li>
+                </ul>
+            </li>
+            <li class="divider"></li>
+            <li><a href="#">Main Item 2</a></li>
+            <li class="divider"></li>
+            <li class="has-dropdown">
+                <a href="#">Main Item 3</a>
+                <ul class="dropdown">
+                    <li><a href="#">Dropdown Option</a></li>
+                    <li><a href="#">Dropdown Option</a></li>
+                    <li><a href="#">Dropdown Option</a></li>
+                    <li class="divider"></li>
+                    <li><a href="#">See all &rarr;</a></li>
+                </ul>
+            </li>
+            {% endblock navbar-menu-content %}
+        </ul>
+    </section>
+</nav>
+{% endblock navbar-wrapper %}
+
+{% block navbar-content %}
+        <!-- Navigation -->
+
+        <nav class="top-bar" data-topbar>
+          <ul class="title-area">
+            <!-- Title Area -->
+
+            <li class="name">
+              {% url 'fobi.dashboard' as fobi_dashboard_url %}
+              <h1>
+                <a href="{{ fobi_dashboard_url }}">{{ fobi_theme.project_name }}</a>
+              </h1>
+            </li>
+
+            <li class="toggle-topbar menu-icon">
+              <a href="#"><span>menu</span></a>
+            </li>
+          </ul>
+
+          <section class="top-bar-section">
+            <ul class="left">
+              {% url 'fobi.dashboard' as fobi_dashboard_url %}
+              <li{% if request.path == fobi_dashboard_url %} class="active"{% endif %}>
+                    <a href="{{ fobi_dashboard_url }}">{% trans "Home" %}</a>
+              </li>
+
+            </ul>
+          </section>
+        </nav><!-- End Navigation -->
+
+{% endblock navbar-content %}
+
+{% block responsive-nav %}{% endblock responsive-nav %}
+
+{% block main-content-wrapper %}
+      {% block messages-wrapper %}
+          {% include fobi_theme.messages_snippet_template_name %}
+      {% endblock messages-wrapper %}
+
+{% block main-content %}
+<div class="row {#left#}">
+    <div{% block main-content-inner-attrs %} class="large-12 columns"{% endblock main-content-inner-attrs %}>
+    
+      <!-- Content -->
+
+      {% block content-wrapper %}
+
+          {% block content %}
+          <h3>Get in Touch!</h3>
+          <hr>
+
+          <h4 class="subheader">Risus ligula, aliquam nec fermentum vitae, sollicitudin eget urna. Donec
+          dignissim nibh fermentum odio ornare sagittis.</h4>
+
+          <div class="show-for-small" style="text-align: center">
+            <a class="small radius button" href="#">Call To Action!</a><br>
+            <a class="small radius button" href="#">Call To Action!</a>
+          </div>
+          {% endblock content %}
+      
+      {% endblock content-wrapper %}
+
+      {% block sidebar-wrapper %}
+      <div class="large-4 columns hide-for-small">
+        {% block sidebar %}
+        {% block sidebar-content %}
+        <h4>Get In Touch!</h4>
+        <hr>
+        <a href="#">
+        <div class="panel radius callout" style="text-align: center">
+          <strong>Call To Action!</strong>
+        </div></a> <a href="#">
+        <div class="panel radius callout" style="text-align: center">
+          <strong>Call To Action!</strong>
+        </div></a>
+        {% endblock sidebar-content %}
+        {% endblock sidebar %}
+      </div><!-- End Content -->
+      {% endblock sidebar-wrapper %}
+    </div>
+    
+</div>
+
+{% endblock main-content %}
+{% endblock main-content-wrapper %}

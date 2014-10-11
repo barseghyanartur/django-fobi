@@ -1,0 +1,71 @@
+{% extends "home/base.html" %}
+
+{% load i18n static %}
+
+{% block extra-stylesheets %}
+    {{ block.super }}
+    <link href="{% static 'css/fobi_example_home_foundation5.css' %}" rel="stylesheet">
+{% endblock extra-stylesheets %}
+
+{% block navbar-menu-content %}{% endblock navbar-menu-content %}
+
+{% block main-content-wrapper %}
+<div class="row left">
+  <div class="panel">
+    <h1>django-fobi</h1>
+    {% blocktrans %}
+    <p>
+    Welcome to `django-fobi` (later on named just `Fobi`) - a customisable, modular, developer-friendly form
+    builder application for Django. With `Fobi` you can build Django forms using a user-friendly GUI,
+    save or mail posted form data. Developer-friendly API allows you to build your own form elements
+    and form handlers (mechanisms for handling the submitted form data).
+    </p>
+    {% endblocktrans %}
+    <p><a href="http://pythonhosted.org/django-fobi/#screenshots" class="button radius" role="button">{% trans "Learn more" %}</a></p>
+  </div>
+</div>
+
+<div class="row left">
+  <!-- Example row of columns -->
+  <div class="large-12 columns">
+    <div class="large-4 medium-4 columns">
+      <h2>{% trans "Dashboard" %}</h2>
+      {% url 'fobi.dashboard' as fobi_dashboard_url %}
+      {% blocktrans with fobi_dashboard_url as dashboard_url %}
+      <p>The `Fobi` dashboard, where you can see all the forms you have created, edit them (add/remove elements,
+      form handlers), create new forms as well as remove existing ones.</p>
+      <p><a class="button secondary radius" href="{{ dashboard_url }}" role="button">Go to dashboard &raquo;</a></p>
+      {% endblocktrans %}
+    </div>
+    <div class="large-4 medium-4 columns">
+      <h2>{% trans "Create a form" %}</h2>
+      {% url 'fobi.create_form_entry' as fobi_create_form_entry_url %}
+      {% blocktrans with fobi_create_form_entry_url as create_form_entry_url %}
+      <p>Create your first form using awesome user-friendly GUI. Choose what to do with the posted data.</p>
+      <p><a class="button secondary radius" href="{{ create_form_entry_url }}" role="button">Create form &raquo;</a></p>
+      {% endblocktrans %}
+    </div>
+    <div class="large-4 medium-4 columns">
+      <h2>{% trans "See the admin part" %}</h2>
+      {% url 'admin:index' as fobi_admin_url %}
+      {% blocktrans with fobi_admin_url as admin_url %}
+      <p>See the Django-admin for saved data, as well as choose who to grant with permissions of using
+      one or another `Fobi` plugin (form element or form handler).</p>
+      <p><a class="button secondary radius" href="{{ admin_url }}" role="button">Go to admin &raquo;</a></p>
+      {% endblocktrans %}
+    </div>
+  </div>
+
+  <hr>
+
+  <footer>
+    <div class="row left">
+      <div class="large-12 columns">
+        <div class="large-12 columns">
+          <p>{{ fobi_theme.footer_text|safe }}</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div> <!-- /container -->
+{% endblock main-content-wrapper %}

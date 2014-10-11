@@ -1,0 +1,15 @@
+{% extends fobi_theme.base_view_template %}
+
+{% load i18n %}
+
+{% block page-title %}{% trans "Form submitted!" %}{% endblock page-title %}
+
+{% block navbar-menu-content %}
+{% endblock navbar-menu-content %}
+
+{% block content %}
+    {% include fobi_theme.form_entry_submitted_ajax_template %}
+{% endblock content %}
+
+{% block sidebar-wrapper %}
+{% endblock sidebar-wrapper %}

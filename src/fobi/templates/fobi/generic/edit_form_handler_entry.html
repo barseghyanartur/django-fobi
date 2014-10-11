@@ -1,0 +1,15 @@
+{% extends fobi_theme.base_edit_template %}
+
+{% load i18n %}
+
+{% block page-title %}{% blocktrans with form_handler_plugin.name as plugin_name %}Edit "{{ plugin_name }}" handler of the form{% endblocktrans %}{% endblock page-title %}
+
+{% block navbar-menu-content %}
+{% endblock navbar-menu-content %}
+
+{% block content %}
+    {% include fobi_theme.edit_form_handler_entry_ajax_template %}
+{% endblock content %}
+
+{% block sidebar-content %}
+{% endblock sidebar-content %}

@@ -1,0 +1,20 @@
+#Django>=1.5,<1.7
+Django>=1.5,<1.8
+#FeinCMS>=1.9,<2.0
+Jinja2==2.7.2
+MarkupSafe==0.18
+South==0.8.2
+Sphinx==1.2
+django-admin-tools==0.5.1
+django-autoslug==1.7.1
+django-debug-toolbar==0.11.0
+django-template-debug==0.3.3
+django-registration-redux>=1.1
+docutils==0.11
+ipdb==0.8
+ipython==1.1.0
+ordereddict==1.1
+# Selenium shall always be upgraded
+selenium
+simple-timer==0.2
+tox

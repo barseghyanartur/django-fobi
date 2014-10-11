@@ -1,0 +1,34 @@
+{% extends fobi_theme.base_template %}
+
+{% load static i18n feincms_tags %}
+
+{% block extra-stylesheets %}
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/fobi_example_page.css' %}" rel="stylesheet">
+{% endblock extra-stylesheets %}
+
+{% block body-attrs %} class="fobi-page{% if fobi_theme %} theme {{ fobi_theme.html_class }}{% endif %}"{% endblock body-attrs %}
+
+{% block page-title %}{{ feincms_page.title }}{% endblock page-title %}
+{% block site-title %}{% trans "django-fobi example site" %}{% endblock site-title %}
+{% block navbar-menu-content %}{% endblock navbar-menu-content %}
+
+{% block content %}
+  <div class="page-container">
+  {% for content in feincms_page.content.main %}
+    <div class="page-row">
+    {% feincms_render_content content request %}
+    </div>
+  {% endfor %}
+  </div>
+{% endblock content %}
+
+{% block sidebar %}
+  <div class="page-container">
+  {% for content in feincms_page.content.sidebar %}
+    <div class="page-row">
+    {% feincms_render_content content request %}
+    </div>
+  {% endfor %}
+  </div>
+{% endblock sidebar %}

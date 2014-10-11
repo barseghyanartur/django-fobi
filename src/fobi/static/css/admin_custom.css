@@ -1,0 +1,37 @@
+/*
+    Document   : admin_custom.css
+    Created on : Nov 23, 2013, 10:33:25 PM
+    Author     : Artur Barseghyan (artur.barseghyan@gmail.com)
+    Description:
+        Permission names are way too long to fit in a small select box, thus
+        the filtered select boxes are made wider.
+*/
+body.dash-dashboardplugin.change-form #dashboardplugin_form fieldset.module div.selector,
+body.auth-group.change-form #group_form fieldset.module div.selector,
+body.auth-user.change-form #user_form fieldset.module div.selector {
+    width: 920px;
+}
+    body.dash-dashboardplugin.change-form #dashboardplugin_form fieldset.module div.selector div.selector-available,
+    body.dash-dashboardplugin.change-form #dashboardplugin_form fieldset.module div.selector div.selector-chosen,
+    body.auth-group.change-form #group_form fieldset.module div.selector div.selector-available,
+    body.auth-group.change-form #group_form fieldset.module div.selector div.selector-chosen,
+    body.auth-user.change-form #user_form fieldset.module div.selector div.selector-available,
+    body.auth-user.change-form #user_form fieldset.module div.selector div.selector-chosen {
+        width: 440px;
+    }
+        body.dash-dashboardplugin.change-form #dashboardplugin_form fieldset.module div.selector div.selector-available select.filtered,
+        body.dash-dashboardplugin.change-form #dashboardplugin_form fieldset.module div.selector div.selector-chosen select.filtered,
+        body.auth-group.change-form #group_form fieldset.module div.selector div.selector-available select.filtered,
+        body.auth-group.change-form #group_form fieldset.module div.selector div.selector-chosen select.filtered,
+        body.auth-user.change-form #user_form fieldset.module div.selector div.selector-available select.filtered,
+        body.auth-user.change-form #user_form fieldset.module div.selector div.selector-chosen select.filtered {
+            width: 440px;
+        }
+            body.dash-dashboardplugin.change-form #dashboardplugin_form fieldset.module div.selector div.selector-available select.filtered option,
+            body.dash-dashboardplugin.change-form #dashboardplugin_form fieldset.module div.selector div.selector-chosen select.filtered option,
+            body.auth-group.change-form #group_form fieldset.module div.selector div.selector-available select.filtered option,
+            body.auth-group.change-form #group_form fieldset.module div.selector div.selector-chosen select.filtered option,
+            body.auth-user.change-form #user_form fieldset.module div.selector div.selector-available select.filtered option,
+            body.auth-user.change-form #user_form fieldset.module div.selector div.selector-chosen select.filtered option {
+                font-size: 10px;
+            }

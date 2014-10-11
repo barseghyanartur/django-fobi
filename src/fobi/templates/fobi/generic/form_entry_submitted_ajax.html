@@ -1,0 +1,12 @@
+{% load i18n %}
+    <div class="page-header">
+        <h1>{% if form_entry.success_page_title %}{{ form_entry.success_page_title }}{% else %}{% trans "Thank you!" %}{% endif %}</h1>
+    </div>
+
+    <p>
+        {% if form_entry.success_page_message %}
+        {{ form_entry.success_page_message|safe }}
+        {% else %}
+        {% blocktrans %}Form submitted successfully.{% endblocktrans %}
+        {% endif %}
+    </p>

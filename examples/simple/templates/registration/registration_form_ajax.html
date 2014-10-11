@@ -1,0 +1,16 @@
+{% load i18n %}
+
+    <div class="{{ fobi_theme.custom_data.page_header_html_class }}">
+      <h1>{% trans "Register for an account" %}</h1>
+    </div>
+
+    <form method="post" action="{{ request.path }}" enctype="multipart/form-data" class="{{ fobi_theme.custom_data.form_html_class }}">
+      {% csrf_token %}
+      {% include fobi_theme.form_snippet_template_name %}
+      <div class="{{ fobi_theme.custom_data.form_button_outer_wrapper_html_class }}">
+            <div class="{{ fobi_theme.custom_data.form_button_wrapper_html_class }}">
+                <button type="submit" class="{{ fobi_theme.custom_data.form_button_html_class }} {{ fobi_theme.custom_data.form_primary_button_html_class }}">{% trans "Send activation email" %}</button>
+            </div>
+        </div>
+    </form>
+ 

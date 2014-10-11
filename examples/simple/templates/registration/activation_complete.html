@@ -1,0 +1,20 @@
+{% extends "registration/registration_base.html" %}
+
+{% load i18n %}
+
+{% block page-title %}{% trans "Activation complete" %}{% endblock page-title %}
+
+{% block body-attrs %} class="standalone"{% endblock body-attrs %}
+
+{% block content %}
+    {% url 'auth_login' as auth_login_url %}
+    <div class="{{ fobi_theme.custom_data.page_header_html_class }}">
+      <h1>{% trans "Activation complete" %}</h1>
+    </div>
+
+    <p>
+      {% blocktrans %}
+      Thanks, activation complete!  You may now <a href="{{ auth_login_url }}">login</a> using the username and password you set at registration.
+      {% endblocktrans %}
+    </p>
+{% endblock content %}

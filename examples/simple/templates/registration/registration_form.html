@@ -1,0 +1,11 @@
+{% extends "registration/registration_base.html" %}
+
+{% load i18n %}
+
+{% block page-title %}{% trans "Register for an account" %}{% endblock page-title %}
+
+{% block body-attrs %} class="standalone"{% endblock body-attrs %}
+
+{% block content %}
+    {% include "registration/registration_form_ajax.html" %}
+{% endblock content %}

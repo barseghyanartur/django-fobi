@@ -1,0 +1,81 @@
+{% extends "admin/base_site.html" %}
+{% load i18n l10n admin_static %}
+{% load admin_urls %}
+
+{% block title %}{% trans "Edit multiple objects" %} | {% trans 'Django site admin' %}{% endblock %}
+
+{% block bodyclass %}fobi-plugin change-form{% endblock bodyclass %}
+
+{% block extrahead %}
+    {{ form.media }}
+    <script type="text/javascript" src="{% url 'admin:jsi18n' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/core.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/admin/RelatedObjectLookups.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/jquery.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/jquery.init.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/actions.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/SelectBox.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/SelectFilter2.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/calendar.js' %}"></script>
+    <script type="text/javascript" src="{% static 'admin/js/admin/DateTimeShortcuts.js' %}"></script>
+
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}" />
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/widgets.css' %}" />
+    <script type="text/javascript">addEvent(window, "load", function(e) {SelectFilter.init("id_groups", "Groups", 0, "/static/admin/"); });</script>
+{% endblock %}
+
+{% block breadcrumbs %}
+<div class="breadcrumbs">
+<a href="{% url 'admin:index' %}">{% trans 'Home' %}</a>
+&rsaquo; <a href="{% url 'admin:app_list' app_label=app_label %}">{{ app_label|capfirst|escape }}</a>
+&rsaquo; <a href="{% url opts|admin_urlname:'changelist' %}">{{ opts.verbose_name_plural|capfirst }}</a>
+&rsaquo; {% trans 'Edit multiple objects' %}
+</div>
+{% endblock %}
+
+{% block content %}
+    <h2>{% blocktrans %}Edit multiple objects{% endblocktrans %}</h2>
+
+    <form action="{% url named_url %}" method="post" id="plugin_form">
+        {% csrf_token %}
+        <div>
+            <fieldset class="module aligned">
+                {% for obj in queryset %}
+                <input type="hidden" name="{{ action_checkbox_name }}" value="{{ obj.pk|unlocalize }}" />
+                {% endfor %}
+
+                {% if form.non_field_errors %}
+                <div>
+                    {{ form.non_field_errors }}
+                </div>
+                {% endif %}
+
+                {% for field in form %}
+                    {% if field.is_hidden %}
+                        <div>{{ field }}</div>
+                    {% else %}
+                        <div class="form-row field-{{ field.field.name }}{% if field.errors %} errors{% endif %}">
+                            <div>
+                            {% if field.is_checkbox %}
+                                {{ field }}{{ field.label_tag }}
+                            {% else %}
+                                {{ field.label_tag }}
+                                {{ field }}
+                            {% endif %}
+                            {% if field.field.help_text %}
+                                <p class="help">{{ field.field.help_text|safe }}</p>
+                            {% endif %}
+                            </div>
+                        </div>
+                    {% endif %}
+                    </tr>
+                {% endfor %}
+                <div class="submit-row">
+                    <input type="hidden" name="action" value="bulk_change_plugins" />
+                    <input type="hidden" name="post" value="yes" />
+                    <input type="submit" value="{% trans 'Submit changes' %}" />
+                </div>
+            </fieldset>
+        </div>
+    </form>
+{% endblock %}

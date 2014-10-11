@@ -1,0 +1,9 @@
+{% extends fobi_theme.form_edit_ajax %}
+
+{% load i18n %}
+
+{% block form_page_title %}
+{% blocktrans with form_handler_plugin.name as plugin_name %}Edit "{{ plugin_name }}" handler of the form{% endblocktrans %}
+{% endblock form_page_title %}
+
+{% block form_primary_button_text %}{% trans "Submit" %}{% endblock %}

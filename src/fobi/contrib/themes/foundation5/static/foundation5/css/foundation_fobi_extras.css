@@ -1,0 +1,53 @@
+/* 
+    Document   : foundation_additions
+    Created on : Jun 18, 2014, 12:24:30 AM
+    Author     : foreverchild
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+
+.help-block {
+    color: #737373;
+    display: block;
+    margin-bottom: 10px;
+    margin-top: 5px;
+}
+
+.f-dropdown .divider {
+    border-top: 1px solid #ddd;
+    clear: both;
+}
+
+.f-dropdown .subheader {
+    color: #999;
+    display: block;
+    padding: 0.5rem;
+}
+
+.button.dropdown.large-dropdown {
+    float: right;
+    clear: both;
+    display: block;
+    position: relative;
+    z-index: 99999;
+    margin-top: 0.5rem;
+    margin-right: 0.5rem;
+}
+
+.alert-box.alert-box-larger {
+    margin-bottom: 1.25rem;
+    padding: 1.05rem 1.5rem 1.05rem 0.875rem;
+}
+
+.large-9.columns {
+    padding-left: 1rem;
+}
+
+.panel.panel-fobi {
+    background-color: #fff;
+}

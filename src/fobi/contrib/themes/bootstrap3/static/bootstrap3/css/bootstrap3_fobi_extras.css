@@ -1,0 +1,7 @@
+.theme.theme-bootstrap3 .tab-content {
+    display: table;
+    height:100%;
+}
+    .theme.theme-bootstrap3 .tab-content .tab-pane {
+        display: table-cell;
+    }

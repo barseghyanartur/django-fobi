@@ -1,0 +1,14 @@
+{% load i18n thumbnail %}
+            <p>
+                {% if plugin.data.file %}
+                    {% if crop %}
+                        {% thumbnail plugin.data.file thumb_size crop=crop as im %}
+                    {% else %}
+                        {% thumbnail plugin.data.file thumb_size as im %}
+                    {% endif %}
+                    <img src="{{ im.url }}" alt="{{ plugin.data.alt }}"/>
+                {% else %}
+                    {% trans "No image provided!" %}
+                {% endif %}
+
+            </p>

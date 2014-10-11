@@ -1,0 +1,18 @@
+    <div id="content-main">
+      <h1>{% block form_page_title %}{% endblock %}</h1>
+
+      <form method="{% block form_method %}post{% endblock %}" action="{% block form_action %}{{ request.path }}{% endblock %}" {% block form_enctype %}enctype="multipart/form-data"{% endblock %} class="{% block form_html_class %}{% endblock %}" {% block form_extra_attrs %}{% endblock %}>
+        <div>
+          <fieldset class="module aligned">
+            {% csrf_token %}
+            {% include fobi_theme.form_edit_snippet_template_name %}
+          </fieldset>
+          <div class="{% block form_button_wrapper_html_class %}submit-row{% endblock %}">
+            {% block form_buttons %}
+            <input type="submit" class="{% block form_primary_button_html_class %}default{% endblock %}" value="{% block form_primary_button_text %}{% endblock %}"/>
+            {% endblock form_buttons %}
+          </div>
+
+        </div>
+      </form>
+    </div>

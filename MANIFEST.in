@@ -1,0 +1,33 @@
+include README.rst
+include LICENSE_GPL2.0.txt
+include LICENSE_LGPL_2.1.txt
+include CHANGELOG.rst
+
+#recursive-include src/fobi/locale/hy *
+recursive-include src/fobi/locale/nl *
+recursive-include src/fobi/locale/ru *
+
+# Static files
+recursive-include src/fobi/static *
+
+recursive-include src/fobi/contrib/themes/bootstrap3/static *
+recursive-include src/fobi/contrib/themes/foundation5/static *
+recursive-include src/fobi/contrib/themes/simple/static *
+
+recursive-include src/fobi/contrib/plugins/form_elements/content/dummy/static *
+recursive-include src/fobi/contrib/plugins/form_handlers/db_store/static *
+
+# Templates
+recursive-include src/fobi/templates *
+
+recursive-include src/fobi/contrib/themes/bootstrap3/templates *
+recursive-include src/fobi/contrib/themes/foundation5/templates *
+recursive-include src/fobi/contrib/themes/simple/templates *
+
+recursive-include src/fobi/contrib/apps/djangocms_integration/templates *
+
+recursive-include src/fobi/contrib/plugins/form_elements/content/image/templates *
+
+recursive-include src/fobi/contrib/plugins/form_handlers/db_store/templates *
+recursive-include src/fobi/contrib/plugins/form_handlers/mail/templates *
+recursive-include src/fobi/contrib/plugins/form_handlers/http_repost/templates *

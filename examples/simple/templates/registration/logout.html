@@ -1,0 +1,19 @@
+{% extends "registration/registration_base.html" %}
+
+{% load i18n %}
+
+{% block page-title %}{% trans "Logged out" %}{% endblock page-title %}
+
+{% block body-attrs %} class="standalone"{% endblock body-attrs %}
+
+{% block content %}
+{% url 'auth_login' as auth_login_url %}
+    <div class="{{ fobi_theme.custom_data.page_header_html_class }}">
+      <h1>{% trans "Logged out" %}</h1>
+    </div>
+
+    <p>{% trans "Successfully logged out!" %}</p>
+    <p>
+      {% blocktrans %}<a href="{{ auth_login_url }}">Log in</a> again.{% endblocktrans %}
+    </p>
+{% endblock content %}

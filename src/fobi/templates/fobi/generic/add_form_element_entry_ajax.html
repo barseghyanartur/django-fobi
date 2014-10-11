@@ -1,0 +1,11 @@
+{% extends fobi_theme.form_edit_ajax %}
+
+{% load i18n %}
+
+{% block form_page_title %}
+{% blocktrans with form_element_plugin.name as plugin_name %}Add "{{ plugin_name }}" element to the form{% endblocktrans %}
+{% endblock form_page_title %}
+
+{% block form_extra_attrs %} id="form_element_entry_form" {% endblock %}
+
+{% block form_primary_button_text %}{% trans "Add" %}{% endblock %}

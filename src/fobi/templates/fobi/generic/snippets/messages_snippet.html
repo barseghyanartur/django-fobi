@@ -1,0 +1,8 @@
+
+    {% if messages %}
+    <div class="{% block alert_html_class %}alert alert-info{% endblock alert_html_class %}">
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    </div>
+    {% endif %}

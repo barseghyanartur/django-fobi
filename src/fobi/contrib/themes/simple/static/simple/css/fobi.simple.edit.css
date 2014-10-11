@@ -1,0 +1,113 @@
+/*
+    Document   : fobi.core.edit.css
+    Created on : July 25, 2014, 01:55:27 AM
+    Author     : Artur Barseghyan (artur.barseghyan@gmail.com)
+    Description:
+        `django-fobi` "simple" theme main admin interface styles.
+*/
+.theme.theme-simple {
+}
+    .theme.theme-simple .list-inline {
+        padding: 0;
+        margin: 0;
+    }
+        .theme.theme-simple .list-inline li {
+            list-style: none;
+            padding-right: 10px;
+            display: inline;
+        }
+
+            .theme.theme-simple .list-inline li a span {
+                display: none;
+            }
+
+    .theme.theme-simple .dropdown {
+        background: url("/static/admin/img/tool-left.gif") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+        display: block;
+        float: left;
+        height: 16px;
+        margin-left: 2px;
+        padding: 0 0 0 8px;
+        list-style-type: square;
+    }
+        .theme.theme-simple .dropdown .dropdown-toggle {
+            background: #999 url(/static/admin/img/tooltag-add.gif) top right no-repeat;
+            padding-right: 28px;
+            height: 16px;
+            display: block;
+            float: left;
+            color: #fff;
+            position: relative;
+        }
+        .theme.theme-simple .dropdown .dropdown-toggle:hover {
+            background: #5b80b2 url(/static/admin/img/tooltag-add_over.gif) top right no-repeat;
+        }
+
+        .theme.theme-simple .dropdown .dropdown-menu {
+            background-color: #fff;
+            margin-top: 20px;
+            position: relative;
+            z-index: 1;
+            padding: 0 10px 5px 10px;
+            right: 0;
+            border-bottom: #ddd 1px solid;
+            border-right: #ddd 1px solid;
+            border-left: #ddd 1px solid;
+        }
+            .theme.theme-simple .dropdown .dropdown-menu li {
+                list-style: none;
+            }
+            .theme.theme-simple .dropdown .dropdown-menu .dropdown-header {
+                color: #999;
+                margin-top: 7px;
+            }
+            .theme.theme-simple .dropdown .dropdown-menu .divider {
+                border-top: #ddd 1px solid;
+                margin: 7px 0 5px 0;
+            }
+
+.theme.theme-simple .form-horizontal {
+    padding-top: 35px;
+    /*float: left;
+    clear: both;*/
+}
+
+.theme.theme-simple .form-row {
+    clear: both;
+}
+
+.theme.theme-simple .row .col-main {
+    /*float: left;
+    width: 70%;*/
+}
+.theme.theme-simple .row .col-sidebar {
+    /*float: right;
+    width: 30%;*/
+}
+
+.theme.theme-simple .table.table-striped {
+    padding-top: 35px;
+    width: 100%;
+}
+
+#tab-form-elemenets .nav.pull-right {
+    float: right;
+}
+
+#tab-form-handlers .nav.pull-right {
+    position: absolute;
+    right: 20px;
+    top: 60px;
+}
+
+/* Extra styling form elements */
+
+.theme.theme-simple .form-row.radiolist {
+    margin-left: 0;
+    padding-right: 0;
+}
+    .theme.theme-simple .form-row.radiolist li {
+        list-style-type: none;
+        margin-left: 0;
+        padding-right: 0;
+    }

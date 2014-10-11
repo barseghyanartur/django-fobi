@@ -1,0 +1,70 @@
+{% extends fobi_theme.base_edit_template %}
+
+{% load i18n %}
+
+{% block page-title %}{% trans "Dashboard" %}{% endblock page-title %}
+
+{% block navbar-menu-content %}
+{% endblock navbar-menu-content %}
+
+{% block main-content-inner-attrs %} class="large-12 columns"{% endblock main-content-inner-attrs %}
+
+{% block content-wrapper %}
+
+<h3>{% trans "Dashboard" %}</h3>
+
+<div class="row">
+  <div class="large-8 medium-8 columns">
+    <!-- Forms -->
+    <div>
+      <h4 id="form_handlers">{% trans "Your forms" %}</h4>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+
+          <table class="table table-striped large-12">
+          <thead>
+            <tr>
+              <th>{% trans "Form" %}</th>
+              <th>{% trans "Is public" %}</th>
+              <th>{% trans "Is cloneable" %}</th>
+              <th>{% trans "Actions" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for form_entry in form_entries %}
+            <tr>
+              <td><a href="{% url 'fobi.view_form_entry' form_entry.slug %}">{{ form_entry.name }}</a></td>
+              <td>{{ form_entry.is_public }}</td>
+              <td>{{ form_entry.is_cloneable }}</td>
+              <td>
+                <ul class="inline-list">
+                  <li><a href="{% url 'fobi.edit_form_entry' form_entry.pk %}"><span class="fi-page-edit"></span> {% trans "Edit" %}</a></li>
+                  <li><a href="{% url 'fobi.delete_form_entry' form_entry.pk %}"><span class="fi-page-delete"></span> {% trans "Delete" %}</a></li>
+                </ul>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="large-4 medium-4 columns">
+
+    <div>
+      <h4>{% trans "Actions" %}</h4>
+    </div>
+    <div class="list-group">
+      <a href="{% url 'fobi.create_form_entry' %}"><span class="fi-page"></span> {% trans "Create form"%}</a>
+    </div>
+
+  </div>
+</div>
+{% endblock content-wrapper %}
+
+{% block sidebar-wrapper %}
+{% endblock sidebar-wrapper %}

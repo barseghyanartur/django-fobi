@@ -1,0 +1,30 @@
+fobi.contrib.plugins.form_elements.fields.datetime package
+==========================================================
+
+Submodules
+----------
+
+fobi.contrib.plugins.form_elements.fields.datetime.fobi_form_elements module
+----------------------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.datetime.fobi_form_elements
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+fobi.contrib.plugins.form_elements.fields.datetime.forms module
+---------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.datetime.forms
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+
+Module contents
+---------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.datetime
+    :members:
+    :undoc-members:
+    :show-inheritance:

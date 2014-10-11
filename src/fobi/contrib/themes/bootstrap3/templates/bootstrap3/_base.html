@@ -1,0 +1,22 @@
+{% extends "fobi/generic/_base.html" %}
+
+{% load i18n static %}
+
+{# Bootstrap 3 master base template #}
+
+{% block navbar-class %}navbar navbar-fixed-top navbar-inverse{% endblock navbar-class %}
+
+{% block navbar-container-class %}container{% endblock navbar-container-class %}
+
+{% block navbar-header %}
+<div class="navbar-header">
+  <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+    <span class="sr-only">Toggle navigation</span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+    <span class="icon-bar"></span>
+  </button>
+  {% url 'fobi.dashboard' as fobi_dashboard_url %}
+  <a class="navbar-brand" href="{{ fobi_dashboard_url }}">{{ fobi_theme.project_name }}</a>
+</div>
+{% endblock navbar-header %}

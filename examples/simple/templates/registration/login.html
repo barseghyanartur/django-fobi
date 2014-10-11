@@ -1,0 +1,19 @@
+{% extends "registration/registration_base.html" %}
+
+{% load i18n %}
+
+{% block page-title %}{% trans "Login" %}{% endblock page-title %}
+
+{% block body-attrs %} class="standalone"{% endblock body-attrs %}
+
+{% block workspaces-wrapper %}{% endblock workspaces-wrapper %}
+
+{% block content %}
+    {% include "registration/login_ajax.html" %}
+{% endblock content %}
+
+{% block extra-head-javascripts %}
+    {% if form and form.media %}
+        {{ form.media }}
+    {% endif %}
+{% endblock extra-head-javascripts %}
