@@ -18,7 +18,7 @@ template_dirs = [
     "src/fobi/contrib/themes/simple/templates/simple", # Simple
 
     #"src/fobi/contrib/apps/djangocms_integration/templates/djangocms_integration", # DjangoCMS integration
-    "src/fobi/contrib/apps/feincms_integration/templates/feincms_integration", # FeinCMS integration
+    #"src/fobi/contrib/apps/feincms_integration/templates/feincms_integration", # FeinCMS integration
 
     "src/fobi/contrib/plugins/form_elements/content/image/templates/image", # Content image
 
