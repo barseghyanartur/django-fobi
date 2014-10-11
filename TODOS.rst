@@ -167,8 +167,10 @@ Must haves
 + Delete form handler tests.
 + datetime.datetime and datetime.date objects are not JSON serialisable.
   Make sure they are.
-- Style the radio buttons for Bootstrap 3 and Foundation 5 themes.
-- Clean up all themes.
++ Fix nasty bug with Bootstrap3 theme (drop-down menu for element selection
+  is too short, when form contains no elements yet).
++ Style the radio buttons for Bootstrap 3 and Foundation 5 themes.
++ Clean up all themes.
 - Edit form test.
 - Edit form element tests.
 - Edit from handler tests.
@@ -189,8 +191,6 @@ Must haves
   !!!!!!!!!!!!!!!Check what this one (above) is about???!!!!!!!!!!!!!!!!!!!!
 - Make sure a better (SEO) URLs can be used in intergration packages (at
   least the FeinCMS).
-- Fix nasty bug with Bootstrap3 theme (drop-down menu for element selection
-  is too short, when form contains no elements yet).
 
 Should haves
 ===============================================
