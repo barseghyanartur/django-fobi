@@ -36,7 +36,7 @@ but may work on other Linux distributions as well.
 
 - Copy local_settings.example
 
-    $ cp examples/example/local_settings.example example/example/local_settings.py
+    $ cp examples/simple/local_settings.example examples/simple/local_settings.py
 
 - Run the commands to sync database, install test data and run the server.
 
@@ -45,8 +45,6 @@ but may work on other Linux distributions as well.
     $ python examples/example/manage.py migrate --noinput
 
     $ python examples/example/manage.py collectstatic --noinput --traceback -v 3
-
-    $ python examples/example/manage.py news_create_test_data --traceback -v 3
 
     $ python examples/example/manage.py fobi_create_test_data --traceback -v 3
 

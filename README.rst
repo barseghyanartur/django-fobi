@@ -4,7 +4,7 @@ django-fobi
 `django-fobi` (later on named just `fobi`) is a customisable, modular,
 user- and developer- friendly form builder application for Django. With `fobi`
 you can build Django forms using an intiutive GUI, save or mail posted form
-data. API allows you to build or own form elements and form handlers
+data. API allows you to build your own form elements and form handlers
 (mechanisms for handling the submitted form data).
 
 Prerequisites
@@ -16,15 +16,15 @@ Note, that Django 1.7 is not yet supported!
 
 Key concepts
 ===============================================
-- Each form consists of elements. 
-- Each form may contain unlimited number of elements. Form elements are divided
+- Each form consists of elements. Form elements are divided
   into two groups:
 
   - (a) form fields (input field, textarea, hidden field, file field, etc.).
   - (b) content (presentational) elements (text, image, embed video, etc.).
 
+- Number of form elements is not limited.
 - Each form may contain handlers. Handler processes the form data (for example,
-  saves it or mails it). Amount of the handlers is not limited.
+  saves it or mails it). Number of the handlers is not limited.
 - Both form elements and form handlers are made with Django permission system 
   in mind.
 - As an addition to form handlers, form callbacks are implemented. Form 
@@ -45,10 +45,10 @@ Main features and highlights
   alongside standard form elements.
 - Data handling in plugins (form handlers). Save the data, mail it to some
   address or repost it to some other endpoint.
-- Developer-friendly API, which allows to build new form fields and handlers 
+- Developer-friendly API, which allows to or build new form fields and handlers
   without touching the core.
 - Support for custom user model.
-- Theming. There 3 ready to use themes bundled: Bootstrap 3, Foundation 5 
+- Theming. There are 3 ready to use themes bundled: Bootstrap 3, Foundation 5
   and Simple (in style of Django admin).
 - Implemented integration with FeinCMS (in a form of a FeinCMS Page widget).
 - Reordering of form elements using drag-n-drop.
@@ -215,11 +215,6 @@ Django admin interface:
 If quick installer doesn't work for you, see the manual steps on running the
 `example project <https://github.com/barseghyanartur/django-fobi/tree/stable/examples>`_.
 
-It also has an `example theme <https://github.com/barseghyanartur/django-fobi/tree/stable/examples/simple/foo>`_
-, form element plugins, handlers and callbacks implemented.
-Take it as a good example of how to customise and extend `Fobi`. Make sure to
-see how same is done for the `bundled packages <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/>`_.
-
 Creating a new form element plugin
 ===============================================
 Form element plugins represent the elements of which the forms is made:
@@ -302,7 +297,7 @@ Defining the Sample textarea plugin.
                 'required': self.data.required,
                 'label': self.data.label,
                 'initial': self.data.initial,
-            'widget': forms.widgets.Textarea(attrs={})
+                'widget': forms.widgets.Textarea(attrs={})
             }
 
             return [(self.data.name, forms.CharField, kwargs),]
@@ -841,42 +836,45 @@ See the theme example below.
         form_list_container_class = 'list-inline'
 
         # Templates
-        master_base_template = 'bootstrap3/_base.html'
-        base_template = 'bootstrap3/base.html'
+        master_base_template = 'sample_theme/_base.html'
+        base_template = 'sample_theme/base.html'
 
-        form_ajax = 'bootstrap3/snippets/form_ajax.html'
-        form_snippet_template_name = 'bootstrap3/snippets/form_snippet.html'
-        form_properties_snippet_template_name = 'bootstrap3/snippets/form_properties_snippet.html'
-        messages_snippet_template_name = 'bootstrap3/snippets/messages_snippet.html'
+        form_ajax = 'sample_theme/snippets/form_ajax.html'
+        form_snippet_template_name = 'sample_theme/snippets/form_snippet.html'
+        form_properties_snippet_template_name = 'sample_theme/snippets/form_properties_snippet.html'
+        messages_snippet_template_name = 'sample_theme/snippets/messages_snippet.html'
 
-        add_form_element_entry_template = 'bootstrap3/add_form_element_entry.html'
-        add_form_element_entry_ajax_template = 'bootstrap3/add_form_element_entry_ajax.html'
+        add_form_element_entry_template = 'sample_theme/add_form_element_entry.html'
+        add_form_element_entry_ajax_template = 'sample_theme/add_form_element_entry_ajax.html'
 
-        add_form_handler_entry_template = 'bootstrap3/add_form_handler_entry.html'
-        add_form_handler_entry_ajax_template = 'bootstrap3/add_form_handler_entry_ajax.html'
+        add_form_handler_entry_template = 'sample_theme/add_form_handler_entry.html'
+        add_form_handler_entry_ajax_template = 'sample_theme/add_form_handler_entry_ajax.html'
 
-        create_form_entry_template = 'bootstrap3/create_form_entry.html'
+        create_form_entry_template = 'sample_theme/create_form_entry.html'
         create_form_entry_ajax_template = 'bootstrap3/create_form_entry_ajax.html'
 
-        dashboard_template = 'bootstrap3/dashboard.html'
+        dashboard_template = 'sample_theme/dashboard.html'
 
-        edit_form_element_entry_template = 'bootstrap3/edit_form_element_entry.html'
-        edit_form_element_entry_ajax_template = 'bootstrap3/edit_form_element_entry_ajax.html'
+        edit_form_element_entry_template = 'sample_theme/edit_form_element_entry.html'
+        edit_form_element_entry_ajax_template = 'sample_theme/edit_form_element_entry_ajax.html'
 
-        edit_form_entry_template = 'bootstrap3/edit_form_entry.html'
-        edit_form_entry_ajax_template = 'bootstrap3/edit_form_entry_ajax.html'
+        edit_form_entry_template = 'sample_theme/edit_form_entry.html'
+        edit_form_entry_ajax_template = 'sample_theme/edit_form_entry_ajax.html'
 
-        edit_form_handler_entry_template = 'bootstrap3/edit_form_handler_entry.html'
-        edit_form_handler_entry_ajax_template = 'bootstrap3/edit_form_handler_entry_ajax.html'
+        edit_form_handler_entry_template = 'sample_theme/edit_form_handler_entry.html'
+        edit_form_handler_entry_ajax_template = 'sample_theme/edit_form_handler_entry_ajax.html'
 
-        form_entry_submitted_template = 'bootstrap3/form_entry_submitted.html'
-        form_entry_submitted_ajax_template = 'bootstrap3/form_entry_submitted_ajax.html'
+        form_entry_submitted_template = 'sample_theme/form_entry_submitted.html'
+        form_entry_submitted_ajax_template = 'sample_theme/form_entry_submitted_ajax.html'
 
-        view_form_entry_template = 'bootstrap3/view_form_entry.html'
-        view_form_entry_ajax_template = 'bootstrap3/view_form_entry_ajax.html'
+        view_form_entry_template = 'sample_theme/view_form_entry.html'
+        view_form_entry_ajax_template = 'sample_theme/view_form_entry_ajax.html'
 
+Registering the ``SampleTheme`` plugin.
 
-    theme_registry.register(Bootstrap3Theme)
+.. code-block:: python
+
+    theme_registry.register(SampleTheme)
 
 Sometimes you would want to attach additional properties to the theme
 in order to use them later in templates (rememeber, current theme object
@@ -916,6 +914,13 @@ module, called ``FOBI_CUSTOM_THEME_DATA``. See the following code as example:
         }
     }
 
+You would now be able to access the defined extra properties in templates
+as shown below.
+
+.. code-block:: html
+
+    <div class="{{ fobi_theme.custom_data.form_button_wrapper_html_class }}">
+
 You're like would want to either remove the footer text or change it. Define
 a variable in your project's settings module, called ``FOBI_THEME_FOOTER_TEXT``.
 See the following code as example:
@@ -942,8 +947,8 @@ theme implemention are marked with three asterics (\*\*\*):
     ├── snippets
     │   ├── form_ajax.html
     │   ├── form_edit_ajax.html
-    │   ├── *** form_properties_snippet.html
-    │   ├── *** form_snippet.html
+    │   ├── \*\*\* form_properties_snippet.html
+    │   ├── \*\*\* form_snippet.html
     │   ├── --- form_edit_snippet.html (does not exist in generic templates)
     │   ├── --- form_view_snippet.html (does not exist in generic templates)
     │   ├── form_view_ajax.html
@@ -957,16 +962,16 @@ theme implemention are marked with three asterics (\*\*\*):
     ├── base.html
     ├── create_form_entry.html
     ├── create_form_entry_ajax.html
-    ├── *** dashboard.html
+    ├── \*\*\* dashboard.html
     ├── edit_form_element_entry.html
     ├── edit_form_element_entry_ajax.html
     ├── edit_form_entry.html
-    ├── *** edit_form_entry_ajax.html
+    ├── \*\*\* edit_form_entry_ajax.html
     ├── edit_form_handler_entry.html
     ├── edit_form_handler_entry_ajax.html
     ├── form_entry_submitted.html
-    ├── *** form_entry_submitted_ajax.html
-    ├── *** theme.html
+    ├── \*\*\* form_entry_submitted_ajax.html
+    ├── \*\*\* theme.html
     ├── view_form_entry.html
     └── view_form_entry_ajax.html
 
@@ -1033,8 +1038,8 @@ For tuning of specific contrib plugin, see the docs in the plugin directory.
 
 Bundled plugins and themes
 ===============================================
-Fobi ships with number of bundled form element and form handler plugins, as
-well as themes which are ready to be used as is.
+Fobi ships with number of bundled form element- and form handler- plugins, 
+as well as themes which are ready to be used as is.
 
 Bundled form element plugins
 -----------------------------------------------
@@ -1043,18 +1048,18 @@ in directory of each plugin for details.
 
 Fields
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-- `Boolean <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/boolean/>`_
+- `Boolean (checkbox) <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/boolean/>`_
 - `Date <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/date/>`_
 - `DateTime <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/datetime/>`_
 - `Email <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/email/>`_
 - `File <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/file/>`_
 - `Hidden <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/hidden/>`_
 - `Password <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/password/>`_
-- `Radio <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/radio/>`_
+- `Radio button <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/radio/>`_
 - `Integer <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/integer/>`_
-- `Select <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select/>`_
-- `Select model object <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_model_object/>`_
-- `Select multiple <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple/>`_
+- `Select (drop-down) <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select/>`_
+- `Select model object (drop-down) <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_model_object/>`_
+- `Select multiple (drop-down) <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple/>`_
 - `Text <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/text/>`_
 - `Textarea <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/textarea/>`_
 - `URL <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/url/>`_
