@@ -29,7 +29,8 @@ class IntegerInputPlugin(FormFieldPlugin):
         """
         widget_attrs = {
             'class': theme.form_element_html_class,
-            'type': 'number'
+            'type': 'number',
+            'placeholder': self.data.placeholder,
         }
         kwargs = {
             'label': self.data.label,

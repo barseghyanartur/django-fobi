@@ -44,6 +44,7 @@ class SavedFormDataEntryAdmin(admin.ModelAdmin):
         queryset = super(SavedFormDataEntryAdmin, self).queryset(request)
         queryset = queryset.select_related('form_entry', 'user',)
         return queryset
+    get_queryset = queryset
 
 
 admin.site.register(SavedFormDataEntry, SavedFormDataEntryAdmin)

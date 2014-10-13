@@ -28,15 +28,18 @@ class DateTimeInputPlugin(FormFieldPlugin):
         """
         Get form field instances.
         """
+        widget_attrs = {
+            'class': theme.form_element_html_class,
+            'type': 'date',
+        }
+
         kwargs = {
             'label': self.data.label,
             'help_text': self.data.help_text,
             'initial': self.data.initial,
             #'input_formats': self.data.input_formats,
             'required': self.data.required,
-            'widget': DateTimeInput(
-                attrs={'class': theme.form_element_html_class, 'type': 'datetime'}
-                ),
+            'widget': DateTimeInput(attrs=widget_attrs),
         }
         #if self.data.input_formats:
         #    kwargs['input_formats'] = self.data.input_formats

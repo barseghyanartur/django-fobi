@@ -1,5 +1,5 @@
-Django>=1.5,<1.7
-#Django>=1.5,<1.8
+#Django>=1.5,<1.7
+Django>=1.5,<1.8
 Jinja2
 MarkupSafe
 South

@@ -22,7 +22,8 @@ class PasswordInputForm(forms.Form, BaseFormFieldPluginForm):
         ("help_text", ""),
         ("initial", ""),
         ("max_length", "255"),
-        ("required", False)
+        ("required", False),
+        ("placeholder", ""),
     ]
 
     label = forms.CharField(
@@ -55,4 +56,9 @@ class PasswordInputForm(forms.Form, BaseFormFieldPluginForm):
         label = _("Required"),
         required = False,
         widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_html_class})
+        )
+    placeholder = forms.CharField(
+        label = _("Placeholder"),
+        required = False,
+        widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
         )

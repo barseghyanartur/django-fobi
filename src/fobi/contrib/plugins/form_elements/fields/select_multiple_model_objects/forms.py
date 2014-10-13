@@ -9,7 +9,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import BaseFormFieldPluginForm, get_theme
 from fobi.helpers import get_registered_models
-from fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects.settings import IGNORED_MODELS
+from fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects.settings \
+    import IGNORED_MODELS
 
 theme = get_theme(request=None, as_instance=True)
 
@@ -38,7 +39,7 @@ class SelectMultipleModelObjectsInputForm(forms.Form, BaseFormFieldPluginForm):
         )
     model = forms.ChoiceField(
         label = _("Model"),
-        choices = get_registered_models(ignore=IGNORED_MODELS),
+        choices = [],
         required = False,
         widget = forms.widgets.Select(attrs={'class': theme.form_element_html_class})
         )
@@ -57,3 +58,12 @@ class SelectMultipleModelObjectsInputForm(forms.Form, BaseFormFieldPluginForm):
         required = False,
         widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_html_class})
         )
+
+    def __init__(self, *args, **kwargs):
+        """
+        In order to avoid static calls to `get_registered_models`.
+        """
+        super(SelectMultipleModelObjectsInputForm, self).__init__(*args, **kwargs)
+        self.fields['model'].choices = get_registered_models(
+            ignore = IGNORED_MODELS
+            )

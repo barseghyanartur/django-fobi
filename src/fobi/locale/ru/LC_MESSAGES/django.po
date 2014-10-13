@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-11 02:24+0200\n"
-"PO-Revision-Date: 2014-10-11 03:31+0100\n"
+"POT-Creation-Date: 2014-10-14 00:19+0200\n"
+"PO-Revision-Date: 2014-10-14 00:21+0100\n"
 "Last-Translator: Artur Barseghyan <artur.barseghyan@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: Russian\n"
@@ -66,11 +66,11 @@ msgstr "Плагин"
 msgid "Form handler entry"
 msgstr "Обработчик формы"
 
-#: admin.py:335
+#: admin.py:336
 msgid "{0} plugins were changed successfully."
 msgstr "{0} плагинов были изменены успешно."
 
-#: admin.py:341
+#: admin.py:342
 msgid "POST required when changing in bulk!"
 msgstr "Для множественных изменений необходим POST!"
 
@@ -85,19 +85,19 @@ msgstr "Разработчик форм"
 #: contrib/plugins/form_elements/fields/boolean/forms.py:32
 #: contrib/plugins/form_elements/fields/date/forms.py:33
 #: contrib/plugins/form_elements/fields/datetime/forms.py:33
-#: contrib/plugins/form_elements/fields/email/forms.py:36
+#: contrib/plugins/form_elements/fields/email/forms.py:37
 #: contrib/plugins/form_elements/fields/file/forms.py:34
 #: contrib/plugins/form_elements/fields/hidden/forms.py:33
-#: contrib/plugins/form_elements/fields/integer/forms.py:34
-#: contrib/plugins/form_elements/fields/password/forms.py:34
+#: contrib/plugins/form_elements/fields/integer/forms.py:35
+#: contrib/plugins/form_elements/fields/password/forms.py:35
 #: contrib/plugins/form_elements/fields/radio/forms.py:33
 #: contrib/plugins/form_elements/fields/select/forms.py:33
-#: contrib/plugins/form_elements/fields/select_model_object/forms.py:35
+#: contrib/plugins/form_elements/fields/select_model_object/forms.py:36
 #: contrib/plugins/form_elements/fields/select_multiple/forms.py:33
-#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:35
-#: contrib/plugins/form_elements/fields/text/forms.py:34
-#: contrib/plugins/form_elements/fields/textarea/forms.py:32
-#: contrib/plugins/form_elements/fields/url/forms.py:34
+#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:36
+#: contrib/plugins/form_elements/fields/text/forms.py:35
+#: contrib/plugins/form_elements/fields/textarea/forms.py:33
+#: contrib/plugins/form_elements/fields/url/forms.py:35
 #: contrib/themes/simple/templates/simple/dashboard.html:42
 msgid "Name"
 msgstr "Название"
@@ -106,19 +106,19 @@ msgstr "Название"
 #: contrib/plugins/form_elements/fields/boolean/forms.py:27
 #: contrib/plugins/form_elements/fields/date/forms.py:28
 #: contrib/plugins/form_elements/fields/datetime/forms.py:28
-#: contrib/plugins/form_elements/fields/email/forms.py:31
+#: contrib/plugins/form_elements/fields/email/forms.py:32
 #: contrib/plugins/form_elements/fields/file/forms.py:29
 #: contrib/plugins/form_elements/fields/hidden/forms.py:28
-#: contrib/plugins/form_elements/fields/integer/forms.py:29
-#: contrib/plugins/form_elements/fields/password/forms.py:29
+#: contrib/plugins/form_elements/fields/integer/forms.py:30
+#: contrib/plugins/form_elements/fields/password/forms.py:30
 #: contrib/plugins/form_elements/fields/radio/forms.py:28
 #: contrib/plugins/form_elements/fields/select/forms.py:28
-#: contrib/plugins/form_elements/fields/select_model_object/forms.py:30
+#: contrib/plugins/form_elements/fields/select_model_object/forms.py:31
 #: contrib/plugins/form_elements/fields/select_multiple/forms.py:28
-#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:30
-#: contrib/plugins/form_elements/fields/text/forms.py:29
-#: contrib/plugins/form_elements/fields/textarea/forms.py:27
-#: contrib/plugins/form_elements/fields/url/forms.py:29
+#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:31
+#: contrib/plugins/form_elements/fields/text/forms.py:30
+#: contrib/plugins/form_elements/fields/textarea/forms.py:28
+#: contrib/plugins/form_elements/fields/url/forms.py:30
 msgid "Label"
 msgstr "Ярлык"
 
@@ -126,18 +126,18 @@ msgstr "Ярлык"
 #: contrib/plugins/form_elements/fields/boolean/forms.py:37
 #: contrib/plugins/form_elements/fields/date/forms.py:38
 #: contrib/plugins/form_elements/fields/datetime/forms.py:38
-#: contrib/plugins/form_elements/fields/email/forms.py:41
+#: contrib/plugins/form_elements/fields/email/forms.py:42
 #: contrib/plugins/form_elements/fields/file/forms.py:39
-#: contrib/plugins/form_elements/fields/integer/forms.py:39
-#: contrib/plugins/form_elements/fields/password/forms.py:39
+#: contrib/plugins/form_elements/fields/integer/forms.py:40
+#: contrib/plugins/form_elements/fields/password/forms.py:40
 #: contrib/plugins/form_elements/fields/radio/forms.py:59
 #: contrib/plugins/form_elements/fields/select/forms.py:59
-#: contrib/plugins/form_elements/fields/select_model_object/forms.py:46
+#: contrib/plugins/form_elements/fields/select_model_object/forms.py:47
 #: contrib/plugins/form_elements/fields/select_multiple/forms.py:59
-#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:46
-#: contrib/plugins/form_elements/fields/text/forms.py:39
-#: contrib/plugins/form_elements/fields/textarea/forms.py:37
-#: contrib/plugins/form_elements/fields/url/forms.py:39
+#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:47
+#: contrib/plugins/form_elements/fields/text/forms.py:40
+#: contrib/plugins/form_elements/fields/textarea/forms.py:38
+#: contrib/plugins/form_elements/fields/url/forms.py:40
 msgid "Help text"
 msgstr "Помощь"
 
@@ -145,19 +145,19 @@ msgstr "Помощь"
 #: contrib/plugins/form_elements/fields/boolean/forms.py:47
 #: contrib/plugins/form_elements/fields/date/forms.py:53
 #: contrib/plugins/form_elements/fields/datetime/forms.py:53
-#: contrib/plugins/form_elements/fields/email/forms.py:57
+#: contrib/plugins/form_elements/fields/email/forms.py:58
 #: contrib/plugins/form_elements/fields/file/forms.py:55
 #: contrib/plugins/form_elements/fields/hidden/forms.py:49
-#: contrib/plugins/form_elements/fields/integer/forms.py:59
-#: contrib/plugins/form_elements/fields/password/forms.py:55
+#: contrib/plugins/form_elements/fields/integer/forms.py:60
+#: contrib/plugins/form_elements/fields/password/forms.py:56
 #: contrib/plugins/form_elements/fields/radio/forms.py:69
 #: contrib/plugins/form_elements/fields/select/forms.py:69
-#: contrib/plugins/form_elements/fields/select_model_object/forms.py:56
+#: contrib/plugins/form_elements/fields/select_model_object/forms.py:57
 #: contrib/plugins/form_elements/fields/select_multiple/forms.py:69
-#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:56
-#: contrib/plugins/form_elements/fields/text/forms.py:55
-#: contrib/plugins/form_elements/fields/textarea/forms.py:47
-#: contrib/plugins/form_elements/fields/url/forms.py:55
+#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:57
+#: contrib/plugins/form_elements/fields/text/forms.py:56
+#: contrib/plugins/form_elements/fields/textarea/forms.py:48
+#: contrib/plugins/form_elements/fields/url/forms.py:56
 msgid "Required"
 msgstr "Обязательно"
 
@@ -569,7 +569,7 @@ msgid "Title"
 msgstr "Название"
 
 #: contrib/plugins/form_elements/content/video/forms.py:33
-#: contrib/plugins/form_elements/fields/url/fobi_form_elements.py:22
+#: contrib/plugins/form_elements/fields/url/fobi_form_elements.py:29
 msgid "URL"
 msgstr "Ссылка"
 
@@ -592,26 +592,26 @@ msgstr "Галочка"
 #: contrib/plugins/form_elements/fields/select_multiple_model_objects/fobi_form_elements.py:28
 #: contrib/plugins/form_elements/fields/text/fobi_form_elements.py:23
 #: contrib/plugins/form_elements/fields/textarea/fobi_form_elements.py:23
-#: contrib/plugins/form_elements/fields/url/fobi_form_elements.py:23
+#: contrib/plugins/form_elements/fields/url/fobi_form_elements.py:30
 msgid "Fields"
 msgstr "Поля"
 
 #: contrib/plugins/form_elements/fields/boolean/forms.py:42
 #: contrib/plugins/form_elements/fields/date/forms.py:43
 #: contrib/plugins/form_elements/fields/datetime/forms.py:43
-#: contrib/plugins/form_elements/fields/email/forms.py:46
+#: contrib/plugins/form_elements/fields/email/forms.py:47
 #: contrib/plugins/form_elements/fields/file/forms.py:44
 #: contrib/plugins/form_elements/fields/hidden/forms.py:38
-#: contrib/plugins/form_elements/fields/integer/forms.py:44
-#: contrib/plugins/form_elements/fields/password/forms.py:44
+#: contrib/plugins/form_elements/fields/integer/forms.py:45
+#: contrib/plugins/form_elements/fields/password/forms.py:45
 #: contrib/plugins/form_elements/fields/radio/forms.py:64
 #: contrib/plugins/form_elements/fields/select/forms.py:64
-#: contrib/plugins/form_elements/fields/select_model_object/forms.py:51
+#: contrib/plugins/form_elements/fields/select_model_object/forms.py:52
 #: contrib/plugins/form_elements/fields/select_multiple/forms.py:64
-#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:51
-#: contrib/plugins/form_elements/fields/text/forms.py:44
-#: contrib/plugins/form_elements/fields/textarea/forms.py:42
-#: contrib/plugins/form_elements/fields/url/forms.py:44
+#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:52
+#: contrib/plugins/form_elements/fields/text/forms.py:45
+#: contrib/plugins/form_elements/fields/textarea/forms.py:43
+#: contrib/plugins/form_elements/fields/url/forms.py:45
 msgid "Initial"
 msgstr "Начальное значение"
 
@@ -621,26 +621,38 @@ msgid "Date"
 msgstr "Дата"
 
 #: contrib/plugins/form_elements/fields/date/forms.py:48
-#: contrib/plugins/form_elements/fields/datetime/forms.py:48
-msgid "Input formats"
+msgid "Input  formats"
 msgstr "Форматы ввода"
 
 #: contrib/plugins/form_elements/fields/datetime/fobi_form_elements.py:23
 msgid "DateTime"
 msgstr "Дата/время"
 
+#: contrib/plugins/form_elements/fields/datetime/forms.py:48
+msgid "Input formats"
+msgstr "Форматы ввода"
+
 #: contrib/plugins/form_elements/fields/email/fobi_form_elements.py:24
 msgid "Email"
 msgstr "Эл. почта"
 
-#: contrib/plugins/form_elements/fields/email/forms.py:51
+#: contrib/plugins/form_elements/fields/email/forms.py:52
 #: contrib/plugins/form_elements/fields/file/forms.py:49
 #: contrib/plugins/form_elements/fields/hidden/forms.py:43
-#: contrib/plugins/form_elements/fields/password/forms.py:49
-#: contrib/plugins/form_elements/fields/text/forms.py:49
-#: contrib/plugins/form_elements/fields/url/forms.py:49
+#: contrib/plugins/form_elements/fields/password/forms.py:50
+#: contrib/plugins/form_elements/fields/text/forms.py:50
+#: contrib/plugins/form_elements/fields/url/forms.py:50
 msgid "Max length"
 msgstr "Максимальная длина"
+
+#: contrib/plugins/form_elements/fields/email/forms.py:63
+#: contrib/plugins/form_elements/fields/integer/forms.py:65
+#: contrib/plugins/form_elements/fields/password/forms.py:61
+#: contrib/plugins/form_elements/fields/text/forms.py:61
+#: contrib/plugins/form_elements/fields/textarea/forms.py:53
+#: contrib/plugins/form_elements/fields/url/forms.py:61
+msgid "Placeholder"
+msgstr "Метка-заполнитель "
 
 #: contrib/plugins/form_elements/fields/file/fobi_form_elements.py:23
 msgid "File"
@@ -654,11 +666,11 @@ msgstr "Скрытое поле"
 msgid "Integer"
 msgstr "Целое число"
 
-#: contrib/plugins/form_elements/fields/integer/forms.py:49
+#: contrib/plugins/form_elements/fields/integer/forms.py:50
 msgid "Min value"
 msgstr "Минимальное значение"
 
-#: contrib/plugins/form_elements/fields/integer/forms.py:54
+#: contrib/plugins/form_elements/fields/integer/forms.py:55
 msgid "Max value"
 msgstr "Максимальное значение"
 
@@ -690,8 +702,8 @@ msgstr "Выпадающий список"
 msgid "Select model object"
 msgstr "Выпадающий список объектов моделей"
 
-#: contrib/plugins/form_elements/fields/select_model_object/forms.py:40
-#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:40
+#: contrib/plugins/form_elements/fields/select_model_object/forms.py:41
+#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:41
 msgid "Model"
 msgstr "Модель"
 
@@ -721,11 +733,11 @@ msgstr "Сырое"
 msgid "Saved form data entry"
 msgstr "Сохраненная запись формы"
 
-#: contrib/plugins/form_handlers/db_store/fobi_form_handlers.py:25
+#: contrib/plugins/form_handlers/db_store/fobi_form_handlers.py:26
 msgid "DB store"
 msgstr "Сохранить в базе"
 
-#: contrib/plugins/form_handlers/db_store/fobi_form_handlers.py:59
+#: contrib/plugins/form_handlers/db_store/fobi_form_handlers.py:62
 #: contrib/plugins/form_handlers/db_store/templates/db_store/plugin_data_repr.html:4
 msgid "View entries"
 msgstr "Просмотреть записи"

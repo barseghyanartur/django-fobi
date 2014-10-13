@@ -30,13 +30,11 @@ from fobi.contrib.plugins.form_handlers.http_repost.fobi_form_handlers import HT
 TEST_FORM_ELEMENT_PLUGIN_DATA = {
     force_text(BooleanSelectPlugin.name): {
         'label': "Test boolean",
-        #'name': "test_boolean",
         'help_text': "Lorem ipsum boolean",
         'required': False,
     },
     force_text(EmailPlugin.name): {
         'label': "Test email input",
-        #'name': "test_email_input",
         'help_text': "Lorem ipsum email",
         'required': True,
     },
@@ -62,14 +60,12 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
     # Add a "Integer" (text input) form elelement
     force_text(IntegerInputPlugin.name): {
         'label': "Test integer",
-        #'name': "test_integer",
         'help_text': "Lorem ipsum text input",
         'required': True,
     },
     # Add a "Select Input" (select input) form elelement
     force_text(SelectInputPlugin.name): {
         'label': "Test select",
-        #'name': "test_select",
         'help_text': "Lorem ipsum text input",
         'required': False,
     },
@@ -77,7 +73,6 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
     # Add a "Select model object" (select input) form elelement
     force_text(SelectModelObjectInputPlugin.name): {
         'label': "Test select model object",
-        #'name': "test_select_model_object",
         'help_text': "Lorem ipsum select model object input",
         'required': False,
     },
@@ -85,7 +80,6 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
     # Add a "Select multiple" (select multiple input) form elelement
     force_text(SelectMultipleInputPlugin.name): {
         'label': "Test select multiple input",
-        #'name': "test_select_multiple_input",
         'help_text': "Lorem ipsum select multiple input",
         'required': False,
     },
@@ -93,7 +87,6 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
     # Add a "Text" (text input) form elelement
     force_text(TextInputPlugin.name): {
         'label': "Test text",
-        #'name': "test_text",
         'help_text': "Lorem ipsum text input",
         'required': True,
     },
@@ -101,7 +94,6 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
     # Add a "Textarea" (text area) form elelement
     force_text(TextareaPlugin.name): {
         'label': "Test text area",
-        #'name': "test_text_area",
         'help_text': "Lorem ipsum text area",
         'required': True,
     }

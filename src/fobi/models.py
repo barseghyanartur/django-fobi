@@ -7,7 +7,7 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     # Plugins
     'AbstractPluginModel', 'FormElement', 'FormHandler',
-    
+
     # Entries
     'AbstractPluginEntry', 'FormWizardEntry', 'FormEntry', 'FormElementEntry',
     'FormFieldsetEntry', 'FormHandlerEntry',

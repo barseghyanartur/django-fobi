@@ -9,10 +9,10 @@ data. API allows you to build your own form elements and form handlers
 
 Prerequisites
 ===============================================
-- Django 1.5.+, 1.6.+
-- Python 2.6.8+, 2.7.+, 3.3.+
+- Django 1.5, 1.6, 1.7
+- Python >= 2.6.8, 2.7.*, 3.3.*
 
-Note, that Django 1.7 is not yet supported!
+Note, that Django 1.7 is not yet proclaimed to be flawlessly supported!
 
 Key concepts
 ===============================================
@@ -1110,6 +1110,7 @@ The following HTML5 fields are supported in appropriate bundled plugins:
 - email
 - number
 - url
+- placeholder
 
 Available translations
 ===============================================

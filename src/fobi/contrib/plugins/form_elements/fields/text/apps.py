@@ -1,5 +1,15 @@
-from django.apps import AppConfig
+__title__ = 'fobi.contrib.plugins.form_elements.fields.text.apps'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('Config',)
 
-class Config(AppConfig):
-    label = 'fobi.contrib.plugins.form_elements.fields.text'
-    name = 'fobi.contrib.plugins.form_elements.fields.text'
+try:
+    from django.apps import AppConfig
+
+    class Config(AppConfig):
+        label = 'fobi.contrib.plugins.form_elements.fields.text'
+        name = 'fobi.contrib.plugins.form_elements.fields.text'
+
+except ImportError:
+    pass

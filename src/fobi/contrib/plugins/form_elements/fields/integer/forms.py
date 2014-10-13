@@ -22,7 +22,8 @@ class IntegerInputForm(forms.Form, BaseFormFieldPluginForm):
         ("initial", ""),
         ("min_value", None),
         ("max_value", None),
-        ("required", False)
+        ("required", False),
+        ("placeholder", ""),
     ]
 
     label = forms.CharField(
@@ -60,4 +61,8 @@ class IntegerInputForm(forms.Form, BaseFormFieldPluginForm):
         required = False,
         widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_html_class})
         )
-
+    placeholder = forms.CharField(
+        label = _("Placeholder"),
+        required = False,
+        widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
+        )

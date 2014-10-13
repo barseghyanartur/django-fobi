@@ -202,7 +202,7 @@ class FormElementEntryAdmin(admin.ModelAdmin):
         queryset = super(FormElementEntryAdmin, self).queryset(request)
         queryset = queryset.select_related('form_entry', 'form_fieldset_entry')
         return queryset
-
+    get_queryset = queryset
 
 #admin.site.register(FormElementEntry, FormElementEntryAdmin)
 
@@ -235,7 +235,7 @@ class FormHandlerEntryAdmin(admin.ModelAdmin):
         queryset = super(FormHandlerEntryAdmin, self).queryset(request)
         queryset = queryset.select_related('form_entry',)
         return queryset
-
+    get_queryset = queryset
 
 #admin.site.register(FormHandlerEntry, FormHandlerEntryAdmin)
 
@@ -277,6 +277,7 @@ class BasePluginModelAdmin(admin.ModelAdmin):
         queryset = super(BasePluginModelAdmin, self).queryset(request)
         queryset = queryset.prefetch_related('users', 'groups')
         return queryset
+    get_queryset = queryset
 
     def _get_bulk_change_form_class(self):
         raise NotImplemented("You should implement `get_bulk_change_form_class`")

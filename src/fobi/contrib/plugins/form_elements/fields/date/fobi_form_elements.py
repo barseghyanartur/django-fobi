@@ -5,7 +5,7 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('DateInputPlugin',)
 
 from django.forms.fields import DateField
-from django.forms.widgets import DateInput, TextInput
+from django.forms.widgets import DateInput#, TextInput
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
@@ -27,15 +27,18 @@ class DateInputPlugin(FormFieldPlugin):
         """
         Get form field instances.
         """
+        widget_attrs = {
+            'class': theme.form_element_html_class,
+            'type': 'date',
+        }
+
         kwargs = {
             'label': self.data.label,
             'help_text': self.data.help_text,
             'initial': self.data.initial,
             #'input_formats': self.data.input_formats,
             'required': self.data.required,
-            'widget': DateInput(
-                attrs={'class': theme.form_element_html_class, 'type': 'date'}
-                ),
+            'widget': DateInput(attrs=widget_attrs),
         }
         #if self.data.input_formats:
         #    kwargs['input_formats'] = self.data.input_formats

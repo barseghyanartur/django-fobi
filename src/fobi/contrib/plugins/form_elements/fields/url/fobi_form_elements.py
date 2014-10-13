@@ -34,14 +34,18 @@ class URLInputPlugin(FormFieldPlugin):
         """
         Get form field instances.
         """
+        widget_attrs = {
+            'class': theme.form_element_html_class,
+            'type': 'url',
+            'placeholder': self.data.placeholder,
+        }
+
         kwargs = {
             'label': self.data.label,
             'help_text': self.data.help_text,
             'initial': self.data.initial,
             'required': self.data.required,
-            'widget': URLInput(
-                attrs={'class': theme.form_element_html_class, 'type': 'url'}
-                ),
+            'widget': URLInput(attrs=widget_attrs),
         }
         if self.data.max_length:
             kwargs['max_length'] = self.data.max_length

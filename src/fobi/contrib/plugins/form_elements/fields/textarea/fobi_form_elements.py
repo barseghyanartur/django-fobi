@@ -27,12 +27,16 @@ class TextareaPlugin(FormFieldPlugin):
         """
         Get form field instances.
         """
+        widget_attrs = {
+            'class': theme.form_element_html_class,
+            'placeholder': self.data.placeholder,
+        }
         kwargs = {
             'label': self.data.label,
             'help_text': self.data.help_text,
             'initial': self.data.initial,
             'required': self.data.required,
-            'widget': Textarea(attrs={'class': theme.form_element_html_class})
+            'widget': Textarea(attrs=widget_attrs)
         }
 
         return [(self.data.name, CharField, kwargs)]

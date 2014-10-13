@@ -21,7 +21,7 @@ class DateInputForm(forms.Form, BaseFormFieldPluginForm):
         ("help_text", ""),
         ("initial", ""),
         ("input_formats", ""),
-        ("required", False)
+        ("required", False),
     ]
 
     label = forms.CharField(
