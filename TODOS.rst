@@ -191,9 +191,11 @@ Must haves
   !!!!!!!!!!!!!!!Check what this one (above) is about???!!!!!!!!!!!!!!!!!!!!
 - Make sure a better (SEO) URLs can be used in intergration packages (at
   least the FeinCMS).
+- Make it possible to strip certain kwargs or widget attributes in edit mode.
 
 Should haves
 ===============================================
++ Add Django 1.7 support.
 - Make it possible to use something else than Django's ORM (django-mongoengine,
   SQLAlchemy).
 - Fix the view saved form entries template (nicer look) for Foundation 5
@@ -204,7 +206,6 @@ Should haves
   functionality. For example, how to take a Bootstrap 3 theme, extend it
   by giving it another name and actually giving a custom look to the view
   form template.
-- Add Django 1.7 support.
 - Finish form importers concept and the MailChimp form importer plugin.
 - Make sure it's possible to assign CSS and JS files to the form handler
   plugins.
