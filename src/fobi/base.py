@@ -1360,9 +1360,9 @@ class BaseRegistry(object):
         """
         if not issubclass(cls, self.type):
             raise InvalidRegistryItemType(
-            "Invalid item type `{0}` for registry "
-            "`{1}`".format(cls, self.__class__)
-            )
+                "Invalid item type `{0}` for registry "
+                "`{1}`".format(cls, self.__class__)
+                )
 
         # If item has not been forced yet, add/replace its' value in the
         # registry.

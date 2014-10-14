@@ -777,8 +777,11 @@ actions (see the source code of the "simple" theme). Both Bootstrap 3 and
 Foundation 5 themes look great. Although if you can't use any of those,
 the "simple" theme is the best start, since it looks just like django-admin.
 
-Let's place the callback in the `foo` module. The plugin directory should then
-have the following structure.
+Create a new theme
+-----------------------------------------------
+
+Let's place the theme in the `sample_theme` module. The theme directory 
+should then have the following structure.
 
 .. code-block:: none
 
@@ -947,8 +950,8 @@ theme implemention are marked with three asterics (\*\*\*):
     ├── snippets
     │   ├── form_ajax.html
     │   ├── form_edit_ajax.html
-    │   ├── \*\*\* form_properties_snippet.html
-    │   ├── \*\*\* form_snippet.html
+    │   ├── *** form_properties_snippet.html
+    │   ├── *** form_snippet.html
     │   ├── --- form_edit_snippet.html (does not exist in generic templates)
     │   ├── --- form_view_snippet.html (does not exist in generic templates)
     │   ├── form_view_ajax.html
@@ -962,21 +965,124 @@ theme implemention are marked with three asterics (\*\*\*):
     ├── base.html
     ├── create_form_entry.html
     ├── create_form_entry_ajax.html
-    ├── \*\*\* dashboard.html
+    ├── *** dashboard.html
     ├── edit_form_element_entry.html
     ├── edit_form_element_entry_ajax.html
     ├── edit_form_entry.html
-    ├── \*\*\* edit_form_entry_ajax.html
+    ├── *** edit_form_entry_ajax.html
     ├── edit_form_handler_entry.html
     ├── edit_form_handler_entry_ajax.html
     ├── form_entry_submitted.html
-    ├── \*\*\* form_entry_submitted_ajax.html
-    ├── \*\*\* theme.html
+    ├── *** form_entry_submitted_ajax.html
+    ├── *** theme.html
     ├── view_form_entry.html
     └── view_form_entry_ajax.html
 
 From all of the templates listed above, the _base.html template is
 the most influenced by the Bootstrap 3 theme.
+
+Make changes to an existing theme
+-----------------------------------------------
+As said above, making your own theme from scratch could be costy. Instead,
+you can override an existing one and change it to your needs with
+minimal efforts. See the `override simple theme <https://github.com/barseghyanartur/django-fobi/tree/master/examples/simple/override_simple_theme/>_`
+example. In order to see it in action, run the project with
+`settings_override_simple_theme` option:
+
+.. code-block:: none
+
+    ./manage.py runserver --settings=settings_override_simple_theme
+
+Details explained below.
+
+Directory structure
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. code-block:: none
+
+    override_simple_theme/
+    ├── static
+    │   └── override_simple_theme
+    │       ├── css
+    │       │   └── override-simple-theme.css
+    │       └── js
+    │           └── override-simple-theme.js
+    │       
+    ├── templates
+    │   └── override_simple_theme
+    │       ├── snippets
+    │       │   └── form_ajax.html
+    │       └── base_view.html
+    ├── __init__.py
+    └── fobi_themes.py # Where themes are defined and registered
+
+fobi_themes.py
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Overriding the "simple" theme.
+
+.. code-block:: python
+
+    __all__ = ('MySimpleTheme',)
+
+    from fobi.base import theme_registry
+
+    from fobi.contrib.themes.simple.fobi_themes import SimpleTheme
+
+    class MySimpleTheme(SimpleTheme):
+        html_classes = ['my-simple-theme',]
+        base_view_template = 'override_simple_theme/base_view.html'
+        form_ajax = 'override_simple_theme/snippets/form_ajax.html'
+
+It's important to set the `force` argument to True, in order to override
+the original theme. Force can be applied only once.
+
+.. code-block:: python
+
+    theme_registry.register(MySimpleTheme, force=True)
+
+templates/override_simple_theme/base_view.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. code-block:: html
+
+    {% extends "simple/base_view.html" %}
+
+    {% load static future_compat %}
+
+    {% block stylesheets %}
+    <link
+      href="{% static 'override_simple_theme/css/override-simple-theme.css' %}"
+      rel="stylesheet" media="all" />
+    {% endblock stylesheets %}
+
+    {% block main-wrapper %}
+    <div id="sidebar">
+      <h2>It's easy to override a theme!</h2>
+      <p>
+        You have to do as follows in order to do so:
+      </p>
+      <ol>
+        <li>Create an app for holding the overridden theme.</li>
+        <li>Inherit the theme you want to override.</li>
+        <li>Register it in the registry with `force` argument
+            set to True.</li>
+        <li>Override some of the templates. Take this one as a good
+            example.</li>
+      </ol>
+      <p>
+        Read the <a href="http://pythonhosted.org//django-fobi/">
+        documentation</a> for more information.
+      </p>
+    </div>
+
+    {{ block.super }}
+    {% endblock main-wrapper %}
+
+templates/override_simple_theme/snippets/form_ajax.html
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+.. code-block:: html
+
+    {% extends "fobi/generic/snippets/form_ajax.html" %}
+
+    {% block form_html_class %}basic-grey{% endblock %}
 
 Permissions
 ===============================================

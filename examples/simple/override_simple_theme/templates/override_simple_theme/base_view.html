@@ -1,0 +1,30 @@
+{% extends "simple/base_view.html" %}
+
+{% load static future_compat %}
+
+{% block stylesheets %}
+<link href="{% static 'override_simple_theme/css/override-simple-theme.css' %}" rel="stylesheet" media="all" />
+{% endblock stylesheets %}
+
+{% block main-wrapper %}
+    <div id="sidebar">
+        <h2>It's easy to override a theme!</h2>
+        <p>
+            You have to do as follows in order to do so:
+        </p>
+        <ol>
+            <li>Create an app for holding the overridden theme.</li>
+            <li>Inherit the theme you want to override.</li>
+            <li>Register it in the registry with `force` argument
+                set to True.</li>
+            <li>Override some of the templates. Take this one as a good
+                example.</li>
+        </ol>
+        <p>
+           Read the <a href="http://pythonhosted.org//django-fobi/">documentation</a>
+           for more information.
+        </p>
+    </div>
+
+    {{ block.super }}
+{% endblock main-wrapper %}
