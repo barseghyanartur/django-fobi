@@ -987,7 +987,8 @@ As said above, making your own theme from scratch could be costy. Instead,
 you can override/reuse an existing one and change it to your needs with
 minimal efforts. See the `override simple theme <https://github.com/barseghyanartur/django-fobi/tree/master/examples/simple/override_simple_theme/>`_
 example. In order to see it in action, run the project with
-`settings_override_simple_theme` option:
+`settings_override_simple_theme <https://github.com/barseghyanartur/django-fobi/blob/master/examples/simple/settings_override_simple_theme.py>`_
+option:
 
 .. code-block:: none
 
