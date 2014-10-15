@@ -98,7 +98,7 @@ setup(
         "Operating System :: OS Independent",
         "Development Status :: 4 - Beta",
     ],
-    keywords = 'forms builder, django forms builder',
+    keywords = 'django, forms, form builder, forms builder, form designer',
     author = 'Artur Barseghyan',
     author_email = 'artur.barseghyan@gmail.com',
     url = 'https://github.com/barseghyanartur/django-fobi/',
