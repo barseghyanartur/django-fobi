@@ -10,11 +10,11 @@ Install `django-simple-captcha`
 -----------------------------------------------
 Taken from django-simple-captcha `installation instructions <http://django-simple-captcha.readthedocs.org/en/latest/usage.html#installation>`_.
 
-1. Download ``django-simple-captcha`` using pip_ by running:
+1. Download ``django-simple-captcha`` using pip by running:
 
 .. code-block:: none
 
-    $ pip install  django-simple-captcha
+    $ pip install django-simple-captcha
 
 2. Add ``captcha`` to the ``INSTALLED_APPS`` in your ``settings.py``.
 
