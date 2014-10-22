@@ -8,8 +8,8 @@ Release history
 - Django 1.5 support improvements.
 - Django 1.7 support improvements.
 - Added `Captcha` form element plugin.
-- Added highly-customisable `Input` form element plugin.
-- Custom input field with support for almost any ever existing HTML attribute.
+- Added highly-customisable `Input` form element plugin - a custom input field
+  with support for almost any ever existing HTML attribute.
 - Documentation improvements.
 
 0.1.3
