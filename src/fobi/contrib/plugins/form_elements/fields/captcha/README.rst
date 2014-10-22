@@ -2,7 +2,7 @@
 fobi.contrib.plugins.form_elements.fields.captcha
 =================================================
 A ``Fobi`` Captcha form field plugin. Makes use of the
-``django-simple-captcha <http://readthedocs.org/docs/django-simple-captcha>`_.
+`django-simple-captcha <http://readthedocs.org/docs/django-simple-captcha>`_.
 
 Installation
 ===============================================
