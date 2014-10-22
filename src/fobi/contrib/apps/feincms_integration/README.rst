@@ -1,6 +1,7 @@
 ===============================================
-A ``django-fobi`` integration with FeinCMS
+fobi.contrib.apps.feincms_integration
 ===============================================
+A ``django-fobi`` integration with FeinCMS.
 
 Installation
 ===============================================

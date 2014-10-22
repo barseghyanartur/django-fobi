@@ -9,14 +9,16 @@ from uuid import uuid4
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import FormElementPlugin, form_element_plugin_registry
-from fobi.contrib.plugins.form_elements.content.text.forms import ContentTextForm
 from fobi.fields import NoneField
+from fobi.contrib.plugins.form_elements.content.text import UID
+from fobi.contrib.plugins.form_elements.content.text.forms \
+    import ContentTextForm
 
 class ContentTextPlugin(FormElementPlugin):
     """
     Content text plugin.
     """
-    uid = "content_text"
+    uid = UID
     name = _("Content text")
     group = _("Content")
     form = ContentTextForm

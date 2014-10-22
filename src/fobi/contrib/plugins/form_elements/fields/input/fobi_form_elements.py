@@ -1,0 +1,79 @@
+__title__ = 'fobi.contrib.plugins.form_elements.fields.input.fobi_form_elements'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('InputPlugin',)
+
+from django.forms.fields import Field
+from django.forms.widgets import Input
+from django.utils.translation import ugettext_lazy as _
+
+from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
+from fobi.contrib.plugins.form_elements.fields.input import UID
+from fobi.contrib.plugins.form_elements.fields.input.forms import InputForm
+
+theme = get_theme(request=None, as_instance=True)
+
+class InputPlugin(FormFieldPlugin):
+    """
+    Char field plugin.
+    """
+    uid = UID
+    name = _("Input")
+    group = _("Fields")
+    form = InputForm
+
+    def get_form_field_instances(self):
+        """
+        Get form field instances.
+        """
+        widget_attrs = {
+            'class': theme.form_element_html_class,
+            'placeholder': self.data.placeholder,
+            'type': self.data.type_value,
+        }
+
+        if self.data.autocomplete_value:
+            widget_attrs.update({'autocomplete': 'on'})
+
+        if self.data.autofocus_value:
+            widget_attrs.update({'autofocus': 'autofocus'})
+
+        if self.data.disabled_value:
+            widget_attrs.update({'disabled': 'disabled'})
+
+        if self.data.list_value:
+            widget_attrs.update({'list': self.data.list_value})
+
+        if self.data.max_value:
+            widget_attrs.update({'max': self.data.max_value})
+
+        if self.data.min_value:
+            widget_attrs.update({'min': self.data.min_value})
+
+        if self.data.multiple_value:
+            widget_attrs.update({'multiple': 'multiple'})
+
+        if self.data.pattern_value:
+            widget_attrs.update({'pattern': self.data.pattern_value})
+
+        if self.data.readonly_value:
+            widget_attrs.update({'readonly': 'readonly'})
+
+        if self.data.step_value:
+            widget_attrs.update({'step': self.data.step_value})
+
+        kwargs = {
+            'label': self.data.label,
+            'help_text': self.data.help_text,
+            'initial': self.data.initial,
+            'required': self.data.required,
+            'widget': Input(attrs=widget_attrs),
+        }
+        #if self.data.max_length:
+        #    kwargs['max_length'] = self.data.max_length
+
+        return [(self.data.name, Field, kwargs)]
+
+
+form_element_plugin_registry.register(InputPlugin)

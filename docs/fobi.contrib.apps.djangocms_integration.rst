@@ -4,6 +4,14 @@ fobi.contrib.apps.djangocms_integration package
 Submodules
 ----------
 
+fobi.contrib.apps.djangocms_integration.apps module
+---------------------------------------------------
+
+.. automodule:: fobi.contrib.apps.djangocms_integration.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.apps.djangocms_integration.cms_plugins module
 ----------------------------------------------------------
 

@@ -171,27 +171,38 @@ Must haves
   is too short, when form contains no elements yet).
 + Style the radio buttons for Bootstrap 3 and Foundation 5 themes.
 + Clean up all themes.
-- Edit form test.
-- Edit form element tests.
-- Edit from handler tests.
-- Delete form tests.
-- Awesome documentation.
-- Awesome themeing API. Change current one - make a theme to have all the
++ Make a working demo (at the moment fails). NOTE: Test if this is still an
+  issue!
++ Awesome documentation.
++ Awesome themeing API. Change current one - make a theme to have all the
   templates.
-- Generalise themes as much as possible.
++ Generalise themes as much as possible.
++ Make sure nothing breaks if one or another element has invalid data.
+  Instead, make it possible to run `Fobi` in debug mode, where exceptions
+  would be raised. With ``DEBUG`` set to False (Fobi own ``DEBUG``) no
+  exceptions would be raised and broken fields would not be shown.
++ Add Captcha form element plugin.
 - Make sure, that theme specific theme javascripts, css and other assets,
   are defined in the theme itself. Follow the ``django-dash``
   example as much as possible.
 - Clean up the TODOs before first release.
-- Make a working demo (at the moment fails). NOTE: Test if this is still an
-  issue!
-- At the moment this is done for Foundation 5 theme. Remove this once it's 
-  possible for a theme to override this form. Alternatively, add the attrs to
-  the theme API.
-  !!!!!!!!!!!!!!!Check what this one (above) is about???!!!!!!!!!!!!!!!!!!!!
 - Make sure a better (SEO) URLs can be used in intergration packages (at
   least the FeinCMS).
-- Make it possible to strip certain kwargs or widget attributes in edit mode.
+- Make it possible to strip certain kwargs or widget attributes in edit mode
+  or add the following attribute to the forms in edit mode
+  http://www.w3schools.com/tags/att_input_formnovalidate.asp
+- Improve the "simple" theme for Django 1.6 and Django 1.7 (tiny bits of 
+  styling).
+- Edit form test.
+- Edit form element tests.
+- Edit from handler tests.
+- Delete form tests.
+- List all settings overrides in docs https://github.com/barseghyanartur/django-fobi#tuning
+- Add tox tests.
+- Make tiny fixes in docs (see emails).
+- At the moment Captcha data is also being saved (db_store form handler).
+  Think of fixing that by allowing to exclude certain fields from being 
+  processed by form handlers.
 
 Should haves
 ===============================================
@@ -202,7 +213,7 @@ Should haves
   theme.
 - Add birthday field.
 - Fix the input_format option in the date and datetime fields.
-- Add an example of how to extend the existing themes with additional
++ Add an example of how to extend the existing themes with additional
   functionality. For example, how to take a Bootstrap 3 theme, extend it
   by giving it another name and actually giving a custom look to the view
   form template.
@@ -216,7 +227,7 @@ Should haves
 - Repeat for the form callbacks the same what's already done to prioritise 
   the form handlers execution order.
 - Add data export features to ``db_store`` plugin.
-- Make it possible to use a custom user model.
++ Make it possible to use a custom user model.
 - Finish the template tag ``get_form_field_type`` which should get the
   field type of the field given.
 - Think of a different URL strategy. Perhaps not a bad idea to have a 
@@ -225,7 +236,7 @@ Should haves
   "barseghyanartur/test-form-1" instead of "test-form-1-N").
 - Once the form ordering has been changed, show a message and warn if user 
   is about to leave the page without saving the changes.
-- Improve the "Simple" theme (Django admin integration part).
++ Improve the "Simple" theme (Django admin integration part).
 - In ``db_store` plugin, at the moment if labels are not unique, some data 
   loss happens. Either, make the labels unique in a single form or avoid data
   loss in some other way.

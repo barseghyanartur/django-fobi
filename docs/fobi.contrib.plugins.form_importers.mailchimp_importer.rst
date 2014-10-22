@@ -4,6 +4,14 @@ fobi.contrib.plugins.form_importers.mailchimp_importer package
 Submodules
 ----------
 
+fobi.contrib.plugins.form_importers.mailchimp_importer.apps module
+------------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_importers.mailchimp_importer.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_importers.mailchimp_importer.fobi_form_importers module
 ---------------------------------------------------------------------------------
 

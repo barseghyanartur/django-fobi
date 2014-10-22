@@ -4,6 +4,14 @@ fobi.contrib.apps.feincms_integration package
 Submodules
 ----------
 
+fobi.contrib.apps.feincms_integration.apps module
+-------------------------------------------------
+
+.. automodule:: fobi.contrib.apps.feincms_integration.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.apps.feincms_integration.conf module
 -------------------------------------------------
 

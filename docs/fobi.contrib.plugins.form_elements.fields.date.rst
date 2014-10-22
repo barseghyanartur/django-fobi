@@ -4,6 +4,14 @@ fobi.contrib.plugins.form_elements.fields.date package
 Submodules
 ----------
 
+fobi.contrib.plugins.form_elements.fields.date.apps module
+----------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.date.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.date.fobi_form_elements module
 ------------------------------------------------------------------------
 

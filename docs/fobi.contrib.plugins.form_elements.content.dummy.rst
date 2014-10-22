@@ -4,6 +4,14 @@ fobi.contrib.plugins.form_elements.content.dummy package
 Submodules
 ----------
 
+fobi.contrib.plugins.form_elements.content.dummy.apps module
+------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.content.dummy.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.content.dummy.fobi_form_elements module
 --------------------------------------------------------------------------
 

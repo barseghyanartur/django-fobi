@@ -5,7 +5,7 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('DateTimeInputPlugin',)
 
 from django.forms.fields import DateTimeField
-from django.forms.widgets import SplitDateTimeWidget, DateTimeInput, TextInput
+from django.forms.widgets import DateTimeInput #, TextInput, SplitDateTimeWidget
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme

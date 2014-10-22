@@ -9,7 +9,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import FormFieldPlugin, form_element_plugin_registry
 from fobi.contrib.plugins.form_elements.fields.boolean import UID
-from fobi.contrib.plugins.form_elements.fields.boolean.forms import BooleanSelectForm
+from fobi.contrib.plugins.form_elements.fields.boolean.forms \
+    import BooleanSelectForm
 
 class BooleanSelectPlugin(FormFieldPlugin):
     """

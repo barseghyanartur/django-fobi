@@ -4,6 +4,14 @@ fobi.contrib.plugins.form_elements.fields.integer package
 Submodules
 ----------
 
+fobi.contrib.plugins.form_elements.fields.integer.apps module
+-------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.integer.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.integer.fobi_form_elements module
 ---------------------------------------------------------------------------
 

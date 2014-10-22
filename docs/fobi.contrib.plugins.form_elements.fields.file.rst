@@ -4,6 +4,14 @@ fobi.contrib.plugins.form_elements.fields.file package
 Submodules
 ----------
 
+fobi.contrib.plugins.form_elements.fields.file.apps module
+----------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.file.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.file.conf module
 ----------------------------------------------------------
 

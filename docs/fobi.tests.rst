@@ -44,6 +44,30 @@ fobi.tests.test_browser_build_dynamic_forms module
     :undoc-members:
     :show-inheritance:
 
+fobi.tests.test_core module
+---------------------------
+
+.. automodule:: fobi.tests.test_core
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+fobi.tests.test_dynamic_forms module
+------------------------------------
+
+.. automodule:: fobi.tests.test_dynamic_forms
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+fobi.tests.test_sortable_dict module
+------------------------------------
+
+.. automodule:: fobi.tests.test_sortable_dict
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

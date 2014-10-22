@@ -4,6 +4,14 @@ fobi.contrib.plugins.form_handlers.mail package
 Submodules
 ----------
 
+fobi.contrib.plugins.form_handlers.mail.apps module
+---------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_handlers.mail.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_handlers.mail.fobi_form_handlers module
 -----------------------------------------------------------------
 

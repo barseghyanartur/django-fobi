@@ -4,6 +4,14 @@ fobi.contrib.plugins.form_handlers.http_repost package
 Submodules
 ----------
 
+fobi.contrib.plugins.form_handlers.http_repost.apps module
+----------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_handlers.http_repost.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_handlers.http_repost.fobi_form_handlers module
 ------------------------------------------------------------------------
 

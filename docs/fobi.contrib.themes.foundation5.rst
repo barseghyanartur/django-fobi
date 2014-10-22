@@ -4,6 +4,14 @@ fobi.contrib.themes.foundation5 package
 Submodules
 ----------
 
+fobi.contrib.themes.foundation5.apps module
+-------------------------------------------
+
+.. automodule:: fobi.contrib.themes.foundation5.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.themes.foundation5.fobi_themes module
 --------------------------------------------------
 

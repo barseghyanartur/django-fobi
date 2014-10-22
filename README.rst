@@ -35,11 +35,16 @@ Key concepts
 - Each plugin (form element or form handler) or a callback - is a Django
   micro-app.
 
+Note, that Fobi does not require django-admin and administrative rights/
+permissions to access the UI, although almost seamless integration with
+django-admin is implemented through the ``simple`` theme.
+
 Main features and highlights
 ===============================================
-- User-friendly GUI to quickly build forms. 
+- User-friendly GUI to quickly build forms.
 - Large variety of form elements/fields. Most of the Django fields are
   supported. HTML5 fields are supported as well.
+- Captcha integration comes out of the box with help of third-party app.
 - In addition to standard form elements, there are cosmetic (presentational)
   form elements (for adding a piece of text, image or a embed video)
   alongside standard form elements.
@@ -769,8 +774,10 @@ Theming
 - Simple theme in style of the Django admin
 
 Have in mind, that creating a brand new theme could be time consuming.
-Instead, you can create your own theme based on existing ones (just copy
-the desired theme to your project directory and work it out further).
+Instead, you are advised to extend existing themes or in the worst case,
+if too much customisation required, create your own themes based on
+existing ones (just copy the desired theme to your project directory and
+work it out further).
 
 It's possible to use different templates for all "view" and "edit"
 actions (see the source code of the "simple" theme). Both Bootstrap 3 and
@@ -924,7 +931,7 @@ as shown below.
 
     <div class="{{ fobi_theme.custom_data.form_button_wrapper_html_class }}">
 
-You're like would want to either remove the footer text or change it. Define
+You likely would want to either remove the footer text or change it. Define
 a variable in your project's settings module, called ``FOBI_THEME_FOOTER_TEXT``.
 See the following code as example:
 
@@ -1033,8 +1040,9 @@ Overriding the "simple" theme.
         base_view_template = 'override_simple_theme/base_view.html'
         form_ajax = 'override_simple_theme/snippets/form_ajax.html'
 
-It's important to set the `force` argument to True, in order to override
-the original theme. Force can be applied only once.
+Register the overridden theme. Note, that it's important to set the `force`
+argument to True, in order to override the original theme. Force can be
+applied only once (for a overridden element).
 
 .. code-block:: python
 
@@ -1046,7 +1054,7 @@ templates/override_simple_theme/base_view.html
 
     {% extends "simple/base_view.html" %}
 
-    {% load static future_compat %}
+    {% load static %}
 
     {% block stylesheets %}
     <link
@@ -1057,21 +1065,6 @@ templates/override_simple_theme/base_view.html
     {% block main-wrapper %}
     <div id="sidebar">
       <h2>It's easy to override a theme!</h2>
-      <p>
-        You have to do as follows in order to do so:
-      </p>
-      <ol>
-        <li>Create an app for holding the overridden theme.</li>
-        <li>Inherit the theme you want to override.</li>
-        <li>Register it in the registry with `force` argument
-            set to True.</li>
-        <li>Override some of the templates. Take this one as a good
-            example.</li>
-      </ol>
-      <p>
-        Read the <a href="http://pythonhosted.org//django-fobi/">
-        documentation</a> for more information.
-      </p>
     </div>
 
     {{ block.super }}
@@ -1156,13 +1149,14 @@ in directory of each plugin for details.
 Fields
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - `Boolean (checkbox) <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/boolean/>`_
+- `Captcha <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/captcha/>`_
 - `Date <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/date/>`_
 - `DateTime <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/datetime/>`_
 - `Email <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/email/>`_
 - `File <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/file/>`_
 - `Hidden <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/hidden/>`_
 - `Password <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/password/>`_
-- `Radio button <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/radio/>`_
+- `Radio select (radio button) <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/radio/>`_
 - `Integer <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/integer/>`_
 - `Select (drop-down) <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select/>`_
 - `Select model object (drop-down) <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_model_object/>`_
@@ -1226,6 +1220,12 @@ Available translations
 
 Debugging
 ===============================================
+By default debugging is turned off. It means that broken form entries, which
+are entries with broken data, that are not possible to be shown, are just
+skipped. That's safe in production. Although, you for sure would want to
+see the broken entries in development. Set the ``FOBI_DEBUG`` to True
+in the ``settings.py`` of your project in order to do so.
+
 Most of the errors are logged (DEBUG). If you have written a plugin and it
 somehow doesn't appear in the list of available plugins, do run the
 ./manage.py fobi_sync_plugins management command since it not only syncs your

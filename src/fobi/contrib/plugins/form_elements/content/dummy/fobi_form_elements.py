@@ -11,12 +11,13 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 from fobi.base import FormElementPlugin, form_element_plugin_registry
 from fobi.fields import NoneField
 from fobi.helpers import safe_text
+from fobi.contrib.plugins.form_elements.content.dummy import UID
 
 class DummyPlugin(FormElementPlugin):
     """
     Dummy plugin.
     """
-    uid = "dummy"
+    uid = UID
     name = _("Dummy")
     group = _("Testing")
 

@@ -37,21 +37,21 @@ class SelectInputForm(forms.Form, BaseFormFieldPluginForm):
     choices = forms.CharField(
         label = _("Choices"),
         required = False,
-        help_text = _("Enter either single values or pairs - one per line. Example:<code><br/>"
+        help_text = _("Enter single values/pairs per line. Example:<code><br/>"
                       "&nbsp;&nbsp;&nbsp;&nbsp;1<br/>"
                       "&nbsp;&nbsp;&nbsp;&nbsp;2<br/>"
                       "&nbsp;&nbsp;&nbsp;&nbsp;alpha, Alpha<br/>"
                       "&nbsp;&nbsp;&nbsp;&nbsp;beta, Beta<br/>"
                       "&nbsp;&nbsp;&nbsp;&nbsp;omega"
                       "</code><br/>"
-                      "It finally transforms into the following Python code:<code><br/>"
-                      '&nbsp;&nbsp;&nbsp;&nbsp;(<br />'
-                      '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(1, 1),<br/>'
-                      '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(2, 2),<br/>'
-                      '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;("alpha", "Alpha"),<br/>'
-                      '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;("beta", "Beta"),<br/>'
-                      '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;("omega", "omega"))<br/>'
-                      '&nbsp;&nbsp;&nbsp;&nbsp;)'
+                      "It finally transforms into the following HTML code:<code><br/>"
+                      '&nbsp;&nbsp;&nbsp;&nbsp;&lt;select id="id_NAME_OF_THE_ELEMENT" name="NAME_OF_THE_ELEMENT"&gt;<br/>'
+                      '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value="1"&gt;1&lt;/option&gt;<br/>'
+                      '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value="2"&gt;2&lt;/option&gt;<br/>'
+                      '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value="alpha"&gt;Alpha&lt;/option&gt;<br/>'
+                      '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value="beta"&gt;Beta&lt;/option&gt;<br/>'
+                      '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value="omega"&gt;omega&lt;/option&gt;<br/>'
+                      '&nbsp;&nbsp;&nbsp;&nbsp;&lt;/select&gt;'
                       "</code>"),
         widget = forms.widgets.Textarea(attrs={'class': theme.form_element_html_class})
         )

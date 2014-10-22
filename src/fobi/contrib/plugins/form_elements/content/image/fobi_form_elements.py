@@ -13,6 +13,7 @@ from django.conf import settings
 from fobi.fields import NoneField
 from fobi.base import FormElementPlugin, form_element_plugin_registry
 from fobi.helpers import delete_file, clone_file
+from fobi.contrib.plugins.form_elements.content.image import UID
 from fobi.contrib.plugins.form_elements.content.image.forms import ContentImageForm
 from fobi.contrib.plugins.form_elements.content.image.helpers import get_crop_filter
 from fobi.contrib.plugins.form_elements.content.image.settings import (
@@ -23,7 +24,7 @@ class ContentImagePlugin(FormElementPlugin):
     """
     Content image plugin.
     """
-    uid = "content_image"
+    uid = UID
     name = _("Content image")
     group = _("Content")
     form = ContentImageForm

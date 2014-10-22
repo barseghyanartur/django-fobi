@@ -14,6 +14,7 @@ admin.autodiscover()
 fobi_theme_home_template_mapping = {
     'bootstrap3': 'home/bootstrap3.html',
     'foundation5': 'home/foundation5.html',
+    'simple': 'home/simple.html',
 }
 
 # Get the template to be used.
@@ -63,4 +64,11 @@ if 'feincms' in settings.INSTALLED_APPS:
     Page
     urlpatterns += patterns('',
         url(r'', include('feincms.urls')),
+    )
+
+# Conditionally including Captcha URls in case if
+# Captcha in installed apps.
+if 'captcha' in settings.INSTALLED_APPS:
+    urlpatterns += patterns('',
+        url(r'^captcha/', include('captcha.urls')),
     )

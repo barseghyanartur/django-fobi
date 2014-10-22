@@ -4,6 +4,14 @@ fobi.contrib.plugins.form_elements.fields.textarea package
 Submodules
 ----------
 
+fobi.contrib.plugins.form_elements.fields.textarea.apps module
+--------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.textarea.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.textarea.fobi_form_elements module
 ----------------------------------------------------------------------------
 

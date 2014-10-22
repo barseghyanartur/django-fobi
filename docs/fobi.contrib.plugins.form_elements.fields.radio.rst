@@ -4,6 +4,14 @@ fobi.contrib.plugins.form_elements.fields.radio package
 Submodules
 ----------
 
+fobi.contrib.plugins.form_elements.fields.radio.apps module
+-----------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.radio.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.radio.fobi_form_elements module
 -------------------------------------------------------------------------
 

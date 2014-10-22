@@ -12,13 +12,15 @@ from vishap import render_video
 
 from fobi.base import FormElementPlugin, form_element_plugin_registry
 from fobi.fields import NoneField
-from fobi.contrib.plugins.form_elements.content.video.forms import ContentVideoForm
+from fobi.contrib.plugins.form_elements.content.video import UID
+from fobi.contrib.plugins.form_elements.content.video.forms \
+    import ContentVideoForm
 
 class ContentVideoPlugin(FormElementPlugin):
     """
     Content video plugin.
     """
-    uid = "content_video"
+    uid = UID
     name = _("Content video")
     group = _("Content")
     form = ContentVideoForm
@@ -36,7 +38,9 @@ class ContentVideoPlugin(FormElementPlugin):
         width, height = self.data.size.split('x')
 
         kwargs = {
-            'initial': '<div class="video-wrapper">{0}</div>'.format(render_video(self.data.url, width, height)),
+            'initial': '<div class="video-wrapper">{0}</div>'.format(
+                render_video(self.data.url, width, height)
+                ),
             'required': False,
             'label': '',
         }

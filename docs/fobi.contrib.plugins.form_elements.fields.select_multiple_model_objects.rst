@@ -4,6 +4,14 @@ fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects package
 Submodules
 ----------
 
+fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects.apps module
+-----------------------------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects.conf module
 -----------------------------------------------------------------------------------
 

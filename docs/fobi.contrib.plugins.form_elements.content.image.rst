@@ -4,6 +4,14 @@ fobi.contrib.plugins.form_elements.content.image package
 Submodules
 ----------
 
+fobi.contrib.plugins.form_elements.content.image.apps module
+------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.content.image.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.content.image.conf module
 ------------------------------------------------------------
 

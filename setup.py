@@ -56,7 +56,7 @@ for static_dir in static_dirs:
 for locale_dir in locale_dirs:
     locale_files += [os.path.join(locale_dir, f) for f in os.listdir(locale_dir)]
 
-version = '0.1.3'
+version = '0.1.4'
 
 install_requires = [
     'Pillow>=2.0.0',
@@ -64,11 +64,16 @@ install_requires = [
     'django-autoslug>=1.3.0',
     'django-tinymce>=1.5.3',
     'ordereddict>=1.1',
-    'radar>=0.3',
     'six>=1.4.1',
     'easy-thumbnails>=1.4,<2.0',
     'transliterate>=1.5,<2.0',
     'vishap>=0.1.1,<2.0'
+]
+
+tests_require = [
+    'radar>=0.3,<1.0',
+    'simple_timer>=0.2',
+    'selenium',
 ]
 
 try:
@@ -106,6 +111,7 @@ setup(
     packages = find_packages(where='./src'),
     license = 'GPL 2.0/LGPL 2.1',
     install_requires = install_requires,
+    tests_require = tests_require,
     package_data = {
         'fobi': templates + static_files + locale_files
     },

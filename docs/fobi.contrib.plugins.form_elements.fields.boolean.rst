@@ -4,6 +4,14 @@ fobi.contrib.plugins.form_elements.fields.boolean package
 Submodules
 ----------
 
+fobi.contrib.plugins.form_elements.fields.boolean.apps module
+-------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.boolean.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.boolean.fobi_form_elements module
 ---------------------------------------------------------------------------
 

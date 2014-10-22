@@ -23,6 +23,14 @@ fobi.admin module
     :undoc-members:
     :show-inheritance:
 
+fobi.app module
+---------------
+
+.. automodule:: fobi.app
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.base module
 ----------------
 
@@ -155,6 +163,14 @@ fobi.settings module
 --------------------
 
 .. automodule:: fobi.settings
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+fobi.test module
+----------------
+
+.. automodule:: fobi.test
     :members:
     :undoc-members:
     :show-inheritance:

@@ -5,7 +5,14 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('IntegerInputPlugin',)
 
 from django.forms.fields import IntegerField#, DecimalField, FloatField
-from django.forms.widgets import TextInput
+
+try:
+    from django.forms.widgets import NumberInput
+except ImportError:
+    from django.forms.widgets import TextInput
+    class NumberInput(TextInput):
+        input_type = 'number'
+
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
@@ -45,7 +52,7 @@ class IntegerInputPlugin(FormFieldPlugin):
             kwargs['min_value'] = self.data.min_value
             widget_attrs['min'] = self.data.min_value
 
-        kwargs['widget'] = TextInput(attrs=widget_attrs)
+        kwargs['widget'] = NumberInput(attrs=widget_attrs)
 
         return [(self.data.name, IntegerField, kwargs)]
 
