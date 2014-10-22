@@ -21,8 +21,6 @@ Installation
 
 .. code-block:: none
 
-    $ ./manage.py syncdb
-
     $ ./manage.py fobi_sync_plugins
 
 3. Assign appropriate permissions to the target users/groups to be using
