@@ -41,7 +41,7 @@
                     {% endfor %}
                 </ul>
 
-                <form method="post" action="{{ request.path }}?active_tab=tab-form-elements" class="form-horizontal">
+                <form method="post" action="{{ request.path }}?active_tab=tab-form-elements" novalidate="novalidate" class="form-horizontal">
                   {% csrf_token %}
                   {% with assembled_form as form %}
                     {% include fobi_theme.form_snippet_template_name %}

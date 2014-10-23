@@ -5,7 +5,7 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('InputPlugin',)
 
 from django.forms.fields import Field
-from django.forms.widgets import Input
+from django.forms.widgets import TextInput
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
@@ -42,6 +42,9 @@ class InputPlugin(FormFieldPlugin):
         if self.data.disabled_value:
             widget_attrs.update({'disabled': 'disabled'})
 
+        #if self.data.formnovalidate_value:
+        #    widget_attrs.update({'formnovalidate': 'formnovalidate'})
+
         if self.data.list_value:
             widget_attrs.update({'list': self.data.list_value})
 
@@ -68,7 +71,7 @@ class InputPlugin(FormFieldPlugin):
             'help_text': self.data.help_text,
             'initial': self.data.initial,
             'required': self.data.required,
-            'widget': Input(attrs=widget_attrs),
+            'widget': TextInput(attrs=widget_attrs),
         }
         #if self.data.max_length:
         #    kwargs['max_length'] = self.data.max_length

@@ -62,7 +62,6 @@ Roadmap
 ===============================================
 Some of the upcoming/in-development features/improvements are:
 
-- Django 1.7 support.
 - Form importers (and as a part of it - MailChimp integration,
   which would allow to import forms from MailChimp into Fobi using
   a user-friendly wizard).
@@ -1157,6 +1156,7 @@ Fields
 - `Hidden <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/hidden/>`_
 - `Password <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/password/>`_
 - `Radio select (radio button) <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/radio/>`_
+- `Input <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/input/>`_
 - `Integer <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/integer/>`_
 - `Select (drop-down) <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select/>`_
 - `Select model object (drop-down) <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_model_object/>`_
@@ -1209,9 +1209,22 @@ The following HTML5 fields are supported in appropriate bundled plugins:
 - date
 - datetime
 - email
+- max
+- min
 - number
 - url
 - placeholder
+- type
+
+With the `fobi.contrib.plugins.form_elements.fields.input` support for
+HTML5 fields is extended to the following fields:
+
+- autocomplete
+- autofocus
+- list
+- multiple
+- pattern
+- step
 
 Available translations
 ===============================================

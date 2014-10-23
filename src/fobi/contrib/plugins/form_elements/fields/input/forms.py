@@ -40,7 +40,7 @@ class InputForm(forms.Form, BaseFormFieldPluginForm):
         ("autofocus_value", False), # If set to True, value should be
                                     # "autofocus"
         ("disabled_value", False), # If set to True, value should be "disabled"
-        ("formnovalidate_value", ""), # If set to True, value should be
+        #("formnovalidate_value", ""), # If set to True, value should be
                                       # "formnovalidate"
         ("list_value", ""),
         ("max_value", ""),
@@ -105,11 +105,11 @@ class InputForm(forms.Form, BaseFormFieldPluginForm):
         required = False,
         widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_html_class})
         )
-    formnovalidate_value = forms.BooleanField(
-        label = _("Skip validation (HTML5 formnovalidate)"),
-        required = False,
-        widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_html_class})
-        )
+    #formnovalidate_value = forms.BooleanField(
+    #    label = _("Skip validation (HTML5 formnovalidate)"),
+    #    required = False,
+    #    widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_html_class})
+    #    )
     list_value = forms.CharField(
         label = _("List (HTML5 list)"),
         required = False,
@@ -146,7 +146,7 @@ class InputForm(forms.Form, BaseFormFieldPluginForm):
         widget = NumberInput(attrs={'class': theme.form_element_html_class})
         )
     type_value = forms.ChoiceField(
-        label = _("Pattern (HTML5 pattern)"),
+        label = _("Type (HTML type)"),
         required = False,
         choices = FORM_FIELD_TYPE_CHOICES,
         widget = forms.widgets.Select(attrs={'class': theme.form_element_html_class})

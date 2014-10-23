@@ -1,5 +1,14 @@
 Release history
 =====================================
+0.1.5
+-------------------------------------
+2014-10-23
+
+- Minor fixes in the `Integer` form element plugin.
+- Minor fixes in the `Input` form element plugin.
+- Minor fixes in themes (disable HTML5 form validation in edit mode).
+- Minor documentation improvements.
+
 0.1.4
 -------------------------------------
 2014-10-22

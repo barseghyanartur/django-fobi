@@ -182,6 +182,8 @@ Must haves
   would be raised. With ``DEBUG`` set to False (Fobi own ``DEBUG``) no
   exceptions would be raised and broken fields would not be shown.
 + Add Captcha form element plugin.
++ Make tiny fixes in docs (see emails).
++ Disable HTML5 form validation in edit mode.
 - Make sure, that theme specific theme javascripts, css and other assets,
   are defined in the theme itself. Follow the ``django-dash``
   example as much as possible.
@@ -199,7 +201,6 @@ Must haves
 - Delete form tests.
 - List all settings overrides in docs https://github.com/barseghyanartur/django-fobi#tuning
 - Add tox tests.
-- Make tiny fixes in docs (see emails).
 - At the moment Captcha data is also being saved (db_store form handler).
   Think of fixing that by allowing to exclude certain fields from being 
   processed by form handlers.

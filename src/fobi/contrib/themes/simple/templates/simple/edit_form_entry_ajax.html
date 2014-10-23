@@ -36,7 +36,7 @@
           </li>
         </ul>
 
-        <form method="post" action="{{ request.path }}?active_tab=tab-form-elements" class="form-horizontal">
+        <form method="post" action="{{ request.path }}?active_tab=tab-form-elements" novalidate="novalidate" class="form-horizontal">
           <div>
             <fieldset class="module aligned">
               {% csrf_token %}
