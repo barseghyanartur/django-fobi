@@ -81,9 +81,11 @@ class Bootstrap3Theme(BaseTheme):
 
     form_entry_submitted_template = 'bootstrap3/form_entry_submitted.html'
     form_entry_submitted_ajax_template = 'bootstrap3/form_entry_submitted_ajax.html'
+    embed_form_entry_submitted_ajax_template = 'bootstrap3/embed_form_entry_submitted_ajax.html'
 
     view_form_entry_template = 'bootstrap3/view_form_entry.html'
     view_form_entry_ajax_template = 'bootstrap3/view_form_entry_ajax.html'
+    view_embed_form_entry_ajax_template = 'bootstrap3/view_embed_form_entry_ajax.html'
 
 
 theme_registry.register(Bootstrap3Theme)

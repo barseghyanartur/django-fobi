@@ -1,0 +1,9 @@
+{% extends fobi_theme.view_form_entry_ajax_template %}
+
+{% load i18n %}
+
+{% block form_page_header_wrapper %}
+  {% if fobi_hide_form_title %}{% else %}
+    {{ block.super }}
+  {% endif %}
+{% endblock %}

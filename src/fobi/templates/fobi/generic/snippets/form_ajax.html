@@ -1,6 +1,8 @@
+    {% block form_page_header_wrapper %}
     <div class="{% block form_page_header_html_class %}{% endblock %}">
-      <h1>{% block form_page_title %}{% endblock %}</h1>
+      {% block form_page_title_wrapper %}<h1>{% block form_page_title %}{% endblock %}</h1>{% endblock form_page_title_wrapper %}
     </div>
+    {% endblock form_page_header_wrapper %}
 
     <form method="{% block form_method %}post{% endblock %}" action="{% block form_action %}{% if form_entry.action %}{{ form_entry.action }}{% else %}{{ request.path }}{% endif %}{% endblock %}" {% block form_enctype %}enctype="multipart/form-data"{% endblock %} class="{% block form_html_class %}{% endblock %}" {% block form_extra_attrs %}{% endblock %}>
       {% csrf_token %}

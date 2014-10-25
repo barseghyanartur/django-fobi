@@ -1,0 +1,11 @@
+{% extends fobi_theme.view_embed_form_entry_ajax_template %}
+
+{% load i18n %}
+
+{% block form_page_header_wrapper %}
+  <div class="alert alert-info" role="alert">
+    {% blocktrans with fobi_theme.uid as fobi_theme_uid %}This is just an example of how can we use a custom
+     template for rendering the form for the theme {{ fobi_theme_uid }} given.{% endblocktrans %}
+  </div>
+  {{ block.super }}
+{% endblock %}

@@ -63,3 +63,20 @@ Django admin interface:
 - URL: http://127.0.0.1:8001/admin/
 - Admin username: test_admin
 - Admin password: test
+
+Various setups
+============================================
+There are number of setups included (names are self-explanatory):
+
+- Bootstrap3 theme + Captcha (runserver-bootstrap3-theme-captcha) :8000
+- Bootstrap3 theme + Django 1.7 + Captcha (runserver-bootstrap3-theme-django17-captcha) :8000
+- Bootstrap3 theme + Django 1.7 (runserver-bootstrap3-theme-django17) :8000
+- Bootstrap3 theme + FeinCMS integration (runserver-bootstrap3-theme-feincms-integration) :8000
+- Bootstrap3 theme (runserver-bootstrap3-theme) :8000
+
+- Foundation 5 theme + FeinCMS integration (runserver-foundation5-theme-feincms-integration) :8001
+- Foundation 5 theme :8001
+
+- Override of the simple theme (runserver-override-simple-theme) :8003
+
+- Simple theme (runserver-simple-theme) :8002

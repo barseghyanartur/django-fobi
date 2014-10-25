@@ -160,7 +160,7 @@ INSTALLED_APPS = (
 
     # Third party apps used in the project
     'south', # Database migration app
-    #'tinymce', # TinyMCE
+    'tinymce', # TinyMCE
     'easy_thumbnails', # Thumbnailer
     'registration', # Auth views and registration app
     #'localeurl', # Locale URL
@@ -237,6 +237,20 @@ FOBI_CUSTOM_THEME_DATA = {
         'form_button_wrapper_html_class': 'controls',
         'form_button_html_class': 'btn',
         'form_primary_button_html_class': 'btn-primary pull-right',
+        'feincms_integration': {
+            'form_template_choices': [
+                (
+                    'fobi/bootstrap3_extras/view_embed_form_entry_ajax.html',
+                    gettext("Custom bootstrap3 embed form view template")
+                ),
+            ],
+            'success_page_template_choices': [
+                (
+                    'fobi/bootstrap3_extras/embed_form_entry_submitted_ajax.html',
+                    gettext("Custom bootstrap3 embed form entry submitted template")
+                ),
+            ],
+        },
     },
     'foundation5': {
         'page_header_html_class': '',
@@ -245,6 +259,20 @@ FOBI_CUSTOM_THEME_DATA = {
         'form_button_wrapper_html_class': 'controls',
         'form_button_html_class': 'radius button',
         'form_primary_button_html_class': 'btn-primary',
+        'feincms_integration': {
+            'form_template_choices': [
+                (
+                    'fobi/foundation5_extras/view_embed_form_entry_ajax.html',
+                    gettext("Custom foundation5 embed form view template")
+                ),
+            ],
+            'success_page_template_choices': [
+                (
+                    'fobi/foundation5_extras/embed_form_entry_submitted_ajax.html',
+                    gettext("Custom foundation5 embed form entry submitted template")
+                ),
+            ],
+        },
     },
     'simple': {
         'page_header_html_class': '',
@@ -253,6 +281,8 @@ FOBI_CUSTOM_THEME_DATA = {
         'form_button_wrapper_html_class': 'submit-row',
         'form_button_html_class': 'btn',
         'form_primary_button_html_class': 'btn-primary',
+        'feincms_integration': {
+        },
     }
 }
 

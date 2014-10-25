@@ -63,7 +63,7 @@ if 'feincms' in settings.INSTALLED_APPS:
     from page.models import Page
     Page
     urlpatterns += patterns('',
-        url(r'', include('feincms.urls')),
+        url(r'^pages/', include('feincms.urls')),
     )
 
 # Conditionally including Captcha URls in case if

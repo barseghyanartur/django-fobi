@@ -67,3 +67,8 @@ your_project/admin.py
     from page.models import Page
 
     admin.site.register(Page, PageAdmin)
+
+Usage
+===============================================
+Note, that rendering of the FeinCMS widget happens with help
+theme template ``view_form_entry_ajax_template``.

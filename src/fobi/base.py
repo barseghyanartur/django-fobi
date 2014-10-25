@@ -76,6 +76,15 @@ _ = lambda s: s
 class BaseTheme(object):
     """
     Base theme.
+
+    :property str view_embed_form_entry_ajax_template: A template to be used
+        when integrating the form rendering from other products (for example,
+        a CMS page, which has a widget which references the form object. If
+        that property is left empty, the ``view_form_entry_ajax_template``
+        is used.
+    :property str embed_form_entry_submitted_ajax_template: A template to be
+        used when integrating into other products (CMS page). Serves the
+        thank you.
     """
     uid = None
     name = None
@@ -144,8 +153,10 @@ class BaseTheme(object):
     edit_form_handler_entry_ajax_template = 'fobi/generic/edit_form_handler_entry_ajax.html'
     form_entry_submitted_template = 'fobi/generic/form_entry_submitted.html'
     form_entry_submitted_ajax_template = 'fobi/generic/form_entry_submitted_ajax.html'
+    embed_form_entry_submitted_ajax_template = None
     view_form_entry_template = 'fobi/generic/view_form_entry.html'
     view_form_entry_ajax_template = 'fobi/generic/view_form_entry_ajax.html'
+    view_embed_form_entry_ajax_template = None
 
     # *************************************************************************
     # ******************** Extras that make things easy ***********************
@@ -213,6 +224,15 @@ class BaseTheme(object):
         # back to the ``form_ajax``.
         if not self.form_edit_ajax:
             self.form_edit_ajax = self.form_ajax
+
+        # If no specific ``view_embed_form_entry_ajax_template`` specified, fall
+        # back to the ``view_form_entry_ajax_template``.
+        if not self.view_embed_form_entry_ajax_template:
+            self.view_embed_form_entry_ajax_template = self.view_form_entry_ajax_template
+
+        # Some sort of a embed thank you.
+        if not self.embed_form_entry_submitted_ajax_template:
+            self.embed_form_entry_submitted_ajax_template = self.form_entry_submitted_ajax_template
 
         # Set theme specific data from settings for to be
         # refered like `fobi_theme.custom_data`.
