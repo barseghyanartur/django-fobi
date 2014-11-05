@@ -57,6 +57,7 @@ Main features and highlights
   and Simple (in style of Django admin).
 - Implemented integration with FeinCMS (in a form of a FeinCMS Page widget).
 - Reordering of form elements using drag-n-drop.
+- Data export (``db_store`` form handler plugin) into XLS/CSV format.
 
 Roadmap
 ===============================================
@@ -65,8 +66,6 @@ Some of the upcoming/in-development features/improvements are:
 - Form importers (and as a part of it - MailChimp integration,
   which would allow to import forms from MailChimp into Fobi using
   a user-friendly wizard).
-- Export data for the `db_store` plugin which would allow to
-  export saved form data as a CSV file.
 - Fieldsets.
 
 See the `TODOS <https://raw.githubusercontent.com/barseghyanartur/django-fobi/master/TODOS.rst>`_

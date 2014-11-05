@@ -20,6 +20,22 @@ fobi.contrib.plugins.form_handlers.db_store.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_handlers.db_store.conf module
+-------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_handlers.db_store.conf
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+fobi.contrib.plugins.form_handlers.db_store.defaults module
+-----------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_handlers.db_store.defaults
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_handlers.db_store.fobi_form_handlers module
 ---------------------------------------------------------------------
 
@@ -28,10 +44,26 @@ fobi.contrib.plugins.form_handlers.db_store.fobi_form_handlers module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_handlers.db_store.helpers module
+----------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_handlers.db_store.helpers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_handlers.db_store.models module
 ---------------------------------------------------------
 
 .. automodule:: fobi.contrib.plugins.form_handlers.db_store.models
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+fobi.contrib.plugins.form_handlers.db_store.settings module
+-----------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_handlers.db_store.settings
     :members:
     :undoc-members:
     :show-inheritance:
