@@ -2,7 +2,7 @@ Release history and notes
 =====================================
 0.2
 -------------------------------------
-2014-10-25
+2014-11-05
 
 Note, that this release contains minor backwards incompatible changes.
 
