@@ -53,4 +53,7 @@ def get_success_page_template_choices():
     """
     :return list:
     """
-    return get_template_choices(SUCCESS_PAGE_TEMPLATE_CHOICES, 'success_page_template_choices')
+    return get_template_choices(
+        SUCCESS_PAGE_TEMPLATE_CHOICES,
+        'success_page_template_choices'
+        )

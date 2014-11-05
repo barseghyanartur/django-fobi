@@ -2,7 +2,7 @@ __title__ = 'fobi.templatetags.fobi_tags'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('get_fobi_plugin',)
+__all__ = ('get_fobi_plugin', 'get_fobi_form_handler_plugin_custom_actions')
 
 from django.template import Library, TemplateSyntaxError, Node
 from django.conf import settings
@@ -13,13 +13,13 @@ from fobi.settings import DISPLAY_AUTH_LINK
 
 register = Library()
 
-# ***************************************************************************************
-# ***************************************************************************************
-# ***************************************************************************************
-# **************************** General Fobi tags ****************************************
-# ***************************************************************************************
-# ***************************************************************************************
-# ***************************************************************************************
+# *****************************************************************************
+# *****************************************************************************
+# *****************************************************************************
+# **************************** General Fobi tags ******************************
+# *****************************************************************************
+# *****************************************************************************
+# *****************************************************************************
 
 class GetFobiPluginNode(Node):
     """
@@ -41,8 +41,8 @@ class GetFobiPluginNode(Node):
 @register.tag
 def get_fobi_plugin(parser, token):
     """
-    Gets the plugin. Note, that ``entry`` shall be a instance of ``fobi.models.FormElementEntry`` or
-    ``fobi.models.FormHandlerEntry``.
+    Gets the plugin. Note, that ``entry`` shall be a instance of
+    ``fobi.models.FormElementEntry`` or ``fobi.models.FormHandlerEntry``.
     
     :syntax:
 
@@ -60,7 +60,9 @@ def get_fobi_plugin(parser, token):
     if 4 == len(bits):
         if 'as' != bits[-2]:
             raise TemplateSyntaxError(
-                "Invalid syntax for {0}. Incorrect number of arguments.".format(bits[0])
+                "Invalid syntax for {0}. Incorrect number of arguments.".format(
+                    bits[0]
+                    )
                 )
         as_var = bits[-1]
     else:
@@ -72,13 +74,68 @@ def get_fobi_plugin(parser, token):
 
     return GetFobiPluginNode(entry=entry, as_var=as_var)
 
-# ***************************************************************************************
-# ***************************************************************************************
-# ***************************************************************************************
-# **************************** Additional Fobi tags *************************************
-# ***************************************************************************************
-# ***************************************************************************************
-# ***************************************************************************************
+
+class GetFobiFormHandlerPluginCustomActionsNode(Node):
+    """
+    Node for ``get_fobi_form_handler_plugin_custom_actions`` tag.
+    """
+    def __init__(self, plugin, form_entry, as_var=None):
+        self.plugin = plugin
+        self.form_entry = form_entry
+        self.as_var = as_var
+
+    def render(self, context):
+        request = context['request']
+        plugin = self.plugin.resolve(context, True)
+        form_entry = self.form_entry.resolve(context, True)
+
+        context[self.as_var] = plugin.get_custom_actions(form_entry, request)
+        return ''
+
+
+@register.tag
+def get_fobi_form_handler_plugin_custom_actions(parser, token):
+    """
+    Gets the form handler plugin custom actions. Note, that ``plugin`` shall
+    be a instance of ``fobi.models.FormHandlerEntry``.
+
+    :syntax:
+
+        {% get_fobi_form_handler_plugin_custom_actions [plugin] [form_entry] as [context_var_name] %}
+
+    :example:
+
+        {% get_fobi_form_handler_plugin_custom_actions plugin form_entry as form_handler_plugin_custom_actions %}
+    """
+    bits = token.contents.split()
+
+    if 5 == len(bits):
+        if 'as' != bits[-2]:
+            raise TemplateSyntaxError(
+                "Invalid syntax for {0}. Incorrect number of arguments.".format(
+                    bits[0]
+                    )
+                )
+        as_var = bits[-1]
+    else:
+        raise TemplateSyntaxError(
+            "Invalid syntax for {0}. See docs for valid syntax.".format(bits[0])
+            )
+
+    plugin = parser.compile_filter(bits[1])
+    form_entry = parser.compile_filter(bits[2])
+
+    return GetFobiFormHandlerPluginCustomActionsNode(
+        plugin=plugin, form_entry=form_entry, as_var=as_var
+        )
+
+# *****************************************************************************
+# *****************************************************************************
+# *****************************************************************************
+# **************************** Additional Fobi tags ***************************
+# *****************************************************************************
+# *****************************************************************************
+# *****************************************************************************
 
 def render_auth_link(context):
     """
@@ -114,15 +171,17 @@ def render_auth_link(context):
     }
 
 
-register.inclusion_tag('fobi/snippets/render_auth_link.html', takes_context=True)(render_auth_link)
+register.inclusion_tag(
+    'fobi/snippets/render_auth_link.html', takes_context=True
+    )(render_auth_link)
 
-# ***************************************************************************************
-# ***************************************************************************************
-# ***************************************************************************************
-# **************************** Permission tags ******************************************
-# ***************************************************************************************
-# ***************************************************************************************
-# ***************************************************************************************
+# *****************************************************************************
+# *****************************************************************************
+# *****************************************************************************
+# **************************** Permission tags ********************************
+# *****************************************************************************
+# *****************************************************************************
+# *****************************************************************************
 
 class HasEditFormEntryPermissionsNode(Node):
     """
@@ -142,9 +201,12 @@ class HasEditFormEntryPermissionsNode(Node):
                 return False
 
         perms_required = [
-            'fobi.add_formentry', 'fobi.change_formentry', 'fobi.delete_formentry',
-            'fobi.add_formelemententry', 'fobi.change_formelemententry', 'fobi.delete_formelemententry',
-            'fobi.add_formhandlerentry', 'fobi.change_formhandlerentry', 'fobi.delete_formhandlerentry',
+            'fobi.add_formentry', 'fobi.change_formentry',
+            'fobi.delete_formentry',
+            'fobi.add_formelemententry', 'fobi.change_formelemententry',
+            'fobi.delete_formelemententry',
+            'fobi.add_formhandlerentry', 'fobi.change_formhandlerentry',
+            'fobi.delete_formhandlerentry',
         ]
 
         for perm in perms_required:
@@ -183,7 +245,9 @@ def has_edit_form_entry_permissions(parser, token):
 
     if len(bits) not in (1, 3):
         raise TemplateSyntaxError(
-                "Invalid syntax for {0}. Incorrect number of arguments.".format(bits[0])
+                "Invalid syntax for {0}. Incorrect number of arguments.".format(
+                    bits[0]
+                    )
                 )
 
     if 3 == len(bits):
@@ -194,13 +258,13 @@ def has_edit_form_entry_permissions(parser, token):
 
     return HasEditFormEntryPermissionsNode(as_var=as_var)
 
-# ***************************************************************************************
-# ***************************************************************************************
-# ***************************************************************************************
-# **************************** General Django tags **************************************
-# ***************************************************************************************
-# ***************************************************************************************
-# ***************************************************************************************
+# *****************************************************************************
+# *****************************************************************************
+# *****************************************************************************
+# **************************** General Django tags ****************************
+# *****************************************************************************
+# *****************************************************************************
+# *****************************************************************************
 
 class FormFieldType(object):
     """
@@ -267,7 +331,9 @@ def get_form_field_type(parser, token):
     if 4 == len(bits):
         if 'as' != bits[-2]:
             raise TemplateSyntaxError(
-                "Invalid syntax for {0}. Incorrect number of arguments.".format(bits[0])
+                "Invalid syntax for {0}. Incorrect number of arguments.".format(
+                    bits[0]
+                    )
                 )
         as_var = bits[-1]
     else:

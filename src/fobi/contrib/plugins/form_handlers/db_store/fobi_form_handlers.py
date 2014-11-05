@@ -50,7 +50,7 @@ class DBStoreHandlerPlugin(FormHandlerPlugin):
             )
         saved_form_data_entry.save()
 
-    def custom_actions(self):
+    def custom_actions(self, form_entry, request=None):
         """
         Adding a link to view the saved form enties.
 
@@ -58,9 +58,14 @@ class DBStoreHandlerPlugin(FormHandlerPlugin):
         """
         return (
             (
-                reverse('fobi.contrib.plugins.form_handlers.db_store.view_saved_form_data_entries'),
+                reverse('fobi.contrib.plugins.form_handlers.db_store.view_saved_form_data_entries', args=[form_entry.pk]),
                 _("View entries"),
                 'glyphicon glyphicon-list'
+            ),
+            (
+                reverse('fobi.contrib.plugins.form_handlers.db_store.export_saved_form_data_entries', args=[form_entry.pk]),
+                _("Export entries"),
+                'glyphicon glyphicon-export'
             ),
         )
 

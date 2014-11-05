@@ -6,7 +6,7 @@ __all__ = (
     'do_slugify', 'lists_overlap', 'iterable_to_dict', 'map_field_name_to_label',
     'clean_dict', 'two_dicts_to_string', 'empty_string', 'ensure_unique_filename',
     'handle_uploaded_file', 'delete_file', 'clone_file', 'get_registered_models',
-    'admin_change_url', 'uniquify_sequence', 'safe_text',
+    'admin_change_url', 'uniquify_sequence', 'safe_text', 'combine_dicts',
 )
 
 import os
@@ -80,6 +80,13 @@ def clean_dict(source, keys=[], values=[]):
             d[key] = value
 
     return d
+
+def combine_dicts(headers, data):
+    """
+    Takes two dictionaries, assuming one contains a mapping keys to titles
+    and another keys to data. Joins as string and returns a result dict.
+    """
+    return [(value, data.get(key, '')) for key, value in list(headers.items())]
 
 def two_dicts_to_string(headers, data, html_element='p'):
     """

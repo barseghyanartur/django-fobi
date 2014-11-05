@@ -28,6 +28,14 @@ fobi.contrib.apps.feincms_integration.defaults module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.apps.feincms_integration.helpers module
+----------------------------------------------------
+
+.. automodule:: fobi.contrib.apps.feincms_integration.helpers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.apps.feincms_integration.settings module
 -----------------------------------------------------
 

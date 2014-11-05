@@ -184,6 +184,8 @@ Must haves
 + Add Captcha form element plugin.
 + Make tiny fixes in docs (see emails).
 + Disable HTML5 form validation in edit mode.
++ Add the following attribute to the forms in edit mode
+  http://www.w3schools.com/tags/att_input_formnovalidate.asp
 - Make sure, that theme specific theme javascripts, css and other assets,
   are defined in the theme itself. Follow the ``django-dash``
   example as much as possible.
@@ -191,8 +193,7 @@ Must haves
 - Make sure a better (SEO) URLs can be used in intergration packages (at
   least the FeinCMS).
 - Make it possible to strip certain kwargs or widget attributes in edit mode
-  or add the following attribute to the forms in edit mode
-  http://www.w3schools.com/tags/att_input_formnovalidate.asp
+  or
 - Improve the "simple" theme for Django 1.6 and Django 1.7 (tiny bits of 
   styling).
 - Edit form test.
@@ -204,20 +205,26 @@ Must haves
 - At the moment Captcha data is also being saved (db_store form handler).
   Think of fixing that by allowing to exclude certain fields from being 
   processed by form handlers.
+- Add data export features for the ``db_store`` plugin into the "simpe"
+  theme as well (same way as already done fore "bootstrap 3" and
+  "foundation 5" themes.
 
 Should haves
 ===============================================
 + Add Django 1.7 support.
++ Add `max` attribute to the date and datetime fields. Also HTML5.
++ Add an example of how to extend the existing themes with additional
+  functionality. For example, how to take a Bootstrap 3 theme, extend it
+  by giving it another name and actually giving a custom look to the view
+  form template.
++ Make it possible to use a custom user model.
++ Improve the "Simple" theme (Django admin integration part).
 - Make it possible to use something else than Django's ORM (django-mongoengine,
   SQLAlchemy).
 - Fix the view saved form entries template (nicer look) for Foundation 5
   theme.
 - Add birthday field.
 - Fix the input_format option in the date and datetime fields.
-+ Add an example of how to extend the existing themes with additional
-  functionality. For example, how to take a Bootstrap 3 theme, extend it
-  by giving it another name and actually giving a custom look to the view
-  form template.
 - Finish form importers concept and the MailChimp form importer plugin.
 - Make sure it's possible to assign CSS and JS files to the form handler
   plugins.
@@ -228,7 +235,6 @@ Should haves
 - Repeat for the form callbacks the same what's already done to prioritise 
   the form handlers execution order.
 - Add data export features to ``db_store`` plugin.
-+ Make it possible to use a custom user model.
 - Finish the template tag ``get_form_field_type`` which should get the
   field type of the field given.
 - Think of a different URL strategy. Perhaps not a bad idea to have a 
@@ -237,19 +243,19 @@ Should haves
   "barseghyanartur/test-form-1" instead of "test-form-1-N").
 - Once the form ordering has been changed, show a message and warn if user 
   is about to leave the page without saving the changes.
-+ Improve the "Simple" theme (Django admin integration part).
 - In ``db_store` plugin, at the moment if labels are not unique, some data 
   loss happens. Either, make the labels unique in a single form or avoid data
   loss in some other way.
 - Place a basic README.rst in each plugin.
 - Make it possible to create fieldsets (implement as containers).
 - Think of adding hooks so that custom actions are possible without template
-  changes (for example,
-  add a new import app for importing the forms from MailChimp).
-- Add `max` attribute to the date and datetime fields. Also HTML5.
+  changes (for example, add a new import app for importing the forms from
+  MailChimp).
 
 Could haves
 ===============================================
++ Add Dutch translation.
++ Add Russian translation.
 - Make it possible for themes to override the ``fobi.forms.FormEntryForm``
   form?
 - Make it possible to design a form based on existing models.
@@ -263,8 +269,6 @@ Could haves
 - Confugure defaults values of each plugin in projects' settings module.
 - TinyMCE form element cosmetic plugin.
 - In the cosmetic image plugin, render the sized image.
-+ Add Dutch translation.
-+ Add Russian translation.
 - Add Armenian translation.
 - Form wizards (combine forms with each other, having one at a step, finally -
   send it all as one).

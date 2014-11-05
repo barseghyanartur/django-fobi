@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-14 00:19+0200\n"
+"POT-Creation-Date: 2014-11-03 22:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,7 +19,7 @@ msgstr ""
 
 #: admin.py:124 admin.py:193 admin.py:226 models.py:323 models.py:351
 #: contrib/apps/djangocms_integration/models.py:19
-#: contrib/apps/feincms_integration/widgets.py:34
+#: contrib/apps/feincms_integration/widgets.py:40
 #: contrib/plugins/form_handlers/db_store/models.py:53
 #: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:39
 #: contrib/themes/foundation5/templates/foundation5/dashboard.html:29
@@ -61,17 +61,19 @@ msgstr ""
 msgid "POST required when changing in bulk!"
 msgstr ""
 
-#: base.py:88
+#: base.py:97
 msgid "Build your forms"
 msgstr ""
 
-#: base.py:472 models.py:224 models.py:272 models.py:325
+#: base.py:492 models.py:224 models.py:272 models.py:325
 #: contrib/plugins/form_elements/fields/boolean/forms.py:32
+#: contrib/plugins/form_elements/fields/captcha/forms.py:35
 #: contrib/plugins/form_elements/fields/date/forms.py:33
 #: contrib/plugins/form_elements/fields/datetime/forms.py:33
 #: contrib/plugins/form_elements/fields/email/forms.py:37
 #: contrib/plugins/form_elements/fields/file/forms.py:34
 #: contrib/plugins/form_elements/fields/hidden/forms.py:33
+#: contrib/plugins/form_elements/fields/input/forms.py:61
 #: contrib/plugins/form_elements/fields/integer/forms.py:35
 #: contrib/plugins/form_elements/fields/password/forms.py:35
 #: contrib/plugins/form_elements/fields/radio/forms.py:33
@@ -86,12 +88,14 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: base.py:477 contrib/plugins/form_elements/fields/boolean/forms.py:27
+#: base.py:497 contrib/plugins/form_elements/fields/boolean/forms.py:27
+#: contrib/plugins/form_elements/fields/captcha/forms.py:30
 #: contrib/plugins/form_elements/fields/date/forms.py:28
 #: contrib/plugins/form_elements/fields/datetime/forms.py:28
 #: contrib/plugins/form_elements/fields/email/forms.py:32
 #: contrib/plugins/form_elements/fields/file/forms.py:29
 #: contrib/plugins/form_elements/fields/hidden/forms.py:28
+#: contrib/plugins/form_elements/fields/input/forms.py:56
 #: contrib/plugins/form_elements/fields/integer/forms.py:30
 #: contrib/plugins/form_elements/fields/password/forms.py:30
 #: contrib/plugins/form_elements/fields/radio/forms.py:28
@@ -105,11 +109,13 @@ msgstr ""
 msgid "Label"
 msgstr ""
 
-#: base.py:482 contrib/plugins/form_elements/fields/boolean/forms.py:37
+#: base.py:502 contrib/plugins/form_elements/fields/boolean/forms.py:37
+#: contrib/plugins/form_elements/fields/captcha/forms.py:40
 #: contrib/plugins/form_elements/fields/date/forms.py:38
 #: contrib/plugins/form_elements/fields/datetime/forms.py:38
 #: contrib/plugins/form_elements/fields/email/forms.py:42
 #: contrib/plugins/form_elements/fields/file/forms.py:39
+#: contrib/plugins/form_elements/fields/input/forms.py:66
 #: contrib/plugins/form_elements/fields/integer/forms.py:40
 #: contrib/plugins/form_elements/fields/password/forms.py:40
 #: contrib/plugins/form_elements/fields/radio/forms.py:59
@@ -123,12 +129,14 @@ msgstr ""
 msgid "Help text"
 msgstr ""
 
-#: base.py:487 contrib/plugins/form_elements/fields/boolean/forms.py:47
+#: base.py:507 contrib/plugins/form_elements/fields/boolean/forms.py:47
+#: contrib/plugins/form_elements/fields/captcha/forms.py:56
 #: contrib/plugins/form_elements/fields/date/forms.py:53
 #: contrib/plugins/form_elements/fields/datetime/forms.py:53
 #: contrib/plugins/form_elements/fields/email/forms.py:58
 #: contrib/plugins/form_elements/fields/file/forms.py:55
 #: contrib/plugins/form_elements/fields/hidden/forms.py:49
+#: contrib/plugins/form_elements/fields/input/forms.py:82
 #: contrib/plugins/form_elements/fields/integer/forms.py:60
 #: contrib/plugins/form_elements/fields/password/forms.py:56
 #: contrib/plugins/form_elements/fields/radio/forms.py:69
@@ -142,19 +150,19 @@ msgstr ""
 msgid "Required"
 msgstr ""
 
-#: base.py:509
+#: base.py:529
 msgid "Duplicate field name!"
 msgstr ""
 
-#: base.py:514
+#: base.py:534
 msgid "Duplicate label name!"
 msgstr ""
 
-#: base.py:581
+#: base.py:601
 msgid "General"
 msgstr ""
 
-#: base.py:2000
+#: base.py:2027
 msgid "Theme `{0}` does not exist!"
 msgstr ""
 
@@ -433,7 +441,7 @@ msgstr ""
 msgid "The form handler plugin \"{0}\" was deleted successfully."
 msgstr ""
 
-#: views.py:846 contrib/apps/feincms_integration/widgets.py:132
+#: views.py:846 contrib/apps/feincms_integration/widgets.py:180
 msgid "Form {0} was submitted successfully."
 msgstr ""
 
@@ -450,19 +458,83 @@ msgid "No"
 msgstr ""
 
 #: contrib/apps/djangocms_integration/cms_plugins.py:17
-#: contrib/apps/feincms_integration/widgets.py:41
+#: contrib/apps/feincms_integration/widgets.py:89
 msgid "Fobi form"
 msgstr ""
 
-#: contrib/plugins/form_elements/content/dummy/fobi_form_elements.py:20
-msgid "Dummy"
+#: contrib/apps/feincms_integration/widgets.py:43
+msgid "Form template name"
+msgstr ""
+
+#: contrib/apps/feincms_integration/widgets.py:45
+msgid "Template to render the form with."
+msgstr ""
+
+#: contrib/apps/feincms_integration/widgets.py:49
+msgid "Hide form title"
+msgstr ""
+
+#: contrib/apps/feincms_integration/widgets.py:50
+msgid "If checked, no form title is shown."
+msgstr ""
+
+#: contrib/apps/feincms_integration/widgets.py:54
+msgid "Form title"
+msgstr ""
+
+#: contrib/apps/feincms_integration/widgets.py:55
+msgid "Overrides the default form title."
+msgstr ""
+
+#: contrib/apps/feincms_integration/widgets.py:59
+msgid "Submit button text"
+msgstr ""
+
+#: contrib/apps/feincms_integration/widgets.py:60
+msgid "Overrides the default form submit button text."
+msgstr ""
+
+#: contrib/apps/feincms_integration/widgets.py:64
+msgid "Success page template name"
+msgstr ""
+
+#: contrib/apps/feincms_integration/widgets.py:66
+msgid "Template to render the success page with."
+msgstr ""
+
+#: contrib/apps/feincms_integration/widgets.py:70
+msgid "Hide success page title"
+msgstr ""
+
+#: contrib/apps/feincms_integration/widgets.py:71
+msgid "If checked, no success page title is shown."
+msgstr ""
+
+#: contrib/apps/feincms_integration/widgets.py:75
+msgid "Succes page title"
+msgstr ""
+
+#: contrib/apps/feincms_integration/widgets.py:76
+msgid "Overrides the default success page title."
+msgstr ""
+
+#: contrib/apps/feincms_integration/widgets.py:80
+msgid "Succes page text"
+msgstr ""
+
+#: contrib/apps/feincms_integration/widgets.py:81
+msgid "Overrides the default success page text."
 msgstr ""
 
 #: contrib/plugins/form_elements/content/dummy/fobi_form_elements.py:21
+msgid "Dummy"
+msgstr ""
+
+#: contrib/plugins/form_elements/content/dummy/fobi_form_elements.py:22
 msgid "Testing"
 msgstr ""
 
-#: contrib/plugins/form_elements/content/dummy/fobi_form_elements.py:34
+#: contrib/plugins/form_elements/content/dummy/fobi_form_elements.py:35
 msgid "Dummy content"
 msgstr ""
 
@@ -486,13 +558,13 @@ msgstr ""
 msgid "Fit height"
 msgstr ""
 
-#: contrib/plugins/form_elements/content/image/fobi_form_elements.py:27
+#: contrib/plugins/form_elements/content/image/fobi_form_elements.py:28
 msgid "Content image"
 msgstr ""
 
-#: contrib/plugins/form_elements/content/image/fobi_form_elements.py:28
-#: contrib/plugins/form_elements/content/text/fobi_form_elements.py:21
-#: contrib/plugins/form_elements/content/video/fobi_form_elements.py:23
+#: contrib/plugins/form_elements/content/image/fobi_form_elements.py:29
+#: contrib/plugins/form_elements/content/text/fobi_form_elements.py:23
+#: contrib/plugins/form_elements/content/video/fobi_form_elements.py:25
 msgid "Content"
 msgstr ""
 
@@ -517,7 +589,7 @@ msgstr ""
 msgid "No image provided!"
 msgstr ""
 
-#: contrib/plugins/form_elements/content/text/fobi_form_elements.py:20
+#: contrib/plugins/form_elements/content/text/fobi_form_elements.py:22
 msgid "Content text"
 msgstr ""
 
@@ -526,7 +598,7 @@ msgstr ""
 msgid "Text"
 msgstr ""
 
-#: contrib/plugins/form_elements/content/video/fobi_form_elements.py:22
+#: contrib/plugins/form_elements/content/video/fobi_form_elements.py:24
 msgid "Content video"
 msgstr ""
 
@@ -539,17 +611,19 @@ msgstr ""
 msgid "URL"
 msgstr ""
 
-#: contrib/plugins/form_elements/fields/boolean/fobi_form_elements.py:19
+#: contrib/plugins/form_elements/fields/boolean/fobi_form_elements.py:20
 msgid "Boolean"
 msgstr ""
 
-#: contrib/plugins/form_elements/fields/boolean/fobi_form_elements.py:20
+#: contrib/plugins/form_elements/fields/boolean/fobi_form_elements.py:21
+#: contrib/plugins/form_elements/fields/captcha/fobi_form_elements.py:23
 #: contrib/plugins/form_elements/fields/date/fobi_form_elements.py:23
 #: contrib/plugins/form_elements/fields/datetime/fobi_form_elements.py:24
 #: contrib/plugins/form_elements/fields/email/fobi_form_elements.py:25
 #: contrib/plugins/form_elements/fields/file/fobi_form_elements.py:24
 #: contrib/plugins/form_elements/fields/hidden/fobi_form_elements.py:23
-#: contrib/plugins/form_elements/fields/integer/fobi_form_elements.py:23
+#: contrib/plugins/form_elements/fields/input/fobi_form_elements.py:23
+#: contrib/plugins/form_elements/fields/integer/fobi_form_elements.py:30
 #: contrib/plugins/form_elements/fields/password/fobi_form_elements.py:24
 #: contrib/plugins/form_elements/fields/radio/fobi_form_elements.py:23
 #: contrib/plugins/form_elements/fields/select/fobi_form_elements.py:23
@@ -568,6 +642,7 @@ msgstr ""
 #: contrib/plugins/form_elements/fields/email/forms.py:47
 #: contrib/plugins/form_elements/fields/file/forms.py:44
 #: contrib/plugins/form_elements/fields/hidden/forms.py:38
+#: contrib/plugins/form_elements/fields/input/forms.py:71
 #: contrib/plugins/form_elements/fields/integer/forms.py:45
 #: contrib/plugins/form_elements/fields/password/forms.py:45
 #: contrib/plugins/form_elements/fields/radio/forms.py:64
@@ -579,6 +654,10 @@ msgstr ""
 #: contrib/plugins/form_elements/fields/textarea/forms.py:43
 #: contrib/plugins/form_elements/fields/url/forms.py:45
 msgid "Initial"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/captcha/fobi_form_elements.py:22
+msgid "Captcha"
 msgstr ""
 
 #: contrib/plugins/form_elements/fields/date/fobi_form_elements.py:22
@@ -605,6 +684,7 @@ msgstr ""
 #: contrib/plugins/form_elements/fields/email/forms.py:52
 #: contrib/plugins/form_elements/fields/file/forms.py:49
 #: contrib/plugins/form_elements/fields/hidden/forms.py:43
+#: contrib/plugins/form_elements/fields/input/forms.py:76
 #: contrib/plugins/form_elements/fields/password/forms.py:50
 #: contrib/plugins/form_elements/fields/text/forms.py:50
 #: contrib/plugins/form_elements/fields/url/forms.py:50
@@ -612,6 +692,7 @@ msgid "Max length"
 msgstr ""
 
 #: contrib/plugins/form_elements/fields/email/forms.py:63
+#: contrib/plugins/form_elements/fields/input/forms.py:87
 #: contrib/plugins/form_elements/fields/integer/forms.py:65
 #: contrib/plugins/form_elements/fields/password/forms.py:61
 #: contrib/plugins/form_elements/fields/text/forms.py:61
@@ -628,7 +709,55 @@ msgstr ""
 msgid "Hidden"
 msgstr ""
 
-#: contrib/plugins/form_elements/fields/integer/fobi_form_elements.py:22
+#: contrib/plugins/form_elements/fields/input/fobi_form_elements.py:22
+msgid "Input"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/input/forms.py:94
+msgid "Auto-complete (HTML5 autocomplete)"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/input/forms.py:99
+msgid "Auto-focus (HTML5 autofocus)"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/input/forms.py:104
+msgid "Disabled"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/input/forms.py:114
+msgid "List (HTML5 list)"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/input/forms.py:119
+msgid "Max (HTML5 max)"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/input/forms.py:124
+msgid "Min (HTML5 min)"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/input/forms.py:129
+msgid "Multiple (HTML5 multiple)"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/input/forms.py:134
+msgid "Pattern (HTML5 pattern)"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/input/forms.py:139
+msgid "Read-only (HTML readonly)"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/input/forms.py:144
+msgid "Step (HTML5 step)"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/input/forms.py:149
+msgid "Type (HTML type)"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/integer/fobi_form_elements.py:29
 msgid "Integer"
 msgstr ""
 
@@ -658,16 +787,19 @@ msgstr ""
 #: contrib/plugins/form_elements/fields/select/forms.py:40
 #: contrib/plugins/form_elements/fields/select_multiple/forms.py:40
 msgid ""
-"Enter either single values or pairs - one per line. Example:<code><br/>&nbsp;"
-"&nbsp;&nbsp;&nbsp;1<br/>&nbsp;&nbsp;&nbsp;&nbsp;2<br/>&nbsp;&nbsp;&nbsp;"
-"&nbsp;alpha, Alpha<br/>&nbsp;&nbsp;&nbsp;&nbsp;beta, Beta<br/>&nbsp;&nbsp;"
-"&nbsp;&nbsp;omega</code><br/>It finally transforms into the following Python "
-"code:<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;(<br />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-"&nbsp;&nbsp;&nbsp;(1, 1),<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-"&nbsp;(2, 2),<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(\"alpha"
-"\", \"Alpha\"),<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(\"beta"
-"\", \"Beta\"),<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;(\"omega"
-"\", \"omega\"))<br/>&nbsp;&nbsp;&nbsp;&nbsp;)</code>"
+"Enter single values/pairs per line. Example:<code><br/>&nbsp;&nbsp;&nbsp;"
+"&nbsp;1<br/>&nbsp;&nbsp;&nbsp;&nbsp;2<br/>&nbsp;&nbsp;&nbsp;&nbsp;alpha, "
+"Alpha<br/>&nbsp;&nbsp;&nbsp;&nbsp;beta, Beta<br/>&nbsp;&nbsp;&nbsp;&nbsp;"
+"omega</code><br/>It finally transforms into the following HTML code:"
+"<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;select id=\"id_NAME_OF_THE_ELEMENT\" "
+"name=\"NAME_OF_THE_ELEMENT\"&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+"&nbsp;&nbsp;&lt;option value=\"1\"&gt;1&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;"
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"2\"&gt;2&lt;/option&gt;<br/"
+">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"alpha"
+"\"&gt;Alpha&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+"&nbsp;&lt;option value=\"beta\"&gt;Beta&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;"
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"omega\"&gt;omega&lt;/"
+"option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/select&gt;</code>"
 msgstr ""
 
 #: contrib/plugins/form_elements/fields/select/fobi_form_elements.py:22
@@ -695,18 +827,22 @@ msgstr ""
 msgid "Textarea"
 msgstr ""
 
-#: contrib/plugins/form_handlers/db_store/admin.py:24
+#: contrib/plugins/form_handlers/db_store/admin.py:31
 #: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:40
 msgid "Data"
 msgstr ""
 
-#: contrib/plugins/form_handlers/db_store/admin.py:27
+#: contrib/plugins/form_handlers/db_store/admin.py:34
 msgid "Raw"
 msgstr ""
 
-#: contrib/plugins/form_handlers/db_store/admin.py:34
+#: contrib/plugins/form_handlers/db_store/admin.py:43
 #: contrib/plugins/form_handlers/db_store/models.py:61
 msgid "Saved form data entry"
+msgstr ""
+
+#: contrib/plugins/form_handlers/db_store/admin.py:159
+msgid "Export data to CSV/XLS"
 msgstr ""
 
 #: contrib/plugins/form_handlers/db_store/fobi_form_handlers.py:26
@@ -1045,11 +1181,11 @@ msgstr ""
 msgid "Form submitted!"
 msgstr ""
 
-#: templates/fobi/generic/form_entry_submitted_ajax.html:3
+#: templates/fobi/generic/form_entry_submitted_ajax.html:4
 msgid "Thank you!"
 msgstr ""
 
-#: templates/fobi/generic/form_entry_submitted_ajax.html:10
+#: templates/fobi/generic/form_entry_submitted_ajax.html:15
 msgid "Form submitted successfully."
 msgstr ""
 

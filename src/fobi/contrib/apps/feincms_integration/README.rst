@@ -68,7 +68,90 @@ your_project/admin.py
 
     admin.site.register(Page, PageAdmin)
 
+Information for developers
+===============================================
+Template rendering
+-----------------------------------------------
+The embed FeinCMS widget is rendered with use of two theme templates:
+
+- ``view_embed_form_entry_ajax_template``: Used for rendering the form.
+- ``embed_form_entry_submitted_ajax_template``: Used for rendering the form
+  sent event.
+
+
+Using custom templates for rendering the widget
+-----------------------------------------------
+In the widget, you can specify a template which you want to be used for
+rendering the form or the form-sent event.
+
+Example:
+
+.. code-block:: python
+
+    FOBI_FEINCMS_INTEGRATION_FORM_TEMPLATE_CHOICES = (
+        ("yourapp/custom_view_embed_form_v1.html",
+         "Custom embed form view template #1"),
+        ("yourapp/custom_view_embed_form_v2.html",
+         "Custom embed form view template #2"),
+    )
+
+Same goes for form-sent templates.
+
+.. code-block:: python
+
+    FOBI_FEINCMS_INTEGRATION_SUCCESS_PAGE_TEMPLATE_CHOICES = (
+        ("yourapp/custom_embed_form_submitted_v1.html",
+         "Custom form-sent template #1"),
+        ("yourapp/custom_embed_form_submitted_v2.html",
+         "Custom form-sent template #2"),
+    )
+
+Registering a template in the ``FORM_TEMPLATE_CHOICES`` makes it available
+for all the themes. If you rather want to use different custom templates
+for different themes, use the ``FOBI_CUSTOM_THEME_DATA`` as shown in the
+example below.
+
+.. code-block:: python
+
+    FOBI_CUSTOM_THEME_DATA = {
+        'bootstrap3': {
+            'feincms_integration': {
+                'form_template_choices': [
+                    ('fobi/bootstrap3_extras/view_embed_form.html',
+                     "Custom bootstrap3 embed form view template"),
+                ],
+                'success_page_template_choices': [
+                    ('fobi/bootstrap3_extras/embed_form_submitted.html',
+                     "Custom bootstrap3 embed form entry submitted template"),
+                ],
+            },
+        },
+        'foundation5': {
+            'feincms_integration': {
+                'form_template_choices': [
+                    ('fobi/foundation5_extras/view_embed_form.html',
+                     "Custom foundation5 embed form view template"),
+                ],
+                'success_page_template_choices': [
+                    ('fobi/foundation5_extras/embed_form_submitted.html',
+                     "Custom foundation5 embed form entry submitted template"),
+                ],
+            },
+        },
+    }
+
 Usage
 ===============================================
-Note, that rendering of the FeinCMS widget happens with help
-theme template ``view_form_entry_ajax_template``.
+The ``fobi.contrib.apps.feincms_integration.widgets.FobiFormWidget`` consists
+of the following fields:
+
+- Form: The form to be used.
+- Form template name: Template to be used to render the embed form.
+- Hide form title: If checked, no form title would be shown.
+- Form title: Overrides the standard form title.
+- Submit button text: Overrides the default submit button text.
+- Success page template name: Template to be used to render the embed form-sent
+  event.
+- Hide success page title: If checked, no form-sent title would be shown.
+- Success page title: Overrides the form-sent title.
+- Success page text: Overrides the form-sent text.

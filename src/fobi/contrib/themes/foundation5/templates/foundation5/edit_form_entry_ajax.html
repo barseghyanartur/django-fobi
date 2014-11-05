@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n fobi_tags %}
 
 <h3>{% trans "Edit form" %}</h3>
 
@@ -121,8 +121,9 @@
                               <span class="fi-page-delete"></span> {% trans "Delete" %}
                             </a>
                           </li>
-
-                          {% for action in plugin.get_custom_actions %}
+                          {% get_fobi_form_handler_plugin_custom_actions plugin form_entry as form_handler_plugin_custom_actions %}
+                          {#% for action in plugin.get_custom_actions %#}
+                          {% for action in form_handler_plugin_custom_actions %}
                           <li><a href="{{ action.0 }}"><span class="{{ action.2 }}"></span> {{ action.1 }}</a></li>
                           {% endfor %}
                         </ul>

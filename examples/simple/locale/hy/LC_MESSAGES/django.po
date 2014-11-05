@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-14 00:19+0200\n"
+"POT-Creation-Date: 2014-11-03 22:50+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,7 +33,23 @@ msgstr ""
 msgid "Russian"
 msgstr ""
 
-#: settings.py:258
+#: settings.py:244
+msgid "Custom bootstrap3 embed form view template"
+msgstr ""
+
+#: settings.py:250
+msgid "Custom bootstrap3 embed form entry submitted template"
+msgstr ""
+
+#: settings.py:266
+msgid "Custom foundation5 embed form view template"
+msgstr ""
+
+#: settings.py:272
+msgid "Custom foundation5 embed form entry submitted template"
+msgstr ""
+
+#: settings.py:289
 msgid "&copy; django-fobi example site 2014"
 msgstr ""
 
@@ -100,6 +116,16 @@ msgstr ""
 
 #: templates/fobi/base.html:4
 msgid "Fobi example site"
+msgstr ""
+
+#: templates/fobi/bootstrap3_extras/embed_form_entry_submitted_ajax.html:7
+#: templates/fobi/bootstrap3_extras/view_embed_form_entry_ajax.html:7
+#: templates/fobi/foundation5_extras/embed_form_entry_submitted_ajax.html:7
+#: templates/fobi/foundation5_extras/view_embed_form_entry_ajax.html:7
+#, python-format
+msgid ""
+"This is just an example of how can we use a custom\n"
+"     template for rendering the form for the theme %(fobi_theme_uid)s given."
 msgstr ""
 
 #: templates/home/base.html:12

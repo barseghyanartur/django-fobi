@@ -1,5 +1,24 @@
-Release history
+Release history and notes
 =====================================
+0.2
+-------------------------------------
+2014-10-25
+
+Note, that this release contains minor backwards incompatible changes.
+
+- Minor (backwards incompatible) changes in the form handler plugin API. 
+  From now on both ``custom_actions`` and ``get_custom_actions`` methods
+  accept ``form_entry`` (obligatory) and ``request`` (optional) arguments. If
+  you have written your own or have changed existing form handler plugins
+  with use of one of the above mentioned methods, append those arguments to
+  the method declarations when upgrading to this version. If you haven't
+  written your own form or changed existing form handler plugins, you may
+  just upgrade to this version.
+- Added data export features to the ``db_store`` plugin.
+- Minor fixes in ``db_store`` plugin.
+- Added missing documentation for the ``feincms_integration`` app.
+- Updated translations for Dutch and Russian.
+
 0.1.6
 -------------------------------------
 2014-10-25

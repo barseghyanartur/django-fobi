@@ -1237,7 +1237,7 @@ class FormHandlerPlugin(BasePlugin):
             "subclass.".format(self.__class__.__name__)
             )
 
-    def custom_actions(self):
+    def custom_actions(self, form_entry, request=None):
         """
         Override this method in your form handler if you want to specify
         custom actions. Note, that expected return value of this method
@@ -1253,11 +1253,11 @@ class FormHandlerPlugin(BasePlugin):
         >>>  )
         """
 
-    def get_custom_actions(self):
+    def get_custom_actions(self, form_entry, request=None):
         """
         Internal method to for obtaining the ``get_custom_actions``.
         """
-        return self.custom_actions()
+        return self.custom_actions(form_entry, request)
 
 
 class FormCallback(object):
