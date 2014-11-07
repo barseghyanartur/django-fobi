@@ -1244,6 +1244,28 @@ somehow doesn't appear in the list of available plugins, do run the
 plugins into the database, but also is a great way of checking for possible
 errors.
 
+If you have forms refering to form element- of form handler- plugins
+that are currently missing (not registered, removed, failed to load - thus
+there would be a risk that your form would't be rendered properly/fully and
+the necessary data handling wouldn't happen either) you will get an
+appropriate exception. Although it's fine to get an instant error message about 
+such failures in development, in production is wouldn't look appropriate.
+Thus, there are two settings related to the non-existing (not-found) form
+element- and form handler- plugins.
+
+- FOBI_FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS: If you want no error to be
+  shown in case of missing form element plugins, set this to False in
+  your settings module. Default value is True.
+- FOBI_FAIL_ON_MISSING_FORM_HANDLER_PLUGINS: If you want no error to be
+  shown in case of missing form element handlers, set this to False in
+  your settings module. Default value is True.
+
+Troubleshooting
+===============================================
+If you get a ``FormElementPluginDoesNotExist`` or a
+``FormHandlerPluginDoesNotExist`` exception, make sure you have listed your
+plugin in the `settings` module of your project.
+
 License
 ===============================================
 GPL 2.0/LGPL 2.1

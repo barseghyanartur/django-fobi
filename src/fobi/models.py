@@ -395,6 +395,11 @@ class AbstractPluginEntry(models.Model):
 
         if not cls:
             # No need to log here, since already logged in registry.
+            if registry.fail_on_missing_plugin:
+                err_msg = registry.plugin_not_found_error_message.format(
+                    self.plugin_uid, registry.__class__
+                    )
+                raise registry.plugin_not_found_exception_cls(err_msg)
             return None
 
         # Creating plugin instance.

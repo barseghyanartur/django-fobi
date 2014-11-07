@@ -54,9 +54,13 @@ from fobi.discover import autodiscover
 from fobi.constants import CALLBACK_STAGES
 from fobi.settings import (
     DEFAULT_THEME, FORM_HANDLER_PLUGINS_EXECUTION_ORDER,
-    CUSTOM_THEME_DATA, THEME_FOOTER_TEXT, DEBUG
+    CUSTOM_THEME_DATA, THEME_FOOTER_TEXT, FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS,
+    FAIL_ON_MISSING_FORM_HANDLER_PLUGINS, DEBUG
 )
-from fobi.exceptions import InvalidRegistryItemType, ThemeDoesNotExist
+from fobi.exceptions import (
+    InvalidRegistryItemType, DoesNotExist, ThemeDoesNotExist,
+    FormElementPluginDoesNotExist, FormHandlerPluginDoesNotExist
+)
 from fobi.helpers import (
     uniquify_sequence, map_field_name_to_label, clean_dict,
     map_field_name_to_label, get_ignorable_form_values
@@ -308,8 +312,12 @@ class BaseTheme(object):
                 <span class="{delete_option_class}"></span> {delete_text}</a>
               </li>
             </ul>
-            <input type="hidden" value="{form_element_position}" name="form-{counter}-position" id="id_form-{counter}-position" class="form-element-position">
-            <input type="hidden" value="{form_element_pk}" name="form-{counter}-id" id="id_form-{counter}-id">
+            <input type="hidden" value="{form_element_position}"
+                   name="form-{counter}-position"
+                   id="id_form-{counter}-position"
+                   class="form-element-position">
+            <input type="hidden" value="{form_element_pk}"
+                   name="form-{counter}-id" id="id_form-{counter}-id">
             """.format(
                 container_class = cls.form_list_container_class,
                 edit_option_html = "{edit_option_html}",
@@ -460,7 +468,9 @@ class BasePluginForm(object):
         :param django.http.HttpRequest request:
         """
         if self.plugin_data_fields:
-            return self._get_plugin_data(self.plugin_data_fields, request=request, json_format=json_format)
+            return self._get_plugin_data(self.plugin_data_fields,
+                                         request=request,
+                                         json_format=json_format)
 
     def save_plugin_data(self, request=None):
         """
@@ -1147,8 +1157,7 @@ class FormElementPlugin(BasePlugin):
                                               extra={}):
         """
         If ``kwargs_update_func`` is given, is callable and returns results
-        without failures,
-        return the result. Otherwise - return None.
+        without failures, return the result. Otherwise - return None.
         """
         # Check hooks
         if kwargs_update_func and callable(kwargs_update_func):
@@ -1163,7 +1172,6 @@ class FormElementPlugin(BasePlugin):
                     return kwargs_update
             except Exception as e:
                 logger.debug(str(e))
-                #import ipdb; ipdb.set_trace()
         return {}
 
     def _submit_plugin_form_data(self, form_entry, request, form):
@@ -1371,8 +1379,21 @@ class BaseRegistry(object):
     """
     Registry of dash plugins. It's essential, that class registered has the
     ``uid`` property.
+    
+    If ``fail_on_missing_plugin`` is set to True, an appropriate exception
+    (``plugin_not_found_exception_cls``) is raised in cases if plugin cound't
+    be found in the registry.
+
+    :property mixed type:
+    :property bool fail_on_missing_plugin:
+    :property fobi.exceptions.DoesNotExist plugin_not_found_exception_cls:
+    :property str plugin_not_found_error_message:
     """
     type = None
+    fail_on_missing_plugin = False
+    plugin_not_found_exception_cls = DoesNotExist
+    plugin_not_found_error_message = "Can't find plugin with uid `{0}` in " \
+                                     "`{1}` registry."
 
     def __init__(self):
         assert self.type
@@ -1432,11 +1453,17 @@ class BaseRegistry(object):
         :return mixed.
         """
         item = self._registry.get(uid, default)
+
         if not item:
-            logger.debug(
-                "Can't find plugin with uid `{0}` in `{1}` "
-                "registry".format(uid, self.__class__)
+            err_msg = self.plugin_not_found_error_message.format(
+                uid, self.__class__
                 )
+            if self.fail_on_missing_plugin:
+                logger.error(err_msg)
+                raise self.plugin_not_found_exception_cls(err_msg)
+            else:
+                logger.debug(err_msg)
+
         return item
 
 
@@ -1445,6 +1472,8 @@ class FormElementPluginRegistry(BaseRegistry):
     Form element plugins registry.
     """
     type = (FormElementPlugin, FormFieldPlugin)
+    fail_on_missing_plugin = FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS
+    plugin_not_found_exception_cls = FormElementPluginDoesNotExist
 
 
 class FormHandlerPluginRegistry(BaseRegistry):
@@ -1452,6 +1481,8 @@ class FormHandlerPluginRegistry(BaseRegistry):
     Form handler plugins registry.
     """
     type = FormHandlerPlugin
+    fail_on_missing_plugin = FAIL_ON_MISSING_FORM_HANDLER_PLUGINS
+    plugin_not_found_exception_cls = FormHandlerPluginDoesNotExist
 
 
 class ThemeRegistry(BaseRegistry):
@@ -1480,7 +1511,7 @@ class FormCallbackRegistry(object):
 
         :return string:
         """
-        name = "{0}.{1}".format(cls.__module__, cls.__name__)
+        return "{0}.{1}".format(cls.__module__, cls.__name__)
 
     def register(self, cls):
         """
@@ -1494,7 +1525,7 @@ class FormCallbackRegistry(object):
                 "`{1}`".format(cls, self.__class__)
                 )
 
-        uid = self.uidfy(cls)
+        #uid = self.uidfy(cls)
         # If item has not been forced yet, add/replace its' value in the
         # registry.
 
@@ -1659,7 +1690,9 @@ def assemble_form_field_widget_class(base_class, plugin):
         Wrapped class.
         """
         def __new__(cls, name, bases, attrs):
-            new_class = super(DeclarativeMetaclass, cls).__new__(cls, name, bases, attrs)
+            new_class = super(DeclarativeMetaclass, cls).__new__(
+                cls, name, bases, attrs
+                )
             return new_class
 
         def render(self, name, value, attrs=None):
@@ -1672,7 +1705,9 @@ def assemble_form_field_widget_class(base_class, plugin):
                 return widget.render(name, value, attrs=attrs)
             else:
                 #print 'rendered using standard'
-                super(DeclarativeMetaclass, self).render(name, value, attrs=attrs)
+                super(DeclarativeMetaclass, self).render(
+                    name, value, attrs=attrs
+                    )
 
     class WrappedWidget(with_metaclass(DeclarativeMetaclass, base_class)):
         """
@@ -1681,9 +1716,9 @@ def assemble_form_field_widget_class(base_class, plugin):
 
     return WrappedWidget
 
-# ********************************************************************************
-# *********************************** Generic ************************************
-# ********************************************************************************
+# *****************************************************************************
+# *********************************** Generic *********************************
+# *****************************************************************************
 
 def get_registered_plugins(registry):
     """

@@ -4,7 +4,9 @@ __copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'BaseException', 'ImproperlyConfigured', 'InvalidRegistryItemType', 
-    'DoesNotExist', 'ThemeDoesNotExist', 'NoDefaultThemeSet',
+    'DoesNotExist', 'ThemeDoesNotExist', 'PluginDoesNotExist',
+    'FormElementPluginDoesNotExist', 'FormHandlerPluginDoesNotExist',
+    'NoDefaultThemeSet',
 )
 
 class BaseException(Exception):
@@ -36,6 +38,23 @@ class ThemeDoesNotExist(DoesNotExist):
     Raised when no theme with given uid can be found.
     """
 
+
+class PluginDoesNotExist(DoesNotExist):
+    """
+    Raised when no plugin with given uid can be found.
+    """
+
+
+class FormElementPluginDoesNotExist(PluginDoesNotExist):
+    """
+    Raised when no form element plugin with given uid can be found.
+    """
+
+
+class FormHandlerPluginDoesNotExist(PluginDoesNotExist):
+    """
+    Raised when no form handler plugin with given uid can be found.
+    """
 
 class NoDefaultThemeSet(ImproperlyConfigured):
     """

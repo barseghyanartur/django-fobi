@@ -4,11 +4,17 @@ __copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'RESTRICT_PLUGIN_ACCESS', 'FORM_ELEMENT_PLUGINS_MODULE_NAME',
-    'FORM_HANDLER_PLUGINS_MODULE_NAME', 'FORM_CALLBACKS_MODULE_NAME',
-    'THEMES_MODULE_NAME', 'DEFAULT_THEME', 'DISPLAY_AUTH_LINK',
-    'WAIT_BETWEEN_TEST_STEPS', 'WAIT_AT_TEST_END', 'THEME_FOOTER_TEXT',
-    'FORM_IMPORTER_PLUGINS_MODULE_NAME', 'CUSTOM_THEME_DATA',
-    'DEBUG',
+    'FORM_HANDLER_PLUGINS_MODULE_NAME', 'FORM_IMPORTER_PLUGINS_MODULE_NAME',
+    'FORM_CALLBACKS_MODULE_NAME', 'THEMES_MODULE_NAME', 'DEFAULT_THEME',
+    'DISPLAY_AUTH_LINK', 'DEBUG',
+
+    'CUSTOM_THEME_DATA', 'THEME_FOOTER_TEXT',
+
+    'DEFAULT_MAX_LENGTH', 'FORM_HANDLER_PLUGINS_EXECUTION_ORDER',
+    'FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS',
+    'FAIL_ON_MISSING_FORM_HANDLER_PLUGINS'
+
+    'WAIT_BETWEEN_TEST_STEPS', 'WAIT_AT_TEST_END',
 )
 
 from django.utils.translation import ugettext
@@ -45,9 +51,6 @@ DEFAULT_THEME = 'bootstrap3'
 
 DISPLAY_AUTH_LINK = True
 
-WAIT_BETWEEN_TEST_STEPS = 2
-WAIT_AT_TEST_END = 4
-
 DEBUG = False
 
 # **************************************************************
@@ -72,3 +75,15 @@ FORM_HANDLER_PLUGINS_EXECUTION_ORDER = (
     # The 'db_store' is left out intentionally, since it should
     # be the last plugin to be executed.
 )
+
+FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS = True
+FAIL_ON_MISSING_FORM_HANDLER_PLUGINS = True
+
+# **************************************************************
+# **************************************************************
+# ************************ Tests related ***********************
+# **************************************************************
+# **************************************************************
+
+WAIT_BETWEEN_TEST_STEPS = 2
+WAIT_AT_TEST_END = 4

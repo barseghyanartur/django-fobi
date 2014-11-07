@@ -208,6 +208,12 @@ Must haves
 - Add data export features for the ``db_store`` plugin into the "simpe"
   theme as well (same way as already done fore "bootstrap 3" and
   "foundation 5" themes.
+- Add a management command to remove broken form elements.
+- Think of making putting several actions (repair) into the management
+  interface (UI).
+- Add `PluginThemeAddOn`, which would be a stand-alone plugin for having the
+  specific theme HTML/JS/CSS added to the appropriate form element or a form
+  handler plugin.
 
 Should haves
 ===============================================

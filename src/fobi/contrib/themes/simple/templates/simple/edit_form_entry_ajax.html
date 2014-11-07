@@ -1,4 +1,4 @@
-{% load i18n %}
+{% load i18n fobi_tags %}
 
 <h1>{% trans "Edit form" %}</h1>
 
@@ -107,15 +107,15 @@
           </thead>
           <tbody>
           {% for form_handler in form_handlers %}
+            {% with form_handler.get_plugin as plugin %}
+              {% if plugin %}
             <tr class="{% if forloop.counter|divisibleby:2 %}row2{% else %}row1{% endif %}">
               <td>{{ form_handler.plugin_name }}
-                {% if form_handler.plugin_data %}
-                {% with form_handler.get_plugin as plugin %}
+              {% if form_handler.plugin_data %}
                 <a class="popover-link" href="javascript:;" data-toggle="popover" data-content="{% spaceless %}{{ plugin.plugin_data_repr|safe }}{% endspaceless %}" role="button">
                   <span class="badge" title="{% trans 'Info' %}">?</span>
                 </a>
-                {% endwith %}
-                {% endif %}
+              {% endif %}
               </td>
               <td>
                 <ul class="list-inline">
@@ -123,9 +123,15 @@
                   <li><a href="{% url 'fobi.edit_form_handler_entry' form_handler.pk %}"><span class="glyphicon glyphicon-edit"></span> {% trans "Edit" %}</a></li>
                   {% endif %}
                   <li><a href="{% url 'fobi.delete_form_handler_entry' form_handler.pk %}"><span class="glyphicon glyphicon-remove"></span> {% trans "Delete" %}</a></li>
+                  {% get_fobi_form_handler_plugin_custom_actions plugin form_entry as form_handler_plugin_custom_actions %}
+                  {% for action in form_handler_plugin_custom_actions %}
+                  <li><a href="{{ action.0 }}"><span class="{{ action.2 }}"></span> {{ action.1 }}</a></li>
+                  {% endfor %}
                 </ul>
               </td>
             </tr>
+              {% endif %}
+            {% endwith %}
           {% endfor %}
           </tbody>
         </table>

@@ -7,9 +7,6 @@ __all__ = ('DBStoreHandlerPlugin',)
 import json
 import datetime
 
-from six import string_types
-
-from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 
@@ -32,13 +29,10 @@ class DBStoreHandlerPlugin(FormHandlerPlugin):
         :param django.http.HttpRequest request:
         :param django.forms.Form form:
         """
-        #import ipdb; ipdb.set_trace()
         # Clean up the values, leave our content fields and empty values.
         field_name_to_label_map, cleaned_data = get_processed_form_data(form)
 
         for key, value in cleaned_data.items():
-            if isinstance(value, string_types) and value.startswith(settings.MEDIA_URL):
-                cleaned_data[key] = '<a href="{value}">{value}</a>'.format(value=value)
             if isinstance(value, (datetime.datetime, datetime.date)):
                 cleaned_data[key] = value.isoformat() if hasattr(value, 'isoformat') else value
 
@@ -58,12 +52,14 @@ class DBStoreHandlerPlugin(FormHandlerPlugin):
         """
         return (
             (
-                reverse('fobi.contrib.plugins.form_handlers.db_store.view_saved_form_data_entries', args=[form_entry.pk]),
+                reverse('fobi.contrib.plugins.form_handlers.db_store.view_saved_form_data_entries',
+                        args=[form_entry.pk]),
                 _("View entries"),
                 'glyphicon glyphicon-list'
             ),
             (
-                reverse('fobi.contrib.plugins.form_handlers.db_store.export_saved_form_data_entries', args=[form_entry.pk]),
+                reverse('fobi.contrib.plugins.form_handlers.db_store.export_saved_form_data_entries',
+                        args=[form_entry.pk]),
                 _("Export entries"),
                 'glyphicon glyphicon-export'
             ),

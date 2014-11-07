@@ -56,10 +56,7 @@ class HTTPRepostHandlerPlugin(FormHandlerPlugin):
                 file_path = settings.PROJECT_DIR('../{0}'.format(file_path))
                 files[field_name] = (imf.name, open(file_path, 'rb'))
 
-        #logger.debug("ORIGINAL REQUEST FILES: ")
-        #logger.debug(request.FILES)
         for field_name, imf in request.FILES.items():
-            #import ipdb; ipdb.set_trace()
             try:
                 file_path = form.cleaned_data.get(field_name, '')
                 process_path(file_path, imf)
@@ -67,9 +64,6 @@ class HTTPRepostHandlerPlugin(FormHandlerPlugin):
                 file_path = extract_file_path(imf.name)
                 process_path(file_path, imf)
 
-        #logger.debug("FILES: ")
-        #logger.debug(files)
-        #import ipdb; ipdb.set_trace()
         response = requests.post(self.data.endpoint_url, \
                                  data=request.POST, files=files)
 

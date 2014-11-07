@@ -6,9 +6,11 @@ __all__ = ('SavedFormDataEntry',)
 
 import json
 
+from six import string_types
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-#from django.contrib.auth.models import User
+from django.conf import settings
 
 from django.db import models
 
@@ -38,7 +40,8 @@ except ImportError:
         raise ImproperlyConfigured("Your custom user model ({0}.{1}) doesn't "
                                    "have ``username`` property, while "
                                    "``django-fobi`` relies on its' presence"
-                                   ".".format(user._meta.app_label, user._meta.object_name))
+                                   ".".format(user._meta.app_label, \
+                                              user._meta.object_name))
 
 # ****************************************************************************
 # ****************************************************************************
@@ -50,9 +53,12 @@ class SavedFormDataEntry(models.Model):
     """
     Saved form data.
     """
-    form_entry = models.ForeignKey('fobi.FormEntry', verbose_name=_("Form"), null=True, blank=True)
-    user = models.ForeignKey(User, verbose_name=_("User"), null=True, blank=True)
-    form_data_headers = models.TextField(_("Form data headers"), null=True, blank=True)
+    form_entry = models.ForeignKey('fobi.FormEntry', verbose_name=_("Form"),
+                                   null=True, blank=True)
+    user = models.ForeignKey(User, verbose_name=_("User"), null=True,
+                             blank=True)
+    form_data_headers = models.TextField(_("Form data headers"), null=True,
+                                         blank=True)
     saved_data = models.TextField(_("Plugin data"), null=True, blank=True)
     created = models.DateTimeField(_("Date created"), auto_now_add=True)
 
@@ -72,6 +78,13 @@ class SavedFormDataEntry(models.Model):
         """
         headers = json.loads(self.form_data_headers)
         data = json.loads(self.saved_data)
+        for key, value in data.items():
+            if isinstance(value, string_types) and \
+               (value.startswith(settings.MEDIA_URL) or \
+                value.startswith('http://') or value.startswith('https://')):
+
+                data[key] = '<a href="{value}">{value}</a>'.format(value=value)
+
         return two_dicts_to_string(headers, data)
     formatted_saved_data.allow_tags = True
     formatted_saved_data.short_description = _("Saved data")

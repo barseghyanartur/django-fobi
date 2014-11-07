@@ -103,6 +103,7 @@
                   <tbody>
                   {% for form_handler in form_handlers %}
                     {% with form_handler.get_plugin as plugin %}
+                      {% if plugin %}
                     <tr>
                       <td>{{ form_handler.plugin_name }}
                         {% if form_handler.plugin_data or plugin.plugin_data_repr %}
@@ -125,6 +126,7 @@
                         </ul>
                       </td>
                     </tr>
+                      {% endif %}
                     {% endwith %}
                   {% endfor %}
                   </tbody>

@@ -15,12 +15,18 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'RESTRICT_PLUGIN_ACCESS', 'FORM_ELEMENT_PLUGINS_MODULE_NAME', 
-    'FORM_HANDLER_PLUGINS_MODULE_NAME', 'FORM_CALLBACKS_MODULE_NAME',
-    'THEMES_MODULE_NAME', 'DEFAULT_THEME', 'DISPLAY_AUTH_LINK',
-    'WAIT_BETWEEN_TEST_STEPS', 'WAIT_AT_TEST_END', 'THEME_FOOTER_TEXT',
-    'FORM_HANDLER_PLUGINS_EXECUTION_ORDER', 'CUSTOM_THEME_DATA',
-    'FORM_IMPORTER_PLUGINS_MODULE_NAME', 'DEBUG',
+    'RESTRICT_PLUGIN_ACCESS', 'FORM_ELEMENT_PLUGINS_MODULE_NAME',
+    'FORM_HANDLER_PLUGINS_MODULE_NAME', 'FORM_IMPORTER_PLUGINS_MODULE_NAME',
+    'FORM_CALLBACKS_MODULE_NAME', 'THEMES_MODULE_NAME', 'DEFAULT_THEME',
+    'DISPLAY_AUTH_LINK', 'DEBUG',
+
+    'CUSTOM_THEME_DATA', 'THEME_FOOTER_TEXT',
+
+    'DEFAULT_MAX_LENGTH', 'FORM_HANDLER_PLUGINS_EXECUTION_ORDER',
+    'FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS',
+    'FAIL_ON_MISSING_FORM_HANDLER_PLUGINS'
+
+    'WAIT_BETWEEN_TEST_STEPS', 'WAIT_AT_TEST_END',
 )
 
 from fobi.conf import get_setting
@@ -31,14 +37,16 @@ from fobi.exceptions import NoDefaultThemeSet
 # *************************** Core *****************************
 # **************************************************************
 # **************************************************************
-
 RESTRICT_PLUGIN_ACCESS = get_setting('RESTRICT_PLUGIN_ACCESS')
 
-FORM_ELEMENT_PLUGINS_MODULE_NAME = get_setting('FORM_ELEMENT_PLUGINS_MODULE_NAME')
+FORM_ELEMENT_PLUGINS_MODULE_NAME = \
+    get_setting('FORM_ELEMENT_PLUGINS_MODULE_NAME')
 
-FORM_HANDLER_PLUGINS_MODULE_NAME = get_setting('FORM_HANDLER_PLUGINS_MODULE_NAME')
+FORM_HANDLER_PLUGINS_MODULE_NAME = \
+    get_setting('FORM_HANDLER_PLUGINS_MODULE_NAME')
 
-FORM_IMPORTER_PLUGINS_MODULE_NAME = get_setting('FORM_IMPORTER_PLUGINS_MODULE_NAME')
+FORM_IMPORTER_PLUGINS_MODULE_NAME = \
+    get_setting('FORM_IMPORTER_PLUGINS_MODULE_NAME')
 
 FORM_CALLBACKS_MODULE_NAME = get_setting('FORM_CALLBACKS_MODULE_NAME')
 
@@ -50,9 +58,6 @@ DISPLAY_AUTH_LINK = get_setting('DISPLAY_AUTH_LINK')
 
 if not DEFAULT_THEME:
     raise NoDefaultThemeSet("No default theme set!")
-
-WAIT_BETWEEN_TEST_STEPS = get_setting('WAIT_BETWEEN_TEST_STEPS')
-WAIT_AT_TEST_END = get_setting('WAIT_AT_TEST_END')
 
 DEBUG = get_setting('DEBUG')
 
@@ -69,7 +74,21 @@ THEME_FOOTER_TEXT = get_setting('THEME_FOOTER_TEXT')
 # *********************** Plugin related ***********************
 # **************************************************************
 # **************************************************************
-
 DEFAULT_MAX_LENGTH = get_setting('DEFAULT_MAX_LENGTH')
 
-FORM_HANDLER_PLUGINS_EXECUTION_ORDER = get_setting('FORM_HANDLER_PLUGINS_EXECUTION_ORDER')
+FORM_HANDLER_PLUGINS_EXECUTION_ORDER = \
+    get_setting('FORM_HANDLER_PLUGINS_EXECUTION_ORDER')
+
+FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS = \
+    get_setting('FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS')
+
+FAIL_ON_MISSING_FORM_HANDLER_PLUGINS = \
+    get_setting('FAIL_ON_MISSING_FORM_HANDLER_PLUGINS')
+
+# **************************************************************
+# **************************************************************
+# ************************ Tests related ***********************
+# **************************************************************
+# **************************************************************
+WAIT_BETWEEN_TEST_STEPS = get_setting('WAIT_BETWEEN_TEST_STEPS')
+WAIT_AT_TEST_END = get_setting('WAIT_AT_TEST_END')

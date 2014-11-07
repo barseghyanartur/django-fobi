@@ -57,7 +57,7 @@ class SelectMultipleModelObjectsInputPlugin(FormFieldPlugin):
         """
         # Get the object
         obj = form.cleaned_data.get(self.data.name, None)
-        #import ipdb; ipdb.set_trace()
+
         if obj:
             # Handle the upload
             admin_url = admin_change_url(

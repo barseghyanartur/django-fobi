@@ -10,6 +10,8 @@ __all__ = (
     'dashboard', 'view_form_entry', 'form_entry_submitted',
 )
 
+#import logging
+
 from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect
 from django.core.exceptions import ObjectDoesNotExist
@@ -43,6 +45,7 @@ from fobi.utils import (
     append_edit_and_delete_links_to_field
     )
 
+#logger = logging.getLogger(__name__)
 
 # *****************************************************************************
 # *****************************************************************************

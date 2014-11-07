@@ -1,5 +1,19 @@
 Release history and notes
 =====================================
+0.2.1
+-------------------------------------
+2014-11-06
+
+- Minor improvements of the `db_store` plugin.
+- Minor improvements of the `simple` theme. Make sure that custom
+  form handler actions are properly shown in the form handlers list.
+- Make it possible to fail silently on missing form element or form
+  handler plugins by setting the respected values to False:
+
+  * `FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS`,
+  * `FAIL_ON_MISSING_FORM_HANDLER_PLUGINS`. Raising an appropriate exception
+    otherwise.
+
 0.2
 -------------------------------------
 2014-11-05
@@ -12,8 +26,8 @@ Note, that this release contains minor backwards incompatible changes.
   you have written your own or have changed existing form handler plugins
   with use of one of the above mentioned methods, append those arguments to
   the method declarations when upgrading to this version. If you haven't
-  written your own form or changed existing form handler plugins, you may
-  just upgrade to this version.
+  written your own or changed existing form handler plugins, you may just 
+  upgrade to this version.
 - Added data export features to the ``db_store`` plugin.
 - Minor fixes in ``db_store`` plugin.
 - Added missing documentation for the ``feincms_integration`` app.
