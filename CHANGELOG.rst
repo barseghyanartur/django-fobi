@@ -10,8 +10,8 @@ Release history and notes
 - Make it possible to fail silently on missing form element or form
   handler plugins by setting the respected values to False:
 
-  * `FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS`,
-  * `FAIL_ON_MISSING_FORM_HANDLER_PLUGINS`.
+  * `FOBI_FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS`,
+  * `FOBI_FAIL_ON_MISSING_FORM_HANDLER_PLUGINS`.
   
   Otherwise an appropriate exception is raised.
 
