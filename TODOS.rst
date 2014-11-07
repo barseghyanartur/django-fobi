@@ -186,6 +186,9 @@ Must haves
 + Disable HTML5 form validation in edit mode.
 + Add the following attribute to the forms in edit mode
   http://www.w3schools.com/tags/att_input_formnovalidate.asp
++ Add data export features for the ``db_store`` plugin into the "simpe"
+  theme as well (same way as already done fore "bootstrap 3" and
+  "foundation 5" themes.
 - Make sure, that theme specific theme javascripts, css and other assets,
   are defined in the theme itself. Follow the ``django-dash``
   example as much as possible.
@@ -205,9 +208,6 @@ Must haves
 - At the moment Captcha data is also being saved (db_store form handler).
   Think of fixing that by allowing to exclude certain fields from being 
   processed by form handlers.
-- Add data export features for the ``db_store`` plugin into the "simpe"
-  theme as well (same way as already done fore "bootstrap 3" and
-  "foundation 5" themes.
 - Add a management command to remove broken form elements.
 - Think of making putting several actions (repair) into the management
   interface (UI).
