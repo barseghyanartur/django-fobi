@@ -11,8 +11,9 @@ Release history and notes
   handler plugins by setting the respected values to False:
 
   * `FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS`,
-  * `FAIL_ON_MISSING_FORM_HANDLER_PLUGINS`. Raising an appropriate exception
-    otherwise.
+  * `FAIL_ON_MISSING_FORM_HANDLER_PLUGINS`.
+  
+  Otherwise an appropriate exception is raised.
 
 0.2
 -------------------------------------
