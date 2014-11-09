@@ -26,7 +26,7 @@ need to do is update the app paths in the ``settings`` module of your project.
   ``content_image``, ``content_text`` and ``content_video``.
 - Added ``foundation5`` and ``simple`` theme widgets for ``db_store`` plugin.
 - If you have been overriding the defaults of the ``db_store`` plugin, change
-  the prefix from ``FOBI_PLUGIN_DB_EXPORT_`` to `FOBI_PLUGIN_DB_STORE_`. For
+  the prefix from ``FOBI_PLUGIN_DB_EXPORT_`` to ``FOBI_PLUGIN_DB_STORE_``. For
   example,  ``FOBI_PLUGIN_DB_EXPORT_CSV_DELIMITER`` should become
   ``FOBI_PLUGIN_DB_STORE_CSV_DELIMITER``.
 - Mentioning the ``fobi_find_broken_entries`` management command in the
