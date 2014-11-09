@@ -84,6 +84,14 @@ fobi.contrib.plugins.form_handlers.db_store.views module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_handlers.db_store.widgets module
+----------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_handlers.db_store.widgets
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

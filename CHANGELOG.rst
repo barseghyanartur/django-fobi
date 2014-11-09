@@ -1,5 +1,39 @@
 Release history and notes
 =====================================
+0.3
+-------------------------------------
+2014-11-09
+
+Note, that this release contains minor backwards incompatible changes. The
+changed does not anyhow affect your existing forms or data as long as you
+update the app paths in the `settings` module of your project.
+
+- Minor core improvements related to the themeing of the form handler plugins.
+- Several presentational form element plugins have been renamed.
+  The `fobi.contrib.plugins.form_elements.content.image` plugin has been
+  renamed to `fobi.contrib.plugins.form_elements.content.content_image`.
+  The `fobi.contrib.plugins.form_elements.content.text` plugin has been
+  renamed to `fobi.contrib.plugins.form_elements.content.content_text`.
+  The `fobi.contrib.plugins.form_elements.content.video` plugin has been
+  renamed to `fobi.contrib.plugins.form_elements.content.content_video`.
+  If you have used any of the above mentioned plugins in your project, make
+  sure to update the app paths in the `settings` module of your project.
+- The `fobi.contrib.plugins.form_elements.content.dummy` plugin has been moved
+  to `fobi.contrib.plugins.form_elements.text.dummy` location. If you have used
+  it in your project, make sure to update the its' path in the `settings`
+  module of your project.
+- Added readme to the following content form element plugins: `dummy`,
+  `content_image`, `content_text` and `content_video`.
+- Added `foundation5` and `simple` theme widgets for `db_store` plugin.
+- If you have been overriding the defaults of the `db_store` plugin, change
+  the prefix from `FOBI_PLUGIN_DB_EXPORT_` to `FOBI_PLUGIN_DB_STORE_`. For
+  example,  `FOBI_PLUGIN_DB_EXPORT_CSV_DELIMITER` should become
+  `FOBI_PLUGIN_DB_STORE_CSV_DELIMITER`.
+- Mentioning the `fobi_find_broken_entries` management command in the
+  documentation, as well as improving the management command itself (more
+  verbose output).
+- Birthday field added.
+
 0.2.1
 -------------------------------------
 2014-11-06
@@ -8,12 +42,10 @@ Release history and notes
 - Minor improvements of the `simple` theme. Make sure that custom
   form handler actions are properly shown in the form handlers list.
 - Make it possible to fail silently on missing form element or form
-  handler plugins by setting the respected values to False:
-
-  * `FOBI_FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS`,
-  * `FOBI_FAIL_ON_MISSING_FORM_HANDLER_PLUGINS`.
-  
-  Otherwise an appropriate exception is raised.
+  handler plugins by setting the respected values to False: 
+  `FOBI_FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS`,
+  `FOBI_FAIL_ON_MISSING_FORM_HANDLER_PLUGINS`. Otherwise an appropriate
+  exception is raised.
 
 0.2
 -------------------------------------

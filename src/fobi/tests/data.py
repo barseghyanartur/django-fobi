@@ -9,23 +9,38 @@ __all__ = (
 
 from django.utils.text import force_text
 
-from fobi.contrib.plugins.form_elements.content.text.fobi_form_elements import ContentTextPlugin
-from fobi.contrib.plugins.form_elements.content.image.fobi_form_elements import ContentImagePlugin
+from fobi.contrib.plugins.form_elements.content.content_text.fobi_form_elements \
+    import ContentTextPlugin
+from fobi.contrib.plugins.form_elements.content.content_image.fobi_form_elements \
+    import ContentImagePlugin
 
-from fobi.contrib.plugins.form_elements.fields.boolean.fobi_form_elements import BooleanSelectPlugin
-from fobi.contrib.plugins.form_elements.fields.email.fobi_form_elements import EmailPlugin
-from fobi.contrib.plugins.form_elements.fields.file.fobi_form_elements import FileInputPlugin
-from fobi.contrib.plugins.form_elements.fields.hidden.fobi_form_elements import HiddenInputPlugin
-from fobi.contrib.plugins.form_elements.fields.integer.fobi_form_elements import IntegerInputPlugin
-from fobi.contrib.plugins.form_elements.fields.select.fobi_form_elements import SelectInputPlugin
-from fobi.contrib.plugins.form_elements.fields.select_model_object.fobi_form_elements import SelectModelObjectInputPlugin
-from fobi.contrib.plugins.form_elements.fields.select_multiple.fobi_form_elements import SelectMultipleInputPlugin
-from fobi.contrib.plugins.form_elements.fields.text.fobi_form_elements import TextInputPlugin
-from fobi.contrib.plugins.form_elements.fields.textarea.fobi_form_elements import TextareaPlugin
+from fobi.contrib.plugins.form_elements.fields.boolean.fobi_form_elements \
+    import BooleanSelectPlugin
+from fobi.contrib.plugins.form_elements.fields.email.fobi_form_elements \
+    import EmailPlugin
+from fobi.contrib.plugins.form_elements.fields.file.fobi_form_elements \
+    import FileInputPlugin
+from fobi.contrib.plugins.form_elements.fields.hidden.fobi_form_elements \
+    import HiddenInputPlugin
+from fobi.contrib.plugins.form_elements.fields.integer.fobi_form_elements \
+    import IntegerInputPlugin
+from fobi.contrib.plugins.form_elements.fields.select.fobi_form_elements \
+    import SelectInputPlugin
+from fobi.contrib.plugins.form_elements.fields.select_model_object.fobi_form_elements \
+    import SelectModelObjectInputPlugin
+from fobi.contrib.plugins.form_elements.fields.select_multiple.fobi_form_elements \
+    import SelectMultipleInputPlugin
+from fobi.contrib.plugins.form_elements.fields.text.fobi_form_elements \
+    import TextInputPlugin
+from fobi.contrib.plugins.form_elements.fields.textarea.fobi_form_elements \
+    import TextareaPlugin
 
-from fobi.contrib.plugins.form_handlers.db_store.fobi_form_handlers import DBStoreHandlerPlugin
-from fobi.contrib.plugins.form_handlers.mail.fobi_form_handlers import MailHandlerPlugin
-from fobi.contrib.plugins.form_handlers.http_repost.fobi_form_handlers import HTTPRepostHandlerPlugin
+from fobi.contrib.plugins.form_handlers.db_store.fobi_form_handlers \
+    import DBStoreHandlerPlugin
+from fobi.contrib.plugins.form_handlers.mail.fobi_form_handlers \
+    import MailHandlerPlugin
+from fobi.contrib.plugins.form_handlers.http_repost.fobi_form_handlers \
+    import HTTPRepostHandlerPlugin
 
 TEST_FORM_ELEMENT_PLUGIN_DATA = {
     force_text(BooleanSelectPlugin.name): {

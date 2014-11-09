@@ -15,12 +15,13 @@ template_dirs = [
 
     "src/fobi/contrib/themes/bootstrap3/templates/bootstrap3", # Bootstrap 3
     "src/fobi/contrib/themes/foundation5/templates/foundation5", # Foundation 5
+    "src/fobi/contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget", # DB Store widget for Foundation 5
     "src/fobi/contrib/themes/simple/templates/simple", # Simple
 
     #"src/fobi/contrib/apps/djangocms_integration/templates/djangocms_integration", # DjangoCMS integration
     #"src/fobi/contrib/apps/feincms_integration/templates/feincms_integration", # FeinCMS integration
 
-    "src/fobi/contrib/plugins/form_elements/content/image/templates/image", # Content image
+    "src/fobi/contrib/plugins/form_elements/content/content_image/templates/content_image", # Content image
 
     "src/fobi/contrib/plugins/form_handlers/db_store/templates/db_store", # DB Store
     "src/fobi/contrib/plugins/form_handlers/mail/templates/mail", # Mail
@@ -35,7 +36,7 @@ static_dirs = [
 
     "src/fobi/contrib/plugins/form_handlers/db_store/static", # DB Store
 
-    "src/fobi/contrib/plugins/form_elements/content/dummy/static", # Content image
+    "src/fobi/contrib/plugins/form_elements/test/dummy/static", # Content image
 ]
 
 locale_dirs = [
@@ -56,7 +57,7 @@ for static_dir in static_dirs:
 for locale_dir in locale_dirs:
     locale_files += [os.path.join(locale_dir, f) for f in os.listdir(locale_dir)]
 
-version = '0.2.1'
+version = '0.3'
 
 install_requires = [
     'Pillow>=2.0.0',

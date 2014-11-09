@@ -12,9 +12,9 @@ from django.core.management import call_command
 from django.core.exceptions import ObjectDoesNotExist
 
 from fobi.models import FormEntry, FormElementEntry, FormHandlerEntry
-from fobi.contrib.plugins.form_elements.content.text.fobi_form_elements \
+from fobi.contrib.plugins.form_elements.content.content_text.fobi_form_elements \
     import ContentTextPlugin
-from fobi.contrib.plugins.form_elements.content.image.fobi_form_elements \
+from fobi.contrib.plugins.form_elements.content.content_image.fobi_form_elements \
     import ContentImagePlugin
 
 from fobi.contrib.plugins.form_elements.fields.boolean.fobi_form_elements \

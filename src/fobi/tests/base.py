@@ -27,8 +27,8 @@ from fobi.base import (
 from fobi.models import FormEntry, FormElementEntry, FormHandlerEntry
 from fobi.dynamic import assemble_form_class
 
-from fobi.contrib.plugins.form_elements.content.text.fobi_form_elements import ContentTextPlugin
-from fobi.contrib.plugins.form_elements.content.image.fobi_form_elements import ContentImagePlugin
+from fobi.contrib.plugins.form_elements.content.content_text.fobi_form_elements import ContentTextPlugin
+from fobi.contrib.plugins.form_elements.content.content_image.fobi_form_elements import ContentImagePlugin
 
 from fobi.contrib.plugins.form_elements.fields.boolean.fobi_form_elements import BooleanSelectPlugin
 from fobi.contrib.plugins.form_elements.fields.email.fobi_form_elements import EmailPlugin

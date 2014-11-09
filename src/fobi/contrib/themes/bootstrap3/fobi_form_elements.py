@@ -6,7 +6,9 @@ __all__ = ('DummyPluginWidget',)
 
 from fobi.base import form_element_plugin_widget_registry
 from fobi.contrib.themes.bootstrap3 import UID
-from fobi.contrib.plugins.form_elements.content.dummy.widgets import BaseDummyPluginWidget
+from fobi.contrib.plugins.form_elements.test.dummy.widgets import (
+    BaseDummyPluginWidget
+)
 
 class DummyPluginWidget(BaseDummyPluginWidget):
     """

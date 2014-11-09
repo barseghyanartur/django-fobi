@@ -11,7 +11,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 
 from fobi.base import (
-    FormHandlerPlugin, form_handler_plugin_registry, get_processed_form_data
+    FormHandlerPlugin, form_handler_plugin_registry, get_processed_form_data,
+    get_form_handler_plugin_widget
 )
 from fobi.contrib.plugins.form_handlers.db_store import UID
 from fobi.contrib.plugins.form_handlers.db_store.models import (
@@ -50,18 +51,29 @@ class DBStoreHandlerPlugin(FormHandlerPlugin):
 
         :return iterable:
         """
+        widget = get_form_handler_plugin_widget(
+            self.uid, request=request, as_instance=True
+            )
+
+        if widget:
+            view_entries_icon_class = widget.view_entries_icon_class
+            export_entries_icon_class = widget.export_entries_icon_class
+        else:
+            view_entries_icon_class = 'glyphicon glyphicon-list'
+            export_entries_icon_class = 'glyphicon glyphicon-export'
+
         return (
             (
                 reverse('fobi.contrib.plugins.form_handlers.db_store.view_saved_form_data_entries',
                         args=[form_entry.pk]),
                 _("View entries"),
-                'glyphicon glyphicon-list'
+                view_entries_icon_class
             ),
             (
                 reverse('fobi.contrib.plugins.form_handlers.db_store.export_saved_form_data_entries',
                         args=[form_entry.pk]),
                 _("Export entries"),
-                'glyphicon glyphicon-export'
+                export_entries_icon_class
             ),
         )
 

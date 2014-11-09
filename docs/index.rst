@@ -127,10 +127,10 @@ Or latest stable version from BitBucket:
         'fobi.contrib.plugins.form_elements.fields.url',
 
         # Fobi form elements - content elements
-        'fobi.contrib.plugins.form_elements.content.dummy',
-        'fobi.contrib.plugins.form_elements.content.image',
-        'fobi.contrib.plugins.form_elements.content.text',
-        'fobi.contrib.plugins.form_elements.content.video',
+        'fobi.contrib.plugins.form_elements.test.dummy',
+        'fobi.contrib.plugins.form_elements.content.content_image',
+        'fobi.contrib.plugins.form_elements.content.content_text',
+        'fobi.contrib.plugins.form_elements.content.content_video',
 
         # Form handlers
         'fobi.contrib.plugins.form_handlers.db_store',
@@ -262,9 +262,9 @@ plugin module should be put into the ``INSTALLED_APPS`` of your Django
 projects' settings.
 
 In some cases, you would need plugin specific overridable settings (see
-``fobi.contrib.form_elements.fields.content.image`` plugin as an example).
-You are advised to write your settings in such a way, that variables of your
-Django project settings module would have `FOBI_PLUGIN_` prefix.
+``fobi.contrib.form_elements.fields.content.content_image`` plugin as an
+example). You are advised to write your settings in such a way, that variables
+of your Django project settings module would have `FOBI_PLUGIN_` prefix.
 
 Define and register the form element plugin
 -----------------------------------------------
@@ -1146,6 +1146,7 @@ in directory of each plugin for details.
 
 Fields
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- `Birthday (year, month, day selection drop-downs) <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/birthday/>`_
 - `Boolean (checkbox) <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/boolean/>`_
 - `Captcha <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/captcha/>`_
 - `Date <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/date/>`_
@@ -1167,15 +1168,22 @@ Fields
 Content
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Content plugins are presentational plugins, that make your forms look more
+complete and content rich.
 
-- `Dummy <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/dummy/>`_:
-  Mainly for dev purposes.
-- `Content image <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/image/>`_:
+- `Content image <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_image/>`_:
   Insert an image.
-- `Content text <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/text/>`_:
+- `Content text <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_text/>`_:
   Add text.
-- `Content video <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/video/>`_:
+- `Content video <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_video/>`_:
   Add an embed YouTube or Vimeo video.
+
+Test
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Test plugins are made for dev purposes only.
+
+- `Dummy <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/test/dummy/>`_:
+  Mainly for dev purposes.
+
 
 Bundled form handler plugins
 -----------------------------------------------
@@ -1239,10 +1247,17 @@ see the broken entries in development. Set the ``FOBI_DEBUG`` to True
 in the ``settings.py`` of your project in order to do so.
 
 Most of the errors are logged (DEBUG). If you have written a plugin and it
-somehow doesn't appear in the list of available plugins, do run the
-./manage.py fobi_sync_plugins management command since it not only syncs your
-plugins into the database, but also is a great way of checking for possible
-errors.
+somehow doesn't appear in the list of available plugins, do run the following
+management command since it not only syncs your plugins into the database,
+but also is a great way of checking for possible errors.
+
+.. code-block:: none
+
+    ./manage.py fobi_sync_plugins
+
+Run the following command in order to identify the broken plugins.
+
+    ./manage.py fobi_find_broken_entries
 
 If you have forms refering to form element- of form handler- plugins
 that are currently missing (not registered, removed, failed to load - thus

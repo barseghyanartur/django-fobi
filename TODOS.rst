@@ -205,15 +205,6 @@ Must haves
 - Delete form tests.
 - List all settings overrides in docs https://github.com/barseghyanartur/django-fobi#tuning
 - Add tox tests.
-- At the moment Captcha data is also being saved (db_store form handler).
-  Think of fixing that by allowing to exclude certain fields from being 
-  processed by form handlers.
-- Add a management command to remove broken form elements.
-- Think of making putting several actions (repair) into the management
-  interface (UI).
-- Add `PluginThemeAddOn`, which would be a stand-alone plugin for having the
-  specific theme HTML/JS/CSS added to the appropriate form element or a form
-  handler plugin.
 
 Should haves
 ===============================================
@@ -225,11 +216,13 @@ Should haves
   form template.
 + Make it possible to use a custom user model.
 + Improve the "Simple" theme (Django admin integration part).
++ Place a basic README.rst in each plugin.
 - Make it possible to use something else than Django's ORM (django-mongoengine,
   SQLAlchemy).
++ Add birthday field.
++ Add data export features to ``db_store`` plugin.
 - Fix the view saved form entries template (nicer look) for Foundation 5
   theme.
-- Add birthday field.
 - Fix the input_format option in the date and datetime fields.
 - Finish form importers concept and the MailChimp form importer plugin.
 - Make sure it's possible to assign CSS and JS files to the form handler
@@ -240,7 +233,6 @@ Should haves
   the form names.
 - Repeat for the form callbacks the same what's already done to prioritise 
   the form handlers execution order.
-- Add data export features to ``db_store`` plugin.
 - Finish the template tag ``get_form_field_type`` which should get the
   field type of the field given.
 - Think of a different URL strategy. Perhaps not a bad idea to have a 
@@ -252,16 +244,22 @@ Should haves
 - In ``db_store` plugin, at the moment if labels are not unique, some data 
   loss happens. Either, make the labels unique in a single form or avoid data
   loss in some other way.
-- Place a basic README.rst in each plugin.
 - Make it possible to create fieldsets (implement as containers).
 - Think of adding hooks so that custom actions are possible without template
   changes (for example, add a new import app for importing the forms from
   MailChimp).
+- At the moment Captcha data is also being saved (db_store form handler).
+  Think of fixing that by allowing to exclude certain fields from being
+  processed by form handlers.
+- Add a management command to remove broken form elements.
+- Think of making putting several actions (repair) into the management
+  interface (UI).
 
 Could haves
 ===============================================
 + Add Dutch translation.
 + Add Russian translation.
++ Add more HTML5 fields?
 - Make it possible for themes to override the ``fobi.forms.FormEntryForm``
   form?
 - Make it possible to design a form based on existing models.
@@ -281,7 +279,6 @@ Could haves
 - Finish select multiple model objects plugin (issue with processing form data
   on form submit).
 - Add option to redirect to another page.
-- Add more HTML5 fields?
 - Conditional inputs
 - Perhaps, completely re-write the base template for the foundation 5 theme?
 

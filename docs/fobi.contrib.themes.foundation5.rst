@@ -1,6 +1,13 @@
 fobi.contrib.themes.foundation5 package
 =======================================
 
+Subpackages
+-----------
+
+.. toctree::
+
+    fobi.contrib.themes.foundation5.widgets
+
 Submodules
 ----------
 

@@ -10,7 +10,7 @@ from fobi.contrib.plugins.form_handlers.db_store import defaults
 
 def get_setting(setting, override=None):
     """
-    Get a setting from ``fobi.contrib.plugins.form_elements.content.image`` conf
+    Get a setting from ``fobi.contrib.plugins.form_handlers.db_store`` conf
     module, falling back to the default.
 
     If override is not None, it will be used instead of the setting.
@@ -21,7 +21,7 @@ def get_setting(setting, override=None):
     """
     if override is not None:
         return override
-    if hasattr(settings, 'FOBI_PLUGIN_DB_EXPORT_{0}'.format(setting)):
-        return getattr(settings, 'FOBI_PLUGIN_DB_EXPORT_{0}'.format(setting))
+    if hasattr(settings, 'FOBI_PLUGIN_DB_STORE_{0}'.format(setting)):
+        return getattr(settings, 'FOBI_PLUGIN_DB_STORE_{0}'.format(setting))
     else:
         return getattr(defaults, setting)

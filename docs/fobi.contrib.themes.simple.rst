@@ -1,6 +1,13 @@
 fobi.contrib.themes.simple package
 ==================================
 
+Subpackages
+-----------
+
+.. toctree::
+
+    fobi.contrib.themes.simple.widgets
+
 Submodules
 ----------
 

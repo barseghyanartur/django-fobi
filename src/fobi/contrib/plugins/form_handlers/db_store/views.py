@@ -11,6 +11,8 @@ from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
 
 #from fobi.decorators import permissions_required, SATISFY_ALL, SATISFY_ANY
+from fobi.base import get_form_handler_plugin_widget
+from fobi.contrib.plugins.form_handlers.db_store import UID
 from fobi.contrib.plugins.form_handlers.db_store.models import (
     SavedFormDataEntry
 )
@@ -48,6 +50,13 @@ def view_saved_form_data_entries(request, form_entry_id=None, theme=None, \
     # the context processor.
     if theme:
         context.update({'fobi_theme': theme})
+
+    widget = get_form_handler_plugin_widget(
+        UID, request=request, as_instance=True, theme=theme
+        )
+
+    if widget and widget.view_saved_form_data_entries_template_name:
+        template_name = widget.view_saved_form_data_entries_template_name
 
     return render_to_response(
         template_name, context, context_instance=RequestContext(request)

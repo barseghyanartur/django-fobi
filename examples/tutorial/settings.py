@@ -187,10 +187,10 @@ INSTALLED_APPS = (
     #'fobi.contrib.plugins.form_elements.fields.textarea',
 
     # Fobi form elements - content elements
-    'fobi.contrib.plugins.form_elements.content.dummy',
-    'fobi.contrib.plugins.form_elements.content.image',
-    'fobi.contrib.plugins.form_elements.content.text',
-    'fobi.contrib.plugins.form_elements.content.video',
+    'fobi.contrib.plugins.form_elements.test.dummy',
+    'fobi.contrib.plugins.form_elements.content.content_image',
+    'fobi.contrib.plugins.form_elements.content.content_text',
+    'fobi.contrib.plugins.form_elements.content.content_video',
 
     # Form handlers
     #'fobi.contrib.plugins.form_handlers.db_store',

@@ -1,4 +1,4 @@
-__title__ = 'fobi.contrib.plugins.form_elements.fields.datetime.fobi_form_elements'
+__title__ = 'fobi.contrib.plugins.form_elements.fields.date.fobi_form_elements'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'

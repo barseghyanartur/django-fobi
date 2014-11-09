@@ -2,6 +2,7 @@ Django>=1.5,<1.8
 FeinCMS>=1.9,<1.10
 Jinja2
 MarkupSafe
+MySQL-python
 South
 Sphinx
 django-admin-tools==0.5.2

@@ -27,7 +27,8 @@ __all__ = (
     'form_handler_plugin_widget_registry', 'FormElementPluginWidgetRegistry',
     'FormHandlerPluginWidgetRegistry', 'FormElementPluginWidget',
     'FormHandlerPluginWidget', 'get_ordered_form_handlers',
-    'assemble_form_field_widget_class',
+    'assemble_form_field_widget_class', 'get_plugin_widget',
+    'get_form_element_plugin_widget', 'get_form_handler_plugin_widget'
     )
 
 import logging
@@ -570,6 +571,18 @@ class FormHandlerPluginDataStorage(BaseDataStorage):
     """
 
 
+class FormElementPluginWidgetDataStorage(BaseDataStorage):
+    """
+    Storage for `FormField` data.
+    """
+
+
+class FormHandlerPluginWidgetDataStorage(BaseDataStorage):
+    """
+    Storage for `FormField` data.
+    """
+
+
 class BasePlugin(object):
     """
     Base form field from which every form field should inherit.
@@ -873,16 +886,7 @@ class BasePlugin(object):
         :return mixed: Subclass of `fobi.base.BasePluginWidget` or instance
             of subclassed `fobi.base.BasePluginWidget` object.
         """
-        theme = get_theme(request=request, as_instance=True)
-        widget_cls = plugin_widget_registry.get(
-            PluginWidgetRegistry.namify(theme.uid, self.uid)
-            )
-
-        if not as_instance:
-            return widget_cls
-        elif widget_cls:
-            widget = widget_cls(self)
-            return widget
+        raise NotImplemented
 
     def render(self, request=None):
         """
@@ -1331,6 +1335,7 @@ class BasePluginWidget(object):
     html_classes = []
     media_js = []
     media_css = []
+    storage = None
 
     def __init__(self, plugin):
         assert self.theme_uid
@@ -1338,6 +1343,7 @@ class BasePluginWidget(object):
                self.plugin_uid in get_registered_plugin_uids()
         assert isinstance(self.media_js, (list, tuple))
         assert isinstance(self.media_css, (list, tuple))
+        assert self.storage
 
         if isinstance(self.media_js, tuple):
             self.media_js = list(self.media_js)
@@ -1346,6 +1352,8 @@ class BasePluginWidget(object):
             self.media_css = list(self.media_css)
 
         self.plugin = plugin
+
+        self.data = self.storage()
 
     @classproperty
     def html_class(cls):
@@ -1361,12 +1369,14 @@ class FormElementPluginWidget(BasePluginWidget):
     """
     Form element plugin widget.
     """
+    storage = FormElementPluginWidgetDataStorage
 
 
 class FormHandlerPluginWidget(BasePluginWidget):
     """
     Form handler plugin widget.
     """
+    storage = FormHandlerPluginWidgetDataStorage
 
 
 # *****************************************************************************
@@ -2103,6 +2113,69 @@ def fire_form_callbacks(form_entry, request, form, stage=None):
     return form
 
 # *****************************************************************************
+# ******************************* Widget specific *****************************
+# *****************************************************************************
+def get_plugin_widget(registry, plugin_uid, request=None, as_instance=False, \
+                      theme=None):
+    """
+    Gets the plugin widget for the ``plugin_uid`` given. Looks up in the
+    ``registry`` provided.
+
+    :param fobi.base.BasePluginWidgetRegistry registry: Subclass of.
+    :param str plugin_uid: UID of the plugin to get the widget for.
+    :param django.http.HttpRequest request:
+    :param bool as_instance:
+    :param fobi.base.BaseTheme theme: Subclass of.
+    :return BasePluginWidget: Subclass of.
+    """
+    if not theme:
+        theme = get_theme(request=request, as_instance=True)
+
+    return registry.get(
+        BasePluginWidgetRegistry.namify(theme.uid, plugin_uid)
+        )
+
+def get_form_element_plugin_widget(plugin_uid, request=None, as_instance=False,
+                                   theme=None):
+    """
+    Gets the form element plugin widget for the ``plugin_uid`` given.
+
+    :param fobi.base.BasePluginWidgetRegistry registry: Subclass of.
+    :param str plugin_uid: UID of the plugin to get the widget for.
+    :param django.http.HttpRequest request:
+    :param bool as_instance:
+    :param fobi.base.BaseTheme theme: Subclass of.
+    :return BasePluginWidget: Subclass of.
+    """
+    return get_plugin_widget(
+        registry = form_element_plugin_widget_registry,
+        plugin_uid = plugin_uid,
+        request = request,
+        as_instance = as_instance,
+        theme = theme
+        )
+
+def get_form_handler_plugin_widget(plugin_uid, request=None, as_instance=False,
+                                   theme=None):
+    """
+    Gets the form handler plugin widget for the ``plugin_uid`` given.
+
+    :param fobi.base.BasePluginWidgetRegistry registry: Subclass of.
+    :param str plugin_uid: UID of the plugin to get the widget for.
+    :param django.http.HttpRequest request:
+    :param bool as_instance:
+    :param fobi.base.BaseTheme theme: Subclass of.
+    :return BasePluginWidget: Subclass of.
+    """
+    return get_plugin_widget(
+        registry = form_handler_plugin_widget_registry,
+        plugin_uid = plugin_uid,
+        request = request,
+        as_instance = as_instance,
+        theme = theme
+        )
+
+# *****************************************************************************
 # ******************************** Media specific *****************************
 # *****************************************************************************
 
@@ -2127,8 +2200,8 @@ def collect_plugin_media(form_element_entries, request=None):
                 )
             )
         if widget_cls:
-            media_js += widget_cls.media_js
-            media_css += widget_cls.media_css
+            media_js += getattr(widget_cls, 'media_js', [])
+            media_css += getattr(widget_cls, 'media_css', [])
         else:
             logger.debug(
                 "No widget for form element entry "

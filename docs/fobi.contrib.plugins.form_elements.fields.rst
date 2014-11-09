@@ -6,6 +6,7 @@ Subpackages
 
 .. toctree::
 
+    fobi.contrib.plugins.form_elements.fields.birthday
     fobi.contrib.plugins.form_elements.fields.boolean
     fobi.contrib.plugins.form_elements.fields.captcha
     fobi.contrib.plugins.form_elements.fields.date
