@@ -1,5 +1,11 @@
 Release history and notes
 =====================================
+0.3.1
+-------------------------------------
+2014-11-19
+
+- DjangoCMS integration app.
+
 0.3
 -------------------------------------
 2014-11-09
@@ -11,7 +17,7 @@ need to do is update the app paths in the ``settings`` module of your project.
 - Minor core improvements related to the themeing of the form handler plugins.
 - Several presentational form element plugins have been renamed.
   The ``fobi.contrib.plugins.form_elements.content.image`` plugin has been
-  renamed to `fobi.contrib.plugins.form_elements.content.content_image`.
+  renamed to ``fobi.contrib.plugins.form_elements.content.content_image``.
   The ``fobi.contrib.plugins.form_elements.content.text`` plugin has been
   renamed to ``fobi.contrib.plugins.form_elements.content.content_text``.
   The ``fobi.contrib.plugins.form_elements.content.video`` plugin has been
@@ -19,7 +25,7 @@ need to do is update the app paths in the ``settings`` module of your project.
   If you have used any of the above mentioned plugins, make sure to update 
   the app paths in the ``settings`` module of your project.
 - The ``fobi.contrib.plugins.form_elements.content.dummy`` plugin has been moved
-  to ``fobi.contrib.plugins.form_elements.text.dummy`` location. If you have
+  to ``fobi.contrib.plugins.form_elements.test.dummy`` location. If you have
   used it, make sure to update the its' path in the ``settings`` module of
   your project.
 - Added readme to the following content form element plugins: ``dummy``,

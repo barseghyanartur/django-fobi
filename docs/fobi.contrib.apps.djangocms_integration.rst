@@ -36,6 +36,14 @@ fobi.contrib.apps.djangocms_integration.defaults module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.apps.djangocms_integration.helpers module
+------------------------------------------------------
+
+.. automodule:: fobi.contrib.apps.djangocms_integration.helpers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.apps.djangocms_integration.models module
 -----------------------------------------------------
 

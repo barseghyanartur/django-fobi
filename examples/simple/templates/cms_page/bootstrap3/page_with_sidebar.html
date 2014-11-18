@@ -1,0 +1,11 @@
+{% extends "cms_page/bootstrap3/base.html" %}
+
+{% load cms_tags menu_tags placeholder_tags  %}
+
+{% block content %}
+  {% placeholder page_content %}
+{% endblock %}
+
+{% block sidebar-content %}
+  {% placeholder page_sidebar %}
+{% endblock %}

@@ -56,6 +56,7 @@ Main features and highlights
 - Theming. There are 3 ready to use themes bundled: Bootstrap 3, Foundation 5
   and Simple (in style of Django admin).
 - Implemented integration with FeinCMS (in a form of a FeinCMS Page widget).
+- Implemented integration with DjangoCMS (in a form of a DjangoCMS Page plugin).
 - Reordering of form elements using drag-n-drop.
 - Data export (``db_store`` form handler plugin) into XLS/CSV format.
 

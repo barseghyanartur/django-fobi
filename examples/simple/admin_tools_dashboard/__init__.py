@@ -10,6 +10,7 @@ And to activate the app index dashboard::
     ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'admin_tools_dashboard.CustomAppIndexDashboard'
 """
 
+from django.conf import settings
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 from admin_tools.dashboard import modules, Dashboard, AppIndexDashboard
@@ -42,13 +43,23 @@ class CustomIndexDashboard(Dashboard):
             ]
         ))
 
-        # FeinCMS pages
-        self.children.append(modules.AppList(
-            _('Pages'),
-            models = conf.feincms_pages,
-            collapsible = False,
-            deletable = False
-        ))
+        if 'feincms' in settings.INSTALLED_APPS:
+            # FeinCMS pages
+            self.children.append(modules.AppList(
+                _('FeinCMS Pages'),
+                models = conf.feincms_pages,
+                collapsible = False,
+                deletable = False
+            ))
+
+        if 'cms' in settings.INSTALLED_APPS:
+            # DjangoCMS pages
+            self.children.append(modules.AppList(
+                _('DjangoCMS Pages'),
+                models = conf.djangocms_pages,
+                collapsible = False,
+                deletable = False
+            ))
 
         # Append an app list module for "Administration"
         self.children.append(modules.AppList(

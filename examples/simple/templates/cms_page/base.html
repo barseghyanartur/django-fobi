@@ -1,4 +1,4 @@
-{% load i18n static %}
+{% load static i18n cms_tags sekizai_tags menu_tags placeholder_tags %}
 <!DOCTYPE html>
 <html lang="en"{% block html-attributes %}{% endblock html-attributes %}>
   <head>
@@ -12,7 +12,7 @@
     <link rel="shortcut icon" href="{% block favicon-image %}{% endblock favicon-image %}">
     {% endblock favicon %}
 
-    <title>{% block page-title %}{% endblock page-title %} | {% block site-title %}{% endblock site-title %}</title>
+    <title>{% block page-title %}{% page_attribute page_title %}{% endblock page-title %} | {% block site-title %}{% endblock site-title %}</title>
 
     {% block stylesheets %}
     {#<!-- Additional core CSS files that somehow can't be put into the python theme -->#}
@@ -27,7 +27,10 @@
 
     {% endblock theme-stylesheets %}
 
-    {% block extra-stylesheets %}{% endblock extra-stylesheets %}
+    {% block extra-stylesheets %}
+    <!-- Custom styles for this template -->
+    <link href="{% static 'css/fobi_example_page.css' %}" rel="stylesheet">
+    {% endblock extra-stylesheets %}
 
     {% block head-javascripts %}
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -40,10 +43,14 @@
     {% block extra-head-javascripts %}{% endblock extra-head-javascripts %}
 
     {% block extrahead %}{% endblock extrahead %}
+
+    {% render_block "css" %}
   </head>
 
   <body{% block body-attrs %}{% if fobi_theme %} class="theme {{ fobi_theme.html_class }}"{% endif %}{% endblock body-attrs %}>
-  {% block before-main-wrapper %}{% endblock %}
+  {% cms_toolbar %}
+  {% block before-main-wrapper %}
+  {% endblock %}
 
   {% block main-wrapper %}
 
@@ -70,19 +77,6 @@
           {% block navbar-menu %}
           <ul class="nav navbar-nav">
             {% block navbar-menu-content %}
-            <!--
-            <li><a href="#about">About</a></li>
-            <li><a href="#contact">Contact</a></li>
-            <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                  Dropdown <span class="caret"></span>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="#sub1">Submenu 1</a></li>
-                    <li><a href="#sub2">Submenu 2</a></li>
-                </ul>
-            </li>
-            -->
             {% endblock navbar-menu-content %}
           </ul>
           {% endblock navbar-menu %}
@@ -113,11 +107,6 @@
           <div class="row">
             <div class="{% block content-class %}col-18 col-sm-18 col-lg-12{% endblock content-class %}">
             {% block content %}
-              <!--
-              <h2>Heading</h2>
-              <p>Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. </p>
-              <p><a class="btn btn-default" href="#" role="button">View details &raquo;</a></p>
-              -->
             {% endblock content %}
             </div><!--/span-->
           </div><!--/row-->
@@ -129,18 +118,6 @@
           {% block sidebar %}
           <div class="list-group">
             {% block sidebar-content %}
-            <!--
-            <a href="#" class="list-group-item active">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            <a href="#" class="list-group-item">Link</a>
-            -->
             {% endblock sidebar-content %}
           </div>
         {% endblock sidebar %}
@@ -179,6 +156,7 @@
     {% endfor %}
 
   {% endblock theme-javascripts %}
-    
+
+  {% render_block "js" %}
   </body>
 </html>

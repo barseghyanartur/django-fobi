@@ -217,13 +217,22 @@ Should haves
 + Make it possible to use a custom user model.
 + Improve the "Simple" theme (Django admin integration part).
 + Place a basic README.rst in each plugin.
-- Make it possible to use something else than Django's ORM (django-mongoengine,
-  SQLAlchemy).
++ As another prove of concept, write an integration app for Django-CMS.
 + Add birthday field.
 + Add data export features to ``db_store`` plugin.
++ Make 3 base templates for the DjangoCMS integration app. Save things in 
+  settings and make the template to be chosen depending on the fobi_theme (
+  likely, move the declation of the FOBI_THEME above the declaration of the
+  Django-CMS templates).
+- Rename the ``birthday`` field to ``date_drop_down`` field.
+- Make a real ``birthday`` field (with no year selection).
+- Improve the Django-CMS integration app (make sure it works with
+  Django-CMS < 3.0).
+- Make it possible to use something else than Django's ORM (django-mongoengine,
+  SQLAlchemy).
 - Fix the view saved form entries template (nicer look) for Foundation 5
   theme.
-- Fix the input_format option in the date and datetime fields.
+- Fix the ``input_format`` option in the date and datetime fields.
 - Finish form importers concept and the MailChimp form importer plugin.
 - Make sure it's possible to assign CSS and JS files to the form handler
   plugins.
@@ -267,7 +276,6 @@ Could haves
 - Add datetime range and date range fields.
 - Add a property "allow_multiple" to the form handlers, for form handlers.
 - Make a django theme for jquery UI.  
-- As another prove of concept, write an integration app for Django-CMS.
 - Base fieldset. Allow users to add more than one field to a fieldset.
 - Make it possible (just checkbox) to set a fieldset as clonable.
 - Confugure defaults values of each plugin in projects' settings module.
@@ -279,7 +287,7 @@ Could haves
 - Finish select multiple model objects plugin (issue with processing form data
   on form submit).
 - Add option to redirect to another page.
-- Conditional inputs
+- Conditional inputs.
 - Perhaps, completely re-write the base template for the foundation 5 theme?
 
 Would haves

@@ -66,6 +66,13 @@ if 'feincms' in settings.INSTALLED_APPS:
         url(r'^pages/', include('feincms.urls')),
     )
 
+# Conditionally including DjangoCMS URls in case if
+# DjangoCMS in installed apps.
+if 'cms' in settings.INSTALLED_APPS:
+    urlpatterns += patterns('',
+        url(r'^cms-pages/', include('cms.urls')),
+    )
+
 # Conditionally including Captcha URls in case if
 # Captcha in installed apps.
 if 'captcha' in settings.INSTALLED_APPS:

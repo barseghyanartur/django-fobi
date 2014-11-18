@@ -295,6 +295,20 @@ FOBI_CUSTOM_THEME_DATA = {
                 ),
             ],
         },
+        'djangocms_integration': {
+            'form_template_choices': [
+                (
+                    'fobi/bootstrap3_extras/view_embed_form_entry_ajax.html',
+                    gettext("Custom bootstrap3 embed form view template")
+                ),
+            ],
+            'success_page_template_choices': [
+                (
+                    'fobi/bootstrap3_extras/embed_form_entry_submitted_ajax.html',
+                    gettext("Custom bootstrap3 embed form entry submitted template")
+                ),
+            ],
+        },
     },
     'foundation5': {
         'page_header_html_class': '',
@@ -317,6 +331,20 @@ FOBI_CUSTOM_THEME_DATA = {
                 ),
             ],
         },
+        'djangocms_integration': {
+            'form_template_choices': [
+                (
+                    'fobi/foundation5_extras/view_embed_form_entry_ajax.html',
+                    gettext("Custom foundation5 embed form view template")
+                ),
+            ],
+            'success_page_template_choices': [
+                (
+                    'fobi/foundation5_extras/embed_form_entry_submitted_ajax.html',
+                    gettext("Custom foundation5 embed form entry submitted template")
+                ),
+            ],
+        },
     },
     'simple': {
         'page_header_html_class': '',
@@ -326,6 +354,8 @@ FOBI_CUSTOM_THEME_DATA = {
         'form_button_html_class': 'btn',
         'form_primary_button_html_class': 'btn-primary',
         'feincms_integration': {
+        },
+        'djangocms_integration': {
         },
     }
 }
@@ -435,20 +465,31 @@ except:
     pass
 
 if DEBUG and DEBUG_TOOLBAR:
-    # debug_toolbar
-    MIDDLEWARE_CLASSES += (
-        'debug_toolbar.middleware.DebugToolbarMiddleware',
-	)
+    try:
+        # Make sure the django-debug-toolbar is installed
+        import debug_toolbar
 
-    INSTALLED_APPS += (
-        'debug_toolbar',
-    )
+        # debug_toolbar
+        MIDDLEWARE_CLASSES += (
+            'debug_toolbar.middleware.DebugToolbarMiddleware',
+        )
 
-    DEBUG_TOOLBAR_CONFIG = {
-        'INTERCEPT_REDIRECTS': False,
-    }
+        INSTALLED_APPS += (
+            'debug_toolbar',
+        )
+
+        DEBUG_TOOLBAR_CONFIG = {
+            'INTERCEPT_REDIRECTS': False,
+        }
+    except ImportError:
+        pass
 
 if DEBUG and TEMPLATE_DEBUG:
-    INSTALLED_APPS += (
-        'template_debug',
-    )
+    try:
+        # Make sure the django-template-debug is installed
+        import template_debug
+        INSTALLED_APPS += (
+            'template_debug',
+        )
+    except ImportError:
+        pass

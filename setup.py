@@ -18,7 +18,7 @@ template_dirs = [
     "src/fobi/contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget", # DB Store widget for Foundation 5
     "src/fobi/contrib/themes/simple/templates/simple", # Simple
 
-    #"src/fobi/contrib/apps/djangocms_integration/templates/djangocms_integration", # DjangoCMS integration
+    "src/fobi/contrib/apps/djangocms_integration/templates/djangocms_integration", # DjangoCMS integration
     #"src/fobi/contrib/apps/feincms_integration/templates/feincms_integration", # FeinCMS integration
 
     "src/fobi/contrib/plugins/form_elements/content/content_image/templates/content_image", # Content image
@@ -57,7 +57,7 @@ for static_dir in static_dirs:
 for locale_dir in locale_dirs:
     locale_files += [os.path.join(locale_dir, f) for f in os.listdir(locale_dir)]
 
-version = '0.3'
+version = '0.3.1'
 
 install_requires = [
     'Pillow>=2.0.0',

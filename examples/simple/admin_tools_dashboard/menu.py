@@ -6,6 +6,7 @@ To activate your custom menu add the following to your settings.py::
     ADMIN_TOOLS_MENU = 'admin_tools_dashboard.menu.CustomMenu'
 """
 
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
@@ -38,11 +39,19 @@ class CustomMenu(Menu):
             ]
         ))
 
-        # FeinCMS pages integration
-        self.children.append(items.AppList(
-            _('Pages'),
-            models = conf.feincms_pages
-        ))
+        if 'feincms' in settings.INSTALLED_APPS:
+            # FeinCMS pages integration
+            self.children.append(items.AppList(
+                _('FeinCMS Pages'),
+                models = conf.feincms_pages
+            ))
+
+        if 'cms' in settings.INSTALLED_APPS:
+            # DjangoCMS pages integration
+            self.children.append(items.AppList(
+                _('DjangoCMS Pages'),
+                models = conf.djangocms_pages
+            ))
 
         # append an app list module for "Administration"
         self.children.append(items.AppList(

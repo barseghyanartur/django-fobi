@@ -25,7 +25,7 @@ recursive-include src/fobi/contrib/themes/foundation5/templates *
 recursive-include src/fobi/contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates *
 recursive-include src/fobi/contrib/themes/simple/templates *
 
-#recursive-include src/fobi/contrib/apps/djangocms_integration/templates *
+recursive-include src/fobi/contrib/apps/djangocms_integration/templates *
 #recursive-include src/fobi/contrib/apps/feincms_integration/templates *
 
 recursive-include src/fobi/contrib/plugins/form_elements/content/content_image/templates *
