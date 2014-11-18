@@ -1,0 +1,6 @@
+{% load i18n %}
+
+{% blocktrans with login_url as login_url %}
+You have to be authorised in order to see the content.
+<a href="{{ login_url }}">Log in</a> here.
+{% endblocktrans %}
