@@ -1,5 +1,16 @@
 Release history and notes
 =====================================
+`Sequence based identifiers <http://en.wikipedia.org/wiki/Software_versioning#Sequence-based_identifiers>`_
+are used for versioning. The following schema is used:
+
+.. code-block:: none
+
+    major.minor[.revision]
+
+It's always safe to migrate within the same minor version. Minor version
+changes might be backwards incompatible. All backwards incompatible changes
+are mentioned in this document.
+
 0.3.1
 -------------------------------------
 2014-11-19
