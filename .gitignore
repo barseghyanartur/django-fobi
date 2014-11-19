@@ -14,7 +14,8 @@ MIND_BUCKET.rst
 /release/
 /deploy/
 fobi/fobi.migrations.rst
-/examples/db/example.db
+/examples/db/example*.db
+
 /examples/tmp/
 /examples/logs/
 /examples/media/fobi_plugins/content_image/

@@ -5,17 +5,23 @@ A ``django-fobi`` integration with DjangoCMS.
 
 Prerequisites
 ===============================================
-Has been tested with DjangoCMS 3 only. Might work on earlier versions as well.
+Has been tested with DjangoCMS 2.4.3 and 3.0.6 only. Might work on earlier versions as well.
 
 Installation
 ===============================================
 Versions
 -----------------------------------------------
-See the `requirements file <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements_djangocms.txt>`_.
+See the requirements files:
+
+- `DjangoCMS 2.4.3 requirements <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements_djangocms_2.txt>`_.
+- `DjangoCMS 3.0.6 requirements <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements_djangocms.txt>`_.
 
 your_project/settings.py
 -----------------------------------------------
-See the `example settings file <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/settings_bootstrap3_theme_djangocms.py>`_.
+See the example settings files:
+
+- `DjangoCMS 2.4.3 settings <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/settings_bootstrap3_theme_djangocms_2.py>`_.
+- `DjangoCMS 3.0.6 settings <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/settings_bootstrap3_theme_djangocms.py>`_.
 
 .. code-block:: python
 

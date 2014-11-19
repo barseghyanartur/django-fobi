@@ -11,6 +11,12 @@ It's always safe to migrate within the same minor version. Minor version
 changes might be backwards incompatible. All backwards incompatible changes
 are mentioned in this document.
 
+0.3.2
+-------------------------------------
+2014-11-20
+
+- DjangoCMS integration app made compatible with DjangoCMS 2.4.3.
+
 0.3.1
 -------------------------------------
 2014-11-19

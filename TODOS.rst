@@ -146,7 +146,7 @@ Must haves
   be synced using the management command ``fobi_sync_plugins``.
 + Add URL field (with configurable validation).
 + Add a date time field (with configurable date format).
-- Add a birthday field (with configurable date format).
++ Add a birthday field (with configurable date format).
 + Add date field (with configurable date format).
 + Edit form element/handler - add breadcrumbs.
 + Add HTML5 fields.
@@ -189,10 +189,10 @@ Must haves
 + Add data export features for the ``db_store`` plugin into the "simpe"
   theme as well (same way as already done fore "bootstrap 3" and
   "foundation 5" themes.
++ Clean up the TODOs before first release.
 - Make sure, that theme specific theme javascripts, css and other assets,
   are defined in the theme itself. Follow the ``django-dash``
   example as much as possible.
-- Clean up the TODOs before first release.
 - Make sure a better (SEO) URLs can be used in intergration packages (at
   least the FeinCMS).
 - Make it possible to strip certain kwargs or widget attributes in edit mode
