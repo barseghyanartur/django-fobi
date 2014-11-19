@@ -224,10 +224,10 @@ Should haves
   settings and make the template to be chosen depending on the fobi_theme (
   likely, move the declation of the FOBI_THEME above the declaration of the
   Django-CMS templates).
++ Improve the Django-CMS integration app (make sure it works with
+  Django-CMS < 3.0).
 - Rename the ``birthday`` field to ``date_drop_down`` field.
 - Make a real ``birthday`` field (with no year selection).
-- Improve the Django-CMS integration app (make sure it works with
-  Django-CMS < 3.0).
 - Make it possible to use something else than Django's ORM (django-mongoengine,
   SQLAlchemy).
 - Fix the view saved form entries template (nicer look) for Foundation 5
@@ -275,7 +275,7 @@ Could haves
 - Make sure that the form view return can be overridden?
 - Add datetime range and date range fields.
 - Add a property "allow_multiple" to the form handlers, for form handlers.
-- Make a django theme for jquery UI.  
+- Make a django theme for jQuery UI.
 - Base fieldset. Allow users to add more than one field to a fieldset.
 - Make it possible (just checkbox) to set a fieldset as clonable.
 - Confugure defaults values of each plugin in projects' settings module.
