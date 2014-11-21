@@ -11,6 +11,13 @@ It's always safe to migrate within the same minor version. Minor version
 changes might be backwards incompatible. All backwards incompatible changes
 are mentioned in this document.
 
+0.3.3
+-------------------------------------
+2014-11-22
+
+- Clean up the setup. Remove redundant dependencies.
+- Documentation improvements.
+
 0.3.2
 -------------------------------------
 2014-11-20
