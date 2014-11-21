@@ -772,7 +772,7 @@ override entire view to fit your needs. Take a look at the
 `FeinCMS integration
 <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/feincms_integration/widgets.py>`_
 or `DjangoCMS integration
-<https://github.com/barseghyanartur/django-fobi/blob/stable/src/fobi/contrib/apps/djangocms_integration/cms_plugins.py>`
+<https://github.com/barseghyanartur/django-fobi/blob/stable/src/fobi/contrib/apps/djangocms_integration/cms_plugins.py>`_
 as a good example of such. You may also want to compare the code from original
 view ``fobi.views.view_form_entry`` with the code from the widget to get a
 better idea of what could be changed in your case. If need a good advice,
@@ -1104,9 +1104,9 @@ once granted the right to use the news plugin to all users, but later on
 decided to limit it to Staff members group only). Note, that superusers have
 access to all plugins.
 
-            Plugin access rights management interface in Django admin
-
 .. code-block:: none
+
+            Plugin access rights management interface in Django admin
 
     ┌──────────────────────────┬───────────────────────┬───────────────────────┐
     │ `Plugin`                 │ `Users`               │ `Groups`              │
@@ -1301,6 +1301,8 @@ but also is a great way of checking for possible errors.
     ./manage.py fobi_sync_plugins
 
 Run the following command in order to identify the broken plugins.
+
+.. code-block:: none
 
     ./manage.py fobi_find_broken_entries
 
