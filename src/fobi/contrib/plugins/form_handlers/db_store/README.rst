@@ -4,6 +4,12 @@ fobi.contrib.plugins.form_handlers.db_store
 A ``Fobi`` Database Store form handler plugin. Saves submitted form
 data into the ``SavedFormDataEntry`` model.
 
+Dependencies
+===============================================
+The `xlwt <https://pypi.python.org/pypi/xlwt>`_ package is required
+(optional) for XLS export. If not present, export format falls back
+to CSV.
+
 Installation
 ===============================================
 1. Add ``fobi.contrib.plugins.form_handlers.db_store`` to the

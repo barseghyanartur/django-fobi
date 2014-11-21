@@ -2,10 +2,10 @@
 django-fobi
 ===============================================
 `django-fobi` (later on named just `fobi`) is a customisable, modular,
-user- and developer- friendly form builder application for Django. With `fobi`
-you can build Django forms using an intiutive GUI, save or mail posted form
-data. API allows you to build your own form elements and form handlers
-(mechanisms for handling the submitted form data).
+user- and developer- friendly form generator/builder application for Django. 
+With `fobi` you can build Django forms using an intiutive GUI, save or
+mail posted form data. API allows you to build your own form elements and
+form handlers (mechanisms for handling the submitted form data).
 
 Prerequisites
 ===============================================
@@ -42,25 +42,32 @@ django-admin is implemented through the ``simple`` theme.
 Main features and highlights
 ===============================================
 - User-friendly GUI to quickly build forms.
-- Large variety of form elements/fields. Most of the Django fields are
-  supported. HTML5 fields are supported as well.
-- Captcha integration comes out of the box with help of third-party app.
+- Large variety of `Bundled form element plugins`_. Most of the Django fields
+  are supported. `HTML5 fields`_ are supported as well.
+- `Captcha integration
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/captcha>`_
+  comes out of the box with help of third-party app.
 - In addition to standard form elements, there are cosmetic (presentational)
   form elements (for adding a piece of text, image or a embed video)
   alongside standard form elements.
 - Data handling in plugins (form handlers). Save the data, mail it to some
-  address or repost it to some other endpoint.
+  address or repost it to some other endpoint. See the
+  `Bundled form handler plugins`_ for more information.
 - Developer-friendly API, which allows to or build new form fields and handlers
   without touching the core.
 - Support for custom user model.
-- Theming. There are 3 ready to use themes bundled: Bootstrap 3, Foundation 5
-  and Simple (in style of Django admin).
-- Implemented `integration with FeinCMS <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/feincms_integration>`_
+- `Theming`_. There are 3 ready to use `Bundled themes`_: Bootstrap 3,
+  Foundation 5 and Simple (in style of Django admin).
+- Implemented `integration with FeinCMS
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/feincms_integration>`_
   (in a form of a FeinCMS Page widget).
-- Implemented `integration with DjangoCMS <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/djangocms_integration>`_
+- Implemented `integration with DjangoCMS
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/djangocms_integration>`_
   (in a form of a DjangoCMS Page plugin).
 - Reordering of form elements using drag-n-drop.
-- Data export (``db_store`` form handler plugin) into XLS/CSV format.
+- Data export (`db_store 
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/db_store>`_
+  form handler plugin) into XLS/CSV format.
 
 Roadmap
 ===============================================
@@ -182,8 +189,8 @@ Demo
 ===============================================
 See the documentation for some screen shots:
 
-- PythonHosted http://pythonhosted.org/django-fobi/#screenshots
-- ReadTheDocs http://django-fobi.readthedocs.org/en/latest/#screenshots
+- `PythonHosted <http://pythonhosted.org/django-fobi/#screenshots>`_
+- `ReadTheDocs <http://django-fobi.readthedocs.org/en/latest/#screenshots>`_
 
 In order to be able to quickly evaluate the `Fobi`, a demo app (with a quick
 installer) has been created (works on Ubuntu/Debian, may work on other Linux
@@ -219,7 +226,8 @@ Django admin interface:
 - Admin password: test
 
 If quick installer doesn't work for you, see the manual steps on running the
-`example project <https://github.com/barseghyanartur/django-fobi/tree/stable/examples>`_.
+`example project
+<https://github.com/barseghyanartur/django-fobi/tree/stable/examples>`_.
 
 Creating a new form element plugin
 ===============================================
@@ -400,7 +408,8 @@ In some cases, you might want to do something with the data
 before it gets saved. For that purpose, ``save_plugin_data`` method
 has been introduced.
 
-See the following `example <https://github.com/barseghyanartur/django-fobi/blob/stable/src/fobi/contrib/plugins/form_elements/content/image/forms.py>`_.
+See the following `example
+<https://github.com/barseghyanartur/django-fobi/blob/stable/src/fobi/contrib/plugins/form_elements/content/image/forms.py>`_.
 
 .. code-block:: python
 
@@ -760,7 +769,10 @@ When you want to customise too many things
 Fobi, with its' flexible form elements, form handlers and form callbacks
 is very customisable. However, there might be cases when you need to
 override entire view to fit your needs. Take a look at the
-`FeinCMS integration <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/feincms_integration/widgets.py>`_
+`FeinCMS integration
+<https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/feincms_integration/widgets.py>`_
+or `DjangoCMS integration
+<https://github.com/barseghyanartur/django-fobi/blob/stable/src/fobi/contrib/apps/djangocms_integration/cms_plugins.py>`
 as a good example of such. You may also want to compare the code from original
 view ``fobi.views.view_form_entry`` with the code from the widget to get a
 better idea of what could be changed in your case. If need a good advice,
@@ -993,9 +1005,11 @@ Make changes to an existing theme
 -----------------------------------------------
 As said above, making your own theme from scratch could be costy. Instead,
 you can override/reuse an existing one and change it to your needs with
-minimal efforts. See the `override simple theme <https://github.com/barseghyanartur/django-fobi/tree/master/examples/simple/override_simple_theme/>`_
+minimal efforts. See the `override simple theme
+<https://github.com/barseghyanartur/django-fobi/tree/master/examples/simple/override_simple_theme/>`_
 example. In order to see it in action, run the project with
-`settings_override_simple_theme <https://github.com/barseghyanartur/django-fobi/blob/master/examples/simple/settings_override_simple_theme.py>`_
+`settings_override_simple_theme
+<https://github.com/barseghyanartur/django-fobi/blob/master/examples/simple/settings_override_simple_theme.py>`_
 option:
 
 .. code-block:: none
@@ -1094,19 +1108,19 @@ access to all plugins.
 
 .. code-block:: none
 
-    ┌──────────────────────────────┬───────────────────────┬───────────────────────┐
-    │ `Plugin`                     │ `Users`               │ `Groups`              │
-    ├──────────────────────────────┼───────────────────────┼───────────────────────┤
-    │ Text                         │ John Doe              │ Form builder users    │
-    ├──────────────────────────────┼───────────────────────┼───────────────────────┤
-    │ Textarea                     │                       │ Form builder users    │
-    ├──────────────────────────────┼───────────────────────┼───────────────────────┤
-    │ File                         │ Oscar, John Doe       │ Staff members         │
-    ├──────────────────────────────┼───────────────────────┼───────────────────────┤
-    │ URL                          │                       │ Form builder users    │
-    ├──────────────────────────────┼───────────────────────┼───────────────────────┤
-    │ Hidden                       │                       │ Form builder users    │
-    └──────────────────────────────┴───────────────────────┴───────────────────────┘
+    ┌──────────────────────────┬───────────────────────┬───────────────────────┐
+    │ `Plugin`                 │ `Users`               │ `Groups`              │
+    ├──────────────────────────┼───────────────────────┼───────────────────────┤
+    │ Text                     │ John Doe              │ Form builder users    │
+    ├──────────────────────────┼───────────────────────┼───────────────────────┤
+    │ Textarea                 │                       │ Form builder users    │
+    ├──────────────────────────┼───────────────────────┼───────────────────────┤
+    │ File                     │ Oscar, John Doe       │ Staff members         │
+    ├──────────────────────────┼───────────────────────┼───────────────────────┤
+    │ URL                      │                       │ Form builder users    │
+    ├──────────────────────────┼───────────────────────┼───────────────────────┤
+    │ Hidden                   │                       │ Form builder users    │
+    └──────────────────────────┴───────────────────────┴───────────────────────┘
 
 Management commands
 ===============================================
@@ -1149,42 +1163,64 @@ in directory of each plugin for details.
 
 Fields
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-- `Birthday (year, month, day selection drop-downs) <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/birthday/>`_
-- `Boolean (checkbox) <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/boolean/>`_
-- `Captcha <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/captcha/>`_
-- `Date <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/date/>`_
-- `DateTime <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/datetime/>`_
-- `Email <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/email/>`_
-- `File <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/file/>`_
-- `Hidden <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/hidden/>`_
-- `Password <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/password/>`_
-- `Radio select (radio button) <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/radio/>`_
-- `Input <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/input/>`_
-- `Integer <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/integer/>`_
-- `Select (drop-down) <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select/>`_
-- `Select model object (drop-down) <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_model_object/>`_
-- `Select multiple (drop-down) <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple/>`_
-- `Text <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/text/>`_
-- `Textarea <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/textarea/>`_
-- `URL <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/url/>`_
+- `Birthday (year, month, day selection drop-downs)
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/birthday/>`_
+- `Boolean (checkbox)
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/boolean/>`_
+- `Captcha
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/captcha/>`_
+- `Date
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/date/>`_
+- `DateTime
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/datetime/>`_
+- `Email
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/email/>`_
+- `File
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/file/>`_
+- `Hidden
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/hidden/>`_
+- `Password
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/password/>`_
+- `Radio select (radio button)
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/radio/>`_
+- `Input
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/input/>`_
+- `Integer
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/integer/>`_
+- `Select (drop-down)
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select/>`_
+- `Select model object (drop-down)
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_model_object/>`_
+- `Select multiple (drop-down)
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple/>`_
+- `Text
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/text/>`_
+- `Textarea
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/textarea/>`_
+- `URL
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/url/>`_
 
 Content
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Content plugins are presentational plugins, that make your forms look more
 complete and content rich.
 
-- `Content image <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_image/>`_:
+- `Content image
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_image/>`_:
   Insert an image.
-- `Content text <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_text/>`_:
+- `Content text
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_text/>`_:
   Add text.
-- `Content video <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_video/>`_:
+- `Content video
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_video/>`_:
   Add an embed YouTube or Vimeo video.
 
 Test
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Test plugins are made for dev purposes only.
 
-- `Dummy <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/test/dummy/>`_:
+- `Dummy
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/test/dummy/>`_:
   Mainly for dev purposes.
 
 
@@ -1193,11 +1229,14 @@ Bundled form handler plugins
 Below a short overview of the form handler plugins. See the README.rst file
 in directory of each plugin for details.
 
-- `DB store <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/db_store/>`_:
+- `DB store
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/db_store/>`_:
   Stores form data in a database.
-- `HTTP repost <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/http_repost/>`_:
+- `HTTP repost
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/http_repost/>`_:
   Repost the POST request to another endpoint.
-- `Mail <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/mail/>`_:
+- `Mail
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/mail/>`_:
   Send the form data by email.
 
 Bundled themes
@@ -1205,11 +1244,14 @@ Bundled themes
 Below a short overview of the themes. See the README.rst file in directory
 of each theme for details.
 
-- `Bootstrap 3 <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/themes/bootstrap3/>`_:
+- `Bootstrap 3
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/themes/bootstrap3/>`_:
   Bootstrap 3 theme.
-- `Foundation 5 <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/themes/foundation5/>`_:
+- `Foundation 5
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/themes/foundation5/>`_:
   Foundation 5 theme.
-- `Simple <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/themes/simple/>`_:
+- `Simple
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/themes/simple/>`_:
   Basic theme. Form editing is in a style of Django admin.
 
 HTML5 fields

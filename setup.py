@@ -67,12 +67,12 @@ install_requires = [
     'ordereddict>=1.1',
     'six>=1.4.1',
     'easy-thumbnails>=1.4,<2.0',
-    'transliterate>=1.5,<2.0',
+    #'transliterate>=1.5,<2.0',
     'vishap>=0.1.1,<2.0'
 ]
 
 tests_require = [
-    'radar>=0.3,<1.0',
+    #'radar>=0.3,<1.0',
     'simple_timer>=0.2',
     'selenium',
 ]
@@ -89,7 +89,7 @@ except:
 setup(
     name = 'django-fobi',
     version = version,
-    description = ("Customisable, modular user- and developer- friendly form builder application for Django"),
+    description = ("Customisable, modular user- and developer- friendly form generator/builder application for Django"),
     long_description = "{0}{1}".format(readme, screenshots),
     classifiers = [
         "Programming Language :: Python :: 2.6",
@@ -104,7 +104,7 @@ setup(
         "Operating System :: OS Independent",
         "Development Status :: 4 - Beta",
     ],
-    keywords = 'django, forms, form builder, forms builder, form designer',
+    keywords = 'django, form generator, form builder, visual form designer, user generated forms',
     author = 'Artur Barseghyan',
     author_email = 'artur.barseghyan@gmail.com',
     url = 'https://github.com/barseghyanartur/django-fobi/',

@@ -190,13 +190,14 @@ Must haves
   theme as well (same way as already done fore "bootstrap 3" and
   "foundation 5" themes.
 + Clean up the TODOs before first release.
++ In the ``db_store`` plugin README mention that ``xlwt`` package is
+  required (optional) for XLS export. If not present, falls back to
+  CSV export.
 - Make sure, that theme specific theme javascripts, css and other assets,
   are defined in the theme itself. Follow the ``django-dash``
   example as much as possible.
 - Make sure a better (SEO) URLs can be used in intergration packages (at
   least the FeinCMS).
-- Make it possible to strip certain kwargs or widget attributes in edit mode
-  or
 - Improve the "simple" theme for Django 1.6 and Django 1.7 (tiny bits of 
   styling).
 - Edit form test.
