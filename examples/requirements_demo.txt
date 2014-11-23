@@ -1,0 +1,19 @@
+Django>=1.5,<1.7
+Jinja2
+MarkupSafe
+MySQL-python
+South
+Sphinx
+django-admin-tools==0.5.2
+django-autoslug==1.7.1
+django-debug-toolbar==0.11.0
+django-registration-redux>=1.1
+django-simple-captcha
+docutils
+ipdb
+ipython
+ordereddict>=1.1
+# Selenium shall always be upgraded
+selenium
+simple-timer>=0.2
+tox
