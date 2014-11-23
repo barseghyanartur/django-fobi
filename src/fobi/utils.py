@@ -136,12 +136,13 @@ def get_user_plugins(get_allowed_plugin_uids_func, \
 
     for uid, plugin in registry._registry.items():
         if uid in allowed_plugin_uids:
-            if PY3:
-                plugin_name = force_text(plugin.name, encoding='utf-8')
-            else:
-                plugin_name = force_text(
-                    plugin.name, encoding='utf-8'
-                    ).encode('utf-8')
+            plugin_name = safe_text(plugin.name)
+            #if PY3:
+            #    plugin_name = force_text(plugin.name, encoding='utf-8')
+            #else:
+            #    plugin_name = force_text(
+            #        plugin.name, encoding='utf-8'
+            #        ).encode('utf-8')
             registered_plugins.append((uid, plugin_name))
 
     return registered_plugins

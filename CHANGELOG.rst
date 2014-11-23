@@ -11,6 +11,18 @@ It's always safe to migrate within the same minor version. Minor version
 changes might be backwards incompatible. All backwards incompatible changes
 are mentioned in this document.
 
+0.3.4
+-------------------------------------
+2014-11-23
+
+- New settings ``FAIL_ON_ERRORS_IN_FORM_ELEMENT_PLUGINS`` and
+  ``FOBI_FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS`` introduced. They do as 
+  their name tells. Default value for both is False.
+- Fixed exceptions raised when unicode characters were used as form names.
+- Fixed exceptions raised when unicode characters were used as field labels.
+- Fixes in the `db_store` and `mail` plugins related to usage of unicode
+  characters.
+
 0.3.3
 -------------------------------------
 2014-11-22

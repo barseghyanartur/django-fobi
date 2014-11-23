@@ -14,11 +14,12 @@ except ImportError:
 import csv
 import json
 
-from six import StringIO, BytesIO, PY3
+from six import StringIO, BytesIO
 
 from django.http import HttpResponse
 
 from fobi.exceptions import ImproperlyConfigured
+from fobi.helpers import safe_text
 from fobi.contrib.plugins.form_handlers.db_store.settings import (
     CSV_DELIMITER, CSV_QUOTECHAR
 )
@@ -104,7 +105,9 @@ class DataExporter(object):
         if XLWT_INSTALLED:
             return self._export_to_xls()
         else:
-            raise ImproperlyConfigured("For XLS export xlwt shall be installed.")
+            raise ImproperlyConfigured(
+                "For XLS export xlwt shall be installed."
+                )
 
     def export_to_csv(self):
         """
@@ -132,11 +135,10 @@ class DataExporter(object):
                 queue, delimiter=delimiter, quotechar=quotechar
                 )
             writerow = lambda row: csv.writerow(
-                [c.encode("utf-8") if hasattr(c, "encode") else c for c in row]
+                [safe_text(cell) for cell in row]
                 )
 
-        if PY3:
-            data_values = [v for v in data_values]
+        data_values = [safe_text(value) for value in data_values]
 
         writerow(data_values)
 

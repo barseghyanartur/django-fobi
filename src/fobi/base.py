@@ -56,7 +56,9 @@ from fobi.constants import CALLBACK_STAGES
 from fobi.settings import (
     DEFAULT_THEME, FORM_HANDLER_PLUGINS_EXECUTION_ORDER,
     CUSTOM_THEME_DATA, THEME_FOOTER_TEXT, FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS,
-    FAIL_ON_MISSING_FORM_HANDLER_PLUGINS, DEBUG
+    FAIL_ON_MISSING_FORM_HANDLER_PLUGINS, DEBUG,
+    #FAIL_ON_ERRORS_IN_FORM_ELEMENT_PLUGINS,
+    FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS
 )
 from fobi.exceptions import (
     InvalidRegistryItemType, DoesNotExist, ThemeDoesNotExist,
@@ -64,7 +66,7 @@ from fobi.exceptions import (
 )
 from fobi.helpers import (
     uniquify_sequence, map_field_name_to_label, clean_dict,
-    map_field_name_to_label, get_ignorable_form_values
+    map_field_name_to_label, get_ignorable_form_values, safe_text
 )
 from fobi.data_structures import SortableDict
 
@@ -1230,6 +1232,8 @@ class FormHandlerPlugin(BasePlugin):
         try:
             self.run(form_entry, request, form)
         except Exception as e:
+            if FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS:
+                raise e
             logger.debug(
                 "Error in class {0}. Details: "
                 "{1}".format(self.__class__.__name__, str(e))
@@ -1742,10 +1746,11 @@ def get_registered_plugins(registry):
     registered_plugins = []
 
     for uid, plugin in registry._registry.items():
-        if PY3:
-            plugin_name = force_text(plugin.name, encoding='utf-8')
-        else:
-            plugin_name = force_text(plugin.name, encoding='utf-8').encode('utf-8')
+        plugin_name = safe_text(plugin.name)
+        #if PY3:
+        #    plugin_name = force_text(plugin.name, encoding='utf-8')
+        #else:
+        #    plugin_name = force_text(plugin.name, encoding='utf-8').encode('utf-8')
         registered_plugins.append((uid, plugin_name))
 
     return registered_plugins
@@ -1762,12 +1767,14 @@ def get_registered_plugins_grouped(registry, sort_items=True):
     registered_plugins = {}
 
     for uid, plugin in registry._registry.items():
-        if PY3:
-            plugin_name = force_text(plugin.name, encoding='utf-8')
-            plugin_group = force_text(plugin.group, encoding='utf-8')
-        else:
-            plugin_name = force_text(plugin.name, encoding='utf-8').encode('utf-8')
-            plugin_group = force_text(plugin.group, encoding='utf-8').encode('utf-8')
+        plugin_name = safe_text(plugin.name)
+        plugin_group = safe_text(plugin.group)
+        #if PY3:
+        #    plugin_name = force_text(plugin.name, encoding='utf-8')
+        #    plugin_group = force_text(plugin.group, encoding='utf-8')
+        #else:
+        #    plugin_name = force_text(plugin.name, encoding='utf-8').encode('utf-8')
+        #    plugin_group = force_text(plugin.group, encoding='utf-8').encode('utf-8')
 
         if not plugin_group in registered_plugins:
             registered_plugins[plugin_group] = []

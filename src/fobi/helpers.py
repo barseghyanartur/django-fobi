@@ -36,6 +36,17 @@ logger = logging.getLogger(__name__)
 
 do_slugify = lambda s: slugify(s.lower()).lower()
 
+def safe_text(text):
+    """
+    Safe text (encode).
+
+    :return str:
+    """
+    if PY3:
+        return force_text(text, encoding='utf-8')
+    else:
+        return force_text(text, encoding='utf-8').encode('utf-8')
+
 def lists_overlap(sub, main):
     for i in sub:
         if i in main:
@@ -94,9 +105,13 @@ def two_dicts_to_string(headers, data, html_element='p'):
     and another keys to data. Joins as string and returns wrapped into
     HTML "p" tag.
     """
-    formatted_data = [(value, data.get(key, '')) for key, value in list(headers.items())]
-    return "".join(["<{0}>{1}: {2}</{3}>".format(html_element, key, value, html_element) \
-                    for key, value in formatted_data])
+    formatted_data = [
+        (value, data.get(key, '')) for key, value in list(headers.items())
+        ]
+    return "".join(
+        ["<{0}>{1}: {2}</{3}>".format(html_element, safe_text(key), safe_text(value), html_element) \
+        for key, value in formatted_data]
+        )
 
 empty_string = text_type('')
 
@@ -118,17 +133,6 @@ def get_ignorable_form_values():
     :return iterable:
     """
     return [None, empty_string,]
-
-def safe_text(text):
-    """
-    Safe text (encode).
-
-    :return str:
-    """
-    if PY3:
-        return force_text(text, encoding='utf-8')
-    else:
-        return force_text(text, encoding='utf-8').encode('utf-8')
 
 # ******************************************************************************
 # ******************************************************************************
