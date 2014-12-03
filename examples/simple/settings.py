@@ -203,9 +203,9 @@ INSTALLED_APPS = (
     # ***********************************************************************
     # **************************** Form fields ******************************
     # ***********************************************************************
-    'fobi.contrib.plugins.form_elements.fields.birthday',
     'fobi.contrib.plugins.form_elements.fields.boolean',
     'fobi.contrib.plugins.form_elements.fields.date',
+    'fobi.contrib.plugins.form_elements.fields.date_drop_down',
     'fobi.contrib.plugins.form_elements.fields.datetime',
     'fobi.contrib.plugins.form_elements.fields.email',
     'fobi.contrib.plugins.form_elements.fields.file',
@@ -223,9 +223,18 @@ INSTALLED_APPS = (
     'fobi.contrib.plugins.form_elements.fields.url',
 
     # ***********************************************************************
-    # ************************* Content element *****************************
+    # ************************ Security elements ****************************
+    # ***********************************************************************
+    'fobi.contrib.plugins.form_elements.security.honeypot',
+
+    # ***********************************************************************
+    # ************************* Testing elements ****************************
     # ***********************************************************************
     'fobi.contrib.plugins.form_elements.test.dummy',
+
+    # ***********************************************************************
+    # ************************* Content elements ****************************
+    # ***********************************************************************
     'fobi.contrib.plugins.form_elements.content.content_image',
     'fobi.contrib.plugins.form_elements.content.content_text',
     'fobi.contrib.plugins.form_elements.content.content_video',

@@ -45,7 +45,7 @@ Main features and highlights
 - Large variety of `Bundled form element plugins`_. Most of the Django fields
   are supported. `HTML5 fields`_ are supported as well.
 - `Captcha integration
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/captcha>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/captcha>`_
   comes out of the box with help of third-party app.
 - In addition to standard form elements, there are cosmetic (presentational)
   form elements (for adding a piece of text, image or a embed video)
@@ -1163,16 +1163,14 @@ in directory of each plugin for details.
 
 Fields
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-- `Birthday (year, month, day selection drop-downs)
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/birthday/>`_
 - `Boolean (checkbox)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/boolean/>`_
-- `Captcha
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/captcha/>`_
 - `Date
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/date/>`_
 - `DateTime
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/datetime/>`_
+- `Date drop down (year, month, day selection drop-downs)
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/date_drop_down/>`_
 - `Email
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/email/>`_
 - `File
@@ -1214,6 +1212,14 @@ complete and content rich.
 - `Content video
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_video/>`_:
   Add an embed YouTube or Vimeo video.
+
+Security
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- `Captcha
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/captcha/>`_:
+  Captcha integration. Requires ``django-simple-captcha`` package.
+- `Honeypot
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/honeypot/>`_
 
 Test
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

@@ -1,29 +1,29 @@
-__title__ = 'fobi.contrib.plugins.form_elements.fields.birthday.fobi_form_elements'
+__title__ = 'fobi.contrib.plugins.form_elements.fields.date_drop_down.fobi_form_elements'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('BirthdayInputPlugin',)
+__all__ = ('DateDropDownInputPlugin',)
 
 from django.forms.fields import DateField
 from django.forms.extras.widgets import SelectDateWidget
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
-from fobi.contrib.plugins.form_elements.fields.birthday import UID
-from fobi.contrib.plugins.form_elements.fields.birthday.forms import (
-    BirthdayInputForm
+from fobi.contrib.plugins.form_elements.fields.date_drop_down import UID
+from fobi.contrib.plugins.form_elements.fields.date_drop_down.forms import (
+    DateDropDownInputForm
     )
 
 theme = get_theme(request=None, as_instance=True)
 
-class BirthdayInputPlugin(FormFieldPlugin):
+class DateDropDownInputPlugin(FormFieldPlugin):
     """
     Date field plugin.
     """
     uid = UID
-    name = _("Date")
+    name = _("Date drop down")
     group = _("Fields")
-    form = BirthdayInputForm
+    form = DateDropDownInputForm
 
     def get_form_field_instances(self):
         """
@@ -52,4 +52,4 @@ class BirthdayInputPlugin(FormFieldPlugin):
         return [(self.data.name, DateField, kwargs)]
 
 
-form_element_plugin_registry.register(BirthdayInputPlugin)
+form_element_plugin_registry.register(DateDropDownInputPlugin)

@@ -1,21 +1,53 @@
 Release history and notes
 =====================================
-`Sequence based identifiers <http://en.wikipedia.org/wiki/Software_versioning#Sequence-based_identifiers>`_
-are used for versioning. The following schema is used:
+`Sequence based identifiers
+<http://en.wikipedia.org/wiki/Software_versioning#Sequence-based_identifiers>`_
+are used for versioning (schema follows below):
 
 .. code-block:: none
 
     major.minor[.revision]
 
-It's always safe to migrate within the same minor version. Minor version
-changes might be backwards incompatible. All backwards incompatible changes
-are mentioned in this document.
+It's always safe to migrate within the same minor version (for example, from
+0.3 to 0.3.4). Minor version changes might be backwards incompatible. All
+backwards incompatible changes are mentioned in this document.
+
+0.4
+-------------------------------------
+2014-12-03
+
+Note, that this release contains minor backwards incompatible changes. The
+changed do not anyhow affect your existing forms or data. The only thing you
+need to do is update the app paths in the ``settings`` module of your project.
+
+- The ``captcha`` field has been moved from 
+  ``fobi.contrib.plugins.form_elements.fields.captcha`` to
+  ``fobi.contrib.plugins.form_elements.security.captcha``. Make sure to update
+  the package paths in ``INSTALLED_APPS`` of your projects' settings module
+  (settings.py) when upgrading to this version.
+- The ``honeypot`` field has been added.
+- The ``birthday`` field has been renamed to ``date_drop_down``. A real
+  ``birthday`` field is still to come (in later releases). If you have been
+  using it, grab the 0.3.4 version, copy the
+  ``fobi.contrib.plugins.form_elements.fields.date_drop_down`` package to
+  your project apps and update the package paths in ``INSTALLED_APPS`` settings
+  module (settings.py) when upgrading to this version.
+- Nicer error validation/handling of hidden fields. A new form snippet template
+  added for displaying the non-field and hidden fields errors. The new
+  template makes a part of a standard theme as an attribute
+  ``form_non_field_and_hidden_errors_snippet_template``.
+- Minor fixes in generic templates.
+- An additional property ``is_hidden`` added to the hidden form elements. Those
+  form elements would be getting a default TextInput widget in the edit mode
+  instead of the widget they come from by default. It's possible to provide an
+  alternative widget for the edit mode as well. Default value of the
+  ``is_hidden`` is set to False.
 
 0.3.4
 -------------------------------------
 2014-11-23
 
-- New settings ``FAIL_ON_ERRORS_IN_FORM_ELEMENT_PLUGINS`` and
+- New settings ``FOBI_FAIL_ON_ERRORS_IN_FORM_ELEMENT_PLUGINS`` and
   ``FOBI_FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS`` introduced. They do as 
   their name tells. Default value for both is False.
 - Fixed exceptions raised when unicode characters were used as form names.

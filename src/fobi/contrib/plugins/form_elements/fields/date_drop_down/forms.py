@@ -1,8 +1,8 @@
-__title__ = 'fobi.contrib.plugins.form_elements.fields.birthday.forms'
+__title__ = 'fobi.contrib.plugins.form_elements.fields.date_drop_down.forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('BirthdayInputForm',)
+__all__ = ('DateDropDownInputForm',)
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
@@ -18,9 +18,9 @@ except ImportError:
 
 theme = get_theme(request=None, as_instance=True)
 
-class BirthdayInputForm(forms.Form, BaseFormFieldPluginForm):
+class DateDropDownInputForm(forms.Form, BaseFormFieldPluginForm):
     """
-    Form for ``DateInputPlugin``.
+    Form for ``DateDropDownInputPlugin``.
     """
     plugin_data_fields = [
         ("label", ""),

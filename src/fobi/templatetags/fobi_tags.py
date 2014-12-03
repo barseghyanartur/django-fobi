@@ -2,12 +2,17 @@ __title__ = 'fobi.templatetags.fobi_tags'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('get_fobi_plugin', 'get_fobi_form_handler_plugin_custom_actions')
+__all__ = (
+    'get_fobi_plugin', 'get_fobi_form_handler_plugin_custom_actions',
+    'get_form_field_type', 'get_form_hidden_fields_errors',
+    'has_edit_form_entry_permissions', 'render_auth_link',
+)
 
 from django.template import Library, TemplateSyntaxError, Node
 from django.conf import settings
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from django.forms.util import ErrorDict
 
 from fobi.settings import DISPLAY_AUTH_LINK
 
@@ -344,3 +349,58 @@ def get_form_field_type(parser, token):
     field = parser.compile_filter(bits[1])
 
     return GetFormFieldTypeNode(field=field, as_var=as_var)
+
+
+class GetFormHiddenFieldsErrorsNode(Node):
+    """
+    Node for ``get_form_hidden_fields_errors`` tag.
+    """
+    def __init__(self, form, as_var=None):
+        self.form = form
+        self.as_var = as_var
+
+    def render(self, context):
+        form = self.form.resolve(context, True)
+
+        hidden_fields_errors = ErrorDict()
+
+        for field in form.hidden_fields():
+            if field.errors:
+                hidden_fields_errors.update({field.name: field.errors})
+
+        context[self.as_var] = hidden_fields_errors
+        return ''
+
+
+@register.tag
+def get_form_hidden_fields_errors(parser, token):
+    """
+    Get form hidden fields errors.
+
+    :syntax:
+
+        {% get_form_hidden_fields_errors [form] as [context_var_name] %}
+
+    :example:
+
+        {% get_form_hidden_fields_errors form as form_hidden_fields_errors %}
+        {{ form_hidden_fields_errors.as_ul }}
+    """
+    bits = token.contents.split()
+
+    if 4 == len(bits):
+        if 'as' != bits[-2]:
+            raise TemplateSyntaxError(
+                "Invalid syntax for {0}. Incorrect number of arguments.".format(
+                    bits[0]
+                    )
+                )
+        as_var = bits[-1]
+    else:
+        raise TemplateSyntaxError(
+            "Invalid syntax for {0}. See docs for valid syntax.".format(bits[0])
+            )
+
+    form = parser.compile_filter(bits[1])
+
+    return GetFormHiddenFieldsErrorsNode(form=form, as_var=as_var)

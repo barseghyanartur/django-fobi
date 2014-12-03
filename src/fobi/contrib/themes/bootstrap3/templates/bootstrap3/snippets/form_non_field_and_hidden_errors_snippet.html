@@ -1,0 +1,16 @@
+{% load i18n %}
+{% for error_message in form.non_field_errors %}
+<div class="alert alert-danger">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">{% trans "Error" %}:</span>
+    {{ error_message.as_text }}
+</div>
+{% endfor %}
+
+{% for error_field_name, error_message in form_hidden_fields_errors.items %}
+<div class="alert alert-danger">
+    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+    <span class="sr-only">{{ error_field_name }}:</span>
+    {{ error_field_name }}: {{ error_message.as_text }}
+</div>
+{% endfor %}

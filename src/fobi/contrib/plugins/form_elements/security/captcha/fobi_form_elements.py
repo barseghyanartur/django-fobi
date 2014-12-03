@@ -1,4 +1,4 @@
-__title__ = 'fobi.contrib.plugins.form_elements.fields.captcha.fobi_form_elements'
+__title__ = 'fobi.contrib.plugins.form_elements.security.captcha.fobi_form_elements'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
@@ -9,18 +9,20 @@ from django.utils.translation import ugettext_lazy as _
 from captcha.fields import CaptchaField, CaptchaTextInput
 
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
-from fobi.contrib.plugins.form_elements.fields.captcha import UID
-from fobi.contrib.plugins.form_elements.fields.captcha.forms import CaptchaInputForm
+from fobi.contrib.plugins.form_elements.security.captcha import UID
+from fobi.contrib.plugins.form_elements.security.captcha.forms import (
+    CaptchaInputForm
+    )
 
 theme = get_theme(request=None, as_instance=True)
 
 class CaptchaInputPlugin(FormFieldPlugin):
     """
-    Char field plugin.
+    Captcha field plugin.
     """
     uid = UID
     name = _("Captcha")
-    group = _("Fields")
+    group = _("Security")
     form = CaptchaInputForm
 
     def get_form_field_instances(self):

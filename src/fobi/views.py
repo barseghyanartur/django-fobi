@@ -21,6 +21,7 @@ from django.contrib import messages
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.contrib.auth.decorators import login_required, permission_required
 from django.db import models, IntegrityError
+from django.utils.datastructures import MultiValueDictKeyError
 
 from fobi.models import FormEntry, FormElementEntry, FormHandlerEntry
 from fobi.forms import FormEntryForm, FormElementEntryFormSet
@@ -232,11 +233,24 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
                 queryset = form_entry.formelemententry_set.all(),
                 #prefix = 'form_element'
                 )
-            if form_element_entry_formset.is_valid():
-                form_element_entry_formset.save()
-                messages.info(
+            # If form elements aren't properly made (developers's fault)
+            # there might be problems with saving the ordering - likely
+            # in case of hidden elements only. Thus, we want to avoid
+            # errors here.
+            try:
+                if form_element_entry_formset.is_valid():
+                    form_element_entry_formset.save()
+                    messages.info(
+                        request,
+                        _("Elements ordering edited successfully.")
+                        )
+                    return redirect(
+                        reverse('fobi.edit_form_entry', kwargs={'form_entry_id': form_entry_id})
+                        )
+            except MultiValueDictKeyError as e:
+                messages.error(
                     request,
-                    _('Elements ordering edited successfully.')
+                    _("Errors occured while trying to change the elements ordering!")
                     )
                 return redirect(
                     reverse('fobi.edit_form_entry', kwargs={'form_entry_id': form_entry_id})

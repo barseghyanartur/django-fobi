@@ -140,26 +140,38 @@ class BaseTheme(object):
     form_snippet_template_name = 'fobi/generic/snippets/form_snippet.html'
     form_view_snippet_template_name = None
     form_edit_snippet_template_name = None
-    form_properties_snippet_template_name = 'fobi/generic/snippets/form_properties_snippet.html'
-    messages_snippet_template_name = 'fobi/generic/snippets/messages_snippet.html'
+    form_properties_snippet_template_name = \
+        'fobi/generic/snippets/form_properties_snippet.html'
+    messages_snippet_template_name = \
+        'fobi/generic/snippets/messages_snippet.html'
+    form_non_field_and_hidden_errors_snippet_template = \
+        'fobi/generic/snippets/form_non_field_and_hidden_errors_snippet.html'
+
     form_ajax = 'fobi/generic/snippets/form_ajax.html'
     form_view_ajax = None
     form_edit_ajax = None
     add_form_element_entry_template = 'fobi/generic/add_form_element_entry.html'
-    add_form_element_entry_ajax_template = 'fobi/generic/add_form_element_entry_ajax.html'
+    add_form_element_entry_ajax_template = \
+        'fobi/generic/add_form_element_entry_ajax.html'
     add_form_handler_entry_template = 'fobi/generic/add_form_handler_entry.html'
-    add_form_handler_entry_ajax_template = 'fobi/generic/add_form_handler_entry_ajax.html'
+    add_form_handler_entry_ajax_template = \
+        'fobi/generic/add_form_handler_entry_ajax.html'
     create_form_entry_template = 'fobi/generic/create_form_entry.html'
     create_form_entry_ajax_template = 'fobi/generic/create_form_entry_ajax.html'
     dashboard_template = 'fobi/generic/dashboard.html'
-    edit_form_element_entry_template = 'fobi/generic/edit_form_element_entry.html'
-    edit_form_element_entry_ajax_template = 'fobi/generic/edit_form_element_entry_ajax.html'
+    edit_form_element_entry_template = \
+        'fobi/generic/edit_form_element_entry.html'
+    edit_form_element_entry_ajax_template = \
+        'fobi/generic/edit_form_element_entry_ajax.html'
     edit_form_entry_template = 'fobi/generic/edit_form_entry.html'
     edit_form_entry_ajax_template = 'fobi/generic/edit_form_entry_ajax.html'
-    edit_form_handler_entry_template = 'fobi/generic/edit_form_handler_entry.html'
-    edit_form_handler_entry_ajax_template = 'fobi/generic/edit_form_handler_entry_ajax.html'
+    edit_form_handler_entry_template = \
+        'fobi/generic/edit_form_handler_entry.html'
+    edit_form_handler_entry_ajax_template = \
+        'fobi/generic/edit_form_handler_entry_ajax.html'
     form_entry_submitted_template = 'fobi/generic/form_entry_submitted.html'
-    form_entry_submitted_ajax_template = 'fobi/generic/form_entry_submitted_ajax.html'
+    form_entry_submitted_ajax_template = \
+        'fobi/generic/form_entry_submitted_ajax.html'
     embed_form_entry_submitted_ajax_template = None
     view_form_entry_template = 'fobi/generic/view_form_entry.html'
     view_form_entry_ajax_template = 'fobi/generic/view_form_entry_ajax.html'
@@ -1073,6 +1085,7 @@ class FormElementPlugin(BasePlugin):
     """
     storage = FormElementPluginDataStorage
     has_value = False
+    is_hidden = False
 
     def _get_form_field_instances(self, form_element_entry=None, origin=None, \
                                   kwargs_update_func=None, return_func=None, \
@@ -1105,13 +1118,20 @@ class FormElementPlugin(BasePlugin):
             else:
                 return []
 
-        # Data to update field instance kwargs with
-        kwargs_update = self.get_origin_kwargs_update_func_results(
-            kwargs_update_func, form_element_entry, origin, extra=extra
-            )
-
         processed_field_instances = []
         for field_name, Field, field_kwargs in form_field_instances:
+            Widget = None
+            if isinstance(Field, (list, tuple)):
+                Field, Widget = Field
+            # Data to update field instance kwargs with
+            kwargs_update = self.get_origin_kwargs_update_func_results(
+                kwargs_update_func,
+                form_element_entry,
+                origin,
+                extra = extra,
+                widget_cls = Widget
+                )
+
             #if 'widget' in field_kwargs:
             #    field_kwargs['widget'] = assemble_form_field_widget_class(
             #        base_class = field_kwargs['widget'],
@@ -1119,6 +1139,7 @@ class FormElementPlugin(BasePlugin):
             #        )
             if kwargs_update:
                 field_kwargs.update(kwargs_update)
+
             processed_field_instances.append(
                 (field_name, Field(**field_kwargs))
                 )
@@ -1160,7 +1181,7 @@ class FormElementPlugin(BasePlugin):
 
     def get_origin_kwargs_update_func_results(self, kwargs_update_func, \
                                               form_element_entry, origin, \
-                                              extra={}):
+                                              extra={}, widget_cls=None):
         """
         If ``kwargs_update_func`` is given, is callable and returns results
         without failures, return the result. Otherwise - return None.
@@ -1172,7 +1193,8 @@ class FormElementPlugin(BasePlugin):
                     form_element_plugin = self,
                     form_element_entry = form_element_entry,
                     origin = origin,
-                    extra = extra
+                    extra = extra,
+                    widget_cls = widget_cls
                     )
                 if kwargs_update:
                     return kwargs_update

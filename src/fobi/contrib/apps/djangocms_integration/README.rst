@@ -40,7 +40,7 @@ Django-CMS templates are quite specific and in some aspects are not 100%
 compatible with built-in themes (due to the fact that DjangoCMS intensively 
 makes use of ``django-sekizai`` which isn't used in the generic templates).
 
-That does not anyhow affect the core ``fobi``and the built-in themes,
+That does not anyhow affect the core ``fobi`` and the built-in themes,
 although you can't magically reuse built-in ``fobi`` themes with Django-CMS
 (as it's done for `FeinCMS page templates <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/templates/page/base.html>`_).
 

@@ -135,6 +135,14 @@ fobi.form_importers module
     :undoc-members:
     :show-inheritance:
 
+fobi.form_utils module
+----------------------
+
+.. automodule:: fobi.form_utils
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.forms module
 -----------------
 

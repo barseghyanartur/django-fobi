@@ -56,14 +56,19 @@ class Bootstrap3Theme(BaseTheme):
 
     form_ajax = 'bootstrap3/snippets/form_ajax.html'
     form_snippet_template_name = 'bootstrap3/snippets/form_snippet.html'
-    form_properties_snippet_template_name = 'bootstrap3/snippets/form_properties_snippet.html'
+    form_properties_snippet_template_name = \
+        'bootstrap3/snippets/form_properties_snippet.html'
     messages_snippet_template_name = 'bootstrap3/snippets/messages_snippet.html'
+    form_non_field_and_hidden_errors_snippet_template = \
+        'bootstrap3/snippets/form_non_field_and_hidden_errors_snippet.html'
 
     add_form_element_entry_template = 'bootstrap3/add_form_element_entry.html'
-    add_form_element_entry_ajax_template = 'bootstrap3/add_form_element_entry_ajax.html'
+    add_form_element_entry_ajax_template = \
+        'bootstrap3/add_form_element_entry_ajax.html'
 
     add_form_handler_entry_template = 'bootstrap3/add_form_handler_entry.html'
-    add_form_handler_entry_ajax_template = 'bootstrap3/add_form_handler_entry_ajax.html'
+    add_form_handler_entry_ajax_template = \
+        'bootstrap3/add_form_handler_entry_ajax.html'
 
     create_form_entry_template = 'bootstrap3/create_form_entry.html'
     create_form_entry_ajax_template = 'bootstrap3/create_form_entry_ajax.html'
@@ -71,21 +76,26 @@ class Bootstrap3Theme(BaseTheme):
     dashboard_template = 'bootstrap3/dashboard.html'
 
     edit_form_element_entry_template = 'bootstrap3/edit_form_element_entry.html'
-    edit_form_element_entry_ajax_template = 'bootstrap3/edit_form_element_entry_ajax.html'
+    edit_form_element_entry_ajax_template = \
+        'bootstrap3/edit_form_element_entry_ajax.html'
 
     edit_form_entry_template = 'bootstrap3/edit_form_entry.html'
     edit_form_entry_ajax_template = 'bootstrap3/edit_form_entry_ajax.html'
 
     edit_form_handler_entry_template = 'bootstrap3/edit_form_handler_entry.html'
-    edit_form_handler_entry_ajax_template = 'bootstrap3/edit_form_handler_entry_ajax.html'
+    edit_form_handler_entry_ajax_template = \
+        'bootstrap3/edit_form_handler_entry_ajax.html'
 
     form_entry_submitted_template = 'bootstrap3/form_entry_submitted.html'
-    form_entry_submitted_ajax_template = 'bootstrap3/form_entry_submitted_ajax.html'
-    embed_form_entry_submitted_ajax_template = 'bootstrap3/embed_form_entry_submitted_ajax.html'
+    form_entry_submitted_ajax_template = \
+        'bootstrap3/form_entry_submitted_ajax.html'
+    embed_form_entry_submitted_ajax_template = \
+        'bootstrap3/embed_form_entry_submitted_ajax.html'
 
     view_form_entry_template = 'bootstrap3/view_form_entry.html'
     view_form_entry_ajax_template = 'bootstrap3/view_form_entry_ajax.html'
-    view_embed_form_entry_ajax_template = 'bootstrap3/view_embed_form_entry_ajax.html'
+    view_embed_form_entry_ajax_template = \
+        'bootstrap3/view_embed_form_entry_ajax.html'
 
 
 theme_registry.register(Bootstrap3Theme)

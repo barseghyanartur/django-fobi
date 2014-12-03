@@ -146,7 +146,6 @@ Must haves
   be synced using the management command ``fobi_sync_plugins``.
 + Add URL field (with configurable validation).
 + Add a date time field (with configurable date format).
-+ Add a birthday field (with configurable date format).
 + Add date field (with configurable date format).
 + Edit form element/handler - add breadcrumbs.
 + Add HTML5 fields.
@@ -193,6 +192,8 @@ Must haves
 + In the ``db_store`` plugin README mention that ``xlwt`` package is
   required (optional) for XLS export. If not present, falls back to
   CSV export.
+- Make appropriate additions to the documentation reflecting the changes
+  made in 0.3.5 (or 0.4).
 - Make sure, that theme specific theme javascripts, css and other assets,
   are defined in the theme itself. Follow the ``django-dash``
   example as much as possible.
@@ -219,7 +220,6 @@ Should haves
 + Improve the "Simple" theme (Django admin integration part).
 + Place a basic README.rst in each plugin.
 + As another prove of concept, write an integration app for Django-CMS.
-+ Add birthday field.
 + Add data export features to ``db_store`` plugin.
 + Make 3 base templates for the DjangoCMS integration app. Save things in 
   settings and make the template to be chosen depending on the fobi_theme (
@@ -227,7 +227,9 @@ Should haves
   Django-CMS templates).
 + Improve the Django-CMS integration app (make sure it works with
   Django-CMS < 3.0).
-- Rename the ``birthday`` field to ``date_drop_down`` field.
++ Add a honeypot field.
++ Move the Captcha field into a separate ``security`` sub module.
++ Rename the ``birthday`` field to ``date_drop_down`` field.
 - Make a real ``birthday`` field (with no year selection).
 - Make it possible to use something else than Django's ORM (django-mongoengine,
   SQLAlchemy).
@@ -264,6 +266,7 @@ Should haves
 - Add a management command to remove broken form elements.
 - Think of making putting several actions (repair) into the management
   interface (UI).
+- Make Django's CSRF validation optional.
 
 Could haves
 ===============================================

@@ -306,7 +306,7 @@ def get_assembled_form(form_entry):
 
 def append_edit_and_delete_links_to_field(form_element_plugin, \
                                           form_element_entry, origin=None, \
-                                          extra={}):
+                                          extra={}, widget_cls=None):
     """
     Should return dictionary, which would be used to update default kwargs
     of form fields.
@@ -348,7 +348,11 @@ def append_edit_and_delete_links_to_field(form_element_plugin, \
     label = safe_text(getattr(form_element_plugin.data, 'label', ''))
     d.update({'label': "{0} ({1})".format(label, safe_text(form_element_plugin.name))})
 
-    if 'hidden' == form_element_plugin.uid:
+    #if 'hidden' == form_element_plugin.uid:
+    #    d.update({'widget': TextInput(attrs={'class': theme.form_element_html_class})})
+    if widget_cls:
+        d.update({'widget': widget_cls(attrs={'class': theme.form_element_html_class})})
+    elif form_element_plugin.is_hidden:
         d.update({'widget': TextInput(attrs={'class': theme.form_element_html_class})})
 
     return d

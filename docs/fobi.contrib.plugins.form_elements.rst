@@ -8,6 +8,7 @@ Subpackages
 
     fobi.contrib.plugins.form_elements.content
     fobi.contrib.plugins.form_elements.fields
+    fobi.contrib.plugins.form_elements.security
     fobi.contrib.plugins.form_elements.test
 
 Module contents

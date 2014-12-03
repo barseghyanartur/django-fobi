@@ -1,6 +1,6 @@
-=================================================
-fobi.contrib.plugins.form_elements.fields.captcha
-=================================================
+===================================================
+fobi.contrib.plugins.form_elements.security.captcha
+===================================================
 A ``Fobi`` Captcha form field plugin. Makes use of the
 `django-simple-captcha <http://readthedocs.org/docs/django-simple-captcha>`_.
 
@@ -32,14 +32,14 @@ Taken from django-simple-captcha `installation instructions <http://django-simpl
 
 Install `fobi` Captcha plugin
 -----------------------------------------------
-1. Add ``fobi.contrib.plugins.form_elements.fields.captcha`` to the
+1. Add ``fobi.contrib.plugins.form_elements.security.captcha`` to the
    ``INSTALLED_APPS`` in your ``settings.py``.
 
 .. code-block:: python
 
     INSTALLED_APPS = (
         # ...
-        'fobi.contrib.plugins.form_elements.fields.captcha',
+        'fobi.contrib.plugins.form_elements.security.captcha',
         # ...
     )
 
