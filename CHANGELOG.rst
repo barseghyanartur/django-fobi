@@ -15,6 +15,31 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.4.2
+-------------------------------------
+2014-12-04
+
+- Helper script (management command) in order to migrate fobi==0.3.* data
+  to fobi==0.4.* data (caused by renaming the ``birthday`` field to
+  ``date_drop_down`` - see the release notes of 0.4 below). Follow the steps
+  precisely in order to painlessly upgrade your fobi==0.3.* to fobi==0.4.*:
+
+  1. Install fobi>=0.4.2::
+
+         pip install fobi>=0.4.2
+
+  2. In your settings change the::
+
+         'fobi.contrib.plugins.form_elements.fields.birthday'
+         
+     to::
+
+         'fobi.contrib.plugins.form_elements.fields.date_drop_down'.
+
+  3. Run the ``migrate_03_to_04`` management command::
+
+         ./manage.py migrate_03_to_04
+
 0.4.1
 -------------------------------------
 2014-12-04
@@ -28,7 +53,8 @@ are used for versioning (schema follows below):
 
 Note, that this release contains minor backwards incompatible changes. The
 changes may affect your existing forms and data. Read the notes below
-carefully.
+carefully (UPDATE 2014-12-04: the fobi==0.4.2 contains a management command
+which makes the necessary changes in the database for safe upgrade).
 
 - The ``captcha`` field has been moved from 
   ``fobi.contrib.plugins.form_elements.fields.captcha`` to

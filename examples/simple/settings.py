@@ -203,6 +203,7 @@ INSTALLED_APPS = (
     # ***********************************************************************
     # **************************** Form fields ******************************
     # ***********************************************************************
+    #'fobi.contrib.plugins.form_elements.fields.birthday',
     'fobi.contrib.plugins.form_elements.fields.boolean',
     'fobi.contrib.plugins.form_elements.fields.date',
     'fobi.contrib.plugins.form_elements.fields.date_drop_down',
