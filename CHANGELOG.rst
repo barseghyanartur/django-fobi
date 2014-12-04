@@ -20,8 +20,8 @@ are used for versioning (schema follows below):
 2014-12-03
 
 Note, that this release contains minor backwards incompatible changes. The
-changed do not anyhow affect your existing forms or data. The only thing you
-need to do is update the app paths in the ``settings`` module of your project.
+changes may affect your existing forms and data. Read the notes below
+carefully.
 
 - The ``captcha`` field has been moved from 
   ``fobi.contrib.plugins.form_elements.fields.captcha`` to
@@ -29,12 +29,16 @@ need to do is update the app paths in the ``settings`` module of your project.
   the package paths in ``INSTALLED_APPS`` of your projects' settings module
   (settings.py) when upgrading to this version.
 - The ``honeypot`` field has been added.
-- The ``birthday`` field has been renamed to ``date_drop_down``. A real
-  ``birthday`` field is still to come (in later releases). If you have been
-  using it, grab the 0.3.4 version, copy the
+- The ``birthday`` field has been renamed to ``date_drop_down`` (A real
+  ``birthday`` field is still to come in later releases). The change causes
+  backwards incompatibility issues if you have used that ``birthday`` field.
+  If you haven't - you have nothing to worry. If you have been using it,
+  grab the 0.3.4 version, copy the
   ``fobi.contrib.plugins.form_elements.fields.date_drop_down`` package to
-  your project apps and update the package paths in ``INSTALLED_APPS`` settings
-  module (settings.py) when upgrading to this version.
+  your project apps, make necessary path changes and update the package paths
+  in ``INSTALLED_APPS`` settings module (settings.py) before upgrading to this
+  version. Then, in Django admin management interface, replace all the
+  occurances of ``Birthday`` field with ``Date drop down`` field.
 - Nicer error validation/handling of hidden fields. A new form snippet template
   added for displaying the non-field and hidden fields errors. The new
   template makes a part of a standard theme as an attribute
@@ -82,7 +86,7 @@ need to do is update the app paths in the ``settings`` module of your project.
 2014-11-09
 
 Note, that this release contains minor backwards incompatible changes. The
-changed do not anyhow affect your existing forms or data. The only thing you
+changes do not anyhow affect your existing forms or data. The only thing you
 need to do is update the app paths in the ``settings`` module of your project.
 
 - Minor core improvements related to the themeing of the form handler plugins.
