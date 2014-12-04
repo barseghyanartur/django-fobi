@@ -19,14 +19,15 @@ are used for versioning (schema follows below):
 -------------------------------------
 2014-12-04
 
-- Helper script (management command) in order to migrate fobi==0.3.* data
-  to fobi==0.4.* data (caused by renaming the ``birthday`` field to
-  ``date_drop_down`` - see the release notes of 0.4 below). Follow the steps
-  precisely in order to painlessly upgrade your fobi==0.3.* to fobi==0.4.*:
+- Helper script (management command) in order to migrate django-fobi==0.3.* 
+  data to django-fobi==0.4.* data (caused by renaming the ``birthday`` field 
+  to ``date_drop_down`` - see the release notes of 0.4 below). Follow the steps
+  precisely in order to painlessly upgrade your django-fobi==0.3.* to
+  django-fobi==0.4.*:
 
-  1. Install fobi>=0.4.2::
+  1. Install django-fobi>=0.4.2::
 
-         pip install fobi>=0.4.2
+         pip install django-fobi>=0.4.2
 
   2. In your settings change the::
 
@@ -53,8 +54,8 @@ are used for versioning (schema follows below):
 
 Note, that this release contains minor backwards incompatible changes. The
 changes may affect your existing forms and data. Read the notes below
-carefully (UPDATE 2014-12-04: the fobi==0.4.2 contains a management command
-which makes the necessary changes in the database for safe upgrade).
+carefully (UPDATE 2014-12-04: the django-fobi==0.4.2 contains a management 
+command which makes the necessary changes in the database for safe upgrade).
 
 - The ``captcha`` field has been moved from 
   ``fobi.contrib.plugins.form_elements.fields.captcha`` to
