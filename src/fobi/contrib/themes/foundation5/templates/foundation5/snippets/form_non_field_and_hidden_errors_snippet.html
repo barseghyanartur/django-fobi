@@ -1,0 +1,12 @@
+{% load i18n %}
+{% for error_message in form.non_field_errors %}
+<div class="alert-box alert">
+    {{ error_message.as_text }}
+</div>
+{% endfor %}
+
+{% for error_field_name, error_message in form_hidden_fields_errors.items %}
+<div class="alert-box alert">
+    {{ error_field_name }}: {{ error_message.as_text }}
+</div>
+{% endfor %}

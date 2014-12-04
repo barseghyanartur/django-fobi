@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.4.1
+-------------------------------------
+2014-12-04
+
+- Fixes in Foundation5 and Simple themes related to the changes in error
+  validation/handling of hidden fields.
+
 0.4
 -------------------------------------
 2014-12-03
@@ -39,8 +46,8 @@ carefully.
   in ``INSTALLED_APPS`` settings module (settings.py) before upgrading to this
   version. Then, in Django admin management interface, replace all the
   occurances of ``Birthday`` field with ``Date drop down`` field.
-- Nicer error validation/handling of hidden fields. A new form snippet template
-  added for displaying the non-field and hidden fields errors. The new
+- Better error validation/handling of hidden fields. A new form snippet 
+  template added for displaying the non-field and hidden fields errors. The new
   template makes a part of a standard theme as an attribute
   ``form_non_field_and_hidden_errors_snippet_template``.
 - Minor fixes in generic templates.
