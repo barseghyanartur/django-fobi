@@ -34,7 +34,7 @@ are used for versioning (schema follows below):
          
      to::
 
-         'fobi.contrib.plugins.form_elements.fields.date_drop_down'.
+         'fobi.contrib.plugins.form_elements.fields.date_drop_down'
 
   3. Run the ``migrate_03_to_04`` management command::
 

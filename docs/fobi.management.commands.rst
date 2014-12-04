@@ -28,6 +28,14 @@ fobi.management.commands.fobi_update_plugin_data module
     :undoc-members:
     :show-inheritance:
 
+fobi.management.commands.migrate_03_to_04 module
+------------------------------------------------
+
+.. automodule:: fobi.management.commands.migrate_03_to_04
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------
