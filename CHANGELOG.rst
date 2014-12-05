@@ -15,6 +15,14 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.4.3
+-------------------------------------
+2014-12-05
+
+- Make sure values of form elements declared not to have a value (``has_value``
+  property is set to False) aren't being saved in the ``db_store`` plugin.
+- Apply that to the ``honeypot`` and ``captcha`` plugins.
+
 0.4.2
 -------------------------------------
 2014-12-04

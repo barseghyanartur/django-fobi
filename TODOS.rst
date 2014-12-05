@@ -230,6 +230,9 @@ Should haves
 + Add a honeypot field.
 + Move the Captcha field into a separate ``security`` sub module.
 + Rename the ``birthday`` field to ``date_drop_down`` field.
++ At the moment Captcha data is also being saved (db_store form handler).
+  Think of fixing that by allowing to exclude certain fields from being
+  processed by form handlers.
 - Make a real ``birthday`` field (with no year selection).
 - Make it possible to use something else than Django's ORM (django-mongoengine,
   SQLAlchemy).
@@ -260,9 +263,6 @@ Should haves
 - Think of adding hooks so that custom actions are possible without template
   changes (for example, add a new import app for importing the forms from
   MailChimp).
-- At the moment Captcha data is also being saved (db_store form handler).
-  Think of fixing that by allowing to exclude certain fields from being
-  processed by form handlers.
 - Add a management command to remove broken form elements.
 - Think of making putting several actions (repair) into the management
   interface (UI).

@@ -89,7 +89,6 @@ def clean_dict(source, keys=[], values=[]):
     for key, value in source.items():
         if (not key in keys) and (not value in values):
             d[key] = value
-
     return d
 
 def combine_dicts(headers, data):

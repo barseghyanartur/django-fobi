@@ -1912,7 +1912,7 @@ def get_ignorable_form_fields():
 # **************************** Form handler specific **************************
 # *****************************************************************************
 
-def get_cleaned_data(form, values_to_remove=[]):
+def get_cleaned_data(form, keys_to_remove=[], values_to_remove=[]):
     """
     Gets cleaned data, having the trash (fields without values) filtered
     out.
@@ -1924,8 +1924,10 @@ def get_cleaned_data(form, values_to_remove=[]):
     if not values_to_remove:
         values_to_remove = get_ignorable_form_values()
 
+    cleaned_data = copy.copy(form.cleaned_data)
     cleaned_data = clean_dict(
-        copy.copy(form.cleaned_data),
+        cleaned_data,
+        keys = list(set(cleaned_data.keys()) - set(keys_to_remove)),
         values = values_to_remove
         )
 
@@ -1965,9 +1967,15 @@ def get_processed_form_data(form):
     """
     keys_to_remove = get_ignorable_form_fields()
     values_to_remove = get_ignorable_form_values()
+
+    field_name_to_label_map = \
+        get_field_name_to_label_map(form, keys_to_remove, values_to_remove)
+
+    keys_to_remove = list(field_name_to_label_map.keys())
+
     return (
-        get_field_name_to_label_map(form, keys_to_remove, values_to_remove),
-        get_cleaned_data(form, values_to_remove)
+        field_name_to_label_map,
+        get_cleaned_data(form, keys_to_remove, values_to_remove)
         )
 
 def get_registered_form_handler_plugins():

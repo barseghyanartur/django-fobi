@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from captcha.fields import CaptchaField, CaptchaTextInput
 
-from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
+from fobi.base import FormElementPlugin, form_element_plugin_registry, get_theme
 from fobi.contrib.plugins.form_elements.security.captcha import UID
 from fobi.contrib.plugins.form_elements.security.captcha.forms import (
     CaptchaInputForm
@@ -16,7 +16,7 @@ from fobi.contrib.plugins.form_elements.security.captcha.forms import (
 
 theme = get_theme(request=None, as_instance=True)
 
-class CaptchaInputPlugin(FormFieldPlugin):
+class CaptchaInputPlugin(FormElementPlugin):
     """
     Captcha field plugin.
     """
