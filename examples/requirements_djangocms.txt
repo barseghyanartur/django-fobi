@@ -3,3 +3,4 @@ django-cms==3.0.6
 djangocms-picture
 djangocms-snippet
 djangocms-text-ckeditor
+django-mptt

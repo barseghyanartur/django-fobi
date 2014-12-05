@@ -41,14 +41,12 @@ try:
 except ImportError as e:
     from ordereddict import OrderedDict
 
-from six import PY3
 from six import with_metaclass
 
 from django import forms
 from django.forms import ModelForm
 from django.forms.util import ErrorList
 from django.http import Http404
-from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.discover import autodiscover
@@ -1769,10 +1767,6 @@ def get_registered_plugins(registry):
 
     for uid, plugin in registry._registry.items():
         plugin_name = safe_text(plugin.name)
-        #if PY3:
-        #    plugin_name = force_text(plugin.name, encoding='utf-8')
-        #else:
-        #    plugin_name = force_text(plugin.name, encoding='utf-8').encode('utf-8')
         registered_plugins.append((uid, plugin_name))
 
     return registered_plugins
@@ -1791,12 +1785,6 @@ def get_registered_plugins_grouped(registry, sort_items=True):
     for uid, plugin in registry._registry.items():
         plugin_name = safe_text(plugin.name)
         plugin_group = safe_text(plugin.group)
-        #if PY3:
-        #    plugin_name = force_text(plugin.name, encoding='utf-8')
-        #    plugin_group = force_text(plugin.group, encoding='utf-8')
-        #else:
-        #    plugin_name = force_text(plugin.name, encoding='utf-8').encode('utf-8')
-        #    plugin_group = force_text(plugin.group, encoding='utf-8').encode('utf-8')
 
         if not plugin_group in registered_plugins:
             registered_plugins[plugin_group] = []

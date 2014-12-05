@@ -21,11 +21,11 @@ from fobi.models import (
 from fobi.constants import ACTION_CHOICES
 from fobi.base import get_theme
 
-# ********************************************************************************
-# ********************************************************************************
-# ******************************* Entry forms ************************************
-# ********************************************************************************
-# ********************************************************************************
+# *****************************************************************************
+# *****************************************************************************
+# ******************************* Entry forms *********************************
+# *****************************************************************************
+# *****************************************************************************
 
 class FormEntryForm(forms.ModelForm):
     """
@@ -77,40 +77,50 @@ class FormFieldsetEntryForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(FormFieldsetEntry, self).__init__(*args, **kwargs)
         theme = get_theme(request=None, as_instance=True)
-        self.fields['name'].widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
+        self.fields['name'].widget = forms.widgets.TextInput(
+            attrs={'class': theme.form_element_html_class}
+            )
 
 
-FormElementEntryFormSet = modelformset_factory(FormElementEntry, fields=('position',), extra=0)
+FormElementEntryFormSet = modelformset_factory(
+    FormElementEntry, fields=('position',), extra=0
+    )
 
-# ********************************************************************************
-# ********************************************************************************
-# *********************************** Base ***************************************
-# ********************************************************************************
-# ********************************************************************************
+# *****************************************************************************
+# *****************************************************************************
+# *********************************** Base ************************************
+# *****************************************************************************
+# *****************************************************************************
 
 
 class BaseBulkChangePluginsForm(forms.ModelForm):
     """
-    Bulk change dashboard plugins form.
+    Bulk change plugins form.
 
-    - `selected_dashboard_plugins` (str): List of comma separated values to be changed.
-    - `users_action` (int): For indicating wheither the users shall be appended to the dashbard plugins or replaced.
-    - `groups_action` (int): For indicating wheither the groups shall be appended to the dashboard plugins or replaced.
+    - `selected_dashboard_plugins` (str): List of comma separated values to be
+       changed.
+    - `users_action` (int): For indicating wheither the users shall be appended
+      to the dashbard plugins or replaced.
+    - `groups_action` (int): For indicating wheither the groups shall be
+      appended to the dashboard plugins or replaced.
     """
     selected_dashboard_plugins = forms.CharField(
-        required=True, label=_("Selected plugins"), widget=forms.widgets.HiddenInput
+        required=True, label=_("Selected plugins"),
+        widget=forms.widgets.HiddenInput
         )
     users_action = forms.ChoiceField(
         required = False,
         label = _("Users action"),
         choices = ACTION_CHOICES,
-        help_text = _("If set to ``replace``, the groups are replaced; otherwise - appended.")
+        help_text = _("If set to ``replace``, the groups are replaced; "
+                      "otherwise - appended.")
         )
     groups_action = forms.ChoiceField(
         required = False,
         label = _("Groups action"),
         choices = ACTION_CHOICES,
-        help_text = _("If set to ``replace``, the groups are replaced; otherwise - appended.")
+        help_text = _("If set to ``replace``, the groups are replaced; "
+                      "otherwise - appended.")
         )
 
     class Media:

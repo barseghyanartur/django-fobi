@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-03 22:50+0100\n"
+"POT-Creation-Date: 2014-12-05 22:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,11 +18,12 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: admin.py:124 admin.py:193 admin.py:226 models.py:323 models.py:351
-#: contrib/apps/djangocms_integration/models.py:19
+#: contrib/apps/djangocms_integration/models.py:26
 #: contrib/apps/feincms_integration/widgets.py:40
-#: contrib/plugins/form_handlers/db_store/models.py:53
+#: contrib/plugins/form_handlers/db_store/models.py:56
 #: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:39
 #: contrib/themes/foundation5/templates/foundation5/dashboard.html:29
+#: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/view_saved_form_data_entries.html:40
 #: templates/fobi/generic/dashboard.html:30
 msgid "Form"
 msgstr ""
@@ -32,7 +33,7 @@ msgid "Custom"
 msgstr ""
 
 #: admin.py:135 models.py:85 models.py:223 models.py:271
-#: contrib/plugins/form_handlers/db_store/models.py:54
+#: contrib/plugins/form_handlers/db_store/models.py:58
 msgid "User"
 msgstr ""
 
@@ -49,7 +50,7 @@ msgstr ""
 msgid "Plugin"
 msgstr ""
 
-#: admin.py:232 models.py:474
+#: admin.py:232 models.py:479
 msgid "Form handler entry"
 msgstr ""
 
@@ -61,14 +62,14 @@ msgstr ""
 msgid "POST required when changing in bulk!"
 msgstr ""
 
-#: base.py:97
+#: base.py:102
 msgid "Build your forms"
 msgstr ""
 
-#: base.py:492 models.py:224 models.py:272 models.py:325
+#: base.py:515 models.py:224 models.py:272 models.py:325
 #: contrib/plugins/form_elements/fields/boolean/forms.py:32
-#: contrib/plugins/form_elements/fields/captcha/forms.py:35
 #: contrib/plugins/form_elements/fields/date/forms.py:33
+#: contrib/plugins/form_elements/fields/date_drop_down/forms.py:42
 #: contrib/plugins/form_elements/fields/datetime/forms.py:33
 #: contrib/plugins/form_elements/fields/email/forms.py:37
 #: contrib/plugins/form_elements/fields/file/forms.py:34
@@ -84,13 +85,15 @@ msgstr ""
 #: contrib/plugins/form_elements/fields/text/forms.py:35
 #: contrib/plugins/form_elements/fields/textarea/forms.py:33
 #: contrib/plugins/form_elements/fields/url/forms.py:35
+#: contrib/plugins/form_elements/security/captcha/forms.py:35
+#: contrib/plugins/form_elements/security/honeypot/forms.py:35
 #: contrib/themes/simple/templates/simple/dashboard.html:42
 msgid "Name"
 msgstr ""
 
-#: base.py:497 contrib/plugins/form_elements/fields/boolean/forms.py:27
-#: contrib/plugins/form_elements/fields/captcha/forms.py:30
+#: base.py:520 contrib/plugins/form_elements/fields/boolean/forms.py:27
 #: contrib/plugins/form_elements/fields/date/forms.py:28
+#: contrib/plugins/form_elements/fields/date_drop_down/forms.py:37
 #: contrib/plugins/form_elements/fields/datetime/forms.py:28
 #: contrib/plugins/form_elements/fields/email/forms.py:32
 #: contrib/plugins/form_elements/fields/file/forms.py:29
@@ -106,12 +109,14 @@ msgstr ""
 #: contrib/plugins/form_elements/fields/text/forms.py:30
 #: contrib/plugins/form_elements/fields/textarea/forms.py:28
 #: contrib/plugins/form_elements/fields/url/forms.py:30
+#: contrib/plugins/form_elements/security/captcha/forms.py:30
+#: contrib/plugins/form_elements/security/honeypot/forms.py:30
 msgid "Label"
 msgstr ""
 
-#: base.py:502 contrib/plugins/form_elements/fields/boolean/forms.py:37
-#: contrib/plugins/form_elements/fields/captcha/forms.py:40
+#: base.py:525 contrib/plugins/form_elements/fields/boolean/forms.py:37
 #: contrib/plugins/form_elements/fields/date/forms.py:38
+#: contrib/plugins/form_elements/fields/date_drop_down/forms.py:47
 #: contrib/plugins/form_elements/fields/datetime/forms.py:38
 #: contrib/plugins/form_elements/fields/email/forms.py:42
 #: contrib/plugins/form_elements/fields/file/forms.py:39
@@ -126,12 +131,13 @@ msgstr ""
 #: contrib/plugins/form_elements/fields/text/forms.py:40
 #: contrib/plugins/form_elements/fields/textarea/forms.py:38
 #: contrib/plugins/form_elements/fields/url/forms.py:40
+#: contrib/plugins/form_elements/security/captcha/forms.py:40
 msgid "Help text"
 msgstr ""
 
-#: base.py:507 contrib/plugins/form_elements/fields/boolean/forms.py:47
-#: contrib/plugins/form_elements/fields/captcha/forms.py:56
+#: base.py:530 contrib/plugins/form_elements/fields/boolean/forms.py:47
 #: contrib/plugins/form_elements/fields/date/forms.py:53
+#: contrib/plugins/form_elements/fields/date_drop_down/forms.py:72
 #: contrib/plugins/form_elements/fields/datetime/forms.py:53
 #: contrib/plugins/form_elements/fields/email/forms.py:58
 #: contrib/plugins/form_elements/fields/file/forms.py:55
@@ -147,22 +153,24 @@ msgstr ""
 #: contrib/plugins/form_elements/fields/text/forms.py:56
 #: contrib/plugins/form_elements/fields/textarea/forms.py:48
 #: contrib/plugins/form_elements/fields/url/forms.py:56
+#: contrib/plugins/form_elements/security/captcha/forms.py:56
+#: contrib/plugins/form_elements/security/honeypot/forms.py:56
 msgid "Required"
 msgstr ""
 
-#: base.py:529
+#: base.py:552
 msgid "Duplicate field name!"
 msgstr ""
 
-#: base.py:534
+#: base.py:557
 msgid "Duplicate label name!"
 msgstr ""
 
-#: base.py:601
+#: base.py:636
 msgid "General"
 msgstr ""
 
-#: base.py:2027
+#: base.py:2097
 msgid "Theme `{0}` does not exist!"
 msgstr ""
 
@@ -194,7 +202,7 @@ msgstr ""
 msgid "Group"
 msgstr ""
 
-#: models.py:120 models.py:416
+#: models.py:120 models.py:421
 msgid "UID"
 msgstr ""
 
@@ -274,7 +282,7 @@ msgstr ""
 msgid "Makes your form cloneable by other users."
 msgstr ""
 
-#: models.py:285 models.py:440
+#: models.py:285 models.py:445
 msgid "Position"
 msgstr ""
 
@@ -326,126 +334,131 @@ msgstr ""
 msgid "Form fieldset entries"
 msgstr ""
 
-#: models.py:352 contrib/plugins/form_handlers/db_store/models.py:56
+#: models.py:352 contrib/plugins/form_handlers/db_store/models.py:62
 msgid "Plugin data"
 msgstr ""
 
-#: models.py:435 models.py:469
+#: models.py:440 models.py:474
 msgid "Plugin name"
 msgstr ""
 
-#: models.py:438
+#: models.py:443
 msgid "Form fieldset"
 msgstr ""
 
-#: models.py:444
+#: models.py:449
 msgid "Form element entry"
 msgstr ""
 
-#: models.py:445
+#: models.py:450
 msgid "Form element entries"
 msgstr ""
 
-#: models.py:475
+#: models.py:480
 msgid "Form handler entries"
 msgstr ""
 
-#: utils.py:328
+#: utils.py:329
 #: contrib/themes/foundation5/templates/foundation5/dashboard.html:43
-#: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:116
+#: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:117
 #: contrib/themes/simple/templates/simple/dashboard.html:76
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:124
 #: templates/fobi/generic/dashboard.html:46
 #: templates/fobi/generic/edit_form_entry.html:8
-#: templates/fobi/generic/edit_form_entry_ajax.html:118
+#: templates/fobi/generic/edit_form_entry_ajax.html:119
 #: templates/fobi/generic/view_form_entry.html:8
 msgid "Edit"
 msgstr ""
 
-#: utils.py:333
+#: utils.py:334
 #: contrib/themes/foundation5/templates/foundation5/dashboard.html:44
-#: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:122
+#: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:123
 #: contrib/themes/simple/templates/simple/dashboard.html:81
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:126
 #: templates/fobi/generic/dashboard.html:51
-#: templates/fobi/generic/edit_form_entry_ajax.html:120
+#: templates/fobi/generic/edit_form_entry_ajax.html:121
 msgid "Delete"
 msgstr ""
 
-#: views.py:70
+#: views.py:74
 msgid "{0} not found."
 msgstr ""
 
-#: views.py:160
+#: views.py:164
 msgid "Form {0} was created successfully."
 msgstr ""
 
-#: views.py:168 views.py:262
+#: views.py:172 views.py:279
 msgid "Errors occured while saving the form: {0}."
 msgstr ""
 
-#: views.py:219 views.py:340 views.py:578 views.py:798 views.py:891
-#: views.py:933
+#: views.py:223 views.py:357 views.py:595 views.py:815 views.py:908
+#: views.py:950
 msgid "Form entry not found."
 msgstr ""
 
-#: views.py:236
+#: views.py:245
 msgid "Elements ordering edited successfully."
 msgstr ""
 
-#: views.py:254
+#: views.py:253
+msgid "Errors occured while trying to change the elements ordering!"
+msgstr ""
+
+#: views.py:271
 msgid "Form {0} was edited successfully."
 msgstr ""
 
-#: views.py:412
+#: views.py:429
 msgid "The form element plugin \"{0}\" was added successfully."
 msgstr ""
 
-#: views.py:460
+#: views.py:477
 msgid "Form element entry not found."
 msgstr ""
 
-#: views.py:472
+#: views.py:489
 msgid "The form element plugin \"{0}\" is not configurable!"
 msgstr ""
 
-#: views.py:504
+#: views.py:521
 msgid "The form element plugin \"{0}\" was edited successfully."
 msgstr ""
 
-#: views.py:554
+#: views.py:571
 msgid "The form element plugin \"{0}\" was deleted successfully."
 msgstr ""
 
-#: views.py:585
+#: views.py:602
 msgid "Plugin does not exist or you are not allowed to  use this plugin!"
 msgstr ""
 
-#: views.py:630
+#: views.py:647
 msgid "The form handler plugin \"{0}\" was added successfully."
 msgstr ""
 
-#: views.py:683
+#: views.py:700
 msgid "Form handler entry not found."
 msgstr ""
 
-#: views.py:696
+#: views.py:713
 msgid "The form handler plugin \"{0}\" is not configurable!"
 msgstr ""
 
-#: views.py:719
+#: views.py:736
 msgid "The form handler plugin \"{0}\" was edited successfully."
 msgstr ""
 
-#: views.py:768
+#: views.py:785
 msgid "The form handler plugin \"{0}\" was deleted successfully."
 msgstr ""
 
-#: views.py:846 contrib/apps/feincms_integration/widgets.py:180
+#: views.py:863 contrib/apps/djangocms_integration/cms_plugins.py:129
+#: contrib/apps/feincms_integration/widgets.py:180
 msgid "Form {0} was submitted successfully."
 msgstr ""
 
-#: views.py:939
+#: views.py:956
 msgid "The form \"{0}\" was deleted successfully."
 msgstr ""
 
@@ -457,156 +470,168 @@ msgstr ""
 msgid "No"
 msgstr ""
 
-#: contrib/apps/djangocms_integration/cms_plugins.py:17
+#: contrib/apps/djangocms_integration/cms_plugins.py:35
 #: contrib/apps/feincms_integration/widgets.py:89
 msgid "Fobi form"
 msgstr ""
 
+#: contrib/apps/djangocms_integration/models.py:29
 #: contrib/apps/feincms_integration/widgets.py:43
 msgid "Form template name"
 msgstr ""
 
+#: contrib/apps/djangocms_integration/models.py:31
 #: contrib/apps/feincms_integration/widgets.py:45
 msgid "Template to render the form with."
 msgstr ""
 
+#: contrib/apps/djangocms_integration/models.py:35
 #: contrib/apps/feincms_integration/widgets.py:49
 msgid "Hide form title"
 msgstr ""
 
+#: contrib/apps/djangocms_integration/models.py:36
 #: contrib/apps/feincms_integration/widgets.py:50
 msgid "If checked, no form title is shown."
 msgstr ""
 
+#: contrib/apps/djangocms_integration/models.py:40
 #: contrib/apps/feincms_integration/widgets.py:54
 msgid "Form title"
 msgstr ""
 
+#: contrib/apps/djangocms_integration/models.py:41
 #: contrib/apps/feincms_integration/widgets.py:55
 msgid "Overrides the default form title."
 msgstr ""
 
+#: contrib/apps/djangocms_integration/models.py:45
 #: contrib/apps/feincms_integration/widgets.py:59
 msgid "Submit button text"
 msgstr ""
 
+#: contrib/apps/djangocms_integration/models.py:46
 #: contrib/apps/feincms_integration/widgets.py:60
 msgid "Overrides the default form submit button text."
 msgstr ""
 
+#: contrib/apps/djangocms_integration/models.py:50
 #: contrib/apps/feincms_integration/widgets.py:64
 msgid "Success page template name"
 msgstr ""
 
+#: contrib/apps/djangocms_integration/models.py:52
 #: contrib/apps/feincms_integration/widgets.py:66
 msgid "Template to render the success page with."
 msgstr ""
 
+#: contrib/apps/djangocms_integration/models.py:56
 #: contrib/apps/feincms_integration/widgets.py:70
 msgid "Hide success page title"
 msgstr ""
 
+#: contrib/apps/djangocms_integration/models.py:57
 #: contrib/apps/feincms_integration/widgets.py:71
 msgid "If checked, no success page title is shown."
 msgstr ""
 
+#: contrib/apps/djangocms_integration/models.py:61
 #: contrib/apps/feincms_integration/widgets.py:75
 msgid "Succes page title"
 msgstr ""
 
+#: contrib/apps/djangocms_integration/models.py:62
 #: contrib/apps/feincms_integration/widgets.py:76
 msgid "Overrides the default success page title."
 msgstr ""
 
+#: contrib/apps/djangocms_integration/models.py:66
 #: contrib/apps/feincms_integration/widgets.py:80
 msgid "Succes page text"
 msgstr ""
 
+#: contrib/apps/djangocms_integration/models.py:67
 #: contrib/apps/feincms_integration/widgets.py:81
 msgid "Overrides the default success page text."
 msgstr ""
 
-#: contrib/plugins/form_elements/content/dummy/fobi_form_elements.py:21
-msgid "Dummy"
+#: contrib/apps/djangocms_integration/templates/djangocms_integration/login_required.html:3
+#, python-format
+msgid ""
+"\n"
+"You have to be authorised in order to see the content.\n"
+"<a href=\"%(login_url)s\">Log in</a> here.\n"
 msgstr ""
 
-#: contrib/plugins/form_elements/content/dummy/fobi_form_elements.py:22
-msgid "Testing"
-msgstr ""
-
-#: contrib/plugins/form_elements/content/dummy/fobi_form_elements.py:35
-msgid "Dummy content"
-msgstr ""
-
-#: contrib/plugins/form_elements/content/image/defaults.py:24
+#: contrib/plugins/form_elements/content/content_image/defaults.py:24
 msgid "Smart crop"
 msgstr ""
 
-#: contrib/plugins/form_elements/content/image/defaults.py:25
+#: contrib/plugins/form_elements/content/content_image/defaults.py:25
 msgid "Crop center"
 msgstr ""
 
-#: contrib/plugins/form_elements/content/image/defaults.py:26
+#: contrib/plugins/form_elements/content/content_image/defaults.py:26
 msgid "Crop scale"
 msgstr ""
 
-#: contrib/plugins/form_elements/content/image/defaults.py:27
+#: contrib/plugins/form_elements/content/content_image/defaults.py:27
 msgid "Fit width"
 msgstr ""
 
-#: contrib/plugins/form_elements/content/image/defaults.py:28
+#: contrib/plugins/form_elements/content/content_image/defaults.py:28
 msgid "Fit height"
 msgstr ""
 
-#: contrib/plugins/form_elements/content/image/fobi_form_elements.py:28
+#: contrib/plugins/form_elements/content/content_image/fobi_form_elements.py:32
 msgid "Content image"
 msgstr ""
 
-#: contrib/plugins/form_elements/content/image/fobi_form_elements.py:29
-#: contrib/plugins/form_elements/content/text/fobi_form_elements.py:23
-#: contrib/plugins/form_elements/content/video/fobi_form_elements.py:25
+#: contrib/plugins/form_elements/content/content_image/fobi_form_elements.py:33
+#: contrib/plugins/form_elements/content/content_text/fobi_form_elements.py:23
+#: contrib/plugins/form_elements/content/content_video/fobi_form_elements.py:25
 msgid "Content"
 msgstr ""
 
-#: contrib/plugins/form_elements/content/image/forms.py:30
+#: contrib/plugins/form_elements/content/content_image/forms.py:31
 msgid "Image"
 msgstr ""
 
-#: contrib/plugins/form_elements/content/image/forms.py:35
+#: contrib/plugins/form_elements/content/content_image/forms.py:37
 msgid "Alt text"
 msgstr ""
 
-#: contrib/plugins/form_elements/content/image/forms.py:40
+#: contrib/plugins/form_elements/content/content_image/forms.py:44
 msgid "Fit method"
 msgstr ""
 
-#: contrib/plugins/form_elements/content/image/forms.py:47
-#: contrib/plugins/form_elements/content/video/forms.py:38
+#: contrib/plugins/form_elements/content/content_image/forms.py:53
+#: contrib/plugins/form_elements/content/content_video/forms.py:38
 msgid "Size"
 msgstr ""
 
-#: contrib/plugins/form_elements/content/image/templates/image/render.html:11
+#: contrib/plugins/form_elements/content/content_image/templates/content_image/render.html:11
 msgid "No image provided!"
 msgstr ""
 
-#: contrib/plugins/form_elements/content/text/fobi_form_elements.py:22
+#: contrib/plugins/form_elements/content/content_text/fobi_form_elements.py:22
 msgid "Content text"
 msgstr ""
 
-#: contrib/plugins/form_elements/content/text/forms.py:24
+#: contrib/plugins/form_elements/content/content_text/forms.py:24
 #: contrib/plugins/form_elements/fields/text/fobi_form_elements.py:22
 msgid "Text"
 msgstr ""
 
-#: contrib/plugins/form_elements/content/video/fobi_form_elements.py:24
+#: contrib/plugins/form_elements/content/content_video/fobi_form_elements.py:24
 msgid "Content video"
 msgstr ""
 
-#: contrib/plugins/form_elements/content/video/forms.py:28
+#: contrib/plugins/form_elements/content/content_video/forms.py:28
 msgid "Title"
 msgstr ""
 
-#: contrib/plugins/form_elements/content/video/forms.py:33
+#: contrib/plugins/form_elements/content/content_video/forms.py:33
 #: contrib/plugins/form_elements/fields/url/fobi_form_elements.py:29
 msgid "URL"
 msgstr ""
@@ -616,12 +641,12 @@ msgid "Boolean"
 msgstr ""
 
 #: contrib/plugins/form_elements/fields/boolean/fobi_form_elements.py:21
-#: contrib/plugins/form_elements/fields/captcha/fobi_form_elements.py:23
 #: contrib/plugins/form_elements/fields/date/fobi_form_elements.py:23
+#: contrib/plugins/form_elements/fields/date_drop_down/fobi_form_elements.py:25
 #: contrib/plugins/form_elements/fields/datetime/fobi_form_elements.py:24
 #: contrib/plugins/form_elements/fields/email/fobi_form_elements.py:25
 #: contrib/plugins/form_elements/fields/file/fobi_form_elements.py:24
-#: contrib/plugins/form_elements/fields/hidden/fobi_form_elements.py:23
+#: contrib/plugins/form_elements/fields/hidden/fobi_form_elements.py:25
 #: contrib/plugins/form_elements/fields/input/fobi_form_elements.py:23
 #: contrib/plugins/form_elements/fields/integer/fobi_form_elements.py:30
 #: contrib/plugins/form_elements/fields/password/fobi_form_elements.py:24
@@ -638,6 +663,7 @@ msgstr ""
 
 #: contrib/plugins/form_elements/fields/boolean/forms.py:42
 #: contrib/plugins/form_elements/fields/date/forms.py:43
+#: contrib/plugins/form_elements/fields/date_drop_down/forms.py:62
 #: contrib/plugins/form_elements/fields/datetime/forms.py:43
 #: contrib/plugins/form_elements/fields/email/forms.py:47
 #: contrib/plugins/form_elements/fields/file/forms.py:44
@@ -653,20 +679,31 @@ msgstr ""
 #: contrib/plugins/form_elements/fields/text/forms.py:45
 #: contrib/plugins/form_elements/fields/textarea/forms.py:43
 #: contrib/plugins/form_elements/fields/url/forms.py:45
+#: contrib/plugins/form_elements/security/honeypot/forms.py:45
 msgid "Initial"
-msgstr ""
-
-#: contrib/plugins/form_elements/fields/captcha/fobi_form_elements.py:22
-msgid "Captcha"
 msgstr ""
 
 #: contrib/plugins/form_elements/fields/date/fobi_form_elements.py:22
 #: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:41
+#: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/view_saved_form_data_entries.html:42
 msgid "Date"
 msgstr ""
 
 #: contrib/plugins/form_elements/fields/date/forms.py:48
+#: contrib/plugins/form_elements/fields/date_drop_down/forms.py:67
 msgid "Input  formats"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/date_drop_down/fobi_form_elements.py:24
+msgid "Date drop down"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/date_drop_down/forms.py:52
+msgid "Minimum year value"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/date_drop_down/forms.py:57
+msgid "Maximum year value"
 msgstr ""
 
 #: contrib/plugins/form_elements/fields/datetime/fobi_form_elements.py:23
@@ -688,6 +725,7 @@ msgstr ""
 #: contrib/plugins/form_elements/fields/password/forms.py:50
 #: contrib/plugins/form_elements/fields/text/forms.py:50
 #: contrib/plugins/form_elements/fields/url/forms.py:50
+#: contrib/plugins/form_elements/security/honeypot/forms.py:50
 msgid "Max length"
 msgstr ""
 
@@ -705,7 +743,7 @@ msgstr ""
 msgid "File"
 msgstr ""
 
-#: contrib/plugins/form_elements/fields/hidden/fobi_form_elements.py:22
+#: contrib/plugins/form_elements/fields/hidden/fobi_form_elements.py:24
 msgid "Hidden"
 msgstr ""
 
@@ -827,56 +865,99 @@ msgstr ""
 msgid "Textarea"
 msgstr ""
 
-#: contrib/plugins/form_handlers/db_store/admin.py:31
+#: contrib/plugins/form_elements/security/captcha/fobi_form_elements.py:24
+msgid "Captcha"
+msgstr ""
+
+#: contrib/plugins/form_elements/security/captcha/fobi_form_elements.py:25
+#: contrib/plugins/form_elements/security/honeypot/fobi_form_elements.py:28
+msgid "Security"
+msgstr ""
+
+#: contrib/plugins/form_elements/security/honeypot/fields.py:19
+msgid "Field value was tampered with."
+msgstr ""
+
+#: contrib/plugins/form_elements/security/honeypot/fobi_form_elements.py:27
+msgid "Honeypot"
+msgstr ""
+
+#: contrib/plugins/form_elements/test/dummy/fobi_form_elements.py:21
+msgid "Dummy"
+msgstr ""
+
+#: contrib/plugins/form_elements/test/dummy/fobi_form_elements.py:22
+msgid "Testing"
+msgstr ""
+
+#: contrib/plugins/form_elements/test/dummy/fobi_form_elements.py:35
+msgid "Dummy content"
+msgstr ""
+
+#: contrib/plugins/form_handlers/db_store/admin.py:27
 #: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:40
+#: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/view_saved_form_data_entries.html:41
 msgid "Data"
 msgstr ""
 
-#: contrib/plugins/form_handlers/db_store/admin.py:34
+#: contrib/plugins/form_handlers/db_store/admin.py:30
 msgid "Raw"
 msgstr ""
 
-#: contrib/plugins/form_handlers/db_store/admin.py:43
-#: contrib/plugins/form_handlers/db_store/models.py:61
+#: contrib/plugins/form_handlers/db_store/admin.py:39
+#: contrib/plugins/form_handlers/db_store/models.py:67
 msgid "Saved form data entry"
 msgstr ""
 
-#: contrib/plugins/form_handlers/db_store/admin.py:159
+#: contrib/plugins/form_handlers/db_store/admin.py:62
 msgid "Export data to CSV/XLS"
 msgstr ""
 
-#: contrib/plugins/form_handlers/db_store/fobi_form_handlers.py:26
+#: contrib/plugins/form_handlers/db_store/fobi_form_handlers.py:24
 msgid "DB store"
 msgstr ""
 
-#: contrib/plugins/form_handlers/db_store/fobi_form_handlers.py:62
+#: contrib/plugins/form_handlers/db_store/fobi_form_handlers.py:69
 #: contrib/plugins/form_handlers/db_store/templates/db_store/plugin_data_repr.html:4
+#: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/plugin_data_repr.html:4
 msgid "View entries"
 msgstr ""
 
-#: contrib/plugins/form_handlers/db_store/models.py:55
+#: contrib/plugins/form_handlers/db_store/fobi_form_handlers.py:75
+msgid "Export entries"
+msgstr ""
+
+#: contrib/plugins/form_handlers/db_store/models.py:60
 msgid "Form data headers"
 msgstr ""
 
-#: contrib/plugins/form_handlers/db_store/models.py:57
+#: contrib/plugins/form_handlers/db_store/models.py:63
 msgid "Date created"
 msgstr ""
 
-#: contrib/plugins/form_handlers/db_store/models.py:62
+#: contrib/plugins/form_handlers/db_store/models.py:68
 msgid "Saved form data entries"
 msgstr ""
 
-#: contrib/plugins/form_handlers/db_store/models.py:77
+#: contrib/plugins/form_handlers/db_store/models.py:90
 msgid "Saved data"
 msgstr ""
 
 #: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:5
 #: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:23
+#: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/view_saved_form_data_entries.html:5
+#: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/view_saved_form_data_entries.html:24
 msgid "View form data"
 msgstr ""
 
 #: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:30
+#: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/view_saved_form_data_entries.html:31
 msgid "Saved form data"
+msgstr ""
+
+#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:49
+#: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/view_saved_form_data_entries.html:50
+msgid "Filter"
 msgstr ""
 
 #: contrib/plugins/form_handlers/http_repost/fobi_form_handlers.py:40
@@ -888,7 +969,7 @@ msgstr ""
 msgid "Endpoint URL"
 msgstr ""
 
-#: contrib/plugins/form_handlers/mail/fobi_form_handlers.py:27
+#: contrib/plugins/form_handlers/mail/fobi_form_handlers.py:28
 msgid "Mail"
 msgstr ""
 
@@ -927,6 +1008,10 @@ msgstr ""
 
 #: contrib/themes/bootstrap3/fobi_themes.py:17
 msgid "Bootstrap 3"
+msgstr ""
+
+#: contrib/themes/bootstrap3/templates/bootstrap3/snippets/form_non_field_and_hidden_errors_snippet.html:5
+msgid "Error"
 msgstr ""
 
 #: contrib/themes/foundation5/fobi_themes.py:18
@@ -1038,14 +1123,14 @@ msgstr ""
 msgid "Handler"
 msgstr ""
 
-#: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:146
-#: templates/fobi/generic/edit_form_entry_ajax.html:141
+#: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:149
+#: templates/fobi/generic/edit_form_entry_ajax.html:145
 msgid "Form properties"
 msgstr ""
 
-#: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:157
+#: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:160
 #: templates/fobi/admin/bulk_change_plugins.html:76
-#: templates/fobi/generic/edit_form_entry_ajax.html:152
+#: templates/fobi/generic/edit_form_entry_ajax.html:156
 msgid "Submit changes"
 msgstr ""
 
@@ -1087,7 +1172,7 @@ msgid "Documentation"
 msgstr ""
 
 #: contrib/themes/simple/templates/simple/base_edit.html:65
-#: templatetags/fobi_tags.py:95
+#: templatetags/fobi_tags.py:157
 msgid "Log out"
 msgstr ""
 
@@ -1112,16 +1197,16 @@ msgstr ""
 msgid "Add form handler"
 msgstr ""
 
-#: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:116
-#: templates/fobi/generic/edit_form_entry_ajax.html:111
+#: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:117
+#: templates/fobi/generic/edit_form_entry_ajax.html:112
 msgid "Info"
 msgstr ""
 
-#: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:144
+#: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:150
 msgid "Change form properties"
 msgstr ""
 
-#: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:156
+#: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:162
 msgid "Save"
 msgstr ""
 
@@ -1198,6 +1283,6 @@ msgstr ""
 msgid "Help"
 msgstr ""
 
-#: templatetags/fobi_tags.py:104
+#: templatetags/fobi_tags.py:166
 msgid "Log in"
 msgstr ""

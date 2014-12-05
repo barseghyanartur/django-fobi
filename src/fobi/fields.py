@@ -10,8 +10,8 @@ from fobi.widgets import NoneWidget
 
 class NoneField(Field):
     """
-    To be used with content elements like text or images, that need to be present,
-    for instance, in between form input elements.
+    To be used with content elements like text or images, that need to be
+    present, for instance, in between form input elements.
     """
     widget = NoneWidget
 

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-03 22:50+0100\n"
+"POT-Creation-Date: 2014-12-05 22:48+0100\n"
 "PO-Revision-Date: 2014-11-05 02:29+0100\n"
 "Last-Translator: Artur Barseghyan <artur.barseghyan@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,68 +33,63 @@ msgstr ""
 msgid "Russian"
 msgstr ""
 
-#: settings.py:244
+#: settings.py:298 settings.py:312
 msgid "Custom bootstrap3 embed form view template"
 msgstr ""
 
-#: settings.py:250
+#: settings.py:304 settings.py:318
 msgid "Custom bootstrap3 embed form entry submitted template"
 msgstr ""
 
-#: settings.py:266
+#: settings.py:334 settings.py:348
 msgid "Custom foundation5 embed form view template"
 msgstr ""
 
-#: settings.py:272
+#: settings.py:340 settings.py:354
 msgid "Custom foundation5 embed form entry submitted template"
 msgstr ""
 
-#: settings.py:289
+#: settings.py:373
 msgid "&copy; django-fobi example site 2014"
 msgstr ""
 
-#: admin_tools_dashboard/__init__.py:28
-#: admin_tools_dashboard/menu.py:27
+#: admin_tools_dashboard/__init__.py:29 admin_tools_dashboard/menu.py:28
 msgid "Foo"
 msgstr ""
 
-#: admin_tools_dashboard/__init__.py:36
-#: admin_tools_dashboard/menu.py:33
+#: admin_tools_dashboard/__init__.py:37 admin_tools_dashboard/menu.py:34
 msgid "Fobi"
 msgstr ""
 
-#: admin_tools_dashboard/__init__.py:39
-#: admin_tools_dashboard/menu.py:35
+#: admin_tools_dashboard/__init__.py:40 admin_tools_dashboard/menu.py:36
 msgid "Plugins"
 msgstr ""
 
-#: admin_tools_dashboard/__init__.py:40
-#: admin_tools_dashboard/menu.py:36
+#: admin_tools_dashboard/__init__.py:41 admin_tools_dashboard/menu.py:37
 msgid "Forms"
 msgstr ""
 
-#: admin_tools_dashboard/__init__.py:41
-#: admin_tools_dashboard/menu.py:37
+#: admin_tools_dashboard/__init__.py:42 admin_tools_dashboard/menu.py:38
 msgid "Data"
 msgstr ""
 
-#: admin_tools_dashboard/__init__.py:47
-#: admin_tools_dashboard/menu.py:43
-msgid "Pages"
+#: admin_tools_dashboard/__init__.py:49 admin_tools_dashboard/menu.py:45
+msgid "FeinCMS Pages"
 msgstr ""
 
-#: admin_tools_dashboard/__init__.py:55
-#: admin_tools_dashboard/menu.py:49
+#: admin_tools_dashboard/__init__.py:58 admin_tools_dashboard/menu.py:52
+msgid "DjangoCMS Pages"
+msgstr ""
+
+#: admin_tools_dashboard/__init__.py:66 admin_tools_dashboard/menu.py:58
 msgid "Administration"
 msgstr ""
 
-#: admin_tools_dashboard/__init__.py:62
-#: admin_tools_dashboard/__init__.py:76
+#: admin_tools_dashboard/__init__.py:73 admin_tools_dashboard/__init__.py:87
 msgid "Recent Actions"
 msgstr ""
 
-#: admin_tools_dashboard/menu.py:23
-#: templates/home/base.html:38
+#: admin_tools_dashboard/menu.py:24 templates/home/base.html:38
 #: templates/home/foundation5.html:32
 msgid "Dashboard"
 msgstr ""
@@ -123,6 +118,22 @@ msgstr ""
 msgid "Django administration"
 msgstr ""
 
+#: templates/cms_page/bootstrap3/base.html:9
+msgid "DjangoCMS Bootstrap 3 example"
+msgstr ""
+
+#: templates/cms_page/foundation5/base.html:9
+msgid "DjangoCMS Foundation 5 example"
+msgstr ""
+
+#: templates/cms_page/foundation5/base.html:99 templates/home/base.html:12
+msgid "Home"
+msgstr ""
+
+#: templates/cms_page/simple/base.html:4
+msgid "DjangoCMS Simple example"
+msgstr ""
+
 #: templates/fobi/base.html:4
 msgid "Fobi example site"
 msgstr ""
@@ -137,30 +148,26 @@ msgid ""
 "     template for rendering the form for the theme %(fobi_theme_uid)s given."
 msgstr ""
 
-#: templates/home/base.html:12
-msgid "Home"
-msgstr ""
-
-#: templates/home/base.html:13
-#: templates/page/base.html:13
+#: templates/home/base.html:13 templates/page/base.html:13
 msgid "django-fobi example site"
 msgstr ""
 
-#: templates/home/base.html:22
-#: templates/home/foundation5.html:16
+#: templates/home/base.html:22 templates/home/foundation5.html:16
 msgid ""
 "\n"
 "    <p>\n"
-"    Welcome to `django-fobi` (later on named just `Fobi`) - a customisable, modular, developer-friendly form\n"
-"    builder application for Django. With `Fobi` you can build Django forms using a user-friendly GUI,\n"
-"    save or mail posted form data. Developer-friendly API allows you to build your own form elements\n"
+"    Welcome to `django-fobi` (later on named just `Fobi`) - a customisable, "
+"modular, developer-friendly form\n"
+"    builder application for Django. With `Fobi` you can build Django forms "
+"using a user-friendly GUI,\n"
+"    save or mail posted form data. Developer-friendly API allows you to "
+"build your own form elements\n"
 "    and form handlers (mechanisms for handling the submitted form data).\n"
 "    </p>\n"
 "    "
 msgstr ""
 
-#: templates/home/base.html:30
-#: templates/home/foundation5.html:24
+#: templates/home/base.html:30 templates/home/foundation5.html:24
 msgid "Learn more"
 msgstr ""
 
@@ -168,14 +175,15 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"      <p>The `Fobi` dashboard, where you can see all the forms you have created, edit them (add/remove elements,\n"
+"      <p>The `Fobi` dashboard, where you can see all the forms you have "
+"created, edit them (add/remove elements,\n"
 "      form handlers), create new forms as well as remove existing ones.</p>\n"
-"      <p><a class=\"btn btn-default\" href=\"%(dashboard_url)s\" role=\"button\">Go to dashboard &raquo;</a></p>\n"
+"      <p><a class=\"btn btn-default\" href=\"%(dashboard_url)s\" role="
+"\"button\">Go to dashboard &raquo;</a></p>\n"
 "      "
 msgstr ""
 
-#: templates/home/base.html:47
-#: templates/home/foundation5.html:41
+#: templates/home/base.html:47 templates/home/foundation5.html:41
 msgid "Create a form"
 msgstr ""
 
@@ -183,13 +191,14 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"      <p>Create your first form using awesome user-friendly GUI. Choose what to do with the posted data.</p>\n"
-"      <p><a class=\"btn btn-default\" href=\"%(create_form_entry_url)s\" role=\"button\">Create form &raquo;</a></p>\n"
+"      <p>Create your first form using awesome user-friendly GUI. Choose what "
+"to do with the posted data.</p>\n"
+"      <p><a class=\"btn btn-default\" href=\"%(create_form_entry_url)s\" "
+"role=\"button\">Create form &raquo;</a></p>\n"
 "      "
 msgstr ""
 
-#: templates/home/base.html:55
-#: templates/home/foundation5.html:49
+#: templates/home/base.html:55 templates/home/foundation5.html:49
 msgid "See the admin part"
 msgstr ""
 
@@ -197,9 +206,11 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"      <p>See the Django-admin for saved data, as well as choose who to grant with permissions of using\n"
+"      <p>See the Django-admin for saved data, as well as choose who to grant "
+"with permissions of using\n"
 "      one or another `Fobi` plugin (form element or form handler).</p>\n"
-"      <p><a class=\"btn btn-default\" href=\"%(admin_url)s\" role=\"button\">Go to admin &raquo;</a></p>\n"
+"      <p><a class=\"btn btn-default\" href=\"%(admin_url)s\" role=\"button"
+"\">Go to admin &raquo;</a></p>\n"
 "      "
 msgstr ""
 
@@ -207,9 +218,11 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"      <p>The `Fobi` dashboard, where you can see all the forms you have created, edit them (add/remove elements,\n"
+"      <p>The `Fobi` dashboard, where you can see all the forms you have "
+"created, edit them (add/remove elements,\n"
 "      form handlers), create new forms as well as remove existing ones.</p>\n"
-"      <p><a class=\"button secondary radius\" href=\"%(dashboard_url)s\" role=\"button\">Go to dashboard &raquo;</a></p>\n"
+"      <p><a class=\"button secondary radius\" href=\"%(dashboard_url)s\" "
+"role=\"button\">Go to dashboard &raquo;</a></p>\n"
 "      "
 msgstr ""
 
@@ -217,8 +230,10 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"      <p>Create your first form using awesome user-friendly GUI. Choose what to do with the posted data.</p>\n"
-"      <p><a class=\"button secondary radius\" href=\"%(create_form_entry_url)s\" role=\"button\">Create form &raquo;</a></p>\n"
+"      <p>Create your first form using awesome user-friendly GUI. Choose what "
+"to do with the posted data.</p>\n"
+"      <p><a class=\"button secondary radius\" href="
+"\"%(create_form_entry_url)s\" role=\"button\">Create form &raquo;</a></p>\n"
 "      "
 msgstr ""
 
@@ -226,9 +241,11 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"      <p>See the Django-admin for saved data, as well as choose who to grant with permissions of using\n"
+"      <p>See the Django-admin for saved data, as well as choose who to grant "
+"with permissions of using\n"
 "      one or another `Fobi` plugin (form element or form handler).</p>\n"
-"      <p><a class=\"button secondary radius\" href=\"%(admin_url)s\" role=\"button\">Go to admin &raquo;</a></p>\n"
+"      <p><a class=\"button secondary radius\" href=\"%(admin_url)s\" role="
+"\"button\">Go to admin &raquo;</a></p>\n"
 "      "
 msgstr ""
 
@@ -249,19 +266,23 @@ msgstr ""
 msgid ""
 "\n"
 "      Thanks %(account)s, activation complete!\n"
-"      You may now <a href='%(auth_login_url)s'>login</a> using the username and password you set at registration.\n"
+"      You may now <a href='%(auth_login_url)s'>login</a> using the username "
+"and password you set at registration.\n"
 "      "
 msgstr ""
 
 #: templates/registration/activate.html:22
-msgid "Oops &ndash; it seems that your activation key is invalid.  Please check the url again."
+msgid ""
+"Oops &ndash; it seems that your activation key is invalid.  Please check the "
+"url again."
 msgstr ""
 
 #: templates/registration/activation_complete.html:16
 #, python-format
 msgid ""
 "\n"
-"      Thanks, activation complete!  You may now <a href=\"%(auth_login_url)s\">login</a> using the username and password you set at registration.\n"
+"      Thanks, activation complete!  You may now <a href=\"%(auth_login_url)s"
+"\">login</a> using the username and password you set at registration.\n"
 "      "
 msgstr ""
 
@@ -273,13 +294,15 @@ msgid ""
 "<p>\n"
 "You (or someone pretending to be you) have asked to register an account at\n"
 "<b>%(sitename)s</b>.<br/>\n"
-"If this wasn't you, please ignore this email and your address will be removed\n"
+"If this wasn't you, please ignore this email and your address will be "
+"removed\n"
 "from our records.\n"
 "</p>\n"
 "<p>\n"
 "To activate this account, please click the following link within the next \n"
 "<b>%(expiration_days)s</b> days:<br/>\n"
-"<a href=\"http://%(sitedomain)s%(activation_key_url)s\">http://%(sitedomain)s%(activation_key_url)s</a>\n"
+"<a href=\"http://%(sitedomain)s%(activation_key_url)s\">http://%(sitedomain)s"
+"%(activation_key_url)s</a>\n"
 "</p>\n"
 "<p>\n"
 "Sincerely,<br/>\n"
@@ -326,8 +349,7 @@ msgid ""
 "              <a href=\"%(register_url)s\">Need an account</a>?"
 msgstr ""
 
-#: templates/registration/logout.html:5
-#: templates/registration/logout.html:12
+#: templates/registration/logout.html:5 templates/registration/logout.html:12
 msgid "Logged out"
 msgstr ""
 
@@ -403,10 +425,12 @@ msgstr ""
 #, python-format
 msgid ""
 "You are receiving this email because you (or someone pretending to be you)\n"
-"requested that your password be reset on the %(domain)s site.  If you do not \n"
+"requested that your password be reset on the %(domain)s site.  If you do "
+"not \n"
 "wish to reset your password, please ignore this message.\n"
 "\n"
-"To reset your password, please click the following link, or copy and paste it\n"
+"To reset your password, please click the following link, or copy and paste "
+"it\n"
 "into your web browser:"
 msgstr ""
 
@@ -429,7 +453,8 @@ msgstr ""
 #: templates/registration/password_reset_form_ajax.html:10
 msgid ""
 "\n"
-"      Forgot your password?  Enter your email in the form below and we'll send you\n"
+"      Forgot your password?  Enter your email in the form below and we'll "
+"send you\n"
 "      instructions for creating a new one.\n"
 "      "
 msgstr ""
@@ -455,4 +480,3 @@ msgstr ""
 #: templates/registration/registration_form_ajax.html:12
 msgid "Send activation email"
 msgstr ""
-

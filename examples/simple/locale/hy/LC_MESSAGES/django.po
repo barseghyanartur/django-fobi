@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-11-03 22:50+0100\n"
+"POT-Creation-Date: 2014-12-05 22:48+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,59 +33,63 @@ msgstr ""
 msgid "Russian"
 msgstr ""
 
-#: settings.py:244
+#: settings.py:298 settings.py:312
 msgid "Custom bootstrap3 embed form view template"
 msgstr ""
 
-#: settings.py:250
+#: settings.py:304 settings.py:318
 msgid "Custom bootstrap3 embed form entry submitted template"
 msgstr ""
 
-#: settings.py:266
+#: settings.py:334 settings.py:348
 msgid "Custom foundation5 embed form view template"
 msgstr ""
 
-#: settings.py:272
+#: settings.py:340 settings.py:354
 msgid "Custom foundation5 embed form entry submitted template"
 msgstr ""
 
-#: settings.py:289
+#: settings.py:373
 msgid "&copy; django-fobi example site 2014"
 msgstr ""
 
-#: admin_tools_dashboard/__init__.py:28 admin_tools_dashboard/menu.py:27
+#: admin_tools_dashboard/__init__.py:29 admin_tools_dashboard/menu.py:28
 msgid "Foo"
 msgstr ""
 
-#: admin_tools_dashboard/__init__.py:36 admin_tools_dashboard/menu.py:33
+#: admin_tools_dashboard/__init__.py:37 admin_tools_dashboard/menu.py:34
 msgid "Fobi"
 msgstr ""
 
-#: admin_tools_dashboard/__init__.py:39 admin_tools_dashboard/menu.py:35
+#: admin_tools_dashboard/__init__.py:40 admin_tools_dashboard/menu.py:36
 msgid "Plugins"
 msgstr ""
 
-#: admin_tools_dashboard/__init__.py:40 admin_tools_dashboard/menu.py:36
+#: admin_tools_dashboard/__init__.py:41 admin_tools_dashboard/menu.py:37
 msgid "Forms"
 msgstr ""
 
-#: admin_tools_dashboard/__init__.py:41 admin_tools_dashboard/menu.py:37
+#: admin_tools_dashboard/__init__.py:42 admin_tools_dashboard/menu.py:38
 msgid "Data"
 msgstr ""
 
-#: admin_tools_dashboard/__init__.py:47 admin_tools_dashboard/menu.py:43
-msgid "Pages"
+#: admin_tools_dashboard/__init__.py:49 admin_tools_dashboard/menu.py:45
+msgid "FeinCMS Pages"
 msgstr ""
 
-#: admin_tools_dashboard/__init__.py:55 admin_tools_dashboard/menu.py:49
+#: admin_tools_dashboard/__init__.py:58 admin_tools_dashboard/menu.py:52
+msgid "DjangoCMS Pages"
+msgstr ""
+
+#: admin_tools_dashboard/__init__.py:66 admin_tools_dashboard/menu.py:58
 msgid "Administration"
 msgstr ""
 
-#: admin_tools_dashboard/__init__.py:62 admin_tools_dashboard/__init__.py:76
+#: admin_tools_dashboard/__init__.py:73 admin_tools_dashboard/__init__.py:87
 msgid "Recent Actions"
 msgstr ""
 
-#: admin_tools_dashboard/menu.py:23 templates/home/base.html:38
+#: admin_tools_dashboard/menu.py:24 templates/home/base.html:38
 #: templates/home/foundation5.html:32
 msgid "Dashboard"
 msgstr ""
@@ -114,6 +118,22 @@ msgstr ""
 msgid "Django administration"
 msgstr ""
 
+#: templates/cms_page/bootstrap3/base.html:9
+msgid "DjangoCMS Bootstrap 3 example"
+msgstr ""
+
+#: templates/cms_page/foundation5/base.html:9
+msgid "DjangoCMS Foundation 5 example"
+msgstr ""
+
+#: templates/cms_page/foundation5/base.html:99 templates/home/base.html:12
+msgid "Home"
+msgstr ""
+
+#: templates/cms_page/simple/base.html:4
+msgid "DjangoCMS Simple example"
+msgstr ""
+
 #: templates/fobi/base.html:4
 msgid "Fobi example site"
 msgstr ""
@@ -126,10 +146,6 @@ msgstr ""
 msgid ""
 "This is just an example of how can we use a custom\n"
 "     template for rendering the form for the theme %(fobi_theme_uid)s given."
-msgstr ""
-
-#: templates/home/base.html:12
-msgid "Home"
 msgstr ""
 
 #: templates/home/base.html:13 templates/page/base.html:13

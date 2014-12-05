@@ -1,13 +1,17 @@
 """
-- `RESTRICT_PLUGIN_ACCESS` (bool): If set to True, (Django) permission system for fobi plugins is enabled.
-- `FORM_ELEMENT_PLUGINS_MODULE_NAME` (str): Name of the module to placed in the (external) apps in which 
-  the fobi form element plugin code should be implemented and registered.
-- `FORM_HANDLER_PLUGINS_MODULE_NAME` (str): Name of the module to placed in the (external) apps in which 
-  the fobi form handler plugin code should be implemented and registered.
-- `FORM_CALLBACKS_MODULE_NAME` (str): Name of the module to placed in the (external) apps in which the 
-  fobi form callback code should be implemented and registered.
-- `FORM_HANDLER_PLUGINS_EXECUTION_ORDER` (tuple): Order in which the form handler plugins are to be
-  executed.
+- `RESTRICT_PLUGIN_ACCESS` (bool): If set to True, (Django) permission system
+  for fobi plugins is enabled.
+- `FORM_ELEMENT_PLUGINS_MODULE_NAME` (str): Name of the module to placed in 
+  the (external) apps in which the fobi form element plugin code should be
+  implemented and registered.
+- `FORM_HANDLER_PLUGINS_MODULE_NAME` (str): Name of the module to placed in 
+  the (external) apps in which the fobi form handler plugin code should be
+  implemented and registered.
+- `FORM_CALLBACKS_MODULE_NAME` (str): Name of the module to placed in the 
+  (external) apps in which the fobi form callback code should be implemented
+  and registered.
+- `FORM_HANDLER_PLUGINS_EXECUTION_ORDER` (tuple): Order in which the form 
+  handler plugins are to be executed.
 - `DEBUG`
 """
 __title__ = 'fobi.settings'

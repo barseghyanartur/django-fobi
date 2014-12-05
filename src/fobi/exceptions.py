@@ -23,7 +23,8 @@ class ImproperlyConfigured(BaseException):
 
 class InvalidRegistryItemType(ValueError, BaseException):
     """
-    Raised when an attempt is made to register an item in the registry which does not have a proper type.
+    Raised when an attempt is made to register an item in the registry which
+    does not have a proper type.
     """
 
 

@@ -328,6 +328,18 @@ of ``fobi.base.FormElementPlugin`` for subclassing, instead of
 See the source of the content plugins
 (fobi.contrib.plugins.form_elements.content) as a an example.
 
+For instance, the ``captcha`` and ``honeypot`` fields are implemented
+as form elements (subclasses the ``fobi.base.FormElementPlugin``). The
+``db_store`` form handler plugin does not save the form data of
+those elements. If you want the form element data to be saved, do inherit
+from ``fobi.base.FormFieldPlugin``.
+
+Hidden form element plugins, should be also having set the ``is_hidden``
+property to True. By default it's set to False. That makes the hidden
+form elements to be rendered using as ``django.forms.widgets.TextInput``
+widget in edit mode. In the view mode, the original widget that you
+assigned in your form element plugin would be used.
+
 There might be cases, when you need to do additional handling of the data upon
 the successful form submittion. In such cases, you will need to define a 
 ``submit_plugin_form_data`` method in the plugin, which accepts the 
@@ -1219,7 +1231,9 @@ Security
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/captcha/>`_:
   Captcha integration. Requires ``django-simple-captcha`` package.
 - `Honeypot
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/honeypot/>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/honeypot/>`_:
+  `Anti-spam honeypot <http://en.wikipedia.org/wiki/Anti-spam_techniques#Honeypots>`_
+  field.
 
 Test
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

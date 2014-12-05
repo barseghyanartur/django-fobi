@@ -15,6 +15,14 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.4.4
+-------------------------------------
+2014-12-06
+
+- Documentation improvements.
+- Updated Dutch and Russian translations.
+- Minor fixes related to lazy translations.
+
 0.4.3
 -------------------------------------
 2014-12-05

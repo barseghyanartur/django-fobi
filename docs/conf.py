@@ -35,6 +35,15 @@ from django.conf import settings
 
 if not settings.configured:
     INSTALLED_APPS = list(example_settings.INSTALLED_APPS)
+
+    INSTALLED_APPS.append('mptt')
+    INSTALLED_APPS.append('cms')
+    INSTALLED_APPS.append('fobi.contrib.apps.djangocms_integration')
+    INSTALLED_APPS.append('feincms')
+    INSTALLED_APPS.append('fobi.contrib.apps.feincms_integration')
+    INSTALLED_APPS.append('captcha')
+    INSTALLED_APPS.append('fobi.contrib.plugins.form_elements.security.captcha')
+
     if 'foo' in INSTALLED_APPS:
         INSTALLED_APPS.remove('foo')
 

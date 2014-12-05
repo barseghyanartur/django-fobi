@@ -1,7 +1,8 @@
 ====================================================
 fobi.contrib.plugins.form_elements.security.honeypot
 ====================================================
-A ``Fobi`` Honeypot form field plugin.
+A ``Fobi`` `Honeypot <http://en.wikipedia.org/wiki/Honeypot_%28computing%29>`_
+form field plugin. Just another anti-spam technique.
 
 Installation
 ===============================================

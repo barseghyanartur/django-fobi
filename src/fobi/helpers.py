@@ -28,11 +28,11 @@ from autoslug.settings import slugify
 
 logger = logging.getLogger(__name__)
 
-# ******************************************************************************
-# ******************************************************************************
-# ********************************** General ***********************************
-# ******************************************************************************
-# ******************************************************************************
+# *****************************************************************************
+# *****************************************************************************
+# ********************************** General **********************************
+# *****************************************************************************
+# *****************************************************************************
 
 do_slugify = lambda s: slugify(s.lower()).lower()
 
@@ -133,11 +133,11 @@ def get_ignorable_form_values():
     """
     return [None, empty_string,]
 
-# ******************************************************************************
-# ******************************************************************************
-# ****************************** File helpers **********************************
-# ******************************************************************************
-# ******************************************************************************
+# *****************************************************************************
+# *****************************************************************************
+# ****************************** File helpers *********************************
+# *****************************************************************************
+# *****************************************************************************
 
 def ensure_unique_filename(destination):
     """
@@ -160,7 +160,9 @@ def handle_uploaded_file(upload_dir, image_file):
     upload_dir_absolute_path = os.path.join(settings.MEDIA_ROOT, upload_dir)
 
     if isinstance(image_file, File):
-        destination_path = ensure_unique_filename(os.path.join(upload_dir_absolute_path, image_file.name))
+        destination_path = ensure_unique_filename(
+            os.path.join(upload_dir_absolute_path, image_file.name)
+            )
         image_filename = image_file.name
         with open(destination_path, 'wb+') as destination:
             image_filename = os.path.basename(destination.name)
@@ -206,18 +208,20 @@ def clone_file(upload_dir, source_filename, relative_path=True):
     try:
         shutil.copyfile(source_filename, destination_filename)
         if relative_path:
-            destination_filename = destination_filename.replace(settings.MEDIA_ROOT, '')
+            destination_filename = destination_filename.replace(
+                settings.MEDIA_ROOT, ''
+                )
             if destination_filename.startswith('/'):
                 destination_filename = destination_filename[1:]
         return destination_filename
     except Exception as e:
         logger.debug(str(e))
 
-# ******************************************************************************
-# ******************************************************************************
-# ****************************** Model helpers *********************************
-# ******************************************************************************
-# ******************************************************************************
+# *****************************************************************************
+# *****************************************************************************
+# ****************************** Model helpers ********************************
+# *****************************************************************************
+# *****************************************************************************
 
 def get_registered_models(ignore=[]):
     """
@@ -233,7 +237,9 @@ def get_registered_models(ignore=[]):
 
         for content_type in content_types:
             #model = content_type.model_class()
-            content_type_id = "{0}.{1}".format(content_type.app_label, content_type.model)
+            content_type_id = "{0}.{1}".format(
+                content_type.app_label, content_type.model
+                )
             if not content_type_id in ignore:
                 registered_models.append((content_type_id, content_type.name))
     except DatabaseError as e:
@@ -241,13 +247,14 @@ def get_registered_models(ignore=[]):
 
     return registered_models
 
-# ******************************************************************************
-# ******************************************************************************
-# ****************************** Admin helpers *********************************
-# ******************************************************************************
-# ******************************************************************************
+# *****************************************************************************
+# *****************************************************************************
+# ****************************** Admin helpers ********************************
+# *****************************************************************************
+# *****************************************************************************
 
-def admin_change_url(app_label, module_name, object_id, extra_path='', url_title=None):
+def admin_change_url(app_label, module_name, object_id, extra_path='', \
+                     url_title=None):
     """
     Gets an admin change URL for the object given.
 
@@ -255,8 +262,8 @@ def admin_change_url(app_label, module_name, object_id, extra_path='', url_title
     :param str module_name:
     :param int object_id:
     :param str extra_path:
-    :param str url_title: If given, an HTML a tag is returned with `url_title` as the tag title. If left to None
-        just the URL string is returned.
+    :param str url_title: If given, an HTML a tag is returned with `url_title`
+        as the tag title. If left to None just the URL string is returned.
     :return str:
     """
     try:

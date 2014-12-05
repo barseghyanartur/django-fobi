@@ -320,11 +320,11 @@ def get_form_field_type(parser, token):
     """
     Get form field type.
 
-    :syntax:
+    Syntax::
 
         {% get_form_field_type [field] as [context_var_name] %}
 
-    :example:
+    Example::
 
         {% get_form_field_type form.field as form_field_type %}
         {% if form_field_type.is_checkbox %}

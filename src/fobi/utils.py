@@ -16,7 +16,7 @@ from six import PY3
 
 from django.core.urlresolvers import reverse
 from django.utils.encoding import force_text
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext
 from django.core.urlresolvers import reverse
 from django.forms.widgets import TextInput
 
@@ -155,7 +155,7 @@ def get_user_plugins_grouped(get_allowed_plugin_uids_func, \
     :param callable get_allowed_plugin_uids_func:
     :param callable get_registered_plugins_grouped_func:
     :param fobi.base.BaseRegistry registry: Subclass of
-        ``fobi.base.BaseRegistry`` instance.
+           ``fobi.base.BaseRegistry`` instance.
     :param django.contrib.auth.models.User user:
     :param bool sort_items:
     :return dict:
@@ -326,12 +326,12 @@ def append_edit_and_delete_links_to_field(form_element_plugin, \
 
     edit_option_html = theme.edit_form_entry_edit_option_html().format(
         edit_url = edit_url,
-        edit_text = _("Edit"),
+        edit_text = safe_text(ugettext("Edit")),
         )
     help_text_extra = theme.edit_form_entry_help_text_extra().format(
         edit_option_html = edit_option_html if PluginForm else '',
         delete_url = reverse('fobi.delete_form_element_entry', kwargs={'form_element_entry_id': form_element_entry.pk}),
-        delete_text = _("Delete"),
+        delete_text = safe_text(ugettext("Delete")),
         form_element_pk = form_element_entry.pk,
         form_element_position = form_element_entry.position,
         counter = counter
