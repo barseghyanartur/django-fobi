@@ -30,3 +30,4 @@ fobi/fobi.migrations.rst
 /examples/simple/local_settings.py
 /examples/simple/local_settings_foundation5.py
 /src/fobi/contrib/plugins/form_importers/mailchimp_importer/
+/src/fobi/contrib/apps/mezzanine_integration/
