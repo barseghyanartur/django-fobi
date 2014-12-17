@@ -1,0 +1,15 @@
+{% extends "admin/base.html" %}
+
+{% load i18n admin_static %}
+
+{% block title %}{{ title }} | {% trans 'Django site admin' %}{% endblock %}
+
+{% block extrahead %}
+    <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.1.min.js"></script>
+    {{ block.super }}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/admin_custom.css' %}" />
+{% endblock extrahead %}
+
+{% block branding %}
+<h1 id="site-name">{% trans 'Django administration' %}</h1>
+{% endblock %}

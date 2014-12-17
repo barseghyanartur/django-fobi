@@ -50,7 +50,7 @@ urlpatterns = patterns('',
 
     # django-fobi public forms contrib app:
     #url(r'^', include('fobi.contrib.apps.public_forms.urls')),
-)
+    )
 
 # Serving media and static in debug/developer mode.
 if settings.DEBUG:
@@ -64,18 +64,21 @@ if 'feincms' in settings.INSTALLED_APPS:
     Page
     urlpatterns += patterns('',
         url(r'^pages/', include('feincms.urls')),
-    )
+        )
 
 # Conditionally including DjangoCMS URls in case if
 # DjangoCMS in installed apps.
 if 'cms' in settings.INSTALLED_APPS:
     urlpatterns += patterns('',
         url(r'^cms-pages/', include('cms.urls')),
-    )
+        )
 
 # Conditionally including Captcha URls in case if
 # Captcha in installed apps.
-if 'captcha' in settings.INSTALLED_APPS:
-    urlpatterns += patterns('',
-        url(r'^captcha/', include('captcha.urls')),
-    )
+try:
+    from captcha.fields import ReCaptchaField
+except ImportError as e:
+    if 'captcha' in settings.INSTALLED_APPS:
+        urlpatterns += patterns('',
+            url(r'^captcha/', include('captcha.urls')),
+        )

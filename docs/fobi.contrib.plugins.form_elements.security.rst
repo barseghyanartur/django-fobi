@@ -8,6 +8,7 @@ Subpackages
 
     fobi.contrib.plugins.form_elements.security.captcha
     fobi.contrib.plugins.form_elements.security.honeypot
+    fobi.contrib.plugins.form_elements.security.recaptcha
 
 Module contents
 ---------------

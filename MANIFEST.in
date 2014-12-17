@@ -27,6 +27,7 @@ recursive-include src/fobi/contrib/themes/simple/templates *
 
 recursive-include src/fobi/contrib/apps/djangocms_integration/templates *
 #recursive-include src/fobi/contrib/apps/feincms_integration/templates *
+recursive-include src/fobi/contrib/apps/mezzanine_integration/templates *
 
 recursive-include src/fobi/contrib/plugins/form_elements/content/content_image/templates *
 

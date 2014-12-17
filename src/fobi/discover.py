@@ -25,9 +25,11 @@ def autodiscover():
     def do_discover(module_name):
         for app in settings.INSTALLED_APPS:
             try:
+                app = str(app)
                 app_path = __import__(app, {}, {}, [app.split('.')[-1]]).__path__
-            except AttributeError as e:
+            except (AttributeError, TypeError) as e:
                 logger.debug(str(e))
+                #import ipdb; ipdb.set_trace()
                 continue
 
             try:

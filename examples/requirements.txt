@@ -8,7 +8,7 @@ django-admin-tools==0.5.2
 django-autoslug==1.7.1
 django-debug-toolbar==0.11.0
 django-registration-redux>=1.1
-django-simple-captcha
+#django-simple-captcha
 docutils
 ipdb
 ipython

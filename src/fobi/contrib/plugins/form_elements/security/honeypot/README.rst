@@ -1,7 +1,7 @@
 ====================================================
 fobi.contrib.plugins.form_elements.security.honeypot
 ====================================================
-A ``Fobi`` `Honeypot <http://en.wikipedia.org/wiki/Honeypot_%28computing%29>`_
+A `Honeypot <http://en.wikipedia.org/wiki/Honeypot_%28computing%29>`_
 form field plugin. Just another anti-spam technique.
 
 Installation
@@ -28,7 +28,4 @@ Installation
 
 Usage
 ===============================================
-Note, that unlike most of the other form element plugins, default
-value for the ``required`` attribute is True, which makes the Captcha
-obligatory. Although you could still set it to False, it does not make
-much sense to do so.
+

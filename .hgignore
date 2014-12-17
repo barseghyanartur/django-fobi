@@ -22,6 +22,8 @@ syntax: regexp
 ^examples/static/
 ^examples/simple/local_settings\.py
 ^examples/simple/local_settings_foundation5\.py
+^examples/mezzanine_example/static/media/fobi_plugins/
+^examples/mezzanine_example/static/
 ^news-images/
 ^builddocs/
 ^builddocs\.zip

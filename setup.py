@@ -20,6 +20,7 @@ template_dirs = [
 
     "src/fobi/contrib/apps/djangocms_integration/templates/djangocms_integration", # DjangoCMS integration
     #"src/fobi/contrib/apps/feincms_integration/templates/feincms_integration", # FeinCMS integration
+    "src/fobi/contrib/apps/mezzanine_integration/templates/mezzanine_integration", # Mezzanine integration
 
     "src/fobi/contrib/plugins/form_elements/content/content_image/templates/content_image", # Content image
 
@@ -57,13 +58,13 @@ for static_dir in static_dirs:
 for locale_dir in locale_dirs:
     locale_files += [os.path.join(locale_dir, f) for f in os.listdir(locale_dir)]
 
-version = '0.4.4'
+version = '0.4.5'
 
 install_requires = [
     'Pillow>=2.0.0',
     'requests>=1.0.0',
     'django-autoslug>=1.3.0',
-    'django-tinymce>=1.5.3',
+    #'django-tinymce>=1.5.3',
     'ordereddict>=1.1',
     'six>=1.4.1',
     'easy-thumbnails>=1.4,<2.0',

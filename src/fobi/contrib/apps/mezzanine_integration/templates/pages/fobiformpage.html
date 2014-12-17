@@ -1,0 +1,26 @@
+{% extends "pages/page.html" %}
+
+{% load static mezzanine_tags %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {% comment %}
+    {% for css_file in fobi_theme.get_media_css %}
+    <link href="{% static css_file %}" rel="stylesheet" media="all" />
+    {% endfor %}
+    {% endcomment %}
+{% endblock extra_css %}
+
+{% block main %}
+    {{ block.super }}
+    {{ fobi_form_response|safe }}
+{% endblock main %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% comment %}
+    {% for js_file in fobi_theme.get_media_js %}
+    <script src="{% static js_file %}"></script>
+    {% endfor %}
+    {% endcomment %}
+{% endblock extra_js %}

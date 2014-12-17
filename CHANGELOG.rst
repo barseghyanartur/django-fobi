@@ -15,6 +15,15 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.4.5
+-------------------------------------
+2012-12-17
+
+- ReCAPTCHA field added.
+- Mezzanine integration app added.
+- Remove redundant dependencies (django-tinymce).
+- Minor improvements of the discover module.
+
 0.4.4
 -------------------------------------
 2014-12-06

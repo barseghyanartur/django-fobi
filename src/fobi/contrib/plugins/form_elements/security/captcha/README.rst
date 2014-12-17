@@ -1,14 +1,16 @@
 ===================================================
 fobi.contrib.plugins.form_elements.security.captcha
 ===================================================
-A ``Fobi`` Captcha form field plugin. Makes use of the
-`django-simple-captcha <http://readthedocs.org/docs/django-simple-captcha>`_.
+A `CAPTCHA <http://en.wikipedia.org/wiki/CAPTCHA>`_ form field plugin. Makes
+use of the `django-simple-captcha
+<http://readthedocs.org/docs/django-simple-captcha>`_.
 
 Installation
 ===============================================
 Install `django-simple-captcha`
 -----------------------------------------------
-Taken from django-simple-captcha `installation instructions <http://django-simple-captcha.readthedocs.org/en/latest/usage.html#installation>`_.
+Taken from django-simple-captcha `installation instructions
+<http://django-simple-captcha.readthedocs.org/en/latest/usage.html#installation>`_.
 
 1. Download ``django-simple-captcha`` using pip by running:
 
@@ -51,6 +53,16 @@ Install `fobi` Captcha plugin
 
 3. Assign appropriate permissions to the target users/groups to be using
    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+
+Troubleshooting and usage limitations
+===============================================
+At the moment, you can't use both ``CAPTCHA``
+(fobi.contrib.plugins.form_elements.security.captcha) and ``ReCAPTCHA``
+(fobi.contrib.plugins.form_elements.security.recaptcha) plugins alongside due
+to app name collision of the ``django-simple-captcha`` and ``django-recaptcha``
+packages. That limitation is likely to be solved in future in the
+``django-recaptcha`` package. Until then, you should choose either one or
+another, but not both on the same time.
 
 Usage
 ===============================================

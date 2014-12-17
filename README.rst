@@ -44,9 +44,14 @@ Main features and highlights
 - User-friendly GUI to quickly build forms.
 - Large variety of `Bundled form element plugins`_. Most of the Django fields
   are supported. `HTML5 fields`_ are supported as well.
-- `Captcha integration
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/captcha>`_
-  comes out of the box with help of third-party app.
+- Anti-spam solutions like `CAPTCHA
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/captcha>`_,
+  `ReCAPTCHA
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/recaptcha>`_
+  or `Honeypot
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/honeypot>`_
+  come out of the box (CAPTCHA and ReCAPTCHA do require additional third-party
+  apps to be installed).
 - In addition to standard form elements, there are cosmetic (presentational)
   form elements (for adding a piece of text, image or a embed video)
   alongside standard form elements.
@@ -64,6 +69,9 @@ Main features and highlights
 - Implemented `integration with DjangoCMS
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/djangocms_integration>`_
   (in a form of a DjangoCMS Page plugin).
+- Implemented `integration with Mezzanine
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/mezzanine_integration>`_
+  (in a form of a Mezznine Page).
 - Reordering of form elements using drag-n-drop.
 - Data export (`db_store 
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/db_store>`_

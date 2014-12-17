@@ -160,7 +160,7 @@ INSTALLED_APPS = (
 
     # Third party apps used in the project
     'south', # Database migration app
-    'tinymce', # TinyMCE
+    #'tinymce', # TinyMCE
     'easy_thumbnails', # Thumbnailer
     'registration', # Auth views and registration app
     #'localeurl', # Locale URL
