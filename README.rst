@@ -58,8 +58,8 @@ Main features and highlights
 - Data handling in plugins (form handlers). Save the data, mail it to some
   address or repost it to some other endpoint. See the
   `Bundled form handler plugins`_ for more information.
-- Developer-friendly API, which allows to or build new form fields and handlers
-  without touching the core.
+- Developer-friendly API, which allows to edit existing or build new form fields 
+  and handlers without touching the core.
 - Support for custom user model.
 - `Theming`_. There are 3 ready to use `Bundled themes`_: Bootstrap 3,
   Foundation 5 and Simple (in style of Django admin).
