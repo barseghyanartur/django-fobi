@@ -58,7 +58,7 @@ for static_dir in static_dirs:
 for locale_dir in locale_dirs:
     locale_files += [os.path.join(locale_dir, f) for f in os.listdir(locale_dir)]
 
-version = '0.4.5'
+version = '0.4.6'
 
 install_requires = [
     'Pillow>=2.0.0',
@@ -68,7 +68,7 @@ install_requires = [
     'ordereddict>=1.1',
     'six>=1.4.1',
     'easy-thumbnails>=1.4,<2.0',
-    'vishap>=0.1.1,<2.0',
+    'vishap>=0.1.2,<2.0',
     'unidecode>=0.04.1',
 ]
 

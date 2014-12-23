@@ -1,9 +1,9 @@
 ===============================================
 fobi.contrib.plugins.form_elements.fields.input
 ===============================================
-A ``Fobi`` generic input form field plugin. Makes use of the
+A generic input form field plugin. Makes use of the
 ``django.forms.fields.Field`` and ``django.forms.widgets.Input``.
-Comes with a lot of options which you would normally won't use.
+Comes with a lot of options you likely won't use every day.
 
 The full list of supported HTML properties is listed below:
 
