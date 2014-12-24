@@ -29,7 +29,7 @@
             <tr>
               <th>{% trans "Form" %}</th>
               <th>{% trans "Is public" %}</th>
-              <th>{% trans "Is cloneable" %}</th>
+              {#<th>{% trans "Is cloneable" %}</th>#}
               <th>{% trans "Actions" %}</th>
             </tr>
           </thead>
@@ -38,7 +38,7 @@
             <tr>
               <td><a href="{% url 'fobi.view_form_entry' form_entry.slug %}">{{ form_entry.name }}</a></td>
               <td>{{ form_entry.is_public }}</td>
-              <td>{{ form_entry.is_cloneable }}</td>
+              {#<td>{{ form_entry.is_cloneable }}</td>#}
               <td>
                 <ul class="list-inline">
                   <li>

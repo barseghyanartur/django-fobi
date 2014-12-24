@@ -15,6 +15,14 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.4.7
+-------------------------------------
+2012-12-24
+
+- Temporary left out the "cloneable" column from the dashboard templates.
+- Fixed broken imports in CAPTCHA plugin.
+- Fixed broken imports in ReCAPTCHA plugin.
+
 0.4.6
 -------------------------------------
 2012-12-23

@@ -58,6 +58,12 @@ packages. That limitation is likely to be solved in future in the
 ``django-recaptcha`` package. Until then, you should choose either one or
 another, but not both on the same time.
 
+If you happen to see errors like "Input error: k: Format of site key was
+invalid", make sure to have defined (and filled in properly) the
+``RECAPTCHA_PUBLIC_KEY`` and ``RECAPTCHA_PRIVATE_KEY`` in your settnings.py.
+See the `following <https://github.com/praekelt/django-recaptcha/issues/32>`_
+thread for more information.
+
 Usage
 ===============================================
 Note, that unlike most of the other form element plugins, default

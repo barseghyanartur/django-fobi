@@ -8,7 +8,7 @@ try:
 except Exception as e:
     pass
 
-RECAPTCHA_PUBLIC_KEY = ''
-RECAPTCHA_PRIVATE_KEY = ''
+#RECAPTCHA_PUBLIC_KEY = ''
+#RECAPTCHA_PRIVATE_KEY = ''
 RECAPTCHA_USE_SSL = True
 #FOBI_DEFAULT_THEME = 'simple'

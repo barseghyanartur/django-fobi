@@ -3,6 +3,30 @@ Licenses
 ==============================
 Below information about third-party packages used in the project is presented.
 
+Bootstrap3
+==============================
+http://getbootstrap.com/
+
+Licensing information:
+
+- Apache license 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+
+django-autoslug
+==============================
+https://bitbucket.org/neithere/django-autoslug
+
+Licensing information:
+
+- LGPL 3 (https://www.gnu.org/licenses/lgpl.html)
+
+easy-thumbnails
+==============================
+https://github.com/SmileyChris/easy-thumbnails
+
+Licensing information:
+
+- BSD (http://opensource.org/licenses/BSD-3-Clause)
+
 Font-awesome
 ==============================
 http://fontawesome.io/
@@ -13,13 +37,13 @@ Licensing information:
 - SIL OFL 1.1 (http://scripts.sil.org/OFL)
 - MIT (http://opensource.org/licenses/mit-license.html)
 
-Bootstrap3
+Foundation 5
 ==============================
-http://getbootstrap.com/
+http://foundation.zurb.com/
 
 Licensing information:
 
-- Apache license 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
+- MIT (http://opensource.org/licenses/mit-license.html)
 
 jQuery Colorbox
 ==============================
@@ -53,3 +77,53 @@ https://github.com/pmcelhaney/jQuery-Slugify-Plugin
 Licensing information:
 
 - BSD (https://github.com/pmcelhaney/jQuery-Slugify-Plugin/blob/master/LICENSE).
+
+ordereddict
+==============================
+https://pypi.python.org/pypi/ordereddict
+
+Licensing information:
+
+- MIT (http://opensource.org/licenses/mit-license.html)
+
+Pillow
+==============================
+http://python-pillow.github.io/
+
+Licensing information:
+
+- Python Imaging Library license (http://www.pythonware.com/products/pil/)
+
+Requests
+==============================
+https://python-requests.org
+
+Licensing information:
+
+- MIT (http://opensource.org/licenses/mit-license.html)
+
+Six
+==============================
+https://bitbucket.org/gutworth/six/
+
+Licensing information:
+
+- Apache 2.0 (http://opensource.org/licenses/Apache-2.0)
+
+Unidecode
+==============================
+https://pypi.python.org/pypi/Unidecode
+
+Licensing information:
+
+- GPL 2.0 (http://www.gnu.org/licenses/gpl-2.0.html)
+
+vishap
+==============================
+https://pypi.python.org/pypi/vishap
+
+Licensing information:
+
+- GPL 2.0 (http://www.gnu.org/licenses/gpl-2.0.html)
+- LGPL 2.1 (https://www.gnu.org/licenses/lgpl-2.1.html)
+

@@ -49,12 +49,12 @@
                 </div>
                 <div class="clear"></div>
               </th>
-              <th>
+              {% comment %}<th>
                 <div class="text">
                   <span>{% trans "Cloneable?" %}</span>
                 </div>
                 <div class="clear"></div>
-              </th>
+              </th>{% endcomment %}
               <th>
                 <div class="text">
                   <span>{% trans "Actions" %}</span>
@@ -68,7 +68,7 @@
             <tr class="{% if forloop.counter|divisibleby:2 %}row2{% else %}row1{% endif %}">
               <th><a href="{% url 'fobi.view_form_entry' form_entry.slug %}">{{ form_entry.name }}</a></th>
               <td>{{ form_entry.is_public }}</td>
-              <td>{{ form_entry.is_cloneable }}</td>
+              {#<td>{{ form_entry.is_cloneable }}</td>#}
               <td>
                 <ul class="list-inline">
                   <li>

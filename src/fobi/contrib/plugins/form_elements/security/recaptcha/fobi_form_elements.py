@@ -14,38 +14,52 @@ DJANGO_RECAPTCHA_INSTALLED = False
 DJANGO_SIMPLE_CAPTCHA_INSTALLED = False
 
 try:
-    import pip
-    installed_packages = pip.get_installed_distributions()
-    for installed_package in installed_packages:
-        if "django-simple-captcha" == str(installed_package.key):
-            DJANGO_SIMPLE_CAPTCHA_INSTALLED = True
+    from captcha.fields import ReCaptchaField
+    from captcha.widgets import ReCaptcha as ReCaptchaWidget
+    DJANGO_RECAPTCHA_INSTALLED = True
+except ImportError as e:
+    # Logging original exception
+    logger.error(e)
+
+    # Trying to identify the problem
+    try:
+        import pip
+        installed_packages = pip.get_installed_distributions()
+        for installed_package in installed_packages:
+            if "django-simple-captcha" == str(installed_package.key):
+                DJANGO_SIMPLE_CAPTCHA_INSTALLED = True
+                logger.error(
+                    "You have installed  the `django-simple-captcha` in your "
+                    "environment. At the moment you can't have both "
+                    "`django-simple-captcha` and `django-recaptcha` installed "
+                    "alongside due to app name collision (captcha). Remove "
+                    "both packages using pip uninstall and reinstall the"
+                    "`django-recaptcha` if you want to make use of the "
+                    "`fobi.contrib.plugins.form_elements.security.recaptcha` "
+                    "package."
+                    )
+            if "django-recaptcha" == str(installed_package.key):
+                DJANGO_RECAPTCHA_INSTALLED = True
+
+        if DJANGO_RECAPTCHA_INSTALLED and not DJANGO_SIMPLE_CAPTCHA_INSTALLED:
             logger.error(
-                "You have installed  the `django-simple-captcha` in your "
-                "environment. At the moment you can't have both "
-                "`django-simple-captcha` and `django-recaptcha` installed "
-                "alongside due to app name collision (captcha). Remove "
-                "both packages using pip uninstall and reinstall the"
+                "You have installed  the `django-recaptcha` in your "
+                "environment, but imports seem to be broken.  Remove "
+                "the package using pip uninstall and reinstall the "
                 "`django-recaptcha` if you want to make use of the "
                 "`fobi.contrib.plugins.form_elements.security.recaptcha` "
                 "package."
                 )
-        if "django-recaptcha" == str(installed_package.key):
-            DJANGO_RECAPTCHA_INSTALLED = True
 
-except ImportError:
-    try:
-        from captcha.fields import ReCaptchaField
-        from captcha.widgets import ReCaptcha as ReCaptchaWidget
-        DJANGO_RECAPTCHA_INSTALLED = True
-    except ImportError as e:
-        DJANGO_RECAPTCHA_INSTALLED = False
-        logger.error(
-            "{0}{1}".format(str(e), "; Likely you didn't yet install the"
-                            "`django-simple-captcha` package. Note, that at "
-                            "the moment you can't have both `django-recaptcha` "
-                            "and `django-simple-captcha` installed alongside "
-                            "due to app name collision (captcha).")
-            )
+    except ImportError:
+            DJANGO_RECAPTCHA_INSTALLED = False
+            logger.error(
+                "; Likely you didn't yet install the"
+                "`django-simple-captcha` package. Note, that at "
+                "the moment you can't have both `django-recaptcha` "
+                "and `django-simple-captcha` installed alongside "
+                "due to app name collision (captcha)."
+                )
 
 from fobi.base import FormElementPlugin, form_element_plugin_registry, get_theme
 from fobi.contrib.plugins.form_elements.security.recaptcha import UID
