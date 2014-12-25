@@ -10,7 +10,7 @@ __all__ = (
     'dashboard', 'view_form_entry', 'form_entry_submitted',
 )
 
-#import logging
+import logging
 
 from django.template import RequestContext
 from django.shortcuts import render_to_response, redirect
@@ -45,8 +45,9 @@ from fobi.utils import (
     get_user_form_handler_plugins, get_user_form_handler_plugin_uids,
     append_edit_and_delete_links_to_field
     )
+from fobi.settings import DEBUG
 
-#logger = logging.getLogger(__name__)
+logger = logging.getLogger(__name__)
 
 # *****************************************************************************
 # *****************************************************************************
@@ -305,6 +306,13 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
         )
 
     assembled_form = FormClass()
+
+    # In debug mode, try to identify possible problems.
+    if DEBUG:
+        try:
+            assembled_form.as_p()
+        except Exception as e:
+            logger.error(e)
 
     # If no theme provided, pick a default one.
     if not theme:
@@ -872,6 +880,13 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
 
     else:
         form = FormClass()
+
+    # In debug mode, try to identify possible problems.
+    if DEBUG:
+        try:
+            form.as_p()
+        except Exception as e:
+            logger.error(e)
 
     theme = get_theme(request=request, as_instance=True)
     theme.collect_plugin_media(form_element_entries)

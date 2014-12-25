@@ -1346,6 +1346,8 @@ such failures in development, in production is wouldn't look appropriate.
 Thus, there are two settings related to the non-existing (not-found) form
 element- and form handler- plugins.
 
+- FOBI_DEBUG: Set this to True in your development environment anyway. Watch
+  error logs closely.
 - FOBI_FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS: If you want no error to be
   shown in case of missing form element plugins, set this to False in
   your settings module. Default value is True.

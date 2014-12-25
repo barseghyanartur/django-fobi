@@ -29,8 +29,9 @@ gettext = lambda s: s
 # **************************************************************
 # **************************************************************
 
-# If set to True, plugins would be only accessible by the white-listed user(s) or group(s). If set to False, all
-# users have the same access rights to all plugins.
+# If set to True, plugins would be only accessible by the white-listed user(s) 
+# or group(s). If set to False, all users have the same access rights to all
+# plugins.
 RESTRICT_PLUGIN_ACCESS = True
 
 # Name of the module in which the fobi form field plugins are registered.
