@@ -11,10 +11,11 @@ MIND_BUCKET.rst
 /tmp/
 .zip
 /demo/
+/demos/
 /release/
 /deploy/
 fobi/fobi.migrations.rst
-/examples/db/example*.db
+/examples/db/
 
 /examples/tmp/
 /examples/logs/

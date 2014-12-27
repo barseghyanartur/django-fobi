@@ -58,20 +58,20 @@ Main features and highlights
 - Data handling in plugins (form handlers). Save the data, mail it to some
   address or repost it to some other endpoint. See the
   `Bundled form handler plugins`_ for more information.
-- Developer-friendly API, which allows to edit existing or build new form fields 
-  and handlers without touching the core.
+- Developer-friendly API, which allows to edit existing or build new form 
+  fields and handlers without touching the core.
 - Support for custom user model.
 - `Theming`_. There are 3 ready to use `Bundled themes`_: Bootstrap 3,
   Foundation 5 and Simple (in style of Django admin).
 - Implemented `integration with FeinCMS
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/feincms_integration>`_
-  (in a form of a FeinCMS Page widget).
+  (in a form of a FeinCMS page widget).
 - Implemented `integration with DjangoCMS
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/djangocms_integration>`_
-  (in a form of a DjangoCMS Page plugin).
+  (in a form of a DjangoCMS page plugin).
 - Implemented `integration with Mezzanine
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/mezzanine_integration>`_
-  (in a form of a Mezznine Page).
+  (in a form of a Mezzanine page).
 - Reordering of form elements using drag-n-drop.
 - Data export (`db_store 
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/db_store>`_
@@ -200,6 +200,17 @@ See the documentation for some screen shots:
 - `PythonHosted <http://pythonhosted.org/django-fobi/#screenshots>`_
 - `ReadTheDocs <http://django-fobi.readthedocs.org/en/latest/#screenshots>`_
 
+Live demo
+-----------------------------------------------
+See the `live demo app <https://django-fobi.herokuapp.com/>`_ on Heroku.
+
+Credentials:
+
+- username: test_user
+- password: test_user
+
+Run demo locally
+-----------------------------------------------
 In order to be able to quickly evaluate the `Fobi`, a demo app (with a quick
 installer) has been created (works on Ubuntu/Debian, may work on other Linux
 systems as well, although not guaranteed). Follow the instructions below for

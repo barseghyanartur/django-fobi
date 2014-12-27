@@ -13,7 +13,7 @@ syntax: regexp
 ^demo/
 ^deploy/
 ^fobi/fobi\.migrations\.rst
-^examples/db/example\.db
+^examples/db/
 ^examples/tmp/
 ^examples/logs/
 ^examples/media/cache/

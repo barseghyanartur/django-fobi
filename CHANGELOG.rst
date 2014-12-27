@@ -15,6 +15,14 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.4.9
+-------------------------------------
+2012-12-27
+
+- Third party app integration (at the moment, FeinCMS, DjangoCMS, Mezzanine)
+  had been generalised and unified.
+- Mention the Heroku live demo in the docs.
+
 0.4.8
 -------------------------------------
 2012-12-25

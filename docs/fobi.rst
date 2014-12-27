@@ -7,6 +7,7 @@ Subpackages
 .. toctree::
 
     fobi.contrib
+    fobi.integration
     fobi.management
     fobi.templatetags
     fobi.tests
