@@ -194,6 +194,8 @@ Must haves
   CSV export.
 + Make appropriate additions to the documentation reflecting the changes
   made in 0.3.5 (or 0.4).
+- Fix the CSV/XLS export in ``db_store`` for Django 1.7.
+- Nicer styling for the radio button.
 - Make sure, that theme specific theme javascripts, css and other assets,
   are defined in the theme itself. Follow the ``django-dash``
   example as much as possible.

@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.4.11
+-------------------------------------
+2012-12-29
+
+- Styling fixes in the ``radio`` button field of the ``bootstrap3`` theme.
+- Fixed ``db_store`` issue with CSV/XLS export failing on Django 1.7.
+
 0.4.10
 -------------------------------------
 2012-12-28

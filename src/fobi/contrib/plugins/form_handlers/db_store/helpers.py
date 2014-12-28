@@ -16,6 +16,7 @@ import json
 
 from six import StringIO, BytesIO
 
+from django import VERSION as DJANGO_VERSION
 from django.http import HttpResponse
 
 from fobi.exceptions import ImproperlyConfigured
@@ -30,6 +31,17 @@ class DataExporter(object):
     """
     def __init__(self, queryset):
         self.queryset = queryset
+
+    def _get_initial_response(self, mimetype="application/csv"):
+        """
+        For compatibility with older versions (`mimetype` vs `content_type`).
+        """
+        response_kwargs = {}
+        if DJANGO_VERSION[0] >= 1 and DJANGO_VERSION[1] >= 7:
+            response_kwargs['content_type'] = mimetype
+        else:
+            response_kwargs['mimetype'] = mimetype
+        return HttpResponse(**response_kwargs)
 
     def _get_data_headers(self):
         """
@@ -67,7 +79,8 @@ class DataExporter(object):
         #    'align: wrap on, vert top, horiz left;', num_format_str='general'
         #    )
 
-        response = HttpResponse(mimetype="application/csv")
+        #response = HttpResponse(mimetype="application/csv")
+        response = self._get_initial_response(mimetype="application/csv")
         response['Content-Disposition'] = \
             'attachment; filename=db_store_export_data.xls'
         wb = xlwt.Workbook(encoding="UTF-8")
@@ -113,7 +126,8 @@ class DataExporter(object):
         """
         Export data to CSV.
         """
-        response = HttpResponse(mimetype="text/csv")
+        #response = HttpResponse(mimetype="text/csv")
+        response = self._get_initial_response(mimetype="text/csv")
         response['Content-Disposition'] = \
             'attachment; filename=db_store_export_data.csv'
 

@@ -27,7 +27,20 @@
                         </label>
 
                         <div class="{% block form_element_field_wrapper_html_class %}{% endblock %}">
-                            {{ field }}
+                            {% get_form_field_type field as form_field_type %}
+
+                            {% if form_field_type.is_radio %}
+                                {% for choice_value, choice_label in field.field.choices %}
+                            <div class="radio">
+                              <label>
+                                <input type="radio" name="{{ field.html_name }}" value="{{ choice_value }}"{% if field.value == choice_value %}checked{% endif %}>
+                                {{ choice_label }}
+                              </label>
+                            </div>
+                                {% endfor %}
+                            {% else %}
+                                {{ field }}
+                            {% endif %}
 
                             {% if field.errors %}
                             <span class="{% block form_element_error_html_class %}help-block has-error{% endblock %}">
@@ -41,6 +54,7 @@
                             <span class="{% block form_element_help_text_html_class %}help-block{% endblock %}">{{ field.help_text|safe }}</span>
                             {% endif %}
                         </div>
+                        
                     </div>
                 {% endif %}
 
