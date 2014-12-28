@@ -22,6 +22,7 @@ are used for versioning (schema follows below):
 - Third party app integration (at the moment, FeinCMS, DjangoCMS, Mezzanine)
   had been generalised and unified.
 - Mention the Heroku live demo in the docs.
+- Minor CSS fixes in the ``simple`` theme.
 
 0.4.8
 -------------------------------------

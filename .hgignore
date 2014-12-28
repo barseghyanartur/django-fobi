@@ -11,6 +11,7 @@ syntax: regexp
 \.zip
 ^release/
 ^demo/
+^demos/heroku_demo/staticfiles/
 ^deploy/
 ^fobi/fobi\.migrations\.rst
 ^examples/db/

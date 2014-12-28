@@ -22,7 +22,7 @@
             }
 
     .theme.theme-simple .dropdown {
-        background: url("/static/admin/img/tool-left.gif") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+        background: url("../../admin/img/tool-left.gif") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
         display: block;
         float: left;
         height: 16px;
@@ -31,7 +31,7 @@
         list-style-type: square;
     }
         .theme.theme-simple .dropdown .dropdown-toggle {
-            background: #999 url(/static/admin/img/tooltag-add.gif) top right no-repeat;
+            background: #999 url(../../admin/img/tooltag-add.gif) top right no-repeat;
             padding-right: 28px;
             height: 16px;
             display: block;
@@ -40,7 +40,7 @@
             position: relative;
         }
         .theme.theme-simple .dropdown .dropdown-toggle:hover {
-            background: #5b80b2 url(/static/admin/img/tooltag-add_over.gif) top right no-repeat;
+            background: #5b80b2 url(../../admin/img/tooltag-add_over.gif) top right no-repeat;
         }
 
         .theme.theme-simple .dropdown .dropdown-menu {

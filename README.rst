@@ -90,6 +90,61 @@ See the `TODOS <https://raw.githubusercontent.com/barseghyanartur/django-fobi/ma
 for the full list of planned-, pending- in-development- or to-be-implemented
 features.
 
+Demo
+===============================================
+See the documentation for some screen shots:
+
+- `PythonHosted <http://pythonhosted.org/django-fobi/#screenshots>`_
+- `ReadTheDocs <http://django-fobi.readthedocs.org/en/latest/#screenshots>`_
+
+Live demo
+-----------------------------------------------
+See the `live demo app <https://django-fobi.herokuapp.com/>`_ on Heroku.
+
+Credentials:
+
+- username: test_user
+- password: test_user
+
+Run demo locally
+-----------------------------------------------
+In order to be able to quickly evaluate the `Fobi`, a demo app (with a quick
+installer) has been created (works on Ubuntu/Debian, may work on other Linux
+systems as well, although not guaranteed). Follow the instructions below for
+having the demo running within a minute.
+
+Grab the latest `django_fobi_example_app_installer.sh`:
+
+.. code-block:: none
+
+    $ wget https://raw.github.com/barseghyanartur/django-fobi/stable/examples/django_fobi_example_app_installer.sh
+
+Assign execute rights to the installer and run the
+`django_fobi_example_app_installer.sh`:
+
+.. code-block:: none
+
+    $ chmod +x django_fobi_example_app_installer.sh
+    $ ./django_fobi_example_app_installer.sh
+
+Open your browser and test the app.
+
+Dashboard:
+
+- URL: http://127.0.0.1:8001/fobi/
+- Admin username: test_admin
+- Admin password: test
+
+Django admin interface:
+
+- URL: http://127.0.0.1:8001/admin/
+- Admin username: test_admin
+- Admin password: test
+
+If quick installer doesn't work for you, see the manual steps on running the
+`example project
+<https://github.com/barseghyanartur/django-fobi/tree/stable/examples>`_.
+
 Installation
 ===============================================
 
@@ -192,61 +247,6 @@ View URLs are put separately from edit URLs in order to make it possible
 to prefix the edit URLs differently. For example, if you're using the
 "Simple" theme, you would likely want to prefix the edit URLs with "admin/"
 so that it looks more like django-admin.
-
-Demo
-===============================================
-See the documentation for some screen shots:
-
-- `PythonHosted <http://pythonhosted.org/django-fobi/#screenshots>`_
-- `ReadTheDocs <http://django-fobi.readthedocs.org/en/latest/#screenshots>`_
-
-Live demo
------------------------------------------------
-See the `live demo app <https://django-fobi.herokuapp.com/>`_ on Heroku.
-
-Credentials:
-
-- username: test_user
-- password: test_user
-
-Run demo locally
------------------------------------------------
-In order to be able to quickly evaluate the `Fobi`, a demo app (with a quick
-installer) has been created (works on Ubuntu/Debian, may work on other Linux
-systems as well, although not guaranteed). Follow the instructions below for
-having the demo running within a minute.
-
-Grab the latest `django_fobi_example_app_installer.sh`:
-
-.. code-block:: none
-
-    $ wget https://raw.github.com/barseghyanartur/django-fobi/stable/examples/django_fobi_example_app_installer.sh
-
-Assign execute rights to the installer and run the
-`django_fobi_example_app_installer.sh`:
-
-.. code-block:: none
-
-    $ chmod +x django_fobi_example_app_installer.sh
-    $ ./django_fobi_example_app_installer.sh
-
-Open your browser and test the app.
-
-Dashboard:
-
-- URL: http://127.0.0.1:8001/fobi/
-- Admin username: test_admin
-- Admin password: test
-
-Django admin interface:
-
-- URL: http://127.0.0.1:8001/admin/
-- Admin username: test_admin
-- Admin password: test
-
-If quick installer doesn't work for you, see the manual steps on running the
-`example project
-<https://github.com/barseghyanartur/django-fobi/tree/stable/examples>`_.
 
 Creating a new form element plugin
 ===============================================
