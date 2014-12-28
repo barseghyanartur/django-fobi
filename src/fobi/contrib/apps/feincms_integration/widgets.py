@@ -5,7 +5,7 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('FobiFormWidget',)
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext, ugettext_lazy as _
 
 from fobi.integration.processors import IntegrationProcessor
 from fobi.contrib.apps.feincms_integration.settings import (
@@ -76,7 +76,7 @@ class FobiFormWidget(models.Model, IntegrationProcessor):
         app_label = 'fobi'
 
     def __unicode__(self):
-        return _('Fobi form')
+        return ugettext('Fobi form')
 
     def process(self, request, **kwargs):
         """

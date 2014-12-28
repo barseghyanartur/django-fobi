@@ -15,9 +15,15 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.4.10
+-------------------------------------
+2012-12-28
+
+- Minor fixes in FeinCMS integration app.
+
 0.4.9
 -------------------------------------
-2012-12-27
+2012-12-28
 
 - Third party app integration (at the moment, FeinCMS, DjangoCMS, Mezzanine)
   had been generalised and unified.
