@@ -7,6 +7,7 @@ __all__ = (
     'clean_dict', 'two_dicts_to_string', 'empty_string', 'ensure_unique_filename',
     'handle_uploaded_file', 'delete_file', 'clone_file', 'get_registered_models',
     'admin_change_url', 'uniquify_sequence', 'safe_text', 'combine_dicts',
+    'update_plugin_data', 'get_select_field_choices',
 )
 
 import os
@@ -290,3 +291,29 @@ def update_plugin_data(entry, request=None):
         logger.debug(plugin)
         if plugin:
             return plugin._update_plugin_data(entry)
+
+def get_select_field_choices(raw_choices_data):
+    """
+    Used in ``radio``, ``select`` and other choice based
+    fields.
+
+    :param str raw_choices_data:
+    :return list:
+    """
+    choices = []
+    keys = set([])
+    for choice in raw_choices_data.split('\n'):
+        choice = choice.strip()
+        if ',' in choice:
+            key, value = choice.split(',', 1)
+            key = key.strip()
+            value = value.strip()
+            if not key in keys:
+                choices.append((key, value))
+                keys.add(key)
+        else:
+            choice = choice.strip()
+            if not choice in keys:
+                choices.append((choice, choice))
+                keys.add(choice)
+    return choices

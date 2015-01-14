@@ -90,13 +90,15 @@ See the `TODOS <https://raw.githubusercontent.com/barseghyanartur/django-fobi/ma
 for the full list of planned-, pending- in-development- or to-be-implemented
 features.
 
-Demo
+Some screenshots
 ===============================================
 See the documentation for some screen shots:
 
 - `PythonHosted <http://pythonhosted.org/django-fobi/#screenshots>`_
 - `ReadTheDocs <http://django-fobi.readthedocs.org/en/latest/#screenshots>`_
 
+Demo
+===============================================
 Live demo
 -----------------------------------------------
 See the `live demo app <https://django-fobi.herokuapp.com/>`_ on Heroku.

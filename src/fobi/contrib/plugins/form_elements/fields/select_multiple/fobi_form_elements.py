@@ -9,6 +9,7 @@ from django.forms.widgets import SelectMultiple
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
+from fobi.helpers import get_select_field_choices
 from fobi.contrib.plugins.form_elements.fields.select_multiple import UID
 from fobi.contrib.plugins.form_elements.fields.select_multiple.forms import (
     SelectMultipleInputForm
@@ -29,14 +30,7 @@ class SelectMultipleInputPlugin(FormFieldPlugin):
         """
         Get form field instances.
         """
-        choices = []
-        for choice in self.data.choices.split('\n'):
-            choice = choice.strip()
-            if ',' in choice:
-                key, value = choice.split(',', 1)
-                choices.append((key.strip(), value.strip()))
-            else:
-                choices.append((choice, choice))
+        choices = get_select_field_choices(self.data.choices)
 
         kwargs = {
             'label': self.data.label,

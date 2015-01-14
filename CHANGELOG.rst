@@ -15,6 +15,15 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.4.12
+-------------------------------------
+2015-01-14
+
+- Fix empty options appearing in the Select-like plugins and unified the
+  processing of the raw choices data.
+- Update the `vishap` package requirement to latest stable 0.1.3.
+- Support for wheel packages.
+
 0.4.11
 -------------------------------------
 2012-12-29

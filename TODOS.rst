@@ -194,13 +194,24 @@ Must haves
   CSV export.
 + Make appropriate additions to the documentation reflecting the changes
   made in 0.3.5 (or 0.4).
-- Fix the CSV/XLS export in ``db_store`` for Django 1.7.
-- Nicer styling for the radio button.
++ Fix the CSV/XLS export in ``db_store`` for Django 1.7.
++ Nicer styling for the radio button (Bootstrap 3 theme).
+- Nicer styling for the radio button (Foundation 5 theme).
+- Nicer styling for the radio button (Simple theme).
+- Make it possible to provide an alternative rendering of the form field
+  in the correspondent form field plugin widget (in such a way, that it
+  falls back to the defaut rendering when no custom is available and
+  uses the custom rendering if available). This should be done on the
+  widget level, so that it's not necessary to update the theme in case of
+  customisations made for one or more form field plugins (the rendering
+  part).
+- On Django 1.7 value of CAPTCHA input is stored in the ``db_store`
+  plugin. Make sure it doesn't https://django-fobi.herokuapp.com/fobi/plugins/form-handlers/db-store/1/
+- Make sure empty lines are not treated as options in the radio or list
+  plugins.
 - Make sure, that theme specific theme javascripts, css and other assets,
   are defined in the theme itself. Follow the ``django-dash``
   example as much as possible.
-- Make sure a better (SEO) URLs can be used in intergration packages (at
-  least the FeinCMS).
 - Improve the "simple" theme for Django 1.6 and Django 1.7 (tiny bits of 
   styling).
 - Edit form test.
@@ -269,6 +280,8 @@ Should haves
 - Think of making putting several actions (repair) into the management
   interface (UI).
 - Make Django's CSRF validation optional.
+- Make sure a better (SEO) URLs can be used in intergration packages (at
+  least the FeinCMS).
 
 Could haves
 ===============================================
