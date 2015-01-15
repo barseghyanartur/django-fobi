@@ -108,6 +108,10 @@ Credentials:
 - username: test_user
 - password: test_user
 
+For FeinCMS integration demo, see the `following link
+<https://django-fobi.herokuapp.com/pages/>`_ and the `admin part of it
+<https://django-fobi.herokuapp.com/admin/page/page/1/>`_.
+
 Run demo locally
 -----------------------------------------------
 In order to be able to quickly evaluate the `Fobi`, a demo app (with a quick

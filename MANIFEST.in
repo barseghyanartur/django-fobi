@@ -7,8 +7,9 @@ include CHANGELOG.rst
 recursive-include src/fobi/locale/nl *
 recursive-include src/fobi/locale/ru *
 
-# Static files
+# Static files except for the jquery-ui development bundle
 recursive-include src/fobi/static *
+#prune src/fobi/static/jquery-ui/development-bundle
 
 recursive-include src/fobi/contrib/themes/bootstrap3/static *
 recursive-include src/fobi/contrib/themes/foundation5/static *

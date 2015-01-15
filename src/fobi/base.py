@@ -1245,12 +1245,23 @@ class FormHandlerPlugin(BasePlugin):
     """
     storage = FormHandlerPluginDataStorage
 
-    def _run(self, form_entry, request, form):
+    def _run(self, form_entry, request, form, form_element_entries=None):
         """
         Safely call the ``run`` method.
+
+        :param fobi.models.FormEntry form_entry: Instance of
+            ``fobi.models.FormEntry``.
+        :param django.http.HttpRequest request:
+        :param django.forms.Form form:
+        :param iterable form_element_entries: Iterable of
+            ``fobi.models.FormElementEntry`` objects.
         """
+        # For backwards compatibility.
+        if not form_element_entries:
+            form_element_entries = form_entry.formelemententry_set.all()[:]
+
         try:
-            self.run(form_entry, request, form)
+            self.run(form_entry, request, form, form_element_entries)
         except Exception as e:
             if FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS:
                 raise e
@@ -1259,7 +1270,7 @@ class FormHandlerPlugin(BasePlugin):
                 "{1}".format(self.__class__.__name__, str(e))
                 )
 
-    def run(self, form_entry, request, form):
+    def run(self, form_entry, request, form, form_element_entries=None):
         """
         Custom code should be implemented here.
 
@@ -1267,6 +1278,8 @@ class FormHandlerPlugin(BasePlugin):
             ``fobi.models.FormEntry``.
         :param django.http.HttpRequest request:
         :param django.forms.Form form:
+        :param iterable form_element_entries: Iterable of
+            ``fobi.models.FormElementEntry`` objects.
         """
         raise NotImplemented(
             "You should implement ``callback`` method in your {1} "
@@ -1883,18 +1896,31 @@ def submit_plugin_form_data(form_entry, request, form):
 
     return form
 
-def get_ignorable_form_fields():
+def get_ignorable_form_fields(form_element_entries):
     """
     Get ignorable form fields by getting those without values.
 
-    :return iterable:
+    :param iterable form_element_entries: Iterable of
+        ``fobi.models.FormElementEntry`` objects.
+    :return iterable: Iterable of ignorable form element entries.
     """
-    ignorable = []
+    # Get ignorable plugins
+    ignorable_plugins = []
     for key, value in form_element_plugin_registry._registry.items():
         if not value.has_value:
-            ignorable.append(key)
+            ignorable_plugins.append(key)
 
-    return ignorable
+    # Get ignorable form fields
+    ignorable_form_fields = []
+    for form_element_entry in form_element_entries:
+        if form_element_entry.plugin_uid in ignorable_plugins:
+            form_element_plugin = form_element_entry.get_plugin()
+            try:
+                ignorable_form_fields.append(form_element_plugin.data.name)
+            except AttributeError as e:
+                pass
+
+    return ignorable_form_fields
 
 # *****************************************************************************
 # **************************** Form handler specific **************************
@@ -1944,16 +1970,17 @@ def get_field_name_to_label_map(form, keys_to_remove=[], values_to_remove=[]):
 
     return field_name_to_label_map
 
-def get_processed_form_data(form):
+def get_processed_form_data(form, form_element_entries):
     """
     Gets processed form handler data. Simply fires both 
     ``fobi.base.get_cleaned_data`` and ``fobi.base.get_field_name_to_label_map``
     functions and returns the result.
 
-    :param form:
+    :param django.forms.Form form:
+    :param iterable: Iterable of form element entries.
     :return tuple:
     """
-    keys_to_remove = get_ignorable_form_fields()
+    keys_to_remove = get_ignorable_form_fields(form_element_entries)
     values_to_remove = get_ignorable_form_values()
 
     field_name_to_label_map = \
@@ -2016,13 +2043,14 @@ def get_ordered_form_handler_plugins():
 
     return form_handler_plugins
 
-def run_form_handlers(form_entry, request, form):
+def run_form_handlers(form_entry, request, form, form_element_entries=None):
     """
     Runs form handlers.
 
     :param fobi.models.FormEntry form_entry:
     :param django.http.HttpRequest request:
     :param django.forms.Form form:
+    :param iterable form_element_entries:
     """
     # Getting form handler plugins in their execution order.
     ordered_form_handlers = get_ordered_form_handler_plugins()
@@ -2040,7 +2068,12 @@ def run_form_handlers(form_entry, request, form):
         logger.debug("UID: {0}".format(uid))
         for form_handler in form_handlers:
             form_handler_plugin = form_handler.get_plugin(request=request)
-            form_handler_plugin._run(form_entry, request, form)
+            form_handler_plugin._run(
+                form_entry,
+                request,
+                form,
+                form_element_entries
+                )
 
 # *****************************************************************************
 # ******************************* Theme specific ******************************

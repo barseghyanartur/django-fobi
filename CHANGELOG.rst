@@ -15,6 +15,17 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.4.13
+-------------------------------------
+2015-01-15
+
+- Remove an `ipdb` statement from base integration processor
+  `fobi.integration.processors.IntegrationProcessor`.
+- Added information in the docs about FeinCMS demo part on heroku demo.
+- Make sure values of form elements declared not to have a value (``has_value``
+  property is set to False) aren't being saved in the ``db_store`` plugin.
+- Remove redundant static assets (package size decreased).
+
 0.4.12
 -------------------------------------
 2015-01-14

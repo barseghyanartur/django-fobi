@@ -856,7 +856,12 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
                                        stage=CALLBACK_FORM_VALID)
 
             # Run all handlers
-            run_form_handlers(form_entry=form_entry, request=request, form=form)
+            run_form_handlers(
+                form_entry = form_entry,
+                request = request,
+                form = form,
+                form_element_entries = form_element_entries
+                )
 
             # Fire post handler callbacks
             fire_form_callbacks(

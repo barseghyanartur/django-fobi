@@ -40,12 +40,14 @@ class HTTPRepostHandlerPlugin(FormHandlerPlugin):
     name = _("HTTP Repost")
     form = HTTPRepostForm
 
-    def run(self, form_entry, request, form):
+    def run(self, form_entry, request, form, form_element_entries=None):
         """
         :param fobi.models.FormEntry form_entry: Instance of
             ``fobi.models.FormEntry``.
         :param django.http.HttpRequest request:
         :param django.forms.Form form:
+        :param iterable form_element_entries: Iterable of
+            ``fobi.models.FormElementEntry`` objects.
         """
         files = {}
 

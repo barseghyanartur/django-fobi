@@ -248,10 +248,7 @@ class IntegrationProcessor(object):
         :param fobi.models.FormEntry instance: FormEntry instance.
         :return django.http.HttpResponse | str:
         """
-        try:
-            self.integration_check(instance)
-        except Exception as e:
-            import ipdb; ipdb.set_trace()
+        self.integration_check(instance)
 
         if self.form_sent_get_param in request.GET:
             return self._show_thanks_page(request, instance, **kwargs)
