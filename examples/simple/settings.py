@@ -106,6 +106,7 @@ TEMPLATE_LOADERS = (
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'localeurl.middleware.LocaleURLMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -163,7 +164,7 @@ INSTALLED_APPS = (
     #'tinymce', # TinyMCE
     'easy_thumbnails', # Thumbnailer
     'registration', # Auth views and registration app
-    #'localeurl', # Locale URL
+    'localeurl', # Locale URL
 
     # ***********************************************************************
     # ***********************************************************************
@@ -270,10 +271,13 @@ LOGIN_REDIRECT_URL = '/fobi/' # Important for passing the selenium tests
 #LOGIN_ERROR_URL = '/accounts/login/'
 #LOGOUT_URL = '/accounts/logout/'
 
+# Tell localeurl to use sessions for language store.
+LOCALEURL_USE_SESSION = True
+
 # localeurl locale independent paths (language code won't be appended)
 LOCALE_INDEPENDENT_PATHS = (
     r'^/sitemap.*\.xml$', # Global regex for all XML sitemaps
-    #r'^/admin/',
+    r'^/admin/',
     #r'^/dashboard/',
 )
 

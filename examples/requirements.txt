@@ -18,6 +18,8 @@ selenium
 simple-timer>=0.2
 tox
 
+hg+https://bitbucket.org/barseghyanartur/django-localeurl
+
 #Django>=1.5,<1.7
 #FeinCMS>=1.9,<2.0
 #Jinja2==2.7.2

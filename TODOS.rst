@@ -196,6 +196,10 @@ Must haves
   made in 0.3.5 (or 0.4).
 + Fix the CSV/XLS export in ``db_store`` for Django 1.7.
 + Nicer styling for the radio button (Bootstrap 3 theme).
++ Values of `FormElementPlugin` subclassed elements is stored in the `db_store`
+  plugin. Make sure it doesn't.
++ Make sure empty lines are not treated as options in the radio or list
+  plugins.
 - Nicer styling for the radio button (Foundation 5 theme).
 - Nicer styling for the radio button (Simple theme).
 - Make it possible to provide an alternative rendering of the form field
@@ -205,10 +209,6 @@ Must haves
   widget level, so that it's not necessary to update the theme in case of
   customisations made for one or more form field plugins (the rendering
   part).
-- On Django 1.7 value of CAPTCHA input is stored in the ``db_store`
-  plugin. Make sure it doesn't https://django-fobi.herokuapp.com/fobi/plugins/form-handlers/db-store/1/
-- Make sure empty lines are not treated as options in the radio or list
-  plugins.
 - Make sure, that theme specific theme javascripts, css and other assets,
   are defined in the theme itself. Follow the ``django-dash``
   example as much as possible.
@@ -301,12 +301,12 @@ Could haves
 - TinyMCE form element cosmetic plugin.
 - In the cosmetic image plugin, render the sized image.
 - Add Armenian translation.
-- Form wizards (combine forms with each other, having one at a step, finally -
-  send it all as one).
 - Finish select multiple model objects plugin (issue with processing form data
   on form submit).
 - Add option to redirect to another page.
 - Conditional inputs.
+- Form wizards (combine forms with each other, having one at a step, finally -
+  send it all as one).
 - Perhaps, completely re-write the base template for the foundation 5 theme?
 
 Would haves

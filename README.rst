@@ -1328,8 +1328,8 @@ HTML5 fields is extended to the following fields:
 
 Available translations
 ===============================================
-- Dutch (core and plugins)
-- Russian (core and plugins)
+- `Dutch <https://django-fobi.herokuapp.com/nl/>`_ (core and plugins)
+- `Russian <https://django-fobi.herokuapp.com/ru/>`_ (core and plugins)
 
 Debugging
 ===============================================
