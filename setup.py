@@ -4,8 +4,10 @@ from setuptools import setup, find_packages
 
 try:
     readme = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
+    readme = readme.replace('.. code-block:: none', '.. code-block::')
     screenshots = open(os.path.join(os.path.dirname(__file__), 'SCREENSHOTS.rst')).read()
     screenshots = screenshots.replace('.. image:: _static', '.. figure:: https://github.com/barseghyanartur/django-fobi/raw/master/docs/_static')
+    screenshots = screenshots.replace('.. code-block:: none', '.. code-block::')
 except:
     readme = ''
     screenshots = ''
@@ -43,6 +45,7 @@ static_dirs = [
 locale_dirs = [
     "src/fobi/locale/nl",
     "src/fobi/locale/ru",
+    "src/fobi/locale/de",
 ]
 
 templates = []
@@ -58,7 +61,7 @@ for static_dir in static_dirs:
 for locale_dir in locale_dirs:
     locale_files += [os.path.join(locale_dir, f) for f in os.listdir(locale_dir)]
 
-version = '0.4.13'
+version = '0.4.14'
 
 install_requires = [
     'Pillow>=2.0.0',

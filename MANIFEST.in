@@ -6,6 +6,7 @@ include CHANGELOG.rst
 #recursive-include src/fobi/locale/hy *
 recursive-include src/fobi/locale/nl *
 recursive-include src/fobi/locale/ru *
+recursive-include src/fobi/locale/de *
 
 # Static files except for the jquery-ui development bundle
 recursive-include src/fobi/static *
