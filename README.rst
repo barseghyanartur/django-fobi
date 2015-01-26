@@ -1328,7 +1328,10 @@ HTML5 fields is extended to the following fields:
 
 Available translations
 ===============================================
+English is the primary language.
+
 - `Dutch <https://django-fobi.herokuapp.com/nl/>`_ (core and plugins)
+- `German <https://django-fobi.herokuapp.com/de/>`_ (core and plugins)
 - `Russian <https://django-fobi.herokuapp.com/ru/>`_ (core and plugins)
 
 Debugging
