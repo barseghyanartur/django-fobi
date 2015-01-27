@@ -19,8 +19,8 @@ Key concepts
 - Each form consists of elements. Form elements are divided
   into two groups:
 
-  - (a) form fields (input field, textarea, hidden field, file field, etc.).
-  - (b) content (presentational) elements (text, image, embed video, etc.).
+  (a) form fields (input field, textarea, hidden field, file field, etc.).
+  (b) content (presentational) elements (text, image, embed video, etc.).
 
 - Number of form elements is not limited.
 - Each form may contain handlers. Handler processes the form data (for example,
@@ -154,7 +154,7 @@ If quick installer doesn't work for you, see the manual steps on running the
 Installation
 ===============================================
 
-1. Install latest stable version from PyPI:
+(1) Install latest stable version from PyPI:
 
 .. code-block:: none
 
@@ -172,9 +172,9 @@ Or latest stable version from BitBucket:
 
     $ pip install -e hg+https://bitbucket.org/barseghyanartur/django-fobi@stable#egg=django-fobi
 
-2. Add `fobi` to ``INSTALLED_APPS`` of the your projects' Django settings. 
-   Furthermore, all themes and plugins to be used, shall be added to the
-   ``INSTALLED_APPS`` as well.
+(2) Add `fobi` to ``INSTALLED_APPS`` of the your projects' Django settings.
+    Furthermore, all themes and plugins to be used, shall be added to the
+    ``INSTALLED_APPS`` as well.
 
 .. code-block:: python
 
@@ -221,8 +221,8 @@ Or latest stable version from BitBucket:
         # ...
     )
 
-3. Make appropriate changes to the ``TEMPLATE_CONTEXT_PROCESSORS`` of the your
-   projects' Django settings.
+(3) Make appropriate changes to the ``TEMPLATE_CONTEXT_PROCESSORS`` of the your
+    projects' Django settings.
 
 And the following to the context processors.
 
@@ -237,7 +237,7 @@ And the following to the context processors.
 Make sure that ``django.core.context_processors.request`` is in
 ``TEMPLATE_CONTEXT_PROCESSORS`` too.
 
-4. Configure URLs
+(4) Configure URLs
 
 Add the following line to urlpatterns of your urls module.
 

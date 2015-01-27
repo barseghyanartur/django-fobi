@@ -81,7 +81,7 @@ class InputForm(forms.Form, BaseFormFieldPluginForm):
     required = forms.BooleanField(
         label = _("Required"),
         required = False,
-        widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_html_class})
+        widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_checkbox_html_class})
         )
     placeholder = forms.CharField(
         label = _("Placeholder"),
@@ -93,17 +93,17 @@ class InputForm(forms.Form, BaseFormFieldPluginForm):
     autocomplete_value = forms.BooleanField(
         label = _("Auto-complete (HTML5 autocomplete)"),
         required = False,
-        widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_html_class})
+        widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_checkbox_html_class})
         )
     autofocus_value = forms.BooleanField(
         label = _("Auto-focus (HTML5 autofocus)"),
         required = False,
-        widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_html_class})
+        widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_checkbox_html_class})
         )
     disabled_value = forms.BooleanField(
         label = _("Disabled"),
         required = False,
-        widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_html_class})
+        widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_checkbox_html_class})
         )
     #formnovalidate_value = forms.BooleanField(
     #    label = _("Skip validation (HTML5 formnovalidate)"),
@@ -128,7 +128,7 @@ class InputForm(forms.Form, BaseFormFieldPluginForm):
     multiple_value = forms.BooleanField(
         label = _("Multiple (HTML5 multiple)"),
         required = False,
-        widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_html_class})
+        widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_checkbox_html_class})
         )
     pattern_value = forms.CharField(
         label = _("Pattern (HTML5 pattern)"),
@@ -138,7 +138,7 @@ class InputForm(forms.Form, BaseFormFieldPluginForm):
     readonly_value = forms.BooleanField(
         label = _("Read-only (HTML readonly)"),
         required = False,
-        widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_html_class})
+        widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_checkbox_html_class})
         )
     step_value = forms.IntegerField(
         label = _("Step (HTML5 step)"),

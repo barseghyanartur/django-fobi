@@ -214,6 +214,8 @@ Must haves
   example as much as possible.
 - Improve the "simple" theme for Django 1.6 and Django 1.7 (tiny bits of 
   styling).
+- Finish the Input plugin (some properties of it, like "type" aren't anyhow
+  used, while they should be).
 - Edit form test.
 - Edit form element tests.
 - Edit from handler tests.

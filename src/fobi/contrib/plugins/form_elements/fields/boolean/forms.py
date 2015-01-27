@@ -41,10 +41,10 @@ class BooleanSelectForm(forms.Form, BaseFormFieldPluginForm):
     initial = forms.BooleanField(
         label = _("Initial"),
         required = False,
-        widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_html_class})
+        widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_checkbox_html_class})
         )
     required = forms.BooleanField(
         label = _("Required"),
         required = False,
-        widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_html_class})
+        widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_checkbox_html_class})
         )

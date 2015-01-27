@@ -19,8 +19,8 @@ Key concepts
 - Each form consists of elements. Form elements are divided
   into two groups:
 
-  - (a) form fields (input field, textarea, hidden field, file field, etc.).
-  - (b) content (presentational) elements (text, image, embed video, etc.).
+  (a) form fields (input field, textarea, hidden field, file field, etc.).
+  (b) content (presentational) elements (text, image, embed video, etc.).
 
 - Number of form elements is not limited.
 - Each form may contain handlers. Handler processes the form data (for example,
