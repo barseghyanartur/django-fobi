@@ -1,3 +1,3 @@
 reset
-./uninstall.sh
-./install_recaptcha.sh
+./scripts/uninstall.sh
+./scripts/install_recaptcha.sh

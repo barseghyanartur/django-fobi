@@ -1,3 +1,3 @@
 reset
-./uninstall.sh
-./install_mezzanine.sh
+./scripts/uninstall.sh
+./scripts/install_mezzanine.sh

@@ -17,7 +17,7 @@ are used for versioning (schema follows below):
 
 0.4.16
 -------------------------------------
-2015-02-10
+yyyy-mm-dd (unreleased)
 
 - A new theme ``djangocms_admin_style_theme`` added.
 - Making ``fobi.fields.NoneField`` always valid.

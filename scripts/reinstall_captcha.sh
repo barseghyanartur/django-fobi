@@ -1,3 +1,3 @@
 reset
-./uninstall.sh
-./install_captcha.sh
+./scripts/uninstall.sh
+./scripts/install_captcha.sh

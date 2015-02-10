@@ -1,3 +1,3 @@
 reset
-./uninstall.sh
-./install_djangocms.sh
+./scripts/uninstall.sh
+./scripts/install_djangocms.sh

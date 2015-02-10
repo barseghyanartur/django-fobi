@@ -1,5 +1,5 @@
-./uninstall.sh
-./install.sh
+./scripts/uninstall.sh
+./scripts/install.sh
 #cd ..
 rm docs/*.rst
 rm -rf builddocs/

@@ -1,6 +1,6 @@
 reset
-./uninstall.sh
-./install.sh
+./scripts/uninstall.sh
+./scripts/install.sh
 #cd ..
 python examples/simple/manage.py test fobi
 #cd scripts

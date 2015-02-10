@@ -1,3 +1,3 @@
 reset
-./uninstall.sh
-./install_feincms.sh
+./scripts/uninstall.sh
+./scripts/install_feincms.sh
