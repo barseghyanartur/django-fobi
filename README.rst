@@ -1303,7 +1303,7 @@ of each theme for details.
 - `Simple
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/themes/simple/>`_:
   Basic theme. Form editing is in a style of Django admin.
-- `Simple
+- `DjangoCMS admin style
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/themes/djangocms_admin_style_theme/>`_:
   Basic theme. Form editing is in a style of `djangocms-admin-style
   <https://github.com/divio/djangocms-admin-style>`_.
