@@ -113,3 +113,18 @@
         margin-left: 0;
         padding-right: 0;
     }
+
+/* Style overrides */
+.theme.theme-djangocms_admin_style_theme.change-form #sitemap ul.list-inline {
+    margin-top: 10px;
+}
+.theme.theme-djangocms_admin_style_theme #sitemap li a.deletelink {
+    display: block;
+    float: left;
+    margin: 3px 0 0 4px;
+    padding: 0;
+}
+.theme.theme-djangocms_admin_style_theme #sitemap li a.edit {
+    display: block;
+    float: left;
+}

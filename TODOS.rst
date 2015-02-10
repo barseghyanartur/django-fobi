@@ -200,9 +200,9 @@ Must haves
   plugin. Make sure it doesn't.
 + Make sure empty lines are not treated as options in the radio or list
   plugins.
-- Django 1.8 support.
-- Add a quickstart documentation.
-- Make a Django-CMS dedicated theme (for the admin) using `djangocms-admin-style
++ Django 1.8 support.
++ Add a quickstart documentation.
++ Make a Django-CMS dedicated theme (for the admin) using `djangocms-admin-style
   <https://github.com/divio/djangocms-admin-style>`_.
 - See if it's possible to make the "simple" theme base template (for Django
   admin) as much generic so that change between versions doesn't cause
