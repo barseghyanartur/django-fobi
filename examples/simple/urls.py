@@ -24,7 +24,7 @@ fobi_home_template = fobi_theme_home_template_mapping.get(
     )
 
 FOBI_EDIT_URLS_PREFIX = ''
-if 'simple' == DEFAULT_THEME:
+if DEFAULT_THEME in ('simple', 'djangocms_admin_style_theme'):
     FOBI_EDIT_URLS_PREFIX = 'admin/'
 
 urlpatterns = patterns('',

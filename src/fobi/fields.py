@@ -25,3 +25,6 @@ class NoneField(Field):
         a bit differently.
         """
         return initial
+
+    def validate(self, value):
+        return True

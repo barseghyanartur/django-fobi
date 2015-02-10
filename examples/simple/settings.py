@@ -282,6 +282,9 @@ LOCALE_INDEPENDENT_PATHS = (
     #r'^/dashboard/',
 )
 
+PACKAGE_NAME_FILEBROWSER = "filebrowser_safe" # Just for tests
+PACKAGE_NAME_GRAPPELLI = "grappelli_safe" # Just for tests
+
 # **************************************************************
 # ************************ Fobi settings ***********************
 # **************************************************************

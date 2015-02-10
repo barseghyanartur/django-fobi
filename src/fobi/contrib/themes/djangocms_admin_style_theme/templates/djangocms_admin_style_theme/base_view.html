@@ -1,0 +1,97 @@
+{% load static future_compat %}{#% load firstof from future %#}<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}{% block html-attributes %}{% endblock html-attributes %}>
+<head>
+<title>{% block page-title %}{% endblock page-title %} | {% block site-title %}{% endblock site-title %}</title>
+{% block extrastyle %}{% endblock %}
+
+{% block stylesheets %}
+{#<!-- Additional core CSS files that somehow can't be put into the python theme -->#}
+{% endblock stylesheets %}
+
+{% block theme-stylesheets %}
+{#<!-- This is where stylesheets declared in the Python theme are listed -->#}
+
+{% for css_file in fobi_theme.get_media_css %}
+<link href="{% static css_file %}" rel="stylesheet" media="all" />
+{% endfor %}
+
+{% endblock theme-stylesheets %}
+
+{% block extra-stylesheets %}{% endblock extra-stylesheets %}
+
+{% block head-javascripts %}
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+<![endif]-->
+{% endblock head-javascripts %}
+
+{% block extra-head-javascripts %}{% endblock extra-head-javascripts %}
+
+{% block extrahead %}{% endblock extrahead %}
+
+{% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
+</head>
+{% load i18n %}
+
+<body class="{% block bodyclass %}{% if fobi_theme %} theme {{ fobi_theme.html_class }}{% endif %}{% endblock %}">
+{% block main-wrapper %}
+<!-- Container -->
+<div id="container">
+
+
+    {% block messages %}
+        {% if messages %}
+        <ul class="messagelist">{% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
+        {% endfor %}</ul>
+        {% endif %}
+    {% endblock messages %}
+
+    {% block main-content-wrapper %}
+    <!-- Content -->
+    
+        {% block main-content %}
+            {% block content-wrapper %}
+
+                {% block content %}
+                {{ content }}
+                {% endblock %}
+            {% endblock content-wrapper %}
+
+            {% block sidebar-wrapper %}
+                {% block sidebar %}{% endblock %}
+            {% endblock sidebar-wrapper %}
+
+        {% endblock main-content %}
+    
+    <!-- END Content -->
+
+        {% block footer-wrapper %}
+            {% block footer %}<div id="footer"></div>{% endblock %}
+        {% endblock footer-wrapper %}
+
+    {% endblock main-content-wrapper %}
+
+
+</div>
+<!-- END Container -->
+
+{% endblock main-wrapper %}
+
+  {% block javascripts %}
+    {#<!-- Theme core JavaScript that somehow can't be put into the Python theme -->#}
+    {#<!-- Placed at the end of the document so the pages load faster, although might be changed, if plugins need it to be otherwise -->#}
+  {% endblock javascripts %}
+
+  {% block theme-javascripts %}
+    {#<!-- This is where javascripts declared in the Python theme are listed -->#}
+    {% for js_file in fobi_theme.get_media_js %}
+    <script src="{% static js_file %}"></script>
+    {% endfor %}
+
+  {% endblock theme-javascripts %}
+
+</body>
+</html>

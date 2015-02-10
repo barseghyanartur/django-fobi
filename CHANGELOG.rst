@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.4.16
+-------------------------------------
+2015-02-10
+
+- A new theme ``djangocms_admin_style_theme`` added.
+- Making ``fobi.fields.NoneField`` always valid.
+
 0.4.15
 -------------------------------------
 2015-01-27

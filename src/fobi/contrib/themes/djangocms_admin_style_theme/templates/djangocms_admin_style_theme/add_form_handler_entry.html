@@ -1,0 +1,12 @@
+{% extends "fobi/generic/add_form_handler_entry.html" %}
+
+{% load i18n %}
+
+{% block breadcrumbs-inner %}
+      {% if form_entry %}
+        {% with form_entry.name as title %}
+          <a href="{% url 'fobi.edit_form_entry' form_entry.pk %}">{% if title %} &rsaquo; {{ title }}{% endif %}</a>
+        {% endwith %}
+        &rsaquo; {% blocktrans with form_handler_plugin.name as plugin_name %}Add "{{ plugin_name }}" handler to the form{% endblocktrans %}
+      {% endif %}
+{% endblock breadcrumbs-inner %}

@@ -1748,10 +1748,8 @@ def assemble_form_field_widget_class(base_class, plugin):
             """
             widget = plugin.get_widget()
             if widget.hasattr('render') and callable(widget.render):
-                #print 'rendered using fobi'
                 return widget.render(name, value, attrs=attrs)
             else:
-                #print 'rendered using standard'
                 super(DeclarativeMetaclass, self).render(
                     name, value, attrs=attrs
                     )

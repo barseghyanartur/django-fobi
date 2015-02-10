@@ -1,0 +1,173 @@
+{% load i18n fobi_tags %}
+
+<h1>{% trans "Edit form" %}</h1>
+
+<div class="row" id="tabs">
+<div id="sitemap">
+  <ul class="tab-links">
+    <li><a href="#tab-form-elemenets">{% trans "Elements" %}</a></li>
+    <li><a href="#tab-form-handlers">{% trans "Handlers" %}</a></li>
+    <li><a href="#tab-form-properties">{% trans "Properties" %}</a></li>
+  </ul>
+
+  <div class="col col-form-elements" id="tab-form-elemenets">
+    <!-- Form element plugins -->
+    <div>
+      <h2 id="form_elements">{% trans "Change form elements" %}</h2>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <ul class="nav pull-right">
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+              {% trans "Add form element" %} <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+            {% for group, plugins in user_form_element_plugins.items %}
+              {% if not forloop.first %}
+              <li class="divider"></li>
+              {% endif %}
+              <li class="dropdown-header">{{ group }}</li>
+              {% for form_element_uid, form_element_name in plugins %}
+              <li><a href="{% url 'fobi.add_form_element_entry' form_entry.pk form_element_uid %}">{{ form_element_name }}</a></li>
+              {% endfor %}
+            {% endfor %}
+            </ul>
+          </li>
+        </ul>
+
+        <form method="post" action="{{ request.path }}?active_tab=tab-form-elements" novalidate="novalidate" class="form-horizontal">
+          <div>
+            <fieldset class="module aligned">
+              {% csrf_token %}
+              {% with assembled_form as form %}
+                {% include fobi_theme.form_edit_snippet_template_name %}
+              {% endwith %}
+
+              {{ form_element_entry_formset.management_form }}
+            </fieldset>
+
+            <div class="submit-row">
+              <input type="submit" name="ordering" class="default" value="{% trans 'Save ordering' %}"/>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+  </div><!-- /#tab-form-elemenets -->
+
+  
+  <div class="col col-form-handlers" id="tab-form-handlers">
+
+    <!-- Form handler plugins -->
+    <div>
+      <h2 id="form_handlers">{% trans "Change form handlers" %}</h2>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <ul class="nav pull-right">
+          <li class="dropdown">
+            <a class="dropdown-toggle" data-toggle="dropdown" href="javascript:;">
+              {% trans "Add form handler" %} <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              {% for form_handler_uid, form_handler_name in user_form_handler_plugins %}
+              <li><a href="{% url 'fobi.add_form_handler_entry' form_entry.pk form_handler_uid %}">{{ form_handler_name }}</a></li>
+              {% endfor %}
+            </ul>
+          </li>
+        </ul>
+
+        <div class="clearfix"></div>
+
+        {% if form_handlers %}
+    <div class="module">
+    <div class="change-list">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th>
+                <div class="text">{% trans "Handler" %}</div>
+                <div class="clear"></div>
+              </th>
+              {% comment %}
+              <th>
+                <div class="text">{% trans "Settings" %}</div>
+                <div class="clear"></div>
+              </th>
+              {% endcomment %}
+              <th>
+                <div class="text">{% trans "Actions" %}</div>
+                <div class="clear"></div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for form_handler in form_handlers %}
+            {% with form_handler.get_plugin as plugin %}
+              {% if plugin %}
+            <tr class="{% if forloop.counter|divisibleby:2 %}row2{% else %}row1{% endif %}">
+              <td>{{ form_handler.plugin_name }}
+              {% if form_handler.plugin_data %}
+                <a class="popover-link" href="javascript:;" data-toggle="popover" data-content="{% spaceless %}{{ plugin.plugin_data_repr|safe }}{% endspaceless %}" role="button">
+                  <span class="badge" title="{% trans 'Info' %}">?</span>
+                </a>
+              {% endif %}
+              </td>
+              <td>
+                <ul class="list-inline">
+                  {% if form_handler.plugin_data %}
+                  <li><a href="{% url 'fobi.edit_form_handler_entry' form_handler.pk %}" class="edit"><span>{% trans "Edit" %}</span></a></li>
+                  {% endif %}
+                  <li><a href="{% url 'fobi.delete_form_handler_entry' form_handler.pk %}" class="deletelink"><span>{% trans "Delete" %}</span> </a></li>
+                  {% get_fobi_form_handler_plugin_custom_actions plugin form_entry as form_handler_plugin_custom_actions %}
+                  {% for action in form_handler_plugin_custom_actions %}
+                  <li><a href="{{ action.0 }}"><span class="{{ action.2 }}"></span> {{ action.1 }}</a></li>
+                  {% endfor %}
+                </ul>
+              </td>
+            </tr>
+              {% endif %}
+            {% endwith %}
+          {% endfor %}
+          </tbody>
+        </table>
+    </div>
+    </div>
+        {% endif %}
+      </div>
+    </div>
+  </div><!-- /#tab-form-handlers -->
+
+  
+  <div class="col col-form-properties" id="tab-form-properties">
+    <!-- Form properties -->
+    <div>
+      <h2 id="form_properties">{% trans "Change form properties" %}</h2>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-body">
+
+        <form method="post" action="{{ request.path }}?active_tab=tab-form-properties" enctype="multipart/form-data" class="form-horizontal">
+          <div>
+            <fieldset class="module aligned">
+              {% csrf_token %}
+              {% include fobi_theme.form_properties_snippet_template_name %}
+            </fieldset>
+            <div class="submit-row">
+              <input type="submit" class="default" value="{% trans 'Save' %}"/>
+            </div>
+          </div>
+        </form>
+
+      </div>
+    </div>
+
+
+  </div><!-- /#tab-form-properties -->
+</div>
+</div>

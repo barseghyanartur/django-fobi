@@ -1,0 +1,37 @@
+{% load i18n fobi_tags %}
+                {% comment %}
+                <div class="alert-box secondary alert-box-larger">
+                    {% blocktrans %}Fields marked with <span class="required-field">*</span> are required{% endblocktrans %}
+                </div>
+                {% endcomment %}
+
+                {% block form_non_field_and_hidden_errors %}
+                    {% get_form_hidden_fields_errors form as form_hidden_fields_errors %}
+                    {% if form.non_field_errors or form_hidden_fields_errors %}
+                        {% include fobi_theme.form_non_field_and_hidden_errors_snippet_template %}
+                    {% endif %}
+                {% endblock form_non_field_and_hidden_errors %}
+
+                {% for field in form %}
+                <div class="form-row{% if form.fields|length_is:'1' and form.errors %} errors{% endif %}{% for field in form %}{% if field.field.name %} field-{{ field.field.name }}{% endif %}{% endfor %}">
+                    {% if form.fields|length_is:'1' %}{{ form.errors }}{% endif %}
+
+                    <div{% if not form.fields|length_is:'1' %} class="field-box{% if field.field.name %} field-{{ field.field.name }}{% endif %}{% if not field.is_readonly and field.errors %} errors{% endif %}"{% elif field.is_checkbox %} class="checkbox-row"{% endif %}>
+                        {% if not form.fields|length_is:'1' and not field.is_readonly %}{{ field.errors }}{% endif %}
+                        {% if field.is_checkbox %}
+                            {{ field }}{{ field.label_tag }}
+                        {% else %}
+                            {{ field.label_tag }}
+                            {% if field.is_readonly %}
+                                <p>{{ field.contents|linebreaksbr }}</p>
+                            {% else %}
+                                {{ field }}
+                            {% endif %}
+                        {% endif %}
+                        {% if field.field.help_text %}
+                            <p class="help">{{ field.field.help_text|safe }}</p>
+                        {% endif %}
+                    </div>
+
+                </div>
+                {% endfor %}

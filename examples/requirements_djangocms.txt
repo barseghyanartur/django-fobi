@@ -4,3 +4,4 @@ djangocms-picture
 djangocms-snippet
 djangocms-text-ckeditor
 django-mptt
+djangocms-admin-style

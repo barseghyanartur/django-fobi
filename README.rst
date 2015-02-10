@@ -61,8 +61,10 @@ Main features and highlights
 - Developer-friendly API, which allows to edit existing or build new form 
   fields and handlers without touching the core.
 - Support for custom user model.
-- `Theming`_. There are 3 ready to use `Bundled themes`_: Bootstrap 3,
-  Foundation 5 and Simple (in style of Django admin).
+- `Theming`_. There are 4 ready to use `Bundled themes`_: Bootstrap 3,
+  Foundation 5, Simple (in style of Django admin) and Django-CMS admin style
+  theme (in style of `djangocms-admin-style
+  <https://github.com/divio/djangocms-admin-style>`_).
 - Implemented `integration with FeinCMS
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/feincms_integration>`_
   (in a form of a FeinCMS page widget).
@@ -230,7 +232,7 @@ And the following to the context processors.
 
     TEMPLATE_CONTEXT_PROCESSORS = (
         # ...
-        "fobi.context_processors.theme".
+        "fobi.context_processors.theme",
         # ...
     )
 
@@ -1301,6 +1303,10 @@ of each theme for details.
 - `Simple
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/themes/simple/>`_:
   Basic theme. Form editing is in a style of Django admin.
+- `Simple
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/themes/djangocms_admin_style_theme/>`_:
+  Basic theme. Form editing is in a style of `djangocms-admin-style
+  <https://github.com/divio/djangocms-admin-style>`_.
 
 HTML5 fields
 ===============================================

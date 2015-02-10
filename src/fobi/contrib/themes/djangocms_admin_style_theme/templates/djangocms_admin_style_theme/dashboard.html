@@ -1,0 +1,99 @@
+{% extends fobi_theme.base_edit_template %}
+
+{% load i18n admin_static %}
+
+{% block page-title %}{% trans "Dashboard" %}{% endblock page-title %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="{% static 'admin/css/changelists.css' %}" />
+    {#<link rel="stylesheet" type="text/css" href="{% static 'cms/css/cms.pagetree.css' %}" />#}
+{% endblock stylesheets %}
+
+{% block navbar-menu-content %}
+{% endblock navbar-menu-content %}
+
+{% block bodyclass %}{% if is_popup %}popup {% endif %}change-list{% if fobi_theme %} theme {{ fobi_theme.html_class }}{% endif %}{% endblock %}
+
+{% block main-content-inner-attrs %}{% endblock main-content-inner-attrs %}
+
+{% block coltype %}flex{% endblock %}
+
+{% block content-wrapper %}
+
+<h1>{% trans "Your forms" %}</h1>
+
+<div id="content-main">
+  <ul class="object-tools">
+    <li>
+      <a class="addlink" href="{% url 'fobi.create_form_entry' %}">{% trans "Create form"%}</a>
+    </li>
+  </ul>
+
+  <div id="changelist" class="module">
+    <!-- Forms -->
+
+
+      <div class="results" id="sitemap">
+
+          <table id="result_list">
+          <thead>
+            <tr>
+              <th>
+                <div class="text">
+                  <span>{% trans "Name" %}</span>
+                </div>
+                <div class="clear"></div>
+              </th>
+              <th>
+                <div class="text">
+                  <span>{% trans "Public?" %}</span>
+                </div>
+                <div class="clear"></div>
+              </th>
+              {% comment %}<th>
+                <div class="text">
+                  <span>{% trans "Cloneable?" %}</span>
+                </div>
+                <div class="clear"></div>
+              </th>{% endcomment %}
+              <th>
+                <div class="text">
+                  <span>{% trans "Actions" %}</span>
+                </div>
+                <div class="clear"></div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+          {% for form_entry in form_entries %}
+            <tr class="{% if forloop.counter|divisibleby:2 %}row2{% else %}row1{% endif %}">
+              <th><a href="{% url 'fobi.view_form_entry' form_entry.slug %}">{{ form_entry.name }}</a></th>
+              <td>{{ form_entry.is_public }}</td>
+              {#<td>{{ form_entry.is_cloneable }}</td>#}
+              <td>
+                <ul class="list-inline">
+                  <li>
+                      <a href="{% url 'fobi.edit_form_entry' form_entry.pk %}" class="edit">
+                          <span>{% trans "Edit" %}</span>
+                      </a>
+                  </li>
+                  <li>
+                      <a href="{% url 'fobi.delete_form_entry' form_entry.pk %}" class="deletelink">
+                          <span>{% trans "Delete" %}</span>
+                      </a>
+                  </li>
+                </ul>
+              </td>
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+  </div><!-- /#changelist -->
+  
+</div><!-- /#content-main -->
+{% endblock content-wrapper %}
+
+{% block sidebar-wrapper %}
+{% endblock sidebar-wrapper %}

@@ -154,7 +154,7 @@ If quick installer doesn't work for you, see the manual steps on running the
 Installation
 ===============================================
 
-1. Install latest stable version from PyPI:
+(1) Install latest stable version from PyPI:
 
 .. code-block:: none
 
@@ -172,9 +172,9 @@ Or latest stable version from BitBucket:
 
     $ pip install -e hg+https://bitbucket.org/barseghyanartur/django-fobi@stable#egg=django-fobi
 
-2. Add `fobi` to ``INSTALLED_APPS`` of the your projects' Django settings. 
-   Furthermore, all themes and plugins to be used, shall be added to the
-   ``INSTALLED_APPS`` as well.
+(2) Add `fobi` to ``INSTALLED_APPS`` of the your projects' Django settings.
+    Furthermore, all themes and plugins to be used, shall be added to the
+    ``INSTALLED_APPS`` as well.
 
 .. code-block:: python
 
@@ -221,8 +221,8 @@ Or latest stable version from BitBucket:
         # ...
     )
 
-3. Make appropriate changes to the ``TEMPLATE_CONTEXT_PROCESSORS`` of the your
-   projects' Django settings.
+(3) Make appropriate changes to the ``TEMPLATE_CONTEXT_PROCESSORS`` of the your
+    projects' Django settings.
 
 And the following to the context processors.
 
@@ -230,14 +230,14 @@ And the following to the context processors.
 
     TEMPLATE_CONTEXT_PROCESSORS = (
         # ...
-        "fobi.context_processors.theme".
+        "fobi.context_processors.theme",
         # ...
     )
 
 Make sure that ``django.core.context_processors.request`` is in
 ``TEMPLATE_CONTEXT_PROCESSORS`` too.
 
-4. Configure URLs
+(4) Configure URLs
 
 Add the following line to urlpatterns of your urls module.
 
@@ -1399,14 +1399,14 @@ Bootstrap3 theme
 -----------------------------------------------
 Dashboard
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1. Dashboard
+(1) Dashboard
 
 .. image:: _static/bootstrap3/01_dashboard.png
     :scale: 80 %
 
 Create a form
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-2. Create a form
+(2) Create a form
 
 .. image:: _static/bootstrap3/02_create_form.png
     :scale: 80 %
@@ -1415,22 +1415,22 @@ View/edit form
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Form elements
 +++++++++++++++++++++++++++++++++++++++++++++++
-3. Edit form - form elements tab active, no elements yet
+(3) Edit form - form elements tab active, no elements yet
 
 .. image:: _static/bootstrap3/03_edit_form_-_form_elements_tab_active_-_no_elements_yet.png
     :scale: 80 %
 
-4. Edit form - form elements tab active, add a form element menu
+(4) Edit form - form elements tab active, add a form element menu
 
 .. image:: _static/bootstrap3/04_edit_form_-_form_elements_tab_active_-_add_element_menu.png
     :scale: 80 %
 
-5. Edit form - add a form element (URL plugin)
+(5) Edit form - add a form element (URL plugin)
 
 .. image:: _static/bootstrap3/05_edit_form_-_add_form_element_url_plugin.png
     :scale: 80 %
 
-6. Edit form - form elements tab active, with form elements
+(6) Edit form - form elements tab active, with form elements
 
 .. image:: _static/bootstrap3/06_edit_form_-_form_elements_tab_active_-_with_elements.png
     :scale: 80 %
@@ -1438,57 +1438,57 @@ Form elements
 Form handlers
 +++++++++++++++++++++++++++++++++++++++++++++++
 
-7. Edit form - form handlers tab active, no handlers yet
+(7) Edit form - form handlers tab active, no handlers yet
 
 .. image:: _static/bootstrap3/07_edit_form_-_form_handlers_tab_active_-_no_handlers_yet.png
     :scale: 80 %
 
-8. Edit form - form handlers tab tactive, add form handler menu
+(8) Edit form - form handlers tab tactive, add form handler menu
 
 .. image:: _static/bootstrap3/08_edit_form_-_form_handlers_tab_active_-_add_handler_menu.png
     :scale: 80 %
 
-9. Edit form - add a form handler (Mail plugin)
+(9) Edit form - add a form handler (Mail plugin)
 
 .. image:: _static/bootstrap3/09_edit_form_-_add_form_handler_mail_plugin.png
     :scale: 80 %
 
-10. Edit form - form handlers tab active, with form handlers
+(10) Edit form - form handlers tab active, with form handlers
 
 .. image:: _static/bootstrap3/10_edit_form_-_form_handlers_tab_active_with_handlers.png
     :scale: 80 %
 
-11. Edit form - form properties tab active
+(11) Edit form - form properties tab active
 
 .. image:: _static/bootstrap3/11_edit_form_-_form_properties_tab_active.png
     :scale: 80 %
 
-12. View form
+(12) View form
 
 .. image:: _static/bootstrap3/12_view_form.png
     :scale: 80 %
 
-13. View form - form submitted (thanks page)
+(13) View form - form submitted (thanks page)
 
 .. image:: _static/bootstrap3/13_view_form_-_form_submitted.png
     :scale: 80 %
 
-14. Edit form - add a form element (Video plugin)
+(14) Edit form - add a form element (Video plugin)
 
 .. image:: _static/bootstrap3/14_edit_form_-_add_form_element_video_plugin.png
     :scale: 80 %
 
-15. Edit form - add a form element (Boolean plugin)
+(15) Edit form - add a form element (Boolean plugin)
 
 .. image:: _static/bootstrap3/15_edit_form_-_add_form_element_boolean_plugin.png
     :scale: 80 %
 
-16. Edit form
+(16) Edit form
 
 .. image:: _static/bootstrap3/16_edit_form.png
     :scale: 80 %
 
-17. View form
+(17) View form
 
 .. image:: _static/bootstrap3/17_view_form.png
     :scale: 80 %
@@ -1497,32 +1497,32 @@ Simple theme
 -----------------------------------------------
 View/edit form
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-1. Edit form - form elements tab active, with form elements
+(1) Edit form - form elements tab active, with form elements
 
 .. image:: _static/simple/01_edit_form_-_form_elements_tab_active_with_elements.png
     :scale: 80 %
 
-2. Edit form - form elements tab active, add a form element menu
+(2) Edit form - form elements tab active, add a form element menu
 
 .. image:: _static/simple/02_edit_form_-_form_elements_tab_active_add_elements_menu.png
     :scale: 80 %
 
-3. Edit form - add a form element (Hidden plugin)
+(3) Edit form - add a form element (Hidden plugin)
 
 .. image:: _static/simple/03_edit_form_-_add_form_element_hidden.png
     :scale: 80 %
 
-4. Edit form - form handlers tab active, with form handlers
+(4) Edit form - form handlers tab active, with form handlers
 
 .. image:: _static/simple/04_edit_form_-_form_handlers_tab_active_with_handlers.png
     :scale: 80 %
 
-5. Edit form - form properties tab active
+(5) Edit form - form properties tab active
 
 .. image:: _static/simple/05_edit_form_-_form_properties_tab_active.png
     :scale: 80 %
 
-6. View form
+(6) View form
 
 .. image:: _static/simple/06_view_form.png
     :scale: 80 %
@@ -1535,6 +1535,7 @@ Contents:
    :maxdepth: 20
 
    fobi
+   quickstart
 
 Indices and tables
 ===============================================

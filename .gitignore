@@ -30,6 +30,7 @@ fobi/fobi.migrations.rst
 /src/django_fobi.egg-info
 /examples/simple/local_settings.py
 /examples/simple/local_settings_foundation5.py
+/examples/quickstart/local_settings.py
 /src/fobi/contrib/plugins/form_importers/mailchimp_importer/
 /src/fobi/nine.py
 

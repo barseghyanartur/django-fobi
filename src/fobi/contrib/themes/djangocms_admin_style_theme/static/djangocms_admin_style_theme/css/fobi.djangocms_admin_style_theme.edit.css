@@ -1,0 +1,115 @@
+/*
+    Document   : fobi.djangocms_admin_style_theme.edit.css
+    Created on : July 25, 2014, 01:55:27 AM
+    Author     : Artur Barseghyan (artur.barseghyan@gmail.com)
+    Description:
+        `django-fobi` "djangocms_admin_style_theme" theme main admin interface
+        styles.
+*/
+.theme.theme-djangocms_admin_style_theme {
+}
+    .theme.theme-djangocms_admin_style_theme .list-inline {
+        padding: 0;
+        margin: 0;
+    }
+        .theme.theme-djangocms_admin_style_theme .list-inline li {
+            list-style: none;
+            padding-right: 10px;
+            display: inline;
+        }
+
+            .theme.theme-djangocms_admin_style_theme .list-inline li a span {
+                display: none;
+            }
+
+    .theme.theme-djangocms_admin_style_theme .dropdown {
+        background: url("../../admin/img/tool-left.gif") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+        display: block;
+        float: left;
+        height: 16px;
+        margin-left: 2px;
+        padding: 0 0 0 8px;
+        list-style-type: square;
+        min-width: 175px;
+    }
+        .theme.theme-djangocms_admin_style_theme .dropdown .dropdown-toggle {
+            background: #999 url(../../admin/img/tooltag-add.gif) top right no-repeat;
+            padding-right: 28px;
+            height: 16px;
+            display: block;
+            float: left;
+            color: #fff;
+            position: relative;
+        }
+        .theme.theme-djangocms_admin_style_theme .dropdown .dropdown-toggle:hover {
+            background: #5b80b2 url(../../admin/img/tooltag-add_over.gif) top right no-repeat;
+        }
+
+        .theme.theme-djangocms_admin_style_theme .dropdown .dropdown-menu {
+            background-color: #fff;
+            margin-top: 20px;
+            position: relative;
+            z-index: 1;
+            padding: 0 10px 5px 10px;
+            right: 0;
+            border-bottom: #ddd 1px solid;
+            border-right: #ddd 1px solid;
+            border-left: #ddd 1px solid;
+        }
+            .theme.theme-djangocms_admin_style_theme .dropdown .dropdown-menu li {
+                list-style: none;
+            }
+            .theme.theme-djangocms_admin_style_theme .dropdown .dropdown-menu .dropdown-header {
+                color: #999;
+                margin-top: 7px;
+            }
+            .theme.theme-djangocms_admin_style_theme .dropdown .dropdown-menu .divider {
+                border-top: #ddd 1px solid;
+                margin: 7px 0 5px 0;
+            }
+
+.theme.theme-djangocms_admin_style_theme .form-horizontal {
+    padding-top: 35px;
+    /*float: left;
+    clear: both;*/
+}
+
+.theme.theme-djangocms_admin_style_theme .form-row {
+    clear: both;
+}
+
+.theme.theme-djangocms_admin_style_theme .row .col-main {
+    /*float: left;
+    width: 70%;*/
+}
+.theme.theme-djangocms_admin_style_theme .row .col-sidebar {
+    /*float: right;
+    width: 30%;*/
+}
+
+.theme.theme-djangocms_admin_style_theme .table.table-striped {
+    padding-top: 35px;
+    width: 100%;
+}
+
+#tab-form-elemenets .nav.pull-right {
+    float: right;
+}
+
+#tab-form-handlers .nav.pull-right {
+    position: absolute;
+    right: 20px;
+    top: 60px;
+}
+
+/* Extra styling form elements */
+
+.theme.theme-djangocms_admin_style_theme .form-row.radiolist {
+    margin-left: 0;
+    padding-right: 0;
+}
+    .theme.theme-djangocms_admin_style_theme .form-row.radiolist li {
+        list-style-type: none;
+        margin-left: 0;
+        padding-right: 0;
+    }

@@ -27,7 +27,6 @@ DEFAULT_FROM_EMAIL = '<no-reply@dev.django-fobi.mail.example.com>'
 
 FOBI_DEBUG = True
 FOBI_RESTRICT_PLUGIN_ACCESS = False
-FOBI_RESTRICT_FIELDS_ACCESS = False
 #FOBI_DEFAULT_THEME = 'foundation5'
 
 WAIT_BETWEEN_TEST_STEPS = 0

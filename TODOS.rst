@@ -200,6 +200,16 @@ Must haves
   plugin. Make sure it doesn't.
 + Make sure empty lines are not treated as options in the radio or list
   plugins.
+- Add a quickstart documentation.
+- Make a Django-CMS dedicated theme (for the admin) using `djangocms-admin-style
+  <https://github.com/divio/djangocms-admin-style>`_.
+- See if it's possible to make the "simple" theme base template (for Django
+  admin) as much generic so that change between versions doesn't cause
+  styling issues.
+- Make sure the existing "simple" theme works very well (in looks) in
+  Django 1.6.
+- Make sure the existing "simple" theme works very well (in looks) in
+  Django 1.7.
 - Nicer styling for the radio button (Foundation 5 theme).
 - Nicer styling for the radio button (Simple theme).
 - Make it possible to provide an alternative rendering of the form field
@@ -209,6 +219,8 @@ Must haves
   widget level, so that it's not necessary to update the theme in case of
   customisations made for one or more form field plugins (the rendering
   part).
+- Split the ``FOBI_RESTRICT_PLUGIN_ACCESS`` into two: one for form elements
+  and one for form handlers.
 - Make sure, that theme specific theme javascripts, css and other assets,
   are defined in the theme itself. Follow the ``django-dash``
   example as much as possible.
@@ -248,6 +260,7 @@ Should haves
 + At the moment Captcha data is also being saved (db_store form handler).
   Think of fixing that by allowing to exclude certain fields from being
   processed by form handlers.
+- Rename the ``simple`` theme into ``django_admin_style_theme``.
 - Make a real ``birthday`` field (with no year selection).
 - Make it possible to use something else than Django's ORM (django-mongoengine,
   SQLAlchemy).

@@ -1,0 +1,152 @@
+{% load i18n staticfiles future_compat %}{#% load firstof from future %#}<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}{% block html-attributes %}{% endblock html-attributes %}>
+<head>
+<title>{% block page-title %}{% endblock page-title %} | {% block site-title %}{% endblock site-title %}</title>
+{% block extrastyle %}{% include 'admin/inc/extrastyle.html' %}{% endblock %}
+<link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static 'admin/css/base.css' %}{% endblock %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/forms.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'admin/css/widgets.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'cms/css/cms.pagetree.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'djangocms_admin_style_theme/css/fobi.djangocms_admin_style_theme.edit.css' %}" />
+<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="{% block stylesheet_ie %}{% static "admin/css/ie.css" %}{% endblock %}" /><![endif]-->
+{% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}" />{% endif %}
+<script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";</script>
+
+{% block stylesheets %}
+{#<!-- Additional core CSS files that somehow can't be put into the python theme -->#}
+{% endblock stylesheets %}
+
+{% block theme-stylesheets %}
+{#<!-- This is where stylesheets declared in the Python theme are listed -->#}
+
+{% for css_file in fobi_theme.get_media_css %}
+<link href="{% static css_file %}" rel="stylesheet" media="all" />
+{% endfor %}
+
+{% endblock theme-stylesheets %}
+
+{% block extra-stylesheets %}{% endblock extra-stylesheets %}
+
+{% block head-javascripts %}
+<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+<!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+<![endif]-->
+{% endblock head-javascripts %}
+
+{% block extra-head-javascripts %}{% endblock extra-head-javascripts %}
+
+{% block extrahead %}
+<link rel="stylesheet" type="text/css" href="{% static 'djangocms_admin_style/css/djangocms-admin.css' %}" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<script type="text/javascript">
+if (window.self!==window.top) { document.write('<link rel="stylesheet" type="text/css" href="{% static 'djangocms_admin_style/css/djangocms-admin-frontend.css' %}" />'); }
+</script>
+{% include 'admin/inc/extrahead.html' %}
+{% endblock extrahead %}
+
+{% block blockbots %}<meta name="robots" content="NONE,NOARCHIVE" />{% endblock %}
+</head>
+{% load i18n %}
+
+<body class="{% block bodyclass %}{% if is_popup %}popup {% endif %}change-form{% if fobi_theme %} theme {{ fobi_theme.html_class }}{% endif %}{% endblock %}">
+{% block main-wrapper %}
+<!-- Container -->
+<div id="container">
+
+    {% if not is_popup %}
+    <!-- Header -->
+    <div id="header">
+        <div id="branding">
+        {% block branding %}<h1 id="site-name">{% trans 'Django administration' %}</h1>{% endblock %}
+        </div>
+        {% if user.is_active and user.is_staff %}
+        <div id="user-tools">
+            {% trans 'Welcome,' %}
+            <strong>{% firstof user.get_short_name user.get_username %}</strong>.
+            {% block userlinks %}
+                {% url 'django-admindocs-docroot' as docsroot %}
+                {% if docsroot %}
+                    <a href="{{ docsroot }}">{% trans 'Documentation' %}</a> /
+                {% endif %}
+                <a href="{% url 'admin:logout' %}">{% trans 'Log out' %}</a>
+            {% endblock %}
+        </div>
+        {% endif %}
+        {% block nav-global %}{% endblock %}
+    </div>
+    <!-- END Header -->
+    {% block breadcrumbs %}
+    <div class="breadcrumbs">
+      <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a> &rsaquo;
+      {% url 'fobi.dashboard' as fobi_dashboard_url %}
+      <a href="{{ fobi_dashboard_url }}">{% trans 'Fobi' %}</a>
+      {% block breadcrumbs-inner %}
+      {% if form_entry %}
+        {% with form_entry.name as title %}
+          {% if title %} &rsaquo; {{ title }}{% endif %}
+        {% endwith %}
+      {% endif %}
+      {% endblock breadcrumbs-inner %}
+    </div>
+    {% endblock %}
+    {% endif %}
+
+    {% block messages %}
+        {% if messages %}
+        <ul class="messagelist">{% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
+        {% endfor %}</ul>
+        {% endif %}
+    {% endblock messages %}
+
+    {% block main-content-wrapper %}
+    <!-- Content -->
+    <div id="content" class="{% block coltype %}colM{% endblock %}">
+        {% block main-content %}
+            {% block content-wrapper %}
+                {% block pretitle %}{% endblock %}
+                {% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
+                {% block content %}
+                {% block object-tools %}{% endblock %}
+                {{ content }}
+                {% endblock %}
+            {% endblock content-wrapper %}
+
+            {% block sidebar-wrapper %}
+                {% block sidebar %}{% endblock %}
+            {% endblock sidebar-wrapper %}
+            <br class="clear" />
+
+        {% endblock main-content %}
+    </div>
+    <!-- END Content -->
+
+        {% block footer-wrapper %}
+            {% block footer %}<div id="footer"></div>{% endblock %}
+        {% endblock footer-wrapper %}
+
+    {% endblock main-content-wrapper %}
+
+    
+</div>
+<!-- END Container -->
+
+{% endblock main-wrapper %}
+
+  {% block javascripts %}
+    {#<!-- Theme core JavaScript that somehow can't be put into the Python theme -->#}
+    {#<!-- Placed at the end of the document so the pages load faster, although might be changed, if plugins need it to be otherwise -->#}
+  {% endblock javascripts %}
+
+  {% block theme-javascripts %}
+    {#<!-- This is where javascripts declared in the Python theme are listed -->#}
+    {% for js_file in fobi_theme.get_media_js %}
+    <script src="{% static js_file %}"></script>
+    {% endfor %}
+    <script src="{% static 'djangocms_admin_style_theme/js/fobi.djangocms_admin_style_theme.edit.js' %}"></script>
+  {% endblock theme-javascripts %}
+
+</body>
+</html>
