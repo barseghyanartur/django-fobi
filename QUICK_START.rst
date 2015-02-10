@@ -80,7 +80,7 @@ Putting all together, you would have something like this.
     INSTALLED_APPS = (
         # ...
         # Core
-        'fobi.contrib.themes.bootstrap3',
+        'fobi',
 
         # Theme
         'fobi.contrib.themes.bootstrap3',

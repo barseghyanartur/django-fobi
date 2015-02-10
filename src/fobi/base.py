@@ -1955,7 +1955,7 @@ def get_field_name_to_label_map(form, keys_to_remove=[], values_to_remove=[]):
     :return dict:
     """
     if not keys_to_remove:
-        keys_to_remove = get_ignorable_form_fields()
+        keys_to_remove = get_ignorable_form_fields([])
 
     if not values_to_remove:
         values_to_remove = get_ignorable_form_values()

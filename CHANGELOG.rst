@@ -21,6 +21,8 @@ yyyy-mm-dd (unreleased)
 
 - A new theme ``djangocms_admin_style_theme`` added.
 - Making ``fobi.fields.NoneField`` always valid.
+- Initial work on Django 1.8 and 1.9 support.
+- Minor fixes.
 
 0.4.15
 -------------------------------------

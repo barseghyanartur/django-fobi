@@ -9,10 +9,13 @@ form handlers (mechanisms for handling the submitted form data).
 
 Prerequisites
 ===============================================
-- Django 1.5, 1.6, 1.7
-- Python >= 2.6.8, 2.7.*, 3.3.*
+- Django 1.5, 1.6, 1.7, 1.8
+- Python >= 2.6.8, >= 2.7, >= 3.3
 
-Note, that Django 1.7 is not yet proclaimed to be flawlessly supported!
+Note, that Django 1.8 is not yet proclaimed to be flawlessly supported. The
+core and contrib packages (with no dependencies) have been tested against
+the latest development release of Django 1.8. All tests have successfully
+passed, although it's yet too early to claim that Django 1.8 is supported.
 
 Key concepts
 ===============================================
