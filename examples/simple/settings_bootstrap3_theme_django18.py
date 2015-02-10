@@ -17,5 +17,3 @@ try:
         if 'admin_tools.dashboard' in INSTALLED_APPS else None
 except Exception as e:
     pass
-
-SOUTH_DATABASE_ADAPTER = ''
