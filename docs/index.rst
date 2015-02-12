@@ -844,7 +844,7 @@ for both "view-view" and "edit-view" views.
 
 Both "Simple" and "DjangoCMS admin style" themes are styling for the
 "edit-view" only. The "view-view" is pretty much blank, as shown on the one
-of the `screenshots <http://pythonhosted.org/django-fobi/#id4>`_.
+of the screenshots [2.6]_.
 
 Have in mind, that creating a brand new theme could be time consuming.
 Instead, you are advised to extend existing themes or in the worst case,
