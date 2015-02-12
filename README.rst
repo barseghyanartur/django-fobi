@@ -65,9 +65,10 @@ Main features and highlights
 - Developer-friendly API, which allows to edit existing or build new form 
   fields and handlers without touching the core.
 - Support for custom user model.
-- `Theming`_. There are 4 ready to use `Bundled themes`_: Bootstrap 3,
-  Foundation 5, Simple (in style of Django admin) and Django-CMS admin style
-  theme (in style of `djangocms-admin-style
+- `Theming`_. There are 4 ready to use `Bundled themes`_: "Bootstrap 3",
+  "Foundation 5", "Simple" (with editing interface in style of Django admin)
+  and "DjangoCMS admin style" theme (which is another simple theme with editing
+  interface in style of `djangocms-admin-style
   <https://github.com/divio/djangocms-admin-style>`_).
 - Implemented `integration with FeinCMS
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/feincms_integration>`_
@@ -825,9 +826,25 @@ Theming
 ===============================================
 `Fobi` comes with theming API. While there are several ready-to-use themes:
 
-- Bootstrap 3 theme
-- Foundation 5 theme
-- Simple theme in style of the Django admin
+- "Bootstrap 3" theme
+- "Foundation 5" theme
+- "Simple" theme in (with editing interface in style of the Django admin)
+- "DjangoCMS admin style" theme (which is another simple theme with editing
+  interface in style of `djangocms-admin-style`)
+
+Obviously, there are two sorts of views when it comes to editing and viewing
+the form.
+
+- The "view-view", when the form as it has been made is exposed to the
+  end site users/visitors.
+- The "edit-view" (builder view), where the authorised users build their forms.
+
+Both "Bootstrap 3" and "Foundation 5" themes are making use of the same style
+for both "view-view" and "edit-view" views.
+
+Both "Simple" and "DjangoCMS admin style" themes are styling for the
+"edit-view" only. The "view-view" is pretty much blank, as shown on the one
+of the `screenshots <http://pythonhosted.org/django-fobi/#id4>`_.
 
 Have in mind, that creating a brand new theme could be time consuming.
 Instead, you are advised to extend existing themes or in the worst case,
@@ -836,9 +853,9 @@ existing ones (just copy the desired theme to your project directory and
 work it out further).
 
 It's possible to use different templates for all "view" and "edit"
-actions (see the source code of the "simple" theme). Both Bootstrap 3 and
-Foundation 5 themes look great. Although if you can't use any of those,
-the "simple" theme is the best start, since it looks just like django-admin.
+actions (see the source code of the "simple" theme). Both "Bootstrap 3" and
+"Foundation 5" themes look great. Although if you can't use any of those,
+the "Simple" theme is the best start, since it looks just like django-admin.
 
 Create a new theme
 -----------------------------------------------

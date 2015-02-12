@@ -19,8 +19,8 @@ logger = logging.getLogger(__name__)
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
-#from django.contrib.auth.models import User, Group
 from django.contrib.auth.models import Group
+from django.conf import settings
 
 from autoslug import AutoSlugField
 
@@ -32,30 +32,22 @@ from fobi.base import (
 # ****************************************************************************
 # **************** Safe User import for Django > 1.5, < 1.8 ******************
 # ****************************************************************************
-try:
-    # Django 1.7 check
-    from django.apps import AppConfig
-    from django.conf import settings
-    User = settings.AUTH_USER_MODEL
-except ImportError:
-    # Django 1.6 check
-    try:
-        from django.contrib.auth import get_user_model
-    # Fall back to Django 1.5
-    except ImportError:
-        from django.contrib.auth.models import User
-    else:
-        User = get_user_model()
+AUTH_USER_MODEL = settings.AUTH_USER_MODEL
 
-    # Sanity checks
-    user = User()
+# Note, that this may cause circular imports - thus the ``get_user_model``
+# should be moved elsewhere (be used on the function/method level). For
+# now leave commented and solve in future. Possible use the DjangoCMS solution
+# https://github.com/divio/django-cms/blob/develop/cms/models/permissionmodels.py#L18
 
-    if not hasattr(user, 'username'):
-        from fobi.exceptions import ImproperlyConfigured
-        raise ImproperlyConfigured("Your custom user model ({0}.{1}) doesn't "
-                                   "have ``username`` property, while "
-                                   "``django-fobi`` relies on its' presence"
-                                   ".".format(user._meta.app_label, user._meta.object_name))
+# Sanity checks.
+#user = User()
+#
+#if not hasattr(user, 'username'):
+#    from fobi.exceptions import ImproperlyConfigured
+#    raise ImproperlyConfigured("Your custom user model ({0}.{1}) doesn't "
+#                               "have ``username`` property, while "
+#                               "``django-fobi`` relies on its' presence"
+#                               ".".format(user._meta.app_label, user._meta.object_name))
 
 # ****************************************************************************
 # ****************************************************************************
@@ -81,10 +73,11 @@ class AbstractPluginModel(models.Model):
         - `groups` (django.contrib.auth.models.Group): White list of the
           user groups allowed to use the plugin.
     """
-    #plugin_uid = models.CharField(_("Plugin UID"), max_length=255, unique=True, editable=False)
-    users = models.ManyToManyField(User, verbose_name=_("User"), null=True, \
-                                   blank=True)
-    groups = models.ManyToManyField(Group, verbose_name=_("Group"), null=True, \
+    #plugin_uid = models.CharField(_("Plugin UID"), max_length=255,
+    #                              unique=True, editable=False)
+    users = models.ManyToManyField(AUTH_USER_MODEL, verbose_name=_("User"),
+                                   null=True, blank=True)
+    groups = models.ManyToManyField(Group, verbose_name=_("Group"), null=True,
                                     blank=True)
 
     class Meta:
@@ -220,9 +213,9 @@ class FormHandler(AbstractPluginModel):
 class FormWizardEntry(models.Model):
     """
     """
-    user = models.ForeignKey(User, verbose_name=_("User"))
+    user = models.ForeignKey(AUTH_USER_MODEL, verbose_name=_("User"))
     name = models.CharField(_("Name"), max_length=255)
-    slug = AutoSlugField(populate_from='name', verbose_name=_("Slug"), \
+    slug = AutoSlugField(populate_from='name', verbose_name=_("Slug"),
                          unique=True)
     is_public = models.BooleanField(
         _("Is public?"), default=False,
@@ -268,7 +261,7 @@ class FormEntry(models.Model):
     form_wizard_entry = models.ForeignKey(
         FormWizardEntry, verbose_name=_("Form wizard"), null=True, blank=True
         )
-    user = models.ForeignKey(User, verbose_name=_("User"))
+    user = models.ForeignKey(AUTH_USER_MODEL, verbose_name=_("User"))
     name = models.CharField(_("Name"), max_length=255)
     slug = AutoSlugField(
         populate_from='name', verbose_name=_("Slug"), unique=True
@@ -320,7 +313,7 @@ class FormFieldsetEntry(models.Model):
     """
     Form fieldset entry.
     """
-    form_entry = models.ForeignKey(FormEntry, verbose_name=_("Form"), \
+    form_entry = models.ForeignKey(FormEntry, verbose_name=_("Form"),
                                    null=True, blank=True)
     name = models.CharField(_("Name"), max_length=255)
     is_repeatable = models.BooleanField(
@@ -349,7 +342,7 @@ class AbstractPluginEntry(models.Model):
     - `plugin_data` (str): JSON formatted string with plugin data.
     """
     form_entry = models.ForeignKey(FormEntry, verbose_name=_("Form"))
-    plugin_data = models.TextField(verbose_name=_("Plugin data"), null=True, \
+    plugin_data = models.TextField(verbose_name=_("Plugin data"), null=True,
                                    blank=True)
 
     class Meta:
@@ -437,10 +430,10 @@ class FormElementEntry(AbstractPluginEntry):
     - `form_fieldset_entry`: Fieldset.
     - `position` (int): Entry position.
     """
-    plugin_uid = models.CharField(_("Plugin name"), max_length=255, \
+    plugin_uid = models.CharField(_("Plugin name"), max_length=255,
                                   choices=get_registered_form_element_plugins())
-    form_fieldset_entry = models.ForeignKey(FormFieldsetEntry, \
-                                            verbose_name=_("Form fieldset"), \
+    form_fieldset_entry = models.ForeignKey(FormFieldsetEntry,
+                                            verbose_name=_("Form fieldset"),
                                             null=True, blank=True)
     position = models.PositiveIntegerField(_("Position"), null=True, blank=True)
 
@@ -471,7 +464,7 @@ class FormHandlerEntry(AbstractPluginEntry):
         - `plugin_uid` (str): Plugin UID.
         - `plugin_data` (str): JSON formatted string with plugin data.
     """
-    plugin_uid = models.CharField(_("Plugin name"), max_length=255, \
+    plugin_uid = models.CharField(_("Plugin name"), max_length=255,
                                   choices=get_registered_form_handler_plugins())
 
     class Meta:

@@ -65,9 +65,10 @@ Main features and highlights
 - Developer-friendly API, which allows to edit existing or build new form 
   fields and handlers without touching the core.
 - Support for custom user model.
-- `Theming`_. There are 4 ready to use `Bundled themes`_: Bootstrap 3,
-  Foundation 5, Simple (in style of Django admin) and Django-CMS admin style
-  theme (in style of `djangocms-admin-style
+- `Theming`_. There are 4 ready to use `Bundled themes`_: "Bootstrap 3",
+  "Foundation 5", "Simple" (with editing interface in style of Django admin)
+  and "DjangoCMS admin style" theme (which is another simple theme with editing
+  interface in style of `djangocms-admin-style
   <https://github.com/divio/djangocms-admin-style>`_).
 - Implemented `integration with FeinCMS
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/feincms_integration>`_
@@ -825,9 +826,25 @@ Theming
 ===============================================
 `Fobi` comes with theming API. While there are several ready-to-use themes:
 
-- Bootstrap 3 theme
-- Foundation 5 theme
-- Simple theme in style of the Django admin
+- "Bootstrap 3" theme
+- "Foundation 5" theme
+- "Simple" theme in (with editing interface in style of the Django admin)
+- "DjangoCMS admin style" theme (which is another simple theme with editing
+  interface in style of `djangocms-admin-style`)
+
+Obviously, there are two sorts of views when it comes to editing and viewing
+the form.
+
+- The "view-view", when the form as it has been made is exposed to the
+  end site users/visitors.
+- The "edit-view" (builder view), where the authorised users build their forms.
+
+Both "Bootstrap 3" and "Foundation 5" themes are making use of the same style
+for both "view-view" and "edit-view" views.
+
+Both "Simple" and "DjangoCMS admin style" themes are styling for the
+"edit-view" only. The "view-view" is pretty much blank, as shown on the one
+of the `screenshots <http://pythonhosted.org/django-fobi/#id4>`_.
 
 Have in mind, that creating a brand new theme could be time consuming.
 Instead, you are advised to extend existing themes or in the worst case,
@@ -836,9 +853,9 @@ existing ones (just copy the desired theme to your project directory and
 work it out further).
 
 It's possible to use different templates for all "view" and "edit"
-actions (see the source code of the "simple" theme). Both Bootstrap 3 and
-Foundation 5 themes look great. Although if you can't use any of those,
-the "simple" theme is the best start, since it looks just like django-admin.
+actions (see the source code of the "simple" theme). Both "Bootstrap 3" and
+"Foundation 5" themes look great. Although if you can't use any of those,
+the "Simple" theme is the best start, since it looks just like django-admin.
 
 Create a new theme
 -----------------------------------------------
@@ -1409,14 +1426,14 @@ Bootstrap3 theme
 -----------------------------------------------
 Dashboard
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-(1) Dashboard
+.. [1] Dashboard
 
 .. image:: _static/bootstrap3/01_dashboard.png
     :scale: 80 %
 
 Create a form
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-(2) Create a form
+.. [2] Create a form
 
 .. image:: _static/bootstrap3/02_create_form.png
     :scale: 80 %
@@ -1425,22 +1442,22 @@ View/edit form
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Form elements
 +++++++++++++++++++++++++++++++++++++++++++++++
-(3) Edit form - form elements tab active, no elements yet
+.. [3] Edit form - form elements tab active, no elements yet
 
 .. image:: _static/bootstrap3/03_edit_form_-_form_elements_tab_active_-_no_elements_yet.png
     :scale: 80 %
 
-(4) Edit form - form elements tab active, add a form element menu
+.. [4] Edit form - form elements tab active, add a form element menu
 
 .. image:: _static/bootstrap3/04_edit_form_-_form_elements_tab_active_-_add_element_menu.png
     :scale: 80 %
 
-(5) Edit form - add a form element (URL plugin)
+.. [5] Edit form - add a form element (URL plugin)
 
 .. image:: _static/bootstrap3/05_edit_form_-_add_form_element_url_plugin.png
     :scale: 80 %
 
-(6) Edit form - form elements tab active, with form elements
+.. [6] Edit form - form elements tab active, with form elements
 
 .. image:: _static/bootstrap3/06_edit_form_-_form_elements_tab_active_-_with_elements.png
     :scale: 80 %
@@ -1448,57 +1465,57 @@ Form elements
 Form handlers
 +++++++++++++++++++++++++++++++++++++++++++++++
 
-(7) Edit form - form handlers tab active, no handlers yet
+.. [7] Edit form - form handlers tab active, no handlers yet
 
 .. image:: _static/bootstrap3/07_edit_form_-_form_handlers_tab_active_-_no_handlers_yet.png
     :scale: 80 %
 
-(8) Edit form - form handlers tab tactive, add form handler menu
+.. [8] Edit form - form handlers tab tactive, add form handler menu
 
 .. image:: _static/bootstrap3/08_edit_form_-_form_handlers_tab_active_-_add_handler_menu.png
     :scale: 80 %
 
-(9) Edit form - add a form handler (Mail plugin)
+.. [9] Edit form - add a form handler (Mail plugin)
 
 .. image:: _static/bootstrap3/09_edit_form_-_add_form_handler_mail_plugin.png
     :scale: 80 %
 
-(10) Edit form - form handlers tab active, with form handlers
+.. [10] Edit form - form handlers tab active, with form handlers
 
 .. image:: _static/bootstrap3/10_edit_form_-_form_handlers_tab_active_with_handlers.png
     :scale: 80 %
 
-(11) Edit form - form properties tab active
+.. [11] Edit form - form properties tab active
 
 .. image:: _static/bootstrap3/11_edit_form_-_form_properties_tab_active.png
     :scale: 80 %
 
-(12) View form
+.. [12] View form
 
 .. image:: _static/bootstrap3/12_view_form.png
     :scale: 80 %
 
-(13) View form - form submitted (thanks page)
+.. [13] View form - form submitted (thanks page)
 
 .. image:: _static/bootstrap3/13_view_form_-_form_submitted.png
     :scale: 80 %
 
-(14) Edit form - add a form element (Video plugin)
+.. [14] Edit form - add a form element (Video plugin)
 
 .. image:: _static/bootstrap3/14_edit_form_-_add_form_element_video_plugin.png
     :scale: 80 %
 
-(15) Edit form - add a form element (Boolean plugin)
+.. [15] Edit form - add a form element (Boolean plugin)
 
 .. image:: _static/bootstrap3/15_edit_form_-_add_form_element_boolean_plugin.png
     :scale: 80 %
 
-(16) Edit form
+.. [16] Edit form
 
 .. image:: _static/bootstrap3/16_edit_form.png
     :scale: 80 %
 
-(17) View form
+.. [17] View form
 
 .. image:: _static/bootstrap3/17_view_form.png
     :scale: 80 %
@@ -1507,32 +1524,32 @@ Simple theme
 -----------------------------------------------
 View/edit form
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-(1) Edit form - form elements tab active, with form elements
+.. [1] Edit form - form elements tab active, with form elements
 
 .. image:: _static/simple/01_edit_form_-_form_elements_tab_active_with_elements.png
     :scale: 80 %
 
-(2) Edit form - form elements tab active, add a form element menu
+.. [2] Edit form - form elements tab active, add a form element menu
 
 .. image:: _static/simple/02_edit_form_-_form_elements_tab_active_add_elements_menu.png
     :scale: 80 %
 
-(3) Edit form - add a form element (Hidden plugin)
+.. [3] Edit form - add a form element (Hidden plugin)
 
 .. image:: _static/simple/03_edit_form_-_add_form_element_hidden.png
     :scale: 80 %
 
-(4) Edit form - form handlers tab active, with form handlers
+.. [4] Edit form - form handlers tab active, with form handlers
 
 .. image:: _static/simple/04_edit_form_-_form_handlers_tab_active_with_handlers.png
     :scale: 80 %
 
-(5) Edit form - form properties tab active
+.. [5] Edit form - form properties tab active
 
 .. image:: _static/simple/05_edit_form_-_form_properties_tab_active.png
     :scale: 80 %
 
-(6) View form
+.. [6] View form
 
 .. image:: _static/simple/06_view_form.png
     :scale: 80 %

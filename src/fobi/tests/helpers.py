@@ -7,9 +7,10 @@ __all__ = (
     'create_form_with_entries'
     )
 
-#from django.contrib.auth.models import User
 from django.core.management import call_command
 from django.core.exceptions import ObjectDoesNotExist
+from django.conf import settings
+from django.contrib.auth import get_user_model
 
 from fobi.models import FormEntry, FormElementEntry, FormHandlerEntry
 from fobi.contrib.plugins.form_elements.content.content_text.fobi_form_elements \
@@ -46,30 +47,22 @@ from fobi.tests.constants import (
 # ****************************************************************************
 # **************** Safe User import for Django > 1.5, < 1.8 ******************
 # ****************************************************************************
-try:
-    # Django 1.7 check
-    from django.apps import AppConfig
-    from django.contrib.auth import get_user_model
-    User = get_user_model()
-except ImportError:
-    # Django 1.6 check
-    try:
-        from django.contrib.auth import get_user_model
-    # Fall back to Django 1.5
-    except ImportError:
-        from django.contrib.auth.models import User
-    else:
-        User = get_user_model()
+AUTH_USER_MODEL = settings.AUTH_USER_MODEL
 
-    # Sanity checks
-    user = User()
+# Note, that this may cause circular imports - thus the ``get_user_model``
+# should be moved elsewhere (be used on the function/method level). For
+# now leave commented and solve in future. Possible use the DjangoCMS solution
+# https://github.com/divio/django-cms/blob/develop/cms/models/permissionmodels.py#L18
 
-    if not hasattr(user, 'username'):
-        from fobi.exceptions import ImproperlyConfigured
-        raise ImproperlyConfigured("Your custom user model ({0}.{1}) doesn't "
-                                   "have ``username`` property, while "
-                                   "``django-fobi`` relies on its' presence"
-                                   ".".format(user._meta.app_label, user._meta.object_name))
+# Sanity checks.
+#user = User()
+#
+#if not hasattr(user, 'username'):
+#    from fobi.exceptions import ImproperlyConfigured
+#    raise ImproperlyConfigured("Your custom user model ({0}.{1}) doesn't "
+#                               "have ``username`` property, while "
+#                               "``django-fobi`` relies on its' presence"
+#                               ".".format(user._meta.app_label, user._meta.object_name))
 
 # ****************************************************************************
 # ****************************************************************************
@@ -82,6 +75,7 @@ def get_or_create_admin_user():
     TODO: At the moment an admin account is being tested. Automated tests
     with diverse accounts are to be implemented.
     """
+    User = get_user_model()
     try:
         u = User._default_manager.get(username=FOBI_TEST_USER_USERNAME)
         return u

@@ -1,0 +1,1 @@
+from customauth.models import MyUser

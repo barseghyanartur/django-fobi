@@ -15,6 +15,15 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.4.17
+-------------------------------------
+2015-02-12
+
+- Fix circular imports by proper referencing of the user model in
+  foreign key and many-to-many relations (``settings.AUTH_USER_MODEL`` instead
+  of ``django.contrib.auth.get_user_model``).
+- Minor documentation improvements.
+
 0.4.16
 -------------------------------------
 2015-02-10
