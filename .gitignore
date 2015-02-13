@@ -33,4 +33,4 @@ fobi/fobi.migrations.rst
 /examples/quickstart/local_settings.py
 /src/fobi/contrib/plugins/form_importers/mailchimp_importer/
 /src/fobi/nine.py
-
+/examples/quick_start/db.sqlite3

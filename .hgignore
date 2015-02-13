@@ -34,3 +34,4 @@ syntax: regexp
 ^dist/
 ^src/django_fobi\.egg-info
 \.DS_Store
+^examples/quick_start/db\.sqlite3
