@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.4.18
+-------------------------------------
+2015-02-13
+
+- From now on it's possible to localise (translated) URLs.
+- Safe way to get the user model for Django >= 1.5.* <= 1.8.*
+
 0.4.17
 -------------------------------------
 2015-02-12

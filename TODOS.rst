@@ -204,6 +204,7 @@ Must haves
 + Add a quickstart documentation.
 + Make a Django-CMS dedicated theme (for the admin) using `djangocms-admin-style
   <https://github.com/divio/djangocms-admin-style>`_.
+- Translate German and Russian URLs.
 - See if it's possible to make the "simple" theme base template (for Django
   admin) as much generic so that change between versions doesn't cause
   styling issues.

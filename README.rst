@@ -115,10 +115,6 @@ Credentials:
 - username: test_user
 - password: test_user
 
-For FeinCMS integration demo, see the `following link
-<https://django-fobi.herokuapp.com/pages/>`_ and the `admin part of it
-<https://django-fobi.herokuapp.com/admin/page/page/1/>`_.
-
 Run demo locally
 -----------------------------------------------
 In order to be able to quickly evaluate the `Fobi`, a demo app (with a quick
@@ -836,7 +832,7 @@ Obviously, there are two sorts of views when it comes to editing and viewing
 the form.
 
 - The "view-view", when the form as it has been made is exposed to the
-  end site users/visitors.
+  site end- users/visitors.
 - The "edit-view" (builder view), where the authorised users build their forms.
 
 Both "Bootstrap 3" and "Foundation 5" themes are making use of the same style

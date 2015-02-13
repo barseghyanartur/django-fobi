@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-12-05 22:48+0100\n"
+"POT-Creation-Date: 2015-02-13 00:52+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -33,23 +33,27 @@ msgstr ""
 msgid "Russian"
 msgstr ""
 
-#: settings.py:298 settings.py:312
+#: settings.py:47
+msgid "German"
+msgstr ""
+
+#: settings.py:306 settings.py:320
 msgid "Custom bootstrap3 embed form view template"
 msgstr ""
 
-#: settings.py:304 settings.py:318
+#: settings.py:312 settings.py:326
 msgid "Custom bootstrap3 embed form entry submitted template"
 msgstr ""
 
-#: settings.py:334 settings.py:348
+#: settings.py:342 settings.py:356
 msgid "Custom foundation5 embed form view template"
 msgstr ""
 
-#: settings.py:340 settings.py:354
+#: settings.py:348 settings.py:362
 msgid "Custom foundation5 embed form entry submitted template"
 msgstr ""
 
-#: settings.py:373
+#: settings.py:381
 msgid "&copy; django-fobi example site 2014"
 msgstr ""
 
@@ -110,16 +114,23 @@ msgstr ""
 msgid "Example site"
 msgstr ""
 
-#: templates/admin/base_site.html:4
+#: templates/admin/_base_site_no_admin_tools.html:5
+#: templates/admin/_base_site_with_admin_tools.html:5
 msgid "Django site admin"
 msgstr ""
 
-#: templates/admin/base_site.html:21
+#: templates/admin/_base_site_no_admin_tools.html:14
+#: templates/admin/_base_site_with_admin_tools.html:24
 msgid "Django administration"
 msgstr ""
 
 #: templates/cms_page/bootstrap3/base.html:9
 msgid "DjangoCMS Bootstrap 3 example"
+msgstr ""
+
+#: templates/cms_page/djangocms_admin_style_theme/base.html:4
+#: templates/cms_page/simple/base.html:4
+msgid "DjangoCMS Simple example"
 msgstr ""
 
 #: templates/cms_page/foundation5/base.html:9
@@ -128,10 +139,6 @@ msgstr ""
 
 #: templates/cms_page/foundation5/base.html:99 templates/home/base.html:12
 msgid "Home"
-msgstr ""
-
-#: templates/cms_page/simple/base.html:4
-msgid "DjangoCMS Simple example"
 msgstr ""
 
 #: templates/fobi/base.html:4
