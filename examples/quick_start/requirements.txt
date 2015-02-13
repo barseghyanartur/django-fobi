@@ -1,0 +1,13 @@
+Django==1.7.4
+Pillow==2.7.0
+Unidecode==0.04.17
+argparse==1.2.1
+django-autoslug==1.7.2
+django-fobi==0.4.18
+easy-thumbnails==1.5
+ipython==3.0.0-b1
+ordereddict==1.1
+requests==2.5.1
+six==1.9.0
+vishap==0.1.4
+wsgiref==0.1.2
