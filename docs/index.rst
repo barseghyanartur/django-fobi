@@ -13,10 +13,11 @@ Prerequisites
 - Python >= 2.6.8, >= 2.7, >= 3.3
 
 Note, that Django 1.8 is not yet proclaimed to be flawlessly supported. The
-core and contrib packages (with no additional dependencies) have been tested 
-against the latest development release of Django 1.8. All tests have
+core and contrib packages (with no additional dependencies) have been tested
+against the `latest development release of Django (1.8a1)
+<https://www.djangoproject.com/download/1.8a1/tarball/>`_. All tests have
 successfully passed, although it's yet too early to claim that Django 1.8 is
-supported.
+fully supported.
 
 Key concepts
 ===============================================

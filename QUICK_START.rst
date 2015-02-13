@@ -134,10 +134,10 @@ your `settings` module.
 .. code-block:: python
 
     TEMPLATE_CONTEXT_PROCESSORS = (
-            # ...
-            "django.core.context_processors.request",
-            "fobi.context_processors.theme",
-            # ...
+        # ...
+        "django.core.context_processors.request",
+        "fobi.context_processors.theme",
+        # ...
     )
 
 urlpatterns
