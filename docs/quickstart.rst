@@ -1,6 +1,16 @@
-
+===============================================
 Quick start
 ===============================================
+Tutorial for very quick start with ``django-fobi``. Consists of
+several parts listed below::
+
+- Part 1: Standard Django installation
+- Part 2: Integration with DjangoCMS (coming soon)
+
+Part 1: standard Django installation
+===============================================
+Example project code available `here
+<https://github.com/barseghyanartur/django-fobi/tree/master/examples/simple>`_.
 
 Installation and configuration
 -----------------------------------------------
@@ -117,13 +127,15 @@ Putting all together, you would have something like this.
 
 TEMPLATE_CONTEXT_PROCESSORS
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-Add ``fobi.context_processors.theme`` to ``TEMPLATE_CONTEXT_PROCESSORS`` of
+Add ``django.core.context_processors.request`` and
+``fobi.context_processors.theme`` to ``TEMPLATE_CONTEXT_PROCESSORS`` of
 your `settings` module.
 
 .. code-block:: python
 
     TEMPLATE_CONTEXT_PROCESSORS = (
             # ...
+            "django.core.context_processors.request",
             "fobi.context_processors.theme",
             # ...
     )
@@ -136,6 +148,10 @@ Add the following line to ``urlpatterns`` of your `urls` module.
 
     urlpatterns = patterns('',
         # ...
+
+        # DB Store plugin URLs
+        url(r'^fobi/plugins/form-handlers/db-store/',
+            include('fobi.contrib.plugins.form_handlers.db_store.urls')),
 
         # View URLs
         url(r'^fobi/', include('fobi.urls.view')),
@@ -202,3 +218,7 @@ Also, make sure to have the Django model permissions set for following models:
   <https://github.com/barseghyanartur/django-fobi/blob/stable/src/fobi/models.py#L463>`_
 - `fobi.contrib.plugins.form_handlers.db_store.models.SavedFormDataEntry
   <https://github.com/barseghyanartur/django-fobi/blob/stable/src/fobi/contrib/plugins/form_handlers/db_store/models.py#L52>`_
+
+Part 2: Integration with DjangoCMS
+===============================================
+Coming soon...

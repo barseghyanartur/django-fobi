@@ -154,6 +154,10 @@ If quick installer doesn't work for you, see the manual steps on running the
 `example project
 <https://github.com/barseghyanartur/django-fobi/tree/stable/examples>`_.
 
+Quick start
+===============================================
+See the `quick start <http://pythonhosted.org/django-fobi/quickstart.html>`_.
+
 Installation
 ===============================================
 
