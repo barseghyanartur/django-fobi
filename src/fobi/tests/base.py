@@ -1,3 +1,5 @@
+from __future__ import print_function
+
 __title__ = 'fobi.tests.base'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2014 Artur Barseghyan'

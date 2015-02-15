@@ -45,9 +45,15 @@ from six import with_metaclass
 
 from django import forms
 from django.forms import ModelForm
-from django.forms.util import ErrorList
 from django.http import Http404
 from django.utils.translation import ugettext_lazy as _
+
+from nine.versions import DJANGO_GTE_1_8
+
+if DJANGO_GTE_1_8:
+    from django.forms.utils import ErrorList
+else:
+    from django.forms.util import ErrorList
 
 from fobi.discover import autodiscover
 from fobi.constants import CALLBACK_STAGES

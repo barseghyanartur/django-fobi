@@ -15,6 +15,14 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.4.19
+-------------------------------------
+2015-02-15
+
+- Some more work on future (Django 1.9) compatibility.
+- Replace bits of backwards-/forwards- compatibility code with equal code 
+  parts of ``django-nine``.
+
 0.4.18
 -------------------------------------
 2015-02-13
