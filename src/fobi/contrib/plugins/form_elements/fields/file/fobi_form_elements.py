@@ -4,6 +4,8 @@ __copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('FileInputPlugin',)
 
+import os
+
 from django.forms.fields import FileField
 from django.forms.widgets import ClearableFileInput
 from django.utils.translation import ugettext_lazy as _
@@ -56,7 +58,8 @@ class FileInputPlugin(FormFieldPlugin):
             # Handle the upload
             saved_file = handle_uploaded_file(FILES_UPLOAD_DIR, file_path)
             # Overwrite ``cleaned_data`` of the ``form`` with path to moved file.
-            form.cleaned_data[self.data.name] = "{0}{1}".format(settings.MEDIA_URL, saved_file)
+            file_relative_url = saved_file.replace(os.path.sep, '/')
+            form.cleaned_data[self.data.name] = "{0}{1}".format(settings.MEDIA_URL, file_relative_url)
 
         # It's critically important to return the ``form`` with updated ``cleaned_data``
         return form
