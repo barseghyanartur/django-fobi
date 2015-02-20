@@ -182,7 +182,9 @@ Or latest stable version from BitBucket:
 
 (2) Add `fobi` to ``INSTALLED_APPS`` of the your projects' Django settings.
     Furthermore, all themes and plugins to be used, shall be added to the
-    ``INSTALLED_APPS`` as well.
+    ``INSTALLED_APPS`` as well. Note, that if a plugin has additional
+    dependencies, you should be mentioning those in the ``INSTALLED_APPS``
+    as well.
 
 .. code-block:: python
 
@@ -215,6 +217,7 @@ Or latest stable version from BitBucket:
 
         # Fobi form elements - content elements
         'fobi.contrib.plugins.form_elements.test.dummy',
+        'easy_thumbnails', # Required by `content_image` plugin
         'fobi.contrib.plugins.form_elements.content.content_image',
         'fobi.contrib.plugins.form_elements.content.content_text',
         'fobi.contrib.plugins.form_elements.content.content_video',
@@ -228,6 +231,8 @@ Or latest stable version from BitBucket:
         'foo', # Test app
         # ...
     )
+
+
 
 (3) Make appropriate changes to the ``TEMPLATE_CONTEXT_PROCESSORS`` of the your
     projects' Django settings.

@@ -12,6 +12,7 @@ Installation
 
     INSTALLED_APPS = (
         # ...
+        'easy_thumbnails',
         'fobi.contrib.plugins.form_elements.content.content_image',
         # ...
     )
