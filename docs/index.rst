@@ -247,7 +247,7 @@ Make sure that ``django.core.context_processors.request`` is in
 
 (4) Configure URLs
 
-Add the following line to urlpatterns of your urls module.
+Add the following line to urlpatterns of your `urls` module.
 
 .. code-block:: python
 
@@ -256,6 +256,16 @@ Add the following line to urlpatterns of your urls module.
 
     # Edit URLs
     url(r'^fobi/', include('fobi.urls.edit')),
+
+Note, that some plugins require additional URL includes. For instance, if you
+listed the `fobi.contrib.plugins.form_handlers.db_store` form handler plugin
+in the ``INSTALLED_APPS``, you should mention the following in `urls` module.
+
+.. code-block:: python
+
+    # DB Store plugin URLs
+    url(r'^fobi/plugins/form-handlers/db-store/',
+        include('fobi.contrib.plugins.form_handlers.db_store.urls')),
 
 View URLs are put separately from edit URLs in order to make it possible
 to prefix the edit URLs differently. For example, if you're using the

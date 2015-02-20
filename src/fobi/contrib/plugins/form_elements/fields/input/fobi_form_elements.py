@@ -66,8 +66,11 @@ class InputPlugin(FormFieldPlugin):
         if self.data.step_value:
             widget_attrs.update({'step': self.data.step_value})
 
+        if self.data.type_value and self.data.type_value in ('submit', 'button', 'reset',):
+            widget_attrs.update({'value': self.data.label})
+
         kwargs = {
-            'label': self.data.label,
+            'label': self.data.label if self.data.type_value not in ('submit', 'button', 'reset',) else '',
             'help_text': self.data.help_text,
             'initial': self.data.initial,
             'required': self.data.required,
