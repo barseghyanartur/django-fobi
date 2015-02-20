@@ -15,6 +15,17 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.4.20
+-------------------------------------
+yyyy-mm-dd
+
+- Remove "button" and "submit" types ``from fobi.contrib.elements.fields.input``
+  form element plugin.
+- Minor fixes in ``from fobi.contrib.elements.fields.file`` plugin. Use system
+  path separator on ``from fobi.contrib.elements.fields.file.FILES_UPLOAD_DIR``
+  default setting.
+- Minor documentation improvements.
+
 0.4.19
 -------------------------------------
 2015-02-15
