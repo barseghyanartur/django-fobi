@@ -20,7 +20,7 @@ are used for versioning (schema follows below):
 2015-02-27
 
 - Make it possible to load initial form data from GET variables.
-- Remove "button" and "submit" types ``from fobi.contrib.elements.fields.input``
+- Remove "button" and "submit" types from ``fobi.contrib.elements.fields.input``
   form element plugin.
 - The ``fobi.contrib.plugins.form_elements.fields.select_model_object`` plugin
   no longer returns an absolute URL to the admin of the chosen model object
