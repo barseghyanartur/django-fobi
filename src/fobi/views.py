@@ -45,7 +45,7 @@ from fobi.utils import (
     get_user_form_handler_plugins, get_user_form_handler_plugin_uids,
     append_edit_and_delete_links_to_field
     )
-from fobi.settings import DEBUG
+from fobi.settings import GET_PARAM_INITIAL_DATA, DEBUG
 
 logger = logging.getLogger(__name__)
 
@@ -884,7 +884,10 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
                                 form=form, stage=CALLBACK_FORM_INVALID)
 
     else:
-        form = FormClass()
+        kwargs = {}
+        if GET_PARAM_INITIAL_DATA in request.GET:
+            kwargs = {'initial': request.GET}
+        form = FormClass(**kwargs)
 
     # In debug mode, try to identify possible problems.
     if DEBUG:

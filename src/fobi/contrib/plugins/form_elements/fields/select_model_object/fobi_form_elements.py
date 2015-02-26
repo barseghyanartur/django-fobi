@@ -10,7 +10,7 @@ from django.forms.widgets import Select
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
-from fobi.helpers import admin_change_url
+from fobi.helpers import safe_text #, admin_change_url
 from fobi.contrib.plugins.form_elements.fields.select_model_object import UID
 from fobi.contrib.plugins.form_elements.fields.select_model_object.forms \
     import SelectModelObjectInputForm
@@ -57,16 +57,21 @@ class SelectModelObjectInputPlugin(FormFieldPlugin):
         # Get the object
         obj = form.cleaned_data.get(self.data.name, None)
         if obj:
-            # Handle the upload
-            admin_url = admin_change_url(
-                app_label = obj._meta.app_label,
-                module_name = obj._meta.module_name,
-                object_id = obj.pk
+            # Handle the submitted form value
+            #admin_url = admin_change_url(
+            #    app_label = obj._meta.app_label,
+            #    module_name = obj._meta.module_name,
+            #    object_id = obj.pk
+            #    )
+            value = '{0}.{1}.{2}.{3}'.format(
+                obj._meta.app_label,
+                obj._meta.module_name,
+                obj.pk,
+                safe_text(obj)
                 )
-            repr = '<a href="{0}">{1}</a>'.format(admin_url, str(obj))
 
             # Overwrite ``cleaned_data`` of the ``form`` with object qualifier.
-            form.cleaned_data[self.data.name] = repr
+            form.cleaned_data[self.data.name] = value
 
         # It's critically important to return the ``form`` with updated
         # ``cleaned_data``

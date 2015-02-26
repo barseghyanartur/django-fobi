@@ -71,6 +71,7 @@ Add ``fobi`` core and the plugins to the ``INSTALLED_APPS`` of the your
 
 .. code-block:: python
 
+    'easy_thumbnails', # Required by `content_image` plugin
     'fobi.contrib.plugins.form_elements.content.content_image',
     'fobi.contrib.plugins.form_elements.content.content_text',
     'fobi.contrib.plugins.form_elements.content.content_video',
@@ -113,6 +114,7 @@ Putting all together, you would have something like this.
         'fobi.contrib.plugins.form_elements.fields.url',
 
         # Form element plugins
+        'easy_thumbnails', # Required by `content_image` plugin
         'fobi.contrib.plugins.form_elements.content.content_image',
         'fobi.contrib.plugins.form_elements.content.content_text',
         'fobi.contrib.plugins.form_elements.content.content_video',

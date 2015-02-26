@@ -22,6 +22,7 @@ from fobi.constants import (
     CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS
     )
 from fobi.exceptions import ImproperlyConfigured
+from fobi.settings import GET_PARAM_INITIAL_DATA
 
 class IntegrationProcessor(object):
     """
@@ -175,7 +176,10 @@ class IntegrationProcessor(object):
                     )
 
         else:
-            form = FormClass()
+            kwargs = {}
+            if GET_PARAM_INITIAL_DATA in request.GET:
+                kwargs = {'initial': request.GET}
+            form = FormClass(**kwargs)
 
         theme = get_theme(request=request, as_instance=True)
         theme.collect_plugin_media(form_element_entries)

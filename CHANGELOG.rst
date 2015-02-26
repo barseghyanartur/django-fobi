@@ -19,8 +19,13 @@ are used for versioning (schema follows below):
 -------------------------------------
 yyyy-mm-dd
 
+- Make it possible to load initial form data from GET variables.
 - Remove "button" and "submit" types ``from fobi.contrib.elements.fields.input``
   form element plugin.
+- The ``fobi.contrib.plugins.form_elements.fields.select_model_object`` plugin
+  no longer returns an absolute URL to the admin of the chosen model object
+  instance. Instead, it contains the app label, model name, pk and the repr
+  of it separated by dots. Example: "comments.comment.5.Lorem ipsum".
 - Minor fixes in ``from fobi.contrib.elements.fields.file`` plugin. Use system
   path separator on ``from fobi.contrib.elements.fields.file.FILES_UPLOAD_DIR``
   default setting.

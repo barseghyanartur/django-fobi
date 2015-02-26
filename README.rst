@@ -233,7 +233,6 @@ Or latest stable version from BitBucket:
     )
 
 
-
 (3) Make appropriate changes to the ``TEMPLATE_CONTEXT_PROCESSORS`` of the your
     projects' Django settings.
 
@@ -1368,6 +1367,18 @@ HTML5 fields is extended to the following fields:
 - multiple
 - pattern
 - step
+
+Loading initial data using GET arguments
+===============================================
+It's possible to provide initial data for the form using the GET arguments.
+
+In that case, along with the field values, you should be providing
+an additional argument named "fobi_initial_data", which doesn't have to
+hold a value. For example, if your form contains "email" and "age" field names
+and you want to provide initial values for those using GET arguments, you
+should be constructing your URL to the form in as follows:
+
+http://127.0.0.1:8001/fobi/view/test-form/?fobi_initial_data&email=test@example.com&age=19
 
 Available translations
 ===============================================
