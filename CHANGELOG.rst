@@ -17,7 +17,7 @@ are used for versioning (schema follows below):
 
 0.4.20
 -------------------------------------
-yyyy-mm-dd
+2015-02-27
 
 - Make it possible to load initial form data from GET variables.
 - Remove "button" and "submit" types ``from fobi.contrib.elements.fields.input``
