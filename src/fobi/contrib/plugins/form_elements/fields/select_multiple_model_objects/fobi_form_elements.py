@@ -1,16 +1,18 @@
 __title__ = 'fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects.fobi_form_elements'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('SelectMultipleModelObjectsInputPlugin',)
 
+import json
+
 from django.db import models
-from django.forms.models import ModelChoiceField
+from django.forms.models import ModelMultipleChoiceField
 from django.forms.widgets import SelectMultiple
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
-from fobi.helpers import admin_change_url
+from fobi.helpers import safe_text #, admin_change_url
 from fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects \
     import UID
 from fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects.forms import (
@@ -45,9 +47,9 @@ class SelectMultipleModelObjectsInputPlugin(FormFieldPlugin):
             'widget': SelectMultiple(attrs={'class': theme.form_element_html_class}),
         }
 
-        return [(self.data.name, ModelChoiceField, kwargs)]
+        return [(self.data.name, ModelMultipleChoiceField, kwargs)]
 
-    def __submit_plugin_form_data(self, form_entry, request, form):
+    def submit_plugin_form_data(self, form_entry, request, form):
         """
         Submit plugin form data/process.
 
@@ -56,21 +58,26 @@ class SelectMultipleModelObjectsInputPlugin(FormFieldPlugin):
         :param django.forms.Form form:
         """
         # Get the object
-        obj = form.cleaned_data.get(self.data.name, None)
+        objs = form.cleaned_data.get(self.data.name, [])
 
-        if obj:
-            # Handle the upload
-            admin_url = admin_change_url(
-                app_label = obj._meta.app_label,
-                module_name = obj._meta.module_name,
-                object_id = obj.pk
-                )
-            repr = '<a href="{0}">{1}</a>'.format(admin_url, str(obj))
+        values = []
 
-            # Overwrite ``cleaned_data`` of the ``form`` with object qualifier.
-            form.cleaned_data[self.data.name] = repr
+        for obj in objs:
+            if objs:
+                # Handle the submitted form value
+                value = '{0}.{1}.{2}.{3}'.format(
+                    obj._meta.app_label,
+                    obj._meta.module_name,
+                    obj.pk,
+                    safe_text(obj)
+                    )
+                values.append(value)
 
-        # It's critically important to return the ``form`` with updated ``cleaned_data``
+        # Overwrite ``cleaned_data`` of the ``form`` with object qualifier.
+        form.cleaned_data[self.data.name] = json.dumps(values)
+
+        # It's critically important to return the ``form`` with updated
+        # ``cleaned_data``
         return form
 
 

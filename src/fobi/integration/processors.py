@@ -176,6 +176,9 @@ class IntegrationProcessor(object):
                     )
 
         else:
+            # Providing initial form data by feeding entire GET dictionary
+            # to the form, if ``GET_PARAM_INITIAL_DATA`` is present in the
+            # GET.
             kwargs = {}
             if GET_PARAM_INITIAL_DATA in request.GET:
                 kwargs = {'initial': request.GET}

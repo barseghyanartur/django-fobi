@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-13 00:52+0100\n"
-"PO-Revision-Date: 2015-02-13 01:07+0100\n"
+"POT-Creation-Date: 2015-02-27 23:49+0100\n"
+"PO-Revision-Date: 2015-02-27 23:51+0100\n"
 "Last-Translator: Artur Barseghyan <artur.barseghyan@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: Dutch\n"
@@ -77,11 +77,11 @@ msgstr "{0} plugins zijn succesvol bijgewerkt."
 msgid "POST required when changing in bulk!"
 msgstr "POST vereist bij het veranderen in bulk!"
 
-#: base.py:102
+#: base.py:108
 msgid "Build your forms"
 msgstr "Bouw je formulieren"
 
-#: base.py:515
+#: base.py:521
 #: models.py:217
 #: models.py:265
 #: models.py:318
@@ -111,7 +111,7 @@ msgstr "Bouw je formulieren"
 msgid "Name"
 msgstr "Naam"
 
-#: base.py:520
+#: base.py:526
 #: contrib/plugins/form_elements/fields/boolean/forms.py:27
 #: contrib/plugins/form_elements/fields/date/forms.py:28
 #: contrib/plugins/form_elements/fields/date_drop_down/forms.py:37
@@ -136,7 +136,7 @@ msgstr "Naam"
 msgid "Label"
 msgstr "Label"
 
-#: base.py:525
+#: base.py:531
 #: contrib/plugins/form_elements/fields/boolean/forms.py:37
 #: contrib/plugins/form_elements/fields/date/forms.py:38
 #: contrib/plugins/form_elements/fields/date_drop_down/forms.py:47
@@ -159,7 +159,7 @@ msgstr "Label"
 msgid "Help text"
 msgstr "Helptekst"
 
-#: base.py:530
+#: base.py:536
 #: contrib/plugins/form_elements/fields/boolean/forms.py:47
 #: contrib/plugins/form_elements/fields/date/forms.py:53
 #: contrib/plugins/form_elements/fields/date_drop_down/forms.py:72
@@ -184,27 +184,27 @@ msgstr "Helptekst"
 msgid "Required"
 msgstr "Verplicht"
 
-#: base.py:552
+#: base.py:558
 msgid "Duplicate field name!"
 msgstr "Veldnaam is al in gebruik!"
 
-#: base.py:557
+#: base.py:563
 msgid "Duplicate label name!"
 msgstr "Labelnaam is al in gebruik!"
 
-#: base.py:636
+#: base.py:642
 msgid "General"
 msgstr "Algemeen"
 
-#: base.py:2128
+#: base.py:2134
 msgid "Theme `{0}` does not exist!"
 msgstr "Theme `{0}` niet gevonden!"
 
-#: constants.py:17
+#: constants.py:18
 msgid "Append"
 msgstr "Toevoegen"
 
-#: constants.py:18
+#: constants.py:19
 msgid "Replace"
 msgstr "Vervangen"
 
@@ -436,8 +436,8 @@ msgstr "Er zijn fouten opgetreden tijdens het opslaan van het formulier: {0}."
 #: views.py:365
 #: views.py:603
 #: views.py:823
-#: views.py:928
-#: views.py:970
+#: views.py:934
+#: views.py:976
 msgid "Form entry not found."
 msgstr "Formulier niet gevonden."
 
@@ -498,11 +498,11 @@ msgid "The form handler plugin \"{0}\" was deleted successfully."
 msgstr "Het formulier afhandelaar \"{0}\" is met succes verwijdert."
 
 #: views.py:876
-#: integration/processors.py:155
+#: integration/processors.py:156
 msgid "Form {0} was submitted successfully."
 msgstr "Formulier {0} is met succes verstuurd."
 
-#: views.py:976
+#: views.py:982
 msgid "The form \"{0}\" was deleted successfully."
 msgstr "Het formulier \"{0}\" is met succes verwijdert."
 
@@ -739,7 +739,7 @@ msgstr "Selectievakje"
 #: contrib/plugins/form_elements/fields/select/fobi_form_elements.py:24
 #: contrib/plugins/form_elements/fields/select_model_object/fobi_form_elements.py:26
 #: contrib/plugins/form_elements/fields/select_multiple/fobi_form_elements.py:26
-#: contrib/plugins/form_elements/fields/select_multiple_model_objects/fobi_form_elements.py:28
+#: contrib/plugins/form_elements/fields/select_multiple_model_objects/fobi_form_elements.py:30
 #: contrib/plugins/form_elements/fields/text/fobi_form_elements.py:23
 #: contrib/plugins/form_elements/fields/textarea/fobi_form_elements.py:23
 #: contrib/plugins/form_elements/fields/url/fobi_form_elements.py:30
@@ -929,7 +929,7 @@ msgstr "Model"
 msgid "Select multiple"
 msgstr "Keuzelijst meerkeuze"
 
-#: contrib/plugins/form_elements/fields/select_multiple_model_objects/fobi_form_elements.py:27
+#: contrib/plugins/form_elements/fields/select_multiple_model_objects/fobi_form_elements.py:29
 msgid "Select multiple model objects"
 msgstr "Keuzelijst meerkeuze model objecten"
 

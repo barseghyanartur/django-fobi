@@ -211,6 +211,7 @@ Or latest stable version from BitBucket:
         'fobi.contrib.plugins.form_elements.fields.select',
         'fobi.contrib.plugins.form_elements.fields.select_model_object',
         'fobi.contrib.plugins.form_elements.fields.select_multiple',
+        'fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects',
         'fobi.contrib.plugins.form_elements.fields.text',
         'fobi.contrib.plugins.form_elements.fields.textarea',
         'fobi.contrib.plugins.form_elements.fields.url',
@@ -1266,6 +1267,8 @@ Fields
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_model_object/>`_
 - `Select multiple (drop-down)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple/>`_
+- `Select multiple model objects (drop-down)
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple_model_objects/>`_
 - `Text
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/text/>`_
 - `Textarea

@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.4.21
+-------------------------------------
+2015-02-28
+
+- The ``fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects``
+  plugin added.
+
 0.4.20
 -------------------------------------
 2015-02-27

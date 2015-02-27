@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-13 00:52+0100\n"
+"POT-Creation-Date: 2015-02-27 23:37+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -64,11 +64,11 @@ msgstr ""
 msgid "POST required when changing in bulk!"
 msgstr ""
 
-#: base.py:102
+#: base.py:108
 msgid "Build your forms"
 msgstr ""
 
-#: base.py:515 models.py:217 models.py:265 models.py:318
+#: base.py:521 models.py:217 models.py:265 models.py:318
 #: contrib/plugins/form_elements/fields/boolean/forms.py:32
 #: contrib/plugins/form_elements/fields/date/forms.py:33
 #: contrib/plugins/form_elements/fields/date_drop_down/forms.py:42
@@ -95,7 +95,7 @@ msgstr ""
 msgid "Name"
 msgstr ""
 
-#: base.py:520 contrib/plugins/form_elements/fields/boolean/forms.py:27
+#: base.py:526 contrib/plugins/form_elements/fields/boolean/forms.py:27
 #: contrib/plugins/form_elements/fields/date/forms.py:28
 #: contrib/plugins/form_elements/fields/date_drop_down/forms.py:37
 #: contrib/plugins/form_elements/fields/datetime/forms.py:28
@@ -119,7 +119,7 @@ msgstr ""
 msgid "Label"
 msgstr ""
 
-#: base.py:525 contrib/plugins/form_elements/fields/boolean/forms.py:37
+#: base.py:531 contrib/plugins/form_elements/fields/boolean/forms.py:37
 #: contrib/plugins/form_elements/fields/date/forms.py:38
 #: contrib/plugins/form_elements/fields/date_drop_down/forms.py:47
 #: contrib/plugins/form_elements/fields/datetime/forms.py:38
@@ -141,7 +141,7 @@ msgstr ""
 msgid "Help text"
 msgstr ""
 
-#: base.py:530 contrib/plugins/form_elements/fields/boolean/forms.py:47
+#: base.py:536 contrib/plugins/form_elements/fields/boolean/forms.py:47
 #: contrib/plugins/form_elements/fields/date/forms.py:53
 #: contrib/plugins/form_elements/fields/date_drop_down/forms.py:72
 #: contrib/plugins/form_elements/fields/datetime/forms.py:53
@@ -165,27 +165,27 @@ msgstr ""
 msgid "Required"
 msgstr ""
 
-#: base.py:552
+#: base.py:558
 msgid "Duplicate field name!"
 msgstr ""
 
-#: base.py:557
+#: base.py:563
 msgid "Duplicate label name!"
 msgstr ""
 
-#: base.py:636
+#: base.py:642
 msgid "General"
 msgstr ""
 
-#: base.py:2128
+#: base.py:2134
 msgid "Theme `{0}` does not exist!"
 msgstr ""
 
-#: constants.py:17
+#: constants.py:18
 msgid "Append"
 msgstr ""
 
-#: constants.py:18
+#: constants.py:19
 msgid "Replace"
 msgstr ""
 
@@ -405,8 +405,8 @@ msgstr ""
 msgid "Errors occured while saving the form: {0}."
 msgstr ""
 
-#: views.py:224 views.py:365 views.py:603 views.py:823 views.py:928
-#: views.py:970
+#: views.py:224 views.py:365 views.py:603 views.py:823 views.py:934
+#: views.py:976
 msgid "Form entry not found."
 msgstr ""
 
@@ -466,11 +466,11 @@ msgstr ""
 msgid "The form handler plugin \"{0}\" was deleted successfully."
 msgstr ""
 
-#: views.py:876 integration/processors.py:155
+#: views.py:876 integration/processors.py:156
 msgid "Form {0} was submitted successfully."
 msgstr ""
 
-#: views.py:976
+#: views.py:982
 msgid "The form \"{0}\" was deleted successfully."
 msgstr ""
 
@@ -704,7 +704,7 @@ msgstr ""
 #: contrib/plugins/form_elements/fields/select/fobi_form_elements.py:24
 #: contrib/plugins/form_elements/fields/select_model_object/fobi_form_elements.py:26
 #: contrib/plugins/form_elements/fields/select_multiple/fobi_form_elements.py:26
-#: contrib/plugins/form_elements/fields/select_multiple_model_objects/fobi_form_elements.py:28
+#: contrib/plugins/form_elements/fields/select_multiple_model_objects/fobi_form_elements.py:30
 #: contrib/plugins/form_elements/fields/text/fobi_form_elements.py:23
 #: contrib/plugins/form_elements/fields/textarea/fobi_form_elements.py:23
 #: contrib/plugins/form_elements/fields/url/fobi_form_elements.py:30
@@ -907,7 +907,7 @@ msgstr ""
 msgid "Select multiple"
 msgstr ""
 
-#: contrib/plugins/form_elements/fields/select_multiple_model_objects/fobi_form_elements.py:27
+#: contrib/plugins/form_elements/fields/select_multiple_model_objects/fobi_form_elements.py:29
 msgid "Select multiple model objects"
 msgstr ""
 

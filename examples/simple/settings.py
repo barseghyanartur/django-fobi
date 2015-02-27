@@ -220,7 +220,7 @@ INSTALLED_APPS = (
     'fobi.contrib.plugins.form_elements.fields.select',
     'fobi.contrib.plugins.form_elements.fields.select_model_object',
     'fobi.contrib.plugins.form_elements.fields.select_multiple',
-    #'fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects',
+    'fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects',
     'fobi.contrib.plugins.form_elements.fields.text',
     'fobi.contrib.plugins.form_elements.fields.textarea',
     'fobi.contrib.plugins.form_elements.fields.url',

@@ -26,7 +26,8 @@ Installation
 3. Assign appropriate permissions to the target users/groups to be using
    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
-4. Make sure to take a look at ``fobi.contrib.plugins.form_elements.fields.select_model_object.defaults.IGNORED_MODELS``.
+4. Make sure to take a look at
+   ``fobi.contrib.plugins.form_elements.fields.select_model_object.defaults.IGNORED_MODELS``.
    If necessary, override it in your `settings` as shown in the example below:
 
 .. code-block:: python

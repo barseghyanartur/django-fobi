@@ -56,11 +56,13 @@ INSTALLED_APPS = (
     'fobi.contrib.plugins.form_elements.fields.select',
     'fobi.contrib.plugins.form_elements.fields.select_model_object',
     'fobi.contrib.plugins.form_elements.fields.select_multiple',
+    'fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects',
     'fobi.contrib.plugins.form_elements.fields.text',
     'fobi.contrib.plugins.form_elements.fields.textarea',
     'fobi.contrib.plugins.form_elements.fields.url',
 
     # Form element plugins
+    'easy_thumbnails', # Required by `content_image` plugin
     'fobi.contrib.plugins.form_elements.content.content_image',
     'fobi.contrib.plugins.form_elements.content.content_text',
     'fobi.contrib.plugins.form_elements.content.content_video',

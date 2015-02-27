@@ -204,6 +204,8 @@ Must haves
 + Add a quickstart documentation.
 + Make a Django-CMS dedicated theme (for the admin) using `djangocms-admin-style
   <https://github.com/divio/djangocms-admin-style>`_.
++ Clean up the Input plugin (some properties of it, like "type" aren't anyhow
+  used, while they should be).
 - Translate German and Russian URLs.
 - See if it's possible to make the "simple" theme base template (for Django
   admin) as much generic so that change between versions doesn't cause
@@ -228,8 +230,6 @@ Must haves
   example as much as possible.
 - Improve the "simple" theme for Django 1.6 and Django 1.7 (tiny bits of 
   styling).
-- Finish the Input plugin (some properties of it, like "type" aren't anyhow
-  used, while they should be).
 - Edit form test.
 - Edit form element tests.
 - Edit from handler tests.
@@ -305,6 +305,8 @@ Could haves
 + Add Dutch translation.
 + Add Russian translation.
 + Add more HTML5 fields?
++ Finish select multiple model objects plugin (issue with processing form data
+  on form submit).
 - Make it possible for themes to override the ``fobi.forms.FormEntryForm``
   form?
 - Make it possible to design a form based on existing models.
@@ -318,8 +320,6 @@ Could haves
 - TinyMCE form element cosmetic plugin.
 - In the cosmetic image plugin, render the sized image.
 - Add Armenian translation.
-- Finish select multiple model objects plugin (issue with processing form data
-  on form submit).
 - Add option to redirect to another page.
 - Conditional inputs.
 - Form wizards (combine forms with each other, having one at a step, finally -

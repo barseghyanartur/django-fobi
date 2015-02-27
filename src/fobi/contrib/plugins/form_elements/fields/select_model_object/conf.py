@@ -10,13 +10,15 @@ from fobi.contrib.plugins.form_elements.fields.select_model_object import defaul
 
 def get_setting(setting, override=None):
     """
-    Get a setting from `fobi.contrib.plugins.form_elements.fields.select_model_object`
-    conf module, falling back to the default.
+    Get a setting from
+    `fobi.contrib.plugins.form_elements.fields.select_model_object` conf
+    module, falling back to the default.
 
     If override is not None, it will be used instead of the setting.
 
     :param setting: String with setting name
-    :param override: Value to use when no setting is available. Defaults to None.
+    :param override: Value to use when no setting is available. Defaults
+        to None.
     :return: Setting value.
     """
     if override is not None:
