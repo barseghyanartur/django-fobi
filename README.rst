@@ -1374,9 +1374,9 @@ It's possible to provide initial data for the form using the GET arguments.
 
 In that case, along with the field values, you should be providing
 an additional argument named "fobi_initial_data", which doesn't have to
-hold a value. For example, if your form contains "email" and "age" field names
-and you want to provide initial values for those using GET arguments, you
-should be constructing your URL to the form in as follows:
+hold a value. For example, if your form contains of fields named "email" and
+"age" and you want to provide initial values for those using GET arguments, you
+should be constructing your URL to the form as follows:
 
 http://127.0.0.1:8001/fobi/view/test-form/?fobi_initial_data&email=test@example.com&age=19
 
