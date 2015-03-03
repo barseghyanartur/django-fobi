@@ -16,6 +16,7 @@ MIND_BUCKET.rst
 /deploy/
 fobi/fobi.migrations.rst
 /examples/db/
+/src/fobi/contrib/plugins/form_elements/fields/hidden_model_object/
 
 /examples/tmp/
 /examples/logs/

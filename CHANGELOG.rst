@@ -15,11 +15,23 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.4.22
+-------------------------------------
+2015-03-03
+
+- Fix replace system-specific path separator by a slash on file urls.
+- Fix empty options appearing in the Select-like (`radio`,  `select` and 
+  `select_multiple`) plugins and unified the processing of the raw choices
+  data.
+- Validate the initial value for Select-like (`radio`,  `select` and
+  `select_multiple`) plugins.
+
 0.4.21
 -------------------------------------
 2015-02-28
 
-- The ``fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects``
+- The
+  ``fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects``
   plugin added.
 
 0.4.20

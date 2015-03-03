@@ -2,10 +2,10 @@ Django>=1.6,<1.7
 
 Jinja2
 MarkupSafe
-MySQL-python
+#MySQL-python
 Sphinx
-django-autoslug==1.7.1
-django-debug-toolbar==0.11.0
+django-autoslug>=1.7.1
+django-debug-toolbar>=0.11.0
 django-registration-redux>=1.1
 docutils
 ipdb

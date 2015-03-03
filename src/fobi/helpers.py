@@ -8,6 +8,7 @@ __all__ = (
     'handle_uploaded_file', 'delete_file', 'clone_file', 'get_registered_models',
     'admin_change_url', 'uniquify_sequence', 'safe_text', 'combine_dicts',
     'update_plugin_data', 'get_select_field_choices',
+    'validate_initial_for_choices', 'validate_initial_for_multiple_choices',
 )
 
 import os
@@ -24,6 +25,8 @@ from django.core.files.base import File
 from django.contrib.contenttypes.models import ContentType
 from django.db.utils import DatabaseError
 from django.utils.encoding import force_text
+from django import forms
+from django.utils.translation import ugettext_lazy as _
 
 from autoslug.settings import slugify
 
@@ -300,20 +303,77 @@ def get_select_field_choices(raw_choices_data):
     :param str raw_choices_data:
     :return list:
     """
-    choices = []
-    keys = set([])
+    choices = [] # Holds return value
+    keys = set([]) # For checking uniqueness of keys
+    values = set([]) # For checking uniqueness of values
+
+    # Looping through the raw data
     for choice in raw_choices_data.split('\n'):
         choice = choice.strip()
+
+        # If comma separated key, value
         if ',' in choice:
             key, value = choice.split(',', 1)
             key = key.strip()
             value = value.strip()
-            if not key in keys:
+            if key and not key in keys and not value in values:
                 choices.append((key, value))
                 keys.add(key)
+                values.add(value)
+
+        # If key is also the value
         else:
             choice = choice.strip()
-            if not choice in keys:
+            if choice and not choice in keys and not choice in values:
                 choices.append((choice, choice))
                 keys.add(choice)
+                values.add(choice)
+
     return choices
+
+def validate_initial_for_choices(plugin_form, field_name_choices='choices', \
+                                 field_name_initial='initial'):
+    """
+    Validates the initial value for the choices given.
+
+    :param fobi.base.BaseFormFieldPluginForm plugin_form:
+    """
+    availalble_choices = dict(
+        get_select_field_choices(plugin_form.cleaned_data[field_name_choices])
+        ).values()
+
+    if plugin_form.cleaned_data[field_name_initial] \
+       and not plugin_form.cleaned_data[field_name_initial] \
+       in availalble_choices:
+        raise forms.ValidationError(
+            _("Invalid value for initial: {0}. Should be any of the following"
+              ": {1}".format(plugin_form.cleaned_data[field_name_initial], \
+                             ','.join(availalble_choices)))
+            )
+
+    return plugin_form.cleaned_data[field_name_initial]
+
+
+def validate_initial_for_multiple_choices(plugin_form, \
+                                          field_name_choices='choices', \
+                                          field_name_initial='initial'):
+    """
+    Validates the initial value for the multiple choices given.
+
+    :param fobi.base.BaseFormFieldPluginForm plugin_form:
+    """
+    availalble_choices = dict(
+        get_select_field_choices(plugin_form.cleaned_data[field_name_choices])
+        ).values()
+
+    if plugin_form.cleaned_data[field_name_initial]:
+        for choice in plugin_form.cleaned_data[field_name_initial].split(','):
+            choice = choice.strip()
+            if not choice in availalble_choices:
+                raise forms.ValidationError(
+                   _("Invalid value for initial: {0}. Should be any "
+                     "of the following: {1}"
+                      "".format(choice, ','.join(availalble_choices)))
+                )
+
+    return plugin_form.cleaned_data[field_name_initial]

@@ -4,9 +4,10 @@ MarkupSafe
 MySQL-python
 South
 Sphinx
-django-admin-tools==0.5.2
-django-autoslug==1.7.1
-django-debug-toolbar==0.11.0
+django-admin-tools>=0.5.2
+django-autoslug>=1.7.1
+django-debug-toolbar>=0.11.0
+django-localeurl>=2.0.2
 django-registration-redux>=1.1
 #django-simple-captcha
 docutils
@@ -18,7 +19,7 @@ selenium
 simple-timer>=0.2
 tox
 
-hg+https://bitbucket.org/barseghyanartur/django-localeurl
+#hg+https://bitbucket.org/barseghyanartur/django-localeurl
 
 #Django>=1.5,<1.7
 #FeinCMS>=1.9,<2.0

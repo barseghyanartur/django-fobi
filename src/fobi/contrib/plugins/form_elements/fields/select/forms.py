@@ -1,6 +1,6 @@
 __title__ = 'fobi.contrib.plugins.form_elements.fields.select.forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = '2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('SelectInputForm',)
 
@@ -8,6 +8,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import BaseFormFieldPluginForm, get_theme
+from fobi.helpers import validate_initial_for_choices
 
 theme = get_theme(request=None, as_instance=True)
 
@@ -70,3 +71,9 @@ class SelectInputForm(forms.Form, BaseFormFieldPluginForm):
         required = False,
         widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_checkbox_html_class})
         )
+
+    def clean_initial(self):
+        """
+        Validating the initial value.
+        """
+        return validate_initial_for_choices(self, 'choices', 'initial')
