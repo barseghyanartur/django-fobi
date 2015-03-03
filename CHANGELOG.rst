@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.4.23
+-------------------------------------
+2015-03-04
+
+- Fix improper initial value validation for Select-like (`radio`,  `select` and
+  `select_multiple`) plugins.
+
 0.4.22
 -------------------------------------
 2015-03-03

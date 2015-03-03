@@ -1,6 +1,6 @@
 __title__ = 'fobi.discover'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('autodiscover',)
 
@@ -18,9 +18,10 @@ def autodiscover():
     """
     FORM_ELEMENT_PLUGINS_MODULE_NAME = get_setting('FORM_ELEMENT_PLUGINS_MODULE_NAME')
     FORM_HANDLER_PLUGINS_MODULE_NAME = get_setting('FORM_HANDLER_PLUGINS_MODULE_NAME')
-    FORM_IMPORTER_PLUGINS_MODULE_NAME = get_setting('FORM_IMPORTER_PLUGINS_MODULE_NAME')
     THEMES_MODULE_NAME = get_setting('THEMES_MODULE_NAME')
     FORM_CALLBACKS_MODULE_NAME = get_setting('FORM_CALLBACKS_MODULE_NAME')
+
+    #FORM_IMPORTER_PLUGINS_MODULE_NAME = get_setting('FORM_IMPORTER_PLUGINS_MODULE_NAME')
 
     def do_discover(module_name):
         for app in settings.INSTALLED_APPS:

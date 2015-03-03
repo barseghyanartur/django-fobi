@@ -340,7 +340,7 @@ def validate_initial_for_choices(plugin_form, field_name_choices='choices', \
     """
     availalble_choices = dict(
         get_select_field_choices(plugin_form.cleaned_data[field_name_choices])
-        ).values()
+        ).keys()
 
     if plugin_form.cleaned_data[field_name_initial] \
        and not plugin_form.cleaned_data[field_name_initial] \
@@ -364,7 +364,7 @@ def validate_initial_for_multiple_choices(plugin_form, \
     """
     availalble_choices = dict(
         get_select_field_choices(plugin_form.cleaned_data[field_name_choices])
-        ).values()
+        ).keys()
 
     if plugin_form.cleaned_data[field_name_initial]:
         for choice in plugin_form.cleaned_data[field_name_initial].split(','):
