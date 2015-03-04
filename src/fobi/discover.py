@@ -11,6 +11,8 @@ from django.conf import settings
 
 from nine.versions import DJANGO_GTE_1_7
 
+logger = logging.getLogger(__file__)
+
 # In Django a dotted path can be used up to the app config class. In
 # such cases the old-school autodiscovery of modules doesn't work but we
 # have a great Django `autodiscover_modules` tool then. In cases if Django 
@@ -36,8 +38,6 @@ else:
             __import__('{0}.{1}'.format(app, module_name))
 
 from fobi.conf import get_setting
-
-logger = logging.getLogger(__file__)
 
 def autodiscover():
     """
