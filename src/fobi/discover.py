@@ -64,7 +64,7 @@ def autodiscover():
     autodiscover_modules(FORM_ELEMENT_PLUGINS_MODULE_NAME)
     autodiscover_modules(FORM_HANDLER_PLUGINS_MODULE_NAME)
     autodiscover_modules(THEMES_MODULE_NAME)
-    autodiscover_modules(THEMES_MODULE_NAME)
+    autodiscover_modules(FORM_CALLBACKS_MODULE_NAME)
 
     # Do not yet discover form importers
     #autodiscover_modules(FORM_IMPORTER_PLUGINS_MODULE_NAME)
