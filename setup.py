@@ -63,7 +63,7 @@ for static_dir in static_dirs:
 for locale_dir in locale_dirs:
     locale_files += [os.path.join(locale_dir, f) for f in os.listdir(locale_dir)]
 
-version = '0.4.23'
+version = '0.4.24'
 
 install_requires = [
     'Pillow>=2.0.0',
@@ -96,7 +96,8 @@ except:
 setup(
     name = 'django-fobi',
     version = version,
-    description = ("Customisable, modular user- and developer- friendly form generator/builder application for Django"),
+    description = ("Customisable, modular user- and developer- friendly form "
+                   "generator/builder application for Django"),
     long_description = "{0}{1}".format(readme, screenshots),
     classifiers = [
         "Programming Language :: Python :: 2.6",
@@ -105,13 +106,15 @@ setup(
         "Programming Language :: Python :: 3.3",
         "Environment :: Web Environment",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
-        "License :: OSI Approved :: GNU Lesser General Public License v2 or later (LGPLv2+)",
+        "License :: OSI Approved :: GNU Lesser General Public License v2 or "
+        "later (LGPLv2+)",
         "Framework :: Django",
         "Intended Audience :: Developers",
         "Operating System :: OS Independent",
         "Development Status :: 4 - Beta",
     ],
-    keywords = 'django, form generator, form builder, visual form designer, user generated forms',
+    keywords = "django, form generator, form builder, visual form designer, "
+               "user generated forms",
     author = 'Artur Barseghyan',
     author_email = 'artur.barseghyan@gmail.com',
     url = 'https://github.com/barseghyanartur/django-fobi/',

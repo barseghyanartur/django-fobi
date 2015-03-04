@@ -15,6 +15,18 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.4.24
+-------------------------------------
+2015-03-04
+
+- The management command `migrate_03_to_04` intended to migrate 0.3.x branch
+  data to > 0.4.x branch data, has been renamed to `fobi_migrate_03_to_04`.
+- Add missing app config declaration for the `db_store` form handler plugin.
+- Add missing app config for the core `fobi` package.
+- Improved autodiscover for Django>=1.7. Fix exception when using a dotted
+  path to an `AppConfig` in `INSTALLED_APPS` (instead of using the path to
+  the app).
+
 0.4.23
 -------------------------------------
 2015-03-04
@@ -213,7 +225,9 @@ are used for versioning (schema follows below):
 
          'fobi.contrib.plugins.form_elements.fields.date_drop_down'
 
-  3. Run the ``migrate_03_to_04`` management command::
+  3. Run the ``migrate_03_to_04`` management command. Note, that as of version
+     0.4.24, the `migrate_03_to_04` command has been renamed to
+     `fobi_migrate_03_to_04`.::
 
          ./manage.py migrate_03_to_04
 

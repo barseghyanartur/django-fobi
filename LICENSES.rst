@@ -19,6 +19,15 @@ Licensing information:
 
 - LGPL 3 (https://www.gnu.org/licenses/lgpl.html)
 
+django-nine
+==============================
+https://github.com/barseghyanartur/django-nine
+
+Licensing information:
+
+- GPL 2.0 (http://www.gnu.org/licenses/gpl-2.0.html)
+- LGPL 2.1 (https://www.gnu.org/licenses/lgpl-2.1.html)
+
 easy-thumbnails
 ==============================
 https://github.com/SmileyChris/easy-thumbnails
