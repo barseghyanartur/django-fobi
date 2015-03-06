@@ -41,7 +41,7 @@ class URLInputForm(forms.Form, BaseFormFieldPluginForm):
         required = False,
         widget = forms.widgets.Textarea(attrs={'class': theme.form_element_html_class})
         )
-    initial = forms.CharField(
+    initial = forms.URLField(
         label = _("Initial"),
         required = False,
         widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})

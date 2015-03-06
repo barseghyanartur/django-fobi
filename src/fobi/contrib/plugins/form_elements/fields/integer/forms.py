@@ -41,7 +41,7 @@ class IntegerInputForm(forms.Form, BaseFormFieldPluginForm):
         required = False,
         widget = forms.widgets.Textarea(attrs={'class': theme.form_element_html_class})
         )
-    initial = forms.CharField(
+    initial = forms.IntegerField(
         label = _("Initial"),
         required = False,
         widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})

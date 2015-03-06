@@ -20,8 +20,12 @@ from fobi.contrib.plugins.form_handlers.db_store.models import (
 )
 
 class DBStoreHandlerPlugin(FormHandlerPlugin):
+    """
+    DB store form handler plugin. Can be used only once per form.
+    """
     uid = UID
     name = _("DB store")
+    allow_multiple = False
 
     def run(self, form_entry, request, form, form_element_entries=None):
         """

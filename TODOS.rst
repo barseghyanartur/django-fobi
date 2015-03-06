@@ -264,8 +264,7 @@ Should haves
   processed by form handlers.
 - Rename the ``simple`` theme into ``django_admin_style_theme``.
 - Make a real ``birthday`` field (with no year selection).
-- Make it possible to use something else than Django's ORM (django-mongoengine,
-  SQLAlchemy).
+- Add a property "allow_multiple" to the form handlers, for form handlers.
 - Fix the view saved form entries template (nicer look) for Foundation 5
   theme.
 - Fix the ``input_format`` option in the date and datetime fields.
@@ -299,6 +298,8 @@ Should haves
 - Make Django's CSRF validation optional.
 - Make sure a better (SEO) URLs can be used in intergration packages (at
   least the FeinCMS).
+- Base fieldset. Allow users to add more than one field to a fieldset.
+- Make it possible (just checkbox) to set a fieldset as clonable.
 
 Could haves
 ===============================================
@@ -307,24 +308,23 @@ Could haves
 + Add more HTML5 fields?
 + Finish select multiple model objects plugin (issue with processing form data
   on form submit).
++ Make a django theme for jQuery UI.
+- Make it possible to use something else than Django's ORM (django-mongoengine,
+  SQLAlchemy).
 - Make it possible for themes to override the ``fobi.forms.FormEntryForm``
   form?
-- Make it possible to design a form based on existing models.
 - Make sure that the form view return can be overridden?
 - Add datetime range and date range fields.
-- Add a property "allow_multiple" to the form handlers, for form handlers.
-- Make a django theme for jQuery UI.
-- Base fieldset. Allow users to add more than one field to a fieldset.
-- Make it possible (just checkbox) to set a fieldset as clonable.
 - Confugure defaults values of each plugin in projects' settings module.
 - TinyMCE form element cosmetic plugin.
 - In the cosmetic image plugin, render the sized image.
 - Add Armenian translation.
 - Add option to redirect to another page.
+
+Would haves
+===============================================
 - Conditional inputs.
 - Form wizards (combine forms with each other, having one at a step, finally -
   send it all as one).
 - Perhaps, completely re-write the base template for the foundation 5 theme?
-
-Would haves
-===============================================
+- Make it possible to design a form based on existing models.

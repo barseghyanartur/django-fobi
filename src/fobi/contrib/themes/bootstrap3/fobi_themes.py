@@ -18,7 +18,7 @@ class Bootstrap3Theme(BaseTheme):
 
     media_css = (
         'bootstrap3/css/bootstrap.css',
-        #'bootstrap3/css/bootstrap3_fobi_extras.css',
+        'bootstrap3/css/bootstrap3_fobi_extras.css',
         'css/fobi.core.css',
     )
 

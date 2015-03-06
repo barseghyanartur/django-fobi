@@ -13,6 +13,7 @@ Subpackages
     fobi.contrib.plugins.form_elements.fields.email
     fobi.contrib.plugins.form_elements.fields.file
     fobi.contrib.plugins.form_elements.fields.hidden
+    fobi.contrib.plugins.form_elements.fields.hidden_model_object
     fobi.contrib.plugins.form_elements.fields.input
     fobi.contrib.plugins.form_elements.fields.integer
     fobi.contrib.plugins.form_elements.fields.password

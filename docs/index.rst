@@ -567,6 +567,10 @@ example the ``db_store`` form handler isn't), while others are (``mail``,
 You should see a form handler as a Django micro app, which could have its' own
 models, admin interface, etc.
 
+By default, it's possible to use a form handler plugin multiple time per form.
+If you wish to allow form handler plugin to be used only once in a form,
+set the ``allow_multiple`` property of the plugin to False.
+
 As said above, Fobi comes with several bundled form handler plugins. Do check
 the source code as example.
 

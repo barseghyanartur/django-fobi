@@ -15,6 +15,18 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.4.26
+-------------------------------------
+2015-03-06
+
+- Validate `email`, `integer` and `url` plugins initial values.
+- Properly show field types "checkbox" and "radio" in the `input` plugin (as
+  previously they showed up too large).
+- It's now possible to restrict multiple usage of form handler plugins via
+  ``allow_multiple`` property. In case if it's set to False, the plugin can
+  be used once only (per form). Default value is True. The `db_store` plugin
+  is from now on allowed to be used only once (per form).
+
 0.4.25
 -------------------------------------
 2015-03-04
@@ -31,7 +43,7 @@ are used for versioning (schema follows below):
 - Add missing app config for the core `fobi` package.
 - Improved autodiscover for Django>=1.7. Fix exception when using a dotted
   path to an `AppConfig` in `INSTALLED_APPS` (instead of using the path to
-  the app).
+  the app: ex. "path.to.app.apps.AppConfig" instead of "path.to.app").
 
 0.4.23
 -------------------------------------

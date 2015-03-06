@@ -29,7 +29,8 @@ from fobi.dynamic import assemble_form_class
 from fobi.decorators import permissions_required, SATISFY_ALL, SATISFY_ANY
 from fobi.base import (
     fire_form_callbacks, run_form_handlers, form_element_plugin_registry,
-    form_handler_plugin_registry, submit_plugin_form_data, get_theme
+    form_handler_plugin_registry, submit_plugin_form_data, get_theme,
+    get_registered_form_handler_plugins
     )
 from fobi.constants import (
     CALLBACK_BEFORE_FORM_VALIDATION,
@@ -45,6 +46,7 @@ from fobi.utils import (
     get_user_form_handler_plugins, get_user_form_handler_plugin_uids,
     append_edit_and_delete_links_to_field
     )
+from fobi.helpers import safe_text
 from fobi.settings import GET_PARAM_INITIAL_DATA, DEBUG
 
 logger = logging.getLogger(__name__)
@@ -291,13 +293,41 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
     # In case of success, we don't need this (since redirect would happen).
     # Thus, fetch only if needed.
     form_elements = form_entry.formelemententry_set.all()
-    form_handlers = form_entry.formhandlerentry_set.all()
+    form_handlers = form_entry.formhandlerentry_set.all()[:]
+    used_form_handler_uids = [form_handler.plugin_uid for form_handler \
+                                                      in form_handlers]
     all_form_entries = FormEntry._default_manager.only('id', 'name', 'slug') \
                                 .filter(user__pk=request.user.pk)
+
+    # List of form element plugins allowed to user
     user_form_element_plugins = get_user_form_element_plugins_grouped(
         request.user
         )
+    # List of form handler plugins allowed to user
     user_form_handler_plugins = get_user_form_handler_plugins(request.user)
+    user_form_handler_plugin_uids = [plugin_uid for (plugin_uid, plugin_name) \
+                                                in user_form_handler_plugins]
+    # Get all registered form handler plugins (as instances)
+    registered_form_handler_plugins = \
+        get_registered_form_handler_plugins(as_instances=True)
+
+    # Check if we need to reduce the list of allowed plugins if they have
+    # been marked to be used once per form and have been used already in
+    # the current form.
+    for plugin_uid, plugin \
+        in registered_form_handler_plugins.items():
+
+        if plugin.uid in user_form_handler_plugin_uids \
+           and not plugin.allow_multiple \
+           and plugin.uid in used_form_handler_uids:
+
+            # Remove the plugin so that we don't get links to add it
+            # in the UI.
+            plugin_name = safe_text(plugin.name)
+            user_form_handler_plugins.remove(
+                (plugin.uid, plugin_name)
+                )
+
     # Assembling the form for preview
     FormClass = assemble_form_class(
         form_entry,
@@ -371,8 +401,8 @@ def add_form_element_entry(request, form_entry_id, form_element_plugin_uid, \
         )
 
     if not form_element_plugin_uid in user_form_element_plugin_uids:
-        raise Exception("Plugin does not exist or you are not allowed to "
-                        "use this plugin!")
+        raise Http404(ugettext("Plugin does not exist or you are not allowed "
+                        "to use this plugin!"))
 
     FormElementPlugin = form_element_plugin_registry.get(
         form_element_plugin_uid
@@ -607,12 +637,24 @@ def add_form_handler_entry(request, form_entry_id, form_handler_plugin_uid, \
         )
 
     if not form_handler_plugin_uid in user_form_handler_plugin_uids:
-        raise Exception(_("Plugin does not exist or you are not allowed to "
-                          " use this plugin!"))
+        raise Http404(ugettext("Plugin does not exist or you are not allowed "
+                          "to use this plugin!"))
 
     FormHandlerPlugin = form_handler_plugin_registry.get(
         form_handler_plugin_uid
         )
+
+    # Check if we deal with form handler plugin that is only allowed to be
+    # used once. In that case, check if it has been used already in the current
+    # form entry.
+    if not FormHandlerPlugin.allow_multiple:
+        times_used = FormHandlerEntry._default_manager \
+                                     .filter(form_entry__id=13) \
+                                     .count()
+        if times_used > 0:
+            raise Http404(ugettext("The {0} plugin can be used only once "
+                          "in a form.").format(FormHandlerPlugin.name))
+
     form_handler_plugin = FormHandlerPlugin(user=request.user)
     form_handler_plugin.request = request
 

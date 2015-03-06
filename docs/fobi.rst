@@ -32,6 +32,14 @@ fobi.app module
     :undoc-members:
     :show-inheritance:
 
+fobi.apps module
+----------------
+
+.. automodule:: fobi.apps
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.base module
 ----------------
 

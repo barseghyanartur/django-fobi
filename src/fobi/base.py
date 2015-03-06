@@ -1248,8 +1248,13 @@ class FormFieldPlugin(FormElementPlugin):
 class FormHandlerPlugin(BasePlugin):
     """
     Form handler plugin.
+
+    :property fobi.base.FormHandlerPluginDataStorage storage:
+    :property bool allow_multiple: If set to True, plugin can be used multiple
+        times within (per form). Otherwise - just once.
     """
     storage = FormHandlerPluginDataStorage
+    allow_multiple = True
 
     def _run(self, form_entry, request, form, form_element_entries=None):
         """
@@ -1771,7 +1776,7 @@ def assemble_form_field_widget_class(base_class, plugin):
 # *********************************** Generic *********************************
 # *****************************************************************************
 
-def get_registered_plugins(registry):
+def get_registered_plugins(registry, as_instances=False):
     """
     Gets a list of registered plugins in a form if tuple (plugin name, plugin
     description). If not yet autodiscovered, autodiscovers them.
@@ -1779,6 +1784,9 @@ def get_registered_plugins(registry):
     :return list:
     """
     ensure_autodiscover()
+
+    if as_instances:
+        return registry._registry
 
     registered_plugins = []
 
@@ -1997,19 +2005,20 @@ def get_processed_form_data(form, form_element_entries):
         get_cleaned_data(form, keys_to_remove, values_to_remove)
         )
 
-def get_registered_form_handler_plugins():
+def get_registered_form_handler_plugins(as_instances=False):
     """
     Gets a list of registered plugins in a form of tuple (plugin name, plugin
     description). If not yet autodiscovered, autodiscovers them.
 
     :return list:
     """
-    return get_registered_plugins(form_handler_plugin_registry)
+    return get_registered_plugins(form_handler_plugin_registry, \
+                                  as_instances=as_instances)
 
 def get_registered_form_handler_plugin_uids(flattern=True):
     """
-    Gets a list of registered plugins in a form of tuple (plugin name, plugin
-    description). If not yet autodiscovered, autodiscovers them.
+    Gets a list of UIDs of registered form handler plugins. If not yet
+    autodiscovered, autodiscovers them.
 
     :return list:
     """
