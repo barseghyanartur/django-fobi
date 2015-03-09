@@ -1,9 +1,3 @@
-__title__ = 'fobi.contrib.plugins.form_elements.fields.select_model_object.fobi_form_elements'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('SelectModelObjectInputPlugin',)
-
 from django.db import models
 from django.forms.models import ModelChoiceField
 from django.forms.widgets import Select
@@ -12,7 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
 from fobi.helpers import safe_text
 from fobi.contrib.plugins.form_elements.fields.select_model_object import UID
-from fobi.contrib.plugins.form_elements.fields.select_model_object.forms \
+from override_select_model_object_plugin.forms \
     import SelectModelObjectInputForm
 
 theme = get_theme(request=None, as_instance=True)
@@ -58,10 +52,7 @@ class SelectModelObjectInputPlugin(FormFieldPlugin):
         obj = form.cleaned_data.get(self.data.name, None)
         if obj:
             # Handle the submitted form value
-            value = '{0}.{1}.{2}.{3}'.format(
-                obj._meta.app_label,
-                obj._meta.module_name,
-                obj.pk,
+            value = '{0}'.format(
                 safe_text(obj)
                 )
 
@@ -73,4 +64,4 @@ class SelectModelObjectInputPlugin(FormFieldPlugin):
         return form
 
 
-form_element_plugin_registry.register(SelectModelObjectInputPlugin)
+form_element_plugin_registry.register(SelectModelObjectInputPlugin, force=True)
