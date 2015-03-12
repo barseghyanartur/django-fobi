@@ -12,6 +12,22 @@ fobi.contrib.plugins.form_elements.fields.select.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.fields.select.conf module
+------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.select.conf
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+fobi.contrib.plugins.form_elements.fields.select.defaults module
+----------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.select.defaults
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.select.fobi_form_elements module
 --------------------------------------------------------------------------
 
@@ -24,6 +40,14 @@ fobi.contrib.plugins.form_elements.fields.select.forms module
 -------------------------------------------------------------
 
 .. automodule:: fobi.contrib.plugins.form_elements.fields.select.forms
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+fobi.contrib.plugins.form_elements.fields.select.settings module
+----------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.select.settings
     :members:
     :undoc-members:
     :show-inheritance:

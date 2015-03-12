@@ -4,7 +4,7 @@ __copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'get_or_create_admin_user', 'get_or_create_admin_user',
-    'create_form_with_entries'
+    'create_form_with_entries', 'db_clean_up',
     )
 
 from django.core.management import call_command
@@ -269,3 +269,11 @@ def create_form_with_entries(user=None, create_entries_if_form_exist=True):
     form_handler_entry.save()
 
     return form_entry
+
+def db_clean_up():
+    """
+    Cleans up the database by removing all form element and form handler
+    entries.
+    """
+    FormElementEntry._default_manager.all().delete()
+    FormHandlerEntry._default_manager.all().delete()

@@ -20,7 +20,7 @@ from fobi.models import FormEntry
 
 from fobi.tests.base import print_info, skip#, BaseBrowserTest
 from fobi.tests.helpers import (
-    setup_fobi, get_or_create_admin_user
+    setup_fobi, get_or_create_admin_user, db_clean_up
 )
 from fobi.tests import constants
 from fobi.tests.data import (
@@ -453,6 +453,9 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         """
         Test add a new form.
         """
+        # Clean up database
+        db_clean_up()
+
         self.__test_add_form(wait=WAIT_FOR)
 
         # Make sure the success message is there
@@ -482,6 +485,9 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         """
         Test submit form.
         """
+        # Clean up database
+        db_clean_up()
+
         # Add form elements
         self.__test_add_form_elements(create_form=True)
 
@@ -527,6 +533,9 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         """
         Test adding form elements.
         """
+        # Clean up database
+        db_clean_up()
+
         self.__test_add_form_elements(create_form=True)
 
         self.__sleep(wait)
@@ -537,6 +546,9 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         """
         Test remove form element.
         """
+        # Clean up database
+        db_clean_up()
+
         self.__test_add_form_elements(create_form=True)
 
         self.__test_remove_form_elements()
@@ -559,6 +571,9 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         Test of adding a single form handler. At this point, if form isn't
         created, it should be.
         """
+        # Clean up database
+        db_clean_up()
+
         self.__test_add_form_handlers(create_form=True)
 
         self.__sleep(wait)
@@ -569,6 +584,9 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         """
         Test remove form handler.
         """
+        # Clean up database
+        db_clean_up()
+
         self.__test_add_form_handlers(create_form=True)
 
         self.__test_remove_form_handlers()

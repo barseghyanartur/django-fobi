@@ -12,6 +12,22 @@ fobi.contrib.plugins.form_elements.fields.select_multiple.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.fields.select_multiple.conf module
+---------------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.select_multiple.conf
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+fobi.contrib.plugins.form_elements.fields.select_multiple.defaults module
+-------------------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.select_multiple.defaults
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.select_multiple.fobi_form_elements module
 -----------------------------------------------------------------------------------
 
@@ -24,6 +40,14 @@ fobi.contrib.plugins.form_elements.fields.select_multiple.forms module
 ----------------------------------------------------------------------
 
 .. automodule:: fobi.contrib.plugins.form_elements.fields.select_multiple.forms
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+fobi.contrib.plugins.form_elements.fields.select_multiple.settings module
+-------------------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.select_multiple.settings
     :members:
     :undoc-members:
     :show-inheritance:

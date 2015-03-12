@@ -262,9 +262,28 @@ Should haves
 + At the moment Captcha data is also being saved (db_store form handler).
   Think of fixing that by allowing to exclude certain fields from being
   processed by form handlers.
++ Add a property "allow_multiple" to the form handlers, for form handlers.
+- Fix the issue with `db_store` plugin and `allow_multiple` property (if
+  set to True tests fail).
+- Fix the issue with `initial` for `select_multiple` plugin. At the moment,
+  setting initial doesn't seem to work.
+- Document the `SUBMIT_VALUE_AS` in main documentation and mention in the 
+  readme of all appropriate plugins.
+- Make it possible for developers to decide (in settings) what kind of
+  values do they want to have saved. By default, return the label for
+  select-like fields (`radio`, `select`, `select_multiple`), the str/unicode
+  for foreign keys (`select_model_object`, `select_multiple_model_objects`).
+  For that, introduce a new setting `SUBMIT_VALUE_AS`. It should be a string
+  which allows the following options: "val", "repr", "mixed". Default would
+  be the "repr". In that case, the value would be the human readable
+  representation of the chosen option. In case of "val", the actual value is
+  submitted. Mix is a mix of the "val" and "repr" as "repr (val)". For foreign
+  keys, it would be as follows: app.module.pk.value (mix), app.module.pk (val),
+  value (repr).
+- Document the changes.
+- Find out why subclassing the ``select_model_object`` plugin didn't work.
 - Rename the ``simple`` theme into ``django_admin_style_theme``.
 - Make a real ``birthday`` field (with no year selection).
-- Add a property "allow_multiple" to the form handlers, for form handlers.
 - Fix the view saved form entries template (nicer look) for Foundation 5
   theme.
 - Fix the ``input_format`` option in the date and datetime fields.

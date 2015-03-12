@@ -307,6 +307,7 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
     user_form_handler_plugins = get_user_form_handler_plugins(request.user)
     user_form_handler_plugin_uids = [plugin_uid for (plugin_uid, plugin_name) \
                                                 in user_form_handler_plugins]
+
     # Get all registered form handler plugins (as instances)
     registered_form_handler_plugins = \
         get_registered_form_handler_plugins(as_instances=True)
@@ -649,7 +650,7 @@ def add_form_handler_entry(request, form_entry_id, form_handler_plugin_uid, \
     # form entry.
     if not FormHandlerPlugin.allow_multiple:
         times_used = FormHandlerEntry._default_manager \
-                                     .filter(form_entry__id=13) \
+                                     .filter(form_entry__id=form_entry_id) \
                                      .count()
         if times_used > 0:
             raise Http404(ugettext("The {0} plugin can be used only once "

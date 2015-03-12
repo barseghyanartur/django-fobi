@@ -1,3 +1,9 @@
+"""
+Helpers module. This module can be safely imported from any fobi (sub)module,
+since it never imports from any of the fobi (sub)modules (except for the
+`fobi.constants` and `fobi.exceptions` modules).
+"""
+
 __title__ = 'fobi.helpers'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
@@ -9,6 +15,7 @@ __all__ = (
     'admin_change_url', 'uniquify_sequence', 'safe_text', 'combine_dicts',
     'update_plugin_data', 'get_select_field_choices',
     'validate_initial_for_choices', 'validate_initial_for_multiple_choices',
+    'validate_submit_value_as',
 )
 
 import os
@@ -29,6 +36,11 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from autoslug.settings import slugify
+
+from fobi.constants import (
+    SUBMIT_VALUE_AS_VAL, SUBMIT_VALUE_AS_REPR, SUBMIT_VALUE_AS_MIX
+    )
+from fobi.exceptions import ImproperlyConfigured
 
 logger = logging.getLogger(__name__)
 
@@ -78,7 +90,8 @@ def map_field_name_to_label(form):
     :param list keys_to_remove:
     :return dict:
     """
-    return dict([(field_name, field.label) for (field_name, field) in form.base_fields.items()])
+    return dict([(field_name, field.label) \
+                 for (field_name, field) in form.base_fields.items()])
 
 def clean_dict(source, keys=[], values=[]):
     """
@@ -112,8 +125,9 @@ def two_dicts_to_string(headers, data, html_element='p'):
         (value, data.get(key, '')) for key, value in list(headers.items())
         ]
     return "".join(
-        ["<{0}>{1}: {2}</{3}>".format(html_element, safe_text(key), safe_text(value), html_element) \
-        for key, value in formatted_data]
+        ["<{0}>{1}: {2}</{3}>".format(html_element, safe_text(key), \
+                                      safe_text(value), html_element) \
+         for key, value in formatted_data]
         )
 
 empty_string = text_type('')
@@ -271,9 +285,10 @@ def admin_change_url(app_label, module_name, object_id, extra_path='', \
     :return str:
     """
     try:
-        url = reverse('admin:%s_%s_change' %(app_label, module_name), args=[object_id]) + extra_path
+        url = reverse('admin:{0}_{1}_change'.format(app_label, module_name), \
+                      args=[object_id]) + extra_path
         if url_title:
-            return u'<a href="%s">%s</a>' %(url, url_title)
+            return u'<a href="{0}">{1}</a>'.format(url, url_title)
         else:
             return url
     except:
@@ -377,3 +392,17 @@ def validate_initial_for_multiple_choices(plugin_form, \
                 )
 
     return plugin_form.cleaned_data[field_name_initial]
+
+def validate_submit_value_as(value):
+    """
+    Validates the `SUBMIT_AS_VALUE`.
+
+    :param str value:
+    """
+    if not value in (SUBMIT_VALUE_AS_VAL, SUBMIT_VALUE_AS_REPR, \
+                     SUBMIT_VALUE_AS_MIX):
+        raise ImproperlyConfigured("The `SUBMIT_AS_VALUE` may have one of "
+                                   "the following values: {0}, {1} or {2}"
+                                   "".format(SUBMIT_VALUE_AS_VAL, \
+                                             SUBMIT_VALUE_AS_REPR, \
+                                             SUBMIT_VALUE_AS_MIX))

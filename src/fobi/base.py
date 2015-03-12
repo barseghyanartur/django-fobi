@@ -1900,7 +1900,7 @@ def submit_plugin_form_data(form_entry, request, form):
     for form_element_entry in form_entry.formelemententry_set.all():
         # Get the plugin.
         form_element_plugin = form_element_entry.get_plugin(request=request)
-        updated_form = form_element_plugin.submit_plugin_form_data(
+        updated_form = form_element_plugin._submit_plugin_form_data(
             form_entry=form_entry, request=request, form=form
             )
         if updated_form:

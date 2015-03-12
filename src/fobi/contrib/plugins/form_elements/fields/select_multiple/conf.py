@@ -1,20 +1,18 @@
-__title__ = 'fobi.contrib.plugins.form_elements.fields.select_model_object.conf'
+__title__ = 'fobi.contrib.plugins.form_elements.fields.select_multiple.conf'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('get_setting',)
 
 from django.conf import settings
 
-from fobi.contrib.plugins.form_elements.fields.select_model_object import (
-    defaults
-    )
+from fobi.contrib.plugins.form_elements.fields.select_multiple import defaults
 
 def get_setting(setting, override=None):
     """
     Get a setting from
-    `fobi.contrib.plugins.form_elements.fields.select_model_object` conf
-    module, falling back to the default.
+    `fobi.contrib.plugins.form_elements.fields.select_multiple` conf module,
+    falling back to the default.
 
     If override is not None, it will be used instead of the setting.
 
@@ -25,7 +23,7 @@ def get_setting(setting, override=None):
     """
     if override is not None:
         return override
-    if hasattr(settings, 'FOBI_FORM_ELEMENT_SELECT_MODEL_OBJECT_{0}'.format(setting)):
-        return getattr(settings, 'FOBI_FORM_ELEMENT_SELECT_MODEL_OBJECT_{0}'.format(setting))
+    if hasattr(settings, 'FOBI_FORM_ELEMENT_SELECT_MULTIPLE_{0}'.format(setting)):
+        return getattr(settings, 'FOBI_FORM_ELEMENT_SELECT_MULTIPLE_{0}'.format(setting))
     else:
         return getattr(defaults, setting)

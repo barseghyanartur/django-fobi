@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-02-27 23:49+0100\n"
+"POT-Creation-Date: 2015-03-10 13:18+0100\n"
 "PO-Revision-Date: 2015-02-27 23:51+0100\n"
 "Last-Translator: Artur Barseghyan <artur.barseghyan@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,13 +15,10 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: admin.py:124
-#: admin.py:193
-#: admin.py:226
-#: models.py:316
-#: models.py:344
+#: admin.py:124 admin.py:193 admin.py:226 models.py:316 models.py:344
 #: contrib/apps/djangocms_integration/models.py:26
 #: contrib/apps/feincms_integration/widgets.py:30
 #: contrib/apps/mezzanine_integration/models.py:24
@@ -37,10 +34,7 @@ msgstr "Форма"
 msgid "Custom"
 msgstr "Дополнительно"
 
-#: admin.py:135
-#: models.py:78
-#: models.py:216
-#: models.py:264
+#: admin.py:135 models.py:78 models.py:216 models.py:264
 #: contrib/plugins/form_handlers/db_store/models.py:49
 msgid "User"
 msgstr "Пользователь"
@@ -49,23 +43,17 @@ msgstr "Пользователь"
 msgid "Additional"
 msgstr "Дополнительно"
 
-#: admin.py:147
-#: admin.py:171
-#: admin.py:199
-#: admin.py:266
+#: admin.py:147 admin.py:171 admin.py:199 admin.py:266
 #: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/base_edit.html:84
 #: contrib/themes/simple/templates/simple/base_edit.html:76
 msgid "Fobi"
 msgstr ""
 
-#: admin.py:190
-#: admin.py:223
-#: models.py:121
+#: admin.py:190 admin.py:223 models.py:121
 msgid "Plugin"
 msgstr "Плагин"
 
-#: admin.py:232
-#: models.py:472
+#: admin.py:232 models.py:472
 msgid "Form handler entry"
 msgstr "Обработчик формы"
 
@@ -81,10 +69,7 @@ msgstr "Для множественных изменений необходим 
 msgid "Build your forms"
 msgstr "Разработчик форм"
 
-#: base.py:521
-#: models.py:217
-#: models.py:265
-#: models.py:318
+#: base.py:521 models.py:217 models.py:265 models.py:318
 #: contrib/plugins/form_elements/fields/boolean/forms.py:32
 #: contrib/plugins/form_elements/fields/date/forms.py:33
 #: contrib/plugins/form_elements/fields/date_drop_down/forms.py:42
@@ -92,13 +77,14 @@ msgstr "Разработчик форм"
 #: contrib/plugins/form_elements/fields/email/forms.py:37
 #: contrib/plugins/form_elements/fields/file/forms.py:34
 #: contrib/plugins/form_elements/fields/hidden/forms.py:33
+#: contrib/plugins/form_elements/fields/hidden_model_object/forms.py:36
 #: contrib/plugins/form_elements/fields/input/forms.py:61
 #: contrib/plugins/form_elements/fields/integer/forms.py:35
 #: contrib/plugins/form_elements/fields/password/forms.py:35
-#: contrib/plugins/form_elements/fields/radio/forms.py:33
-#: contrib/plugins/form_elements/fields/select/forms.py:33
+#: contrib/plugins/form_elements/fields/radio/forms.py:34
+#: contrib/plugins/form_elements/fields/select/forms.py:34
 #: contrib/plugins/form_elements/fields/select_model_object/forms.py:36
-#: contrib/plugins/form_elements/fields/select_multiple/forms.py:33
+#: contrib/plugins/form_elements/fields/select_multiple/forms.py:34
 #: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:36
 #: contrib/plugins/form_elements/fields/text/forms.py:35
 #: contrib/plugins/form_elements/fields/textarea/forms.py:33
@@ -111,21 +97,21 @@ msgstr "Разработчик форм"
 msgid "Name"
 msgstr "Название"
 
-#: base.py:526
-#: contrib/plugins/form_elements/fields/boolean/forms.py:27
+#: base.py:526 contrib/plugins/form_elements/fields/boolean/forms.py:27
 #: contrib/plugins/form_elements/fields/date/forms.py:28
 #: contrib/plugins/form_elements/fields/date_drop_down/forms.py:37
 #: contrib/plugins/form_elements/fields/datetime/forms.py:28
 #: contrib/plugins/form_elements/fields/email/forms.py:32
 #: contrib/plugins/form_elements/fields/file/forms.py:29
 #: contrib/plugins/form_elements/fields/hidden/forms.py:28
+#: contrib/plugins/form_elements/fields/hidden_model_object/forms.py:31
 #: contrib/plugins/form_elements/fields/input/forms.py:56
 #: contrib/plugins/form_elements/fields/integer/forms.py:30
 #: contrib/plugins/form_elements/fields/password/forms.py:30
-#: contrib/plugins/form_elements/fields/radio/forms.py:28
-#: contrib/plugins/form_elements/fields/select/forms.py:28
+#: contrib/plugins/form_elements/fields/radio/forms.py:29
+#: contrib/plugins/form_elements/fields/select/forms.py:29
 #: contrib/plugins/form_elements/fields/select_model_object/forms.py:31
-#: contrib/plugins/form_elements/fields/select_multiple/forms.py:28
+#: contrib/plugins/form_elements/fields/select_multiple/forms.py:29
 #: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:31
 #: contrib/plugins/form_elements/fields/text/forms.py:30
 #: contrib/plugins/form_elements/fields/textarea/forms.py:28
@@ -136,20 +122,20 @@ msgstr "Название"
 msgid "Label"
 msgstr "Ярлык"
 
-#: base.py:531
-#: contrib/plugins/form_elements/fields/boolean/forms.py:37
+#: base.py:531 contrib/plugins/form_elements/fields/boolean/forms.py:37
 #: contrib/plugins/form_elements/fields/date/forms.py:38
 #: contrib/plugins/form_elements/fields/date_drop_down/forms.py:47
 #: contrib/plugins/form_elements/fields/datetime/forms.py:38
 #: contrib/plugins/form_elements/fields/email/forms.py:42
 #: contrib/plugins/form_elements/fields/file/forms.py:39
+#: contrib/plugins/form_elements/fields/hidden_model_object/forms.py:47
 #: contrib/plugins/form_elements/fields/input/forms.py:66
 #: contrib/plugins/form_elements/fields/integer/forms.py:40
 #: contrib/plugins/form_elements/fields/password/forms.py:40
-#: contrib/plugins/form_elements/fields/radio/forms.py:59
-#: contrib/plugins/form_elements/fields/select/forms.py:59
+#: contrib/plugins/form_elements/fields/radio/forms.py:60
+#: contrib/plugins/form_elements/fields/select/forms.py:60
 #: contrib/plugins/form_elements/fields/select_model_object/forms.py:47
-#: contrib/plugins/form_elements/fields/select_multiple/forms.py:59
+#: contrib/plugins/form_elements/fields/select_multiple/forms.py:60
 #: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:47
 #: contrib/plugins/form_elements/fields/text/forms.py:40
 #: contrib/plugins/form_elements/fields/textarea/forms.py:38
@@ -159,21 +145,21 @@ msgstr "Ярлык"
 msgid "Help text"
 msgstr "Помощь"
 
-#: base.py:536
-#: contrib/plugins/form_elements/fields/boolean/forms.py:47
+#: base.py:536 contrib/plugins/form_elements/fields/boolean/forms.py:47
 #: contrib/plugins/form_elements/fields/date/forms.py:53
 #: contrib/plugins/form_elements/fields/date_drop_down/forms.py:72
 #: contrib/plugins/form_elements/fields/datetime/forms.py:53
 #: contrib/plugins/form_elements/fields/email/forms.py:58
 #: contrib/plugins/form_elements/fields/file/forms.py:55
 #: contrib/plugins/form_elements/fields/hidden/forms.py:49
+#: contrib/plugins/form_elements/fields/hidden_model_object/forms.py:57
 #: contrib/plugins/form_elements/fields/input/forms.py:82
 #: contrib/plugins/form_elements/fields/integer/forms.py:60
 #: contrib/plugins/form_elements/fields/password/forms.py:56
-#: contrib/plugins/form_elements/fields/radio/forms.py:69
-#: contrib/plugins/form_elements/fields/select/forms.py:69
+#: contrib/plugins/form_elements/fields/radio/forms.py:70
+#: contrib/plugins/form_elements/fields/select/forms.py:70
 #: contrib/plugins/form_elements/fields/select_model_object/forms.py:57
-#: contrib/plugins/form_elements/fields/select_multiple/forms.py:69
+#: contrib/plugins/form_elements/fields/select_multiple/forms.py:70
 #: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:57
 #: contrib/plugins/form_elements/fields/text/forms.py:56
 #: contrib/plugins/form_elements/fields/textarea/forms.py:48
@@ -196,7 +182,7 @@ msgstr "Ярлык поля должен быть уникальым!"
 msgid "General"
 msgstr "Основное"
 
-#: base.py:2134
+#: base.py:2143
 msgid "Theme `{0}` does not exist!"
 msgstr "Темы `{0}` не существует!"
 
@@ -216,21 +202,25 @@ msgstr "Выбранные плагины"
 msgid "Users action"
 msgstr "Действие над пользователями"
 
-#: forms.py:115
-#: forms.py:122
+#: forms.py:115 forms.py:122
 msgid "If set to ``replace``, the groups are replaced; otherwise - appended."
-msgstr "Если вы выберете ``заменить``, группы будут перезаписаны; в обратном случае - добавлены."
+msgstr ""
+"Если вы выберете ``заменить``, группы будут перезаписаны; в обратном случае "
+"- добавлены."
 
 #: forms.py:120
 msgid "Groups action"
 msgstr "Действие над группами"
 
+#: helpers.py:349 helpers.py:374
+msgid "Invalid value for initial: {0}. Should be any of the following: {1}"
+msgstr ""
+
 #: models.py:80
 msgid "Group"
 msgstr "Группа"
 
-#: models.py:113
-#: models.py:414
+#: models.py:113 models.py:414
 msgid "UID"
 msgstr ""
 
@@ -242,8 +232,7 @@ msgstr "Группы"
 msgid "Users"
 msgstr "Пользователи"
 
-#: models.py:160
-#: models.py:191
+#: models.py:160 models.py:191
 msgid "Plugin UID"
 msgstr "UID плагина"
 
@@ -263,8 +252,7 @@ msgstr "Плагин обработчика формы"
 msgid "Form handler plugins"
 msgstr "Плагины обработчиков формы"
 
-#: models.py:218
-#: models.py:267
+#: models.py:218 models.py:267
 msgid "Slug"
 msgstr "Слаг"
 
@@ -314,8 +302,7 @@ msgstr "Можно клонировать?"
 msgid "Makes your form cloneable by other users."
 msgstr "Другие пользователи смогут клонировать вашу форму."
 
-#: models.py:278
-#: models.py:438
+#: models.py:278 models.py:438
 msgid "Position"
 msgstr "Порядок"
 
@@ -367,13 +354,11 @@ msgstr ""
 msgid "Form fieldset entries"
 msgstr ""
 
-#: models.py:345
-#: contrib/plugins/form_handlers/db_store/models.py:53
+#: models.py:345 contrib/plugins/form_handlers/db_store/models.py:53
 msgid "Plugin data"
 msgstr "Данные плагина"
 
-#: models.py:433
-#: models.py:467
+#: models.py:433 models.py:467
 msgid "Plugin name"
 msgstr "Название плагина"
 
@@ -419,90 +404,89 @@ msgstr "Изменить"
 msgid "Delete"
 msgstr "Удалить"
 
-#: views.py:75
+#: views.py:77
 msgid "{0} not found."
 msgstr "{0} не найдено."
 
-#: views.py:165
+#: views.py:167
 msgid "Form {0} was created successfully."
 msgstr "Форма {0} успешно создана."
 
-#: views.py:173
-#: views.py:280
+#: views.py:175 views.py:282
 msgid "Errors occured while saving the form: {0}."
 msgstr "Во время сохранения данных формы произошли следующие ошибки: {0}."
 
-#: views.py:224
-#: views.py:365
-#: views.py:603
-#: views.py:823
-#: views.py:934
-#: views.py:976
+#: views.py:226 views.py:395 views.py:633 views.py:865 views.py:976
+#: views.py:1018
 msgid "Form entry not found."
 msgstr "Форма не найдена"
 
-#: views.py:246
+#: views.py:248
 msgid "Elements ordering edited successfully."
 msgstr "Порядок элементов успешно сохранен."
 
-#: views.py:254
+#: views.py:256
 msgid "Errors occured while trying to change the elements ordering!"
 msgstr "При попытке сохранения порядка элементов произошла ошибка!"
 
-#: views.py:272
+#: views.py:274
 msgid "Form {0} was edited successfully."
 msgstr "Форма {0} успешно сохранена."
 
-#: views.py:437
+#: views.py:404 views.py:640
+#, fuzzy
+msgid "Plugin does not exist or you are not allowed to use this plugin!"
+msgstr "Плагин не найден или вам не разрешено его использовать!"
+
+#: views.py:467
 msgid "The form element plugin \"{0}\" was added successfully."
 msgstr "Элемент формы \"{0}\" добавлен успешно."
 
-#: views.py:485
+#: views.py:515
 msgid "Form element entry not found."
 msgstr "Элемент формы не найден."
 
-#: views.py:497
+#: views.py:527
 msgid "The form element plugin \"{0}\" is not configurable!"
 msgstr "Элемент формы \"{0}\" не настраивается!"
 
-#: views.py:529
+#: views.py:559
 msgid "The form element plugin \"{0}\" was edited successfully."
 msgstr "Элемент формы \"{0}\" успешно сохранен."
 
-#: views.py:579
+#: views.py:609
 msgid "The form element plugin \"{0}\" was deleted successfully."
 msgstr "Элемент формы \"{0}\" успешно удален."
 
-#: views.py:610
-msgid "Plugin does not exist or you are not allowed to  use this plugin!"
-msgstr "Плагин не найден или вам не разрешено его использовать!"
-
 #: views.py:655
+msgid "The {0} plugin can be used only once in a form."
+msgstr ""
+
+#: views.py:697
 msgid "The form handler plugin \"{0}\" was added successfully."
 msgstr "Обработчик формы \"{0}\" успешно добавлен."
 
-#: views.py:708
+#: views.py:750
 msgid "Form handler entry not found."
 msgstr "Обработчик формы не найден."
 
-#: views.py:721
+#: views.py:763
 msgid "The form handler plugin \"{0}\" is not configurable!"
 msgstr "Обработчик формы \"{0}\" не настраивается!"
 
-#: views.py:744
+#: views.py:786
 msgid "The form handler plugin \"{0}\" was edited successfully."
 msgstr "Обработчик формы \"{0}\" успешно изменен."
 
-#: views.py:793
+#: views.py:835
 msgid "The form handler plugin \"{0}\" was deleted successfully."
 msgstr "Oработчик формы \"{0}\" успешно удален."
 
-#: views.py:876
-#: integration/processors.py:156
+#: views.py:918 integration/processors.py:156
 msgid "Form {0} was submitted successfully."
 msgstr "Форма {0} успешно отправлена."
 
-#: views.py:982
+#: views.py:1024
 msgid "The form \"{0}\" was deleted successfully."
 msgstr "Форма \"{0}\" успешно удалена."
 
@@ -634,7 +618,7 @@ msgid "Fobi forms"
 msgstr "Формы fobi"
 
 #: contrib/apps/mezzanine_integration/templates/mezzanine_integration/admin/change_form.html:8
-#: contrib/plugins/form_handlers/db_store/fobi_form_handlers.py:74
+#: contrib/plugins/form_handlers/db_store/fobi_form_handlers.py:78
 #: contrib/plugins/form_handlers/db_store/templates/db_store/plugin_data_repr.html:4
 #: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/plugin_data_repr.html:4
 msgid "View entries"
@@ -730,8 +714,9 @@ msgstr "Галочка"
 #: contrib/plugins/form_elements/fields/date_drop_down/fobi_form_elements.py:25
 #: contrib/plugins/form_elements/fields/datetime/fobi_form_elements.py:24
 #: contrib/plugins/form_elements/fields/email/fobi_form_elements.py:25
-#: contrib/plugins/form_elements/fields/file/fobi_form_elements.py:24
+#: contrib/plugins/form_elements/fields/file/fobi_form_elements.py:26
 #: contrib/plugins/form_elements/fields/hidden/fobi_form_elements.py:25
+#: contrib/plugins/form_elements/fields/hidden_model_object/fobi_form_elements.py:26
 #: contrib/plugins/form_elements/fields/input/fobi_form_elements.py:23
 #: contrib/plugins/form_elements/fields/integer/fobi_form_elements.py:30
 #: contrib/plugins/form_elements/fields/password/fobi_form_elements.py:24
@@ -753,13 +738,14 @@ msgstr "Поля"
 #: contrib/plugins/form_elements/fields/email/forms.py:47
 #: contrib/plugins/form_elements/fields/file/forms.py:44
 #: contrib/plugins/form_elements/fields/hidden/forms.py:38
+#: contrib/plugins/form_elements/fields/hidden_model_object/forms.py:52
 #: contrib/plugins/form_elements/fields/input/forms.py:71
 #: contrib/plugins/form_elements/fields/integer/forms.py:45
 #: contrib/plugins/form_elements/fields/password/forms.py:45
-#: contrib/plugins/form_elements/fields/radio/forms.py:64
-#: contrib/plugins/form_elements/fields/select/forms.py:64
+#: contrib/plugins/form_elements/fields/radio/forms.py:65
+#: contrib/plugins/form_elements/fields/select/forms.py:65
 #: contrib/plugins/form_elements/fields/select_model_object/forms.py:52
-#: contrib/plugins/form_elements/fields/select_multiple/forms.py:64
+#: contrib/plugins/form_elements/fields/select_multiple/forms.py:65
 #: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:52
 #: contrib/plugins/form_elements/fields/text/forms.py:45
 #: contrib/plugins/form_elements/fields/textarea/forms.py:43
@@ -824,13 +810,24 @@ msgstr "Максимальная длина"
 msgid "Placeholder"
 msgstr "Метка-заполнитель "
 
-#: contrib/plugins/form_elements/fields/file/fobi_form_elements.py:23
+#: contrib/plugins/form_elements/fields/file/fobi_form_elements.py:25
 msgid "File"
 msgstr "Файл"
 
 #: contrib/plugins/form_elements/fields/hidden/fobi_form_elements.py:24
 msgid "Hidden"
 msgstr "Скрытое поле"
+
+#: contrib/plugins/form_elements/fields/hidden_model_object/fobi_form_elements.py:25
+#, fuzzy
+msgid "Hidden model object"
+msgstr "Выпадающий список объектов моделей"
+
+#: contrib/plugins/form_elements/fields/hidden_model_object/forms.py:41
+#: contrib/plugins/form_elements/fields/select_model_object/forms.py:41
+#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:41
+msgid "Model"
+msgstr "Модель"
 
 #: contrib/plugins/form_elements/fields/input/fobi_form_elements.py:22
 msgid "Input"
@@ -900,17 +897,44 @@ msgstr "Пароль"
 msgid "Radio"
 msgstr "Радио кнопка"
 
-#: contrib/plugins/form_elements/fields/radio/forms.py:38
-#: contrib/plugins/form_elements/fields/select/forms.py:38
-#: contrib/plugins/form_elements/fields/select_multiple/forms.py:38
+#: contrib/plugins/form_elements/fields/radio/forms.py:39
+#: contrib/plugins/form_elements/fields/select/forms.py:39
+#: contrib/plugins/form_elements/fields/select_multiple/forms.py:39
 msgid "Choices"
 msgstr "Варианы"
 
-#: contrib/plugins/form_elements/fields/radio/forms.py:40
-#: contrib/plugins/form_elements/fields/select/forms.py:40
-#: contrib/plugins/form_elements/fields/select_multiple/forms.py:40
-msgid "Enter single values/pairs per line. Example:<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;1<br/>&nbsp;&nbsp;&nbsp;&nbsp;2<br/>&nbsp;&nbsp;&nbsp;&nbsp;alpha, Alpha<br/>&nbsp;&nbsp;&nbsp;&nbsp;beta, Beta<br/>&nbsp;&nbsp;&nbsp;&nbsp;omega</code><br/>It finally transforms into the following HTML code:<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;select id=\"id_NAME_OF_THE_ELEMENT\" name=\"NAME_OF_THE_ELEMENT\"&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"1\"&gt;1&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"2\"&gt;2&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"alpha\"&gt;Alpha&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"beta\"&gt;Beta&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"omega\"&gt;omega&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/select&gt;</code>"
-msgstr "Введите либо отдельные, либо партные значения - по одному на строку. Пример: <code><br/>&nbsp;&nbsp;&nbsp;&nbsp;1<br/>&nbsp;&nbsp;&nbsp;&nbsp;2<br/>&nbsp;&nbsp;&nbsp;&nbsp;alpha, Alpha<br/>&nbsp;&nbsp;&nbsp;&nbsp;beta, Beta<br/>&nbsp;&nbsp;&nbsp;&nbsp;omega</code><br/>В результате получится следующий HTML код:<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;select id=\"id_NAME_OF_THE_ELEMENT\" name=\"NAME_OF_THE_ELEMENT\"&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"1\"&gt;1&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"2\"&gt;2&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"alpha\"&gt;Alpha&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"beta\"&gt;Beta&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"omega\"&gt;omega&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/select&gt;</code>"
+#: contrib/plugins/form_elements/fields/radio/forms.py:41
+#: contrib/plugins/form_elements/fields/select/forms.py:41
+#: contrib/plugins/form_elements/fields/select_multiple/forms.py:41
+msgid ""
+"Enter single values/pairs per line. Example:<code><br/>&nbsp;&nbsp;&nbsp;"
+"&nbsp;1<br/>&nbsp;&nbsp;&nbsp;&nbsp;2<br/>&nbsp;&nbsp;&nbsp;&nbsp;alpha, "
+"Alpha<br/>&nbsp;&nbsp;&nbsp;&nbsp;beta, Beta<br/>&nbsp;&nbsp;&nbsp;&nbsp;"
+"omega</code><br/>It finally transforms into the following HTML code:"
+"<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;select id=\"id_NAME_OF_THE_ELEMENT\" "
+"name=\"NAME_OF_THE_ELEMENT\"&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+"&nbsp;&nbsp;&lt;option value=\"1\"&gt;1&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;"
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"2\"&gt;2&lt;/option&gt;<br/"
+">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"alpha"
+"\"&gt;Alpha&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+"&nbsp;&lt;option value=\"beta\"&gt;Beta&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;"
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"omega\"&gt;omega&lt;/"
+"option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/select&gt;</code>"
+msgstr ""
+"Введите либо отдельные, либо партные значения - по одному на строку. Пример: "
+"<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;1<br/>&nbsp;&nbsp;&nbsp;&nbsp;2<br/>&nbsp;"
+"&nbsp;&nbsp;&nbsp;alpha, Alpha<br/>&nbsp;&nbsp;&nbsp;&nbsp;beta, Beta<br/"
+">&nbsp;&nbsp;&nbsp;&nbsp;omega</code><br/>В результате получится следующий "
+"HTML код:<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;select id="
+"\"id_NAME_OF_THE_ELEMENT\" name=\"NAME_OF_THE_ELEMENT\"&gt;<br/>&nbsp;&nbsp;"
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"1\"&gt;1&lt;/"
+"option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option "
+"value=\"2\"&gt;2&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+"&nbsp;&nbsp;&lt;option value=\"alpha\"&gt;Alpha&lt;/option&gt;<br/>&nbsp;"
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"beta\"&gt;"
+"Beta&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;"
+"option value=\"omega\"&gt;omega&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;"
+"&lt;/select&gt;</code>"
 
 #: contrib/plugins/form_elements/fields/select/fobi_form_elements.py:23
 msgid "Select"
@@ -919,11 +943,6 @@ msgstr "Выпадающий список"
 #: contrib/plugins/form_elements/fields/select_model_object/fobi_form_elements.py:25
 msgid "Select model object"
 msgstr "Выпадающий список объектов моделей"
-
-#: contrib/plugins/form_elements/fields/select_model_object/forms.py:41
-#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:41
-msgid "Model"
-msgstr "Модель"
 
 #: contrib/plugins/form_elements/fields/select_multiple/fobi_form_elements.py:25
 msgid "Select multiple"
@@ -990,11 +1009,11 @@ msgstr "Сохраненная запись формы"
 msgid "Export data to CSV/XLS"
 msgstr "Экспортировать данные в формат CSV/XLS"
 
-#: contrib/plugins/form_handlers/db_store/fobi_form_handlers.py:24
+#: contrib/plugins/form_handlers/db_store/fobi_form_handlers.py:27
 msgid "DB store"
 msgstr "Сохранить в базе"
 
-#: contrib/plugins/form_handlers/db_store/fobi_form_handlers.py:80
+#: contrib/plugins/form_handlers/db_store/fobi_form_handlers.py:84
 msgid "Export entries"
 msgstr "Экспортировать данные"
 
@@ -1307,7 +1326,8 @@ msgstr "Сохранить изменения"
 #: templates/fobi/generic/snippets/form_properties_snippet.html:4
 #: templates/fobi/generic/snippets/form_snippet.html:4
 msgid "Fields marked with <span class=\"required-field\">*</span> are required"
-msgstr "Поля помеченные <span class=\"required-field\">*</span> заполнять обязательно"
+msgstr ""
+"Поля помеченные <span class=\"required-field\">*</span> заполнять обязательно"
 
 #: contrib/themes/simple/fobi_themes.py:17
 msgid "Simple"
@@ -1398,7 +1418,9 @@ msgid "^forms/delete/(?P<form_entry_id>\\d+)/$"
 msgstr ""
 
 #: urls/edit.py:34
-msgid "^forms/elements/add/(?P<form_entry_id>\\d+)/(?P<form_element_plugin_uid>[\\w_\\-]+)/$"
+msgid ""
+"^forms/elements/add/(?P<form_entry_id>\\d+)/(?P<form_element_plugin_uid>[\\w_"
+"\\-]+)/$"
 msgstr ""
 
 #: urls/edit.py:39
@@ -1410,7 +1432,9 @@ msgid "^forms/elements/delete/(?P<form_element_entry_id>\\d+)/$"
 msgstr ""
 
 #: urls/edit.py:49
-msgid "^forms/handlers/add/(?P<form_entry_id>\\d+)/(?P<form_handler_plugin_uid>[\\w_\\-]+)/$"
+msgid ""
+"^forms/handlers/add/(?P<form_entry_id>\\d+)/(?P<form_handler_plugin_uid>[\\w_"
+"\\-]+)/$"
 msgstr ""
 
 #: urls/edit.py:54

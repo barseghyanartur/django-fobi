@@ -15,6 +15,48 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.4.28
+-------------------------------------
+yyyy-mm-dd (not yet released)
+
+- From now it's possible to have some control/configure the following plugins
+  for the submitted value:
+
+      * fobi.contrib.plugins.form_elements.fields.select_model_object
+      * fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects
+
+  The only thing needs to be done is to specify the appropriate variable
+  in the settings module of the project (settings.py).
+
+      * FOBI_FORM_ELEMENT_SELECT_MODEL_OBJECT_SUBMIT_VALUE_AS
+      * FOBI_FORM_ELEMENT_SELECT_MULTIPLE_MODEL_OBJECTS_SUBMIT_VALUE_AS
+
+  Allowed values are: "val", "repr", "mix".
+
+0.4.27
+-------------------------------------
+2015-03-12
+
+- Temporary allow the `db_store` plugin to be used multiple times per form,
+  until the bug with not being able to assign the `db_store` plugin to the form
+  due to incorrect handling of restrictions (`allow_multiple`) introduced in
+  previous version is properly fixed.
+- From now it's possible to have some control/configure the following plugins 
+  for the submitted value:
+
+      * fobi.contrib.plugins.form_elements.fields.radio
+      * fobi.contrib.plugins.form_elements.fields.select
+      * fobi.contrib.plugins.form_elements.fields.select_multiple
+
+  The only thing needs to be done is to specify the appropriate variable
+  in the settings module of the project (settings.py).
+
+      * FOBI_FORM_ELEMENT_RADIO_SUBMIT_VALUE_AS
+      * FOBI_FORM_ELEMENT_SELECT_SUBMIT_VALUE_AS
+      * FOBI_FORM_ELEMENT_SELECT_MULTIPLE_SUBMIT_VALUE_AS
+
+  Allowed values are: "val", "repr", "mix".
+
 0.4.26
 -------------------------------------
 2015-03-06

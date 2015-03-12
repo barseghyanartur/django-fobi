@@ -12,6 +12,22 @@ fobi.contrib.plugins.form_elements.fields.radio.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.fields.radio.conf module
+-----------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.radio.conf
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+fobi.contrib.plugins.form_elements.fields.radio.defaults module
+---------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.radio.defaults
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.radio.fobi_form_elements module
 -------------------------------------------------------------------------
 
@@ -24,6 +40,14 @@ fobi.contrib.plugins.form_elements.fields.radio.forms module
 ------------------------------------------------------------
 
 .. automodule:: fobi.contrib.plugins.form_elements.fields.radio.forms
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+fobi.contrib.plugins.form_elements.fields.radio.settings module
+---------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.radio.settings
     :members:
     :undoc-members:
     :show-inheritance:
