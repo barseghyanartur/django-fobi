@@ -1387,6 +1387,37 @@ should be constructing your URL to the form as follows:
 
 http://127.0.0.1:8001/fobi/view/test-form/?fobi_initial_data&email=test@example.com&age=19
 
+Submitted form element plugins values
+===============================================
+While some values of form element plugins are submitted as is, some others
+need additional processing. There are 3 behaviours taken into consideration:
+
+- "val": value is being sent as is.
+- "repr": (human readable) representatio of the value is used.
+- "mix": mix of value as is and human readable representation.
+
+The following plugins have been made configurable in such a way, that
+developers can choose the desired behaviour in projects' settings:
+
+- ``FOBI_FORM_ELEMENT_RADIO_SUBMIT_VALUE_AS``
+- ``FOBI_FORM_ELEMENT_SELECT_SUBMIT_VALUE_AS``
+- ``FOBI_FORM_ELEMENT_SELECT_MULTIPLE_SUBMIT_VALUE_AS``
+- ``FOBI_FORM_ELEMENT_SELECT_MODEL_OBJECT_SUBMIT_VALUE_AS``
+- ``FOBI_FORM_ELEMENT_SELECT_MULTIPLE_MODEL_OBJECTS_SUBMIT_VALUE_AS``
+
+See the README.rst in each of the following plugins for more information.
+
+- `Radio select (radio button)
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/radio/>`__
+- `Select (drop-down)
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select/>`__
+- `Select model object (drop-down)
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_model_object/>`__
+- `Select multiple (drop-down)
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple/>`__
+- `Select multiple model objects (drop-down)
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple_model_objects/>`__
+
 Available translations
 ===============================================
 English is the primary language.

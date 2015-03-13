@@ -17,8 +17,17 @@ are used for versioning (schema follows below):
 
 0.4.28
 -------------------------------------
-yyyy-mm-dd (not yet released)
+2015-03-13
 
+- Fix improperly picked configurations of the 
+  `fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects`
+  plugin.
+- Long identifiers of models can now be safely used in foreign key plugins
+  (such as
+  `fobi.contrib.plugins.form_elements.fields.select_model_object_plugin` and
+  `fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects`
+  plugins).
+- Fixed admin bulk change of the plugins.
 - From now it's possible to have some control/configure the following plugins
   for the submitted value:
 
@@ -37,10 +46,10 @@ yyyy-mm-dd (not yet released)
 -------------------------------------
 2015-03-12
 
-- Temporary allow the `db_store` plugin to be used multiple times per form,
-  until the bug with not being able to assign the `db_store` plugin to the form
-  due to incorrect handling of restrictions (`allow_multiple`) introduced in
-  previous version is properly fixed.
+- Temporary allow the `fobi.contrib.plugins.form_handlers.db_store` plugin to 
+  be used multiple times per form, until the bug with not being able to assign
+  the `db_store` plugin to the form due to incorrect handling of restrictions
+  (``allow_multiple``) introduced in previous version is properly fixed.
 - From now it's possible to have some control/configure the following plugins 
   for the submitted value:
 
@@ -61,7 +70,9 @@ yyyy-mm-dd (not yet released)
 -------------------------------------
 2015-03-06
 
-- Validate `email`, `integer` and `url` plugins initial values.
+- Validate `fobi.contrib.plugins.form_elements.fields.email`,
+`fobi.contrib.plugins.form_elements.fields.integer` and
+`fobi.contrib.plugins.form_elements.fields.url` plugins initial values.
 - Properly show field types "checkbox" and "radio" in the `input` plugin (as
   previously they showed up too large).
 - It's now possible to restrict multiple usage of form handler plugins via

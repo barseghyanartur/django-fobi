@@ -97,14 +97,14 @@ class BaseBulkChangePluginsForm(forms.ModelForm):
     """
     Bulk change plugins form.
 
-    - `selected_dashboard_plugins` (str): List of comma separated values to be
+    - `selected_plugins` (str): List of comma separated values to be
        changed.
     - `users_action` (int): For indicating wheither the users shall be appended
       to the dashbard plugins or replaced.
     - `groups_action` (int): For indicating wheither the groups shall be
       appended to the dashboard plugins or replaced.
     """
-    selected_dashboard_plugins = forms.CharField(
+    selected_plugins = forms.CharField(
         required=True, label=_("Selected plugins"),
         widget=forms.widgets.HiddenInput
         )

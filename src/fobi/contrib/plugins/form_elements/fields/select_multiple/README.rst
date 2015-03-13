@@ -27,6 +27,30 @@ Installation
 3. Assign appropriate permissions to the target users/groups to be using
    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
+4. By default, the submitted form value of `select_multiple`
+   elements is label (human readable representation of the value chosen).
+   However, that part of the bahaviour has been made configurable. You can
+   choose between the following options:
+
+   Consider the following list of (value, label) choices (the first element in
+   the tuple is value, the second element is label):
+
+   .. code-block:: python
+
+      [
+          ('alpha', 'Alpha'),
+          ('beta', 'Beta'),
+          ('gamma', 'Gamma'),
+      ]
+
+   - "val": `value` (example: "alpha").
+   - "repr" (default): `label` (example: "Alpha").
+   - "mix": `value (label)` (examle: "Alpha (alpha)").
+
+   Simply set the
+   ``FOBI_FORM_ELEMENT_SELECT_MULTIPLE_SUBMIT_VALUE_AS`` assign one of the
+   following values: "val", "repr" or "mix" to get the desired behaviour.
+
 Usage
 ===============================================
 You should be entering a single choice per line. Choice might

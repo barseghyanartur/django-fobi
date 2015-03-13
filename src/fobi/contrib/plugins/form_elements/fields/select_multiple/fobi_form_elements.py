@@ -74,14 +74,14 @@ class SelectMultipleInputPlugin(FormFieldPlugin):
                 # Handle the submitted form value
 
                 if value in choices:
-                    repr = safe_text(choices.get(value))
+                    label = safe_text(choices.get(value))
 
                     # Should be returned as repr
                     if SUBMIT_VALUE_AS == SUBMIT_VALUE_AS_REPR:
-                        value = repr
+                        value = label
                     # Should be returned as mix
                     else:
-                        value = "{0} ({1})".format(repr, value)
+                        value = "{0} ({1})".format(label, value)
 
                     ret_values.append(value)
 

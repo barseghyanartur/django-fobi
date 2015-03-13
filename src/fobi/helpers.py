@@ -15,7 +15,7 @@ __all__ = (
     'admin_change_url', 'uniquify_sequence', 'safe_text', 'combine_dicts',
     'update_plugin_data', 'get_select_field_choices',
     'validate_initial_for_choices', 'validate_initial_for_multiple_choices',
-    'validate_submit_value_as',
+    'validate_submit_value_as', 'get_app_label_and_model_name',
 )
 
 import os
@@ -264,6 +264,17 @@ def get_registered_models(ignore=[]):
         logger.debug(str(e))
 
     return registered_models
+
+def get_app_label_and_model_name(path):
+    """
+    Gets app_label and model_name from the path given.
+
+    :param str path: Dotted path to the model (without ".model", as stored
+        in the Django `ContentType` model.
+    :return tuple: app_label, model_name
+    """
+    parts = path.split('.')
+    return (''.join(parts[:-1]), parts[-1])
 
 # *****************************************************************************
 # *****************************************************************************

@@ -12,12 +12,17 @@ from django.forms.widgets import SelectMultiple
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
-from fobi.helpers import safe_text #, admin_change_url
+from fobi.constants import (
+    SUBMIT_VALUE_AS_VAL, SUBMIT_VALUE_AS_REPR
+    )
+from fobi.helpers import safe_text, get_app_label_and_model_name
 from fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects \
     import UID
 from fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects.forms import (
     SelectMultipleModelObjectsInputForm
     )
+from fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects.settings \
+    import SUBMIT_VALUE_AS
 
 theme = get_theme(request=None, as_instance=True)
 
@@ -34,7 +39,7 @@ class SelectMultipleModelObjectsInputPlugin(FormFieldPlugin):
         """
         Get form field instances.
         """
-        app_label, model_name = self.data.model.split('.')
+        app_label, model_name = get_app_label_and_model_name(self.data.model)
         model = models.get_model(app_label, model_name)
         queryset = model._default_manager.all()
 
@@ -57,20 +62,34 @@ class SelectMultipleModelObjectsInputPlugin(FormFieldPlugin):
         :param django.http.HttpRequest request:
         :param django.forms.Form form:
         """
+        # In case if we should submit value as is, we don't return anything.
+        # In other cases, we proceed further.
+
         # Get the object
         objs = form.cleaned_data.get(self.data.name, [])
 
         values = []
 
         for obj in objs:
-            if objs:
-                # Handle the submitted form value
-                value = '{0}.{1}.{2}.{3}'.format(
-                    obj._meta.app_label,
-                    obj._meta.module_name,
-                    obj.pk,
-                    safe_text(obj)
-                    )
+            if obj:
+                value = None
+                # Should be returned as repr
+                if SUBMIT_VALUE_AS == SUBMIT_VALUE_AS_REPR:
+                    value = safe_text(obj)
+                elif SUBMIT_VALUE_AS == SUBMIT_VALUE_AS_VAL:
+                    value = '{0}.{1}.{2}'.format(
+                        obj._meta.app_label,
+                        obj._meta.module_name,
+                        obj.pk
+                        )
+                else:
+                    # Handle the submitted form value
+                    value = '{0}.{1}.{2}.{3}'.format(
+                        obj._meta.app_label,
+                        obj._meta.module_name,
+                        obj.pk,
+                        safe_text(obj)
+                        )
                 values.append(value)
 
         # Overwrite ``cleaned_data`` of the ``form`` with object qualifier.

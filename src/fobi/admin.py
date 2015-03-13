@@ -6,6 +6,7 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 from django.contrib import admin
 from django.contrib.admin import helpers
 from django.utils.translation import ugettext_lazy as _
+from django.utils.html import strip_tags
 from django.contrib.admin.views.decorators import staff_member_required
 from django.utils.decorators import method_decorator
 from django.conf.urls import patterns, url
@@ -300,6 +301,7 @@ class BasePluginModelAdmin(admin.ModelAdmin):
                 data = request.POST,
                 files = request.FILES
                 )
+
             if form.is_valid():
                 ids = form.cleaned_data.pop('selected_plugins').split(',')
                 users = form.cleaned_data.pop('users')
@@ -334,6 +336,12 @@ class BasePluginModelAdmin(admin.ModelAdmin):
                 messages.info(
                     request,
                     _('{0} plugins were changed successfully.').format(len(ids))
+                    )
+                return redirect(changelist_named_url)
+            else:
+                messages.warning(
+                    request,
+                    _('Form contains errors: {}').format(strip_tags(form.errors))
                     )
                 return redirect(changelist_named_url)
         else:
