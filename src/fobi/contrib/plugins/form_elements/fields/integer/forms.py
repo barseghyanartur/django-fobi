@@ -1,6 +1,6 @@
 __title__ = 'fobi.contrib.plugins.form_elements.fields.integer.forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('IntegerInputForm',)
 
@@ -8,6 +8,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import BaseFormFieldPluginForm, get_theme
+from fobi.widgets import NumberInput
 
 theme = get_theme(request=None, as_instance=True)
 
@@ -44,17 +45,17 @@ class IntegerInputForm(forms.Form, BaseFormFieldPluginForm):
     initial = forms.IntegerField(
         label = _("Initial"),
         required = False,
-        widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
+        widget = NumberInput(attrs={'class': theme.form_element_html_class})
         )
     min_value = forms.IntegerField(
         label = _("Min value"),
         required=False,
-        widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
+        widget = NumberInput(attrs={'class': theme.form_element_html_class})
         )
     max_value = forms.IntegerField(
         label = _("Max value"),
         required=False,
-        widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
+        widget = NumberInput(attrs={'class': theme.form_element_html_class})
         )
     required = forms.BooleanField(
         label = _("Required"),

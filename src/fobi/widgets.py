@@ -1,12 +1,20 @@
 __title__ = 'fobi.widgets'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('NoneWidget', 'BooleanRadioSelect',)
+__all__ = ('NoneWidget', 'NumberInput', 'BooleanRadioSelect',)
 
 from django.forms.widgets import Widget, RadioSelect
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
+
+# Safe import of ``NumberInput``
+try:
+    from django.forms.widgets import NumberInput
+except ImportError:
+    from django.forms.widgets import TextInput
+    class NumberInput(TextInput):
+        input_type = 'number'
 
 class NoneWidget(Widget):
     """

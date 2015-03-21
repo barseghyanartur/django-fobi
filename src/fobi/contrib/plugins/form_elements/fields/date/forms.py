@@ -1,6 +1,8 @@
+from __future__ import absolute_import
+
 __title__ = 'fobi.contrib.plugins.form_elements.fields.date.forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('DateInputForm',)
 
@@ -39,10 +41,11 @@ class DateInputForm(forms.Form, BaseFormFieldPluginForm):
         required = False,
         widget = forms.widgets.Textarea(attrs={'class': theme.form_element_html_class})
         )
-    initial = forms.CharField(
+    initial = forms.DateField(
         label = _("Initial"),
         required = False,
-        widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
+        widget = forms.widgets.DateInput(attrs={'class': theme.form_element_html_class,
+                                                'type': 'date',})
         )
     input_formats = forms.CharField(
         label = _("Input  formats"),
@@ -54,3 +57,13 @@ class DateInputForm(forms.Form, BaseFormFieldPluginForm):
         required = False,
         widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_checkbox_html_class})
         )
+
+    def clean_initial(self):
+        """
+        Clean the initial value.
+        """
+        initial = self.cleaned_data['initial']
+        try:
+            return initial.strftime("%Y-%m-%d")
+        except Exception as err:
+            return initial

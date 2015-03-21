@@ -4,7 +4,8 @@ __copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('SelectMultipleModelObjectsInputPlugin',)
 
-import json
+#import json
+import simplejson as json
 
 from django.db import models
 from django.forms.models import ModelMultipleChoiceField

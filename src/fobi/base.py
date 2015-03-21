@@ -34,7 +34,8 @@ __all__ = (
 import logging
 import copy
 import uuid
-import json
+#import json
+import simplejson as json
 
 try:
     from collections import OrderedDict
@@ -1276,7 +1277,7 @@ class FormHandlerPlugin(BasePlugin):
         except Exception as e:
             if FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS:
                 raise e
-            logger.debug(
+            logger.error(
                 "Error in class {0}. Details: "
                 "{1}".format(self.__class__.__name__, str(e))
                 )

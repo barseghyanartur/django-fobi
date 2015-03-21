@@ -206,6 +206,24 @@ Must haves
   <https://github.com/divio/djangocms-admin-style>`_.
 + Clean up the Input plugin (some properties of it, like "type" aren't anyhow
   used, while they should be).
++ Add DecimalField.
++ Add FloatField.
++ Add SlugField.
++ NullBooleanField.
++ Add GenericIPAddressField.
++ Add TimeField.
++ See if it's reasonable to use Date and DateTime fields in initial for
+  date and datetime plugins.
++ Add RegEx field.
+- At the moment not all the plugin data is nicely serialized. Check which
+  plugin causes problems and make a fix.
+- Add CheckboxSelectMultiple field.
+- Show how to use (or make use) of `django-crispy-forms 
+  <https://github.com/maraujop/django-crispy-forms>`_ package in the
+  "simple"-like themes.  
+- Make a Django<->Fobi list of supported fields with proper `referencies
+  <https://docs.djangoproject.com/en/1.7/ref/forms/fields/>`_.
+- In the mail plugin, send files as attachments.
 - Translate German and Russian URLs.
 - See if it's possible to make the "simple" theme base template (for Django
   admin) as much generic so that change between versions doesn't cause

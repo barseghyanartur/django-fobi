@@ -5,17 +5,10 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('IntegerInputPlugin',)
 
 from django.forms.fields import IntegerField#, DecimalField, FloatField
-
-try:
-    from django.forms.widgets import NumberInput
-except ImportError:
-    from django.forms.widgets import TextInput
-    class NumberInput(TextInput):
-        input_type = 'number'
-
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
+from fobi.widgets import NumberInput
 from fobi.contrib.plugins.form_elements.fields.integer import UID
 from fobi.contrib.plugins.form_elements.fields.integer.forms import IntegerInputForm
 

@@ -4,7 +4,9 @@ __copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('SavedFormDataEntry',)
 
-import json
+#import json
+
+import simplejson as json
 
 from six import string_types
 

@@ -63,7 +63,7 @@ for static_dir in static_dirs:
 for locale_dir in locale_dirs:
     locale_files += [os.path.join(locale_dir, f) for f in os.listdir(locale_dir)]
 
-version = '0.4.28'
+version = '0.4.29'
 
 install_requires = [
     'Pillow>=2.0.0',
@@ -88,6 +88,11 @@ try:
     PY2 = sys.version_info[0] == 2
     LTE_PY26 = PY2 and (7 > sys.version_info[1])
     PY3 = sys.version_info[0] == 3
+    if PY3:
+        install_requires.append('simplejson>=3.0.0') # When using Python 3
+    else:
+        install_requires.append('simplejson>=2.1.0') # When using Python 2.*
+
     #if LTE_PY26:
     #    install_requires.append('ordereddict==1.1')
 except:

@@ -14,7 +14,7 @@ theme = get_theme(request=None, as_instance=True)
 
 class SelectMultipleInputForm(forms.Form, BaseFormFieldPluginForm):
     """
-    Form for ``TextInputPlugin``.
+    Form for ``SelectMultipleInputPlugin``.
     """
     plugin_data_fields = [
         ("label", ""),

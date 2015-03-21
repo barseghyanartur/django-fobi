@@ -1,3 +1,5 @@
+from __future__ import absolute_import
+
 __title__ = 'fobi.contrib.plugins.form_elements.fields.datetime.apps'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2014 Artur Barseghyan'

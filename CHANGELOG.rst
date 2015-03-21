@@ -15,6 +15,34 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.4.30
+-------------------------------------
+yyyy-mm-ddd (not yet released).
+
+- Checkbox select multiple field added
+  `fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple
+  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/checkbox_select_multiple>`_.
+
+0.4.29
+-------------------------------------
+2015-03-20
+
+- Decimal field added `fobi.contrib.plugins.form_elements.fields.decimal
+  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/decimal>`_.
+- Float field added `fobi.contrib.plugins.form_elements.fields.float
+  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/float>`_.
+- Slug field added `fobi.contrib.plugins.form_elements.fields.slug
+  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/slug>`_.
+- IP address field added `fobi.contrib.plugins.form_elements.fields.ip_address
+  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/ip_address>`_.
+- Null boolean field `fobi.contrib.plugins.form_elements.fields.null_boolean
+  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/null_boolean>`_.
+- Time field added `fobi.contrib.plugins.form_elements.fields.time
+  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/time>`_.
+- From now on using `simplejson` package in favour of `json`, since it can
+  handle decimal data.
+- Minor improvements of the date plugins (`datetime`, `date`).
+
 0.4.28
 -------------------------------------
 2015-03-13

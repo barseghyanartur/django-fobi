@@ -12,7 +12,9 @@ except ImportError:
     pass
 
 import csv
-import json
+
+#import json
+import simplejson as json
 
 from six import StringIO, BytesIO
 
