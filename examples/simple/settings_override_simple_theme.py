@@ -17,3 +17,8 @@ if DJANGO_GTE_1_7:
         pass
 
 FOBI_DEFAULT_THEME = 'simple'
+
+CRISPY_TEMPLATE_PACK = 'uni_form'
+
+# Make crispy-forms fail loud
+CRISPY_FAIL_SILENTLY = not DEBUG

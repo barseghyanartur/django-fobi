@@ -235,6 +235,15 @@ def clone_file(upload_dir, source_filename, relative_path=True):
     except Exception as e:
         logger.debug(str(e))
 
+def extract_file_path(name):
+    """
+    Extracts the file path.
+
+    :param string name:
+    :return string:
+    """
+    return os.path.join(settings.MEDIA_ROOT, name)
+
 # *****************************************************************************
 # *****************************************************************************
 # ****************************** Model helpers ********************************

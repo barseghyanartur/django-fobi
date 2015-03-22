@@ -31,6 +31,7 @@ __all__ = (
     'get_form_element_plugin_widget', 'get_form_handler_plugin_widget'
     )
 
+import traceback
 import logging
 import copy
 import uuid
@@ -1274,12 +1275,14 @@ class FormHandlerPlugin(BasePlugin):
 
         try:
             self.run(form_entry, request, form, form_element_entries)
-        except Exception as e:
+        except Exception as err:
             if FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS:
-                raise e
+                print traceback.format_exc()
+                raise err
             logger.error(
                 "Error in class {0}. Details: "
-                "{1}".format(self.__class__.__name__, str(e))
+                "{1}. Full trace: {2}".format(self.__class__.__name__, str(err),
+                                              traceback.format_exc())
                 )
 
     def run(self, form_entry, request, form, form_element_entries=None):

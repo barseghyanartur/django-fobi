@@ -1252,13 +1252,13 @@ Fields
 - `Date drop down (year, month, day selection drop-downs)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/date_drop_down/>`_
 - `Decimal
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/decimal>`_.
+  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/decimal>`_
 - `Email
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/email/>`_
 - `File
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/file/>`_
 - `Float
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/float>`_.
+  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/float>`_
 - `Hidden
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/hidden/>`_
 - `Password
@@ -1268,19 +1268,19 @@ Fields
 - `Input
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/input/>`_
 - `IP address
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/ip_address>`_.
+  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/ip_address>`_
 - `Integer
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/integer/>`_
 - `Null boolean
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/null_boolean>`_.
+  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/null_boolean>`_
 - `Select (drop-down)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select/>`_
 - `Select model object (drop-down)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_model_object/>`_
 - `Select multiple (drop-down)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple/>`_
-  - `Slug
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/slug>`_.
+- `Slug
+  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/slug>`_
 - `Select multiple model objects (drop-down)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple_model_objects/>`_
 - `Text
@@ -1288,7 +1288,7 @@ Fields
 - `Textarea
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/textarea/>`_
 - `Time
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/time>`_.
+  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/time>`_
 - `URL
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/url/>`_
 
@@ -1327,7 +1327,6 @@ Test plugins are made for dev purposes only.
 - `Dummy
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/test/dummy/>`_:
   Mainly for dev purposes.
-
 
 Bundled form handler plugins
 -----------------------------------------------
@@ -1429,6 +1428,54 @@ See the README.rst in each of the following plugins for more information.
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple/>`__
 - `Select multiple model objects (drop-down)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple_model_objects/>`__
+
+Rendering forms using third-party libraries
+===============================================
+You might want to render your forms using third-party libraries such as
+`django-crispy-forms <http://django-crispy-forms.readthedocs.org/>`_,
+`django-floppyforms <http://django-floppyforms.readthedocs.org/>`_ or 
+other alternatives.
+
+For that purpose you should override the "snippets/form_snippet.html" used
+by the theme you have chosen. Your template would then look similar to the
+one below (make sure to setup/configure your third-party form rendering library
+prior doing this).
+
+Using `django-crispy-forms`
+-----------------------------------------------
+
+.. code-block:: html
+
+    {% load crispy_forms_tags fobi_tags %}
+
+    {% block form_non_field_and_hidden_errors %}
+        {% get_form_hidden_fields_errors form as form_hidden_fields_errors %}
+        {% if form.non_field_errors or form_hidden_fields_errors %}
+            {% include fobi_theme.form_non_field_and_hidden_errors_snippet_template %}
+        {% endif %}
+    {% endblock form_non_field_and_hidden_errors %}
+
+    {% crispy form %}
+
+Using `django-floppyforms`
+-----------------------------------------------
+
+.. code-block:: html
+
+    {% load floppyforms fobi_tags %}
+
+    {% block form_non_field_and_hidden_errors %}
+        {% get_form_hidden_fields_errors form as form_hidden_fields_errors %}
+        {% if form.non_field_errors or form_hidden_fields_errors %}
+            {% include fobi_theme.form_non_field_and_hidden_errors_snippet_template %}
+        {% endif %}
+    {% endblock form_non_field_and_hidden_errors %}
+
+    {% form form %}
+
+See how it's done in the `override simple theme
+<https://github.com/barseghyanartur/django-fobi/tree/master/examples/simple/override_simple_theme/>`__
+example.
 
 Available translations
 ===============================================

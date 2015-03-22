@@ -3,6 +3,9 @@ import os
 PROJECT_DIR = lambda base : os.path.abspath(os.path.join(os.path.dirname(__file__), base).replace('\\','/'))
 gettext = lambda s: s
 
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
 DEBUG = False
 DEBUG_TOOLBAR = False
 TEMPLATE_DEBUG = DEBUG
@@ -513,7 +516,11 @@ if DEBUG and DEBUG_TOOLBAR:
 
 if DEBUG and TEMPLATE_DEBUG:
     try:
-        # Make sure the django-template-debug is installed
+        # Make sure the django-template-debug is installed. You can then
+        # in templates use it as follows:
+        # 
+        # {% load debug_tags %}
+        # {% set_trace %}
         import template_debug
         INSTALLED_APPS += (
             'template_debug',

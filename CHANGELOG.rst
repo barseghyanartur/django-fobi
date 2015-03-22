@@ -15,13 +15,22 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
-0.4.30
+0.4.31
 -------------------------------------
 yyyy-mm-ddd (not yet released).
 
 - Checkbox select multiple field added
   `fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple
   <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/checkbox_select_multiple>`_.
+
+0.4.30
+-------------------------------------
+2015-03-22
+
+- From now on submitted files are sent as attachments in the mail plugin.
+- Documentation improvements. Adding information of rendering forms using
+  `django-crispy-forms` or alternatives.
+- Minor fixes.
 
 0.4.29
 -------------------------------------

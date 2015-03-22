@@ -1,11 +1,11 @@
 __title__ = 'fobi.contrib.plugins.form_handlers.http_repost.fobi_form_handlers'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('HTTPRepostHandlerPlugin',)
 
-from os.path import join
 import logging
+import os
 
 import requests
 
@@ -14,21 +14,11 @@ from django.utils.translation import ugettext_lazy as _
 from django.template.loader import render_to_string
 
 from fobi.base import FormHandlerPlugin, form_handler_plugin_registry
+from fobi.helpers import extract_file_path
 from fobi.contrib.plugins.form_handlers.http_repost import UID
 from fobi.contrib.plugins.form_handlers.http_repost.forms import HTTPRepostForm
-#from fobi.contrib.plugins.form_handlers.http_repost.helpers \
-#    import extract_file_path
 
 logger = logging.getLogger(__name__)
-
-def extract_file_path(name):
-    """
-    Extracts the file path.
-
-    :param string name:
-    :return string:
-    """
-    return join(settings.MEDIA_ROOT, name)
 
 class HTTPRepostHandlerPlugin(FormHandlerPlugin):
     """
@@ -49,13 +39,26 @@ class HTTPRepostHandlerPlugin(FormHandlerPlugin):
         :param iterable form_element_entries: Iterable of
             ``fobi.models.FormElementEntry`` objects.
         """
+        files = self._prepare_files(request, form)
+
+        response = requests.post(self.data.endpoint_url, \
+                                 data=request.POST.dict(), files=files)
+
+    def _prepare_files(self, request, form):
+        """
+        Prepares the files for being attached to the mail message.
+        """
         files = {}
 
         def process_path(file_path, imf):
             if file_path:
-                if file_path.startswith(settings.MEDIA_URL):
-                    file_path = file_path[1:]
-                file_path = settings.PROJECT_DIR('../{0}'.format(file_path))
+                #if file_path.startswith(settings.MEDIA_URL):
+                #    file_path = file_path[1:]
+                #file_path = settings.PROJECT_DIR('../{0}'.format(file_path))
+                file_path = file_path.replace(
+                    settings.MEDIA_URL,
+                    os.path.join(settings.MEDIA_ROOT, '')
+                    )
                 files[field_name] = (imf.name, open(file_path, 'rb'))
 
         for field_name, imf in request.FILES.items():
@@ -66,8 +69,7 @@ class HTTPRepostHandlerPlugin(FormHandlerPlugin):
                 file_path = extract_file_path(imf.name)
                 process_path(file_path, imf)
 
-        response = requests.post(self.data.endpoint_url, \
-                                 data=request.POST, files=files)
+        return files
 
     def plugin_data_repr(self):
         """

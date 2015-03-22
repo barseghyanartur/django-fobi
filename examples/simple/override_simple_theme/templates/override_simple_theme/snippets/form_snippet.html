@@ -6,10 +6,12 @@
                         {% include fobi_theme.form_non_field_and_hidden_errors_snippet_template %}
                     {% endif %}
                 {% endblock form_non_field_and_hidden_errors %}
-                '''
+
+                {# Replace the rendering (commented out below) with django-crispy-forms #}
                 {% crispy form %}
-                '''
-                {#% comment %#}
+
+                {# Replaced by django-crispy-forms (above) #}
+                {% comment %}
                 {% for field in form %}
                 <div class="form-row{% if form.fields|length_is:'1' and form.errors %} errors{% endif %}{% for field in form %}{% if field.field.name %} field-{{ field.field.name }}{% endif %}{% endfor %}">
                     {% if form.fields|length_is:'1' %}{{ form.errors }}{% endif %}
@@ -33,4 +35,4 @@
 
                 </div>
                 {% endfor %}
-                {#% endcomment %#}
+                {% endcomment %}

@@ -215,15 +215,17 @@ Must haves
 + See if it's reasonable to use Date and DateTime fields in initial for
   date and datetime plugins.
 + Add RegEx field.
-- At the moment not all the plugin data is nicely serialized. Check which
++ At the moment not all the plugin data is nicely serialized. Check which
   plugin causes problems and make a fix.
-- Add CheckboxSelectMultiple field.
-- Show how to use (or make use) of `django-crispy-forms 
++ In the mail plugin, send files as attachments.
++ Show how to use (or make use) of `django-crispy-forms
   <https://github.com/maraujop/django-crispy-forms>`_ package in the
-  "simple"-like themes.  
-- Make a Django<->Fobi list of supported fields with proper `referencies
-  <https://docs.djangoproject.com/en/1.7/ref/forms/fields/>`_.
-- In the mail plugin, send files as attachments.
+  "simple"-like themes.
+- Make it possible to provide more than one `to` email address in the mail
+  form handler plugin.
+- Since tests have been made quite general, create them for all contrib
+  form elements and handlers (not yet for things like CAPTCHA).
+- Add CheckboxSelectMultiple field.
 - Translate German and Russian URLs.
 - See if it's possible to make the "simple" theme base template (for Django
   admin) as much generic so that change between versions doesn't cause
@@ -357,6 +359,8 @@ Could haves
 - In the cosmetic image plugin, render the sized image.
 - Add Armenian translation.
 - Add option to redirect to another page.
+- Make a Django<->Fobi list of supported fields with proper `referencies
+  <https://docs.djangoproject.com/en/1.7/ref/forms/fields/>`_.
 
 Would haves
 ===============================================
