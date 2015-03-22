@@ -25,7 +25,7 @@ yyyy-mm-ddd (not yet released).
 
 0.4.30
 -------------------------------------
-2015-03-22
+2015-03-23
 
 - From now on submitted files are sent as attachments in the mail plugin.
 - Documentation improvements. Adding information of rendering forms using
