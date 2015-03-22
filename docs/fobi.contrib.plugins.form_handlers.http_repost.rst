@@ -28,14 +28,6 @@ fobi.contrib.plugins.form_handlers.http_repost.forms module
     :undoc-members:
     :show-inheritance:
 
-fobi.contrib.plugins.form_handlers.http_repost.helpers module
--------------------------------------------------------------
-
-.. automodule:: fobi.contrib.plugins.form_handlers.http_repost.helpers
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 
 Module contents
 ---------------
