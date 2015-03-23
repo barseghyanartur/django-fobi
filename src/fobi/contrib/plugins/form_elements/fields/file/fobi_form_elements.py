@@ -15,7 +15,9 @@ from fobi.base import FormFieldPlugin, form_element_plugin_registry
 from fobi.helpers import handle_uploaded_file
 from fobi.contrib.plugins.form_elements.fields.file import UID
 from fobi.contrib.plugins.form_elements.fields.file.forms import FileInputForm
-from fobi.contrib.plugins.form_elements.fields.file.settings import FILES_UPLOAD_DIR
+from fobi.contrib.plugins.form_elements.fields.file.settings import (
+    FILES_UPLOAD_DIR
+    )
 
 class FileInputPlugin(FormFieldPlugin):
     """

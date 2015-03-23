@@ -15,13 +15,20 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
-0.4.31
+0.4.32
 -------------------------------------
 yyyy-mm-ddd (not yet released).
 
 - Checkbox select multiple field added
   `fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple
   <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/checkbox_select_multiple>`_.
+
+0.4.31
+-------------------------------------
+2015-03-23
+
+- When path of the uploaded file (plugins) doesn't yet exist, create it,
+  instaid of failing.
 
 0.4.30
 -------------------------------------

@@ -177,6 +177,10 @@ def handle_uploaded_file(upload_dir, image_file):
     """
     upload_dir_absolute_path = os.path.join(settings.MEDIA_ROOT, upload_dir)
 
+    # Create path if doesn't exist yet
+    if not os.path.exists(upload_dir_absolute_path):
+        os.makedirs(upload_dir_absolute_path)
+
     if isinstance(image_file, File):
         destination_path = ensure_unique_filename(
             os.path.join(upload_dir_absolute_path, image_file.name)
