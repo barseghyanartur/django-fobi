@@ -1,6 +1,6 @@
 __title__ = 'fobi.contrib.plugins.form_handlers.http_repost.fobi_form_handlers'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
+__copyright__ = '2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('HTTPRepostHandlerPlugin',)
 
@@ -41,8 +41,18 @@ class HTTPRepostHandlerPlugin(FormHandlerPlugin):
         """
         files = self._prepare_files(request, form)
 
-        response = requests.post(self.data.endpoint_url, \
-                                 data=request.POST.dict(), files=files)
+        try:
+            response = requests.post(
+                self.data.endpoint_url,
+                data = request.POST.dict(),
+                files = files,
+                allow_redirects = True,
+                timeout = 5
+                )
+            return (True, response)
+        except Exception as err:
+            logger.debug(str(err))
+            return (False, err)
 
     def _prepare_files(self, request, form):
         """

@@ -1,12 +1,13 @@
 __title__ = 'fobi.exceptions'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = '2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'BaseException', 'ImproperlyConfigured', 'InvalidRegistryItemType', 
     'DoesNotExist', 'ThemeDoesNotExist', 'PluginDoesNotExist',
     'FormElementPluginDoesNotExist', 'FormHandlerPluginDoesNotExist',
-    'NoDefaultThemeSet',
+    'NoDefaultThemeSet', 'FormPluginError', 'FormElementPluginError',
+    'FormHandlerPluginError', 'FormCallbackError',
 )
 
 class BaseException(Exception):
@@ -60,4 +61,24 @@ class FormHandlerPluginDoesNotExist(PluginDoesNotExist):
 class NoDefaultThemeSet(ImproperlyConfigured):
     """
     Raised when no active theme is chosen.
+    """
+
+class FormPluginError(BaseException):
+    """
+    Base error for form elements and handers.
+    """
+
+class FormElementPluginError(FormPluginError):
+    """
+    Raised when form element plugin error occurs.
+    """
+
+class FormHandlerPluginError(FormPluginError):
+    """
+    Raised when form handler plugin error occurs.
+    """
+
+class FormCallbackError(FormPluginError):
+    """
+    Raised when form callback error occurs.
     """

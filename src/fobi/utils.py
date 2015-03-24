@@ -1,6 +1,11 @@
+"""
+Another helper module. This module can NOT be safely imported from any fobi
+(sub)module - thus should be imported carefully.
+"""
+
 __title__ = 'fobi.utils'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = '2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'get_allowed_plugin_uids', 'get_user_plugins', 'get_user_plugin_uids',

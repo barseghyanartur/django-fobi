@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-10 13:19+0100\n"
+"POT-Creation-Date: 2015-03-23 13:39+0100\n"
 "PO-Revision-Date: 2015-02-27 23:52+0100\n"
 "Last-Translator: Artur Barseghyan <artur.barseghyan@gmail.com>\n"
 "Language-Team: Maximilian Kindshofer <maximilian@kindshofer.net>\n"
@@ -18,43 +18,43 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Poedit 1.7.3\n"
 
-#: settings.py:43
+#: settings.py:46
 msgid "English"
 msgstr ""
 
-#: settings.py:44
+#: settings.py:47
 msgid "Armenian"
 msgstr ""
 
-#: settings.py:45
+#: settings.py:48
 msgid "Dutch"
 msgstr ""
 
-#: settings.py:46
+#: settings.py:49
 msgid "Russian"
 msgstr ""
 
-#: settings.py:47
+#: settings.py:50
 msgid "German"
 msgstr ""
 
-#: settings.py:307 settings.py:321
+#: settings.py:318 settings.py:332
 msgid "Custom bootstrap3 embed form view template"
 msgstr ""
 
-#: settings.py:313 settings.py:327
+#: settings.py:324 settings.py:338
 msgid "Custom bootstrap3 embed form entry submitted template"
 msgstr ""
 
-#: settings.py:343 settings.py:357
+#: settings.py:354 settings.py:368
 msgid "Custom foundation5 embed form view template"
 msgstr ""
 
-#: settings.py:349 settings.py:363
+#: settings.py:360 settings.py:374
 msgid "Custom foundation5 embed form entry submitted template"
 msgstr ""
 
-#: settings.py:382
+#: settings.py:393
 msgid "&copy; django-fobi example site 2014"
 msgstr ""
 
@@ -103,37 +103,81 @@ msgstr "Aktionen"
 msgid "Dashboard"
 msgstr "Dashboard"
 
-#: override_select_model_object_plugin/fobi_form_elements.py:19
-msgid "Select model object"
-msgstr "Modelobjekt Auswahl"
+#: override_radio_plugin/fobi_form_elements.py:20
+msgid "Radio"
+msgstr "Radio-Button"
 
+#: override_radio_plugin/fobi_form_elements.py:21
 #: override_select_model_object_plugin/fobi_form_elements.py:20
 msgid "Fields"
 msgstr "Felder"
 
-#: override_select_model_object_plugin/forms.py:25
+#: override_radio_plugin/forms.py:25
+#: override_select_model_object_plugin/forms.py:27
 msgid "Label"
 msgstr "Label"
 
-#: override_select_model_object_plugin/forms.py:30
+#: override_radio_plugin/forms.py:30
+#: override_select_model_object_plugin/forms.py:32
 msgid "Name"
 msgstr "Name"
 
-#: override_select_model_object_plugin/forms.py:35
-msgid "Model"
-msgstr "Model"
+#: override_radio_plugin/forms.py:35
+msgid "Choices"
+msgstr "Auswahl"
 
-#: override_select_model_object_plugin/forms.py:41
+#: override_radio_plugin/forms.py:37
+msgid ""
+"Enter single values/pairs per line. Example:<code><br/>&nbsp;&nbsp;&nbsp;"
+"&nbsp;1<br/>&nbsp;&nbsp;&nbsp;&nbsp;2<br/>&nbsp;&nbsp;&nbsp;&nbsp;alpha, "
+"Alpha<br/>&nbsp;&nbsp;&nbsp;&nbsp;beta, Beta<br/>&nbsp;&nbsp;&nbsp;&nbsp;"
+"omega</code><br/>It finally transforms into the following HTML code:"
+"<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;select id=\"id_NAME_OF_THE_ELEMENT\" "
+"name=\"NAME_OF_THE_ELEMENT\"&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+"&nbsp;&nbsp;&lt;option value=\"1\"&gt;1&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;"
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"2\"&gt;2&lt;/option&gt;<br/"
+">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"alpha"
+"\"&gt;Alpha&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+"&nbsp;&lt;option value=\"beta\"&gt;Beta&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;"
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"omega\"&gt;omega&lt;/"
+"option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/select&gt;</code>"
+msgstr ""
+"Jeweils ein Wert/Paar pro Zeile. Zum Beispiel:<code><br/>&nbsp;&nbsp;&nbsp;"
+"&nbsp;1<br/>&nbsp;&nbsp;&nbsp;&nbsp;2<br/>&nbsp;&nbsp;&nbsp;&nbsp;alpha, "
+"Alpha<br/>&nbsp;&nbsp;&nbsp;&nbsp;beta, Beta<br/>&nbsp;&nbsp;&nbsp;&nbsp;"
+"omega</code><br/>It finally transforms into the following HTML code:"
+"<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;select id=\"id_NAME_OF_THE_ELEMENT\" "
+"name=\"NAME_OF_THE_ELEMENT\"&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+"&nbsp;&nbsp;&lt;option value=\"1\"&gt;1&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;"
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"2\"&gt;2&lt;/option&gt;<br/"
+">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"alpha"
+"\"&gt;Alpha&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+"&nbsp;&lt;option value=\"beta\"&gt;Beta&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;"
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"omega\"&gt;omega&lt;/"
+"option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/select&gt;</code>"
+
+#: override_radio_plugin/forms.py:56
+#: override_select_model_object_plugin/forms.py:43
 msgid "Help text"
 msgstr "Hilfetext"
 
-#: override_select_model_object_plugin/forms.py:46
+#: override_radio_plugin/forms.py:61
+#: override_select_model_object_plugin/forms.py:48
 msgid "Initial"
 msgstr "Vorausgefüllt"
 
-#: override_select_model_object_plugin/forms.py:51
+#: override_radio_plugin/forms.py:66
+#: override_select_model_object_plugin/forms.py:53
 msgid "Required"
 msgstr "Pflichtfeld"
+
+#: override_select_model_object_plugin/fobi_form_elements.py:19
+msgid "Select model object"
+msgstr "Modelobjekt Auswahl"
+
+#: override_select_model_object_plugin/forms.py:37
+msgid "Model"
+msgstr "Model"
 
 #: page/models.py:14
 msgid "Base template"
@@ -977,43 +1021,6 @@ msgstr ""
 
 #~ msgid "Max value"
 #~ msgstr "maxima Wert"
-
-#~ msgid "Radio"
-#~ msgstr "Radio-Button"
-
-#~ msgid "Choices"
-#~ msgstr "Auswahl"
-
-#~ msgid ""
-#~ "Enter single values/pairs per line. Example:<code><br/>&nbsp;&nbsp;&nbsp;"
-#~ "&nbsp;1<br/>&nbsp;&nbsp;&nbsp;&nbsp;2<br/>&nbsp;&nbsp;&nbsp;&nbsp;alpha, "
-#~ "Alpha<br/>&nbsp;&nbsp;&nbsp;&nbsp;beta, Beta<br/>&nbsp;&nbsp;&nbsp;&nbsp;"
-#~ "omega</code><br/>It finally transforms into the following HTML code:"
-#~ "<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;select id=\"id_NAME_OF_THE_ELEMENT"
-#~ "\" name=\"NAME_OF_THE_ELEMENT\"&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-#~ "&nbsp;&nbsp;&nbsp;&lt;option value=\"1\"&gt;1&lt;/option&gt;<br/>&nbsp;"
-#~ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"2\"&gt;2&lt;/"
-#~ "option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option "
-#~ "value=\"alpha\"&gt;Alpha&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-#~ "&nbsp;&nbsp;&nbsp;&lt;option value=\"beta\"&gt;Beta&lt;/option&gt;<br/"
-#~ ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"omega"
-#~ "\"&gt;omega&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/select&gt;</"
-#~ "code>"
-#~ msgstr ""
-#~ "Jeweils ein Wert/Paar pro Zeile. Zum Beispiel:<code><br/>&nbsp;&nbsp;"
-#~ "&nbsp;&nbsp;1<br/>&nbsp;&nbsp;&nbsp;&nbsp;2<br/>&nbsp;&nbsp;&nbsp;&nbsp;"
-#~ "alpha, Alpha<br/>&nbsp;&nbsp;&nbsp;&nbsp;beta, Beta<br/>&nbsp;&nbsp;&nbsp;"
-#~ "&nbsp;omega</code><br/>It finally transforms into the following HTML code:"
-#~ "<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;select id=\"id_NAME_OF_THE_ELEMENT"
-#~ "\" name=\"NAME_OF_THE_ELEMENT\"&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-#~ "&nbsp;&nbsp;&nbsp;&lt;option value=\"1\"&gt;1&lt;/option&gt;<br/>&nbsp;"
-#~ "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"2\"&gt;2&lt;/"
-#~ "option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option "
-#~ "value=\"alpha\"&gt;Alpha&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-#~ "&nbsp;&nbsp;&nbsp;&lt;option value=\"beta\"&gt;Beta&lt;/option&gt;<br/"
-#~ ">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"omega"
-#~ "\"&gt;omega&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/select&gt;</"
-#~ "code>"
 
 #~ msgid "Select"
 #~ msgstr "Auswahl"

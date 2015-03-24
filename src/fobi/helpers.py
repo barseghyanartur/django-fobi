@@ -392,7 +392,6 @@ def validate_initial_for_choices(plugin_form, field_name_choices='choices', \
 
     return plugin_form.cleaned_data[field_name_initial]
 
-
 def validate_initial_for_multiple_choices(plugin_form, \
                                           field_name_choices='choices', \
                                           field_name_initial='initial'):

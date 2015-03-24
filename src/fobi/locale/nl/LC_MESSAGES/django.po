@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-10 13:18+0100\n"
-"PO-Revision-Date: 2015-02-27 23:51+0100\n"
+"POT-Creation-Date: 2015-03-23 13:39+0100\n"
+"PO-Revision-Date: 2015-03-24 23:52+0100\n"
 "Last-Translator: Artur Barseghyan <artur.barseghyan@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: Dutch\n"
@@ -17,11 +17,15 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: admin.py:124 admin.py:193 admin.py:226 models.py:316 models.py:344
+#: admin.py:125
+#: admin.py:194
+#: admin.py:227
+#: models.py:316
+#: models.py:344
 #: contrib/apps/djangocms_integration/models.py:26
 #: contrib/apps/feincms_integration/widgets.py:30
 #: contrib/apps/mezzanine_integration/models.py:24
-#: contrib/plugins/form_handlers/db_store/models.py:47
+#: contrib/plugins/form_handlers/db_store/models.py:49
 #: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:39
 #: contrib/themes/foundation5/templates/foundation5/dashboard.html:29
 #: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/view_saved_form_data_entries.html:40
@@ -29,64 +33,88 @@ msgstr ""
 msgid "Form"
 msgstr "Formulier"
 
-#: admin.py:127
+#: admin.py:128
 msgid "Custom"
 msgstr "Custom"
 
-#: admin.py:135 models.py:78 models.py:216 models.py:264
-#: contrib/plugins/form_handlers/db_store/models.py:49
+#: admin.py:136
+#: models.py:78
+#: models.py:216
+#: models.py:264
+#: contrib/plugins/form_handlers/db_store/models.py:51
 msgid "User"
 msgstr "Gebruiker"
 
-#: admin.py:139
+#: admin.py:140
 msgid "Additional"
 msgstr "Extra"
 
-#: admin.py:147 admin.py:171 admin.py:199 admin.py:266
+#: admin.py:148
+#: admin.py:172
+#: admin.py:200
+#: admin.py:267
 #: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/base_edit.html:84
 #: contrib/themes/simple/templates/simple/base_edit.html:76
 msgid "Fobi"
 msgstr ""
 
-#: admin.py:190 admin.py:223 models.py:121
+#: admin.py:191
+#: admin.py:224
+#: models.py:121
 msgid "Plugin"
 msgstr "Plugin"
 
-#: admin.py:232 models.py:472
+#: admin.py:233
+#: models.py:472
 msgid "Form handler entry"
 msgstr "Formulier afhandelaar"
 
-#: admin.py:336
+#: admin.py:338
 msgid "{0} plugins were changed successfully."
 msgstr "{0} plugins zijn succesvol bijgewerkt."
 
-#: admin.py:342
+#: admin.py:344
+msgid "Form contains errors: {}"
+msgstr "Formulier bevat fouten: {}"
+
+#: admin.py:350
 msgid "POST required when changing in bulk!"
 msgstr "POST vereist bij het veranderen in bulk!"
 
-#: base.py:108
+#: base.py:110
 msgid "Build your forms"
 msgstr "Bouw je formulieren"
 
-#: base.py:521 models.py:217 models.py:265 models.py:318
+#: base.py:523
+#: models.py:217
+#: models.py:265
+#: models.py:318
 #: contrib/plugins/form_elements/fields/boolean/forms.py:32
-#: contrib/plugins/form_elements/fields/date/forms.py:33
+#: contrib/plugins/form_elements/fields/checkbox_select_multiple/forms.py:34
+#: contrib/plugins/form_elements/fields/date/forms.py:35
 #: contrib/plugins/form_elements/fields/date_drop_down/forms.py:42
-#: contrib/plugins/form_elements/fields/datetime/forms.py:33
+#: contrib/plugins/form_elements/fields/datetime/forms.py:35
+#: contrib/plugins/form_elements/fields/decimal/forms.py:40
 #: contrib/plugins/form_elements/fields/email/forms.py:37
 #: contrib/plugins/form_elements/fields/file/forms.py:34
+#: contrib/plugins/form_elements/fields/float/forms.py:36
 #: contrib/plugins/form_elements/fields/hidden/forms.py:33
 #: contrib/plugins/form_elements/fields/hidden_model_object/forms.py:36
 #: contrib/plugins/form_elements/fields/input/forms.py:61
-#: contrib/plugins/form_elements/fields/integer/forms.py:35
+#: contrib/plugins/form_elements/fields/integer/forms.py:36
+#: contrib/plugins/form_elements/fields/ip_address/forms.py:38
+#: contrib/plugins/form_elements/fields/null_boolean/forms.py:32
 #: contrib/plugins/form_elements/fields/password/forms.py:35
 #: contrib/plugins/form_elements/fields/radio/forms.py:34
+#: contrib/plugins/form_elements/fields/regex/forms.py:38
 #: contrib/plugins/form_elements/fields/select/forms.py:34
 #: contrib/plugins/form_elements/fields/select_model_object/forms.py:36
 #: contrib/plugins/form_elements/fields/select_multiple/forms.py:34
 #: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:36
+#: contrib/plugins/form_elements/fields/slug/forms.py:35
 #: contrib/plugins/form_elements/fields/text/forms.py:35
 #: contrib/plugins/form_elements/fields/textarea/forms.py:33
+#: contrib/plugins/form_elements/fields/time/forms.py:35
 #: contrib/plugins/form_elements/fields/url/forms.py:35
 #: contrib/plugins/form_elements/security/captcha/forms.py:35
 #: contrib/plugins/form_elements/security/honeypot/forms.py:35
@@ -96,24 +124,33 @@ msgstr "Bouw je formulieren"
 msgid "Name"
 msgstr "Naam"
 
-#: base.py:526 contrib/plugins/form_elements/fields/boolean/forms.py:27
-#: contrib/plugins/form_elements/fields/date/forms.py:28
+#: base.py:528
+#: contrib/plugins/form_elements/fields/boolean/forms.py:27
+#: contrib/plugins/form_elements/fields/checkbox_select_multiple/forms.py:29
+#: contrib/plugins/form_elements/fields/date/forms.py:30
 #: contrib/plugins/form_elements/fields/date_drop_down/forms.py:37
-#: contrib/plugins/form_elements/fields/datetime/forms.py:28
+#: contrib/plugins/form_elements/fields/datetime/forms.py:30
+#: contrib/plugins/form_elements/fields/decimal/forms.py:35
 #: contrib/plugins/form_elements/fields/email/forms.py:32
 #: contrib/plugins/form_elements/fields/file/forms.py:29
+#: contrib/plugins/form_elements/fields/float/forms.py:31
 #: contrib/plugins/form_elements/fields/hidden/forms.py:28
 #: contrib/plugins/form_elements/fields/hidden_model_object/forms.py:31
 #: contrib/plugins/form_elements/fields/input/forms.py:56
-#: contrib/plugins/form_elements/fields/integer/forms.py:30
+#: contrib/plugins/form_elements/fields/integer/forms.py:31
+#: contrib/plugins/form_elements/fields/ip_address/forms.py:33
+#: contrib/plugins/form_elements/fields/null_boolean/forms.py:27
 #: contrib/plugins/form_elements/fields/password/forms.py:30
 #: contrib/plugins/form_elements/fields/radio/forms.py:29
+#: contrib/plugins/form_elements/fields/regex/forms.py:33
 #: contrib/plugins/form_elements/fields/select/forms.py:29
 #: contrib/plugins/form_elements/fields/select_model_object/forms.py:31
 #: contrib/plugins/form_elements/fields/select_multiple/forms.py:29
 #: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:31
+#: contrib/plugins/form_elements/fields/slug/forms.py:30
 #: contrib/plugins/form_elements/fields/text/forms.py:30
 #: contrib/plugins/form_elements/fields/textarea/forms.py:28
+#: contrib/plugins/form_elements/fields/time/forms.py:30
 #: contrib/plugins/form_elements/fields/url/forms.py:30
 #: contrib/plugins/form_elements/security/captcha/forms.py:30
 #: contrib/plugins/form_elements/security/honeypot/forms.py:30
@@ -121,47 +158,65 @@ msgstr "Naam"
 msgid "Label"
 msgstr "Label"
 
-#: base.py:531 contrib/plugins/form_elements/fields/boolean/forms.py:37
-#: contrib/plugins/form_elements/fields/date/forms.py:38
+#: base.py:533
+#: contrib/plugins/form_elements/fields/boolean/forms.py:37
+#: contrib/plugins/form_elements/fields/checkbox_select_multiple/forms.py:60
+#: contrib/plugins/form_elements/fields/date/forms.py:40
 #: contrib/plugins/form_elements/fields/date_drop_down/forms.py:47
-#: contrib/plugins/form_elements/fields/datetime/forms.py:38
+#: contrib/plugins/form_elements/fields/datetime/forms.py:40
+#: contrib/plugins/form_elements/fields/decimal/forms.py:45
 #: contrib/plugins/form_elements/fields/email/forms.py:42
 #: contrib/plugins/form_elements/fields/file/forms.py:39
+#: contrib/plugins/form_elements/fields/float/forms.py:41
 #: contrib/plugins/form_elements/fields/hidden_model_object/forms.py:47
 #: contrib/plugins/form_elements/fields/input/forms.py:66
-#: contrib/plugins/form_elements/fields/integer/forms.py:40
+#: contrib/plugins/form_elements/fields/integer/forms.py:41
+#: contrib/plugins/form_elements/fields/ip_address/forms.py:43
+#: contrib/plugins/form_elements/fields/null_boolean/forms.py:37
 #: contrib/plugins/form_elements/fields/password/forms.py:40
 #: contrib/plugins/form_elements/fields/radio/forms.py:60
+#: contrib/plugins/form_elements/fields/regex/forms.py:43
 #: contrib/plugins/form_elements/fields/select/forms.py:60
 #: contrib/plugins/form_elements/fields/select_model_object/forms.py:47
 #: contrib/plugins/form_elements/fields/select_multiple/forms.py:60
 #: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:47
+#: contrib/plugins/form_elements/fields/slug/forms.py:40
 #: contrib/plugins/form_elements/fields/text/forms.py:40
 #: contrib/plugins/form_elements/fields/textarea/forms.py:38
+#: contrib/plugins/form_elements/fields/time/forms.py:40
 #: contrib/plugins/form_elements/fields/url/forms.py:40
 #: contrib/plugins/form_elements/security/captcha/forms.py:40
 #: contrib/plugins/form_elements/security/recaptcha/forms.py:40
 msgid "Help text"
 msgstr "Helptekst"
 
-#: base.py:536 contrib/plugins/form_elements/fields/boolean/forms.py:47
-#: contrib/plugins/form_elements/fields/date/forms.py:53
+#: base.py:538
+#: contrib/plugins/form_elements/fields/boolean/forms.py:47
+#: contrib/plugins/form_elements/fields/checkbox_select_multiple/forms.py:70
+#: contrib/plugins/form_elements/fields/date/forms.py:56
 #: contrib/plugins/form_elements/fields/date_drop_down/forms.py:72
-#: contrib/plugins/form_elements/fields/datetime/forms.py:53
+#: contrib/plugins/form_elements/fields/datetime/forms.py:56
+#: contrib/plugins/form_elements/fields/decimal/forms.py:75
 #: contrib/plugins/form_elements/fields/email/forms.py:58
 #: contrib/plugins/form_elements/fields/file/forms.py:55
+#: contrib/plugins/form_elements/fields/float/forms.py:61
 #: contrib/plugins/form_elements/fields/hidden/forms.py:49
 #: contrib/plugins/form_elements/fields/hidden_model_object/forms.py:57
 #: contrib/plugins/form_elements/fields/input/forms.py:82
-#: contrib/plugins/form_elements/fields/integer/forms.py:60
+#: contrib/plugins/form_elements/fields/integer/forms.py:61
+#: contrib/plugins/form_elements/fields/ip_address/forms.py:70
+#: contrib/plugins/form_elements/fields/null_boolean/forms.py:47
 #: contrib/plugins/form_elements/fields/password/forms.py:56
 #: contrib/plugins/form_elements/fields/radio/forms.py:70
+#: contrib/plugins/form_elements/fields/regex/forms.py:65
 #: contrib/plugins/form_elements/fields/select/forms.py:70
 #: contrib/plugins/form_elements/fields/select_model_object/forms.py:57
 #: contrib/plugins/form_elements/fields/select_multiple/forms.py:70
 #: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:57
+#: contrib/plugins/form_elements/fields/slug/forms.py:56
 #: contrib/plugins/form_elements/fields/text/forms.py:56
 #: contrib/plugins/form_elements/fields/textarea/forms.py:48
+#: contrib/plugins/form_elements/fields/time/forms.py:56
 #: contrib/plugins/form_elements/fields/url/forms.py:56
 #: contrib/plugins/form_elements/security/captcha/forms.py:56
 #: contrib/plugins/form_elements/security/honeypot/forms.py:56
@@ -169,27 +224,27 @@ msgstr "Helptekst"
 msgid "Required"
 msgstr "Verplicht"
 
-#: base.py:558
+#: base.py:560
 msgid "Duplicate field name!"
 msgstr "Veldnaam is al in gebruik!"
 
-#: base.py:563
+#: base.py:565
 msgid "Duplicate label name!"
 msgstr "Labelnaam is al in gebruik!"
 
-#: base.py:642
+#: base.py:644
 msgid "General"
 msgstr "Algemeen"
 
-#: base.py:2143
+#: base.py:2147
 msgid "Theme `{0}` does not exist!"
 msgstr "Theme `{0}` niet gevonden!"
 
-#: constants.py:18
+#: constants.py:19
 msgid "Append"
 msgstr "Toevoegen"
 
-#: constants.py:19
+#: constants.py:20
 msgid "Replace"
 msgstr "Vervangen"
 
@@ -201,25 +256,26 @@ msgstr "Geselecteerde plugins"
 msgid "Users action"
 msgstr "Gebruikersactie"
 
-#: forms.py:115 forms.py:122
+#: forms.py:115
+#: forms.py:122
 msgid "If set to ``replace``, the groups are replaced; otherwise - appended."
-msgstr ""
-"Indien ingesteld op ``replace``, de groepen worden vervangen; anders - "
-"toegevoegd."
+msgstr "Indien ingesteld op ``replace``, de groepen worden vervangen; anders - toegevoegd."
 
 #: forms.py:120
 msgid "Groups action"
 msgstr "Groepenactie"
 
-#: helpers.py:349 helpers.py:374
+#: helpers.py:388
+#: helpers.py:413
 msgid "Invalid value for initial: {0}. Should be any of the following: {1}"
-msgstr ""
+msgstr "Ongeldige initiële waarde: {0}. Moet een van de volgende zijn: {1}"
 
 #: models.py:80
 msgid "Group"
 msgstr "Groep"
 
-#: models.py:113 models.py:414
+#: models.py:113
+#: models.py:414
 msgid "UID"
 msgstr ""
 
@@ -231,7 +287,8 @@ msgstr "Groepen"
 msgid "Users"
 msgstr "Gebruikers"
 
-#: models.py:160 models.py:191
+#: models.py:160
+#: models.py:191
 msgid "Plugin UID"
 msgstr "Plugin UID"
 
@@ -251,7 +308,9 @@ msgstr "Formulier afhandelaar"
 msgid "Form handler plugins"
 msgstr "Formulier afhandelaar's"
 
-#: models.py:218 models.py:267
+#: models.py:218
+#: models.py:267
+#: contrib/plugins/form_elements/fields/slug/fobi_form_elements.py:22
 msgid "Slug"
 msgstr "Slug"
 
@@ -301,7 +360,8 @@ msgstr "Kopieerbaar?"
 msgid "Makes your form cloneable by other users."
 msgstr "Maakt uw formulier kopieerbaar door andere gebruikers."
 
-#: models.py:278 models.py:438
+#: models.py:278
+#: models.py:438
 msgid "Position"
 msgstr "Positie"
 
@@ -311,9 +371,7 @@ msgstr "Succes paginatitel"
 
 #: models.py:282
 msgid "Custom message title to display after valid form is submitted"
-msgstr ""
-"Custom titel van het bericht die word getoond na het valideren en versturen "
-"van het formulier"
+msgstr "Custom titel van het bericht die word getoond na het valideren en versturen van het formulier"
 
 #: models.py:286
 msgid "Success page body"
@@ -321,9 +379,7 @@ msgstr "Succes pagina tekst"
 
 #: models.py:287
 msgid "Custom message text to display after valid form is submitted"
-msgstr ""
-"Custom tekst van het bericht die word getoond na het valideren en versturen "
-"van het formulier"
+msgstr "Custom tekst van het bericht die word getoond na het valideren en versturen van het formulier"
 
 #: models.py:291
 msgid "Action"
@@ -357,11 +413,13 @@ msgstr ""
 msgid "Form fieldset entries"
 msgstr ""
 
-#: models.py:345 contrib/plugins/form_handlers/db_store/models.py:53
+#: models.py:345
+#: contrib/plugins/form_handlers/db_store/models.py:55
 msgid "Plugin data"
 msgstr "Plugin data"
 
-#: models.py:433 models.py:467
+#: models.py:433
+#: models.py:467
 msgid "Plugin name"
 msgstr "Plugin naam"
 
@@ -415,12 +473,17 @@ msgstr "{0} niet gevonden."
 msgid "Form {0} was created successfully."
 msgstr "Formulier {0} is succesvol aangemaakt."
 
-#: views.py:175 views.py:282
+#: views.py:175
+#: views.py:282
 msgid "Errors occured while saving the form: {0}."
 msgstr "Er zijn fouten opgetreden tijdens het opslaan van het formulier: {0}."
 
-#: views.py:226 views.py:395 views.py:633 views.py:865 views.py:976
-#: views.py:1018
+#: views.py:226
+#: views.py:396
+#: views.py:634
+#: views.py:866
+#: views.py:977
+#: views.py:1019
 msgid "Form entry not found."
 msgstr "Formulier niet gevonden."
 
@@ -430,76 +493,75 @@ msgstr "Volgorde van de elementen is met succes gewijzigd."
 
 #: views.py:256
 msgid "Errors occured while trying to change the elements ordering!"
-msgstr ""
-"Er zijn fouten opgetreden tijdens het opslaan van het elementen volgoorde."
+msgstr "Er zijn fouten opgetreden tijdens het opslaan van het elementen volgoorde."
 
 #: views.py:274
 msgid "Form {0} was edited successfully."
 msgstr "Formulier {0} is succesvol gewijzigd."
 
-#: views.py:404 views.py:640
-#, fuzzy
+#: views.py:405
+#: views.py:641
 msgid "Plugin does not exist or you are not allowed to use this plugin!"
-msgstr ""
-"Plugin bestaat niet of u bent niet toegestaan om deze plugin te gebruiken!"
+msgstr "Plugin bestaat niet of u bent niet toegestaan om deze plugin te gebruiken!"
 
-#: views.py:467
+#: views.py:468
 msgid "The form element plugin \"{0}\" was added successfully."
 msgstr "Het formulier element \"{0}\" is met succes toegevoegd."
 
-#: views.py:515
+#: views.py:516
 msgid "Form element entry not found."
 msgstr "Formulier element niet gevonden."
 
-#: views.py:527
+#: views.py:528
 msgid "The form element plugin \"{0}\" is not configurable!"
 msgstr "Het formulier element \"{0}\" is niet configureerbaar!"
 
-#: views.py:559
+#: views.py:560
 msgid "The form element plugin \"{0}\" was edited successfully."
 msgstr "Het formulier element \"{0}\" is met succes gewijzigd."
 
-#: views.py:609
+#: views.py:610
 msgid "The form element plugin \"{0}\" was deleted successfully."
 msgstr "Het formulier element \"{0}\" is met succes verwijdert."
 
-#: views.py:655
+#: views.py:656
 msgid "The {0} plugin can be used only once in a form."
-msgstr ""
+msgstr "De {0} plugin kan slechts eenmaal worden gebruikt in een vorm."
 
-#: views.py:697
+#: views.py:698
 msgid "The form handler plugin \"{0}\" was added successfully."
 msgstr "Het formulier afhandelaar \"{0}\" is met succes toegevoegd."
 
-#: views.py:750
+#: views.py:751
 msgid "Form handler entry not found."
 msgstr "Het formulier niet gevonden."
 
-#: views.py:763
+#: views.py:764
 msgid "The form handler plugin \"{0}\" is not configurable!"
 msgstr "Het formulier afhandelaar \"{0}\" is niet configureerbaar!"
 
-#: views.py:786
+#: views.py:787
 msgid "The form handler plugin \"{0}\" was edited successfully."
 msgstr "Het formulier afhandelaar \"{0}\" is met succes gewijzigd."
 
-#: views.py:835
+#: views.py:836
 msgid "The form handler plugin \"{0}\" was deleted successfully."
 msgstr "Het formulier afhandelaar \"{0}\" is met succes verwijdert."
 
-#: views.py:918 integration/processors.py:156
+#: views.py:919
+#: integration/processors.py:156
 msgid "Form {0} was submitted successfully."
 msgstr "Formulier {0} is met succes verstuurd."
 
-#: views.py:1024
+#: views.py:1025
 msgid "The form \"{0}\" was deleted successfully."
 msgstr "Het formulier \"{0}\" is met succes verwijdert."
 
-#: widgets.py:22
+#: widgets.py:30
 msgid "Yes"
 msgstr "Ja"
 
-#: widgets.py:23
+#: widgets.py:31
 msgid "No"
 msgstr "Nee"
 
@@ -623,7 +685,7 @@ msgid "Fobi forms"
 msgstr "Fobi formulieren"
 
 #: contrib/apps/mezzanine_integration/templates/mezzanine_integration/admin/change_form.html:8
-#: contrib/plugins/form_handlers/db_store/fobi_form_handlers.py:78
+#: contrib/plugins/form_handlers/db_store/fobi_form_handlers.py:80
 #: contrib/plugins/form_handlers/db_store/templates/db_store/plugin_data_repr.html:4
 #: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/plugin_data_repr.html:4
 msgid "View entries"
@@ -715,57 +777,92 @@ msgid "Boolean"
 msgstr "Selectievakje"
 
 #: contrib/plugins/form_elements/fields/boolean/fobi_form_elements.py:21
-#: contrib/plugins/form_elements/fields/date/fobi_form_elements.py:23
+#: contrib/plugins/form_elements/fields/checkbox_select_multiple/fobi_form_elements.py:32
+#: contrib/plugins/form_elements/fields/date/fobi_form_elements.py:25
 #: contrib/plugins/form_elements/fields/date_drop_down/fobi_form_elements.py:25
-#: contrib/plugins/form_elements/fields/datetime/fobi_form_elements.py:24
+#: contrib/plugins/form_elements/fields/datetime/fobi_form_elements.py:26
+#: contrib/plugins/form_elements/fields/decimal/fobi_form_elements.py:27
 #: contrib/plugins/form_elements/fields/email/fobi_form_elements.py:25
-#: contrib/plugins/form_elements/fields/file/fobi_form_elements.py:26
+#: contrib/plugins/form_elements/fields/file/fobi_form_elements.py:28
+#: contrib/plugins/form_elements/fields/float/fobi_form_elements.py:23
 #: contrib/plugins/form_elements/fields/hidden/fobi_form_elements.py:25
 #: contrib/plugins/form_elements/fields/hidden_model_object/fobi_form_elements.py:26
 #: contrib/plugins/form_elements/fields/input/fobi_form_elements.py:23
-#: contrib/plugins/form_elements/fields/integer/fobi_form_elements.py:30
+#: contrib/plugins/form_elements/fields/integer/fobi_form_elements.py:23
+#: contrib/plugins/form_elements/fields/ip_address/fobi_form_elements.py:25
+#: contrib/plugins/form_elements/fields/null_boolean/fobi_form_elements.py:25
 #: contrib/plugins/form_elements/fields/password/fobi_form_elements.py:24
-#: contrib/plugins/form_elements/fields/radio/fobi_form_elements.py:24
-#: contrib/plugins/form_elements/fields/select/fobi_form_elements.py:24
-#: contrib/plugins/form_elements/fields/select_model_object/fobi_form_elements.py:26
-#: contrib/plugins/form_elements/fields/select_multiple/fobi_form_elements.py:26
-#: contrib/plugins/form_elements/fields/select_multiple_model_objects/fobi_form_elements.py:30
+#: contrib/plugins/form_elements/fields/radio/fobi_form_elements.py:30
+#: contrib/plugins/form_elements/fields/regex/fobi_form_elements.py:25
+#: contrib/plugins/form_elements/fields/select/fobi_form_elements.py:32
+#: contrib/plugins/form_elements/fields/select_model_object/fobi_form_elements.py:31
+#: contrib/plugins/form_elements/fields/select_multiple/fobi_form_elements.py:32
+#: contrib/plugins/form_elements/fields/select_multiple_model_objects/fobi_form_elements.py:36
+#: contrib/plugins/form_elements/fields/slug/fobi_form_elements.py:23
 #: contrib/plugins/form_elements/fields/text/fobi_form_elements.py:23
 #: contrib/plugins/form_elements/fields/textarea/fobi_form_elements.py:23
+#: contrib/plugins/form_elements/fields/time/fobi_form_elements.py:26
 #: contrib/plugins/form_elements/fields/url/fobi_form_elements.py:30
 msgid "Fields"
 msgstr "Velden"
 
 #: contrib/plugins/form_elements/fields/boolean/forms.py:42
-#: contrib/plugins/form_elements/fields/date/forms.py:43
+#: contrib/plugins/form_elements/fields/checkbox_select_multiple/forms.py:65
+#: contrib/plugins/form_elements/fields/date/forms.py:45
 #: contrib/plugins/form_elements/fields/date_drop_down/forms.py:62
-#: contrib/plugins/form_elements/fields/datetime/forms.py:43
+#: contrib/plugins/form_elements/fields/datetime/forms.py:45
+#: contrib/plugins/form_elements/fields/decimal/forms.py:50
 #: contrib/plugins/form_elements/fields/email/forms.py:47
 #: contrib/plugins/form_elements/fields/file/forms.py:44
+#: contrib/plugins/form_elements/fields/float/forms.py:46
 #: contrib/plugins/form_elements/fields/hidden/forms.py:38
 #: contrib/plugins/form_elements/fields/hidden_model_object/forms.py:52
 #: contrib/plugins/form_elements/fields/input/forms.py:71
-#: contrib/plugins/form_elements/fields/integer/forms.py:45
+#: contrib/plugins/form_elements/fields/integer/forms.py:46
+#: contrib/plugins/form_elements/fields/ip_address/forms.py:48
+#: contrib/plugins/form_elements/fields/null_boolean/forms.py:42
 #: contrib/plugins/form_elements/fields/password/forms.py:45
 #: contrib/plugins/form_elements/fields/radio/forms.py:65
+#: contrib/plugins/form_elements/fields/regex/forms.py:54
 #: contrib/plugins/form_elements/fields/select/forms.py:65
 #: contrib/plugins/form_elements/fields/select_model_object/forms.py:52
 #: contrib/plugins/form_elements/fields/select_multiple/forms.py:65
 #: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:52
+#: contrib/plugins/form_elements/fields/slug/forms.py:45
 #: contrib/plugins/form_elements/fields/text/forms.py:45
 #: contrib/plugins/form_elements/fields/textarea/forms.py:43
+#: contrib/plugins/form_elements/fields/time/forms.py:45
 #: contrib/plugins/form_elements/fields/url/forms.py:45
 #: contrib/plugins/form_elements/security/honeypot/forms.py:45
 msgid "Initial"
 msgstr "Initiële waarde"
 
-#: contrib/plugins/form_elements/fields/date/fobi_form_elements.py:22
+#: contrib/plugins/form_elements/fields/checkbox_select_multiple/fobi_form_elements.py:31
+#, fuzzy
+msgid "Checkbox select multiple"
+msgstr "Keuzelijst meerkeuze"
+
+#: contrib/plugins/form_elements/fields/checkbox_select_multiple/forms.py:39
+#: contrib/plugins/form_elements/fields/radio/forms.py:39
+#: contrib/plugins/form_elements/fields/select/forms.py:39
+#: contrib/plugins/form_elements/fields/select_multiple/forms.py:39
+msgid "Choices"
+msgstr "Kies"
+
+#: contrib/plugins/form_elements/fields/checkbox_select_multiple/forms.py:41
+#: contrib/plugins/form_elements/fields/radio/forms.py:41
+#: contrib/plugins/form_elements/fields/select/forms.py:41
+#: contrib/plugins/form_elements/fields/select_multiple/forms.py:41
+msgid "Enter single values/pairs per line. Example:<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;1<br/>&nbsp;&nbsp;&nbsp;&nbsp;2<br/>&nbsp;&nbsp;&nbsp;&nbsp;alpha, Alpha<br/>&nbsp;&nbsp;&nbsp;&nbsp;beta, Beta<br/>&nbsp;&nbsp;&nbsp;&nbsp;omega</code><br/>It finally transforms into the following HTML code:<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;select id=\"id_NAME_OF_THE_ELEMENT\" name=\"NAME_OF_THE_ELEMENT\"&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"1\"&gt;1&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"2\"&gt;2&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"alpha\"&gt;Alpha&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"beta\"&gt;Beta&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"omega\"&gt;omega&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/select&gt;</code>"
+msgstr "Voer ofwel enkele waarden of een paar - een per regel. Voorbeeld:<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;1<br/>&nbsp;&nbsp;&nbsp;&nbsp;2<br/>&nbsp;&nbsp;&nbsp;&nbsp;alpha, Alpha<br/>&nbsp;&nbsp;&nbsp;&nbsp;beta, Beta<br/>&nbsp;&nbsp;&nbsp;&nbsp;omega</code><br/>Word getoond als de volgende HTML code:<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;select id=\"id_NAME_OF_THE_ELEMENT\" name=\"NAME_OF_THE_ELEMENT\"&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"1\"&gt;1&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"2\"&gt;2&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"alpha\"&gt;Alpha&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"beta\"&gt;Beta&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"omega\"&gt;omega&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/select&gt;</code>"
+
+#: contrib/plugins/form_elements/fields/date/fobi_form_elements.py:24
 #: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:41
 #: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/view_saved_form_data_entries.html:42
 msgid "Date"
 msgstr "Datum"
 
-#: contrib/plugins/form_elements/fields/date/forms.py:48
+#: contrib/plugins/form_elements/fields/date/forms.py:51
 #: contrib/plugins/form_elements/fields/date_drop_down/forms.py:67
 msgid "Input  formats"
 msgstr "Invoerformaten"
@@ -782,13 +879,53 @@ msgstr "Minimumwaarde jaar"
 msgid "Maximum year value"
 msgstr "Maximumwaarde jaar"
 
-#: contrib/plugins/form_elements/fields/datetime/fobi_form_elements.py:23
+#: contrib/plugins/form_elements/fields/datetime/fobi_form_elements.py:25
 msgid "DateTime"
 msgstr "Datum/tijd"
 
-#: contrib/plugins/form_elements/fields/datetime/forms.py:48
+#: contrib/plugins/form_elements/fields/datetime/forms.py:51
+#: contrib/plugins/form_elements/fields/time/forms.py:51
 msgid "Input formats"
 msgstr "Invoerformaten"
+
+#: contrib/plugins/form_elements/fields/decimal/fobi_form_elements.py:26
+msgid "Decimal"
+msgstr "Decimale"
+
+#: contrib/plugins/form_elements/fields/decimal/forms.py:55
+msgid "Max digits"
+msgstr "Maximale lengte"
+
+#: contrib/plugins/form_elements/fields/decimal/forms.py:60
+msgid "Decimal places"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/decimal/forms.py:65
+#: contrib/plugins/form_elements/fields/float/forms.py:51
+#: contrib/plugins/form_elements/fields/integer/forms.py:51
+msgid "Min value"
+msgstr "Minimumwaarde"
+
+#: contrib/plugins/form_elements/fields/decimal/forms.py:70
+#: contrib/plugins/form_elements/fields/float/forms.py:56
+#: contrib/plugins/form_elements/fields/integer/forms.py:56
+msgid "Max value"
+msgstr "Maximumwaarde"
+
+#: contrib/plugins/form_elements/fields/decimal/forms.py:80
+#: contrib/plugins/form_elements/fields/email/forms.py:63
+#: contrib/plugins/form_elements/fields/float/forms.py:66
+#: contrib/plugins/form_elements/fields/input/forms.py:87
+#: contrib/plugins/form_elements/fields/integer/forms.py:66
+#: contrib/plugins/form_elements/fields/ip_address/forms.py:75
+#: contrib/plugins/form_elements/fields/password/forms.py:61
+#: contrib/plugins/form_elements/fields/regex/forms.py:70
+#: contrib/plugins/form_elements/fields/slug/forms.py:61
+#: contrib/plugins/form_elements/fields/text/forms.py:61
+#: contrib/plugins/form_elements/fields/textarea/forms.py:53
+#: contrib/plugins/form_elements/fields/url/forms.py:61
+msgid "Placeholder"
+msgstr "Aanduiding"
 
 #: contrib/plugins/form_elements/fields/email/fobi_form_elements.py:24
 msgid "Email"
@@ -798,26 +935,23 @@ msgstr "Email"
 #: contrib/plugins/form_elements/fields/file/forms.py:49
 #: contrib/plugins/form_elements/fields/hidden/forms.py:43
 #: contrib/plugins/form_elements/fields/input/forms.py:76
+#: contrib/plugins/form_elements/fields/ip_address/forms.py:64
 #: contrib/plugins/form_elements/fields/password/forms.py:50
+#: contrib/plugins/form_elements/fields/regex/forms.py:59
+#: contrib/plugins/form_elements/fields/slug/forms.py:50
 #: contrib/plugins/form_elements/fields/text/forms.py:50
 #: contrib/plugins/form_elements/fields/url/forms.py:50
 #: contrib/plugins/form_elements/security/honeypot/forms.py:50
 msgid "Max length"
 msgstr "Maximale lengte"
 
-#: contrib/plugins/form_elements/fields/email/forms.py:63
-#: contrib/plugins/form_elements/fields/input/forms.py:87
-#: contrib/plugins/form_elements/fields/integer/forms.py:65
-#: contrib/plugins/form_elements/fields/password/forms.py:61
-#: contrib/plugins/form_elements/fields/text/forms.py:61
-#: contrib/plugins/form_elements/fields/textarea/forms.py:53
-#: contrib/plugins/form_elements/fields/url/forms.py:61
-msgid "Placeholder"
-msgstr "Aanduiding"
-
-#: contrib/plugins/form_elements/fields/file/fobi_form_elements.py:25
+#: contrib/plugins/form_elements/fields/file/fobi_form_elements.py:27
 msgid "File"
 msgstr "Bestand"
+
+#: contrib/plugins/form_elements/fields/float/fobi_form_elements.py:22
+msgid "Float"
+msgstr ""
 
 #: contrib/plugins/form_elements/fields/hidden/fobi_form_elements.py:24
 msgid "Hidden"
@@ -882,83 +1016,62 @@ msgstr ""
 msgid "Type (HTML type)"
 msgstr ""
 
-#: contrib/plugins/form_elements/fields/integer/fobi_form_elements.py:29
+#: contrib/plugins/form_elements/fields/integer/fobi_form_elements.py:22
 msgid "Integer"
 msgstr "Nummer"
 
-#: contrib/plugins/form_elements/fields/integer/forms.py:50
-msgid "Min value"
-msgstr "Minimumwaarde"
+#: contrib/plugins/form_elements/fields/ip_address/fobi_form_elements.py:24
+msgid "IP address"
+msgstr ""
 
-#: contrib/plugins/form_elements/fields/integer/forms.py:55
-msgid "Max value"
-msgstr "Maximumwaarde"
+#: contrib/plugins/form_elements/fields/ip_address/forms.py:53
+msgid "Protocol"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/ip_address/forms.py:59
+msgid "Unpack IPV4"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/null_boolean/fobi_form_elements.py:24
+msgid "Null boolean"
+msgstr "Null selectievakje"
 
 #: contrib/plugins/form_elements/fields/password/fobi_form_elements.py:23
 msgid "Password"
 msgstr "Wachtwoord"
 
-#: contrib/plugins/form_elements/fields/radio/fobi_form_elements.py:23
+#: contrib/plugins/form_elements/fields/radio/fobi_form_elements.py:29
 msgid "Radio"
 msgstr "Radio knop"
 
-#: contrib/plugins/form_elements/fields/radio/forms.py:39
-#: contrib/plugins/form_elements/fields/select/forms.py:39
-#: contrib/plugins/form_elements/fields/select_multiple/forms.py:39
-msgid "Choices"
-msgstr "Kies"
-
-#: contrib/plugins/form_elements/fields/radio/forms.py:41
-#: contrib/plugins/form_elements/fields/select/forms.py:41
-#: contrib/plugins/form_elements/fields/select_multiple/forms.py:41
-msgid ""
-"Enter single values/pairs per line. Example:<code><br/>&nbsp;&nbsp;&nbsp;"
-"&nbsp;1<br/>&nbsp;&nbsp;&nbsp;&nbsp;2<br/>&nbsp;&nbsp;&nbsp;&nbsp;alpha, "
-"Alpha<br/>&nbsp;&nbsp;&nbsp;&nbsp;beta, Beta<br/>&nbsp;&nbsp;&nbsp;&nbsp;"
-"omega</code><br/>It finally transforms into the following HTML code:"
-"<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;select id=\"id_NAME_OF_THE_ELEMENT\" "
-"name=\"NAME_OF_THE_ELEMENT\"&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-"&nbsp;&nbsp;&lt;option value=\"1\"&gt;1&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;"
-"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"2\"&gt;2&lt;/option&gt;<br/"
-">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"alpha"
-"\"&gt;Alpha&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-"&nbsp;&lt;option value=\"beta\"&gt;Beta&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;"
-"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"omega\"&gt;omega&lt;/"
-"option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/select&gt;</code>"
+#: contrib/plugins/form_elements/fields/regex/fobi_form_elements.py:24
+#: contrib/plugins/form_elements/fields/regex/forms.py:48
+msgid "Regex"
 msgstr ""
-"Voer ofwel enkele waarden of een paar - een per regel. Voorbeeld:<code><br/"
-">&nbsp;&nbsp;&nbsp;&nbsp;1<br/>&nbsp;&nbsp;&nbsp;&nbsp;2<br/>&nbsp;&nbsp;"
-"&nbsp;&nbsp;alpha, Alpha<br/>&nbsp;&nbsp;&nbsp;&nbsp;beta, Beta<br/>&nbsp;"
-"&nbsp;&nbsp;&nbsp;omega</code><br/>Word getoond als de volgende HTML code:"
-"<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;select id=\"id_NAME_OF_THE_ELEMENT\" "
-"name=\"NAME_OF_THE_ELEMENT\"&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-"&nbsp;&nbsp;&lt;option value=\"1\"&gt;1&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;"
-"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"2\"&gt;2&lt;/option&gt;<br/"
-">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"alpha"
-"\"&gt;Alpha&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
-"&nbsp;&lt;option value=\"beta\"&gt;Beta&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;"
-"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"omega\"&gt;omega&lt;/"
-"option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/select&gt;</code>"
 
-#: contrib/plugins/form_elements/fields/select/fobi_form_elements.py:23
+#: contrib/plugins/form_elements/fields/select/fobi_form_elements.py:31
 msgid "Select"
 msgstr "Keuzelijst"
 
-#: contrib/plugins/form_elements/fields/select_model_object/fobi_form_elements.py:25
+#: contrib/plugins/form_elements/fields/select_model_object/fobi_form_elements.py:30
 msgid "Select model object"
 msgstr "Keuzelijst object model"
 
-#: contrib/plugins/form_elements/fields/select_multiple/fobi_form_elements.py:25
+#: contrib/plugins/form_elements/fields/select_multiple/fobi_form_elements.py:31
 msgid "Select multiple"
 msgstr "Keuzelijst meerkeuze"
 
-#: contrib/plugins/form_elements/fields/select_multiple_model_objects/fobi_form_elements.py:29
+#: contrib/plugins/form_elements/fields/select_multiple_model_objects/fobi_form_elements.py:35
 msgid "Select multiple model objects"
 msgstr "Keuzelijst meerkeuze model objecten"
 
 #: contrib/plugins/form_elements/fields/textarea/fobi_form_elements.py:22
 msgid "Textarea"
 msgstr "Tekstvak"
+
+#: contrib/plugins/form_elements/fields/time/fobi_form_elements.py:25
+msgid "Time"
+msgstr "Tijd"
 
 #: contrib/plugins/form_elements/security/captcha/fobi_form_elements.py:75
 msgid "Captcha"
@@ -1005,7 +1118,7 @@ msgid "Raw"
 msgstr "Rui"
 
 #: contrib/plugins/form_handlers/db_store/admin.py:39
-#: contrib/plugins/form_handlers/db_store/models.py:58
+#: contrib/plugins/form_handlers/db_store/models.py:60
 msgid "Saved form data entry"
 msgstr "Opgeslagen formulier data"
 
@@ -1013,27 +1126,27 @@ msgstr "Opgeslagen formulier data"
 msgid "Export data to CSV/XLS"
 msgstr "Gegevens exporteren naar CSV/XLS"
 
-#: contrib/plugins/form_handlers/db_store/fobi_form_handlers.py:27
+#: contrib/plugins/form_handlers/db_store/fobi_form_handlers.py:29
 msgid "DB store"
 msgstr "Opslaan in database"
 
-#: contrib/plugins/form_handlers/db_store/fobi_form_handlers.py:84
+#: contrib/plugins/form_handlers/db_store/fobi_form_handlers.py:86
 msgid "Export entries"
 msgstr "Data export"
 
-#: contrib/plugins/form_handlers/db_store/models.py:51
+#: contrib/plugins/form_handlers/db_store/models.py:53
 msgid "Form data headers"
 msgstr "Formulier datatitels"
 
-#: contrib/plugins/form_handlers/db_store/models.py:54
+#: contrib/plugins/form_handlers/db_store/models.py:56
 msgid "Date created"
 msgstr "Datum aangemaakt"
 
-#: contrib/plugins/form_handlers/db_store/models.py:59
+#: contrib/plugins/form_handlers/db_store/models.py:61
 msgid "Saved form data entries"
 msgstr "Opgeslagen formulier inschrijvingen"
 
-#: contrib/plugins/form_handlers/db_store/models.py:81
+#: contrib/plugins/form_handlers/db_store/models.py:83
 msgid "Saved data"
 msgstr "Opgeslagen data"
 
@@ -1054,7 +1167,7 @@ msgstr "Opgeslagen formuliergegevens"
 msgid "Filter"
 msgstr ""
 
-#: contrib/plugins/form_handlers/http_repost/fobi_form_handlers.py:40
+#: contrib/plugins/form_handlers/http_repost/fobi_form_handlers.py:30
 msgid "HTTP Repost"
 msgstr ""
 
@@ -1063,32 +1176,32 @@ msgstr ""
 msgid "Endpoint URL"
 msgstr ""
 
-#: contrib/plugins/form_handlers/mail/fobi_form_handlers.py:28
+#: contrib/plugins/form_handlers/mail/fobi_form_handlers.py:34
 msgid "Mail"
 msgstr ""
 
-#: contrib/plugins/form_handlers/mail/forms.py:28
+#: contrib/plugins/form_handlers/mail/forms.py:30
 msgid "From name"
 msgstr "Naam afzender"
 
-#: contrib/plugins/form_handlers/mail/forms.py:33
+#: contrib/plugins/form_handlers/mail/forms.py:35
 msgid "From email"
 msgstr "Email afzender"
 
-#: contrib/plugins/form_handlers/mail/forms.py:38
+#: contrib/plugins/form_handlers/mail/forms.py:40
 msgid "To name"
 msgstr "Naam ontvanger"
 
-#: contrib/plugins/form_handlers/mail/forms.py:43
+#: contrib/plugins/form_handlers/mail/forms.py:45
 msgid "To email"
 msgstr "Email ontvanger"
 
-#: contrib/plugins/form_handlers/mail/forms.py:48
+#: contrib/plugins/form_handlers/mail/forms.py:50
 #: contrib/plugins/form_handlers/mail/templates/mail/plugin_data_repr.html:3
 msgid "Subject"
 msgstr "Onderwerp"
 
-#: contrib/plugins/form_handlers/mail/forms.py:53
+#: contrib/plugins/form_handlers/mail/forms.py:55
 msgid "Body"
 msgstr "Tekst"
 
@@ -1330,8 +1443,7 @@ msgstr "Wijzigingen bijwerken"
 #: templates/fobi/generic/snippets/form_properties_snippet.html:4
 #: templates/fobi/generic/snippets/form_snippet.html:4
 msgid "Fields marked with <span class=\"required-field\">*</span> are required"
-msgstr ""
-"Velden gemarkeerd met <span class=\"required-field\">*</span> zijn verplicht"
+msgstr "Velden gemarkeerd met <span class=\"required-field\">*</span> zijn verplicht"
 
 #: contrib/themes/simple/fobi_themes.py:17
 msgid "Simple"
@@ -1422,12 +1534,8 @@ msgid "^forms/delete/(?P<form_entry_id>\\d+)/$"
 msgstr "^formulieren/verwijderen/(?P<form_entry_id>\\d+)/$"
 
 #: urls/edit.py:34
-msgid ""
-"^forms/elements/add/(?P<form_entry_id>\\d+)/(?P<form_element_plugin_uid>[\\w_"
-"\\-]+)/$"
-msgstr ""
-"^formulieren/elementen/toevoegen/(?P<form_entry_id>\\d+)/(?"
-"P<form_element_plugin_uid>[\\w_\\-]+)/$"
+msgid "^forms/elements/add/(?P<form_entry_id>\\d+)/(?P<form_element_plugin_uid>[\\w_\\-]+)/$"
+msgstr "^formulieren/elementen/toevoegen/(?P<form_entry_id>\\d+)/(?P<form_element_plugin_uid>[\\w_\\-]+)/$"
 
 #: urls/edit.py:39
 msgid "^forms/elements/edit/(?P<form_element_entry_id>\\d+)/$"
@@ -1438,12 +1546,8 @@ msgid "^forms/elements/delete/(?P<form_element_entry_id>\\d+)/$"
 msgstr "^formulieren/elementen/verwijderen/(?P<form_element_entry_id>\\d+)/$"
 
 #: urls/edit.py:49
-msgid ""
-"^forms/handlers/add/(?P<form_entry_id>\\d+)/(?P<form_handler_plugin_uid>[\\w_"
-"\\-]+)/$"
-msgstr ""
-"^formulieren/handlers/toevoegen/(?P<form_entry_id>\\d+)/(?"
-"P<form_handler_plugin_uid>[\\w_\\-]+)/$"
+msgid "^forms/handlers/add/(?P<form_entry_id>\\d+)/(?P<form_handler_plugin_uid>[\\w_\\-]+)/$"
+msgstr "^formulieren/handlers/toevoegen/(?P<form_entry_id>\\d+)/(?P<form_handler_plugin_uid>[\\w_\\-]+)/$"
 
 #: urls/edit.py:54
 msgid "^forms/handlers/edit/(?P<form_handler_entry_id>\\d+)/$"

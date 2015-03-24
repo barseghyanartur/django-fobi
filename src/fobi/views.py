@@ -1,6 +1,10 @@
+"""
+Views.
+"""
+
 __title__ = 'fobi.views'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = '2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'create_form_entry', 'edit_form_entry', 'delete_form_entry',
@@ -899,12 +903,21 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
                                        stage=CALLBACK_FORM_VALID)
 
             # Run all handlers
-            run_form_handlers(
+            handler_responses, handler_errors = run_form_handlers(
                 form_entry = form_entry,
                 request = request,
                 form = form,
                 form_element_entries = form_element_entries
                 )
+
+            # Warning that not everything went ok.
+            if handler_errors:
+                for handler_error in handler_errors:
+                    messages.warning(
+                        request,
+                        _("Error occured: {0}."
+                          "").format(handler_error)
+                        )
 
             # Fire post handler callbacks
             fire_form_callbacks(
@@ -916,7 +929,8 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
 
             messages.info(
                 request,
-                _('Form {0} was submitted successfully.').format(form_entry.name)
+                _("Form {0} was submitted successfully."
+                  "").format(form_entry.name)
                 )
             return redirect(
                 reverse('fobi.form_entry_submitted', args=[form_entry.slug])

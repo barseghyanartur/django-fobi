@@ -2,9 +2,10 @@
 All `uids` are supposed to be pythonic function names (see
 PEP http://www.python.org/dev/peps/pep-0008/#function-names).
 """
+
 __title__ = 'fobi.base'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = '2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'BaseDataStorage', 'FormElementPluginDataStorage',
@@ -1268,22 +1269,28 @@ class FormHandlerPlugin(BasePlugin):
         :param django.forms.Form form:
         :param iterable form_element_entries: Iterable of
             ``fobi.models.FormElementEntry`` objects.
+        :return tuple:
         """
         # For backwards compatibility.
         if not form_element_entries:
             form_element_entries = form_entry.formelemententry_set.all()[:]
 
         try:
-            self.run(form_entry, request, form, form_element_entries)
+            response = self.run(form_entry, request, form, form_element_entries)
+            if response:
+                return response
+            else:
+                return (True, None)
         except Exception as err:
             if FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS:
-                print traceback.format_exc()
-                raise err
+                raise err.__class__("Exception: {0}. {1}"
+                                    "".format(str(err), traceback.format_exc()))
             logger.error(
                 "Error in class {0}. Details: "
                 "{1}. Full trace: {2}".format(self.__class__.__name__, str(err),
                                               traceback.format_exc())
                 )
+            return (False, err)
 
     def run(self, form_entry, request, form, form_element_entries=None):
         """
@@ -1295,6 +1302,7 @@ class FormHandlerPlugin(BasePlugin):
         :param django.forms.Form form:
         :param iterable form_element_entries: Iterable of
             ``fobi.models.FormElementEntry`` objects.
+        :return mixed: May be a tuple (bool, mixed) or None
         """
         raise NotImplemented(
             "You should implement ``callback`` method in your {1} "
@@ -2068,7 +2076,14 @@ def run_form_handlers(form_entry, request, form, form_element_entries=None):
     :param django.http.HttpRequest request:
     :param django.forms.Form form:
     :param iterable form_element_entries:
+    :return tuple: List of success responses, list of error responses
     """
+    # Errors list
+    errors = []
+
+    # Responses of successfully procesessed handlers
+    responses = []
+
     # Getting form handler plugins in their execution order.
     ordered_form_handlers = get_ordered_form_handler_plugins()
 
@@ -2082,15 +2097,25 @@ def run_form_handlers(form_entry, request, form, form_element_entries=None):
     # Iterating through the form handlers in the order
     # specified in the settings.
     for uid, form_handlers in ordered_form_handlers.items():
-        logger.debug("UID: {0}".format(uid))
+        #logger.debug("UID: {0}".format(uid))
         for form_handler in form_handlers:
+            # Get the form handler plugin
             form_handler_plugin = form_handler.get_plugin(request=request)
-            form_handler_plugin._run(
+
+            # Run the form handler
+            success, response = form_handler_plugin._run(
                 form_entry,
                 request,
                 form,
                 form_element_entries
                 )
+
+            if success:
+                responses.append((form_handler_plugin, response))
+            else:
+                errors.append((form_handler_plugin, response))
+
+    return (responses, errors)
 
 # *****************************************************************************
 # ******************************* Theme specific ******************************
