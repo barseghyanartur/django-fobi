@@ -1,6 +1,6 @@
 #pip install -r examples/requirements.txt --allow-all-external --allow-unverified django-admin-tools
 #cd ..
-pip install -r examples\requirements_django16.txt
+pip install -r examples\requirements_django_1_6.txt
 python setup.py install
 mkdir examples\logs
 mkdir examples\db

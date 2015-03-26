@@ -15,13 +15,31 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
-0.4.33
+0.5
 -------------------------------------
 yyyy-mm-ddd (not yet released).
 
-- Checkbox select multiple field added
-  `fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/checkbox_select_multiple>`_.
+This release contains minor backwards incompatible changes, related to the
+change of the name of the "simple" theme into "django_admin_style" theme.
+
+- Mailchimp support.
+- Kube framework integration (theme).
+- PureCSS framework integration (theme).
+- Skeleton framework integration (theme).
+- Baseline framework integration (theme).
+- Amazium framework integration (theme).
+- The "simple" theme has been renamed to "django_admin_style".
+
+0.4.33
+-------------------------------------
+2015-03-25
+
+- `Checkbox select multiple
+  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/checkbox_select_multiple>`_
+  field added.
+- Minor improvements (styling) in the Foundation 5 theme.
+- Initial configuration for tox tests.
+- Clean up requirements (for example setups and tests).
 
 0.4.32
 -------------------------------------
@@ -52,18 +70,24 @@ yyyy-mm-ddd (not yet released).
 -------------------------------------
 2015-03-20
 
-- Decimal field added `fobi.contrib.plugins.form_elements.fields.decimal
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/decimal>`_.
-- Float field added `fobi.contrib.plugins.form_elements.fields.float
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/float>`_.
-- Slug field added `fobi.contrib.plugins.form_elements.fields.slug
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/slug>`_.
-- IP address field added `fobi.contrib.plugins.form_elements.fields.ip_address
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/ip_address>`_.
-- Null boolean field `fobi.contrib.plugins.form_elements.fields.null_boolean
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/null_boolean>`_.
-- Time field added `fobi.contrib.plugins.form_elements.fields.time
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/time>`_.
+- `Decimal
+  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/decimal>`_
+  field added.
+- `Float
+  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/float>`_
+  field added.
+- `Slug
+  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/slug>`_
+   field added .
+- `IP address
+  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/ip_address>`_
+  field added.
+- `Null boolean
+  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/null_boolean>`_
+  field added.
+- `Time
+  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/time>`_
+  field added.
 - From now on using `simplejson` package in favour of `json`, since it can
   handle decimal data.
 - Minor improvements of the date plugins (`datetime`, `date`).

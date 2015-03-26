@@ -306,6 +306,9 @@ class GetFormFieldTypeNode(Node):
         if isinstance(field.field.widget, forms.CheckboxInput):
             properties.append('is_checkbox')
 
+        if isinstance(field.field.widget, forms.CheckboxSelectMultiple):
+            properties.append('is_checkbox_multiple')
+
         if isinstance(field.field.widget, forms.RadioSelect):
             properties.append('is_radio')
 

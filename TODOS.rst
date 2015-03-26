@@ -296,6 +296,9 @@ Should haves
   value (repr).
 + Document the `SUBMIT_VALUE_AS` in main documentation and mention in the
   readme of all appropriate plugins.
++ In ``db_store` plugin, at the moment if labels are not unique, some data
+  loss happens. Either, make the labels unique in a single form or avoid data
+  loss in some other way.
 - Fix the issue with `db_store` plugin and `allow_multiple` property (if
   set to True tests fail).
 - Fix the issue with `initial` for `select_multiple` plugin. At the moment,
@@ -324,9 +327,6 @@ Should haves
   "barseghyanartur/test-form-1" instead of "test-form-1-N").
 - Once the form ordering has been changed, show a message and warn if user 
   is about to leave the page without saving the changes.
-- In ``db_store` plugin, at the moment if labels are not unique, some data 
-  loss happens. Either, make the labels unique in a single form or avoid data
-  loss in some other way.
 - Make it possible to create fieldsets (implement as containers).
 - Think of adding hooks so that custom actions are possible without template
   changes (for example, add a new import app for importing the forms from
@@ -348,6 +348,8 @@ Could haves
 + Finish select multiple model objects plugin (issue with processing form data
   on form submit).
 + Make a django theme for jQuery UI.
+- Think of delegating the form rendering completely to third-party library
+  like `django-crispy-forms`.
 - Make it possible to use something else than Django's ORM (django-mongoengine,
   SQLAlchemy).
 - Make it possible for themes to override the ``fobi.forms.FormEntryForm``

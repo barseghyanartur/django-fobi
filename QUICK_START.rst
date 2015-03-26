@@ -52,20 +52,30 @@ Add ``fobi`` core and the plugins to the ``INSTALLED_APPS`` of the your
 .. code-block:: python
 
     'fobi.contrib.plugins.form_elements.fields.boolean',
+    'fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple',
     'fobi.contrib.plugins.form_elements.fields.date',
+    'fobi.contrib.plugins.form_elements.fields.date_drop_down',
     'fobi.contrib.plugins.form_elements.fields.datetime',
+    'fobi.contrib.plugins.form_elements.fields.decimal',
     'fobi.contrib.plugins.form_elements.fields.email',
     'fobi.contrib.plugins.form_elements.fields.file',
+    'fobi.contrib.plugins.form_elements.fields.float',
     'fobi.contrib.plugins.form_elements.fields.hidden',
+    'fobi.contrib.plugins.form_elements.fields.input',
     'fobi.contrib.plugins.form_elements.fields.integer',
+    'fobi.contrib.plugins.form_elements.fields.ip_address',
+    'fobi.contrib.plugins.form_elements.fields.null_boolean',
     'fobi.contrib.plugins.form_elements.fields.password',
     'fobi.contrib.plugins.form_elements.fields.radio',
+    'fobi.contrib.plugins.form_elements.fields.regex',
     'fobi.contrib.plugins.form_elements.fields.select',
     'fobi.contrib.plugins.form_elements.fields.select_model_object',
     'fobi.contrib.plugins.form_elements.fields.select_multiple',
     'fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects',
+    'fobi.contrib.plugins.form_elements.fields.slug',
     'fobi.contrib.plugins.form_elements.fields.text',
     'fobi.contrib.plugins.form_elements.fields.textarea',
+    'fobi.contrib.plugins.form_elements.fields.time',
     'fobi.contrib.plugins.form_elements.fields.url',
 
 4. The presentational form elements (images, texts, videos).
@@ -81,9 +91,9 @@ Add ``fobi`` core and the plugins to the ``INSTALLED_APPS`` of the your
 
 .. code-block:: python
 
-        'fobi.contrib.plugins.form_handlers.db_store',
-        'fobi.contrib.plugins.form_handlers.http_repost',
-        'fobi.contrib.plugins.form_handlers.mail',
+    'fobi.contrib.plugins.form_handlers.db_store',
+    'fobi.contrib.plugins.form_handlers.http_repost',
+    'fobi.contrib.plugins.form_handlers.mail',
 
 Putting all together, you would have something like this.
 
@@ -99,20 +109,30 @@ Putting all together, you would have something like this.
 
         # Form field plugins
         'fobi.contrib.plugins.form_elements.fields.boolean',
+        'fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple',
         'fobi.contrib.plugins.form_elements.fields.date',
+        'fobi.contrib.plugins.form_elements.fields.date_drop_down',
         'fobi.contrib.plugins.form_elements.fields.datetime',
+        'fobi.contrib.plugins.form_elements.fields.decimal',
         'fobi.contrib.plugins.form_elements.fields.email',
         'fobi.contrib.plugins.form_elements.fields.file',
+        'fobi.contrib.plugins.form_elements.fields.float',
         'fobi.contrib.plugins.form_elements.fields.hidden',
+        'fobi.contrib.plugins.form_elements.fields.input',
         'fobi.contrib.plugins.form_elements.fields.integer',
+        'fobi.contrib.plugins.form_elements.fields.ip_address',
+        'fobi.contrib.plugins.form_elements.fields.null_boolean',
         'fobi.contrib.plugins.form_elements.fields.password',
         'fobi.contrib.plugins.form_elements.fields.radio',
+        'fobi.contrib.plugins.form_elements.fields.regex',
         'fobi.contrib.plugins.form_elements.fields.select',
         'fobi.contrib.plugins.form_elements.fields.select_model_object',
         'fobi.contrib.plugins.form_elements.fields.select_multiple',
         'fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects',
+        'fobi.contrib.plugins.form_elements.fields.slug',
         'fobi.contrib.plugins.form_elements.fields.text',
         'fobi.contrib.plugins.form_elements.fields.textarea',
+        'fobi.contrib.plugins.form_elements.fields.time',
         'fobi.contrib.plugins.form_elements.fields.url',
 
         # Form element plugins

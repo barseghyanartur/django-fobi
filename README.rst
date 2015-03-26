@@ -200,20 +200,30 @@ Or latest stable version from BitBucket:
 
         # Fobi form elements - fields
         'fobi.contrib.plugins.form_elements.fields.boolean',
+        'fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple',
         'fobi.contrib.plugins.form_elements.fields.date',
+        'fobi.contrib.plugins.form_elements.fields.date_drop_down',
         'fobi.contrib.plugins.form_elements.fields.datetime',
+        'fobi.contrib.plugins.form_elements.fields.decimal',
         'fobi.contrib.plugins.form_elements.fields.email',
         'fobi.contrib.plugins.form_elements.fields.file',
+        'fobi.contrib.plugins.form_elements.fields.float',
         'fobi.contrib.plugins.form_elements.fields.hidden',
+        'fobi.contrib.plugins.form_elements.fields.input',
         'fobi.contrib.plugins.form_elements.fields.integer',
+        'fobi.contrib.plugins.form_elements.fields.ip_address',
+        'fobi.contrib.plugins.form_elements.fields.null_boolean',
         'fobi.contrib.plugins.form_elements.fields.password',
         'fobi.contrib.plugins.form_elements.fields.radio',
+        'fobi.contrib.plugins.form_elements.fields.regex',
         'fobi.contrib.plugins.form_elements.fields.select',
         'fobi.contrib.plugins.form_elements.fields.select_model_object',
         'fobi.contrib.plugins.form_elements.fields.select_multiple',
         'fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects',
+        'fobi.contrib.plugins.form_elements.fields.slug',
         'fobi.contrib.plugins.form_elements.fields.text',
         'fobi.contrib.plugins.form_elements.fields.textarea',
+        'fobi.contrib.plugins.form_elements.fields.time',
         'fobi.contrib.plugins.form_elements.fields.url',
 
         # Fobi form elements - content elements
@@ -1410,6 +1420,7 @@ need additional processing. There are 3 behaviours taken into consideration:
 The following plugins have been made configurable in such a way, that
 developers can choose the desired behaviour in projects' settings:
 
+- ``FOBI_FORM_ELEMENT_CHECKBOX_SELECT_MULTIPLE_SUBMIT_VALUE_AS``
 - ``FOBI_FORM_ELEMENT_RADIO_SUBMIT_VALUE_AS``
 - ``FOBI_FORM_ELEMENT_SELECT_SUBMIT_VALUE_AS``
 - ``FOBI_FORM_ELEMENT_SELECT_MULTIPLE_SUBMIT_VALUE_AS``
@@ -1418,6 +1429,8 @@ developers can choose the desired behaviour in projects' settings:
 
 See the README.rst in each of the following plugins for more information.
 
+- `Checkbox select multiple (multiple checkboxes)
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/radio/>`__
 - `Radio select (radio button)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/radio/>`__
 - `Select (drop-down)

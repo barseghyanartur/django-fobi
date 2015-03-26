@@ -29,7 +29,29 @@
                         </label>
 
                         <div class="large-10 columns">
-                            {{ field }}
+                            {% get_form_field_type field as form_field_type %}
+
+                            {% if form_field_type.is_radio %}
+                                {% for choice_value, choice_label in field.field.choices %}
+                            <div class="radio">
+                              <label>
+                                <input type="radio" name="{{ field.html_name }}" value="{{ choice_value }}"{% if field.value == choice_value %}checked{% endif %}>
+                                {{ choice_label }}
+                              </label>
+                            </div>
+                                {% endfor %}
+                            {% elif form_field_type.is_checkbox_multiple %}
+                                {% for choice_value, choice_label in field.field.choices %}
+                            <div class="checkbox">
+                              <label>
+                                <input type="checkbox" name="{{ field.html_name }}_{{ forloop.index0 }}" value="{{ choice_value }}"{% if field.value == choice_value %}checked{% endif %}>
+                                {{ choice_label }}
+                              </label>
+                            </div>
+                                {% endfor %}
+                            {% else %}
+                                {{ field }}
+                            {% endif %}
 
                             {% if field.errors %}
                             <span class="error">
