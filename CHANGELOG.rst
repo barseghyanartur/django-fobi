@@ -15,24 +15,16 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
-0.5
+0.4.34
 -------------------------------------
-yyyy-mm-ddd (not yet released).
+2015-03-27
 
-This release contains minor backwards incompatible changes, related to the
-change of the name of the "simple" theme into "django_admin_style" theme.
-
-- Mailchimp support.
-- Kube framework integration (theme).
-- PureCSS framework integration (theme).
-- Skeleton framework integration (theme).
-- Baseline framework integration (theme).
-- Amazium framework integration (theme).
-- The "simple" theme has been renamed to "django_admin_style".
+- Minor fixes in the `Checkbox select multiple` and `Radio` plugins.
+- Minified tox tests.
 
 0.4.33
 -------------------------------------
-2015-03-25
+2015-03-26
 
 - `Checkbox select multiple
   <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/checkbox_select_multiple>`_

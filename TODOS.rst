@@ -221,6 +221,7 @@ Must haves
 + Show how to use (or make use) of `django-crispy-forms
   <https://github.com/maraujop/django-crispy-forms>`_ package in the
   "simple"-like themes.
+- Fix the checkbox select multiple plugin (doesn't post any data).
 - Make it possible to provide more than one `to` email address in the mail
   form handler plugin.
 - Since tests have been made quite general, create them for all contrib

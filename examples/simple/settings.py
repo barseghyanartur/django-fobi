@@ -488,6 +488,33 @@ LOGGING = {
     },
 }
 
+# Make settings quite compatible among various Django versions used.
+from nine.versions import DJANGO_GTE_1_7, DJANGO_GTE_1_8
+if DJANGO_GTE_1_7 or DJANGO_GTE_1_8:
+    INSTALLED_APPS = list(INSTALLED_APPS)
+
+    # Django 1.7 specific checks
+    if DJANGO_GTE_1_7:
+        try:
+            INSTALLED_APPS.remove('south') \
+                if 'south' in INSTALLED_APPS else None
+            INSTALLED_APPS.remove('tinymce') \
+                if 'tinymce' in INSTALLED_APPS else None
+        except Exception as e:
+            pass
+
+    # Django 1.8 specific checks
+    if DJANGO_GTE_1_8:
+        try:
+            INSTALLED_APPS.remove('admin_tools') \
+                if 'admin_tools' in INSTALLED_APPS else None
+            INSTALLED_APPS.remove('admin_tools.menu') \
+                if 'admin_tools.menu' in INSTALLED_APPS else None
+            INSTALLED_APPS.remove('admin_tools.dashboard') \
+                if 'admin_tools.dashboard' in INSTALLED_APPS else None
+        except Exception as e:
+            pass
+
 # Do not put any settings below this line
 try:
     from local_settings import *
@@ -527,3 +554,4 @@ if DEBUG and TEMPLATE_DEBUG:
         )
     except ImportError:
         pass
+
