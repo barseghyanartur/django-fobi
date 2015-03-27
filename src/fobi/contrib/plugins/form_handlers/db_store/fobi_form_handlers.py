@@ -27,7 +27,7 @@ class DBStoreHandlerPlugin(FormHandlerPlugin):
     """
     uid = UID
     name = _("DB store")
-    #allow_multiple = False
+    allow_multiple = False
 
     def run(self, form_entry, request, form, form_element_entries=None):
         """

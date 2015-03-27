@@ -267,13 +267,48 @@ def get_user_form_field_plugin_uids(user):
 def get_allowed_form_handler_plugin_uids(user):
     return get_allowed_plugin_uids(FormHandler, user)
 
-def get_user_form_handler_plugins(user):
-    return get_user_plugins(
+def get_user_form_handler_plugins(user, exclude_used_singles=False,
+                                  used_form_handler_plugin_uids=[]):
+    """
+    Get list of plugins allowed for user.
+
+    :param django.contrib.auth.models.User user:
+    :param bool exclude_used_singles:
+    :param list used_form_handler_plugin_uids:
+    :return list:
+    """
+    user_form_handler_plugins = get_user_plugins(
         get_allowed_form_handler_plugin_uids,
         get_registered_form_handler_plugins,
         form_handler_plugin_registry,
         user
         )
+    user_form_handler_plugin_uids = [plugin_uid for (plugin_uid, plugin_name) \
+                                                in user_form_handler_plugins]
+
+    if exclude_used_singles and used_form_handler_plugin_uids:
+        # Get all registered form handler plugins (as instances)
+        registered_form_handler_plugins = \
+            get_registered_form_handler_plugins(as_instances=True)
+
+        # Check if we need to reduce the list of allowed plugins if they have
+        # been marked to be used once per form and have been used already in
+        # the current form.
+        for plugin_uid, plugin \
+            in registered_form_handler_plugins.items():
+
+            if plugin.uid in user_form_handler_plugin_uids \
+               and not plugin.allow_multiple \
+               and plugin.uid in used_form_handler_plugin_uids:
+
+                # Remove the plugin so that we don't get links to add it
+                # in the UI.
+                plugin_name = safe_text(plugin.name)
+                user_form_handler_plugins.remove(
+                    (plugin.uid, plugin_name)
+                    )
+
+    return user_form_handler_plugins
 
 def get_user_form_handler_plugins_grouped(user):
     return get_user_plugins_grouped(

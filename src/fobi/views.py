@@ -308,30 +308,11 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
         request.user
         )
     # List of form handler plugins allowed to user
-    user_form_handler_plugins = get_user_form_handler_plugins(request.user)
-    user_form_handler_plugin_uids = [plugin_uid for (plugin_uid, plugin_name) \
-                                                in user_form_handler_plugins]
-
-    # Get all registered form handler plugins (as instances)
-    registered_form_handler_plugins = \
-        get_registered_form_handler_plugins(as_instances=True)
-
-    # Check if we need to reduce the list of allowed plugins if they have
-    # been marked to be used once per form and have been used already in
-    # the current form.
-    for plugin_uid, plugin \
-        in registered_form_handler_plugins.items():
-
-        if plugin.uid in user_form_handler_plugin_uids \
-           and not plugin.allow_multiple \
-           and plugin.uid in used_form_handler_uids:
-
-            # Remove the plugin so that we don't get links to add it
-            # in the UI.
-            plugin_name = safe_text(plugin.name)
-            user_form_handler_plugins.remove(
-                (plugin.uid, plugin_name)
-                )
+    user_form_handler_plugins = get_user_form_handler_plugins(
+        request.user,
+        exclude_used_singles = True,
+        used_form_handler_plugin_uids = used_form_handler_uids
+        )
 
     # Assembling the form for preview
     FormClass = assemble_form_class(
@@ -654,7 +635,8 @@ def add_form_handler_entry(request, form_entry_id, form_handler_plugin_uid, \
     # form entry.
     if not FormHandlerPlugin.allow_multiple:
         times_used = FormHandlerEntry._default_manager \
-                                     .filter(form_entry__id=form_entry_id) \
+                                     .filter(form_entry__id=form_entry_id,
+                                             plugin_uid=FormHandlerPlugin.uid) \
                                      .count()
         if times_used > 0:
             raise Http404(ugettext("The {0} plugin can be used only once "
