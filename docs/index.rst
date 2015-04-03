@@ -14,10 +14,9 @@ Prerequisites
 
 Note, that Django 1.8 is not yet proclaimed to be flawlessly supported. The
 core and contrib packages (with no additional dependencies) have been tested
-against the `latest development release of Django (1.8a1)
-<https://www.djangoproject.com/download/1.8a1/tarball/>`_. All tests have
-successfully passed, although it's yet too early to claim that Django 1.8 is
-fully supported.
+against the latest stable Django 1.8 release. All tests have successfully
+passed, although it's yet too early to claim that Django 1.8 is fully
+supported.
 
 Key concepts
 ===============================================

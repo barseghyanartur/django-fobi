@@ -15,6 +15,12 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.4.36
+-------------------------------------
+2015-04-03
+
+- Handle non-ASCII characters content_text form element.
+
 0.4.35
 -------------------------------------
 2015-03-28

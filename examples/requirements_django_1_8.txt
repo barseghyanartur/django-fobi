@@ -1,4 +1,5 @@
-https://www.djangoproject.com/download/1.8a1/tarball/
+#https://www.djangoproject.com/download/1.8a1/tarball/
+Django>=1.8,<1.9
 
 Jinja2
 MarkupSafe

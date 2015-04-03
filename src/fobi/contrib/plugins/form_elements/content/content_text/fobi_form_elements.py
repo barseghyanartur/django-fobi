@@ -1,12 +1,13 @@
 __title__ = 'fobi.contrib.plugins.form_elements.content.content_text.fobi_form_elements'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('ContentTextPlugin',)
 
 from uuid import uuid4
 
 from django.utils.translation import ugettext_lazy as _
+from django.utils.encoding import smart_str
 
 from fobi.base import FormElementPlugin, form_element_plugin_registry
 from fobi.fields import NoneField
@@ -34,7 +35,7 @@ class ContentTextPlugin(FormElementPlugin):
         Get form field instances.
         """
         kwargs = {
-            'initial': "<p>{0}</p>".format(self.data.text),
+            'initial': "<p>{0}</p>".format(smart_str(self.data.text)),
             'required': False,
             'label': '',
         }
