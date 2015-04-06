@@ -1,6 +1,6 @@
 __title__ = 'fobi.contrib.plugins.form_handlers.db_store.models'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('SavedFormDataEntry',)
 
@@ -59,6 +59,7 @@ class SavedFormDataEntry(models.Model):
         abstract = False
         verbose_name = _("Saved form data entry")
         verbose_name_plural = _("Saved form data entries")
+        db_table = 'db_store_savedformdataentry'
 
     def __unicode__(self):
         return "Saved form data entry from {0}".format(self.created)

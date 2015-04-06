@@ -1,6 +1,6 @@
 __title__ = 'fobi.contrib.apps.mezzanine_integration.models'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('FobiFormPage',)
 
@@ -69,6 +69,7 @@ class FobiFormPage(Page, RichText):
         app_label = 'fobi'
         verbose_name = _("Fobi form")
         verbose_name_plural = _("Fobi forms")
+        #db_table = 'fobi_fobiformpage'
 
     def __unicode__(self):
         return _('Fobi form')

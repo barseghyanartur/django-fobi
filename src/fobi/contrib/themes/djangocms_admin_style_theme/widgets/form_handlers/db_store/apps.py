@@ -8,7 +8,8 @@ try:
     from django.apps import AppConfig
 
     class Config(AppConfig):
-        name = label = 'fobi.contrib.themes.djangocms_admin_style_theme.widgets.form_handlers.db_store'
+        name = 'fobi.contrib.themes.djangocms_admin_style_theme.widgets.form_handlers.db_store'
+        label = 'fobi_contrib_themes_djangocms_admin_style_theme_widgets_form_handlers_db_store'
 
 except ImportError:
     pass

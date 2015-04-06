@@ -297,6 +297,12 @@ LOCALE_INDEPENDENT_PATHS = (
 PACKAGE_NAME_FILEBROWSER = "filebrowser_safe" # Just for tests
 PACKAGE_NAME_GRAPPELLI = "grappelli_safe" # Just for tests
 
+#MIGRATION_MODULES = {
+#    'fobi': 'migrations',
+#    'db_store': 'fobi.contrib.plugins.form_handlers.db_store.migrations'
+#}
+#SOUTH_MIGRATION_MODULES = 'south_migrations'
+
 # **************************************************************
 # ************************ Fobi settings ***********************
 # **************************************************************

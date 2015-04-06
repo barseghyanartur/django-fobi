@@ -8,7 +8,8 @@ try:
     from django.apps import AppConfig
 
     class Config(AppConfig):
-        name = label = 'fobi.contrib.plugins.form_handlers.http_repost'
+        name = 'fobi.contrib.plugins.form_handlers.http_repost'
+        label = 'fobi_contrib_plugins_form_handlers_http_repost'
 
 except ImportError:
     pass

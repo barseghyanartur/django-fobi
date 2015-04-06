@@ -3,7 +3,7 @@ Django
 Jinja2
 MarkupSafe
 MySQL-python
-South
+#South
 Sphinx
 django-admin-tools>=0.5.2
 django-autoslug>=1.7.1

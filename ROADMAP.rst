@@ -1,12 +1,12 @@
 Changelog for upcoming releases
 =====================================
-0.6
+0.7
 -------------------------------------
 yyyy-mm-ddd (upcoming).
 
 - Fieldsets.
 
-0.5
+0.6
 -------------------------------------
 yyyy-mm-ddd (upcoming).
 

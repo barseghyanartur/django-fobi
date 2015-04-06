@@ -1,6 +1,6 @@
 __title__ = 'fobi.contrib.apps.djangocms_integration.models'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('FobiFormWidget',)
 
@@ -67,7 +67,11 @@ class FobiFormWidget(CMSPlugin):
         help_text=_("Overrides the default success page text.")
         )
 
+    search_fields = ('form_entry__name',)
+
+    class Meta:
+        app_label = 'cms'
+        #db_table = 'djangocms_integration_fobiformwidget'
+
     def __str__(self):
         return self.form_entry.name
-
-    search_fields = ('form_entry__name',)

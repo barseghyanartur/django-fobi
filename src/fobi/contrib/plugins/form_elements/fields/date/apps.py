@@ -10,7 +10,8 @@ try:
     from django.apps import AppConfig
 
     class Config(AppConfig):
-        name = label = 'fobi.contrib.plugins.form_elements.fields.date'
+        name = 'fobi.contrib.plugins.form_elements.fields.date'
+        label = 'fobi_contrib_plugins_form_elements_fields_date'
 
 except ImportError:
     pass

@@ -8,7 +8,8 @@ try:
     from django.apps import AppConfig
 
     class Config(AppConfig):
-        name = label = 'fobi.contrib.plugins.form_elements.security.honeypot'
+        name = 'fobi.contrib.plugins.form_elements.security.honeypot'
+        label = 'fobi_contrib_plugins_form_elements_security_honeypot'
 
 except ImportError:
     pass

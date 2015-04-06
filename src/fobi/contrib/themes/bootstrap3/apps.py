@@ -8,7 +8,8 @@ try:
     from django.apps import AppConfig
 
     class Config(AppConfig):
-        name = label = 'fobi.contrib.themes.bootstrap3'
+        name = 'fobi.contrib.themes.bootstrap3'
+        label = 'fobi_contrib_themes_bootstrap3'
 
 except ImportError:
     pass

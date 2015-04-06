@@ -8,7 +8,8 @@ try:
     from django.apps import AppConfig
 
     class Config(AppConfig):
-        name = label = 'fobi.contrib.plugins.form_elements.fields.date_drop_down'
+        name = 'fobi.contrib.plugins.form_elements.fields.date_drop_down'
+        label = 'fobi_contrib_plugins_form_elements_fields_date_drop_down'
 
 except ImportError:
     pass

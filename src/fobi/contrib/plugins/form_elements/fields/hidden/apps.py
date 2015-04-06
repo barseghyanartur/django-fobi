@@ -8,7 +8,8 @@ try:
     from django.apps import AppConfig
 
     class Config(AppConfig):
-        name = label = 'fobi.contrib.plugins.form_elements.fields.hidden'
+        name = 'fobi.contrib.plugins.form_elements.fields.hidden'
+        label = 'fobi_contrib_plugins_form_elements_fields_hidden'
 
 except ImportError:
     pass

@@ -8,7 +8,8 @@ try:
     from django.apps import AppConfig
 
     class Config(AppConfig):
-        name = label = 'fobi.contrib.plugins.form_elements.fields.select_multiple'
+        name = 'fobi.contrib.plugins.form_elements.fields.select_multiple'
+        label = 'fobi_contrib_plugins_form_elements_fields_select_multiple'
 
 except ImportError:
     pass

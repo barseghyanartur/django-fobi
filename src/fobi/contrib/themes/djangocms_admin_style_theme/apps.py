@@ -8,7 +8,8 @@ try:
     from django.apps import AppConfig
 
     class Config(AppConfig):
-        name = label = 'fobi.contrib.themes.djangocms_admin_style_theme'
+        name = 'fobi.contrib.themes.djangocms_admin_style_theme'
+        label = 'fobi_contrib_themes_djangocms_admin_style_theme'
 
 except ImportError:
     pass

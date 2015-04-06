@@ -8,7 +8,8 @@ try:
     from django.apps import AppConfig
 
     class Config(AppConfig):
-        name = label = 'fobi.contrib.plugins.form_elements.content.content_image'
+        name = 'fobi.contrib.plugins.form_elements.content.content_image'
+        label = 'fobi_contrib_plugins_form_elements_content_content_image'
 
 except ImportError:
     pass

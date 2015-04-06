@@ -8,7 +8,8 @@ try:
     from django.apps import AppConfig
 
     class Config(AppConfig):
-        name = label = 'fobi.contrib.plugins.form_elements.fields.float'
+        name = 'fobi.contrib.plugins.form_elements.fields.float'
+        label = 'fobi_contrib_plugins_form_elements_fields_float'
 
 except ImportError:
     pass

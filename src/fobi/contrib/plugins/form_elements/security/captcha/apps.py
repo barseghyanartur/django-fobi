@@ -8,7 +8,8 @@ try:
     from django.apps import AppConfig
 
     class Config(AppConfig):
-        name = label = 'fobi.contrib.plugins.form_elements.security.captcha'
+        name = 'fobi.contrib.plugins.form_elements.security.captcha'
+        label = 'fobi_contrib_plugins_form_elements_security_captcha'
 
 except ImportError:
     pass

@@ -8,7 +8,8 @@ try:
     from django.apps import AppConfig
 
     class Config(AppConfig):
-        name = label = 'fobi.contrib.themes.simple'
+        name = 'fobi.contrib.themes.simple'
+        label = 'fobi_contrib_themes_simple'
 
 except ImportError:
     pass

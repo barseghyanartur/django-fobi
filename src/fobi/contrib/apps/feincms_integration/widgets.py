@@ -74,6 +74,7 @@ class FobiFormWidget(models.Model, IntegrationProcessor):
     class Meta:
         abstract = True
         app_label = 'fobi'
+        #db_table = 'page_page_fobiformwidget'
 
     def __unicode__(self):
         return ugettext('Fobi form')

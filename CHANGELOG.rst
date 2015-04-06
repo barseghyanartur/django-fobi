@@ -15,6 +15,22 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.5
+-------------------------------------
+2015-04-06
+
+Note, that this release contains minor backwards incompatible changes. The
+changes may affect your existing forms and data. Read the notes below
+carefully.
+
+- Fixed previously wronlgy labeled (in `AppConf`) add-ons/plugins (
+  `fobi.contrib.plugins.form_handlers.db_store`,
+  `fobi.contrib.apps.feincms_integration`,
+  `fobi.contrib.apps.djangocms_integration`,
+  `fobi.contrib.apps.mezzanine_integration`). Due to the change, you would
+  likely have to to rename a couple of database tables and update referencies
+  accordingly. No migrations to solve the issue are included at the moment.
+
 0.4.36
 -------------------------------------
 2015-04-03
