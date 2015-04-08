@@ -234,12 +234,14 @@ class BaseTheme(object):
         # If no specific ``form_view_snippet_template_name`` specified, fall
         # back to the ``form_snippet_template_name``.
         if not self.form_view_snippet_template_name:
-            self.form_view_snippet_template_name = self.form_snippet_template_name
+            self.form_view_snippet_template_name = \
+                self.form_snippet_template_name
 
         # If no specific ``form_edit_snippet_template_name`` specified, fall
         # back to the ``form_snippet_template_name``.
         if not self.form_edit_snippet_template_name:
-            self.form_edit_snippet_template_name = self.form_snippet_template_name
+            self.form_edit_snippet_template_name = \
+                self.form_snippet_template_name
 
         # If no specific ``form_view_ajax`` specified, fall
         # back to the ``form_ajax``.
@@ -251,14 +253,16 @@ class BaseTheme(object):
         if not self.form_edit_ajax:
             self.form_edit_ajax = self.form_ajax
 
-        # If no specific ``view_embed_form_entry_ajax_template`` specified, fall
-        # back to the ``view_form_entry_ajax_template``.
+        # If no specific ``view_embed_form_entry_ajax_template`` specified, 
+        # fall back to the ``view_form_entry_ajax_template``.
         if not self.view_embed_form_entry_ajax_template:
-            self.view_embed_form_entry_ajax_template = self.view_form_entry_ajax_template
+            self.view_embed_form_entry_ajax_template = \
+                self.view_form_entry_ajax_template
 
         # Some sort of a embed thank you.
         if not self.embed_form_entry_submitted_ajax_template:
-            self.embed_form_entry_submitted_ajax_template = self.form_entry_submitted_ajax_template
+            self.embed_form_entry_submitted_ajax_template = \
+                self.form_entry_submitted_ajax_template
 
         # Set theme specific data from settings for to be
         # refered like `fobi_theme.custom_data`.
@@ -562,7 +566,9 @@ class BaseFormFieldPluginForm(BasePluginForm):
                 return False
 
             # Make sure field label is unique
-            if hasattr(plugin.data, 'label') and plugin.data.label == data['label']:
+            if hasattr(plugin.data, 'label') and \
+               plugin.data.label == data['label']:
+
                 self._errors.update({'label': [_("Duplicate label name!")]})
                 return False
 
@@ -1016,7 +1022,9 @@ class BasePlugin(object):
 
         >>> def clone_plugin_data(self, dashboard_entry):
         >>>     cloned_image = clone_file(self.data.image, relative_path=True)
-        >>>     return self.get_cloned_plugin_data(update={'image': cloned_image})
+        >>>     return self.get_cloned_plugin_data(
+        >>>         update={'image': cloned_image}
+        >>>         )
         """
         form = self.get_form()
 
@@ -1651,7 +1659,8 @@ class BasePluginWidgetRegistry(object):
 
         uid = BasePluginWidgetRegistry.namify(cls.theme_uid, cls.plugin_uid)
 
-        # If item has not been forced yet, add/replace its' value in the registry
+        # If item has not been forced yet, add/replace its' value in the
+        # registry.
         if force:
 
             if not uid in self._forced:
@@ -1727,10 +1736,12 @@ theme_registry = ThemeRegistry()
 # Register action plugins by calling form_action_plugin_registry.register()
 form_callback_registry = FormCallbackRegistry()
 
-# Register plugin widgets by calling form_element_plugin_widget_registry.register()
+# Register plugin widgets by calling
+# form_element_plugin_widget_registry.register()
 form_element_plugin_widget_registry = FormElementPluginWidgetRegistry()
 
-# Register plugin widgets by calling form_handler_plugin_widget_registry.register()
+# Register plugin widgets by calling
+# form_handler_plugin_widget_registry.register()
 form_handler_plugin_widget_registry = FormHandlerPluginWidgetRegistry()
 
 # *****************************************************************************

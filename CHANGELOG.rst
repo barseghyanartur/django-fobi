@@ -23,8 +23,8 @@ Note, that this release contains minor backwards incompatible changes. The
 changes may affect your existing forms and data. Read the notes below
 carefully.
 
-- Fixed previously wronlgy labeled (in `AppConf`) add-ons/plugins (
-  `fobi.contrib.plugins.form_handlers.db_store`,
+- Fixed previously wrongly labeled (in `AppConf`) add-ons/plugins
+  (`fobi.contrib.plugins.form_handlers.db_store`,
   `fobi.contrib.apps.feincms_integration`,
   `fobi.contrib.apps.djangocms_integration`,
   `fobi.contrib.apps.mezzanine_integration`). Due to the change, you would
@@ -99,7 +99,7 @@ carefully.
   field added.
 - `Slug
   <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/slug>`_
-   field added .
+  field added.
 - `IP address
   <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/ip_address>`_
   field added.
@@ -169,8 +169,8 @@ carefully.
 2015-03-06
 
 - Validate `fobi.contrib.plugins.form_elements.fields.email`,
-`fobi.contrib.plugins.form_elements.fields.integer` and
-`fobi.contrib.plugins.form_elements.fields.url` plugins initial values.
+  `fobi.contrib.plugins.form_elements.fields.integer` and
+  `fobi.contrib.plugins.form_elements.fields.url` plugins initial values.
 - Properly show field types "checkbox" and "radio" in the `input` plugin (as
   previously they showed up too large).
 - It's now possible to restrict multiple usage of form handler plugins via

@@ -2,11 +2,12 @@ __title__ = 'fobi.data_structures'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('SortableDict',)
+__all__ = ('SortableDict', )
 
 import copy
 
 import six
+
 
 class SortableDict(dict):
     """
@@ -15,6 +16,7 @@ class SortableDict(dict):
     the ``Django``, but has several additional methods implemented,
     such as: ``insert_before_key`` and ``insert_after_key``.
     """
+
     def __new__(cls, *args, **kwargs):
         instance = super(SortableDict, cls).__new__(cls, *args, **kwargs)
         instance.key_order = []
@@ -140,17 +142,20 @@ class SortableDict(dict):
         Replaces the normal dict.__repr__ with a version that returns the keys
         in their sorted order.
         """
-        return '{%s}' % ', '.join(['%r: %r' % (k, v) for k, v in six.iteritems(self)])
+        return '{%s}' % ', '.join(['%r: %r' % (k, v)
+                                   for k, v in six.iteritems(self)])
 
     def clear(self):
         super(SortableDict, self).clear()
         self.key_order = []
 
-    # ********************************************************************************
-    # ******************************* Additional methods *****************************
-    # ********************************************************************************
+    # *************************************************************************
+    # ************************** Additional methods ***************************
+    # *************************************************************************
 
-    def insert_before_key(self, target_key, key, value, fail_silently=True, offset=0):
+    def insert_before_key(self, target_key, key, value,
+                          fail_silently=True,
+                          offset=0):
         """
         Inserts the {``key``: ``value``} before the ``target_key``.
 
@@ -166,7 +171,8 @@ class SortableDict(dict):
             self.insert(index, key, value)
             return True
         elif not fail_silently:
-            raise ValueError("Target key ``{0}`` does not exist.".format(target_key))
+            raise ValueError(
+                "Target key ``{0}`` does not exist.".format(target_key))
         else:
             return False
 
@@ -181,15 +187,15 @@ class SortableDict(dict):
         :param int offset:
         :return bool:
         """
-        return self.insert_before_key(
-            target_key = target_key,
-            key = key,
-            value = value,
-            fail_silently = fail_silently,
-            offset = 1
-            )
+        return self.insert_before_key(target_key=target_key,
+                                      key=key,
+                                      value=value,
+                                      fail_silently=fail_silently,
+                                      offset=1)
 
-    def move_before_key(self, source_key, target_key, fail_silently=True, offset=0):
+    def move_before_key(self, source_key, target_key,
+                        fail_silently=True,
+                        offset=0):
         """
         Moves the {``key``: ``value``} before the given ``source_key``.
 
@@ -201,9 +207,12 @@ class SortableDict(dict):
         """
         if target_key in self.key_order and source_key in self.key_order:
             source_value = self.pop(source_key)
-            return self.insert_before_key(target_key, source_key, source_value, fail_silently=True, offset=offset)
+            return self.insert_before_key(target_key, source_key, source_value,
+                                          fail_silently=True,
+                                          offset=offset)
         elif not fail_silently:
-            raise ValueError("Non existing keys: {0}, {1}.".format(source_key, target_key))
+            raise ValueError("Non existing keys: {0}, {1}.".format(source_key,
+                                                                   target_key))
         else:
             return False
 
@@ -216,9 +225,7 @@ class SortableDict(dict):
         :param boolean fail_silently:
         :return bool:
         """
-        return self.move_before_key(
-            source_key = source_key,
-            target_key = target_key,
-            fail_silently = fail_silently,
-            offset = 1
-            )
+        return self.move_before_key(source_key=source_key,
+                                    target_key=target_key,
+                                    fail_silently=fail_silently,
+                                    offset=1)
