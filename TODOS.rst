@@ -221,12 +221,12 @@ Must haves
 + Show how to use (or make use) of `django-crispy-forms
   <https://github.com/maraujop/django-crispy-forms>`_ package in the
   "simple"-like themes.
-- Fix the checkbox select multiple plugin (doesn't post any data).
++ Fix the checkbox select multiple plugin (doesn't post any data).
++ Add CheckboxSelectMultiple field.
 - Make it possible to provide more than one `to` email address in the mail
   form handler plugin.
 - Since tests have been made quite general, create them for all contrib
   form elements and handlers (not yet for things like CAPTCHA).
-- Add CheckboxSelectMultiple field.
 - Translate German and Russian URLs.
 - See if it's possible to make the "simple" theme base template (for Django
   admin) as much generic so that change between versions doesn't cause
@@ -300,9 +300,9 @@ Should haves
 + In ``db_store` plugin, at the moment if labels are not unique, some data
   loss happens. Either, make the labels unique in a single form or avoid data
   loss in some other way.
-- Fix the issue with `db_store` plugin and `allow_multiple` property (if
++ Fix the issue with `db_store` plugin and `allow_multiple` property (if
   set to True tests fail).
-- Fix the issue with `initial` for `select_multiple` plugin. At the moment,
++ Fix the issue with `initial` for `select_multiple` plugin. At the moment,
   setting initial doesn't seem to work.
 - Document the changes.
 - Find out why subclassing the ``select_model_object`` plugin didn't work.
