@@ -11,6 +11,12 @@ Licensing information:
 
 - Apache license 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
 
+Bootstrap 3 Datepicker
+==============================
+http://eonasdan.github.io/bootstrap-datetimepicker/
+
+- MIT (http://opensource.org/licenses/mit-license.html)
+
 django-autoslug
 ==============================
 https://bitbucket.org/neithere/django-autoslug
@@ -86,6 +92,14 @@ https://github.com/pmcelhaney/jQuery-Slugify-Plugin
 Licensing information:
 
 - BSD (https://github.com/pmcelhaney/jQuery-Slugify-Plugin/blob/master/LICENSE).
+
+moment.js
+==============================
+http://momentjs.com/
+
+Licensing information:
+
+- MIT (http://opensource.org/licenses/mit-license.html)
 
 ordereddict
 ==============================

@@ -35,6 +35,8 @@ static_dirs = [
     "src/fobi/static", # Core static
 
     "src/fobi/contrib/themes/bootstrap3/static", # Bootstrap3
+    "src/fobi/contrib/themes/bootstrap3/widgets/form_elements/datetime_bootstrap3_widget/static", # Bootstrap3 datetime widget
+    "src/fobi/contrib/themes/bootstrap3/widgets/form_elements/date_bootstrap3_widget/static", # Bootstrap3 date widget
     "src/fobi/contrib/themes/foundation5/static", # Foundation5
     "src/fobi/contrib/themes/simple/static", # Simple
     "src/fobi/contrib/themes/djangocms_admin_style_theme/static", # djangocms_admin_style_theme
@@ -63,7 +65,7 @@ for static_dir in static_dirs:
 for locale_dir in locale_dirs:
     locale_files += [os.path.join(locale_dir, f) for f in os.listdir(locale_dir)]
 
-version = '0.5'
+version = '0.5.1'
 
 install_requires = [
     'Pillow>=2.0.0',

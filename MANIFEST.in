@@ -13,6 +13,9 @@ recursive-include src/fobi/static *
 #prune src/fobi/static/jquery-ui/development-bundle
 
 recursive-include src/fobi/contrib/themes/bootstrap3/static *
+recursive-include src/fobi/contrib/themes/bootstrap3/widgets/form_elements/datetime_bootstrap3_widget/static *
+recursive-include src/fobi/contrib/themes/bootstrap3/widgets/form_elements/date_bootstrap3_widget/static *
+recursive-include src/fobi/contrib/themes/bootstrap3/widgets/form_elements/dummy_bootstrap3_widget/static *
 recursive-include src/fobi/contrib/themes/foundation5/static *
 recursive-include src/fobi/contrib/themes/simple/static *
 recursive-include src/fobi/contrib/themes/djangocms_admin_style_theme/static *
@@ -24,6 +27,7 @@ recursive-include src/fobi/contrib/plugins/form_handlers/db_store/static *
 recursive-include src/fobi/templates *
 
 recursive-include src/fobi/contrib/themes/bootstrap3/templates *
+#recursive-include src/fobi/contrib/themes/bootstrap3/widgets/form_elements/datetime_bootstrap3_widget/templates *
 recursive-include src/fobi/contrib/themes/foundation5/templates *
 recursive-include src/fobi/contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates *
 recursive-include src/fobi/contrib/themes/simple/templates *

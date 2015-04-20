@@ -187,6 +187,9 @@ INSTALLED_APPS = (
     # ************************ Bootstrap 3 theme ****************************
     # ***********************************************************************
     'fobi.contrib.themes.bootstrap3', # Bootstrap 3 theme
+    # DateTime widget
+    'fobi.contrib.themes.bootstrap3.widgets.form_elements.datetime_bootstrap3_widget',
+    'fobi.contrib.themes.bootstrap3.widgets.form_elements.date_bootstrap3_widget',
 
     # ***********************************************************************
     # ************************ Foundation 5 theme ***************************
