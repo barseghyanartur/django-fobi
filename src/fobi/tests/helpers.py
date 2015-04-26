@@ -21,7 +21,7 @@ from fobi.contrib.plugins.form_elements.content.content_image.fobi_form_elements
 from fobi.contrib.plugins.form_elements.fields.boolean.fobi_form_elements \
     import BooleanSelectPlugin
 from fobi.contrib.plugins.form_elements.fields.email.fobi_form_elements \
-    import EmailPlugin
+    import EmailInputPlugin
 from fobi.contrib.plugins.form_elements.fields.hidden.fobi_form_elements \
     import HiddenInputPlugin
 from fobi.contrib.plugins.form_elements.fields.integer.fobi_form_elements \
@@ -154,7 +154,7 @@ def create_form_with_entries(user=None, create_entries_if_form_exist=True):
     # Email
     form_element_entry = FormElementEntry(
         form_entry = form_entry,
-        plugin_uid = EmailPlugin.uid,
+        plugin_uid = EmailInputPlugin.uid,
         plugin_data = '{"name": "email", "required": true, "label": "E-mail"}',
         position = position
         )

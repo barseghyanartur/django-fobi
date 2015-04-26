@@ -36,7 +36,7 @@ from fobi.contrib.plugins.form_elements.content.content_image.fobi_form_elements
 from fobi.contrib.plugins.form_elements.fields.boolean.fobi_form_elements \
     import BooleanSelectPlugin
 from fobi.contrib.plugins.form_elements.fields.email.fobi_form_elements \
-    import EmailPlugin
+    import EmailInputPlugin
 from fobi.contrib.plugins.form_elements.fields.hidden.fobi_form_elements \
     import HiddenInputPlugin
 from fobi.contrib.plugins.form_elements.fields.integer.fobi_form_elements \
@@ -86,14 +86,14 @@ def print_info(func):
         return func
 
     def inner(self, *args, **kwargs):
-        if TRACK_TIME:
-            import simple_timer
-            timer = simple_timer.Timer() # Start timer
+        #if TRACK_TIME:
+        #    import simple_timer
+        #    timer = simple_timer.Timer() # Start timer
 
         result = func(self, *args, **kwargs)
 
-        if TRACK_TIME:
-            timer.stop() # Stop timer
+        #if TRACK_TIME:
+        #    timer.stop() # Stop timer
 
         print('\n{0}'.format(func.__name__))
         print('============================')
@@ -102,8 +102,8 @@ def print_info(func):
         print('----------------------------')
         if result is not None:
             print(result)
-        if TRACK_TIME:
-            print('done in {0} seconds'.format(timer.duration))
+        #if TRACK_TIME:
+        #    print('done in {0} seconds'.format(timer.duration))
         print('\n')
 
         return result

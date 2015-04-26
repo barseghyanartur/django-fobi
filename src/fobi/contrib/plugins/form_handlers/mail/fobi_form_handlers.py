@@ -12,7 +12,6 @@ import os
 from six import string_types
 
 from django.utils.translation import ugettext_lazy as _
-#from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.conf import settings
 
@@ -23,6 +22,9 @@ from fobi.helpers import safe_text, extract_file_path
 from fobi.contrib.plugins.form_handlers.mail import UID
 from fobi.contrib.plugins.form_handlers.mail.forms import MailForm
 from fobi.contrib.plugins.form_handlers.mail.helpers import send_mail
+from fobi.contrib.plugins.form_handlers.mail.settings import (
+    MULTI_EMAIL_FIELD_VALUE_SPLITTER
+)
 
 class MailHandlerPlugin(FormHandlerPlugin):
     """
@@ -56,7 +58,8 @@ class MailHandlerPlugin(FormHandlerPlugin):
 
         rendered_data = []
         for key, value in cleaned_data.items():
-            if value and isinstance(value, string_types) and value.startswith(settings.MEDIA_URL):
+            if value and isinstance(value, string_types) \
+                     and value.startswith(settings.MEDIA_URL):
                 cleaned_data[key] = '{base_url}{value}'.format(
                     base_url=base_url, value=value
                     )
@@ -67,11 +70,19 @@ class MailHandlerPlugin(FormHandlerPlugin):
 
         files = self._prepare_files(request, form)
 
+        # Handling more than one email address
+        if isinstance(self.data.to_email, (list, tuple)):
+            to_email = self.data.to_email
+        else:
+            # Assume that it's string
+            to_email = self.data.to_email.split(MULTI_EMAIL_FIELD_VALUE_SPLITTER)
+
         send_mail(
             safe_text(self.data.subject),
-            "{0}\n\n{1}".format(safe_text(self.data.body), ''.join(rendered_data)),
+            "{0}\n\n{1}".format(safe_text(self.data.body),
+            ''.join(rendered_data)),
             self.data.from_email,
-            [self.data.to_email],
+            to_email,
             fail_silently = False,
             attachments = files.values()
             )
@@ -119,7 +130,9 @@ class MailHandlerPlugin(FormHandlerPlugin):
         """
         context = {
             'to_name': safe_text(self.data.to_name),
-            'to_email': self.data.to_email,
+            'to_email': '{0} '.format(MULTI_EMAIL_FIELD_VALUE_SPLITTER).join(
+                            self.data.to_email
+                            ),
             'subject': safe_text(self.data.subject),
         }
         return render_to_string('mail/plugin_data_repr.html', context)

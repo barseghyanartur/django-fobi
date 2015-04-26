@@ -15,6 +15,16 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.5.2
+-------------------------------------
+2015-04-xx
+
+- Make it possible to provide multiple `to` email addresses in the `mail`
+  form handler plugin.
+- DateTime picker widget added for Foundation5 theme for `datetime` and `date`
+  plugins.
+- Added more tests (more plugins tested).
+
 0.5.1
 -------------------------------------
 2015-04-21

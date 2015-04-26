@@ -17,6 +17,9 @@ recursive-include src/fobi/contrib/themes/bootstrap3/widgets/form_elements/datet
 recursive-include src/fobi/contrib/themes/bootstrap3/widgets/form_elements/date_bootstrap3_widget/static *
 recursive-include src/fobi/contrib/themes/bootstrap3/widgets/form_elements/dummy_bootstrap3_widget/static *
 recursive-include src/fobi/contrib/themes/foundation5/static *
+recursive-include src/fobi/contrib/themes/foundation5/widgets/form_elements/datetime_foundation5_widget/static *
+recursive-include src/fobi/contrib/themes/foundation5/widgets/form_elements/date_foundation5_widget/static *
+recursive-include src/fobi/contrib/themes/foundation5/widgets/form_elements/dummy_foundation5_widget/static *
 recursive-include src/fobi/contrib/themes/simple/static *
 recursive-include src/fobi/contrib/themes/djangocms_admin_style_theme/static *
 
@@ -29,6 +32,7 @@ recursive-include src/fobi/templates *
 recursive-include src/fobi/contrib/themes/bootstrap3/templates *
 #recursive-include src/fobi/contrib/themes/bootstrap3/widgets/form_elements/datetime_bootstrap3_widget/templates *
 recursive-include src/fobi/contrib/themes/foundation5/templates *
+#recursive-include src/fobi/contrib/themes/foundation5/widgets/form_elements/datetime_foundation5_widget/templates *
 recursive-include src/fobi/contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates *
 recursive-include src/fobi/contrib/themes/simple/templates *
 recursive-include src/fobi/contrib/themes/djangocms_admin_style_theme/templates *

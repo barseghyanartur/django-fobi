@@ -223,7 +223,7 @@ Must haves
   "simple"-like themes.
 + Fix the checkbox select multiple plugin (doesn't post any data).
 + Add CheckboxSelectMultiple field.
-- Make it possible to provide more than one `to` email address in the mail
++ Make it possible to provide more than one `to` email address in the mail
   form handler plugin.
 - Since tests have been made quite general, create them for all contrib
   form elements and handlers (not yet for things like CAPTCHA).
@@ -255,7 +255,8 @@ Must haves
 - Edit form element tests.
 - Edit from handler tests.
 - Delete form tests.
-- List all settings overrides in docs https://github.com/barseghyanartur/django-fobi#tuning
+- List all settings overrides in docs
+  https://github.com/barseghyanartur/django-fobi#tuning
 - Add tox tests.
 
 Should haves
@@ -310,12 +311,9 @@ Should haves
 - Make a real ``birthday`` field (with no year selection).
 - Fix the view saved form entries template (nicer look) for Foundation 5
   theme.
-- Fix the ``input_format`` option in the date and datetime fields.
 - Finish form importers concept and the MailChimp form importer plugin.
 - Make sure it's possible to assign CSS and JS files to the form handler
   plugins.
-- Think of making it possible to change (or even better - regenerate) the
-  form slug (preferrably - yes).
 - In the widget for FeinCMS make sure to list the usernames along with
   the form names.
 - Repeat for the form callbacks the same what's already done to prioritise 
@@ -329,17 +327,13 @@ Should haves
 - Once the form ordering has been changed, show a message and warn if user 
   is about to leave the page without saving the changes.
 - Make it possible to create fieldsets (implement as containers).
+- Make it possible (just checkbox) to set a fieldset as clonable.
 - Think of adding hooks so that custom actions are possible without template
   changes (for example, add a new import app for importing the forms from
   MailChimp).
-- Add a management command to remove broken form elements.
 - Think of making putting several actions (repair) into the management
   interface (UI).
 - Make Django's CSRF validation optional.
-- Make sure a better (SEO) URLs can be used in intergration packages (at
-  least the FeinCMS).
-- Base fieldset. Allow users to add more than one field to a fieldset.
-- Make it possible (just checkbox) to set a fieldset as clonable.
 
 Could haves
 ===============================================
@@ -349,12 +343,18 @@ Could haves
 + Finish select multiple model objects plugin (issue with processing form data
   on form submit).
 + Make a django theme for jQuery UI.
+- Fix the ``input_format`` option in the date and datetime fields.
+- Think of making it possible to change (or even better - regenerate) the
+  form slug (preferrably - yes).
+- Add a management command to remove broken form elements.
 - Think of delegating the form rendering completely to third-party library
   like `django-crispy-forms`.
 - Make it possible to use something else than Django's ORM (django-mongoengine,
   SQLAlchemy).
 - Make it possible for themes to override the ``fobi.forms.FormEntryForm``
   form?
+- Make sure a better (SEO) URLs can be used in intergration packages (at
+  least the FeinCMS).
 - Make sure that the form view return can be overridden?
 - Add datetime range and date range fields.
 - Confugure defaults values of each plugin in projects' settings module.

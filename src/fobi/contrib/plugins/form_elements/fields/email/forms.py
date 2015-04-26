@@ -2,9 +2,9 @@ from __future__ import absolute_import
 
 __title__ = 'fobi.contrib.plugins.form_elements.email.forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('EmailForm',)
+__all__ = ('EmailInputForm',)
 
 from django import forms
 from django.utils.translation import ugettext_lazy as _
@@ -14,9 +14,9 @@ from fobi.settings import DEFAULT_MAX_LENGTH
 
 theme = get_theme(request=None, as_instance=True)
 
-class EmailForm(forms.Form, BaseFormFieldPluginForm):
+class EmailInputForm(forms.Form, BaseFormFieldPluginForm):
     """
-    Form for ``EmailPluginPlugin``.
+    Form for ``EmailInputPlugin``.
     """
     plugin_data_fields = [
         ("label", ""),
@@ -64,3 +64,6 @@ class EmailForm(forms.Form, BaseFormFieldPluginForm):
         required = False,
         widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
         )
+
+# For backwards compatibility
+EmailForm = EmailInputForm

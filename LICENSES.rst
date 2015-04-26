@@ -11,7 +11,7 @@ Licensing information:
 
 - Apache license 2.0 (http://www.apache.org/licenses/LICENSE-2.0)
 
-Bootstrap 3 Datepicker
+Bootstrap 3 DateTime picker
 ==============================
 http://eonasdan.github.io/bootstrap-datetimepicker/
 
@@ -55,6 +55,14 @@ Licensing information:
 Foundation 5
 ==============================
 http://foundation.zurb.com/
+
+Licensing information:
+
+- MIT (http://opensource.org/licenses/mit-license.html)
+
+Foundation 5 DateTime picker
+==============================
+https://github.com/aliibrahim/foundation-datetimepicker-rails
 
 Licensing information:
 

@@ -2,9 +2,9 @@ from __future__ import absolute_import
 
 __title__ = 'fobi.contrib.plugins.form_elements.fields.email.fobi_form_elements'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('EmailPlugin',)
+__all__ = ('EmailInputPlugin',)
 
 from django.forms.fields import EmailField
 from django.forms.widgets import TextInput
@@ -12,18 +12,18 @@ from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
 from fobi.contrib.plugins.form_elements.fields.email import UID
-from fobi.contrib.plugins.form_elements.fields.email.forms import EmailForm
+from fobi.contrib.plugins.form_elements.fields.email.forms import EmailInputForm
 
 theme = get_theme(request=None, as_instance=True)
 
-class EmailPlugin(FormFieldPlugin):
+class EmailInputPlugin(FormFieldPlugin):
     """
-    Email plugin.
+    Email input plugin.
     """
     uid = UID
     name = _("Email")
     group = _("Fields")
-    form = EmailForm
+    form = EmailInputForm
 
     def get_form_field_instances(self):
         """
@@ -48,4 +48,7 @@ class EmailPlugin(FormFieldPlugin):
         return [(self.data.name, EmailField, kwargs)]
 
 
-form_element_plugin_registry.register(EmailPlugin)
+# For backwards compatibility
+EmailPlugin = EmailInputPlugin
+
+form_element_plugin_registry.register(EmailInputPlugin)
