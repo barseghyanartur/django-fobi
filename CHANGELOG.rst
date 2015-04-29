@@ -17,11 +17,15 @@ are used for versioning (schema follows below):
 
 0.5.2
 -------------------------------------
-2015-04-xx
+2015-04-26
 
-- Make it possible to provide multiple `to` email addresses in the `mail`
+- Make it possible to provide multiple `to` email addresses in the `mail
+  <https://github.com/barseghyanartur/django-fobi/tree/0.5.2/src/fobi/contrib/plugins/form_handlers/mail>`_
   form handler plugin.
-- DateTime picker widget added for Foundation5 theme for `datetime` and `date`
+- DateTime picker widget added for Foundation5 theme for `date
+  <https://github.com/barseghyanartur/django-fobi/tree/0.5.2/src/fobi/contrib/plugins/form_elements/fields/date>`_
+  and `datetime
+  <https://github.com/barseghyanartur/django-fobi/tree/0.5.2/src/fobi/contrib/plugins/form_elements/fields/datetime>`_
   plugins.
 - Added more tests (more plugins tested).
 
@@ -29,7 +33,10 @@ are used for versioning (schema follows below):
 -------------------------------------
 2015-04-21
 
-- DateTime picker widget added for Bootstrap 3 theme for `datetime` and `date`
+- DateTime picker widget added for Bootstrap 3 theme for `date
+  <https://github.com/barseghyanartur/django-fobi/tree/0.5.2/src/fobi/contrib/plugins/form_elements/fields/date>`_
+  and `datetime
+  <https://github.com/barseghyanartur/django-fobi/tree/0.5.2/src/fobi/contrib/plugins/form_elements/fields/datetime>`_
   plugins.
 
 0.5
