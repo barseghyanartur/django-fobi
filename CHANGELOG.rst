@@ -15,6 +15,14 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.5.3
+-------------------------------------
+2015-05-02
+
+- Minor fixes in the `mail
+  <https://github.com/barseghyanartur/django-fobi/tree/0.5.2/src/fobi/contrib/plugins/form_handlers/mail>`_
+  form handler plugin.
+
 0.5.2
 -------------------------------------
 2015-04-26

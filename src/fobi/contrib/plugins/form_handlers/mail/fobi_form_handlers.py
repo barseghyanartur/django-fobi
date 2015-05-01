@@ -128,11 +128,19 @@ class MailHandlerPlugin(FormHandlerPlugin):
 
         :return string:
         """
+        to_email = None
+        # Handling more than one email address
+        if isinstance(self.data.to_email, (list, tuple)):
+            to_email = '{0} '.format(MULTI_EMAIL_FIELD_VALUE_SPLITTER).join(
+                            self.data.to_email
+                            )
+        else:
+            # Assume that it's string
+            to_email = self.data.to_email
+
         context = {
             'to_name': safe_text(self.data.to_name),
-            'to_email': '{0} '.format(MULTI_EMAIL_FIELD_VALUE_SPLITTER).join(
-                            self.data.to_email
-                            ),
+            'to_email': to_email,
             'subject': safe_text(self.data.subject),
         }
         return render_to_string('mail/plugin_data_repr.html', context)
