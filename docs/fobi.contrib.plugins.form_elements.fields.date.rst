@@ -28,6 +28,14 @@ fobi.contrib.plugins.form_elements.fields.date.forms module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.fields.date.widgets module
+-------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.date.widgets
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

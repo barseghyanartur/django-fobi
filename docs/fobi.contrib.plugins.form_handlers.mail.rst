@@ -12,6 +12,30 @@ fobi.contrib.plugins.form_handlers.mail.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_handlers.mail.conf module
+---------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_handlers.mail.conf
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+fobi.contrib.plugins.form_handlers.mail.defaults module
+-------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_handlers.mail.defaults
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+fobi.contrib.plugins.form_handlers.mail.fields module
+-----------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_handlers.mail.fields
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_handlers.mail.fobi_form_handlers module
 -----------------------------------------------------------------
 
@@ -32,6 +56,22 @@ fobi.contrib.plugins.form_handlers.mail.helpers module
 ------------------------------------------------------
 
 .. automodule:: fobi.contrib.plugins.form_handlers.mail.helpers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+fobi.contrib.plugins.form_handlers.mail.settings module
+-------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_handlers.mail.settings
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+fobi.contrib.plugins.form_handlers.mail.widgets module
+------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_handlers.mail.widgets
     :members:
     :undoc-members:
     :show-inheritance:
