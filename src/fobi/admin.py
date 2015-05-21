@@ -14,6 +14,8 @@ from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.contrib import messages
 
+from nine.versions import DJANGO_LTE_1_5
+
 from fobi.models import (
     FormElement, FormHandler, FormEntry, FormElementEntry, FormHandlerEntry
     #FormWizardEntry, FormFieldsetEntry,
@@ -199,11 +201,17 @@ class FormElementEntryAdmin(admin.ModelAdmin):
     class Meta:
         app_label = _('Fobi')
 
-    def queryset(self, request):
-        queryset = super(FormElementEntryAdmin, self).queryset(request)
+    def __queryset(self, request):
+        if DJANGO_LTE_1_5:
+            queryset = super(FormElementEntryAdmin, self).queryset(request)
+        else:
+            queryset = super(FormElementEntryAdmin, self).get_queryset(request)
+
         queryset = queryset.select_related('form_entry', 'form_fieldset_entry')
         return queryset
-    get_queryset = queryset
+    get_queryset = __queryset
+    if DJANGO_LTE_1_5:
+        queryset = __queryset
 
 #admin.site.register(FormElementEntry, FormElementEntryAdmin)
 
@@ -232,11 +240,17 @@ class FormHandlerEntryAdmin(admin.ModelAdmin):
     class Meta:
         app_label = _('Form handler entry')
 
-    def queryset(self, request):
-        queryset = super(FormHandlerEntryAdmin, self).queryset(request)
+    def __queryset(self, request):
+        if DJANGO_LTE_1_5:
+            queryset = super(FormHandlerEntryAdmin, self).queryset(request)
+        else:
+            queryset = super(FormHandlerEntryAdmin, self).get_queryset(request)
+
         queryset = queryset.select_related('form_entry',)
         return queryset
-    get_queryset = queryset
+    get_queryset = __queryset
+    if DJANGO_LTE_1_5:
+        queryset = __queryset
 
 #admin.site.register(FormHandlerEntry, FormHandlerEntryAdmin)
 
@@ -274,11 +288,17 @@ class BasePluginModelAdmin(admin.ModelAdmin):
         """
         return False
 
-    def queryset(self, request):
-        queryset = super(BasePluginModelAdmin, self).queryset(request)
+    def __queryset(self, request):
+        if DJANGO_LTE_1_5:
+            queryset = super(BasePluginModelAdmin, self).queryset(request)
+        else:
+            queryset = super(BasePluginModelAdmin, self).get_queryset(request)
+
         queryset = queryset.prefetch_related('users', 'groups')
         return queryset
-    get_queryset = queryset
+    get_queryset = __queryset
+    if DJANGO_LTE_1_5:
+        queryset = __queryset
 
     def _get_bulk_change_form_class(self):
         raise NotImplemented("You should implement `get_bulk_change_form_class`")

@@ -1,3 +1,4 @@
+#coding:utf-8
 # `django-fobi` Dutch locale.
 # Copyright (C) 2014 Artur Barseghyan
 # This file is distributed under the same license as the PACKAGE package.
@@ -7,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-03-23 13:39+0100\n"
-"PO-Revision-Date: 2015-03-24 23:52+0100\n"
+"POT-Creation-Date: 2015-05-19 23:38+0200\n"
+"PO-Revision-Date: 2015-05-21 22:47+0100\n"
 "Last-Translator: Artur Barseghyan <artur.barseghyan@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: Dutch\n"
@@ -25,6 +26,7 @@ msgstr ""
 #: contrib/apps/djangocms_integration/models.py:26
 #: contrib/apps/feincms_integration/widgets.py:30
 #: contrib/apps/mezzanine_integration/models.py:24
+#: contrib/apps/wagtail_integration/models.py:37
 #: contrib/plugins/form_handlers/db_store/models.py:49
 #: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:39
 #: contrib/themes/foundation5/templates/foundation5/dashboard.html:29
@@ -81,11 +83,11 @@ msgstr "Formulier bevat fouten: {}"
 msgid "POST required when changing in bulk!"
 msgstr "POST vereist bij het veranderen in bulk!"
 
-#: base.py:110
+#: base.py:111
 msgid "Build your forms"
 msgstr "Bouw je formulieren"
 
-#: base.py:523
+#: base.py:528
 #: models.py:217
 #: models.py:265
 #: models.py:318
@@ -124,7 +126,7 @@ msgstr "Bouw je formulieren"
 msgid "Name"
 msgstr "Naam"
 
-#: base.py:528
+#: base.py:533
 #: contrib/plugins/form_elements/fields/boolean/forms.py:27
 #: contrib/plugins/form_elements/fields/checkbox_select_multiple/forms.py:29
 #: contrib/plugins/form_elements/fields/date/forms.py:30
@@ -158,7 +160,7 @@ msgstr "Naam"
 msgid "Label"
 msgstr "Label"
 
-#: base.py:533
+#: base.py:538
 #: contrib/plugins/form_elements/fields/boolean/forms.py:37
 #: contrib/plugins/form_elements/fields/checkbox_select_multiple/forms.py:60
 #: contrib/plugins/form_elements/fields/date/forms.py:40
@@ -190,7 +192,7 @@ msgstr "Label"
 msgid "Help text"
 msgstr "Helptekst"
 
-#: base.py:538
+#: base.py:543
 #: contrib/plugins/form_elements/fields/boolean/forms.py:47
 #: contrib/plugins/form_elements/fields/checkbox_select_multiple/forms.py:70
 #: contrib/plugins/form_elements/fields/date/forms.py:56
@@ -224,19 +226,19 @@ msgstr "Helptekst"
 msgid "Required"
 msgstr "Verplicht"
 
-#: base.py:560
+#: base.py:565
 msgid "Duplicate field name!"
 msgstr "Veldnaam is al in gebruik!"
 
-#: base.py:565
+#: base.py:572
 msgid "Duplicate label name!"
 msgstr "Labelnaam is al in gebruik!"
 
-#: base.py:644
+#: base.py:651
 msgid "General"
 msgstr "Algemeen"
 
-#: base.py:2147
+#: base.py:2183
 msgid "Theme `{0}` does not exist!"
 msgstr "Theme `{0}` niet gevonden!"
 
@@ -266,7 +268,7 @@ msgid "Groups action"
 msgstr "Groepenactie"
 
 #: helpers.py:388
-#: helpers.py:413
+#: helpers.py:412
 msgid "Invalid value for initial: {0}. Should be any of the following: {1}"
 msgstr "Ongeldige initiële waarde: {0}. Moet een van de volgende zijn: {1}"
 
@@ -386,8 +388,8 @@ msgid "Action"
 msgstr "Actie"
 
 #: models.py:292
-msgid "Custom form action"
-msgstr "Custom formulier actie"
+msgid "Custom form action; don't fill this field, unless really necessary."
+msgstr ""
 
 #: models.py:296
 msgid "Form entry"
@@ -439,7 +441,7 @@ msgstr "Formulier elementen"
 msgid "Form handler entries"
 msgstr "Formulier afhandelaar"
 
-#: utils.py:329
+#: utils.py:369
 #: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/dashboard.html:78
 #: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/edit_form_entry_ajax.html:125
 #: contrib/themes/foundation5/templates/foundation5/dashboard.html:43
@@ -453,7 +455,7 @@ msgstr "Formulier afhandelaar"
 msgid "Edit"
 msgstr "Wijzigen"
 
-#: utils.py:334
+#: utils.py:374
 #: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/dashboard.html:83
 #: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/edit_form_entry_ajax.html:127
 #: contrib/themes/foundation5/templates/foundation5/dashboard.html:44
@@ -465,95 +467,99 @@ msgstr "Wijzigen"
 msgid "Delete"
 msgstr "Verwijderen"
 
-#: views.py:77
+#: views.py:81
 msgid "{0} not found."
 msgstr "{0} niet gevonden."
 
-#: views.py:167
+#: views.py:171
 msgid "Form {0} was created successfully."
 msgstr "Formulier {0} is succesvol aangemaakt."
 
-#: views.py:175
-#: views.py:282
+#: views.py:179
+#: views.py:286
 msgid "Errors occured while saving the form: {0}."
 msgstr "Er zijn fouten opgetreden tijdens het opslaan van het formulier: {0}."
 
-#: views.py:226
-#: views.py:396
-#: views.py:634
-#: views.py:866
-#: views.py:977
-#: views.py:1019
+#: views.py:230
+#: views.py:381
+#: views.py:619
+#: views.py:852
+#: views.py:973
+#: views.py:1015
 msgid "Form entry not found."
 msgstr "Formulier niet gevonden."
 
-#: views.py:248
+#: views.py:252
 msgid "Elements ordering edited successfully."
 msgstr "Volgorde van de elementen is met succes gewijzigd."
 
-#: views.py:256
+#: views.py:260
 msgid "Errors occured while trying to change the elements ordering!"
 msgstr "Er zijn fouten opgetreden tijdens het opslaan van het elementen volgoorde."
 
-#: views.py:274
+#: views.py:278
 msgid "Form {0} was edited successfully."
 msgstr "Formulier {0} is succesvol gewijzigd."
 
-#: views.py:405
-#: views.py:641
+#: views.py:390
+#: views.py:626
 msgid "Plugin does not exist or you are not allowed to use this plugin!"
 msgstr "Plugin bestaat niet of u bent niet toegestaan om deze plugin te gebruiken!"
 
-#: views.py:468
+#: views.py:453
 msgid "The form element plugin \"{0}\" was added successfully."
 msgstr "Het formulier element \"{0}\" is met succes toegevoegd."
 
-#: views.py:516
+#: views.py:501
 msgid "Form element entry not found."
 msgstr "Formulier element niet gevonden."
 
-#: views.py:528
+#: views.py:513
 msgid "The form element plugin \"{0}\" is not configurable!"
 msgstr "Het formulier element \"{0}\" is niet configureerbaar!"
 
-#: views.py:560
+#: views.py:545
 msgid "The form element plugin \"{0}\" was edited successfully."
 msgstr "Het formulier element \"{0}\" is met succes gewijzigd."
 
-#: views.py:610
+#: views.py:595
 msgid "The form element plugin \"{0}\" was deleted successfully."
 msgstr "Het formulier element \"{0}\" is met succes verwijdert."
 
-#: views.py:656
+#: views.py:642
 msgid "The {0} plugin can be used only once in a form."
 msgstr "De {0} plugin kan slechts eenmaal worden gebruikt in een vorm."
 
-#: views.py:698
+#: views.py:684
 msgid "The form handler plugin \"{0}\" was added successfully."
 msgstr "Het formulier afhandelaar \"{0}\" is met succes toegevoegd."
 
-#: views.py:751
+#: views.py:737
 msgid "Form handler entry not found."
 msgstr "Het formulier niet gevonden."
 
-#: views.py:764
+#: views.py:750
 msgid "The form handler plugin \"{0}\" is not configurable!"
 msgstr "Het formulier afhandelaar \"{0}\" is niet configureerbaar!"
 
-#: views.py:787
+#: views.py:773
 msgid "The form handler plugin \"{0}\" was edited successfully."
 msgstr "Het formulier afhandelaar \"{0}\" is met succes gewijzigd."
 
-#: views.py:836
+#: views.py:822
 msgid "The form handler plugin \"{0}\" was deleted successfully."
 msgstr "Het formulier afhandelaar \"{0}\" is met succes verwijdert."
 
-#: views.py:919
+#: views.py:900
+msgid "Error occured: {0}."
+msgstr "Er is een fout opgetreden: {0}."
+
+#: views.py:914
 #: integration/processors.py:156
 msgid "Form {0} was submitted successfully."
 msgstr "Formulier {0} is met succes verstuurd."
 
-#: views.py:1025
+#: views.py:1021
 msgid "The form \"{0}\" was deleted successfully."
 msgstr "Het formulier \"{0}\" is met succes verwijdert."
 
@@ -566,105 +572,123 @@ msgid "No"
 msgstr "Nee"
 
 #: contrib/apps/djangocms_integration/cms_plugins.py:27
-#: contrib/apps/feincms_integration/widgets.py:79
+#: contrib/apps/feincms_integration/widgets.py:80
 #: contrib/apps/mezzanine_integration/models.py:70
-#: contrib/apps/mezzanine_integration/models.py:74
+#: contrib/apps/mezzanine_integration/models.py:75
+#: contrib/apps/wagtail_integration/models.py:85
+#: contrib/apps/wagtail_integration/models.py:88
 msgid "Fobi form"
 msgstr "Fobi formulier"
 
 #: contrib/apps/djangocms_integration/models.py:29
 #: contrib/apps/feincms_integration/widgets.py:33
 #: contrib/apps/mezzanine_integration/models.py:27
+#: contrib/apps/wagtail_integration/models.py:40
 msgid "Form template name"
 msgstr "Formulier sjabloon"
 
 #: contrib/apps/djangocms_integration/models.py:31
 #: contrib/apps/feincms_integration/widgets.py:35
 #: contrib/apps/mezzanine_integration/models.py:29
+#: contrib/apps/wagtail_integration/models.py:42
 msgid "Template to render the form with."
 msgstr "Sjabloon voor het renderen van de formulier."
 
 #: contrib/apps/djangocms_integration/models.py:35
 #: contrib/apps/feincms_integration/widgets.py:39
 #: contrib/apps/mezzanine_integration/models.py:33
+#: contrib/apps/wagtail_integration/models.py:46
 msgid "Hide form title"
 msgstr "Formuliertitel verbergen"
 
 #: contrib/apps/djangocms_integration/models.py:36
 #: contrib/apps/feincms_integration/widgets.py:40
 #: contrib/apps/mezzanine_integration/models.py:34
+#: contrib/apps/wagtail_integration/models.py:47
 msgid "If checked, no form title is shown."
 msgstr "Indien geselecteerd, geen formulier titel word getoond."
 
 #: contrib/apps/djangocms_integration/models.py:40
 #: contrib/apps/feincms_integration/widgets.py:44
 #: contrib/apps/mezzanine_integration/models.py:38
+#: contrib/apps/wagtail_integration/models.py:51
 msgid "Form title"
 msgstr "Formuliertitel"
 
 #: contrib/apps/djangocms_integration/models.py:41
 #: contrib/apps/feincms_integration/widgets.py:45
 #: contrib/apps/mezzanine_integration/models.py:39
+#: contrib/apps/wagtail_integration/models.py:52
 msgid "Overrides the default form title."
 msgstr "Overschrijft de standaard formulier titel."
 
 #: contrib/apps/djangocms_integration/models.py:45
 #: contrib/apps/feincms_integration/widgets.py:49
 #: contrib/apps/mezzanine_integration/models.py:43
+#: contrib/apps/wagtail_integration/models.py:56
 msgid "Submit button text"
 msgstr "Verzenden knop tekst"
 
 #: contrib/apps/djangocms_integration/models.py:46
 #: contrib/apps/feincms_integration/widgets.py:50
 #: contrib/apps/mezzanine_integration/models.py:44
+#: contrib/apps/wagtail_integration/models.py:57
 msgid "Overrides the default form submit button text."
 msgstr "Overschrijft de standaard formulier verzenden knop tekst."
 
 #: contrib/apps/djangocms_integration/models.py:50
 #: contrib/apps/feincms_integration/widgets.py:54
 #: contrib/apps/mezzanine_integration/models.py:48
+#: contrib/apps/wagtail_integration/models.py:61
 msgid "Success page template name"
 msgstr "Succes pagina sjabloon"
 
 #: contrib/apps/djangocms_integration/models.py:52
 #: contrib/apps/feincms_integration/widgets.py:56
 #: contrib/apps/mezzanine_integration/models.py:50
+#: contrib/apps/wagtail_integration/models.py:63
 msgid "Template to render the success page with."
 msgstr "Sjabloon om het succes pagina te renderen."
 
 #: contrib/apps/djangocms_integration/models.py:56
 #: contrib/apps/feincms_integration/widgets.py:60
 #: contrib/apps/mezzanine_integration/models.py:54
+#: contrib/apps/wagtail_integration/models.py:67
 msgid "Hide success page title"
 msgstr "Succes pagina titel verbergen"
 
 #: contrib/apps/djangocms_integration/models.py:57
 #: contrib/apps/feincms_integration/widgets.py:61
 #: contrib/apps/mezzanine_integration/models.py:55
+#: contrib/apps/wagtail_integration/models.py:68
 msgid "If checked, no success page title is shown."
 msgstr "Indien gecheckt, geen succes pagina titel word getoond."
 
 #: contrib/apps/djangocms_integration/models.py:61
 #: contrib/apps/feincms_integration/widgets.py:65
 #: contrib/apps/mezzanine_integration/models.py:59
+#: contrib/apps/wagtail_integration/models.py:72
 msgid "Succes page title"
 msgstr "Succes pagina titel"
 
 #: contrib/apps/djangocms_integration/models.py:62
 #: contrib/apps/feincms_integration/widgets.py:66
 #: contrib/apps/mezzanine_integration/models.py:60
+#: contrib/apps/wagtail_integration/models.py:73
 msgid "Overrides the default success page title."
 msgstr "Overschrijft de standaard succes pagina titel."
 
 #: contrib/apps/djangocms_integration/models.py:66
 #: contrib/apps/feincms_integration/widgets.py:70
 #: contrib/apps/mezzanine_integration/models.py:64
+#: contrib/apps/wagtail_integration/models.py:77
 msgid "Succes page text"
 msgstr "Succes pagina tekst"
 
 #: contrib/apps/djangocms_integration/models.py:67
 #: contrib/apps/feincms_integration/widgets.py:71
 #: contrib/apps/mezzanine_integration/models.py:65
+#: contrib/apps/wagtail_integration/models.py:78
 msgid "Overrides the default success page text."
 msgstr "Overschrijft de standaard succes pagina tekst."
 
@@ -681,6 +705,7 @@ msgstr ""
 "<a href=\"%(login_url)s\">Log in</a> hier.\n"
 
 #: contrib/apps/mezzanine_integration/models.py:71
+#: contrib/apps/wagtail_integration/models.py:85
 msgid "Fobi forms"
 msgstr "Fobi formulieren"
 
@@ -724,7 +749,7 @@ msgid "Content image"
 msgstr "Inhoud afbeelding"
 
 #: contrib/plugins/form_elements/content/content_image/fobi_form_elements.py:33
-#: contrib/plugins/form_elements/content/content_text/fobi_form_elements.py:23
+#: contrib/plugins/form_elements/content/content_text/fobi_form_elements.py:24
 #: contrib/plugins/form_elements/content/content_video/fobi_form_elements.py:25
 msgid "Content"
 msgstr "Inhoud"
@@ -750,7 +775,7 @@ msgstr "Afmetingen"
 msgid "No image provided!"
 msgstr "Geen afbeelding voorzien!"
 
-#: contrib/plugins/form_elements/content/content_text/fobi_form_elements.py:22
+#: contrib/plugins/form_elements/content/content_text/fobi_form_elements.py:23
 msgid "Content text"
 msgstr "Inhoud tekst"
 
@@ -1146,7 +1171,7 @@ msgstr "Datum aangemaakt"
 msgid "Saved form data entries"
 msgstr "Opgeslagen formulier inschrijvingen"
 
-#: contrib/plugins/form_handlers/db_store/models.py:83
+#: contrib/plugins/form_handlers/db_store/models.py:84
 msgid "Saved data"
 msgstr "Opgeslagen data"
 
@@ -1176,32 +1201,36 @@ msgstr ""
 msgid "Endpoint URL"
 msgstr ""
 
-#: contrib/plugins/form_handlers/mail/fobi_form_handlers.py:34
+#: contrib/plugins/form_handlers/mail/fields.py:18
+msgid "Enter valid email addresses."
+msgstr "Voer geldige e-mailadressen."
+
+#: contrib/plugins/form_handlers/mail/fobi_form_handlers.py:36
 msgid "Mail"
 msgstr ""
 
-#: contrib/plugins/form_handlers/mail/forms.py:30
+#: contrib/plugins/form_handlers/mail/forms.py:32
 msgid "From name"
 msgstr "Naam afzender"
 
-#: contrib/plugins/form_handlers/mail/forms.py:35
+#: contrib/plugins/form_handlers/mail/forms.py:39
 msgid "From email"
 msgstr "Email afzender"
 
-#: contrib/plugins/form_handlers/mail/forms.py:40
+#: contrib/plugins/form_handlers/mail/forms.py:46
 msgid "To name"
 msgstr "Naam ontvanger"
 
-#: contrib/plugins/form_handlers/mail/forms.py:45
+#: contrib/plugins/form_handlers/mail/forms.py:53
 msgid "To email"
 msgstr "Email ontvanger"
 
-#: contrib/plugins/form_handlers/mail/forms.py:50
+#: contrib/plugins/form_handlers/mail/forms.py:60
 #: contrib/plugins/form_handlers/mail/templates/mail/plugin_data_repr.html:3
 msgid "Subject"
 msgstr "Onderwerp"
 
-#: contrib/plugins/form_handlers/mail/forms.py:55
+#: contrib/plugins/form_handlers/mail/forms.py:67
 msgid "Body"
 msgstr "Tekst"
 
@@ -1572,6 +1601,9 @@ msgstr "^bekijken/(?P<form_entry_slug>[\\w_\\-]+)/$"
 #: urls/view.py:26
 msgid "^view/(?P<form_entry_slug>[\\w_\\-]+)/submitted/$"
 msgstr "^bekijken/(?P<form_entry_slug>[\\w_\\-]+)/submitted/$"
+
+#~ msgid "Custom form action"
+#~ msgstr "Custom formulier actie"
 
 #~ msgid "Is cloneable"
 #~ msgstr "Is kopieerbaar"

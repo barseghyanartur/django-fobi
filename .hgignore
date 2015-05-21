@@ -27,11 +27,14 @@ syntax: regexp
 ^examples/mezzanine_example/static/media/fobi_plugins/
 ^examples/mezzanine_example/static/
 ^examples/quickstart/local_settings\.py
+^examples/wagtail_example/static/
+^examples/wagtail_example/dev\.db
 ^news-images/
 ^builddocs/
 ^builddocs\.zip
 ^build/
 ^dist/
 ^src/django_fobi\.egg-info
+^dev\.db
 \.DS_Store
 ^examples/quick_start/db\.sqlite3

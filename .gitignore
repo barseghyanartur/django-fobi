@@ -36,3 +36,5 @@ fobi/fobi.migrations.rst
 /src/fobi/nine.py
 /examples/quick_start/db.sqlite3
 /examples/quickstart/
+/dev.db
+

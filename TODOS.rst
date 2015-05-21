@@ -305,6 +305,7 @@ Should haves
   set to True tests fail).
 + Fix the issue with `initial` for `select_multiple` plugin. At the moment,
   setting initial doesn't seem to work.
+- Wagtail integration.
 - Document the changes.
 - Find out why subclassing the ``select_model_object`` plugin didn't work.
 - Rename the ``simple`` theme into ``django_admin_style_theme``.
