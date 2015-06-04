@@ -1,6 +1,6 @@
-===============================================
+=====
 TODOs
-===============================================
+=====
 Based on the MoSCoW principle. Must haves and should haves are planned to be
 worked on.
 
@@ -8,7 +8,7 @@ worked on.
 * Features/issues marked with minus (-) are yet to be implemented.
 
 Must haves
-===============================================
+==========
 + Finish the NoneField.
 + At the moment, NoneField is imported in the function scope. See if that works
   already to move
@@ -257,10 +257,18 @@ Must haves
 - Delete form tests.
 - List all settings overrides in docs
   https://github.com/barseghyanartur/django-fobi#tuning
-- Add tox tests.
+- Move reusable parts (for example, the `get_form_field_type` and
+  `get_form_hidden_fields_errors` template tags into another template tag
+  library or product to reuse it in Django-dash as well. Move the permission
+  code from `decorators` into a separate package. Move the `NoneField` and
+  `NoneWidget` into a separate package.
+- Check if `action` is a valid URL. Make `fobi.models.FormEntry.action` a URL
+  field. Make sure relative URLs work as well.
+- Create a error page for the heroku demo, warning that perhaps user had
+  chosen a wrong `action`.
 
 Should haves
-===============================================
+============
 + Add Django 1.7 support.
 + Add `max` attribute to the date and datetime fields. Also HTML5.
 + Add an example of how to extend the existing themes with additional
@@ -337,7 +345,7 @@ Should haves
 - Make Django's CSRF validation optional.
 
 Could haves
-===============================================
+===========
 + Add Dutch translation.
 + Add Russian translation.
 + Add more HTML5 fields?
@@ -367,7 +375,7 @@ Could haves
   <https://docs.djangoproject.com/en/1.7/ref/forms/fields/>`_.
 
 Would haves
-===============================================
+===========
 - Conditional inputs.
 - Form wizards (combine forms with each other, having one at a step, finally -
   send it all as one).

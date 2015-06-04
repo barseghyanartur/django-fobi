@@ -1,5 +1,5 @@
 Release history and notes
-=====================================
+=========================
 `Sequence based identifiers
 <http://en.wikipedia.org/wiki/Software_versioning#Sequence-based_identifiers>`_
 are used for versioning (schema follows below):
@@ -16,14 +16,14 @@ are used for versioning (schema follows below):
 - All backwards incompatible changes are mentioned in this document.
 
 0.5.4
--------------------------------------
+-----
 2015-05-21
 
 - Minor Django 1.8 fixes.
 - Improved texts/translations.
 
 0.5.3
--------------------------------------
+-----
 2015-05-02
 
 - Minor fixes in the `mail
@@ -31,7 +31,7 @@ are used for versioning (schema follows below):
   form handler plugin.
 
 0.5.2
--------------------------------------
+-----
 2015-04-26
 
 - Make it possible to provide multiple `to` email addresses in the `mail
@@ -45,7 +45,7 @@ are used for versioning (schema follows below):
 - Added more tests (more plugins tested).
 
 0.5.1
--------------------------------------
+-----
 2015-04-21
 
 - DateTime picker widget added for Bootstrap 3 theme for `date
@@ -55,7 +55,7 @@ are used for versioning (schema follows below):
   plugins.
 
 0.5
--------------------------------------
+---
 2015-04-06
 
 Note, that this release contains minor backwards incompatible changes. The
@@ -71,27 +71,27 @@ carefully.
   accordingly. No migrations to solve the issue are included at the moment.
 
 0.4.36
--------------------------------------
+------
 2015-04-03
 
 - Handle non-ASCII characters content_text form element.
 
 0.4.35
--------------------------------------
+------
 2015-03-28
 
 - Fixed the issue with `allow_multiple` working incorrectly for form handler
   plugins. Fix the `db_store` plugin as well.
 
 0.4.34
--------------------------------------
+------
 2015-03-27
 
 - Minor fixes in the `Checkbox select multiple` and `Radio` plugins.
 - Minified tox tests.
 
 0.4.33
--------------------------------------
+------
 2015-03-26
 
 - `Checkbox select multiple
@@ -102,7 +102,7 @@ carefully.
 - Clean up requirements (for example setups and tests).
 
 0.4.32
--------------------------------------
+------
 2015-03-25
 
 - Updated missing parts in the Russian translations.
@@ -111,14 +111,14 @@ carefully.
 - Minor code clean ups.
 
 0.4.31
--------------------------------------
+------
 2015-03-23
 
 - When path of the uploaded file (plugins) doesn't yet exist, create it,
   instaid of failing.
 
 0.4.30
--------------------------------------
+------
 2015-03-23
 
 - From now on submitted files are sent as attachments in the mail plugin.
@@ -127,7 +127,7 @@ carefully.
 - Minor fixes.
 
 0.4.29
--------------------------------------
+------
 2015-03-20
 
 - `Decimal
@@ -153,7 +153,7 @@ carefully.
 - Minor improvements of the date plugins (`datetime`, `date`).
 
 0.4.28
--------------------------------------
+------
 2015-03-13
 
 - Fix improperly picked configurations of the 
@@ -180,7 +180,7 @@ carefully.
   Allowed values are: "val", "repr", "mix".
 
 0.4.27
--------------------------------------
+------
 2015-03-12
 
 - Temporary allow the `fobi.contrib.plugins.form_handlers.db_store` plugin to 
@@ -204,7 +204,7 @@ carefully.
   Allowed values are: "val", "repr", "mix".
 
 0.4.26
--------------------------------------
+------
 2015-03-06
 
 - Validate `fobi.contrib.plugins.form_elements.fields.email`,
@@ -218,13 +218,13 @@ carefully.
   is from now on allowed to be used only once (per form).
 
 0.4.25
--------------------------------------
+------
 2015-03-04
 
 - Post-fix in the discover module (moved logging definition up).
 
 0.4.24
--------------------------------------
+------
 2015-03-04
 
 - The management command `migrate_03_to_04` intended to migrate 0.3.x branch
@@ -236,14 +236,14 @@ carefully.
   the app: ex. "path.to.app.apps.AppConfig" instead of "path.to.app").
 
 0.4.23
--------------------------------------
+------
 2015-03-04
 
 - Fix improper initial value validation for Select-like (`radio`,  `select` and
   `select_multiple`) plugins.
 
 0.4.22
--------------------------------------
+------
 2015-03-03
 
 - Fix replace system-specific path separator by a slash on file urls.
@@ -254,7 +254,7 @@ carefully.
   `select_multiple`) plugins.
 
 0.4.21
--------------------------------------
+------
 2015-02-28
 
 - The
@@ -262,7 +262,7 @@ carefully.
   plugin added.
 
 0.4.20
--------------------------------------
+------
 2015-02-27
 
 - Make it possible to load initial form data from GET variables.
@@ -278,7 +278,7 @@ carefully.
 - Minor documentation improvements.
 
 0.4.19
--------------------------------------
+------
 2015-02-15
 
 - Some more work on future (Django 1.9) compatibility.
@@ -286,14 +286,14 @@ carefully.
   parts of ``django-nine``.
 
 0.4.18
--------------------------------------
+------
 2015-02-13
 
 - From now on it's possible to localise (translated) URLs.
 - Safe way to get the user model for Django >= 1.5.* <= 1.8.*
 
 0.4.17
--------------------------------------
+------
 2015-02-12
 
 - Fix circular imports by proper referencing of the user model in
@@ -302,7 +302,7 @@ carefully.
 - Minor documentation improvements.
 
 0.4.16
--------------------------------------
+------
 2015-02-10
 
 - A new theme ``djangocms_admin_style_theme`` added.
@@ -311,19 +311,19 @@ carefully.
 - Minor fixes.
 
 0.4.15
--------------------------------------
+------
 2015-01-27
 
 - Fix the "large" checkboxes in edit mode - now shown small as they should be.
 
 0.4.14
--------------------------------------
+------
 2015-01-26
 
 - German translations added.
 
 0.4.13
--------------------------------------
+------
 2015-01-15
 
 - Remove an `ipdb` statement from base integration processor
@@ -334,7 +334,7 @@ carefully.
 - Remove redundant static assets (package size decreased).
 
 0.4.12
--------------------------------------
+------
 2015-01-14
 
 - Fix empty options appearing in the Select-like plugins and unified the
@@ -343,20 +343,20 @@ carefully.
 - Support for wheel packages.
 
 0.4.11
--------------------------------------
+------
 2012-12-29
 
 - Styling fixes in the ``radio`` button field of the ``bootstrap3`` theme.
 - Fixed ``db_store`` issue with CSV/XLS export failing on Django 1.7.
 
 0.4.10
--------------------------------------
+------
 2012-12-28
 
 - Minor fixes in FeinCMS integration app.
 
 0.4.9
--------------------------------------
+-----
 2012-12-28
 
 - Third party app integration (at the moment, FeinCMS, DjangoCMS, Mezzanine)
@@ -365,13 +365,13 @@ carefully.
 - Minor CSS fixes in the ``simple`` theme.
 
 0.4.8
--------------------------------------
+-----
 2012-12-25
 
 - More verbose debugging.
 
 0.4.7
--------------------------------------
+-----
 2012-12-24
 
 - Temporary left out the "cloneable" column from the dashboard templates.
@@ -379,7 +379,7 @@ carefully.
 - Fixed broken imports in ReCAPTCHA plugin.
 
 0.4.6
--------------------------------------
+-----
 2012-12-23
 
 - Updated requirements for the ``vishap`` package to avoid the ``six`` version
@@ -387,7 +387,7 @@ carefully.
 - Minor documentation fixes.
 
 0.4.5
--------------------------------------
+-----
 2012-12-17
 
 - ReCAPTCHA field added.
@@ -396,7 +396,7 @@ carefully.
 - Minor improvements of the discover module.
 
 0.4.4
--------------------------------------
+-----
 2014-12-06
 
 - Documentation improvements.
@@ -404,7 +404,7 @@ carefully.
 - Minor fixes related to lazy translations.
 
 0.4.3
--------------------------------------
+-----
 2014-12-05
 
 - Make sure values of form elements declared not to have a value (``has_value``
@@ -412,7 +412,7 @@ carefully.
 - Apply that to the ``honeypot`` and ``captcha`` plugins.
 
 0.4.2
--------------------------------------
+-----
 2014-12-04
 
 - Helper script (management command) in order to migrate django-fobi==0.3.* 
@@ -440,14 +440,14 @@ carefully.
          ./manage.py migrate_03_to_04
 
 0.4.1
--------------------------------------
+-----
 2014-12-04
 
 - Fixes in Foundation5 and Simple themes related to the changes in error
   validation/handling of hidden fields.
 
 0.4
--------------------------------------
+---
 2014-12-03
 
 Note, that this release contains minor backwards incompatible changes. The
@@ -483,7 +483,7 @@ command which makes the necessary changes in the database for safe upgrade).
   ``is_hidden`` is set to False.
 
 0.3.4
--------------------------------------
+-----
 2014-11-23
 
 - New settings ``FOBI_FAIL_ON_ERRORS_IN_FORM_ELEMENT_PLUGINS`` and
@@ -495,26 +495,26 @@ command which makes the necessary changes in the database for safe upgrade).
   characters.
 
 0.3.3
--------------------------------------
+-----
 2014-11-22
 
 - Clean up the setup. Remove redundant dependencies.
 - Documentation improvements.
 
 0.3.2
--------------------------------------
+-----
 2014-11-20
 
 - DjangoCMS integration app made compatible with DjangoCMS 2.4.3.
 
 0.3.1
--------------------------------------
+-----
 2014-11-19
 
 - DjangoCMS integration app.
 
 0.3
--------------------------------------
+---
 2014-11-09
 
 Note, that this release contains minor backwards incompatible changes. The
@@ -548,7 +548,7 @@ need to do is update the app paths in the ``settings`` module of your project.
 - Birthday field added.
 
 0.2.1
--------------------------------------
+-----
 2014-11-06
 
 - Minor improvements of the ``db_store`` plugin.
@@ -561,7 +561,7 @@ need to do is update the app paths in the ``settings`` module of your project.
   exception is raised.
 
 0.2
--------------------------------------
+---
 2014-11-05
 
 Note, that this release contains minor backwards incompatible changes.
@@ -580,7 +580,7 @@ Note, that this release contains minor backwards incompatible changes.
 - Updated translations for Dutch and Russian.
 
 0.1.6
--------------------------------------
+-----
 2014-10-25
 
 - Minor improvements in the theming API. From now on the
@@ -598,7 +598,7 @@ Note, that this release contains minor backwards incompatible changes.
   titles.
 
 0.1.5
--------------------------------------
+-----
 2014-10-23
 
 - Minor fixes in the ``Integer`` form element plugin.
@@ -607,7 +607,7 @@ Note, that this release contains minor backwards incompatible changes.
 - Minor documentation improvements.
 
 0.1.4
--------------------------------------
+-----
 2014-10-22
 
 - Minor core improvements.
@@ -619,20 +619,20 @@ Note, that this release contains minor backwards incompatible changes.
 - Documentation improvements.
 
 0.1.3
--------------------------------------
+-----
 2014-10-13
 
 - Django 1.7 support.
 - Add HTML5 "placeholder" field attribute support.
 
 0.1.2
--------------------------------------
+-----
 2014-10-11
 
 - Simple theme fixes: Fix for making the theme work in Django 1.5.
 
 0.1.1
--------------------------------------
+-----
 2014-10-11
 
 - Bootstrap 3 theme fixes: When tab pane has no or little content so
@@ -640,7 +640,7 @@ Note, that this release contains minor backwards incompatible changes.
   content the dropdown menu now becomes scrollable (vertically).
 
 0.1
--------------------------------------
+---
 2014-10-11
 
 - Initial release.
