@@ -27,3 +27,8 @@ yyyy-mm-dd (upcoming).
 
 - Change the `action` field of the FormEntry into a URL field; check if
   action exists.
+- `django-mptt` form- and model- fields.
+- `captcha`, `recaptcha` and `honeypot` plugins have been made required
+  in the form.
+- Fix: take default values provided in the `plugin_data_fields` of the plugin
+  form into consideration.

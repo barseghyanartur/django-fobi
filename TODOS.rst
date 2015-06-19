@@ -225,6 +225,9 @@ Must haves
 + Add CheckboxSelectMultiple field.
 + Make it possible to provide more than one `to` email address in the mail
   form handler plugin.
++ Take default values provided in the `plugin_data_fields` of the plugin
+  form into consideration (provide as initial on in the form element creation
+  form).
 - Since tests have been made quite general, create them for all contrib
   form elements and handlers (not yet for things like CAPTCHA).
 - Translate German and Russian URLs.
@@ -266,6 +269,13 @@ Must haves
   field. Make sure relative URLs work as well.
 - Create a error page for the heroku demo, warning that perhaps user had
   chosen a wrong `action`.
+- `django-mptt` form field and model field.
+- Make it possible to define dynamic values and use then in the form. Let
+  developers themselves define what should be in there (some sort of
+  register in global scope, maybe just a context processor).
+  Make it pluggable and replaceable.
+- In the heroku demo app, make a real error page saying - page can't e found.
+  Can it be that you mistyped the action URL?
 
 Should haves
 ============
