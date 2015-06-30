@@ -34,7 +34,7 @@ from fobi.decorators import permissions_required, SATISFY_ALL, SATISFY_ANY
 from fobi.base import (
     fire_form_callbacks, run_form_handlers, form_element_plugin_registry,
     form_handler_plugin_registry, submit_plugin_form_data, get_theme,
-    get_registered_form_handler_plugins
+    #get_registered_form_handler_plugins
     )
 from fobi.constants import (
     CALLBACK_BEFORE_FORM_VALIDATION,
@@ -50,7 +50,7 @@ from fobi.utils import (
     get_user_form_handler_plugins, get_user_form_handler_plugin_uids,
     append_edit_and_delete_links_to_field
     )
-from fobi.helpers import safe_text
+#from fobi.helpers import safe_text
 from fobi.settings import GET_PARAM_INITIAL_DATA, DEBUG
 
 logger = logging.getLogger(__name__)
@@ -160,7 +160,7 @@ def create_form_entry(request, theme=None, template_name=None):
     :return django.http.HttpResponse:
     """
     if 'POST' == request.method:
-        form = FormEntryForm(request.POST, request.FILES)
+        form = FormEntryForm(request.POST, request.FILES, request=request)
         if form.is_valid():
             form_entry = form.save(commit=False)
             form_entry.user = request.user
@@ -180,7 +180,7 @@ def create_form_entry(request, theme=None, template_name=None):
                     )
 
     else:
-        form = FormEntryForm()
+        form = FormEntryForm(request=request)
 
     context = {'form': form}
 
@@ -231,7 +231,8 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
 
     if 'POST' == request.method:
         # The form entry form (does not contain form elenments)
-        form = FormEntryForm(request.POST, request.FILES, instance=form_entry)
+        form = FormEntryForm(request.POST, request.FILES, instance=form_entry,
+                             request=request)
 
         if 'ordering' in request.POST:
             form_element_entry_formset = FormElementEntryFormSet(
@@ -287,7 +288,7 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
                     )
     else:
         # The form entry form (does not contain form elenments)
-        form = FormEntryForm(instance=form_entry)
+        form = FormEntryForm(instance=form_entry, request=request)
 
         form_element_entry_formset = FormElementEntryFormSet(
             queryset = form_entry.formelemententry_set.all(),

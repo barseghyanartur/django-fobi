@@ -7,10 +7,12 @@ __all__ = (
     'BulkChangeFormElementPluginsForm', 'BulkChangeFormHandlerPluginsForm',
 )
 
+from six.moves.urllib.parse import urlparse
+import socket
+
 from django.forms.models import modelformset_factory
 from django import forms
-from django.utils.translation import ugettext_lazy as _
-
+from django.utils.translation import ugettext, ugettext_lazy as _
 from fobi.models import (
     # Plugins
     FormElement, FormHandler,
@@ -20,6 +22,8 @@ from fobi.models import (
     )
 from fobi.constants import ACTION_CHOICES
 from fobi.base import get_theme
+from fobi.validators import url_exists
+from fobi.exceptions import ImproperlyConfigured
 
 # *****************************************************************************
 # *****************************************************************************
@@ -37,6 +41,13 @@ class FormEntryForm(forms.ModelForm):
                   'success_page_message', 'action',) #'is_cloneable',
 
     def __init__(self, *args, **kwargs):
+        self.request = kwargs.pop('request', None)
+        if self.request is None:
+            raise ImproperlyConfigured(
+                ugettext("The {0} form requires a"
+                         "request argument.".format(self.__class__.__name__))
+                )
+
         super(FormEntryForm, self).__init__(*args, **kwargs)
         theme = get_theme(request=None, as_instance=True)
 
@@ -66,6 +77,44 @@ class FormEntryForm(forms.ModelForm):
         #    attrs={'data-customforms': 'disabled'}
         #    )
 
+    def clean_action(self):
+        """
+        Validate the action (URL). Checks if URL exists.
+        """
+        url = self.cleaned_data['action']
+        if url:
+            full_url = url
+
+            if not (url.startswith('http://') or url.startswith('https://')):
+                full_url = self.request.build_absolute_uri(url)
+
+            parsed_url = urlparse(full_url)
+
+            local = False
+
+            try:
+                localhost = socket.gethostbyname('localhost')
+            except Exception as err:
+                localhost = '127.0.0.1'
+
+            try:
+                host = socket.gethostbyname(parsed_url.hostname)
+
+                local = (localhost == host)
+            except socket.gaierror as err:
+                pass
+
+            if local:
+                full_url = parsed_url.path
+
+            if not url_exists(full_url, local=local):
+                raise forms.ValidationError(
+                    ugettext("Invalid action URL {0}.").format(full_url)
+                    )
+
+        return url
+
+
 class FormFieldsetEntryForm(forms.ModelForm):
     """
     Form for ``fobi.models.FormFieldsetEntry`` model.
@@ -75,7 +124,7 @@ class FormFieldsetEntryForm(forms.ModelForm):
         fields = ('name',)
 
     def __init__(self, *args, **kwargs):
-        super(FormFieldsetEntry, self).__init__(*args, **kwargs)
+        super(FormFieldsetEntryForm, self).__init__(*args, **kwargs)
         theme = get_theme(request=None, as_instance=True)
         self.fields['name'].widget = forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}

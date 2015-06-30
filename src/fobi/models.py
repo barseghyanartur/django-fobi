@@ -289,7 +289,8 @@ class FormEntry(models.Model):
         )
     action = models.CharField(
         _("Action"), max_length=255, null=True, blank=True,
-        help_text=_("Custom form action; don't fill this field, unless really necessary.")
+        help_text=_("Custom form action; don't fill this field, unless really "
+                    "necessary.")
         )
 
     class Meta:

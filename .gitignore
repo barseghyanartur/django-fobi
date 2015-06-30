@@ -38,3 +38,9 @@ fobi/fobi.migrations.rst
 /examples/quickstart/
 /dev.db
 
+/examples/requirements_wagtail.txt
+/examples/wagtail_example/
+/scripts/install_django_1_7_wagtail.sh
+/scripts/reinstall_django_1_7_wagtail.sh
+/src/fobi/contrib/apps/wagtail_integration/
+/src/fobi/contrib/plugins/form_elements/fields/select_mptt_model_object/

@@ -38,11 +38,11 @@ from fobi.contrib.plugins.form_handlers.mail.fobi_form_handlers \
 
 from fobi.tests.base import (
     is_fobi_setup_completed, mark_fobi_setup_as_completed
-)
+    )
 from fobi.tests.constants import (
     FOBI_TEST_USER_USERNAME, FOBI_TEST_USER_PASSWORD,
     TEST_FORM_NAME, TEST_FORM_SLUG
-)
+    )
 
 # ****************************************************************************
 # **************** Safe User import for Django > 1.5, < 1.8 ******************

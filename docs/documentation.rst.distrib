@@ -1,6 +1,6 @@
 
 Documentation
-===============================================
+=============
 Contents:
 
 .. toctree::
@@ -10,7 +10,7 @@ Contents:
    quickstart
 
 Indices and tables
-===============================================
+==================
 
 * :ref:`genindex`
 * :ref:`modindex`

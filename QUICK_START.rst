@@ -1,6 +1,6 @@
-===============================================
+===========
 Quick start
-===============================================
+===========
 Tutorial for very quick start with ``django-fobi``. Consists of
 several parts listed below::
 
@@ -8,20 +8,20 @@ several parts listed below::
 - Part 2: Integration with DjangoCMS (coming soon)
 
 Part 1: standard Django installation
-===============================================
+====================================
 Example project code available `here
 <https://github.com/barseghyanartur/django-fobi/tree/master/examples/quick_start>`_.
 
 Installation and configuration
------------------------------------------------
+------------------------------
 Install the package in your environment.
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 .. code-block:: none
 
     pip install django-fobi
 
 INSTALLED_APPS
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^
 Add ``fobi`` core and the plugins to the ``INSTALLED_APPS`` of the your
 `settings` module.
 
@@ -100,6 +100,15 @@ Putting all together, you would have something like this.
 .. code-block:: python
 
     INSTALLED_APPS = (
+        # Used by fobi
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.sites',
+        'django.contrib.messages',
+        'django.contrib.staticfiles',
+        'django.contrib.admin',
+
         # ...
         # Core
         'fobi',
@@ -150,7 +159,7 @@ Putting all together, you would have something like this.
     )
 
 TEMPLATE_CONTEXT_PROCESSORS
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Add ``django.core.context_processors.request`` and
 ``fobi.context_processors.theme`` to ``TEMPLATE_CONTEXT_PROCESSORS`` of
 your `settings` module.
@@ -165,7 +174,7 @@ your `settings` module.
     )
 
 urlpatterns
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^
 Add the following line to ``urlpatterns`` of your `urls` module.
 
 .. code-block:: python
@@ -188,7 +197,7 @@ Add the following line to ``urlpatterns`` of your `urls` module.
         )
 
 Update the database
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
 1. First you should be syncing/migrating the database. Depending on your
    Django version and migration app, this step may vary. Typically as follows:
 
@@ -205,7 +214,7 @@ Update the database
     $ ./manage.py fobi_sync_plugins
 
 Specify the active theme
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^
 Specify the default theme in your `settings` module.
 
 .. code-block:: python
@@ -213,7 +222,7 @@ Specify the default theme in your `settings` module.
     FOBI_DEFAULT_THEME = 'bootstrap3'
 
 Permissions
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^
 ``fobi`` has been built with permissions in mind. Every single form element
 plugin or handler is permission based. If user hasn't been given permission
 to work with a form element or a form handler plugin, he won't be. If you want
@@ -244,5 +253,5 @@ Also, make sure to have the Django model permissions set for following models:
   <https://github.com/barseghyanartur/django-fobi/blob/stable/src/fobi/contrib/plugins/form_handlers/db_store/models.py#L52>`_
 
 Part 2: Integration with DjangoCMS
-===============================================
+==================================
 Coming soon...

@@ -19,6 +19,7 @@ DATABASES = {
 }
 
 INTERNAL_IPS = ('127.0.0.1',)
+ALLOWED_HOSTS = ['*',]
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = PROJECT_DIR('../tmp')

@@ -821,7 +821,8 @@ class BasePlugin(object):
         """
         return self.form
 
-    def get_initialised_create_form(self, data=None, files=None):
+    def get_initialised_create_form(self, data=None, files=None,
+                                    initial_data=None):
         """
         Used ``fobi.views.add_form_element_entry`` and
         ``fobi.views.add_form_handler_entry`` view to gets initialised form
@@ -832,7 +833,13 @@ class BasePlugin(object):
             try:
                 plugin_form = self.get_form()
                 if plugin_form:
-                    return plugin_form(data=data, files=files)
+                    kwargs = {
+                        'data': data,
+                        'files': files,
+                    }
+                    if initial_data:
+                        kwargs.update({'initial': initial_data})
+                    return plugin_form(**kwargs)
             except Exception as e:
                 if DEBUG:
                     logger.debug(e)
@@ -845,16 +852,25 @@ class BasePlugin(object):
         """
         plugin_form = self.get_form()
         if plugin_form:
+            initial_data = {}
             try:
-                return self.get_initialised_create_form(data=data, files=files)
+                initial_data = dict(plugin_form.plugin_data_fields)
+            except Exception as err:
+                pass
+            try:
+                return self.get_initialised_create_form(
+                    data = data,
+                    files = files,
+                    initial_data = initial_data
+                    )
             except Exception as e:
                 if DEBUG:
                     logger.debug(e)
                 raise Http404(e)
 
-    def get_initialised_edit_form(self, data=None, files=None, \
-                                  auto_id='id_%s', prefix=None, initial=None, \
-                                  error_class=ErrorList, label_suffix=':', \
+    def get_initialised_edit_form(self, data=None, files=None,
+                                  auto_id='id_%s', prefix=None, initial=None,
+                                  error_class=ErrorList, label_suffix=':',
                                   empty_permitted=False, instance=None):
         """
         Used in ``fobi.views.edit_form_element_entry`` and
@@ -876,10 +892,10 @@ class BasePlugin(object):
                 kwargs.update({'instance': instance})
             return plugin_form(**kwargs)
 
-    def get_initialised_edit_form_or_404(self, data=None, files=None, \
-                                         auto_id='id_%s', prefix=None, \
-                                         error_class=ErrorList, \
-                                         label_suffix=':', \
+    def get_initialised_edit_form_or_404(self, data=None, files=None,
+                                         auto_id='id_%s', prefix=None,
+                                         error_class=ErrorList,
+                                         label_suffix=':',
                                          empty_permitted=False):
         """
         Same as ``get_initialised_edit_form`` but raises
@@ -1754,8 +1770,8 @@ def ensure_autodiscover():
     """
     Ensures that plugins are autodiscovered.
     """
-    if not (form_element_plugin_registry._registry \
-            and form_handler_plugin_registry._registry \
+    if not (form_element_plugin_registry._registry
+            and form_handler_plugin_registry._registry
             and theme_registry._registry):
         autodiscover()
 
@@ -2035,7 +2051,7 @@ def get_registered_form_handler_plugins(as_instances=False):
 
     :return list:
     """
-    return get_registered_plugins(form_handler_plugin_registry, \
+    return get_registered_plugins(form_handler_plugin_registry,
                                   as_instances=as_instances)
 
 def get_registered_form_handler_plugin_uids(flattern=True):
@@ -2226,7 +2242,7 @@ def fire_form_callbacks(form_entry, request, form, stage=None):
 # *****************************************************************************
 # ******************************* Widget specific *****************************
 # *****************************************************************************
-def get_plugin_widget(registry, plugin_uid, request=None, as_instance=False, \
+def get_plugin_widget(registry, plugin_uid, request=None, as_instance=False,
                       theme=None):
     """
     Gets the plugin widget for the ``plugin_uid`` given. Looks up in the

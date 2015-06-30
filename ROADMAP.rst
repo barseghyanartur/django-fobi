@@ -20,15 +20,18 @@ change of the name of the "simple" theme into "django_admin_style" theme.
 - Baseline framework integration (theme).
 - Amazium framework integration (theme).
 - The "simple" theme has been renamed to "django_admin_style".
+- Internally, make a date when form has been created. Also keep track of when
+  the form has been last edited.
 
-0.5.5
+0.5.6
 -----
 yyyy-mm-dd (upcoming).
 
-- Change the `action` field of the FormEntry into a URL field; check if
-  action exists.
-- `django-mptt` form- and model- fields.
-- `captcha`, `recaptcha` and `honeypot` plugins have been made required
-  in the form.
-- Fix: take default values provided in the `plugin_data_fields` of the plugin
-  form into consideration.
+- Export/import forms saved as JSON. Validate the imports and mention that
+  some plugins are not installed if there are plugins that should be installed
+  first.
+- `django-mptt` form- and model- fields (`select_mptt_model_object` and
+  `select_multiple_mptt_model_objects`).
+- Made it possible to define dynamic fields and use then in the form. Let
+  developers themselves define what should be in there and the contents of it
+  (pluggable and replaceable).

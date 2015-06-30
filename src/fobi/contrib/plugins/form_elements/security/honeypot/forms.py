@@ -22,7 +22,7 @@ class HoneypotInputForm(forms.Form, BaseFormFieldPluginForm):
         #("help_text", ""),
         ("initial", ""),
         ("max_length", "255"),
-        ("required", False),
+        ("required", True),
         #("placeholder", ""),
     ]
 

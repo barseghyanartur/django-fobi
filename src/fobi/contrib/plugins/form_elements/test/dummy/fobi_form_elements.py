@@ -8,8 +8,9 @@ from uuid import uuid4
 
 from django.utils.translation import ugettext, ugettext_lazy as _
 
+from nonefield.fields import NoneField
+
 from fobi.base import FormElementPlugin, form_element_plugin_registry
-from fobi.fields import NoneField
 from fobi.helpers import safe_text
 from fobi.contrib.plugins.form_elements.test.dummy import UID
 

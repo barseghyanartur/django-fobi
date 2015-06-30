@@ -9,8 +9,9 @@ from uuid import uuid4
 from django.utils.translation import ugettext_lazy as _
 from django.utils.encoding import smart_str
 
+from nonefield.fields import NoneField
+
 from fobi.base import FormElementPlugin, form_element_plugin_registry
-from fobi.fields import NoneField
 from fobi.contrib.plugins.form_elements.content.content_text import UID
 from fobi.contrib.plugins.form_elements.content.content_text.forms \
     import ContentTextForm

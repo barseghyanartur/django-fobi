@@ -399,10 +399,7 @@ FOBI_CUSTOM_THEME_DATA = {
     }
 }
 
-FOBI_THEME_FOOTER_TEXT = gettext('&copy; django-fobi example site 2014')
-
-# Tell localeurl to use sessions for language store.
-LOCALEURL_USE_SESSION = True
+FOBI_THEME_FOOTER_TEXT = gettext('&copy; django-fobi example site 2014-2015')
 
 # django-admin-tools custom dashboard
 ADMIN_TOOLS_INDEX_DASHBOARD = 'admin_tools_dashboard.CustomIndexDashboard'
@@ -527,7 +524,7 @@ if DJANGO_GTE_1_7 or DJANGO_GTE_1_8:
 # Do not put any settings below this line
 try:
     from local_settings import *
-except:
+except Exception as err:
     pass
 
 if DEBUG and DEBUG_TOOLBAR:

@@ -15,6 +15,17 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.5.5
+-----
+2015-06-30
+
+- Change the `action` field of the FormEntry into a URL field; check if
+  action exists.
+- `captcha`, `recaptcha` and `honeypot` plugins have been made required
+  in the form.
+- Fix: take default values provided in the `plugin_data_fields` of the plugin
+  form into consideration.
+
 0.5.4
 -----
 2015-05-21

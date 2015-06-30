@@ -10,7 +10,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.template.loader import render_to_string
 from django.conf import settings
 
-from fobi.fields import NoneField
+from nonefield.fields import NoneField
+
 from fobi.base import FormElementPlugin, form_element_plugin_registry
 from fobi.helpers import delete_file, clone_file
 from fobi.contrib.plugins.form_elements.content.content_image import UID
