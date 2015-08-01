@@ -11,9 +11,9 @@ from django.forms.widgets import TextInput
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
-from fobi.contrib.plugins.form_elements.fields.time import UID
-from fobi.contrib.plugins.form_elements.fields.time.forms \
-    import TimeInputForm
+
+from . import UID
+from .forms import TimeInputForm
 
 theme = get_theme(request=None, as_instance=True)
 

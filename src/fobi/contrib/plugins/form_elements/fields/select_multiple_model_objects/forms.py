@@ -9,8 +9,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import BaseFormFieldPluginForm, get_theme
 from fobi.helpers import get_registered_models
-from fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects.settings \
-    import IGNORED_MODELS
+
+from .settings import IGNORED_MODELS
 
 theme = get_theme(request=None, as_instance=True)
 

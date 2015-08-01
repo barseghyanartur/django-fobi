@@ -11,10 +11,9 @@ from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
 from fobi.widgets import NumberInput
-from fobi.contrib.plugins.form_elements.fields.decimal import UID
-from fobi.contrib.plugins.form_elements.fields.decimal.forms import (
-    DecimalInputForm
-)
+
+from . import UID
+from .forms import DecimalInputForm
 
 theme = get_theme(request=None, as_instance=True)
 

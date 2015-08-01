@@ -1,6 +1,6 @@
 __title__ = 'fobi.contrib.apps.feincms_integration.widgets'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('FobiFormWidget',)
 
@@ -8,12 +8,11 @@ from django.db import models
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 from fobi.integration.processors import IntegrationProcessor
-from fobi.contrib.apps.feincms_integration.settings import (
-    WIDGET_FORM_SENT_GET_PARAM
-    )
-from fobi.contrib.apps.feincms_integration.helpers import (
+
+from .settings import WIDGET_FORM_SENT_GET_PARAM
+from .helpers import (
     get_form_template_choices, get_success_page_template_choices
-)
+    )
 
 class FobiFormWidget(models.Model, IntegrationProcessor):
     """

@@ -1,6 +1,6 @@
 __title__ = 'fobi.contrib.plugins.form_handlers.db_store.views'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'view_saved_form_data_entries',
@@ -12,11 +12,10 @@ from django.contrib.auth.decorators import login_required
 
 #from fobi.decorators import permissions_required, SATISFY_ALL, SATISFY_ANY
 from fobi.base import get_form_handler_plugin_widget
-from fobi.contrib.plugins.form_handlers.db_store import UID
-from fobi.contrib.plugins.form_handlers.db_store.models import (
-    SavedFormDataEntry
-)
-from fobi.contrib.plugins.form_handlers.db_store.helpers import DataExporter
+
+from . import UID
+from .models import SavedFormDataEntry
+from .helpers import DataExporter
 
 #entries_permissions = [
 #    'db_store.add_savedformdataentry',

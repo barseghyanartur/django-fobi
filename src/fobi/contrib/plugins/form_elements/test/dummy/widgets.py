@@ -5,7 +5,8 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('BaseDummyPluginWidget',)
 
 from fobi.base import FormElementPluginWidget
-from fobi.contrib.plugins.form_elements.test.dummy import UID
+
+from . import UID
 
 class BaseDummyPluginWidget(FormElementPluginWidget):
     """

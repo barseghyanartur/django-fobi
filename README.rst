@@ -1338,6 +1338,13 @@ Security
   `Anti-spam honeypot <http://en.wikipedia.org/wiki/Anti-spam_techniques#Honeypots>`_
   field.
 
+MPTT fields
+~~~~~~~~~~~
+- `Select MPTT model object (drop-down)
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_mptt_model_object/>`_
+- `Select multiple MPTT model objects (drop-down)
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple_mptt_model_objects/>`_
+
 Test
 ~~~~
 Test plugins are made for dev purposes only.
@@ -1445,10 +1452,14 @@ See the README.rst in each of the following plugins for more information.
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select/>`__
 - `Select model object (drop-down)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_model_object/>`__
+- `Select MPTT model object (drop-down)
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_mptt_model_object/>`__
 - `Select multiple (drop-down)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple/>`__
 - `Select multiple model objects (drop-down)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple_model_objects/>`__
+- `Select multiple MPTT model objects (drop-down)
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple_mptt_model_objects/>`__
 
 Rendering forms using third-party libraries
 ===========================================

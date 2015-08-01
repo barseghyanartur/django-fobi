@@ -6,9 +6,9 @@ use of the `django-simple-captcha
 <http://readthedocs.org/docs/django-simple-captcha>`_.
 
 Installation
-===============================================
+============
 Install `django-simple-captcha`
------------------------------------------------
+-------------------------------
 Taken from django-simple-captcha `installation instructions
 <http://django-simple-captcha.readthedocs.org/en/latest/usage.html#installation>`_.
 
@@ -33,7 +33,7 @@ Taken from django-simple-captcha `installation instructions
     )
 
 Install `fobi` Captcha plugin
------------------------------------------------
+-----------------------------
 1. Add ``fobi.contrib.plugins.form_elements.security.captcha`` to the
    ``INSTALLED_APPS`` in your ``settings.py``.
 
@@ -55,7 +55,7 @@ Install `fobi` Captcha plugin
    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 Troubleshooting and usage limitations
-===============================================
+=====================================
 At the moment, you can't use both ``CAPTCHA``
 (fobi.contrib.plugins.form_elements.security.captcha) and ``ReCAPTCHA``
 (fobi.contrib.plugins.form_elements.security.recaptcha) plugins alongside due
@@ -65,7 +65,7 @@ packages. That limitation is likely to be solved in future in the
 another, but not both on the same time.
 
 Usage
-===============================================
+=====
 Note, that unlike most of the other form element plugins, default
 value for the ``required`` attribute is True, which makes the Captcha
 obligatory. Although you could still set it to False, it does not make

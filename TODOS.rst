@@ -228,6 +228,17 @@ Must haves
 + Take default values provided in the `plugin_data_fields` of the plugin
   form into consideration (provide as initial on in the form element creation
   form).
++ `django-mptt` fields.
++ Move the `NoneField` and `NoneWidget` into a separate package.
++ Check if `action` is a valid URL. Make `fobi.models.FormEntry.action` a URL
+  field. Make sure relative URLs work as well.
++ Create a error page for the heroku demo, warning that perhaps user had
+  chosen a wrong `action`.
++ In the heroku demo app, make a real error page saying - page can't e found.
+  Can it be that you mistyped the action URL?
++ Make sure, that theme specific theme javascripts, css and other assets,
+  are defined in the theme itself. Follow the ``django-dash``
+  example as much as possible.
 - Since tests have been made quite general, create them for all contrib
   form elements and handlers (not yet for things like CAPTCHA).
 - Translate German and Russian URLs.
@@ -249,10 +260,7 @@ Must haves
   part).
 - Split the ``FOBI_RESTRICT_PLUGIN_ACCESS`` into two: one for form elements
   and one for form handlers.
-- Make sure, that theme specific theme javascripts, css and other assets,
-  are defined in the theme itself. Follow the ``django-dash``
-  example as much as possible.
-- Improve the "simple" theme for Django 1.6 and Django 1.7 (tiny bits of 
+- Improve the "simple" theme for Django 1.6 and Django 1.7 (tiny bits of
   styling).
 - Edit form test.
 - Edit form element tests.
@@ -263,19 +271,11 @@ Must haves
 - Move reusable parts (for example, the `get_form_field_type` and
   `get_form_hidden_fields_errors` template tags into another template tag
   library or product to reuse it in Django-dash as well. Move the permission
-  code from `decorators` into a separate package. Move the `NoneField` and
-  `NoneWidget` into a separate package.
-- Check if `action` is a valid URL. Make `fobi.models.FormEntry.action` a URL
-  field. Make sure relative URLs work as well.
-- Create a error page for the heroku demo, warning that perhaps user had
-  chosen a wrong `action`.
-- `django-mptt` form field and model field.
+  code from `decorators` into a separate package.
 - Make it possible to define dynamic values and use then in the form. Let
   developers themselves define what should be in there (some sort of
   register in global scope, maybe just a context processor).
   Make it pluggable and replaceable.
-- In the heroku demo app, make a real error page saying - page can't e found.
-  Can it be that you mistyped the action URL?
 
 Should haves
 ============
@@ -323,6 +323,8 @@ Should haves
   set to True tests fail).
 + Fix the issue with `initial` for `select_multiple` plugin. At the moment,
   setting initial doesn't seem to work.
+- Make it possible to export form to JSON format. It should be possible to
+  re-created form from saved JSON sa well.
 - Wagtail integration.
 - Document the changes.
 - Find out why subclassing the ``select_model_object`` plugin didn't work.

@@ -6,7 +6,7 @@ __all__ = (
     'MULTI_EMAIL_FIELD_VALUE_SPLITTER',
 )
 
-from fobi.contrib.plugins.form_handlers.mail.conf import get_setting
+from .conf import get_setting
 
 MULTI_EMAIL_FIELD_VALUE_SPLITTER = get_setting(
     'MULTI_EMAIL_FIELD_VALUE_SPLITTER'

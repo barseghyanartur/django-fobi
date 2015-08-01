@@ -15,6 +15,14 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.5.6
+-----
+2015-07-31
+
+- `django-mptt` support through `select_mptt_model_object` and
+  `select_multiple_mptt_model_objects` plugins.
+- Python 3 fixes.
+
 0.5.5
 -----
 2015-06-30

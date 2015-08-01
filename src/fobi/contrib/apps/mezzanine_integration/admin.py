@@ -8,6 +8,6 @@ from django.contrib import admin
 
 from mezzanine.pages.admin import PageAdmin
 
-from fobi.contrib.apps.mezzanine_integration.models import FobiFormPage
+from .models import FobiFormPage
 
 admin.site.register(FobiFormPage, PageAdmin)

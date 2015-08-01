@@ -14,14 +14,11 @@ from nonefield.fields import NoneField
 
 from fobi.base import FormElementPlugin, form_element_plugin_registry
 from fobi.helpers import delete_file, clone_file
-from fobi.contrib.plugins.form_elements.content.content_image import UID
-from fobi.contrib.plugins.form_elements.content.content_image.forms import (
-    ContentImageForm
-    )
-from fobi.contrib.plugins.form_elements.content.content_image.helpers import (
-    get_crop_filter
-    )
-from fobi.contrib.plugins.form_elements.content.content_image.settings import (
+
+from . import UID
+from .forms import ContentImageForm
+from .helpers import get_crop_filter
+from .settings import (
     FIT_METHOD_FIT_WIDTH, FIT_METHOD_FIT_HEIGHT, IMAGES_UPLOAD_DIR
     )
 

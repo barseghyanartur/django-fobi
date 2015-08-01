@@ -10,8 +10,9 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import BasePluginForm, get_theme
-from fobi.contrib.plugins.form_handlers.mail.fields import MultiEmailField
-from fobi.contrib.plugins.form_handlers.mail.widgets import MultiEmailWidget
+
+from .fields import MultiEmailField
+from .widgets import MultiEmailWidget
 
 theme = get_theme(request=None, as_instance=True)
 

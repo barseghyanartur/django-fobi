@@ -1,6 +1,6 @@
 __title__ = 'fobi.contrib.plugins.form_handlers.db_store.admin'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('SavedFormDataEntryAdmin',)
 
@@ -8,10 +8,8 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
-from fobi.contrib.plugins.form_handlers.db_store.models import (
-    SavedFormDataEntry
-)
-from fobi.contrib.plugins.form_handlers.db_store.helpers import DataExporter
+from .models import SavedFormDataEntry
+from .helpers import DataExporter
 
 class SavedFormDataEntryAdmin(admin.ModelAdmin):
     """

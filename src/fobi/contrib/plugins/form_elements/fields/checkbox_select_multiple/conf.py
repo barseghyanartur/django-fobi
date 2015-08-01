@@ -6,9 +6,7 @@ __all__ = ('get_setting',)
 
 from django.conf import settings
 
-from fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple import (
-    defaults
-)
+from . import defaults
 
 def get_setting(setting, override=None):
     """

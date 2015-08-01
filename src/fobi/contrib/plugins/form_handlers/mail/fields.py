@@ -9,10 +9,8 @@ from django.core.validators import validate_email
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
 
-from fobi.contrib.plugins.form_handlers.mail.widgets import MultiEmailWidget
-from fobi.contrib.plugins.form_handlers.mail.settings import (
-    MULTI_EMAIL_FIELD_VALUE_SPLITTER
-)
+from .widgets import MultiEmailWidget
+from .settings import MULTI_EMAIL_FIELD_VALUE_SPLITTER
 
 class MultiEmailField(forms.Field):
     message = _('Enter valid email addresses.')

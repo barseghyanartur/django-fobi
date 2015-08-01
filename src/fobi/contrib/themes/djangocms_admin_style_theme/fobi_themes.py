@@ -1,13 +1,14 @@
 __title__ = 'fobi.contrib.themes.djangocms_admin_style_theme.fobi_themes'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('DjangoCMSAdminStyleTheme',)
 
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import BaseTheme, theme_registry
-from fobi.contrib.themes.djangocms_admin_style_theme import UID
+
+from . import UID
 
 class DjangoCMSAdminStyleTheme(BaseTheme):
     """

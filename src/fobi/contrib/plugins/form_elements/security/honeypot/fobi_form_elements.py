@@ -9,13 +9,10 @@ from django.forms.widgets import HiddenInput#, TextInput
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import FormElementPlugin, form_element_plugin_registry, get_theme
-from fobi.contrib.plugins.form_elements.security.honeypot import UID
-from fobi.contrib.plugins.form_elements.security.honeypot.forms import (
-    HoneypotInputForm
-    )
-from fobi.contrib.plugins.form_elements.security.honeypot.fields import (
-    HoneypotField
-    )
+
+from . import UID
+from .forms import HoneypotInputForm
+from .fields import HoneypotField
 
 theme = get_theme(request=None, as_instance=True)
 

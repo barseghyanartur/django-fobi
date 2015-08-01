@@ -16,7 +16,7 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 from admin_tools.dashboard import modules, Dashboard, AppIndexDashboard
 from admin_tools.utils import get_admin_site_name
 
-from admin_tools_dashboard import conf
+from . import conf
 
 class CustomIndexDashboard(Dashboard):
     """
@@ -25,12 +25,12 @@ class CustomIndexDashboard(Dashboard):
     columns = 3
 
     def init_with_context(self, context):
-        # Foo
-        self.children.append(modules.ModelList(_('Foo'),
-            models = conf.foo_apps,
-            collapsible = False,
-            deletable = False
-        ))
+        ## Foo
+        #self.children.append(modules.ModelList(_('Foo'),
+        #    models = conf.foo_apps,
+        #    collapsible = False,
+        #    deletable = False
+        #))
 
         # Fobi
         self.children.append(modules.Group(
@@ -64,7 +64,15 @@ class CustomIndexDashboard(Dashboard):
         # Append an app list module for "Administration"
         self.children.append(modules.AppList(
             _('Administration'),
-            models = ['django.contrib.*',],
+            models = conf.django_contrib_apps,
+            collapsible = False,
+            deletable = False
+        ))
+
+        # Append an app list module for "Administration"
+        self.children.append(modules.AppList(
+            _('Other apps'),
+            models = conf.other_apps,
             collapsible = False,
             deletable = False
         ))

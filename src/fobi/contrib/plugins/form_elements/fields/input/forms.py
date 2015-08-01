@@ -16,9 +16,8 @@ except ImportError:
 
 from fobi.base import BaseFormFieldPluginForm, get_theme
 from fobi.settings import DEFAULT_MAX_LENGTH
-from fobi.contrib.plugins.form_elements.fields.input.constants import (
-    FORM_FIELD_TYPE_CHOICES
-    )
+
+from .constants import FORM_FIELD_TYPE_CHOICES
 
 theme = get_theme(request=None, as_instance=True)
 

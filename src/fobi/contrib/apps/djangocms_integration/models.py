@@ -14,9 +14,9 @@ try:
 except ImportError:
     from django.utils.encoding import python_2_unicode_compatible
 
-from fobi.contrib.apps.djangocms_integration.helpers import (
+from .helpers import (
     get_form_template_choices, get_success_page_template_choices
-)
+    )
 
 @python_2_unicode_compatible
 class FobiFormWidget(CMSPlugin):

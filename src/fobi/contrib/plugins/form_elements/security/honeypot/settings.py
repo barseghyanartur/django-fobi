@@ -8,8 +8,6 @@ __copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('HONEYPOT_VALUE',)
 
-from fobi.contrib.plugins.form_elements.security.honeypot.conf import (
-    get_setting
-    )
+from .conf import get_setting
 
 HONEYPOT_VALUE = get_setting('HONEYPOT_VALUE')

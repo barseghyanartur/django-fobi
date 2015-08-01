@@ -26,8 +26,10 @@ Subpackages
     fobi.contrib.plugins.form_elements.fields.regex
     fobi.contrib.plugins.form_elements.fields.select
     fobi.contrib.plugins.form_elements.fields.select_model_object
+    fobi.contrib.plugins.form_elements.fields.select_mptt_model_object
     fobi.contrib.plugins.form_elements.fields.select_multiple
     fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects
+    fobi.contrib.plugins.form_elements.fields.select_multiple_mptt_model_objects
     fobi.contrib.plugins.form_elements.fields.slug
     fobi.contrib.plugins.form_elements.fields.text
     fobi.contrib.plugins.form_elements.fields.textarea

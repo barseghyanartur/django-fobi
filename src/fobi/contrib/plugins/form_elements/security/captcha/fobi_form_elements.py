@@ -1,6 +1,6 @@
 __title__ = 'fobi.contrib.plugins.form_elements.security.captcha.fobi_form_elements'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('CaptchaInputPlugin',)
 
@@ -60,10 +60,9 @@ except ImportError as e:
             )
 
 from fobi.base import FormElementPlugin, form_element_plugin_registry, get_theme
-from fobi.contrib.plugins.form_elements.security.captcha import UID
-from fobi.contrib.plugins.form_elements.security.captcha.forms import (
-    CaptchaInputForm
-    )
+
+from . import UID
+from .forms import CaptchaInputForm
 
 theme = get_theme(request=None, as_instance=True)
 

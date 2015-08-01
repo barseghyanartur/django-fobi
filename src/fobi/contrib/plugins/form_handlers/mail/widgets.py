@@ -10,9 +10,7 @@ from django.forms.widgets import Textarea
 from django.core.exceptions import ValidationError
 from django.core import validators
 
-from fobi.contrib.plugins.form_handlers.mail.settings import (
-    MULTI_EMAIL_FIELD_VALUE_SPLITTER
-)
+from .settings import MULTI_EMAIL_FIELD_VALUE_SPLITTER
 
 MULTI_EMAIL_FIELD_EMPTY_VALUES = validators.EMPTY_VALUES + ('[]',)
 

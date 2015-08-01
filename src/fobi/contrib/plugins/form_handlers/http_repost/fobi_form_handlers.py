@@ -15,8 +15,9 @@ from django.template.loader import render_to_string
 
 from fobi.base import FormHandlerPlugin, form_handler_plugin_registry
 from fobi.helpers import extract_file_path
-from fobi.contrib.plugins.form_handlers.http_repost import UID
-from fobi.contrib.plugins.form_handlers.http_repost.forms import HTTPRepostForm
+
+from . import UID
+from .forms import HTTPRepostForm
 
 logger = logging.getLogger(__name__)
 
@@ -40,7 +41,6 @@ class HTTPRepostHandlerPlugin(FormHandlerPlugin):
             ``fobi.models.FormElementEntry`` objects.
         """
         files = self._prepare_files(request, form)
-
         try:
             response = requests.post(
                 self.data.endpoint_url,

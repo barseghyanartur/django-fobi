@@ -9,8 +9,9 @@ from django.forms.widgets import TextInput
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
-from fobi.contrib.plugins.form_elements.fields.text import UID
-from fobi.contrib.plugins.form_elements.fields.text.forms import TextInputForm
+
+from . import UID
+from .forms import TextInputForm
 
 theme = get_theme(request=None, as_instance=True)
 

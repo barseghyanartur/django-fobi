@@ -19,12 +19,11 @@ from fobi.base import (
     FormHandlerPlugin, form_handler_plugin_registry, get_processed_form_data
 )
 from fobi.helpers import safe_text, extract_file_path
-from fobi.contrib.plugins.form_handlers.mail import UID
-from fobi.contrib.plugins.form_handlers.mail.forms import MailForm
-from fobi.contrib.plugins.form_handlers.mail.helpers import send_mail
-from fobi.contrib.plugins.form_handlers.mail.settings import (
-    MULTI_EMAIL_FIELD_VALUE_SPLITTER
-)
+
+from . import UID
+from .forms import MailForm
+from .helpers import send_mail
+from .settings import MULTI_EMAIL_FIELD_VALUE_SPLITTER
 
 class MailHandlerPlugin(FormHandlerPlugin):
     """

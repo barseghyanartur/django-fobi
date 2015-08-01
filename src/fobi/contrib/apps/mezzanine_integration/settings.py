@@ -11,7 +11,7 @@ __all__ = (
     'SUCCESS_PAGE_TEMPLATE_CHOICES',
 )
 
-from fobi.contrib.apps.mezzanine_integration.conf import get_setting
+from .conf import get_setting
 
 # **************************************************************
 # **************************************************************

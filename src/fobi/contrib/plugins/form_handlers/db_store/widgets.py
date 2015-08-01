@@ -5,7 +5,8 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('BaseDbStorePluginWidget',)
 
 from fobi.base import FormHandlerPluginWidget
-from fobi.contrib.plugins.form_handlers.db_store import UID
+
+from . import UID
 
 class BaseDbStorePluginWidget(FormHandlerPluginWidget):
     """

@@ -1,6 +1,6 @@
-===============================================
+===========
 django-fobi
-===============================================
+===========
 `django-fobi` (later on named just `fobi`) is a customisable, modular,
 user- and developer- friendly form generator/builder application for Django. 
 With `fobi` you can build Django forms using an intiutive GUI, save or
@@ -8,7 +8,7 @@ mail posted form data. API allows you to build your own form elements and
 form handlers (mechanisms for handling the submitted form data).
 
 Prerequisites
-===============================================
+=============
 - Django 1.5, 1.6, 1.7, 1.8
 - Python >= 2.6.8, >= 2.7, >= 3.3
 
@@ -19,7 +19,7 @@ passed, although it's yet too early to claim that Django 1.8 is fully
 supported.
 
 Key concepts
-===============================================
+============
 - Each form consists of elements. Form elements are divided
   into two groups:
 
@@ -44,7 +44,7 @@ permissions to access the UI, although almost seamless integration with
 django-admin is implemented through the ``simple`` theme.
 
 Main features and highlights
-===============================================
+============================
 - User-friendly GUI to quickly build forms.
 - Large variety of `Bundled form element plugins`_. Most of the Django fields
   are supported. `HTML5 fields`_ are supported as well.
@@ -85,7 +85,7 @@ Main features and highlights
   form handler plugin) into XLS/CSV format.
 
 Roadmap
-===============================================
+=======
 Some of the upcoming/in-development features/improvements are:
 
 - Form importers (and as a part of it - MailChimp integration,
@@ -98,16 +98,16 @@ for the full list of planned-, pending- in-development- or to-be-implemented
 features.
 
 Some screenshots
-===============================================
+================
 See the documentation for some screen shots:
 
 - `PythonHosted <http://pythonhosted.org/django-fobi/#screenshots>`_
 - `ReadTheDocs <http://django-fobi.readthedocs.org/en/latest/#screenshots>`_
 
 Demo
-===============================================
+====
 Live demo
------------------------------------------------
+---------
 See the `live demo app <https://django-fobi.herokuapp.com/>`_ on Heroku.
 
 Credentials:
@@ -116,7 +116,7 @@ Credentials:
 - password: test_user
 
 Run demo locally
------------------------------------------------
+----------------
 In order to be able to quickly evaluate the `Fobi`, a demo app (with a quick
 installer) has been created (works on Ubuntu/Debian, may work on other Linux
 systems as well, although not guaranteed). Follow the instructions below for
@@ -155,11 +155,11 @@ If quick installer doesn't work for you, see the manual steps on running the
 <https://github.com/barseghyanartur/django-fobi/tree/stable/examples>`_.
 
 Quick start
-===============================================
+===========
 See the `quick start <http://pythonhosted.org/django-fobi/quickstart.html>`_.
 
 Installation
-===============================================
+============
 
 (1) Install latest stable version from PyPI:
 
@@ -188,6 +188,15 @@ Or latest stable version from BitBucket:
 .. code-block:: python
 
     INSTALLED_APPS = (
+        # Used by fobi
+        'django.contrib.auth',
+        'django.contrib.contenttypes',
+        'django.contrib.sessions',
+        'django.contrib.sites',
+        'django.contrib.messages',
+        'django.contrib.staticfiles',
+        'django.contrib.admin',
+
         # ...
         # Fobi core
         'fobi',
@@ -287,7 +296,7 @@ to prefix the edit URLs differently. For example, if you're using the
 so that it looks more like django-admin.
 
 Creating a new form element plugin
-===============================================
+==================================
 Form element plugins represent the elements of which the forms is made:
 Inputs, checkboxes, textareas, files, hidden fields, as well as pure
 presentational elements (text or image). Number of form elements in a form
@@ -335,14 +344,14 @@ example). You are advised to write your settings in such a way, that variables
 of your Django project settings module would have `FOBI_PLUGIN_` prefix.
 
 Define and register the form element plugin
------------------------------------------------
+-------------------------------------------
 Step by step review of a how to create and register a plugin and plugin
 widgets. Note, that Fobi autodiscovers your plugins if you place them into a
 file named `fobi_form_elements.py` of any Django app listed in
 ``INSTALLED_APPS`` of your Django projects' settings module.
 
 path/to/sample_textarea/fobi_form_elements.py
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 A single form element plugin is registered by its' UID.
 
 Required imports.
@@ -434,7 +443,7 @@ Check the file form element plugin
 (fobi.contrib.plugins.form_elements.fields.file) for complete example.
 
 path/to/sample_textarea/forms.py
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Why to have another file for defining forms? Just to keep the code clean and
 less messy, although you could perfectly define all your plugin forms in the
 module `fobi_form_elements.py`, it's recommended to keep it separate.
@@ -492,7 +501,7 @@ See the following `example
             self.cleaned_data['file'] = saved_image
 
 path/to/sample_textarea/widgets.py
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Required imports.
 
 .. code-block:: python
@@ -508,7 +517,7 @@ Defining the base plugin widget.
         plugin_uid = "sample_textarea"
 
 path/to/sample_layout/fobi_form_elements.py
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Register in the registry (in some module which is for sure to be loaded; it's
 handy to do it in the theme module).
 
@@ -535,7 +544,7 @@ Register the widget.
     form_element_plugin_widget_registry.register(SampleTextareaPluginWidget)
 
 Form element plugin final steps
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Now, that everything is ready, make sure your plugin module is added to
 ``INSTALLED_APPS``.
 
@@ -564,7 +573,7 @@ local settings module, re-run your code and check console for error
 notifications.
 
 Creating a new form handler plugin
-===============================================
+==================================
 Form handler plugins handle the form data. Fobi comes with several bundled
 form handler plugins, among which is the ``db_store`` and ``mail`` plugins,
 which are responsible for saving the submitted form data into the database
@@ -584,7 +593,7 @@ As said above, Fobi comes with several bundled form handler plugins. Do check
 the source code as example.
 
 Define and register the form handler plugin
------------------------------------------------
+-------------------------------------------
 Let's name that plugin `sample_mail`. The plugin directory should then have
 the following structure.
 
@@ -600,7 +609,7 @@ Each plugin module should be put into the ``INSTALLED_APPS`` of your Django
 projects' settings.
 
 path/to/sample_mail/fobi_form_handlers.py
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 A single form handler plugin is registered by its' UID.
 
 Required imports.
@@ -646,7 +655,7 @@ Simplest implementation of it would look as follows:
         return self.data.__dict__
 
 path/to/sample_mail/forms.py
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 If plugin is configurable, it has configuration data. A single form may have
 unlimited number of same plugins. Imagine, you want to have different subjects
 and additional body texts for different user groups. You could then assign two
@@ -697,7 +706,7 @@ After the plugin has been processed, all its' data is available in a
 ``plugin_instance.data.subject`` or ``plugin_instance.data.from_name``).
 
 Prioritise the excecution order
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Some form handlers shall be executed prior others. A good example of such, is
 a combination of "mail" and "db_save" form handlers for the form. In case of
 large files posted, submittion of form data would fail if "mail" plugin would
@@ -720,7 +729,7 @@ are mentioned there.
     )
 
 Form handler plugin custom actions
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 By default, a single form handler plugin has at least a "delete" action.
 If plugin is configurable, it gets an "edit" action as well.
 
@@ -752,7 +761,7 @@ The following example is taken from the "db_store" plugin.
         )
 
 Form handler plugin final steps
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Do not forget to add the form handler plugin module to ``INSTALLED_APPS``.
 
 .. code-block:: python
@@ -773,7 +782,7 @@ If your HTTP server is running, you would then be able to see the new plugin
 in the edit form interface.
 
 Creating a form callback
-===============================================
+========================
 Form callbacks are additional hooks, that are executed on various stages of
 the form submission.
 
@@ -824,9 +833,9 @@ Add the callback module to ``INSTALLED_APPS``.
     )
 
 Suggestions
-===============================================
+===========
 Custom action for the form
------------------------------------------------
+--------------------------
 Sometimes, you would want to specify a different action for the form.
 Although it's possible to define a custom form action (``action`` field
 in the "Form properties" tab), you're advised to use the ``http_repost`` 
@@ -838,7 +847,7 @@ Take in mind, that if both cases, if CSRF protection is enabled on
 the endpoint, your post request would result an error.
 
 When you want to customise too many things
------------------------------------------------
+------------------------------------------
 Fobi, with its' flexible form elements, form handlers and form callbacks
 is very customisable. However, there might be cases when you need to
 override entire view to fit your needs. Take a look at the
@@ -852,7 +861,7 @@ better idea of what could be changed in your case. If need a good advice,
 just ask me.
 
 Theming
-===============================================
+=======
 `Fobi` comes with theming API. While there are several ready-to-use themes:
 
 - "Bootstrap 3" theme
@@ -887,7 +896,7 @@ actions (see the source code of the "simple" theme). Both "Bootstrap 3" and
 the "Simple" theme is the best start, since it looks just like django-admin.
 
 Create a new theme
------------------------------------------------
+------------------
 
 Let's place the theme in the `sample_theme` module. The theme directory 
 should then have the following structure.
@@ -1091,7 +1100,7 @@ From all of the templates listed above, the _base.html template is
 the most influenced by the Bootstrap 3 theme.
 
 Make changes to an existing theme
------------------------------------------------
+---------------------------------
 As said above, making your own theme from scratch could be costy. Instead,
 you can override/reuse an existing one and change it to your needs with
 minimal efforts. See the `override simple theme
@@ -1108,7 +1117,7 @@ option:
 Details explained below.
 
 Directory structure
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~
 .. code-block:: none
 
     override_simple_theme/
@@ -1128,7 +1137,7 @@ Directory structure
     └── fobi_themes.py # Where themes are defined and registered
 
 fobi_themes.py
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
 Overriding the "simple" theme.
 
 .. code-block:: python
@@ -1153,7 +1162,7 @@ applied only once (for a overridden element).
     theme_registry.register(MySimpleTheme, force=True)
 
 templates/override_simple_theme/base_view.html
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 .. code-block:: html
 
     {% extends "simple/base_view.html" %}
@@ -1183,7 +1192,7 @@ templates/override_simple_theme/snippets/form_ajax.html
     {% block form_html_class %}basic-grey{% endblock %}
 
 Permissions
-===============================================
+===========
 Plugin system allows administrators to specify the access rights to every
 plugin. Fobi permissions are based on Django Users and User Groups. Access
 rights are managable via Django admin ("/admin/fobi/formelement/",
@@ -1212,7 +1221,7 @@ access to all plugins.
     └──────────────────────────┴───────────────────────┴───────────────────────┘
 
 Management commands
-===============================================
+===================
 There are several management commands available.
 
 - `fobi_find_broken_entries`. Find broken form element/handler entries that
@@ -1225,7 +1234,7 @@ There are several management commands available.
   data update happens.
 
 Tuning
-===============================================
+======
 There are number of Dash settings you can override in the settings module of
 your Django project:
 
@@ -1241,17 +1250,17 @@ your Django project:
 For tuning of specific contrib plugin, see the docs in the plugin directory.
 
 Bundled plugins and themes
-===============================================
+==========================
 Fobi ships with number of bundled form element- and form handler- plugins, 
 as well as themes which are ready to be used as is.
 
 Bundled form element plugins
------------------------------------------------
+----------------------------
 Below a short overview of the form element plugins. See the README.rst file
 in directory of each plugin for details.
 
 Fields
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~
 - `Boolean (checkbox)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/boolean/>`_
 - `Date
@@ -1302,7 +1311,7 @@ Fields
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/url/>`_
 
 Content
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~
 Content plugins are presentational plugins, that make your forms look more
 complete and content rich.
 
@@ -1317,7 +1326,7 @@ complete and content rich.
   Add an embed YouTube or Vimeo video.
 
 Security
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~
 - `CAPTCHA
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/captcha/>`__:
   Captcha integration. Requires ``django-simple-captcha`` package.
@@ -1329,8 +1338,15 @@ Security
   `Anti-spam honeypot <http://en.wikipedia.org/wiki/Anti-spam_techniques#Honeypots>`_
   field.
 
+MPTT fields
+~~~~~~~~~~~
+- `Select MPTT model object (drop-down)
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_mptt_model_object/>`_
+- `Select multiple MPTT model objects (drop-down)
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple_mptt_model_objects/>`_
+
 Test
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~
 Test plugins are made for dev purposes only.
 
 - `Dummy
@@ -1338,7 +1354,7 @@ Test plugins are made for dev purposes only.
   Mainly for dev purposes.
 
 Bundled form handler plugins
------------------------------------------------
+----------------------------
 Below a short overview of the form handler plugins. See the README.rst file
 in directory of each plugin for details.
 
@@ -1353,7 +1369,7 @@ in directory of each plugin for details.
   Send the form data by email.
 
 Bundled themes
------------------------------------------------
+--------------
 Below a short overview of the themes. See the README.rst file in directory
 of each theme for details.
 
@@ -1372,7 +1388,7 @@ of each theme for details.
   <https://github.com/divio/djangocms-admin-style>`_.
 
 HTML5 fields
-===============================================
+============
 The following HTML5 fields are supported in appropriate bundled plugins:
 
 - date
@@ -1396,7 +1412,7 @@ HTML5 fields is extended to the following fields:
 - step
 
 Loading initial data using GET arguments
-===============================================
+========================================
 It's possible to provide initial data for the form using the GET arguments.
 
 In that case, along with the field values, you should be providing
@@ -1408,7 +1424,7 @@ should be constructing your URL to the form as follows:
 http://127.0.0.1:8001/fobi/view/test-form/?fobi_initial_data&email=test@example.com&age=19
 
 Submitted form element plugins values
-===============================================
+=====================================
 While some values of form element plugins are submitted as is, some others
 need additional processing. There are 3 behaviours taken into consideration:
 
@@ -1436,13 +1452,17 @@ See the README.rst in each of the following plugins for more information.
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select/>`__
 - `Select model object (drop-down)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_model_object/>`__
+- `Select MPTT model object (drop-down)
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_mptt_model_object/>`__
 - `Select multiple (drop-down)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple/>`__
 - `Select multiple model objects (drop-down)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple_model_objects/>`__
+- `Select multiple MPTT model objects (drop-down)
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple_mptt_model_objects/>`__
 
 Rendering forms using third-party libraries
-===============================================
+===========================================
 You might want to render your forms using third-party libraries such as
 `django-crispy-forms <http://django-crispy-forms.readthedocs.org/>`_,
 `django-floppyforms <http://django-floppyforms.readthedocs.org/>`_ or 
@@ -1454,7 +1474,7 @@ one below (make sure to setup/configure your third-party form rendering library
 prior doing this).
 
 Using `django-crispy-forms`
------------------------------------------------
+---------------------------
 
 .. code-block:: html
 
@@ -1470,7 +1490,7 @@ Using `django-crispy-forms`
     {% crispy form %}
 
 Using `django-floppyforms`
------------------------------------------------
+--------------------------
 
 .. code-block:: html
 
@@ -1490,7 +1510,7 @@ See how it's done in the `override simple theme
 example.
 
 Available translations
-===============================================
+======================
 English is the primary language.
 
 - `Dutch <https://django-fobi.herokuapp.com/nl/>`_ (core and plugins)
@@ -1498,7 +1518,7 @@ English is the primary language.
 - `Russian <https://django-fobi.herokuapp.com/ru/>`_ (core and plugins)
 
 Debugging
-===============================================
+=========
 By default debugging is turned off. It means that broken form entries, which
 are entries with broken data, that are not possible to be shown, are just
 skipped. That's safe in production. Although, you for sure would want to
@@ -1539,45 +1559,45 @@ element- and form handler- plugins.
   your settings module. Default value is True.
 
 Troubleshooting
-===============================================
+===============
 If you get a ``FormElementPluginDoesNotExist`` or a
 ``FormHandlerPluginDoesNotExist`` exception, make sure you have listed your
 plugin in the `settings` module of your project.
 
 License
-===============================================
+=======
 GPL 2.0/LGPL 2.1
 
 Support
-===============================================
+=======
 For any issues contact me at the e-mail given in the `Author` section.
 
 Author
-===============================================
+=======
 Artur Barseghyan <artur.barseghyan@gmail.com>
 
 Screenshots
-===============================================
+===========
 Bootstrap3 theme
------------------------------------------------
+----------------
 Dashboard
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~
 .. [1.1] Dashboard
 
 .. image:: _static/bootstrap3/01_dashboard.png
     :scale: 80 %
 
 Create a form
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~
 .. [1.2] Create a form
 
 .. image:: _static/bootstrap3/02_create_form.png
     :scale: 80 %
 
 View/edit form
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
 Form elements
-+++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++
 .. [1.3] Edit form - form elements tab active, no elements yet
 
 .. image:: _static/bootstrap3/03_edit_form_-_form_elements_tab_active_-_no_elements_yet.png
@@ -1599,7 +1619,7 @@ Form elements
     :scale: 80 %
 
 Form handlers
-+++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++
 
 .. [1.7] Edit form - form handlers tab active, no handlers yet
 
@@ -1657,9 +1677,9 @@ Form handlers
     :scale: 80 %
 
 Simple theme
------------------------------------------------
+------------
 View/edit form
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
 .. [2.1] Edit form - form elements tab active, with form elements
 
 .. image:: _static/simple/01_edit_form_-_form_elements_tab_active_with_elements.png
@@ -1691,7 +1711,7 @@ View/edit form
     :scale: 80 %
 
 Documentation
-===============================================
+=============
 Contents:
 
 .. toctree::
@@ -1701,7 +1721,7 @@ Contents:
    quickstart
 
 Indices and tables
-===============================================
+==================
 
 * :ref:`genindex`
 * :ref:`modindex`

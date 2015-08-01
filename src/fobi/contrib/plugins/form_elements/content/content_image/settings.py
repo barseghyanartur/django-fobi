@@ -23,9 +23,7 @@ __all__ = (
     'DEFAULT_SIZE',
 )
 
-from fobi.contrib.plugins.form_elements.content.content_image.conf import (
-    get_setting
-    )
+from .conf import get_setting
 
 FIT_METHOD_CROP_SMART = get_setting('FIT_METHOD_CROP_SMART')
 FIT_METHOD_CROP_CENTER = get_setting('FIT_METHOD_CROP_CENTER')

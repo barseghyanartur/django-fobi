@@ -10,9 +10,9 @@ from django.utils.translation import ugettext_lazy as _
 from mezzanine.core.models import RichText
 from mezzanine.pages.models import Page
 
-from fobi.contrib.apps.mezzanine_integration.helpers import (
+from .helpers import (
     get_form_template_choices, get_success_page_template_choices
-)
+    )
 
 class FobiFormPage(Page, RichText):
     """

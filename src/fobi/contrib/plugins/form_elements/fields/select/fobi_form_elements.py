@@ -13,13 +13,10 @@ from fobi.constants import (
     SUBMIT_VALUE_AS_VAL, SUBMIT_VALUE_AS_REPR
     )
 from fobi.helpers import get_select_field_choices, safe_text
-from fobi.contrib.plugins.form_elements.fields.select import UID
-from fobi.contrib.plugins.form_elements.fields.select.forms import (
-    SelectInputForm
-    )
-from fobi.contrib.plugins.form_elements.fields.select.settings import (
-    SUBMIT_VALUE_AS
-    )
+
+from . import UID
+from .forms import SelectInputForm
+from .settings import SUBMIT_VALUE_AS
 
 theme = get_theme(request=None, as_instance=True)
 

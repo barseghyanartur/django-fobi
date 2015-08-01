@@ -1,6 +1,6 @@
 __title__ = 'fobi.contrib.apps.mezzanine_integration.page_processors'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('FobiFormProcessor', 'process_fobi_form',)
 
@@ -8,10 +8,9 @@ __all__ = ('FobiFormProcessor', 'process_fobi_form',)
 from mezzanine.pages.page_processors import processor_for
 
 from fobi.integration.processors import IntegrationProcessor
-from fobi.contrib.apps.mezzanine_integration.settings import (
-    WIDGET_FORM_SENT_GET_PARAM
-    )
-from fobi.contrib.apps.mezzanine_integration.models import FobiFormPage
+
+from .settings import WIDGET_FORM_SENT_GET_PARAM
+from .models import FobiFormPage
 
 class FobiFormProcessor(IntegrationProcessor):
     form_sent_get_param = WIDGET_FORM_SENT_GET_PARAM

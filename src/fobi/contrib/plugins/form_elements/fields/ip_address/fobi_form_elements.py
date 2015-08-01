@@ -9,10 +9,9 @@ from django.forms.widgets import TextInput
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
-from fobi.contrib.plugins.form_elements.fields.ip_address import UID
-from fobi.contrib.plugins.form_elements.fields.ip_address.forms import (
-    IPAddressInputForm
-)
+
+from . import UID
+from .forms import IPAddressInputForm
 
 theme = get_theme(request=None, as_instance=True)
 

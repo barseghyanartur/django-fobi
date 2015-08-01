@@ -9,9 +9,9 @@ from django.forms.widgets import PasswordInput
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
-from fobi.contrib.plugins.form_elements.fields.password import UID
-from fobi.contrib.plugins.form_elements.fields.password.forms \
-    import PasswordInputForm
+
+from . import UID
+from .forms import PasswordInputForm
 
 theme = get_theme(request=None, as_instance=True)
 

@@ -16,7 +16,7 @@ import shutil
 from django.conf import settings
 from django.core.files.base import File
 
-from fobi.contrib.plugins.form_elements.content.content_image.settings import (
+from .settings import (
     IMAGES_UPLOAD_DIR, FIT_METHOD_CROP_SMART, FIT_METHOD_CROP_CENTER,
     FIT_METHOD_CROP_SCALE
     )

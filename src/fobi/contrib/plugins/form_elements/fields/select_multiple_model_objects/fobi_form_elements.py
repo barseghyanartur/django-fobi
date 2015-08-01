@@ -4,7 +4,6 @@ __copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('SelectMultipleModelObjectsInputPlugin',)
 
-#import json
 import simplejson as json
 
 from django.db import models
@@ -17,13 +16,10 @@ from fobi.constants import (
     SUBMIT_VALUE_AS_VAL, SUBMIT_VALUE_AS_REPR
     )
 from fobi.helpers import safe_text, get_app_label_and_model_name
-from fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects \
-    import UID
-from fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects.forms import (
-    SelectMultipleModelObjectsInputForm
-    )
-from fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects.settings \
-    import SUBMIT_VALUE_AS
+
+from . import UID
+from .forms import SelectMultipleModelObjectsInputForm
+from .settings import SUBMIT_VALUE_AS
 
 theme = get_theme(request=None, as_instance=True)
 

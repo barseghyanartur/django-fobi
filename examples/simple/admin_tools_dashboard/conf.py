@@ -2,7 +2,7 @@
 # ************ Foo **************
 # *******************************
 foo_apps = [
-    'foo.models.*',
+    'foo.models.*', 'bar.models.*',
 ]
 
 # *******************************
@@ -32,5 +32,5 @@ djangocms_pages = [
 # *******************************
 # ************ Django ***********
 # *******************************
-apps_to_exclude = ['django.contrib.*',]
-apps_to_exclude += foo_apps + fobi_plugins + fobi_forms + fobi_data + feincms_pages
+django_contrib_apps = ['django.contrib.*',]
+other_apps = foo_apps

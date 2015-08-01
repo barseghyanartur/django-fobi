@@ -5,9 +5,8 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('SUBMIT_VALUE_AS',)
 
 from fobi.helpers import validate_submit_value_as
-from fobi.contrib.plugins.form_elements.fields.select_multiple.conf import (
-    get_setting
-    )
+
+from .conf import get_setting
 
 SUBMIT_VALUE_AS = get_setting('SUBMIT_VALUE_AS')
 

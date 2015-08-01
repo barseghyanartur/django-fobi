@@ -7,6 +7,12 @@ __all__ = ('autodiscover',)
 import imp
 import logging
 
+import six
+
+if six.PY3:
+    import sys
+    sys.setrecursionlimit(1500)
+
 from django.conf import settings
 
 from nine.versions import DJANGO_GTE_1_7
@@ -41,7 +47,7 @@ from fobi.conf import get_setting
 
 def autodiscover():
     """
-    Autodiscovers files that should be found by fobi.
+    Auto-discovers files that should be found by fobi.
     """
     FORM_ELEMENT_PLUGINS_MODULE_NAME = get_setting(
         'FORM_ELEMENT_PLUGINS_MODULE_NAME'

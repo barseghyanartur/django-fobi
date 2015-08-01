@@ -8,9 +8,8 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import BasePluginForm, get_theme
-from fobi.contrib.plugins.form_elements.content.content_video.settings import (
-    DEFAULT_SIZE, SIZES
-    )
+
+from .settings import DEFAULT_SIZE, SIZES
 
 theme = get_theme(request=None, as_instance=True)
 

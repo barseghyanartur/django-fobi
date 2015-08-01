@@ -9,10 +9,9 @@ from django.forms.extras.widgets import SelectDateWidget
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
-from fobi.contrib.plugins.form_elements.fields.date_drop_down import UID
-from fobi.contrib.plugins.form_elements.fields.date_drop_down.forms import (
-    DateDropDownInputForm
-    )
+
+from . import UID
+from .forms import DateDropDownInputForm
 
 theme = get_theme(request=None, as_instance=True)
 

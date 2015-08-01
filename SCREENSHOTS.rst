@@ -1,26 +1,26 @@
 
 Screenshots
-===============================================
+===========
 Bootstrap3 theme
------------------------------------------------
+----------------
 Dashboard
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~
 .. [1.1] Dashboard
 
 .. image:: _static/bootstrap3/01_dashboard.png
     :scale: 80 %
 
 Create a form
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~
 .. [1.2] Create a form
 
 .. image:: _static/bootstrap3/02_create_form.png
     :scale: 80 %
 
 View/edit form
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
 Form elements
-+++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++
 .. [1.3] Edit form - form elements tab active, no elements yet
 
 .. image:: _static/bootstrap3/03_edit_form_-_form_elements_tab_active_-_no_elements_yet.png
@@ -42,7 +42,7 @@ Form elements
     :scale: 80 %
 
 Form handlers
-+++++++++++++++++++++++++++++++++++++++++++++++
++++++++++++++
 
 .. [1.7] Edit form - form handlers tab active, no handlers yet
 
@@ -100,9 +100,9 @@ Form handlers
     :scale: 80 %
 
 Simple theme
------------------------------------------------
+------------
 View/edit form
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+~~~~~~~~~~~~~~
 .. [2.1] Edit form - form elements tab active, with form elements
 
 .. image:: _static/simple/01_edit_form_-_form_elements_tab_active_with_elements.png

@@ -1,6 +1,6 @@
 __title__ = 'fobi.contrib.plugins.form_handlers.db_store.helpers'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('DataExporter',)
 
@@ -23,9 +23,8 @@ from django.http import HttpResponse
 
 from fobi.exceptions import ImproperlyConfigured
 from fobi.helpers import safe_text
-from fobi.contrib.plugins.form_handlers.db_store.settings import (
-    CSV_DELIMITER, CSV_QUOTECHAR
-)
+
+from .settings import CSV_DELIMITER, CSV_QUOTECHAR
 
 class DataExporter(object):
     """

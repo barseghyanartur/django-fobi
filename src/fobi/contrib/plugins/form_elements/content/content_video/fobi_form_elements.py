@@ -13,9 +13,9 @@ from vishap import render_video
 from nonefield.fields import NoneField
 
 from fobi.base import FormElementPlugin, form_element_plugin_registry
-from fobi.contrib.plugins.form_elements.content.content_video import UID
-from fobi.contrib.plugins.form_elements.content.content_video.forms \
-    import ContentVideoForm
+
+from . import UID
+from .forms import ContentVideoForm
 
 class ContentVideoPlugin(FormElementPlugin):
     """

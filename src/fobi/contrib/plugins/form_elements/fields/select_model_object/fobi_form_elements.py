@@ -14,11 +14,10 @@ from fobi.constants import (
     SUBMIT_VALUE_AS_VAL, SUBMIT_VALUE_AS_REPR
     )
 from fobi.helpers import safe_text, get_app_label_and_model_name
-from fobi.contrib.plugins.form_elements.fields.select_model_object import UID
-from fobi.contrib.plugins.form_elements.fields.select_model_object.forms \
-    import SelectModelObjectInputForm
-from fobi.contrib.plugins.form_elements.fields.select_model_object.settings \
-    import SUBMIT_VALUE_AS
+
+from . import UID
+from .forms import SelectModelObjectInputForm
+from .settings import SUBMIT_VALUE_AS
 
 theme = get_theme(request=None, as_instance=True)
 

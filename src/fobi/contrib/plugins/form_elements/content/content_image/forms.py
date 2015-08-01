@@ -8,11 +8,12 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import BasePluginForm, get_theme
-from fobi.contrib.plugins.form_elements.content.content_image.settings import (
+from fobi.helpers import handle_uploaded_file
+
+from .settings import (
     FIT_METHODS_CHOICES, DEFAULT_FIT_METHOD, DEFAULT_SIZE, SIZES,
     IMAGES_UPLOAD_DIR
     )
-from fobi.helpers import handle_uploaded_file
 
 theme = get_theme(request=None, as_instance=True)
 

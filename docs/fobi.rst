@@ -128,14 +128,6 @@ fobi.exceptions module
     :undoc-members:
     :show-inheritance:
 
-fobi.fields module
-------------------
-
-.. automodule:: fobi.fields
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 fobi.form_importers module
 --------------------------
 
@@ -196,6 +188,14 @@ fobi.utils module
 -----------------
 
 .. automodule:: fobi.utils
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+fobi.validators module
+----------------------
+
+.. automodule:: fobi.validators
     :members:
     :undoc-members:
     :show-inheritance:

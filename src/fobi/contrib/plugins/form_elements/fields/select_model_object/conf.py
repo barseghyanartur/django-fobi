@@ -6,9 +6,7 @@ __all__ = ('get_setting',)
 
 from django.conf import settings
 
-from fobi.contrib.plugins.form_elements.fields.select_model_object import (
-    defaults
-    )
+from . import defaults
 
 def get_setting(setting, override=None):
     """

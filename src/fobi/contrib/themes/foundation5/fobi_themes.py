@@ -7,7 +7,8 @@ __all__ = ('Foundation5Theme',)
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import BaseTheme, theme_registry
-from fobi.contrib.themes.foundation5 import UID
+
+from . import UID
 
 class Foundation5Theme(BaseTheme):
     """

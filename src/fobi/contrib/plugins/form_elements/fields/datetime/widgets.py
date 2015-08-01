@@ -7,7 +7,8 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('BaseDateTimePluginWidget',)
 
 from fobi.base import FormElementPluginWidget
-from fobi.contrib.plugins.form_elements.fields.datetime import UID
+
+from . import UID
 
 class BaseDateTimePluginWidget(FormElementPluginWidget):
     """

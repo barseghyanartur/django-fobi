@@ -12,7 +12,8 @@ from nonefield.fields import NoneField
 
 from fobi.base import FormElementPlugin, form_element_plugin_registry
 from fobi.helpers import safe_text
-from fobi.contrib.plugins.form_elements.test.dummy import UID
+
+from . import UID
 
 class DummyPlugin(FormElementPlugin):
     """

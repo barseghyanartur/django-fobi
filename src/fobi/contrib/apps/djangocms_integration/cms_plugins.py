@@ -1,25 +1,18 @@
 __title__ = 'fobi.contrib.apps.djangocms_integration.cms_plugins'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('FobiFormWidgetPlugin',)
 
 from django.utils.translation import ugettext_lazy as _
-from django.template.loader import render_to_string
-from django.template import RequestContext
-from django.contrib import messages
-from django.shortcuts import redirect
-from django.conf import settings
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
 from fobi.integration.processors import IntegrationProcessor
 
-from fobi.contrib.apps.djangocms_integration.settings import (
-    WIDGET_FORM_SENT_GET_PARAM
-    )
-from fobi.contrib.apps.djangocms_integration.models import FobiFormWidget
+from .settings import WIDGET_FORM_SENT_GET_PARAM
+from .models import FobiFormWidget
 
 
 class FobiFormWidgetPlugin(CMSPluginBase, IntegrationProcessor):

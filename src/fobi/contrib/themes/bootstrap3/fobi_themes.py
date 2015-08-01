@@ -7,7 +7,8 @@ __all__ = ('Bootstrap3Theme',)
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import BaseTheme, theme_registry
-from fobi.contrib.themes.bootstrap3 import UID
+
+from . import UID
 
 class Bootstrap3Theme(BaseTheme):
     """
