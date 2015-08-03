@@ -23,7 +23,7 @@ change of the name of the "simple" theme into "django_admin_style" theme.
 - Internally, make a date when form has been created. Also keep track of when
   the form has been last edited.
 
-0.5.7
+0.5.8
 -----
 yyyy-mm-dd (upcoming).
 

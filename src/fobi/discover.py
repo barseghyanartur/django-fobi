@@ -6,12 +6,9 @@ __all__ = ('autodiscover',)
 
 import imp
 import logging
+import sys
 
 import six
-
-if six.PY3:
-    import sys
-    sys.setrecursionlimit(1500)
 
 from django.conf import settings
 
@@ -49,6 +46,15 @@ def autodiscover():
     """
     Auto-discovers files that should be found by fobi.
     """
+    # For Python 3 we need to increase the recursion limit, otherwise things
+    # break. What we want is to set the recursion limit back to its' initial
+    # value after all plugins have been discovered.
+    recursion_limit = 1500
+    default_recursion_limit = sys.getrecursionlimit()
+
+    if six.PY3 and recursion_limit > default_recursion_limit:
+        sys.setrecursionlimit(recursion_limit)
+
     FORM_ELEMENT_PLUGINS_MODULE_NAME = get_setting(
         'FORM_ELEMENT_PLUGINS_MODULE_NAME'
         )
@@ -74,3 +80,6 @@ def autodiscover():
 
     # Do not yet discover form importers
     #autodiscover_modules(FORM_IMPORTER_PLUGINS_MODULE_NAME)
+
+    if six.PY3 and recursion_limit > default_recursion_limit:
+        sys.setrecursionlimit(default_recursion_limit)
