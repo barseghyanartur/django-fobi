@@ -3,7 +3,7 @@ django-fobi
 ===========
 `django-fobi` (later on named just `fobi`) is a customisable, modular,
 user- and developer- friendly form generator/builder application for Django. 
-With `fobi` you can build Django forms using an intiutive GUI, save or
+With `fobi` you can build Django forms using an intuitive GUI, save or
 mail posted form data. API allows you to build your own form elements and
 form handlers (mechanisms for handling the submitted form data).
 
@@ -407,7 +407,7 @@ widget in edit mode. In the view mode, the original widget that you
 assigned in your form element plugin would be used.
 
 There might be cases, when you need to do additional handling of the data upon
-the successful form submittion. In such cases, you will need to define a 
+the successful form submission. In such cases, you will need to define a 
 ``submit_plugin_form_data`` method in the plugin, which accepts the 
 following arguments:
 
@@ -641,7 +641,7 @@ Defining the Sample mail handler plugin.
 
 Some form handlers are configurable, some others not. In order to
 have a user friendly way of showing the form handler settings, what's
-sometimes needed, a ``plugin_data_repr`` method has been introducd.
+sometimes needed, a ``plugin_data_repr`` method has been introduced.
 Simplest implementation of it would look as follows:
 
 .. code-block:: python
@@ -705,13 +705,13 @@ After the plugin has been processed, all its' data is available in a
 ``plugin_instance.data`` container (for example,
 ``plugin_instance.data.subject`` or ``plugin_instance.data.from_name``).
 
-Prioritise the excecution order
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Prioritise the execution order
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Some form handlers shall be executed prior others. A good example of such, is
-a combination of "mail" and "db_save" form handlers for the form. In case of
-large files posted, submittion of form data would fail if "mail" plugin would
-be executed after "db_save" has been executed. That's why it's possible to
-prioritise that ordering in a ``FOBI_FORM_HANDLER_PLUGINS_EXECUTION_ORDER``
+a combination of "mail" and "db_save" form handlers for the form. In case if
+large files are posted, submission of form data would fail if "mail" plugin 
+would be executed after "db_save" has been executed. That's why it's possible 
+to prioritise that ordering in a ``FOBI_FORM_HANDLER_PLUGINS_EXECUTION_ORDER``
 setting variable.
 
 If not specified or left empty, form handler plugins would be ran in the order
@@ -998,7 +998,7 @@ Registering the ``SampleTheme`` plugin.
     theme_registry.register(SampleTheme)
 
 Sometimes you would want to attach additional properties to the theme
-in order to use them later in templates (rememeber, current theme object
+in order to use them later in templates (remember, current theme object
 is always available in templates under name `fobi_theme`).
 
 For such cases you would need to define a variable in your project's settings
@@ -1060,7 +1060,7 @@ of them you would never need to override. Some others, you would likely
 want to.
 
 Templates that you likely would want to re-write in your custom
-theme implemention are marked with three asterics (\*\*\*):
+theme implementation are marked with three asterisks (\*\*\*):
 
 .. code-block:: none
 
@@ -1101,7 +1101,7 @@ the most influenced by the Bootstrap 3 theme.
 
 Make changes to an existing theme
 ---------------------------------
-As said above, making your own theme from scratch could be costy. Instead,
+As said above, making your own theme from scratch could be costly. Instead,
 you can override/reuse an existing one and change it to your needs with
 minimal efforts. See the `override simple theme
 <https://github.com/barseghyanartur/django-fobi/tree/master/examples/simple/override_simple_theme/>`_
@@ -1195,7 +1195,7 @@ Permissions
 ===========
 Plugin system allows administrators to specify the access rights to every
 plugin. Fobi permissions are based on Django Users and User Groups. Access
-rights are managable via Django admin ("/admin/fobi/formelement/",
+rights are manageable via Django admin ("/admin/fobi/formelement/",
 "/admin/fobi/formhandler/"). If user doesn't have the rights to access plugin,
 it doesn't appear on his form even if has been added to it (imagine, you have
 once granted the right to use the news plugin to all users, but later on
@@ -1244,7 +1244,7 @@ your Django project:
 - `FOBI_DEFAULT_THEME` (str): Active (default) theme UID. Defaults to
   "bootstrap3".
 - `FORM_HANDLER_PLUGINS_EXECUTION_ORDER` (list of tuples): Order in which the
-  form handlers are executed. See the "Prioritise the excecution order"
+  form handlers are executed. See the "Prioritise the execution order"
   section for details.
 
 For tuning of specific contrib plugin, see the docs in the plugin directory.
@@ -1310,8 +1310,8 @@ Fields
 - `URL
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/url/>`_
 
-Content
-~~~~~~~
+Content/presentation
+~~~~~~~~~~~~~~~~~~~~
 Content plugins are presentational plugins, that make your forms look more
 complete and content rich.
 
@@ -1329,10 +1329,10 @@ Security
 ~~~~~~~~
 - `CAPTCHA
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/captcha/>`__:
-  Captcha integration. Requires ``django-simple-captcha`` package.
+  Captcha integration, requires ``django-simple-captcha`` package.
 - `ReCAPTCHA
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/recaptcha/>`__:
-  Captcha integration. Requires ``django-recaptcha`` package.
+  Captcha integration, requires ``django-recaptcha`` package.
 - `Honeypot
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/honeypot/>`__:
   `Anti-spam honeypot <http://en.wikipedia.org/wiki/Anti-spam_techniques#Honeypots>`_
@@ -1351,7 +1351,7 @@ Test plugins are made for dev purposes only.
 
 - `Dummy
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/test/dummy/>`_:
-  Mainly for dev purposes.
+  Solely for dev purposes.
 
 Bundled form handler plugins
 ----------------------------
@@ -1381,10 +1381,10 @@ of each theme for details.
   Foundation 5 theme.
 - `Simple
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/themes/simple/>`_:
-  Basic theme. Form editing is in a style of Django admin.
+  Basic theme with form editing is in a style of Django admin.
 - `DjangoCMS admin style
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/themes/djangocms_admin_style_theme/>`_:
-  Basic theme. Form editing is in a style of `djangocms-admin-style
+  Basic theme with form editing is in a style of `djangocms-admin-style
   <https://github.com/divio/djangocms-admin-style>`_.
 
 HTML5 fields
@@ -1429,7 +1429,7 @@ While some values of form element plugins are submitted as is, some others
 need additional processing. There are 3 behaviours taken into consideration:
 
 - "val": value is being sent as is.
-- "repr": (human readable) representatio of the value is used.
+- "repr": (human readable) representation of the value is used.
 - "mix": mix of value as is and human readable representation.
 
 The following plugins have been made configurable in such a way, that
