@@ -332,15 +332,16 @@ def get_user_form_handler_plugin_uids(user):
 # ****************************************************************************
 # ****************************************************************************
 
-def get_assembled_form(form_entry):
+def get_assembled_form(form_entry, request=None):
     """
     Gets assembled form.
 
     :param fobi.models.FormEntry form_entry:
+    :param django.http.HttpRequest request:
     :return django.forms.Form:
     """
     # TODO
-    FormClass = assemble_form_class(form_entry)
+    FormClass = assemble_form_class(form_entry, request=request)
     form = FormClass()
     return form
 

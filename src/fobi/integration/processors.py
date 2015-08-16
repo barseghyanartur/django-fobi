@@ -97,7 +97,8 @@ class IntegrationProcessor(object):
         # dynamically.
         FormClass = assemble_form_class(
             instance.form_entry,
-            form_element_entries = form_element_entries
+            form_element_entries = form_element_entries,
+            request = request
             )
 
         if 'POST' == request.method:

@@ -16,6 +16,7 @@ __all__ = (
     'update_plugin_data', 'get_select_field_choices',
     'validate_initial_for_choices', 'validate_initial_for_multiple_choices',
     'validate_submit_value_as', 'get_app_label_and_model_name',
+    'StrippedUser', 'StrippedRequest',
 )
 
 import os
@@ -34,8 +35,12 @@ from django.db.utils import DatabaseError
 from django.utils.encoding import force_text
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import AnonymousUser
+from django.test.client import RequestFactory
 
 from autoslug.settings import slugify
+
+from nine.user import User
 
 from fobi.constants import (
     SUBMIT_VALUE_AS_VAL, SUBMIT_VALUE_AS_REPR, SUBMIT_VALUE_AS_MIX
@@ -125,8 +130,8 @@ def two_dicts_to_string(headers, data, html_element='p'):
         (value, data.get(key, '')) for key, value in list(headers.items())
         ]
     return "".join(
-        ["<{0}>{1}: {2}</{3}>".format(html_element, safe_text(key), \
-                                      safe_text(value), html_element) \
+        ["<{0}>{1}: {2}</{3}>".format(html_element, safe_text(key),
+                                      safe_text(value), html_element)
          for key, value in formatted_data]
         )
 
@@ -295,7 +300,7 @@ def get_app_label_and_model_name(path):
 # *****************************************************************************
 # *****************************************************************************
 
-def admin_change_url(app_label, module_name, object_id, extra_path='', \
+def admin_change_url(app_label, module_name, object_id, extra_path='',
                      url_title=None):
     """
     Gets an admin change URL for the object given.
@@ -309,7 +314,7 @@ def admin_change_url(app_label, module_name, object_id, extra_path='', \
     :return str:
     """
     try:
-        url = reverse('admin:{0}_{1}_change'.format(app_label, module_name), \
+        url = reverse('admin:{0}_{1}_change'.format(app_label, module_name),
                       args=[object_id]) + extra_path
         if url_title:
             return u'<a href="{0}">{1}</a>'.format(url, url_title)
@@ -370,48 +375,48 @@ def get_select_field_choices(raw_choices_data):
 
     return choices
 
-def validate_initial_for_choices(plugin_form, field_name_choices='choices', \
+def validate_initial_for_choices(plugin_form, field_name_choices='choices',
                                  field_name_initial='initial'):
     """
     Validates the initial value for the choices given.
 
     :param fobi.base.BaseFormFieldPluginForm plugin_form:
     """
-    availalble_choices = dict(
+    available_choices = dict(
         get_select_field_choices(plugin_form.cleaned_data[field_name_choices])
         ).keys()
 
     if plugin_form.cleaned_data[field_name_initial] \
        and not plugin_form.cleaned_data[field_name_initial] \
-       in availalble_choices:
+       in available_choices:
         raise forms.ValidationError(
             _("Invalid value for initial: {0}. Should be any of the following"
-              ": {1}".format(plugin_form.cleaned_data[field_name_initial], \
-                             ','.join(availalble_choices)))
+              ": {1}".format(plugin_form.cleaned_data[field_name_initial],
+                             ','.join(available_choices)))
             )
 
     return plugin_form.cleaned_data[field_name_initial]
 
-def validate_initial_for_multiple_choices(plugin_form, \
-                                          field_name_choices='choices', \
+def validate_initial_for_multiple_choices(plugin_form,
+                                          field_name_choices='choices',
                                           field_name_initial='initial'):
     """
     Validates the initial value for the multiple choices given.
 
     :param fobi.base.BaseFormFieldPluginForm plugin_form:
     """
-    availalble_choices = dict(
+    available_choices = dict(
         get_select_field_choices(plugin_form.cleaned_data[field_name_choices])
         ).keys()
 
     if plugin_form.cleaned_data[field_name_initial]:
         for choice in plugin_form.cleaned_data[field_name_initial].split(','):
             choice = choice.strip()
-            if not choice in availalble_choices:
+            if not choice in available_choices:
                 raise forms.ValidationError(
                    _("Invalid value for initial: {0}. Should be any "
                      "of the following: {1}"
-                      "".format(choice, ','.join(availalble_choices)))
+                      "".format(choice, ','.join(available_choices)))
                 )
 
     return plugin_form.cleaned_data[field_name_initial]
@@ -422,10 +427,110 @@ def validate_submit_value_as(value):
 
     :param str value:
     """
-    if not value in (SUBMIT_VALUE_AS_VAL, SUBMIT_VALUE_AS_REPR, \
+    if not value in (SUBMIT_VALUE_AS_VAL, SUBMIT_VALUE_AS_REPR,
                      SUBMIT_VALUE_AS_MIX):
         raise ImproperlyConfigured("The `SUBMIT_AS_VALUE` may have one of "
                                    "the following values: {0}, {1} or {2}"
-                                   "".format(SUBMIT_VALUE_AS_VAL, \
-                                             SUBMIT_VALUE_AS_REPR, \
+                                   "".format(SUBMIT_VALUE_AS_VAL,
+                                             SUBMIT_VALUE_AS_REPR,
                                              SUBMIT_VALUE_AS_MIX))
+
+
+class StrippedUser(object):
+    """
+    Stripped user object.
+    """
+    def __init__(self, user):
+        """
+
+        :param user:
+        :return:
+        """
+        self._user = user
+        if not self._user.is_anonymous():
+            setattr(self._user, User.USERNAME_FIELD, self._user.get_username())
+        else:
+            setattr(self._user, User.USERNAME_FIELD, None)
+
+    @property
+    def email(self):
+        return self._user.email
+
+    def get_username(self):
+        """
+        """
+        return self._user.get_username()
+
+    def get_full_name(self):
+        """
+        """
+        return self._user.get_full_name()
+
+    def get_short_name(self):
+        """
+        """
+        return self._user.get_full_name()
+
+    def is_anonymous(self):
+        return self._user.is_anonymous()
+
+
+class StrippedRequest(object):
+    """
+    Stripped request object.
+    """
+    def __init__(self, request):
+        """
+
+        :param django.http.HttpRequest request:
+        :return:
+        """
+        # Just to make sure nothing breaks if we don't provide the request
+        # object, we do fall back to a fake request object.
+        if request:
+            self._request = request
+        else:
+            request_factory = RequestFactory()
+            self._request = request_factory.get('/')
+
+        if hasattr(request, 'user') and request.user:
+            self.user = StrippedUser(self._request.user)
+        else:
+            self.user = StrippedUser(AnonymousUser())
+
+    @property
+    def path(self):
+        """
+        """
+        return self._request.path
+
+    @property
+    def get_full_path(self):
+        """
+        """
+        return self._request.get_full_path()
+
+    @property
+    def is_secure(self):
+        """
+        """
+        return self._request.is_secure()
+
+    @property
+    def is_ajax(self):
+        """
+        """
+        return self._request.is_ajax()
+
+    @property
+    def META(self):
+        """
+        """
+        META = {
+            'HTTP_ACCEPT_ENCODING': self._request.META.get('HTTP_ACCEPT_ENCODING'),
+            'HTTP_ACCEPT_LANGUAGE': self._request.META.get('HTTP_ACCEPT_LANGUAGE'),
+            'HTTP_HOST': self._request.META.get('HTTP_HOST'),
+            'HTTP_REFERER': self._request.META.get('HTTP_REFERER'),
+            'HTTP_USER_AGENT': self._request.META.get('HTTP_USER_AGENT'),
+        }
+        return META

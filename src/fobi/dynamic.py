@@ -20,8 +20,8 @@ from django.forms.widgets import media_property
 # ****************************************************************************
 # ****************************************************************************
 
-def assemble_form_class(form_entry, base_class=BaseForm, request=None, \
-                        origin=None, origin_kwargs_update_func=None, \
+def assemble_form_class(form_entry, base_class=BaseForm, request=None,
+                        origin=None, origin_kwargs_update_func=None,
                         origin_return_func=None, form_element_entries=None):
     """
     Assembles a form class by given entry.
@@ -53,14 +53,15 @@ def assemble_form_class(form_entry, base_class=BaseForm, request=None, \
 
                 # We simply make sure the plugin exists. We don't handle
                 # exceptions relate to the non-existent plugins here. They
-                # are istead handled in registry.
+                # are instead handled in registry.
                 if plugin:
                     plugin_form_field_instances = plugin._get_form_field_instances(
                         form_element_entry = form_element_entry,
                         origin = origin,
                         kwargs_update_func = origin_kwargs_update_func,
                         return_func = origin_return_func,
-                        extra = {'counter': creation_counter}
+                        extra = {'counter': creation_counter},
+                        request = request
                         )
                     for form_field_name, form_field_instance in plugin_form_field_instances:
                         base_fields.append((form_field_name, form_field_instance))

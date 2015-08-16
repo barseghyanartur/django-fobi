@@ -276,6 +276,7 @@ Must haves
   developers themselves define what should be in there (some sort of
   register in global scope, maybe just a context processor).
   Make it pluggable and replaceable.
+- Check if it's safe to use the initial dynamic values.
 
 Should haves
 ============

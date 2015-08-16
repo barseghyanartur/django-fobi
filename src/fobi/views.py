@@ -319,7 +319,8 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
     FormClass = assemble_form_class(
         form_entry,
         origin = 'edit_form_entry',
-        origin_kwargs_update_func = append_edit_and_delete_links_to_field
+        origin_kwargs_update_func = append_edit_and_delete_links_to_field,
+        request = request
         )
 
     assembled_form = FormClass()
@@ -856,8 +857,11 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
 
     # This is where the most of the magic happens. Our form is being built
     # dynamically.
-    FormClass = assemble_form_class(form_entry,
-                                    form_element_entries=form_element_entries)
+    FormClass = assemble_form_class(
+        form_entry,
+        form_element_entries = form_element_entries,
+        request = request
+        )
 
     if 'POST' == request.method:
         form = FormClass(request.POST, request.FILES)

@@ -77,12 +77,15 @@ def get_or_create_admin_user():
     """
     User = get_user_model()
     try:
-        u = User._default_manager.get(username=FOBI_TEST_USER_USERNAME)
+        kwargs = {
+            User.USERNAME_FIELD: FOBI_TEST_USER_USERNAME,
+        }
+        u = User._default_manager.get(**kwargs)
         return u
     except ObjectDoesNotExist as e:
 
         u = User()
-        u.username = FOBI_TEST_USER_USERNAME
+        setattr(u, User.USERNAME_FIELD, FOBI_TEST_USER_USERNAME)
         u.email = 'admin@dev.django-fobi.example.com'
         u.is_superuser = True
         u.is_staff = True

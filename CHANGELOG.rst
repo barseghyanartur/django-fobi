@@ -15,6 +15,15 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+
+0.5.8
+-----
+2015-08-16
+
+- Made it possible to define dynamic initials for form fields. Example initial
+  dynamic values in the form (like {{ request.path }}).
+- Minor fixes/improvements.
+
 0.5.7
 -----
 2015-08-03

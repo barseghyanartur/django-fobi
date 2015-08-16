@@ -76,9 +76,8 @@ class AbstractPluginModel(models.Model):
     #plugin_uid = models.CharField(_("Plugin UID"), max_length=255,
     #                              unique=True, editable=False)
     users = models.ManyToManyField(AUTH_USER_MODEL, verbose_name=_("User"),
-                                   null=True, blank=True)
-    groups = models.ManyToManyField(Group, verbose_name=_("Group"), null=True,
-                                    blank=True)
+                                   blank=True)
+    groups = models.ManyToManyField(Group, verbose_name=_("Group"), blank=True)
 
     class Meta:
         abstract = True
@@ -138,7 +137,7 @@ class AbstractPluginModel(models.Model):
 
         :return string:
         """
-        return ', '.join([u.username for u in self.users.all()])
+        return ', '.join([u.get_username() for u in self.users.all()])
     users_list.allow_tags = True
     users_list.short_description = _('Users')
 

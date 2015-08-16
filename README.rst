@@ -83,6 +83,7 @@ Main features and highlights
 - Data export (`db_store 
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/db_store>`_
   form handler plugin) into XLS/CSV format.
+- Dynamic initial values for form elements.
 
 Roadmap
 =======
@@ -1422,6 +1423,49 @@ hold a value. For example, if your form contains of fields named "email" and
 should be constructing your URL to the form as follows:
 
 http://127.0.0.1:8001/fobi/view/test-form/?fobi_initial_data&email=test@example.com&age=19
+
+Dynamic initial values
+======================
+It's possible to provide a dynamic initial value for any of the elements.
+In order to do that, you should use the build-in context processor or make
+your own one. The only requirement is that you should store all values that
+should be exposes in the form as a dict for `fobi_dynamic_values` dictionary
+key. Beware, that passing the original request object might be unsafe in
+many ways. Currently, a stripped down version of the request object is being
+passed as a context variable.
+
+.. code-block:: python
+
+    TEMPLATE_CONTEXT_PROCESSORS = (
+        # ...
+        "fobi.context_processors.dynamic_values",
+        # ...
+    )
+
+.. code-block:: python
+
+    def dynamic_values(request):
+        return {
+            'fobi_dynamic_values': {
+                'request': StrippedRequest(request),
+                'now': datetime.datetime.now(),
+                'today': datetime.date.today(),
+            }
+        }
+
+In your GUI, you should be refering to the initial values in the following way:
+
+.. code-block:: none
+
+    {{ request.path }} {{ now }} {{ today }}
+
+Notice, that you should not provide the `fobi_dynamic_values.` as a prefix.
+Currently, the following variables are available in the
+`fobi.context_processors.dynamic_values` context processor:
+
+- request: Stripped HttpRequest object.
+- now: datetime.datetime.now()
+- today: datetime.date.today()
 
 Submitted form element plugins values
 =====================================

@@ -23,13 +23,11 @@ change of the name of the "simple" theme into "django_admin_style" theme.
 - Internally, make a date when form has been created. Also keep track of when
   the form has been last edited.
 
-0.5.8
+0.5.9
 -----
 yyyy-mm-dd (upcoming).
 
 - Export/import forms saved as JSON. Validate the imports and mention that
   some plugins are not installed if there are plugins that should be installed
   first.
-- Made it possible to define dynamic fields and use then in the form. Let
-  developers themselves define what should be in there and the contents of it
-  (pluggable and replaceable).
+

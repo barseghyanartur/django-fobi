@@ -134,6 +134,7 @@ TEMPLATE_CONTEXT_PROCESSORS = (
     "django.contrib.messages.context_processors.messages",
     "django.core.context_processors.request",
     "fobi.context_processors.theme", # Important!
+    "fobi.context_processors.dynamic_values", # Optional
 )
 
 TEMPLATE_DIRS = (

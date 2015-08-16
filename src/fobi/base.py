@@ -50,6 +50,9 @@ from django import forms
 from django.forms import ModelForm
 from django.http import Http404
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.models import AnonymousUser
+from django.test import RequestFactory
+from django.template import RequestContext, Template, Context
 
 from nine.versions import DJANGO_GTE_1_8
 
@@ -73,7 +76,8 @@ from fobi.exceptions import (
 )
 from fobi.helpers import (
     uniquify_sequence, map_field_name_to_label, clean_dict,
-    map_field_name_to_label, get_ignorable_form_values, safe_text
+    map_field_name_to_label, get_ignorable_form_values, safe_text,
+    StrippedRequest,
 )
 from fobi.data_structures import SortableDict
 
@@ -1118,9 +1122,9 @@ class FormElementPlugin(BasePlugin):
     has_value = False
     is_hidden = False
 
-    def _get_form_field_instances(self, form_element_entry=None, origin=None, \
-                                  kwargs_update_func=None, return_func=None, \
-                                  extra={}):
+    def _get_form_field_instances(self, form_element_entry=None, origin=None,
+                                  kwargs_update_func=None, return_func=None,
+                                  extra={}, request=None):
         """
         Used internally. Do not override this method. Gets the instances of
         form fields, that plugin contains.
@@ -1154,6 +1158,29 @@ class FormElementPlugin(BasePlugin):
             Widget = None
             if isinstance(Field, (list, tuple)):
                 Field, Widget = Field
+
+            # Consider using context for resolving some variables.
+            # For instance, if user is logged in, ``request.user.username``
+            # as an initial value should put the current users' username
+            # as initial value in the form.
+            if 'initial' in field_kwargs and field_kwargs['initial']:
+                # For security reasons we're not using the original request
+                # here.
+                stripped_request = StrippedRequest(request)
+                context = RequestContext(stripped_request)
+
+                # In order to be sure, that no accidental sensitive data
+                # is exposed in the forms, we only vales from the
+                # fobi specific context processor. By automatically
+                # force-prefixing all dynamic value definitions with
+                # "fobi_dynamic_values." string. See the docs for
+                # more ("Dyamic initial values" section).
+                initial = field_kwargs['initial']
+                initial = initial.replace("{{ ", "{{") \
+                                 .replace(" }}", "}}") \
+                                 .replace("{{", "{{fobi_dynamic_values.")
+                field_kwargs['initial'] = Template(initial).render(context)
+
             # Data to update field instance kwargs with
             kwargs_update = self.get_origin_kwargs_update_func_results(
                 kwargs_update_func,
