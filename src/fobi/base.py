@@ -44,7 +44,7 @@ try:
 except ImportError as e:
     from ordereddict import OrderedDict
 
-from six import with_metaclass
+from six import with_metaclass, string_types
 
 from django import forms
 from django.forms import ModelForm
@@ -1176,10 +1176,13 @@ class FormElementPlugin(BasePlugin):
                 # "fobi_dynamic_values." string. See the docs for
                 # more ("Dyamic initial values" section).
                 initial = field_kwargs['initial']
-                initial = initial.replace("{{ ", "{{") \
-                                 .replace(" }}", "}}") \
-                                 .replace("{{", "{{fobi_dynamic_values.")
-                field_kwargs['initial'] = Template(initial).render(context)
+
+                # For the moment, only string types are dynamic
+                if isinstance(initial, string_types):
+                    initial = initial.replace("{{ ", "{{") \
+                                     .replace(" }}", "}}") \
+                                     .replace("{{", "{{fobi_dynamic_values.")
+                    field_kwargs['initial'] = Template(initial).render(context)
 
             # Data to update field instance kwargs with
             kwargs_update = self.get_origin_kwargs_update_func_results(

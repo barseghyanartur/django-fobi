@@ -16,6 +16,12 @@ are used for versioning (schema follows below):
 - All backwards incompatible changes are mentioned in this document.
 
 
+0.5.9
+-----
+2015-08-17
+
+- Fixes in the initial dynamic values.
+
 0.5.8
 -----
 2015-08-16
