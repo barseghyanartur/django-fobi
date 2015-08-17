@@ -83,7 +83,7 @@ Main features and highlights
 - Data export (`db_store 
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/db_store>`_
   form handler plugin) into XLS/CSV format.
-- Dynamic initial values for form elements.
+- `Dynamic initial values`_ for form elements.
 
 Roadmap
 =======
@@ -1262,6 +1262,9 @@ in directory of each plugin for details.
 
 Fields
 ~~~~~~
+Fields marked with asterics (*) fall under the definition of text elements.
+It's possible to provide `Dynamic initial values`_ for text elements.
+
 - `Boolean (checkbox)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/boolean/>`_
 - `Date
@@ -1272,21 +1275,21 @@ Fields
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/date_drop_down/>`_
 - `Decimal
   <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/decimal>`_
-- `Email
+- `Email*
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/email/>`_
 - `File
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/file/>`_
 - `Float
   <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/float>`_
-- `Hidden
+- `Hidden*
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/hidden/>`_
-- `Password
+- `Password*
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/password/>`_
 - `Radio select (radio button)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/radio/>`_
 - `Input
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/input/>`_
-- `IP address
+- `IP address*
   <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/ip_address>`_
 - `Integer
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/integer/>`_
@@ -1298,17 +1301,17 @@ Fields
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_model_object/>`_
 - `Select multiple (drop-down)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple/>`_
-- `Slug
+- `Slug*
   <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/slug>`_
 - `Select multiple model objects (drop-down)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple_model_objects/>`_
-- `Text
+- `Text*
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/text/>`_
-- `Textarea
+- `Textarea*
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/textarea/>`_
 - `Time
   <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/time>`_
-- `URL
+- `URL*
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/url/>`_
 
 Content/presentation
@@ -1426,7 +1429,7 @@ http://127.0.0.1:8001/fobi/view/test-form/?fobi_initial_data&email=test@example.
 
 Dynamic initial values
 ======================
-It's possible to provide a dynamic initial value for any of the elements.
+It's possible to provide a dynamic initial value for any of the text elements.
 In order to do that, you should use the build-in context processor or make
 your own one. The only requirement is that you should store all values that
 should be exposes in the form as a dict for `fobi_dynamic_values` dictionary
@@ -1464,7 +1467,39 @@ Currently, the following variables are available in the
 `fobi.context_processors.dynamic_values` context processor:
 
 - request: Stripped HttpRequest object.
+
+    - request.path: A string representing the full path to the requested page,
+      not including the scheme or domain.
+    - request.get_full_path(): Returns the path, plus an appended query string,
+      if applicable.
+    - request.is_secure():  Returns True if the request is secure; that is, if
+      it was made with HTTPS.
+    - request.is_ajax(): Returns True if the request was made via an
+      XMLHttpRequest, by checking the HTTP_X_REQUESTED_WITH header for the
+      string 'XMLHttpRequest'.
+    - request.META: A stripped down standard Python dictionary containing the
+      available HTTP headers.
+
+        - HTTP_ACCEPT_ENCODING: Acceptable encodings for the response.
+        - HTTP_ACCEPT_LANGUAGE: Acceptable languages for the response.
+        - HTTP_HOST: The HTTP Host header sent by the client.
+        - HTTP_REFERER: The referring page, if any.
+        - HTTP_USER_AGENT: The client’s user-agent string.
+        - REMOTE_ADDR: The IP address of the client.
+
+    - request.user: Authenticated user.
+
+        - request.user.email:
+        - request.user.get_username(): Returns the username for the user. Since
+          the User model can be swapped out, you should use this method
+          instead of referencing the username attribute directly.
+        - request.user.get_full_name(): Returns the first_name plus the
+          last_name, with a space in between.
+        - request.user.get_short_name(): Returns the first_name.
+        - request.user.is_anonymous():
+
 - now: datetime.datetime.now()
+
 - today: datetime.date.today()
 
 Submitted form element plugins values

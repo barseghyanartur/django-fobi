@@ -15,12 +15,17 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.5.10
+------
+2015-08-18
+
+- Minor improvements of the initial dynamic values feature.
 
 0.5.9
 -----
 2015-08-17
 
-- Fixes in the initial dynamic values.
+- Minor fixes in the initial dynamic values feature.
 
 0.5.8
 -----

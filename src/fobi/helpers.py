@@ -459,17 +459,29 @@ class StrippedUser(object):
     def get_username(self):
         """
         """
-        return self._user.get_username()
+        if not self._user.is_anonymous():
+            try:
+                return self._user.get_username()
+            except Exception as err:
+                pass
 
     def get_full_name(self):
         """
         """
-        return self._user.get_full_name()
+        if not self._user.is_anonymous():
+            try:
+                return self._user.get_full_name()
+            except Exception as err:
+                pass
 
     def get_short_name(self):
         """
         """
-        return self._user.get_full_name()
+        if not self._user.is_anonymous():
+            try:
+                return self._user.get_full_name()
+            except Exception as err:
+                pass
 
     def is_anonymous(self):
         return self._user.is_anonymous()
@@ -501,36 +513,55 @@ class StrippedRequest(object):
     @property
     def path(self):
         """
+        A string representing the full path to the requested page, not
+        including the scheme or domain.
         """
         return self._request.path
 
-    @property
     def get_full_path(self):
         """
+        Returns the path, plus an appended query string, if applicable.
         """
         return self._request.get_full_path()
 
-    @property
     def is_secure(self):
         """
+        Returns True if the request is secure; that is, if it was made with
+        HTTPS.
         """
         return self._request.is_secure()
 
-    @property
     def is_ajax(self):
         """
+        Returns True if the request was made via an XMLHttpRequest, by checking
+        the HTTP_X_REQUESTED_WITH header for the string 'XMLHttpRequest'
         """
         return self._request.is_ajax()
 
     @property
     def META(self):
         """
-        """
+        A standard Python dictionary containing all available HTTP
+        headers. Available headers depend on the client and server, but here
+        are some examples:
+
+            - HTTP_ACCEPT_ENCODING: Acceptable encodings for the response.
+            - HTTP_ACCEPT_LANGUAGE: Acceptable languages for the response.
+            - HTTP_HOST: The HTTP Host header sent by the client.
+            - HTTP_REFERER: The referring page, if any.
+            - HTTP_USER_AGENT: The client’s user-agent string.
+            - QUERY_STRING: The query string, as a single (unparsed) string.
+            - REMOTE_ADDR: The IP address of the client.
+            """
         META = {
-            'HTTP_ACCEPT_ENCODING': self._request.META.get('HTTP_ACCEPT_ENCODING'),
-            'HTTP_ACCEPT_LANGUAGE': self._request.META.get('HTTP_ACCEPT_LANGUAGE'),
+            'HTTP_ACCEPT_ENCODING': self._request.META \
+                                                 .get('HTTP_ACCEPT_ENCODING'),
+            'HTTP_ACCEPT_LANGUAGE': self._request.META \
+                                                 .get('HTTP_ACCEPT_LANGUAGE'),
             'HTTP_HOST': self._request.META.get('HTTP_HOST'),
             'HTTP_REFERER': self._request.META.get('HTTP_REFERER'),
             'HTTP_USER_AGENT': self._request.META.get('HTTP_USER_AGENT'),
+            'QUERY_STRING': self._request.META.get('QUERY_STRING'),
+            'REMOTE_ADDR': self._request.META.get('REMOTE_ADDR'),
         }
         return META

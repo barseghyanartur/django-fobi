@@ -169,7 +169,8 @@ your `settings` module.
     TEMPLATE_CONTEXT_PROCESSORS = (
         # ...
         "django.core.context_processors.request",
-        "fobi.context_processors.theme",
+        "fobi.context_processors.theme", # Obligatory
+        "fobi.context_processors.dynamic_values", # Optional
         # ...
     )
 

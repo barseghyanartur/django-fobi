@@ -1164,25 +1164,32 @@ class FormElementPlugin(BasePlugin):
             # as an initial value should put the current users' username
             # as initial value in the form.
             if 'initial' in field_kwargs and field_kwargs['initial']:
-                # For security reasons we're not using the original request
-                # here.
-                stripped_request = StrippedRequest(request)
-                context = RequestContext(stripped_request)
+                try:
 
-                # In order to be sure, that no accidental sensitive data
-                # is exposed in the forms, we only vales from the
-                # fobi specific context processor. By automatically
-                # force-prefixing all dynamic value definitions with
-                # "fobi_dynamic_values." string. See the docs for
-                # more ("Dyamic initial values" section).
-                initial = field_kwargs['initial']
+                    # For security reasons we're not using the original request
+                    # here.
+                    stripped_request = StrippedRequest(request)
+                    context = RequestContext(stripped_request)
 
-                # For the moment, only string types are dynamic
-                if isinstance(initial, string_types):
-                    initial = initial.replace("{{ ", "{{") \
-                                     .replace(" }}", "}}") \
-                                     .replace("{{", "{{fobi_dynamic_values.")
-                    field_kwargs['initial'] = Template(initial).render(context)
+                    # In order to be sure, that no accidental sensitive data
+                    # is exposed in the forms, we only vales from the
+                    # fobi specific context processor. By automatically
+                    # force-prefixing all dynamic value definitions with
+                    # "fobi_dynamic_values." string. See the docs for
+                    # more ("Dyamic initial values" section).
+                    initial = field_kwargs['initial']
+
+                    # For the moment, only string types are dynamic
+                    if isinstance(initial, string_types):
+                        initial = initial.replace("{{ ", "{{") \
+                                         .replace(" }}", "}}") \
+                                         .replace("{{",
+                                                  "{{fobi_dynamic_values.")
+                        field_kwargs['initial'] = \
+                            Template(initial).render(context)
+
+                except Exception as err:
+                    logger.debug(err)
 
             # Data to update field instance kwargs with
             kwargs_update = self.get_origin_kwargs_update_func_results(
