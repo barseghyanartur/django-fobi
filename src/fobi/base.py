@@ -37,6 +37,8 @@ import logging
 import copy
 import uuid
 #import json
+import re
+
 import simplejson as json
 
 try:
@@ -1181,10 +1183,21 @@ class FormElementPlugin(BasePlugin):
 
                     # For the moment, only string types are dynamic
                     if isinstance(initial, string_types):
-                        initial = initial.replace("{{ ", "{{") \
-                                         .replace(" }}", "}}") \
-                                         .replace("{{",
-                                                  "{{fobi_dynamic_values.")
+                        # Strip down the whitespaces we don't need.
+                        initial = re.sub("{{\s+", "{{", initial)
+                        initial = re.sub("\s+}}", "}}", initial)
+
+                        # Prefix all {{ variable }} occurrences with
+                        # "fobi_dynamic_values." so that there's no risk of
+                        # exposing sensitive data. Further security of
+                        # template context processor variables within
+                        # "fobi_dynamic_values." is a developer responsibility.
+                        initial = re.sub("{{", "{{fobi_dynamic_values.",
+                                         initial)
+                        # Strip loading or executing any complicated template
+                        # tags.
+                        initial = re.sub("{%.*%}", "", initial)
+
                         field_kwargs['initial'] = \
                             Template(initial).render(context)
 

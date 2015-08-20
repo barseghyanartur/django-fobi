@@ -26,6 +26,190 @@ try:
     project = fobi.__title__
     copyright = fobi.__copyright__
 except Exception as e:
+    import os
+    PROJECT_DIR = lambda base : os.path.abspath(os.path.join(os.path.dirname(__file__), base).replace('\\','/'))
+    gettext = lambda s: s
+
+    # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+    BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+
+    class ExampleSettings(object):
+        """
+        """
+        INSTALLED_APPS = (
+            # Admin dashboard
+            'admin_tools',
+            'admin_tools.menu',
+            'admin_tools.dashboard',
+
+            # Django core and contrib apps
+            'django.contrib.auth',
+            'django.contrib.contenttypes',
+            'django.contrib.sessions',
+            'django.contrib.sites',
+            'django.contrib.messages',
+            'django.contrib.staticfiles',
+            'django.contrib.admin',
+            'django.contrib.sitemaps',
+
+            # Third party apps used in the project
+            'south', # Database migration app
+            #'tinymce', # TinyMCE
+            'easy_thumbnails', # Thumbnailer
+            'registration', # Auth views and registration app
+            'localeurl', # Locale URL
+
+            # *****************************************************************
+            # *****************************************************************
+            # **************************** Fobi core **************************
+            # *****************************************************************
+            # *****************************************************************
+            'fobi',
+
+
+            # *****************************************************************
+            # *****************************************************************
+            # ************************* Fobi form elements ********************
+            # *****************************************************************
+            # *****************************************************************
+
+            # *****************************************************************
+            # **************************** Form fields ************************
+            # *****************************************************************
+            #'fobi.contrib.plugins.form_elements.fields.birthday',
+            'fobi.contrib.plugins.form_elements.fields.boolean',
+            'fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple',
+            'fobi.contrib.plugins.form_elements.fields.date',
+            'fobi.contrib.plugins.form_elements.fields.date_drop_down',
+            'fobi.contrib.plugins.form_elements.fields.datetime',
+            'fobi.contrib.plugins.form_elements.fields.decimal',
+            'fobi.contrib.plugins.form_elements.fields.email',
+            'fobi.contrib.plugins.form_elements.fields.file',
+            'fobi.contrib.plugins.form_elements.fields.float',
+            'fobi.contrib.plugins.form_elements.fields.hidden',
+            #'fobi.contrib.plugins.form_elements.fields.hidden_model_object',
+            'fobi.contrib.plugins.form_elements.fields.input',
+            'fobi.contrib.plugins.form_elements.fields.integer',
+            'fobi.contrib.plugins.form_elements.fields.ip_address',
+            'fobi.contrib.plugins.form_elements.fields.null_boolean',
+            'fobi.contrib.plugins.form_elements.fields.password',
+            'fobi.contrib.plugins.form_elements.fields.radio',
+            'fobi.contrib.plugins.form_elements.fields.regex',
+            'fobi.contrib.plugins.form_elements.fields.select',
+            'fobi.contrib.plugins.form_elements.fields.select_model_object',
+            'fobi.contrib.plugins.form_elements.fields.select_multiple',
+            'fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects',
+            'fobi.contrib.plugins.form_elements.fields.slug',
+            'fobi.contrib.plugins.form_elements.fields.text',
+            'fobi.contrib.plugins.form_elements.fields.textarea',
+            'fobi.contrib.plugins.form_elements.fields.time',
+            'fobi.contrib.plugins.form_elements.fields.url',
+
+            # *****************************************************************
+            # ************************ Security elements **********************
+            # *****************************************************************
+            'fobi.contrib.plugins.form_elements.security.honeypot',
+
+            # *****************************************************************
+            # ************************* Testing elements **********************
+            # *****************************************************************
+            'fobi.contrib.plugins.form_elements.test.dummy',
+
+            # *****************************************************************
+            # ************************* Content elements **********************
+            # *****************************************************************
+            'fobi.contrib.plugins.form_elements.content.content_image',
+            'fobi.contrib.plugins.form_elements.content.content_text',
+            'fobi.contrib.plugins.form_elements.content.content_video',
+
+            # *****************************************************************
+            # *****************************************************************
+            # ************************* Fobi form handlers ********************
+            # *****************************************************************
+            # *****************************************************************
+            'fobi.contrib.plugins.form_handlers.db_store',
+            'fobi.contrib.plugins.form_handlers.http_repost',
+            'fobi.contrib.plugins.form_handlers.mail',
+
+            # *****************************************************************
+            # *****************************************************************
+            # ************************** Fobi themes **************************
+            # *****************************************************************
+            # *****************************************************************
+
+            # *****************************************************************
+            # ************************ Bootstrap 3 theme **********************
+            # *****************************************************************
+            'fobi.contrib.themes.bootstrap3', # Bootstrap 3 theme
+            # DateTime widget
+            'fobi.contrib.themes.bootstrap3.widgets.form_elements.datetime_bootstrap3_widget',
+            'fobi.contrib.themes.bootstrap3.widgets.form_elements.date_bootstrap3_widget',
+
+            # *****************************************************************
+            # ************************ Foundation 5 theme *********************
+            # *****************************************************************
+            'fobi.contrib.themes.foundation5', # Foundation 5 theme
+            'fobi.contrib.themes.foundation5.widgets.form_handlers.db_store_foundation5_widget',
+
+            # *****************************************************************
+            # **************************** Simple theme ***********************
+            # *****************************************************************
+            'fobi.contrib.themes.simple', # Simple theme
+        )
+        DATABASES = {
+            'default': {
+                'ENGINE': 'django.db.backends.sqlite3',
+                'NAME': PROJECT_DIR('../db/example.db'),
+            }
+        }
+        MEDIA_ROOT = PROJECT_DIR(os.path.join('..', 'media'))
+        MEDIA_URL = '/media/'
+        MIDDLEWARE_CLASSES = (
+            'django.contrib.sessions.middleware.SessionMiddleware',
+            'localeurl.middleware.LocaleURLMiddleware',
+            'django.middleware.common.CommonMiddleware',
+            'django.middleware.csrf.CsrfViewMiddleware',
+            'django.contrib.auth.middleware.AuthenticationMiddleware',
+            'django.contrib.messages.middleware.MessageMiddleware',
+            # Uncomment the next line for simple clickjacking protection:
+            # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+        )
+        ROOT_URLCONF = 'urls'
+        SECRET_KEY = '97818c*w97Zi8a-m^1coRRrmurMI6+q5_kyn*)s@(*_Pk6q423'
+        SITE_ID = 1
+        STATICFILES_DIRS = (
+            PROJECT_DIR(os.path.join('..', 'media', 'static')),
+        )
+        STATICFILES_FINDERS = (
+            'django.contrib.staticfiles.finders.FileSystemFinder',
+            'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+        #    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+        )
+        STATIC_URL = '/static/'
+        STATIC_ROOT = PROJECT_DIR(os.path.join('..', 'static'))
+        TEMPLATE_CONTEXT_PROCESSORS = (
+            "django.contrib.auth.context_processors.auth",
+            "django.core.context_processors.debug",
+            "django.core.context_processors.i18n",
+            "django.core.context_processors.media",
+            "django.core.context_processors.static",
+            "django.core.context_processors.tz",
+            "django.contrib.messages.context_processors.messages",
+            "django.core.context_processors.request",
+            "fobi.context_processors.theme", # Important!
+            "fobi.context_processors.dynamic_values", # Optional
+        )
+        TEMPLATE_DIRS = (
+            PROJECT_DIR('templates'),
+            )
+        TEMPLATE_LOADERS = (
+                'django.template.loaders.filesystem.Loader',
+                'django.template.loaders.app_directories.Loader',
+                'django.template.loaders.eggs.Loader',
+            )
+
+
+    example_settings = ExampleSettings()
     version = '0.1'
     project = u'django-fobi'
     copyright = u'2014, Artur Barseghyan <artur.barseghyan@gmail.com>'

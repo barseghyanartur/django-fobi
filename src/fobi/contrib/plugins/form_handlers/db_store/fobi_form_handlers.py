@@ -16,10 +16,9 @@ from fobi.base import (
     FormHandlerPlugin, form_handler_plugin_registry, get_processed_form_data,
     get_form_handler_plugin_widget
 )
-from fobi.contrib.plugins.form_handlers.db_store import UID
-from fobi.contrib.plugins.form_handlers.db_store.models import (
-    SavedFormDataEntry
-)
+
+from . import UID
+from .models import SavedFormDataEntry
 
 class DBStoreHandlerPlugin(FormHandlerPlugin):
     """

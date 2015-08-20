@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.5.11
+------
+2015-08-20
+
+- Minor improvements of the dynamic values feature. Forbid usage of django 
+  template tags in initial values.
+
 0.5.10
 ------
 2015-08-18
