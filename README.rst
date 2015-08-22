@@ -1263,7 +1263,7 @@ in directory of each plugin for details.
 Fields
 ~~~~~~
 Fields marked with asterics (*) fall under the definition of text elements.
-It's possible to provide `Dynamic initial values`__ for text elements.
+It's possible to provide `Dynamic initial values`_ for text elements.
 
 - `Boolean (checkbox)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/boolean/>`_

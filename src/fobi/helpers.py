@@ -549,7 +549,7 @@ class StrippedRequest(object):
             - HTTP_ACCEPT_LANGUAGE: Acceptable languages for the response.
             - HTTP_HOST: The HTTP Host header sent by the client.
             - HTTP_REFERER: The referring page, if any.
-            - HTTP_USER_AGENT: The client’s user-agent string.
+            - HTTP_USER_AGENT: The clients user-agent string.
             - QUERY_STRING: The query string, as a single (unparsed) string.
             - REMOTE_ADDR: The IP address of the client.
             """
