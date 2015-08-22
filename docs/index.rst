@@ -1263,7 +1263,7 @@ in directory of each plugin for details.
 Fields
 ~~~~~~
 Fields marked with asterics (*) fall under the definition of text elements.
-It's possible to provide `Dynamic initial values`_ for text elements.
+It's possible to provide `Dynamic initial values`__ for text elements.
 
 - `Boolean (checkbox)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/boolean/>`_
@@ -1470,32 +1470,47 @@ Currently, the following variables are available in the
 
     - request.path: A string representing the full path to the requested page,
       not including the scheme or domain.
+
     - request.get_full_path(): Returns the path, plus an appended query string,
       if applicable.
+
     - request.is_secure():  Returns True if the request is secure; that is, if
       it was made with HTTPS.
+
     - request.is_ajax(): Returns True if the request was made via an
       XMLHttpRequest, by checking the HTTP_X_REQUESTED_WITH header for the
       string 'XMLHttpRequest'.
+
     - request.META: A stripped down standard Python dictionary containing the
       available HTTP headers.
 
         - HTTP_ACCEPT_ENCODING: Acceptable encodings for the response.
+
         - HTTP_ACCEPT_LANGUAGE: Acceptable languages for the response.
+
         - HTTP_HOST: The HTTP Host header sent by the client.
+
         - HTTP_REFERER: The referring page, if any.
+
         - HTTP_USER_AGENT: The client’s user-agent string.
+
+        - QUERY_STRING: The query string, as a single (unparsed) string.
+
         - REMOTE_ADDR: The IP address of the client.
 
     - request.user: Authenticated user.
 
         - request.user.email:
+
         - request.user.get_username(): Returns the username for the user. Since
           the User model can be swapped out, you should use this method
           instead of referencing the username attribute directly.
+
         - request.user.get_full_name(): Returns the first_name plus the
           last_name, with a space in between.
+
         - request.user.get_short_name(): Returns the first_name.
+
         - request.user.is_anonymous():
 
 - now: datetime.datetime.now()
