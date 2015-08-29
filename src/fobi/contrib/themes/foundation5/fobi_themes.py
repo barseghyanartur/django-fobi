@@ -105,5 +105,8 @@ class Foundation5Theme(BaseTheme):
     view_form_entry_template = 'foundation5/view_form_entry.html'
     view_form_entry_ajax_template = 'foundation5/view_form_entry_ajax.html'
 
+    import_form_entry_template = 'foundation5/import_form_entry.html'
+    import_form_entry_ajax_template = 'foundation5/import_form_entry_ajax.html'
+
 
 theme_registry.register(Foundation5Theme)

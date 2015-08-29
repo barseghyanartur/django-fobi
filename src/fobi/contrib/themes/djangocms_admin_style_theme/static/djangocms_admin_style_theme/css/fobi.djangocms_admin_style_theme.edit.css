@@ -128,3 +128,23 @@
     display: block;
     float: left;
 }
+
+/* Additional icons */
+
+#sitemap span.custom-icon {
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    margin-top: 5px;
+    background: url("../../cms/img/pagetree/sprite.png") no-repeat 0 0;
+}
+
+#sitemap span.custom-icon.custom-icon-export {
+    background-position: -60px -20px;
+    margin-top: 0;
+}
+
+#sitemap span.custom-icon.custom-icon-import {
+    background-position: -60px -40px;
+    margin-top: 0;
+}

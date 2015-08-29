@@ -5,6 +5,7 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'FormEntryForm', 'FormFieldsetEntryForm', 'FormElementEntryFormSet',
     'BulkChangeFormElementPluginsForm', 'BulkChangeFormHandlerPluginsForm',
+    'ImportFormEntryForm',
 )
 
 from six.moves.urllib.parse import urlparse
@@ -197,3 +198,21 @@ class BulkChangeFormHandlerPluginsForm(BaseBulkChangePluginsForm):
     class Meta:
         model = FormHandler
         fields = ['groups', 'groups_action', 'users', 'users_action',]
+
+# *****************************************************************************
+# *****************************************************************************
+# **************************** Import form entry ******************************
+# *****************************************************************************
+# *****************************************************************************
+
+class ImportFormEntryForm(forms.Form):
+    """
+    Import form entry form.
+    """
+    file = forms.FileField(required=True, label=_("File"))
+    # ignore_broken_form_element_entries = forms.BooleanField(
+    #     required=False,
+    #     label=_("Ignore broken form element entries"))
+    # ignore_broken_form_handler_entries = forms.BooleanField(
+    #     required=False,
+    #     label=_("Ignore broken form handler entries"))

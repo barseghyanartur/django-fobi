@@ -190,6 +190,9 @@ class BaseTheme(object):
     view_form_entry_ajax_template = 'fobi/generic/view_form_entry_ajax.html'
     view_embed_form_entry_ajax_template = None
 
+    import_form_entry_template = 'fobi/generic/import_form_entry.html'
+    import_form_entry_ajax_template = 'fobi/generic/import_form_entry_ajax.html'
+
     # *************************************************************************
     # ******************** Extras that make things easy ***********************
     # *************************************************************************

@@ -26,6 +26,9 @@
     <li>
       <a class="addlink" href="{% url 'fobi.create_form_entry' %}">{% trans "Create form"%}</a>
     </li>
+    <li>
+      <a class="addlink" href="{% url 'fobi.import_form_entry' %}">{% trans "Import form"%}</a>
+    </li>
   </ul>
 
   <div id="changelist" class="module">
@@ -79,6 +82,11 @@
                   <li>
                       <a href="{% url 'fobi.delete_form_entry' form_entry.pk %}">
                           <span class="glyphicon glyphicon-remove"></span> {% trans "Delete" %}
+                      </a>
+                  </li>
+                  <li>
+                      <a href="{% url 'fobi.export_form_entry' form_entry.pk %}">
+                          <span class="glyphicon glyphicon-export"></span> {% trans "Export" %}
                       </a>
                   </li>
                 </ul>

@@ -11,6 +11,7 @@ from fobi.views import (
     dashboard, create_form_entry, edit_form_entry, delete_form_entry,
     add_form_element_entry, edit_form_element_entry, delete_form_element_entry,
     add_form_handler_entry, edit_form_handler_entry, delete_form_handler_entry,
+    export_form_entry, import_form_entry,
     )
 
 #urlpatterns = patterns('fobi.views',
@@ -29,6 +30,16 @@ urlpatterns = [
     url(_(r'^forms/delete/(?P<form_entry_id>\d+)/$'),
         delete_form_entry,
         name='fobi.delete_form_entry'),
+
+    # Export form entry
+    url(_(r'^forms/export/(?P<form_entry_id>\d+)/$'),
+        export_form_entry,
+        name='fobi.export_form_entry'),
+
+    # Import form entry
+    url(_(r'^forms/import/$'),
+        import_form_entry,
+        name='fobi.import_form_entry'),
 
     # Add form element entry
     url(_(r'^forms/elements/add/(?P<form_entry_id>\d+)/(?P<form_element_plugin_uid>[\w_\-]+)/$'),

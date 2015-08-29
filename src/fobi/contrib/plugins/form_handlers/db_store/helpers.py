@@ -18,8 +18,9 @@ import simplejson as json
 
 from six import StringIO, BytesIO
 
-from django import VERSION as DJANGO_VERSION
 from django.http import HttpResponse
+
+from nine.versions import DJANGO_GTE_1_7
 
 from fobi.exceptions import ImproperlyConfigured
 from fobi.helpers import safe_text
@@ -38,7 +39,7 @@ class DataExporter(object):
         For compatibility with older versions (`mimetype` vs `content_type`).
         """
         response_kwargs = {}
-        if DJANGO_VERSION[0] >= 1 and DJANGO_VERSION[1] >= 7:
+        if DJANGO_GTE_1_7:
             response_kwargs['content_type'] = mimetype
         else:
             response_kwargs['mimetype'] = mimetype

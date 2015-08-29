@@ -1,0 +1,15 @@
+{% extends fobi_theme.base_edit_template %}
+
+{% load i18n %}
+
+{% block page-title %}{% trans "Import form entry" %}{% endblock page-title %}
+
+{% block navbar-menu-content %}
+{% endblock navbar-menu-content %}
+
+{% block content %}
+    {% include fobi_theme.import_form_entry_ajax_template %}
+{% endblock content %}
+
+{% block sidebar-wrapper %}
+{% endblock sidebar-wrapper %}

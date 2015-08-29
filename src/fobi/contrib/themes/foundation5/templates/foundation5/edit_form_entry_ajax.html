@@ -12,6 +12,7 @@
         <dd class="active"><a href="#tab-form-elemenets">{% trans "Elements" %}</a></dd>
         <dd><a href="#tab-form-handlers">{% trans "Handlers" %}</a></dd>
         <dd><a href="#tab-form-properties">{% trans "Properties" %}</a></dd>
+        <dd><a href="#tab-form-service">{% trans "Service" %}</a></dd>
       </dl>
 
       <div class="tabs-content">
@@ -165,6 +166,40 @@
             </div>
 
         </div><!-- tab-form-properties -->
+
+        <div class="content" id="tab-form-service">
+
+            <!-- Form service -->
+            <div>
+              <h4 id="form_service">{% trans "Service" %}</h4>
+            </div>
+            <div class="panel panel-fobi">
+              <div class="panel-body">
+
+                <div>
+                  <h3>{% trans "Export your form as JSON" %}</h3>
+                  <p>{% trans "Export your form into JSON format and import it again any time!" %}</p>
+                  <p>
+                    <a class="radius button btn-primary" href="{% url 'fobi.export_form_entry' form_entry.pk %}" role="button">
+                      <span class="fi-download"></span> {% trans "Export form data" %}
+                    </a>
+                  </p>
+                </div>
+
+                <div>
+                  <h3>{% trans "Delete your form" %}</h3>
+                  <p>{% trans "Once deleted, can't be undone!" %}</p>
+                  <p>
+                    <a class="radius button btn-primary" href="{% url 'fobi.delete_form_entry' form_entry.pk %}" role="button">
+                      <span class="fi-page-delete"></span> {% trans "Delete form" %}
+                    </a>
+                  </p>
+                </div>
+
+              </div>
+            </div>
+
+        </div><!-- tab-form-service -->
 
       </div><!-- tabs-content -->
         

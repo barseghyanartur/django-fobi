@@ -16,7 +16,7 @@ __all__ = (
     'update_plugin_data', 'get_select_field_choices',
     'validate_initial_for_choices', 'validate_initial_for_multiple_choices',
     'validate_submit_value_as', 'get_app_label_and_model_name',
-    'StrippedUser', 'StrippedRequest',
+    'StrippedUser', 'StrippedRequest', 'JSONDataExporter',
 )
 
 import os
@@ -26,6 +26,8 @@ import uuid
 import shutil
 
 from six import text_type, PY3
+
+import simplejson as json
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
@@ -37,10 +39,12 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AnonymousUser
 from django.test.client import RequestFactory
+from django.http import HttpResponse
 
 from autoslug.settings import slugify
 
 from nine.user import User
+from nine.versions import DJANGO_GTE_1_7
 
 from fobi.constants import (
     SUBMIT_VALUE_AS_VAL, SUBMIT_VALUE_AS_REPR, SUBMIT_VALUE_AS_MIX
@@ -565,3 +569,41 @@ class StrippedRequest(object):
             'REMOTE_ADDR': self._request.META.get('REMOTE_ADDR'),
         }
         return META
+
+
+class JSONDataExporter(object):
+    """
+    Exporting the data into JSON.
+    """
+    def __init__(self, data, filename):
+        """
+        :param str data: Dumped JSON data (`json.dumps()`).
+        :param str filename: File name prefix.
+        """
+        self.data = data
+        self.filename = filename
+
+    def _get_initial_response(self, mimetype="application/json"):
+        """
+        For compatibility with older versions (`mimetype` vs `content_type`).
+        """
+        response_kwargs = {}
+        if DJANGO_GTE_1_7:
+            response_kwargs['content_type'] = mimetype
+        else:
+            response_kwargs['mimetype'] = mimetype
+        return HttpResponse(**response_kwargs)
+
+    def export_to_json(self):
+        """
+        Export data to JSON.
+        """
+        response = self._get_initial_response(mimetype="text/json")
+        response['Content-Disposition'] = \
+            'attachment; filename={0}.json'.format(self.filename)
+
+        response.write(self.data)
+        return response
+
+    def export(self):
+        return self.export_to_json()

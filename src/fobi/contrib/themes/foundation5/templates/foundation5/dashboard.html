@@ -27,7 +27,7 @@
           <thead>
             <tr>
               <th>{% trans "Form" %}</th>
-              <th>{% trans "Is public" %}</th>
+              <th width="100">{% trans "Is public" %}</th>
               {#<th>{% trans "Is cloneable" %}</th>#}
               <th>{% trans "Actions" %}</th>
             </tr>
@@ -42,6 +42,7 @@
                 <ul class="inline-list">
                   <li><a href="{% url 'fobi.edit_form_entry' form_entry.pk %}"><span class="fi-page-edit"></span> {% trans "Edit" %}</a></li>
                   <li><a href="{% url 'fobi.delete_form_entry' form_entry.pk %}"><span class="fi-page-delete"></span> {% trans "Delete" %}</a></li>
+                  <li><a href="{% url 'fobi.export_form_entry' form_entry.pk %}"><span class="fi-download"></span> {% trans "Export" %}</a></li>
                 </ul>
               </td>
             </tr>
@@ -60,6 +61,9 @@
     </div>
     <div class="list-group">
       <a href="{% url 'fobi.create_form_entry' %}"><span class="fi-page"></span> {% trans "Create form"%}</a>
+    </div>
+    <div class="list-group">
+      <a href="{% url 'fobi.import_form_entry' %}"><span class="fi-upload"></span> {% trans "Import form"%}</a>
     </div>
 
   </div>

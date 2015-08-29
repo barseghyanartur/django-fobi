@@ -1,11 +1,12 @@
 ===========
 django-fobi
 ===========
-`django-fobi` (later on named just `fobi`) is a customisable, modular,
-user- and developer- friendly form generator/builder application for Django. 
-With `fobi` you can build Django forms using an intuitive GUI, save or
-mail posted form data. API allows you to build your own form elements and
-form handlers (mechanisms for handling the submitted form data).
+`django-fobi` (or just `fobi`) is a customisable, modular, user- and developer-
+friendly form generator/builder application for Django. With `fobi` you can
+build Django forms using an intuitive GUI, save or mail posted form data or
+even export forms into JSON format and import them on other instances. API
+allows you to build your own form elements and form handlers (mechanisms for
+handling the submitted form data).
 
 Prerequisites
 =============
@@ -39,8 +40,8 @@ Key concepts
 - Each plugin (form element or form handler) or a callback - is a Django
   micro-app.
 
-Note, that Fobi does not require django-admin and administrative rights/
-permissions to access the UI, although almost seamless integration with
+Note, that `django-fobi` does not require django-admin and administrative
+rights/permissions to access the UI, although almost seamless integration with
 django-admin is implemented through the ``simple`` theme.
 
 Main features and highlights
@@ -84,13 +85,14 @@ Main features and highlights
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/db_store>`_
   form handler plugin) into XLS/CSV format.
 - `Dynamic initial values`_ for form elements.
+- Import/export forms to/from JSON format.
 
 Roadmap
 =======
 Some of the upcoming/in-development features/improvements are:
 
 - Form importers (and as a part of it - MailChimp integration,
-  which would allow to import forms from MailChimp into Fobi using
+  which would allow to import forms from MailChimp into `django-fobi` using
   a user-friendly wizard).
 - Fieldsets.
 
@@ -118,7 +120,7 @@ Credentials:
 
 Run demo locally
 ----------------
-In order to be able to quickly evaluate the `Fobi`, a demo app (with a quick
+In order to be able to quickly evaluate the `django-fobi`, a demo app (with a quick
 installer) has been created (works on Ubuntu/Debian, may work on other Linux
 systems as well, although not guaranteed). Follow the instructions below for
 having the demo running within a minute.
@@ -199,15 +201,15 @@ Or latest stable version from BitBucket:
         'django.contrib.admin',
 
         # ...
-        # Fobi core
+        # `django-fobi` core
         'fobi',
 
-        # Fobi themes
+        # `django-fobi` themes
         'fobi.contrib.themes.bootstrap3', # Bootstrap 3 theme
         'fobi.contrib.themes.foundation5', # Foundation 5 theme
         'fobi.contrib.themes.simple', # Simple theme
 
-        # Fobi form elements - fields
+        # `django-fobi` form elements - fields
         'fobi.contrib.plugins.form_elements.fields.boolean',
         'fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple',
         'fobi.contrib.plugins.form_elements.fields.date',
@@ -235,14 +237,14 @@ Or latest stable version from BitBucket:
         'fobi.contrib.plugins.form_elements.fields.time',
         'fobi.contrib.plugins.form_elements.fields.url',
 
-        # Fobi form elements - content elements
+        # `django-fobi` form elements - content elements
         'fobi.contrib.plugins.form_elements.test.dummy',
         'easy_thumbnails', # Required by `content_image` plugin
         'fobi.contrib.plugins.form_elements.content.content_image',
         'fobi.contrib.plugins.form_elements.content.content_text',
         'fobi.contrib.plugins.form_elements.content.content_video',
 
-        # Form handlers
+        # `django-fobo` form handlers
         'fobi.contrib.plugins.form_handlers.db_store',
         'fobi.contrib.plugins.form_handlers.http_repost',
         'fobi.contrib.plugins.form_handlers.mail',
@@ -311,8 +313,8 @@ are inherited from ``fobi.base.FormFieldPlugin``.
 You should see a form element plugin as a Django micro app, which could have
 its' own models, admin interface, etc.
 
-Fobi comes with several bundled form element plugins. Do check the source code
-as example.
+`django-fobi` comes with several bundled form element plugins. Do check the
+source code as example.
 
 Let's say, you want to create a textarea form element plugin.
 
@@ -347,8 +349,8 @@ of your Django project settings module would have `FOBI_PLUGIN_` prefix.
 Define and register the form element plugin
 -------------------------------------------
 Step by step review of a how to create and register a plugin and plugin
-widgets. Note, that Fobi autodiscovers your plugins if you place them into a
-file named `fobi_form_elements.py` of any Django app listed in
+widgets. Note, that `django-fobi` auto-discovers your plugins if you place
+them into a file named `fobi_form_elements.py` of any Django app listed in
 ``INSTALLED_APPS`` of your Django projects' settings module.
 
 path/to/sample_textarea/fobi_form_elements.py
@@ -575,11 +577,11 @@ notifications.
 
 Creating a new form handler plugin
 ==================================
-Form handler plugins handle the form data. Fobi comes with several bundled
-form handler plugins, among which is the ``db_store`` and ``mail`` plugins,
-which are responsible for saving the submitted form data into the database
-and mailing the data to recipients specified. Number of form handlers in a
-form is not limited. Certain form handlers are not configurable (for
+Form handler plugins handle the form data. `django-fobi` comes with several
+bundled form handler plugins, among which is the ``db_store`` and ``mail``
+plugins, which are responsible for saving the submitted form data into the
+database and mailing the data to recipients specified. Number of form handlers
+in a form is not limited. Certain form handlers are not configurable (for
 example the ``db_store`` form handler isn't), while others are (``mail``,
 ``http_repost``).
 
@@ -590,8 +592,8 @@ By default, it's possible to use a form handler plugin multiple time per form.
 If you wish to allow form handler plugin to be used only once in a form,
 set the ``allow_multiple`` property of the plugin to False.
 
-As said above, Fobi comes with several bundled form handler plugins. Do check
-the source code as example.
+As said above, `django-fobi` comes with several bundled form handler plugins.
+Do check the source code as example.
 
 Define and register the form handler plugin
 -------------------------------------------
@@ -849,8 +851,8 @@ the endpoint, your post request would result an error.
 
 When you want to customise too many things
 ------------------------------------------
-Fobi, with its' flexible form elements, form handlers and form callbacks
-is very customisable. However, there might be cases when you need to
+`django-fobi`, with its' flexible form elements, form handlers and form
+callbacks is very customisable. However, there might be cases when you need to
 override entire view to fit your needs. Take a look at the
 `FeinCMS integration
 <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/feincms_integration/widgets.py>`_
@@ -863,7 +865,8 @@ just ask me.
 
 Theming
 =======
-`Fobi` comes with theming API. While there are several ready-to-use themes:
+`django-fobi` comes with theming API. While there are several ready-to-use
+themes:
 
 - "Bootstrap 3" theme
 - "Foundation 5" theme
@@ -1007,7 +1010,7 @@ module, called ``FOBI_CUSTOM_THEME_DATA``. See the following code as example:
 
 .. code-block:: python
 
-    # Fobi custom theme data for to be displayed in third party apps
+    # `django-fobi` custom theme data for to be displayed in third party apps
     # like `django-registraton`.
     FOBI_CUSTOM_THEME_DATA = {
         'bootstrap3': {
@@ -1195,8 +1198,8 @@ templates/override_simple_theme/snippets/form_ajax.html
 Permissions
 ===========
 Plugin system allows administrators to specify the access rights to every
-plugin. Fobi permissions are based on Django Users and User Groups. Access
-rights are manageable via Django admin ("/admin/fobi/formelement/",
+plugin. `django-fobi` permissions are based on Django Users and User Groups.
+Access rights are manageable via Django admin ("/admin/fobi/formelement/",
 "/admin/fobi/formhandler/"). If user doesn't have the rights to access plugin,
 it doesn't appear on his form even if has been added to it (imagine, you have
 once granted the right to use the news plugin to all users, but later on
@@ -1228,7 +1231,7 @@ There are several management commands available.
 - `fobi_find_broken_entries`. Find broken form element/handler entries that
   occur when some plugin which did exist in the system, no longer exists.
 - `fobi_sync_plugins`. Should be ran each time a new plugin is being added to
-  the Fobi.
+  the `django-fobi`.
 - `fobi_update_plugin_data`. A mechanism to update existing plugin data in 
   case if it had become invalid after a change in a plugin. In order for it
   to work, each plugin should implement and ``update`` method, in which the
@@ -1252,8 +1255,8 @@ For tuning of specific contrib plugin, see the docs in the plugin directory.
 
 Bundled plugins and themes
 ==========================
-Fobi ships with number of bundled form element- and form handler- plugins, 
-as well as themes which are ready to be used as is.
+`django-fobi` ships with number of bundled form element- and form handler-
+plugins, as well as themes which are ready to be used as is.
 
 Bundled form element plugins
 ----------------------------
@@ -1602,6 +1605,21 @@ Using `django-floppyforms`
 See how it's done in the `override simple theme
 <https://github.com/barseghyanartur/django-fobi/tree/master/examples/simple/override_simple_theme/>`__
 example.
+
+Import/export forms
+===================
+There might be cases when you have `django-fobi` running on multiple instances
+and have already spend some time on making forms on one of the instances,
+and want to reuse those forms on another. You could of course re-create entire
+form in the GUI, but we can do better than that. It's possible to export forms
+into JSON format and import the exported forms again. It's preferable that
+you run both instances on the same versions of `django-fobi`, otherwise imports
+might break (although it might just work). There are two scenarios to deal with
+missing plugin errors, which you have don't yet have full control of. If both
+instances have the same set of form element and form handler plugins imports
+should go smoothly. It is though possible to make an import ignoring missing
+form element and form handler plugins. You would get an appropriate notice
+about that, but import will continue leaving the broken plugin data out.
 
 Available translations
 ======================

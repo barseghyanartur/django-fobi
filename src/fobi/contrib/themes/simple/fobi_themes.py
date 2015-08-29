@@ -93,5 +93,8 @@ class SimpleTheme(BaseTheme):
     view_form_entry_template = 'simple/view_form_entry.html'
     view_form_entry_ajax_template = 'simple/view_form_entry_ajax.html'
 
+    import_form_entry_template = 'simple/import_form_entry.html'
+    import_form_entry_ajax_template = 'simple/import_form_entry_ajax.html'
+
 
 theme_registry.register(SimpleTheme)

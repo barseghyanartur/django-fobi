@@ -239,6 +239,13 @@ Must haves
 + Make sure, that theme specific theme javascripts, css and other assets,
   are defined in the theme itself. Follow the ``django-dash``
   example as much as possible.
++ Make it possible to define dynamic values and use then in the form. Let
+  developers themselves define what should be in there (some sort of
+  register in global scope, maybe just a context processor).
+  Make it pluggable and replaceable.
++ Check if it's safe to use the initial dynamic values.
+- In the updated GUI (bootstrap3), if form names are too long, the layout
+  doesn't look nice anymore.
 - Since tests have been made quite general, create them for all contrib
   form elements and handlers (not yet for things like CAPTCHA).
 - Translate German and Russian URLs.
@@ -272,11 +279,6 @@ Must haves
   `get_form_hidden_fields_errors` template tags into another template tag
   library or product to reuse it in Django-dash as well. Move the permission
   code from `decorators` into a separate package.
-- Make it possible to define dynamic values and use then in the form. Let
-  developers themselves define what should be in there (some sort of
-  register in global scope, maybe just a context processor).
-  Make it pluggable and replaceable.
-- Check if it's safe to use the initial dynamic values.
 
 Should haves
 ============
@@ -349,7 +351,7 @@ Should haves
 - Once the form ordering has been changed, show a message and warn if user 
   is about to leave the page without saving the changes.
 - Make it possible to create fieldsets (implement as containers).
-- Make it possible (just checkbox) to set a fieldset as clonable.
+- Make it possible (just checkbox) to set a fieldset as cloneable.
 - Think of adding hooks so that custom actions are possible without template
   changes (for example, add a new import app for importing the forms from
   MailChimp).
@@ -379,7 +381,7 @@ Could haves
   least the FeinCMS).
 - Make sure that the form view return can be overridden?
 - Add datetime range and date range fields.
-- Confugure defaults values of each plugin in projects' settings module.
+- Configure defaults values of each plugin in projects' settings module.
 - TinyMCE form element cosmetic plugin.
 - In the cosmetic image plugin, render the sized image.
 - Add Armenian translation.

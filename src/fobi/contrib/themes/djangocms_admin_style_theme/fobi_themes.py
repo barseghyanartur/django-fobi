@@ -44,10 +44,10 @@ class DjangoCMSAdminStyleTheme(BaseTheme):
     form_element_checkbox_html_class = 'checkbox'
 
     # Important
-    form_edit_form_entry_option_class = 'glyphicon glyphicon-edit'
+    form_edit_form_entry_option_class = 'edit'
 
     # Important
-    form_delete_form_entry_option_class = 'glyphicon glyphicon-remove'
+    form_delete_form_entry_option_class = 'deletelink'
 
     # Important
     form_list_container_class = 'list-inline'
@@ -94,9 +94,8 @@ class DjangoCMSAdminStyleTheme(BaseTheme):
     view_form_entry_template = 'djangocms_admin_style_theme/view_form_entry.html'
     view_form_entry_ajax_template = 'djangocms_admin_style_theme/view_form_entry_ajax.html'
 
-
-    form_edit_form_entry_option_class = 'edit'
-    form_delete_form_entry_option_class = 'deletelink'
+    import_form_entry_template = 'djangocms_admin_style_theme/import_form_entry.html'
+    import_form_entry_ajax_template = 'djangocms_admin_style_theme/import_form_entry_ajax.html'
 
     @classmethod
     def edit_form_entry_edit_option_html(cls):

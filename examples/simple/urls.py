@@ -30,11 +30,12 @@ if DEFAULT_THEME in ('simple', 'djangocms_admin_style_theme'):
 urlpatterns = patterns('',
     # DB Store plugin URLs
     url(r'^fobi/plugins/form-handlers/db-store/',
-        include('fobi.contrib.plugins.form_handlers.db_store.urls')),
+        include('fobi.contrib.plugins.form_handlers.db_store.urls')), #,namespace='fobi'
 
     # django-fobi URLs:
-    url(r'^fobi/', include('fobi.urls.view')),
-    url(r'^{0}fobi/'.format(FOBI_EDIT_URLS_PREFIX), include('fobi.urls.edit')),
+    url(r'^fobi/', include('fobi.urls.view')), #, namespace='fobi'
+    url(r'^{0}fobi/'.format(FOBI_EDIT_URLS_PREFIX),
+        include('fobi.urls.edit')), #, namespace='fobi'
 
     url(r'^admin_tools/', include('admin_tools.urls')),
 

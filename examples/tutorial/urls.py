@@ -25,10 +25,11 @@ fobi_home_template = fobi_theme_home_template_mapping.get(
 urlpatterns = patterns('',
     # DB Store plugin URLs
     url(r'^fobi/plugins/form-handlers/db-store/',
-        include('fobi.contrib.plugins.form_handlers.db_store.urls')),
+        include('fobi.contrib.plugins.form_handlers.db_store.urls',
+                namespace='fobi')),
 
     # django-fobi URLs:
-    url(r'^fobi/', include('fobi.urls')),
+    url(r'^fobi/', include('fobi.urls', namespace='fobi')),
 
     url(r'^admin_tools/', include('admin_tools.urls')),
 

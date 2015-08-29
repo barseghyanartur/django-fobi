@@ -8,6 +8,7 @@
     <li><a href="#tab-form-elemenets">{% trans "Elements" %}</a></li>
     <li><a href="#tab-form-handlers">{% trans "Handlers" %}</a></li>
     <li><a href="#tab-form-properties">{% trans "Properties" %}</a></li>
+    <li><a href="#tab-form-service">{% trans "Service" %}</a></li>
   </ul>
 
   <div class="col col-form-elements" id="tab-form-elemenets">
@@ -167,7 +168,62 @@
       </div>
     </div>
 
-
   </div><!-- /#tab-form-properties -->
-</div>
-</div>
+
+  <div class="col col-form-service" id="tab-form-service">
+    <!-- Form service -->
+    <div>
+      <h2 id="form_service">{% trans "Service" %}</h2>
+    </div>
+    <div class="panel panel-default">
+      <div class="panel-body">
+
+        <div class="module">
+
+          <table class="table table-striped">
+            <tbody>
+
+              <tr class="row1">
+                <td>
+
+                  <div>
+                    <h3>{% trans "Export your form as JSON" %}</h3>
+                    <p>{% trans "Export your form into JSON format and import it again any time!" %}</p>
+                    <p>
+                      <a class="btn btn-primary" href="{% url 'fobi.export_form_entry' form_entry.pk %}" role="button">
+                        <span class="custom-icon custom-icon-export"></span> {% trans "Export form data" %}
+                      </a>
+                    </p>
+                  </div>
+
+                </td>
+              </tr>
+
+              <tr class="row2">
+                <td>
+
+                  <div>
+                    <h3>{% trans "Delete your form" %}</h3>
+                    <p>{% trans "Once deleted, can't be undone!" %}</p>
+                    <p class="deletelink-box">
+                      <a class="deletelink" href="{% url 'fobi.delete_form_entry' form_entry.pk %}" role="button">
+                        {% trans "Delete form" %}
+                      </a>
+                    </p>
+                  </div>
+
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+
+        </div>
+
+      </div>
+    </div>
+
+  </div><!-- /#tab-form-service -->
+
+</div><!-- /#sitemap -->
+</div><!-- /#tabs -->

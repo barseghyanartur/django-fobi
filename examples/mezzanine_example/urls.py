@@ -54,11 +54,13 @@ urlpatterns = i18n_patterns("",
 urlpatterns += patterns('',
     # DB Store plugin URLs
     url(r'^fobi/plugins/form-handlers/db-store/',
-        include('fobi.contrib.plugins.form_handlers.db_store.urls')),
+        include('fobi.contrib.plugins.form_handlers.db_store.urls',
+                namespace='fobi')),
 
     # django-fobi URLs:
-    url(r'^fobi/', include('fobi.urls.view')),
-    url(r'^{0}fobi/'.format(FOBI_EDIT_URLS_PREFIX), include('fobi.urls.edit')),
+    url(r'^fobi/', include('fobi.urls.view', namespace='fobi')),
+    url(r'^{0}fobi/'.format(FOBI_EDIT_URLS_PREFIX), include('fobi.urls.edit',
+                                                            namespace='fobi')),
 
     url(r'^fobi-home/$', TemplateView.as_view(template_name=fobi_home_template)),
 

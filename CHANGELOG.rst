@@ -15,6 +15,49 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+
+0.5.12
+------
+2015-08-29
+
+- Export/import forms into/from JSON.
+- Minor UI improvements. Adding "Service" tab in the edit view which contains
+  links to export form to JSON and delete form.
+
+Although this release does not contain backwards incompatible changes, there
+have been several changes in GUI and some parts of the generic HTML and themes
+were updated. If you have custom themes implemented, you should likely make
+some minor updates to the HTML in order to reflect the latest GUI changes.
+The following templates have been affected:
+
+New files
+~~~~~~~~~
+- src/fobi/contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/import_form_entry.html
+- src/fobi/contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/import_form_entry_ajax.html
+
+- src/fobi/contrib/themes/foundation5/templates/foundation5/import_form_entry.html
+- src/fobi/contrib/themes/foundation5/templates/foundation5/import_form_entry_ajax.html
+
+- src/fobi/contrib/themes/simple/templates/simple/import_form_entry.html
+- src/fobi/contrib/themes/simple/templates/simple/import_form_entry_ajax.html
+
+- src/fobi/templates/fobi/generic/import_form_entry.html
+- src/fobi/templates/fobi/generic/import_form_entry_ajax.html
+
+Existing files
+~~~~~~~~~~~~~~
+- src/fobi/contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/dashboard.html
+- src/fobi/contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/edit_form_entry_ajax.html
+
+- src/fobi/contrib/themes/foundation5/templates/foundation5/dashboard.html
+- src/fobi/contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html
+
+- src/fobi/contrib/themes/simple/templates/simple/dashboard.html
+- src/fobi/contrib/themes/simple/templates/simple/edit_form_entry_ajax.html
+
+- src/fobi/templates/fobi/generic/dashboard.html
+- src/fobi/templates/fobi/generic/edit_form_entry_ajax.html
+
 0.5.11
 ------
 2015-08-20
