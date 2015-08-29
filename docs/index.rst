@@ -1615,10 +1615,11 @@ form in the GUI, but we can do better than that. It's possible to export forms
 into JSON format and import the exported forms again. It's preferable that
 you run both instances on the same versions of `django-fobi`, otherwise imports
 might break (although it might just work). There are two scenarios to deal with
-missing plugin errors, which you have some control of. If both instances have
-the same set of form element and form handler plugins imports should go
-smoothly. It is though possible to make an import ignoring missing form element
-and form handler plugins. You would get an appropriate notice about that.
+missing plugin errors, which you have don't yet have full control of. If both
+instances have the same set of form element and form handler plugins imports
+should go smoothly. It is though possible to make an import ignoring missing
+form element and form handler plugins. You would get an appropriate notice
+about that, but import will continue leaving the broken plugin data out.
 
 Available translations
 ======================
