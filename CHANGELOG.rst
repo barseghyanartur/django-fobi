@@ -16,6 +16,13 @@ are used for versioning (schema follows below):
 - All backwards incompatible changes are mentioned in this document.
 
 
+0.5.13
+------
+2015-09-01
+
+- Translation fixes.
+- Updating Dutch and Russian translations.
+
 0.5.12
 ------
 2015-08-29

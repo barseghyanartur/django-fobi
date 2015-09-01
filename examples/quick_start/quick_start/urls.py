@@ -10,12 +10,14 @@ urlpatterns = patterns('',
 
     # DB Store plugin URLs
     url(r'^fobi/plugins/form-handlers/db-store/',
-        include('fobi.contrib.plugins.form_handlers.db_store.urls',
-                namespace='fobi')),
+        include('fobi.contrib.plugins.form_handlers.db_store.urls')),
+                #, namespace='fobi'
 
     # View URLs
-    url(r'^fobi/', include('fobi.urls.view', namespace='fobi')),
+    url(r'^fobi/', include('fobi.urls.view')),
+                           #, namespace='fobi'
 
     # Edit URLs
-    url(r'^fobi/', include('fobi.urls.edit', namespace='fobi')),
+    url(r'^fobi/', include('fobi.urls.edit')),
+                           #, namespace='fobi'
 )

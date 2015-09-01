@@ -173,7 +173,7 @@ Must haves
 + Make a working demo (at the moment fails). NOTE: Test if this is still an
   issue!
 + Awesome documentation.
-+ Awesome themeing API. Change current one - make a theme to have all the
++ Awesome theming API. Change current one - make a theme to have all the
   templates.
 + Generalise themes as much as possible.
 + Make sure nothing breaks if one or another element has invalid data.
@@ -244,7 +244,7 @@ Must haves
   register in global scope, maybe just a context processor).
   Make it pluggable and replaceable.
 + Check if it's safe to use the initial dynamic values.
-- In the updated GUI (bootstrap3), if form names are too long, the layout
++ In the updated GUI (bootstrap3), if form names are too long, the layout
   doesn't look nice anymore.
 - Since tests have been made quite general, create them for all contrib
   form elements and handlers (not yet for things like CAPTCHA).
@@ -295,7 +295,7 @@ Should haves
 + Add data export features to ``db_store`` plugin.
 + Make 3 base templates for the DjangoCMS integration app. Save things in 
   settings and make the template to be chosen depending on the fobi_theme (
-  likely, move the declation of the FOBI_THEME above the declaration of the
+  likely, move the declaration of the FOBI_THEME above the declaration of the
   Django-CMS templates).
 + Improve the Django-CMS integration app (make sure it works with
   Django-CMS < 3.0).
@@ -326,7 +326,7 @@ Should haves
   set to True tests fail).
 + Fix the issue with `initial` for `select_multiple` plugin. At the moment,
   setting initial doesn't seem to work.
-- Make it possible to export form to JSON format. It should be possible to
++ Make it possible to export form to JSON format. It should be possible to
   re-created form from saved JSON sa well.
 - Wagtail integration.
 - Document the changes.
@@ -369,7 +369,7 @@ Could haves
 + Make a django theme for jQuery UI.
 - Fix the ``input_format`` option in the date and datetime fields.
 - Think of making it possible to change (or even better - regenerate) the
-  form slug (preferrably - yes).
+  form slug (preferably - yes).
 - Add a management command to remove broken form elements.
 - Think of delegating the form rendering completely to third-party library
   like `django-crispy-forms`.
@@ -377,7 +377,7 @@ Could haves
   SQLAlchemy).
 - Make it possible for themes to override the ``fobi.forms.FormEntryForm``
   form?
-- Make sure a better (SEO) URLs can be used in intergration packages (at
+- Make sure a better (SEO) URLs can be used in integration packages (at
   least the FeinCMS).
 - Make sure that the form view return can be overridden?
 - Add datetime range and date range fields.

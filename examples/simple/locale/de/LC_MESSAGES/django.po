@@ -1,4 +1,4 @@
-#coding:utf-8
+# coding:utf-8
 # `django-fobi` German locale.
 # Copyright (C) 2014 Artur Barseghyan
 # This file is distributed under the same license as the PACKAGE package.
@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-05-19 23:38+0200\n"
+"POT-Creation-Date: 2015-09-01 22:34+0200\n"
 "PO-Revision-Date: 2015-05-21 22:58+0100\n"
 "Last-Translator: Artur Barseghyan <artur.barseghyan@gmail.com>\n"
 "Language-Team: Maximilian Kindshofer <maximilian@kindshofer.net>\n"
@@ -39,84 +39,74 @@ msgstr ""
 msgid "German"
 msgstr ""
 
-#: settings.py:327
-#: settings.py:341
+#: settings.py:329 settings.py:343
 msgid "Custom bootstrap3 embed form view template"
 msgstr ""
 
-#: settings.py:333
-#: settings.py:347
+#: settings.py:335 settings.py:349
 msgid "Custom bootstrap3 embed form entry submitted template"
 msgstr ""
 
-#: settings.py:363
-#: settings.py:377
+#: settings.py:365 settings.py:379
 msgid "Custom foundation5 embed form view template"
 msgstr ""
 
-#: settings.py:369
-#: settings.py:383
+#: settings.py:371 settings.py:385
 msgid "Custom foundation5 embed form entry submitted template"
 msgstr ""
 
-#: settings.py:402
-msgid "&copy; django-fobi example site 2014"
+#: settings.py:404
+msgid "&copy; django-fobi example site 2014-2015"
 msgstr ""
 
-#: admin_tools_dashboard/__init__.py:29
-#: admin_tools_dashboard/menu.py:28
-msgid "Foo"
-msgstr ""
-
-#: admin_tools_dashboard/__init__.py:37
-#: admin_tools_dashboard/menu.py:34
+#: admin_tools_dashboard/__init__.py:37 admin_tools_dashboard/menu.py:34
 msgid "Fobi"
 msgstr "Fobi"
 
-#: admin_tools_dashboard/__init__.py:40
-#: admin_tools_dashboard/menu.py:36
+#: admin_tools_dashboard/__init__.py:40 admin_tools_dashboard/menu.py:36
 #, fuzzy
 msgid "Plugins"
 msgstr "Plugin"
 
-#: admin_tools_dashboard/__init__.py:41
-#: admin_tools_dashboard/menu.py:37
+#: admin_tools_dashboard/__init__.py:41 admin_tools_dashboard/menu.py:37
 #, fuzzy
 msgid "Forms"
 msgstr "Formular"
 
-#: admin_tools_dashboard/__init__.py:42
-#: admin_tools_dashboard/menu.py:38
+#: admin_tools_dashboard/__init__.py:42 admin_tools_dashboard/menu.py:38
 msgid "Data"
 msgstr "Daten"
 
-#: admin_tools_dashboard/__init__.py:49
-#: admin_tools_dashboard/menu.py:45
+#: admin_tools_dashboard/__init__.py:49 admin_tools_dashboard/menu.py:45
 msgid "FeinCMS Pages"
 msgstr ""
 
-#: admin_tools_dashboard/__init__.py:58
-#: admin_tools_dashboard/menu.py:52
+#: admin_tools_dashboard/__init__.py:58 admin_tools_dashboard/menu.py:52
 msgid "DjangoCMS Pages"
 msgstr ""
 
-#: admin_tools_dashboard/__init__.py:66
-#: admin_tools_dashboard/menu.py:58
+#: admin_tools_dashboard/__init__.py:66 admin_tools_dashboard/menu.py:58
 #, fuzzy
 msgid "Administration"
 msgstr "Django-Administration"
 
-#: admin_tools_dashboard/__init__.py:73
-#: admin_tools_dashboard/__init__.py:87
+#: admin_tools_dashboard/__init__.py:74
+msgid "Other apps"
+msgstr ""
+
+#: admin_tools_dashboard/__init__.py:81 admin_tools_dashboard/__init__.py:95
 #, fuzzy
 msgid "Recent Actions"
 msgstr "Aktionen"
 
-#: admin_tools_dashboard/menu.py:24
-#: templates/home/base.html:38
+#: admin_tools_dashboard/menu.py:24 templates/home/base.html:38
 #: templates/home/foundation5.html:32
 msgid "Dashboard"
 msgstr "Dashboard"
+
+#: admin_tools_dashboard/menu.py:28
+msgid "Foo"
+msgstr ""
 
 #: foreign_key_to_saved_form_data_entry/admin.py:14
 msgid "ForeignKey to db_store.SavedFormDataEntry"
@@ -146,8 +136,34 @@ msgid "Choices"
 msgstr "Auswahl"
 
 #: override_radio_plugin/forms.py:37
-msgid "Enter single values/pairs per line. Example:<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;1<br/>&nbsp;&nbsp;&nbsp;&nbsp;2<br/>&nbsp;&nbsp;&nbsp;&nbsp;alpha, Alpha<br/>&nbsp;&nbsp;&nbsp;&nbsp;beta, Beta<br/>&nbsp;&nbsp;&nbsp;&nbsp;omega</code><br/>It finally transforms into the following HTML code:<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;select id=\"id_NAME_OF_THE_ELEMENT\" name=\"NAME_OF_THE_ELEMENT\"&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"1\"&gt;1&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"2\"&gt;2&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"alpha\"&gt;Alpha&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"beta\"&gt;Beta&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"omega\"&gt;omega&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/select&gt;</code>"
-msgstr "Jeweils ein Wert/Paar pro Zeile. Zum Beispiel:<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;1<br/>&nbsp;&nbsp;&nbsp;&nbsp;2<br/>&nbsp;&nbsp;&nbsp;&nbsp;alpha, Alpha<br/>&nbsp;&nbsp;&nbsp;&nbsp;beta, Beta<br/>&nbsp;&nbsp;&nbsp;&nbsp;omega</code><br/>It finally transforms into the following HTML code:<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;select id=\"id_NAME_OF_THE_ELEMENT\" name=\"NAME_OF_THE_ELEMENT\"&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"1\"&gt;1&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"2\"&gt;2&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"alpha\"&gt;Alpha&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"beta\"&gt;Beta&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"omega\"&gt;omega&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/select&gt;</code>"
+msgid ""
+"Enter single values/pairs per line. Example:<code><br/>&nbsp;&nbsp;&nbsp;"
+"&nbsp;1<br/>&nbsp;&nbsp;&nbsp;&nbsp;2<br/>&nbsp;&nbsp;&nbsp;&nbsp;alpha, "
+"Alpha<br/>&nbsp;&nbsp;&nbsp;&nbsp;beta, Beta<br/>&nbsp;&nbsp;&nbsp;&nbsp;"
+"omega</code><br/>It finally transforms into the following HTML code:"
+"<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;select id=\"id_NAME_OF_THE_ELEMENT\" "
+"name=\"NAME_OF_THE_ELEMENT\"&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+"&nbsp;&nbsp;&lt;option value=\"1\"&gt;1&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;"
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"2\"&gt;2&lt;/option&gt;<br/"
+">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"alpha"
+"\"&gt;Alpha&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+"&nbsp;&lt;option value=\"beta\"&gt;Beta&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;"
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"omega\"&gt;omega&lt;/"
+"option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/select&gt;</code>"
+msgstr ""
+"Jeweils ein Wert/Paar pro Zeile. Zum Beispiel:<code><br/>&nbsp;&nbsp;&nbsp;"
+"&nbsp;1<br/>&nbsp;&nbsp;&nbsp;&nbsp;2<br/>&nbsp;&nbsp;&nbsp;&nbsp;alpha, "
+"Alpha<br/>&nbsp;&nbsp;&nbsp;&nbsp;beta, Beta<br/>&nbsp;&nbsp;&nbsp;&nbsp;"
+"omega</code><br/>It finally transforms into the following HTML code:"
+"<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;select id=\"id_NAME_OF_THE_ELEMENT\" "
+"name=\"NAME_OF_THE_ELEMENT\"&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+"&nbsp;&nbsp;&lt;option value=\"1\"&gt;1&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;"
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"2\"&gt;2&lt;/option&gt;<br/"
+">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"alpha"
+"\"&gt;Alpha&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+"&nbsp;&lt;option value=\"beta\"&gt;Beta&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;"
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"omega\"&gt;omega&lt;/"
+"option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/select&gt;</code>"
 
 #: override_radio_plugin/forms.py:56
 #: override_select_model_object_plugin/forms.py:43
@@ -211,8 +227,7 @@ msgstr ""
 msgid "DjangoCMS Foundation 5 example"
 msgstr ""
 
-#: templates/cms_page/foundation5/base.html:99
-#: templates/home/base.html:12
+#: templates/cms_page/foundation5/base.html:99 templates/home/base.html:12
 msgid "Home"
 msgstr "Startseite"
 
@@ -230,26 +245,26 @@ msgid ""
 "     template for rendering the form for the theme %(fobi_theme_uid)s given."
 msgstr ""
 
-#: templates/home/base.html:13
-#: templates/page/base.html:13
+#: templates/home/base.html:13 templates/page/base.html:13
 msgid "django-fobi example site"
 msgstr ""
 
-#: templates/home/base.html:22
-#: templates/home/foundation5.html:16
+#: templates/home/base.html:22 templates/home/foundation5.html:16
 msgid ""
 "\n"
 "    <p>\n"
-"    Welcome to `django-fobi` (later on named just `Fobi`) - a customisable, modular, developer-friendly form\n"
-"    builder application for Django. With `Fobi` you can build Django forms using a user-friendly GUI,\n"
-"    save or mail posted form data. Developer-friendly API allows you to build your own form elements\n"
+"    Welcome to `django-fobi` (later on named just `Fobi`) - a customisable, "
+"modular, developer-friendly form\n"
+"    builder application for Django. With `Fobi` you can build Django forms "
+"using a user-friendly GUI,\n"
+"    save or mail posted form data. Developer-friendly API allows you to "
+"build your own form elements\n"
 "    and form handlers (mechanisms for handling the submitted form data).\n"
 "    </p>\n"
 "    "
 msgstr ""
 
-#: templates/home/base.html:30
-#: templates/home/foundation5.html:24
+#: templates/home/base.html:30 templates/home/foundation5.html:24
 msgid "Learn more"
 msgstr ""
 
@@ -257,14 +272,15 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"      <p>The `Fobi` dashboard, where you can see all the forms you have created, edit them (add/remove elements,\n"
+"      <p>The `Fobi` dashboard, where you can see all the forms you have "
+"created, edit them (add/remove elements,\n"
 "      form handlers), create new forms as well as remove existing ones.</p>\n"
-"      <p><a class=\"btn btn-default\" href=\"%(dashboard_url)s\" role=\"button\">Go to dashboard &raquo;</a></p>\n"
+"      <p><a class=\"btn btn-default\" href=\"%(dashboard_url)s\" role="
+"\"button\">Go to dashboard &raquo;</a></p>\n"
 "      "
 msgstr ""
 
-#: templates/home/base.html:47
-#: templates/home/foundation5.html:41
+#: templates/home/base.html:47 templates/home/foundation5.html:41
 #, fuzzy
 msgid "Create a form"
 msgstr "Formular erstellen"
@@ -273,13 +289,14 @@ msgstr "Formular erstellen"
 #, python-format
 msgid ""
 "\n"
-"      <p>Create your first form using awesome user-friendly GUI. Choose what to do with the posted data.</p>\n"
-"      <p><a class=\"btn btn-default\" href=\"%(create_form_entry_url)s\" role=\"button\">Create form &raquo;</a></p>\n"
+"      <p>Create your first form using awesome user-friendly GUI. Choose what "
+"to do with the posted data.</p>\n"
+"      <p><a class=\"btn btn-default\" href=\"%(create_form_entry_url)s\" "
+"role=\"button\">Create form &raquo;</a></p>\n"
 "      "
 msgstr ""
 
-#: templates/home/base.html:55
-#: templates/home/foundation5.html:49
+#: templates/home/base.html:55 templates/home/foundation5.html:49
 msgid "See the admin part"
 msgstr ""
 
@@ -287,9 +304,11 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"      <p>See the Django-admin for saved data, as well as choose who to grant with permissions of using\n"
+"      <p>See the Django-admin for saved data, as well as choose who to grant "
+"with permissions of using\n"
 "      one or another `Fobi` plugin (form element or form handler).</p>\n"
-"      <p><a class=\"btn btn-default\" href=\"%(admin_url)s\" role=\"button\">Go to admin &raquo;</a></p>\n"
+"      <p><a class=\"btn btn-default\" href=\"%(admin_url)s\" role=\"button"
+"\">Go to admin &raquo;</a></p>\n"
 "      "
 msgstr ""
 
@@ -297,9 +316,11 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"      <p>The `Fobi` dashboard, where you can see all the forms you have created, edit them (add/remove elements,\n"
+"      <p>The `Fobi` dashboard, where you can see all the forms you have "
+"created, edit them (add/remove elements,\n"
 "      form handlers), create new forms as well as remove existing ones.</p>\n"
-"      <p><a class=\"button secondary radius\" href=\"%(dashboard_url)s\" role=\"button\">Go to dashboard &raquo;</a></p>\n"
+"      <p><a class=\"button secondary radius\" href=\"%(dashboard_url)s\" "
+"role=\"button\">Go to dashboard &raquo;</a></p>\n"
 "      "
 msgstr ""
 
@@ -307,8 +328,10 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"      <p>Create your first form using awesome user-friendly GUI. Choose what to do with the posted data.</p>\n"
-"      <p><a class=\"button secondary radius\" href=\"%(create_form_entry_url)s\" role=\"button\">Create form &raquo;</a></p>\n"
+"      <p>Create your first form using awesome user-friendly GUI. Choose what "
+"to do with the posted data.</p>\n"
+"      <p><a class=\"button secondary radius\" href="
+"\"%(create_form_entry_url)s\" role=\"button\">Create form &raquo;</a></p>\n"
 "      "
 msgstr ""
 
@@ -316,9 +339,11 @@ msgstr ""
 #, python-format
 msgid ""
 "\n"
-"      <p>See the Django-admin for saved data, as well as choose who to grant with permissions of using\n"
+"      <p>See the Django-admin for saved data, as well as choose who to grant "
+"with permissions of using\n"
 "      one or another `Fobi` plugin (form element or form handler).</p>\n"
-"      <p><a class=\"button secondary radius\" href=\"%(admin_url)s\" role=\"button\">Go to admin &raquo;</a></p>\n"
+"      <p><a class=\"button secondary radius\" href=\"%(admin_url)s\" role="
+"\"button\">Go to admin &raquo;</a></p>\n"
 "      "
 msgstr ""
 
@@ -339,19 +364,23 @@ msgstr ""
 msgid ""
 "\n"
 "      Thanks %(account)s, activation complete!\n"
-"      You may now <a href='%(auth_login_url)s'>login</a> using the username and password you set at registration.\n"
+"      You may now <a href='%(auth_login_url)s'>login</a> using the username "
+"and password you set at registration.\n"
 "      "
 msgstr ""
 
 #: templates/registration/activate.html:22
-msgid "Oops &ndash; it seems that your activation key is invalid.  Please check the url again."
+msgid ""
+"Oops &ndash; it seems that your activation key is invalid.  Please check the "
+"url again."
 msgstr ""
 
 #: templates/registration/activation_complete.html:16
 #, python-format
 msgid ""
 "\n"
-"      Thanks, activation complete!  You may now <a href=\"%(auth_login_url)s\">login</a> using the username and password you set at registration.\n"
+"      Thanks, activation complete!  You may now <a href=\"%(auth_login_url)s"
+"\">login</a> using the username and password you set at registration.\n"
 "      "
 msgstr ""
 
@@ -363,13 +392,15 @@ msgid ""
 "<p>\n"
 "You (or someone pretending to be you) have asked to register an account at\n"
 "<b>%(sitename)s</b>.<br/>\n"
-"If this wasn't you, please ignore this email and your address will be removed\n"
+"If this wasn't you, please ignore this email and your address will be "
+"removed\n"
 "from our records.\n"
 "</p>\n"
 "<p>\n"
 "To activate this account, please click the following link within the next \n"
 "<b>%(expiration_days)s</b> days:<br/>\n"
-"<a href=\"http://%(sitedomain)s%(activation_key_url)s\">http://%(sitedomain)s%(activation_key_url)s</a>\n"
+"<a href=\"http://%(sitedomain)s%(activation_key_url)s\">http://%(sitedomain)s"
+"%(activation_key_url)s</a>\n"
 "</p>\n"
 "<p>\n"
 "Sincerely,<br/>\n"
@@ -416,8 +447,7 @@ msgid ""
 "              <a href=\"%(register_url)s\">Need an account</a>?"
 msgstr ""
 
-#: templates/registration/logout.html:5
-#: templates/registration/logout.html:12
+#: templates/registration/logout.html:5 templates/registration/logout.html:12
 #, fuzzy
 msgid "Logged out"
 msgstr "Log out"
@@ -499,10 +529,12 @@ msgstr "Testen"
 #, python-format
 msgid ""
 "You are receiving this email because you (or someone pretending to be you)\n"
-"requested that your password be reset on the %(domain)s site.  If you do not \n"
+"requested that your password be reset on the %(domain)s site.  If you do "
+"not \n"
 "wish to reset your password, please ignore this message.\n"
 "\n"
-"To reset your password, please click the following link, or copy and paste it\n"
+"To reset your password, please click the following link, or copy and paste "
+"it\n"
 "into your web browser:"
 msgstr ""
 
@@ -526,7 +558,8 @@ msgstr "Passwort"
 #: templates/registration/password_reset_form_ajax.html:10
 msgid ""
 "\n"
-"      Forgot your password?  Enter your email in the form below and we'll send you\n"
+"      Forgot your password?  Enter your email in the form below and we'll "
+"send you\n"
 "      instructions for creating a new one.\n"
 "      "
 msgstr ""

@@ -45,7 +45,7 @@ class FormEntryForm(forms.ModelForm):
         self.request = kwargs.pop('request', None)
         if self.request is None:
             raise ImproperlyConfigured(
-                ugettext("The {0} form requires a"
+                ugettext("The {0} form requires a "
                          "request argument.".format(self.__class__.__name__))
                 )
 
