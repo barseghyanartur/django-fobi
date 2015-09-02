@@ -328,6 +328,7 @@ Should haves
   setting initial doesn't seem to work.
 + Make it possible to export form to JSON format. It should be possible to
   re-created form from saved JSON sa well.
+- Make sure that all views are 100% AJAX ready.
 - Wagtail integration.
 - Document the changes.
 - Find out why subclassing the ``select_model_object`` plugin didn't work.
