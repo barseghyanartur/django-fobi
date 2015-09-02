@@ -11,7 +11,8 @@
 # All configuration values have a default; values that are commented out
 # serve to show the default.
 
-import sys, os
+import sys
+import os
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
@@ -19,14 +20,20 @@ import sys, os
 #sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../src'))
 sys.path.insert(0, os.path.abspath('../examples'))
+
 try:
     import fobi
-    from simple import settings as example_settings
     version = fobi.__version__
     project = fobi.__title__
     copyright = fobi.__copyright__
+except ImportError as err:
+    version = '0.1'
+    project = u'django-fobi'
+    copyright = u'2014, Artur Barseghyan <artur.barseghyan@gmail.com>'
+
+try:
+    from simple import settings as example_settings
 except Exception as e:
-    import os
     PROJECT_DIR = lambda base : os.path.abspath(os.path.join(os.path.dirname(__file__), base).replace('\\','/'))
     gettext = lambda s: s
 
@@ -207,12 +214,9 @@ except Exception as e:
                 'django.template.loaders.app_directories.Loader',
                 'django.template.loaders.eggs.Loader',
             )
-
+    # END class ExampleSettings()
 
     example_settings = ExampleSettings()
-    version = '0.1'
-    project = u'django-fobi'
-    copyright = u'2014, Artur Barseghyan <artur.barseghyan@gmail.com>'
 
 # -- Django configuration ------------------------------------------------------
 from django.conf import settings
