@@ -291,6 +291,10 @@ class FormEntry(models.Model):
         help_text=_("Custom form action; don't fill this field, unless really "
                     "necessary.")
         )
+    created = models.DateTimeField(_("Created"), null=True, blank=True,
+                                   auto_now_add=True)
+    updated = models.DateTimeField(_("Updated"), null=True, blank=True,
+                                   auto_now=True)
 
     class Meta:
         verbose_name = _("Form entry")

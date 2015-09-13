@@ -401,6 +401,14 @@ MIDDLEWARE_CLASSES = (
     "mezzanine.core.middleware.FetchFromCacheMiddleware",
 )
 
+SOUTH_MIGRATION_MODULES = {
+    'fobi': 'fobi.south_migrations',
+}
+
+MIGRATION_MODULES = {
+    'fobi': 'fobi.migrations',
+}
+
 # Store these package names here as they may change in the future since
 # at the moment we are using custom forks of them.
 PACKAGE_NAME_FILEBROWSER = "filebrowser_safe"

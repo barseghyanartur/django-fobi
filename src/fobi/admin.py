@@ -117,8 +117,7 @@ class FormEntryAdmin(admin.ModelAdmin):
     """
     Form entry admin.
     """
-    list_display = ('name', 'slug', 'user', 'form_wizard_entry', 'is_public', \
-                    'is_cloneable',)
+    list_display = ('name', 'slug', 'user', 'is_public', 'created', 'updated',)
     list_editable = ('is_public', 'is_cloneable',)
     list_filter = ('is_public', 'is_cloneable',)
     readonly_fields = ('slug',)
