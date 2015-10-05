@@ -30,6 +30,8 @@ template_dirs = [
     "src/fobi/contrib/plugins/form_handlers/db_store/templates/db_store", # DB Store
     "src/fobi/contrib/plugins/form_handlers/mail/templates/mail", # Mail
     "src/fobi/contrib/plugins/form_handlers/http_repost/templates/http_repost", # Http repost
+
+    "src/fobi/contrib/plugins/form_importers/mailchimp_importer/templates/mailchimp_importer", # MailChimp importer
 ]
 static_dirs = [
     "src/fobi/static", # Core static
@@ -67,7 +69,7 @@ for static_dir in static_dirs:
 for locale_dir in locale_dirs:
     locale_files += [os.path.join(locale_dir, f) for f in os.listdir(locale_dir)]
 
-version = '0.5.15'
+version = '0.5.16'
 
 install_requires = [
     'Pillow>=2.0.0',
@@ -80,11 +82,10 @@ install_requires = [
     'easy-thumbnails>=1.4,<2.0',
     'vishap>=0.1.3,<2.0',
     'Unidecode>=0.04.1',
-    'django-nine>=0.1.1',
+    'django-nine>=0.1.4',
 ]
 
 tests_require = [
-    #'simple_timer>=0.2',
     'selenium',
 ]
 
