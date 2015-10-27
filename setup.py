@@ -69,20 +69,18 @@ for static_dir in static_dirs:
 for locale_dir in locale_dirs:
     locale_files += [os.path.join(locale_dir, f) for f in os.listdir(locale_dir)]
 
-version = '0.5.16'
+version = '0.5.17'
 
 install_requires = [
     'Pillow>=2.0.0',
     'requests>=1.0.0',
     'django-autoslug>=1.3.0',
     'django-nonefield>=0.1',
-    #'django-tinymce>=1.5.3',
     'ordereddict>=1.1',
     'six>=1.4.1',
-    'easy-thumbnails>=1.4,<2.0',
     'vishap>=0.1.3,<2.0',
     'Unidecode>=0.04.1',
-    'django-nine>=0.1.4',
+    'django-nine>=0.1.6',
 ]
 
 tests_require = [
@@ -95,8 +93,10 @@ try:
     PY3 = sys.version_info[0] == 3
     if PY3:
         install_requires.append('simplejson>=3.0.0') # When using Python 3
+        install_requires.append('easy-thumbnails>=2.1')
     else:
         install_requires.append('simplejson>=2.1.0') # When using Python 2.*
+        install_requires.append('easy-thumbnails>=1.4')
 
     #if LTE_PY26:
     #    install_requires.append('ordereddict==1.1')
