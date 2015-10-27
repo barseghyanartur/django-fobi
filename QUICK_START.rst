@@ -205,7 +205,7 @@ Update the database
 .. code-block:: none
 
     $ ./manage.py syncdb
-    $ ./manage.py migrate
+    $ ./manage.py migrate --fake-initial
 
 2. Sync installed ``fobi`` plugins. Go to terminal and type the following
    command.
