@@ -15,6 +15,15 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.5.17
+------
+2015-10-22
+
+- Increased `easy-thumbnails` requirement to >= 2.1 for Python 3, since it was
+  causing installation errors.
+- Increased the `django-nine` requirement to >=0.1.6, since it has better
+  Python 3 support.
+
 0.5.16
 ------
 2015-10-05
