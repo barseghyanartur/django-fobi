@@ -33,7 +33,7 @@ class SelectMultipleMPTTModelObjectsInputPlugin(FormFieldPlugin):
     group = _("Fields")
     form = SelectMultipleMPTTModelObjectsInputForm
 
-    def get_form_field_instances(self):
+    def get_form_field_instances(self, request=None):
         """
         Get form field instances.
         """

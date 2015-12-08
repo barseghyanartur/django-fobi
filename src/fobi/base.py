@@ -1151,7 +1151,9 @@ class FormElementPlugin(BasePlugin):
         # methods in plugins). In DEBUG mode raise an exception if something
         # goes wrong. Otherwise - skip the element.
         try:
-            form_field_instances = self.get_form_field_instances()
+            form_field_instances = self.get_form_field_instances(
+                request=request
+            )
         except AttributeError as e:
             if DEBUG:
                 raise e
@@ -1230,14 +1232,11 @@ class FormElementPlugin(BasePlugin):
 
         return processed_field_instances
 
-    def get_form_field_instances(self):
+    def get_form_field_instances(self, request=None):
         """
         Gets the instances of form fields, that plugin contains.
 
-        :param fobi.models.FormElementEntry form_element_entry: Instance.
-        :param string origin:
-        :param callable kwargs_update_func:
-        :param callable return_func:
+        :param django.http.HttpRequest request:
         :return list: List of Django form field instances.
 
         :example:

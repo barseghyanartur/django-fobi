@@ -29,7 +29,7 @@ class SelectInputPlugin(FormFieldPlugin):
     group = _("Fields")
     form = SelectInputForm
 
-    def get_form_field_instances(self):
+    def get_form_field_instances(self, request=None):
         """
         Get form field instances.
         """
