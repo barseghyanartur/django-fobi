@@ -12,7 +12,10 @@ from django.template import Library, TemplateSyntaxError, Node
 from django.conf import settings
 from django import forms
 from django.utils.translation import ugettext_lazy as _
-from django.forms.util import ErrorDict
+try:
+    from django.forms.util import ErrorDict
+except ImportError:
+    from django.forms.utils import ErrorList as ErrorDict
 
 from fobi.settings import DISPLAY_AUTH_LINK
 
