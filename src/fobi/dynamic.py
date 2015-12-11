@@ -8,7 +8,10 @@ __all__ = ('assemble_form_class',)
 
 from six import with_metaclass
 
-from django.utils.datastructures import SortedDict
+try:
+    from django.utils.datastructures import SortedDict
+except ImportError:
+    from collections import OrderedDict as SortedDict
 from django.forms.forms import BaseForm#, get_declared_fields
 from django.forms.widgets import media_property
 
