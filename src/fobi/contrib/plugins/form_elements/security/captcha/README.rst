@@ -28,9 +28,9 @@ Taken from django-simple-captcha `installation instructions
 
 .. code-block:: python
 
-    urlpatterns += patterns('',
+    urlpatterns += [
         url(r'^captcha/', include('captcha.urls')),
-    )
+    ]
 
 Install `fobi` Captcha plugin
 -----------------------------

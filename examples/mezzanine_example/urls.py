@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 
@@ -41,17 +41,17 @@ admin.autodiscover()
 # You can also change the ``home`` view to add your own functionality
 # to the project's homepage.
 
-urlpatterns = i18n_patterns("",
+urlpatterns = i18n_patterns([
     # Change the admin prefix here to use an alternate URL for the
     # admin interface, which would be marginally more secure.
     ("^admin/", include(admin.site.urls)),
-)
+])
 
 # ***********
 # Fobi patterns
 # ***********
 
-urlpatterns += patterns('',
+urlpatterns += [
     # DB Store plugin URLs
     url(r'^fobi/plugins/form-handlers/db-store/',
         include('fobi.contrib.plugins.form_handlers.db_store.urls')),
@@ -66,13 +66,13 @@ urlpatterns += patterns('',
 
     # django-fobi public forms contrib app:
     #url(r'^', include('fobi.contrib.apps.public_forms.urls')),
-    )
+    ]
 
 # ***********
 # End fobi patterns
 # ***********
 
-urlpatterns += patterns('',
+urlpatterns += [
 
     # We don't want to presume how your homepage works, so here are a
     # few patterns you can use to set it up.
@@ -140,7 +140,7 @@ urlpatterns += patterns('',
 
     # ("^%s/" % settings.SITE_PREFIX, include("mezzanine.urls"))
 
-)
+]
 
 # Adds ``STATIC_URL`` to the context of error pages, so that error
 # pages can use JS, CSS and images.
