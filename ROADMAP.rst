@@ -4,21 +4,16 @@ Changelog for upcoming releases
 ---
 yyyy-mm-ddd (upcoming).
 
+This release contains minor backwards incompatible changes, related to the
+change of the name of the "simple" theme into "django_admin_style" theme.
+
 - Fieldsets.
+- The "simple" theme has been renamed to "django_admin_style".
 
 0.6
 ---
 yyyy-mm-ddd (upcoming).
 
-This release contains minor backwards incompatible changes, related to the
-change of the name of the "simple" theme into "django_admin_style" theme.
-
-- Mailchimp support.
-- Kube framework integration (theme).
-- PureCSS framework integration (theme).
-- Skeleton framework integration (theme).
-- Baseline framework integration (theme).
-- Amazium framework integration (theme).
-- The "simple" theme has been renamed to "django_admin_style".
-- Internally, make a date when form has been created. Also keep track of when
-  the form has been last edited.
+- Form importers (and as a part of it - MailChimp integration,
+  which would allow to import forms from MailChimp into `django-fobi` using
+  a user-friendly wizard).

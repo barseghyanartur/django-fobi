@@ -15,6 +15,12 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.5.19
+------
+2015-12-15
+
+- New style urls everywhere.
+
 0.5.18
 ------
 2015-12-08
