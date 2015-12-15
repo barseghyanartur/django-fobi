@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 
 from django.conf import settings
 from django.contrib import admin
@@ -27,7 +27,7 @@ FOBI_EDIT_URLS_PREFIX = ''
 if DEFAULT_THEME in ('simple', 'djangocms_admin_style_theme'):
     FOBI_EDIT_URLS_PREFIX = 'admin/'
 
-urlpatterns = patterns('',
+urlpatterns = [
     # DB Store plugin URLs
     url(r'^fobi/plugins/form-handlers/db-store/',
         include('fobi.contrib.plugins.form_handlers.db_store.urls')), #,namespace='fobi'
@@ -51,7 +51,7 @@ urlpatterns = patterns('',
 
     # django-fobi public forms contrib app:
     #url(r'^', include('fobi.contrib.apps.public_forms.urls')),
-    )
+    ]
 
 # Serving media and static in debug/developer mode.
 if settings.DEBUG:
@@ -63,16 +63,16 @@ if settings.DEBUG:
 if 'feincms' in settings.INSTALLED_APPS:
     from page.models import Page
     Page
-    urlpatterns += patterns('',
+    urlpatterns += [
         url(r'^pages/', include('feincms.urls')),
-        )
+        ]
 
 # Conditionally including DjangoCMS URls in case if
 # DjangoCMS in installed apps.
 if 'cms' in settings.INSTALLED_APPS:
-    urlpatterns += patterns('',
+    urlpatterns += [
         url(r'^cms-pages/', include('cms.urls')),
-        )
+        ]
 
 # Conditionally including Captcha URls in case if
 # Captcha in installed apps.
@@ -80,6 +80,6 @@ try:
     from captcha.fields import ReCaptchaField
 except ImportError as e:
     if 'captcha' in settings.INSTALLED_APPS:
-        urlpatterns += patterns('',
+        urlpatterns += [
             url(r'^captcha/', include('captcha.urls')),
-        )
+        ]

@@ -38,8 +38,8 @@ Installation
 
 .. code-block:: python
 
-    urlpatterns = patterns('',
+    urlpatterns = [
         # DB Store plugin URLs
         url(r'^fobi/plugins/form-handlers/db-store/',
             include('fobi.contrib.plugins.form_handlers.db_store.urls')),
-    )
+    ]

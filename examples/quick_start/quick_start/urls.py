@@ -1,7 +1,7 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.contrib import admin
 
-urlpatterns = patterns('',
+urlpatterns = [
     # Examples:
     # url(r'^$', 'quick_start.views.home', name='home'),
     # url(r'^blog/', include('blog.urls')),
@@ -20,4 +20,4 @@ urlpatterns = patterns('',
     # Edit URLs
     url(r'^fobi/', include('fobi.urls.edit')),
                            #, namespace='fobi'
-)
+]
