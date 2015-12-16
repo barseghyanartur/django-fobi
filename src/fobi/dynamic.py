@@ -8,7 +8,6 @@ __all__ = ('assemble_form_class',)
 
 from six import with_metaclass
 
-
 from django.forms.forms import BaseForm#, get_declared_fields
 from django.forms.widgets import media_property
 

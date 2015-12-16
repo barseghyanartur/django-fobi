@@ -17,3 +17,6 @@ Thanks to the following people for their contributions:
 - `garmoncheg
   <https://github.com/barseghyanartur/django-fobi/commits?author=garmoncheg>`_
   for minor fixes.
+- `James Fenwick
+  <https://github.com/barseghyanartur/django-fobi/commits?author=jmsfwk>`_
+  for number of Django 1.9 support fixes.

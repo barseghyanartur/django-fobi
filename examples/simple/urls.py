@@ -65,6 +65,7 @@ if 'feincms' in settings.INSTALLED_APPS:
     Page
     urlpatterns += [
         url(r'^pages/', include('feincms.urls')),
+
     ]
 
 # Conditionally including DjangoCMS URls in case if

@@ -194,7 +194,6 @@ Add the following line to ``urlpatterns`` of your `urls` module.
         url(r'^fobi/', include('fobi.urls.edit')),
 
         # ...
-
     ]
 
 Update the database

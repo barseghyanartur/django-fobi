@@ -1235,10 +1235,7 @@ class FormElementPlugin(BasePlugin):
         """
         Gets the instances of form fields, that plugin contains.
 
-        :param fobi.models.FormElementEntry form_element_entry: Instance.
-        :param string origin:
-        :param callable kwargs_update_func:
-        :param callable return_func:
+        :param django.http.HttpRequest request:
         :return list: List of Django form field instances.
 
         :example:
