@@ -17,6 +17,14 @@ from fobi.constants import (
     )
 from fobi.helpers import safe_text, get_app_label_and_model_name
 
+from nine.versions import DJANGO_GTE_1_7
+
+if DJANGO_GTE_1_7:
+    from django.apps import apps
+    get_model = apps.get_model
+else:
+    from django.db.models import get_model
+
 from . import UID
 from .forms import SelectMultipleModelObjectsInputForm
 from .settings import SUBMIT_VALUE_AS
@@ -32,12 +40,12 @@ class SelectMultipleModelObjectsInputPlugin(FormFieldPlugin):
     group = _("Fields")
     form = SelectMultipleModelObjectsInputForm
 
-    def get_form_field_instances(self):
+    def get_form_field_instances(self, request=None):
         """
         Get form field instances.
         """
         app_label, model_name = get_app_label_and_model_name(self.data.model)
-        model = models.get_model(app_label, model_name)
+        model = get_model(app_label, model_name)
         queryset = model._default_manager.all()
 
         kwargs = {

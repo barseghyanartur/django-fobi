@@ -8,7 +8,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 DEBUG = False
 DEBUG_TOOLBAR = False
-TEMPLATE_DEBUG = DEBUG
+DEV = False
 
 ADMINS = (
     # ('Your Name', 'your_email@example.com'),
@@ -101,12 +101,67 @@ STATICFILES_FINDERS = (
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '97818c*w97Zi8a-m^1coRRrmurMI6+q5_kyn*)s@(*_Pk6q423'
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    'django.template.loaders.filesystem.Loader',
-    'django.template.loaders.app_directories.Loader',
-    'django.template.loaders.eggs.Loader',
-)
+from nine.versions import DJANGO_GTE_1_7, DJANGO_GTE_1_8
+
+if DJANGO_GTE_1_8:
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            #'APP_DIRS': True,
+            'DIRS': [PROJECT_DIR('templates'),],
+            'OPTIONS': {
+                'context_processors': [
+                    "django.contrib.auth.context_processors.auth",
+                    "django.core.context_processors.debug",
+                    "django.core.context_processors.i18n",
+                    "django.core.context_processors.media",
+                    "django.core.context_processors.static",
+                    "django.core.context_processors.tz",
+                    "django.contrib.messages.context_processors.messages",
+                    "django.core.context_processors.request",
+                    "fobi.context_processors.theme", # Important!
+                    "fobi.context_processors.dynamic_values", # Optional
+                ],
+                'loaders': [
+                    'django.template.loaders.filesystem.Loader',
+                    'django.template.loaders.app_directories.Loader',
+                    'django.template.loaders.eggs.Loader',
+                    'admin_tools.template_loaders.Loader',
+                ],
+                'debug': DEBUG,
+            }
+        },
+    ]
+else:
+    TEMPLATE_DEBUG = DEBUG
+
+    # List of callables that know how to import templates from various sources.
+    TEMPLATE_LOADERS = (
+        'django.template.loaders.filesystem.Loader',
+        'django.template.loaders.app_directories.Loader',
+        'django.template.loaders.eggs.Loader',
+        'admin_tools.template_loaders.Loader',
+    )
+
+    TEMPLATE_CONTEXT_PROCESSORS = (
+        "django.contrib.auth.context_processors.auth",
+        "django.core.context_processors.debug",
+        "django.core.context_processors.i18n",
+        "django.core.context_processors.media",
+        "django.core.context_processors.static",
+        "django.core.context_processors.tz",
+        "django.contrib.messages.context_processors.messages",
+        "django.core.context_processors.request",
+        "fobi.context_processors.theme", # Important!
+        "fobi.context_processors.dynamic_values", # Optional
+    )
+
+    TEMPLATE_DIRS = (
+        # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+        # Always use forward slashes, even on Windows.
+        # Don't forget to use absolute paths, not relative paths.
+        PROJECT_DIR('templates'),
+    )
 
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -123,26 +178,6 @@ ROOT_URLCONF = 'urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'wsgi.application'
-
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.contrib.auth.context_processors.auth",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.media",
-    "django.core.context_processors.static",
-    "django.core.context_processors.tz",
-    "django.contrib.messages.context_processors.messages",
-    "django.core.context_processors.request",
-    "fobi.context_processors.theme", # Important!
-    "fobi.context_processors.dynamic_values", # Optional
-)
-
-TEMPLATE_DIRS = (
-    # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
-    # Always use forward slashes, even on Windows.
-    # Don't forget to use absolute paths, not relative paths.
-    PROJECT_DIR('templates'),
-)
 
 #FIXTURE_DIRS = (
 #   PROJECT_DIR(os.path.join('..', 'fixtures'))
@@ -242,6 +277,13 @@ INSTALLED_APPS = (
     'fobi.contrib.plugins.form_handlers.db_store',
     'fobi.contrib.plugins.form_handlers.http_repost',
     'fobi.contrib.plugins.form_handlers.mail',
+
+    # ***********************************************************************
+    # ***********************************************************************
+    # ************************* Fobi form importers *************************
+    # ***********************************************************************
+    # ***********************************************************************
+    'fobi.contrib.plugins.form_importers.mailchimp_importer',
 
     # ***********************************************************************
     # ***********************************************************************
@@ -505,7 +547,6 @@ LOGGING = {
 }
 
 # Make settings quite compatible among various Django versions used.
-from nine.versions import DJANGO_GTE_1_7, DJANGO_GTE_1_8
 if DJANGO_GTE_1_7 or DJANGO_GTE_1_8:
     INSTALLED_APPS = list(INSTALLED_APPS)
 
@@ -557,7 +598,7 @@ if DEBUG and DEBUG_TOOLBAR:
     except ImportError:
         pass
 
-if DEBUG and TEMPLATE_DEBUG:
+if DEBUG:
     try:
         # Make sure the django-template-debug is installed. You can then
         # in templates use it as follows:
@@ -571,3 +612,7 @@ if DEBUG and TEMPLATE_DEBUG:
     except ImportError:
         pass
 
+# Make the `django-fobi` package available without installation.
+if DEV:
+    import sys
+    sys.path.insert(0, os.path.abspath('../../src'))

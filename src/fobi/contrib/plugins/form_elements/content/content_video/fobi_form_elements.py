@@ -32,7 +32,7 @@ class ContentVideoPlugin(FormElementPlugin):
         """
         self.data.name = "{0}_{1}".format(self.uid, uuid4())
 
-    def get_form_field_instances(self):
+    def get_form_field_instances(self, request=None):
         """
         Get form field instances.
         """

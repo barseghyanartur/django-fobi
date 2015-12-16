@@ -9,7 +9,7 @@ class SampleTextareaPlugin(FormFieldPlugin):
     form = SampleTextareaForm
     group = "Samples" # Group to which the plugin belongs to
 
-    def get_form_field_instances(self):
+    def get_form_field_instances(self, request=None):
         kwargs = {
             'required': self.data.required,
             'label': self.data.label,

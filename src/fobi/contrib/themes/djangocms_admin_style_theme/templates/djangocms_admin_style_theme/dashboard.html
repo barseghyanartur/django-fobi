@@ -30,6 +30,11 @@
     <li>
       <a class="addlink" href="{% url 'fobi.import_form_entry' %}">{% trans "Import form"%}</a>
     </li>
+    {% for form_importer_uid,form_importer_name,form_importer_url in form_importers %}
+    <li>
+      <a class="addlink addlink-importer-{{ form_importer_uid }}" href="{{ form_importer_url }}">{{ form_importer_name }}</a>
+    </li>
+    {% endfor %}
   </ul>
 
   <div id="changelist" class="module">

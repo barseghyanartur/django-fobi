@@ -3,11 +3,13 @@ Django>=1.8,<1.9
 
 Jinja2
 MarkupSafe
+mailchimp
 #MySQL-python
 Sphinx
 django-admin-tools>=0.5.2
 django-autoslug==1.7.1
 django-debug-toolbar==0.11.0
+django-formtools
 django-localeurl>=2.0.2
 django-registration-redux>=1.1
 docutils

@@ -1,0 +1,56 @@
+{% load i18n %}
+
+    <div class="{% block form_page_header_html_class %}{% endblock %}">
+      <h1>{% block form_page_title %}{% endblock %}</h1>
+    </div>
+
+    <form method="post" {% block form_enctype %}enctype="multipart/form-data"{% endblock %}
+          class="{% block form_html_class %}{% endblock %}"
+          {#action="{% if api_key %}?api_key={{ api_key }}{% endif %}"#}
+          {% block form_extra_attrs %}{% endblock %}>
+        {% csrf_token %}
+        {{ wizard.form.media }}
+        {{ wizard.management_form }}
+        {% if wizard.form.forms %}
+            {{ wizard.form.management_form }}
+            {% for wizard_form in wizard.form.forms %}
+                {{ wizard_form.as_p }}
+                {#% include fobi_theme.form_snippet_template_name %#}
+            {% endfor %}
+        {% else %}
+            {{ wizard.form.as_p }}
+        {% endif %}
+
+        <div class="{% block form_button_outer_wrapper_html_class %}{% endblock %}">
+            <div class="{% block form_button_wrapper_html_class %}{% endblock %}">
+              {% block form_buttons %}
+
+                {% if wizard.steps.prev %}
+                <button name="wizard_goto_step"
+                        type="submit"
+                        value="{{ wizard.steps.first }}"
+                        class="{% block form_first_step_button_html_class %}first-step{% endblock %}">
+                    {% trans "First step" %}
+                </button>
+                {#% endif %#}
+
+                {#% if wizard.steps.prev %#}
+                <button name="wizard_goto_step"
+                        type="submit"
+                        value="{{ wizard.steps.prev }}"
+                        class="{% block form_prev_step_button_html_class %}prev-step{% endblock %}">
+                    {% trans "Previous step" %}
+                </button>
+                {% endif %}
+
+                <button name="submit"
+                        type="submit"
+                        class="{% block form_primary_button_html_class %}{% endblock %}">
+                    {% block form_primary_button_text %}{% trans "Submit" %}{% endblock %}
+                </button>
+
+              {% endblock form_buttons %}
+            </div>
+        </div>
+
+    </form>

@@ -25,7 +25,7 @@ class HiddenInputPlugin(FormFieldPlugin):
     form = HiddenInputForm
     is_hidden = True
 
-    def get_form_field_instances(self):
+    def get_form_field_instances(self, request=None):
         """
         Get form field instances.
         """

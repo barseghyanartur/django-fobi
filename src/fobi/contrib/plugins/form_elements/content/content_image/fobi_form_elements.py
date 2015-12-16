@@ -54,7 +54,7 @@ class ContentImagePlugin(FormElementPlugin):
             )
         return self.get_cloned_plugin_data(update={'file': cloned_image})
 
-    def get_form_field_instances(self):
+    def get_form_field_instances(self, request=None):
         """
         Get form field instances.
         """

@@ -12,6 +12,7 @@ INSTALLED_APPS += [
     # Some plugins
     'djangocms_picture',
     'djangocms_snippet',
+    'treebeard',
 
     'fobi.contrib.apps.djangocms_integration', # Fobi DjangoCMS app
 
@@ -41,12 +42,20 @@ MIDDLEWARE_CLASSES += [
     #'django.middleware.cache.FetchFromCacheMiddleware',
 ]
 
-TEMPLATE_CONTEXT_PROCESSORS = list(TEMPLATE_CONTEXT_PROCESSORS)
-TEMPLATE_CONTEXT_PROCESSORS += [
-    'cms.context_processors.media',
-    'sekizai.context_processors.sekizai',
-    'cms.context_processors.cms_settings',
-]
+from nine.versions import DJANGO_GTE_1_8
+if DJANGO_GTE_1_8:
+    TEMPLATES[0]['OPTIONS']['context_processors'] += [
+        'cms.context_processors.cms_settings',
+        'sekizai.context_processors.sekizai',
+        'cms.context_processors.cms_settings',
+    ]
+else:
+    TEMPLATE_CONTEXT_PROCESSORS = list(TEMPLATE_CONTEXT_PROCESSORS)
+    TEMPLATE_CONTEXT_PROCESSORS += [
+        'cms.context_processors.cms_settings',
+        'sekizai.context_processors.sekizai',
+        'cms.context_processors.cms_settings',
+    ]
 
 #FOBI_DEFAULT_THEME = 'bootstrap3'
 #FOBI_DEFAULT_THEME = 'foundation5'

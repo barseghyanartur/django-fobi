@@ -79,6 +79,11 @@
       <a href="{% url 'fobi.import_form_entry' %}" class="list-group-item">
           <span class="glyphicon glyphicon-import"></span> {% trans "Import form" %}
       </a>
+      {% for form_importer_uid,form_importer_name,form_importer_url in form_importers %}
+        <a href="{{ form_importer_url }}" class="list-group-item">
+          <span class="glyphicon glyphicon-import glyphicon-import-{{ form_importer_uid }}"></span> {{ form_importer_name }}
+        </a>
+      {% endfor %}
     </div>
       
   </div>

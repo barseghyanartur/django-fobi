@@ -13,8 +13,9 @@ except ImportError:
     import warnings
 
     from django.template.base import (
-        Node, TemplateSyntaxError, Library
+        Node, TemplateSyntaxError
         )
+    from django.template import Library
     from django.utils.timezone import template_localtime
     from django.utils.formats import localize
     from django.utils.encoding import force_text

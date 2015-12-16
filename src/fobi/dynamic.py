@@ -8,9 +8,16 @@ __all__ = ('assemble_form_class',)
 
 from six import with_metaclass
 
-from django.utils.datastructures import SortedDict
+
 from django.forms.forms import BaseForm#, get_declared_fields
 from django.forms.widgets import media_property
+
+from nine.versions import DJANGO_GTE_1_7
+
+if DJANGO_GTE_1_7:
+    from collections import OrderedDict
+else:
+    from django.utils.datastructures import SortedDict as OrderedDict
 
 #logger = logging.getLogger(__file__)
 
@@ -48,25 +55,30 @@ def assemble_form_class(form_entry, base_class=BaseForm, request=None,
         def __new__(cls, name, bases, attrs):
             base_fields = []
 
-            for creation_counter, form_element_entry in enumerate(form_element_entries):
+            for creation_counter, form_element_entry \
+                    in enumerate(form_element_entries):
                 plugin = form_element_entry.get_plugin(request=request)
 
                 # We simply make sure the plugin exists. We don't handle
                 # exceptions relate to the non-existent plugins here. They
                 # are instead handled in registry.
                 if plugin:
-                    plugin_form_field_instances = plugin._get_form_field_instances(
-                        form_element_entry = form_element_entry,
-                        origin = origin,
-                        kwargs_update_func = origin_kwargs_update_func,
-                        return_func = origin_return_func,
-                        extra = {'counter': creation_counter},
-                        request = request
+                    plugin_form_field_instances = \
+                        plugin._get_form_field_instances(
+                            form_element_entry = form_element_entry,
+                            origin = origin,
+                            kwargs_update_func = origin_kwargs_update_func,
+                            return_func = origin_return_func,
+                            extra = {'counter': creation_counter},
+                            request = request
                         )
-                    for form_field_name, form_field_instance in plugin_form_field_instances:
-                        base_fields.append((form_field_name, form_field_instance))
+                    for form_field_name, form_field_instance \
+                            in plugin_form_field_instances:
+                        base_fields.append(
+                                (form_field_name, form_field_instance)
+                        )
 
-            attrs['base_fields'] = SortedDict(base_fields)
+            attrs['base_fields'] = OrderedDict(base_fields)
             new_class = super(DeclarativeFieldsMetaclass, cls).__new__(
                 cls, name, bases, attrs
                 )

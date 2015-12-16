@@ -180,7 +180,7 @@ Add the following line to ``urlpatterns`` of your `urls` module.
 
 .. code-block:: python
 
-    urlpatterns = patterns('',
+    urlpatterns = [
         # ...
 
         # DB Store plugin URLs
@@ -195,7 +195,7 @@ Add the following line to ``urlpatterns`` of your `urls` module.
 
         # ...
 
-        )
+    ]
 
 Update the database
 ^^^^^^^^^^^^^^^^^^^

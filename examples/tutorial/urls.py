@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 
 from django.conf import settings
 from django.contrib import admin
@@ -22,7 +22,7 @@ fobi_home_template = fobi_theme_home_template_mapping.get(
     'home/base.html'
     )
 
-urlpatterns = patterns('',
+urlpatterns = [
     # DB Store plugin URLs
     url(r'^fobi/plugins/form-handlers/db-store/',
         include('fobi.contrib.plugins.form_handlers.db_store.urls')),
@@ -36,7 +36,7 @@ urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
 
     # django-registration URLs:
-    (r'^accounts/', include('registration.backends.default.urls')),
+    url(r'^accounts/', include('registration.backends.default.urls')),
 
     # foo URLs:
     url(r'^foo/', include('foo.urls')),
@@ -45,7 +45,7 @@ urlpatterns = patterns('',
 
     # django-fobi public forms contrib app:
     #url(r'^', include('fobi.contrib.apps.public_forms.urls')),
-)
+]
 
 # Serving media and static in debug/developer mode.
 if settings.DEBUG:
@@ -57,6 +57,6 @@ if settings.DEBUG:
 if 'feincms' in settings.INSTALLED_APPS:
     from page.models import Page
     Page
-    urlpatterns += patterns('',
+    urlpatterns += [
         url(r'', include('feincms.urls')),
-    )
+    ]

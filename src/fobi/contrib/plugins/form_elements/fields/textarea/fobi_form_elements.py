@@ -24,7 +24,7 @@ class TextareaPlugin(FormFieldPlugin):
     group = _("Fields")
     form = TextareaForm
 
-    def get_form_field_instances(self):
+    def get_form_field_instances(self, request=None):
         """
         Get form field instances.
         """

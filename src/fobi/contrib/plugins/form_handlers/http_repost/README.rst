@@ -1,11 +1,11 @@
-===============================================
+==============================================
 fobi.contrib.plugins.form_handlers.http_repost
-===============================================
+==============================================
 A ``Fobi`` HTTP Repost form handler plugin. Submits the form
 data as is to the given endpoint.
 
 Installation
-===============================================
+============
 1. Add ``fobi.contrib.plugins.form_handlers.http_repost`` to the
    ``INSTALLED_APPS`` in your ``settings.py``.
 

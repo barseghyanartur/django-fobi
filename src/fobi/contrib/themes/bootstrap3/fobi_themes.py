@@ -56,6 +56,7 @@ class Bootstrap3Theme(BaseTheme):
     base_template = 'bootstrap3/base.html'
 
     form_ajax = 'bootstrap3/snippets/form_ajax.html'
+    form_wizard_template = 'bootstrap3/snippets/form_wizard.html'
     form_snippet_template_name = 'bootstrap3/snippets/form_snippet.html'
     form_properties_snippet_template_name = \
         'bootstrap3/snippets/form_properties_snippet.html'
@@ -97,6 +98,9 @@ class Bootstrap3Theme(BaseTheme):
     view_form_entry_ajax_template = 'bootstrap3/view_form_entry_ajax.html'
     view_embed_form_entry_ajax_template = \
         'bootstrap3/view_embed_form_entry_ajax.html'
+
+    form_importer_template = 'bootstrap3/form_importer.html'
+    form_importer_ajax_template = 'bootstrap3/form_importer_ajax.html'
 
 
 theme_registry.register(Bootstrap3Theme)

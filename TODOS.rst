@@ -260,7 +260,7 @@ Must haves
 - Nicer styling for the radio button (Simple theme).
 - Make it possible to provide an alternative rendering of the form field
   in the correspondent form field plugin widget (in such a way, that it
-  falls back to the defaut rendering when no custom is available and
+  falls back to the default rendering when no custom is available and
   uses the custom rendering if available). This should be done on the
   widget level, so that it's not necessary to update the theme in case of
   customisations made for one or more form field plugins (the rendering
@@ -279,6 +279,8 @@ Must haves
   `get_form_hidden_fields_errors` template tags into another template tag
   library or product to reuse it in Django-dash as well. Move the permission
   code from `decorators` into a separate package.
+- Update the `djangocms_admin_style` theme, since it stopped looking nice
+  with the latest versions of the packages.
 
 Should haves
 ============
@@ -359,6 +361,7 @@ Should haves
 - Think of making putting several actions (repair) into the management
   interface (UI).
 - Make Django's CSRF validation optional.
+- Quiz mode (randomize the ordering of the form elements).
 
 Could haves
 ===========
@@ -389,6 +392,11 @@ Could haves
 - Add option to redirect to another page.
 - Make a Django<->Fobi list of supported fields with proper `referencies
   <https://docs.djangoproject.com/en/1.7/ref/forms/fields/>`_.
+- Kube framework integration (theme).
+- PureCSS framework integration (theme).
+- Skeleton framework integration (theme).
+- Baseline framework integration (theme).
+- Amazium framework integration (theme).
 
 Would haves
 ===========

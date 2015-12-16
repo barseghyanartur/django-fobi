@@ -36,7 +36,6 @@ import traceback
 import logging
 import copy
 import uuid
-#import json
 import re
 
 import simplejson as json
@@ -52,13 +51,11 @@ from django import forms
 from django.forms import ModelForm
 from django.http import Http404
 from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import AnonymousUser
-from django.test import RequestFactory
-from django.template import RequestContext, Template, Context
+from django.template import RequestContext, Template
 
-from nine.versions import DJANGO_GTE_1_8
+from nine.versions import DJANGO_GTE_1_7
 
-if DJANGO_GTE_1_8:
+if DJANGO_GTE_1_7:
     from django.forms.utils import ErrorList
 else:
     from django.forms.util import ErrorList
@@ -77,9 +74,8 @@ from fobi.exceptions import (
     FormElementPluginDoesNotExist, FormHandlerPluginDoesNotExist
 )
 from fobi.helpers import (
-    uniquify_sequence, map_field_name_to_label, clean_dict,
-    map_field_name_to_label, get_ignorable_form_values, safe_text,
-    StrippedRequest,
+    uniquify_sequence, clean_dict, map_field_name_to_label,
+    get_ignorable_form_values, safe_text, StrippedRequest,
 )
 from fobi.data_structures import SortableDict
 
@@ -151,6 +147,7 @@ class BaseTheme(object):
     base_view_template = None
     base_edit_template = None
     form_snippet_template_name = 'fobi/generic/snippets/form_snippet.html'
+    form_wizard_template = 'fobi/generic/snippets/form_wizard.html'
     form_view_snippet_template_name = None
     form_edit_snippet_template_name = None
     form_properties_snippet_template_name = \
@@ -192,6 +189,8 @@ class BaseTheme(object):
 
     import_form_entry_template = 'fobi/generic/import_form_entry.html'
     import_form_entry_ajax_template = 'fobi/generic/import_form_entry_ajax.html'
+    form_importer_template = 'fobi/generic/form_importer.html'
+    form_importer_ajax_template = 'fobi/generic/form_importer_ajax.html'
 
     # *************************************************************************
     # ******************** Extras that make things easy ***********************
@@ -1151,7 +1150,9 @@ class FormElementPlugin(BasePlugin):
         # methods in plugins). In DEBUG mode raise an exception if something
         # goes wrong. Otherwise - skip the element.
         try:
-            form_field_instances = self.get_form_field_instances()
+            form_field_instances = self.get_form_field_instances(
+                request=request
+            )
         except AttributeError as e:
             if DEBUG:
                 raise e
@@ -1230,7 +1231,7 @@ class FormElementPlugin(BasePlugin):
 
         return processed_field_instances
 
-    def get_form_field_instances(self):
+    def get_form_field_instances(self, request=None):
         """
         Gets the instances of form fields, that plugin contains.
 
@@ -1821,7 +1822,9 @@ form_handler_plugin_widget_registry = FormHandlerPluginWidgetRegistry()
 
 def ensure_autodiscover():
     """
-    Ensures that plugins are autodiscovered.
+    Ensures that plugins are auto-discovered. The form callbacks registry
+    is intentionally left out, since they will be auto-discovered in
+    any case if other modules are discovered.
     """
     if not (form_element_plugin_registry._registry
             and form_handler_plugin_registry._registry

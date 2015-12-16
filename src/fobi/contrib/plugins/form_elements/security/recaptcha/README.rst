@@ -6,9 +6,9 @@ Makes use of the `django-recaptcha
 <https://github.com/praekelt/django-recaptcha>`_.
 
 Installation
-===============================================
+============
 Install `django-recaptcha`
------------------------------------------------
+--------------------------
 1. Download ``django-recaptcha`` using pip by running:
 
 .. code-block:: none
@@ -22,7 +22,7 @@ Install `django-recaptcha`
    tables.
 
 Install `fobi` ReCAPTCHA plugin
------------------------------------------------
+-------------------------------
 1. Add ``fobi.contrib.plugins.form_elements.security.recaptcha`` to the
    ``INSTALLED_APPS`` in your ``settings.py``.
 
@@ -49,7 +49,7 @@ Install `fobi` ReCAPTCHA plugin
    - ``RECAPTCHA_PRIVATE_KEY``
 
 Troubleshooting and usage limitations
-===============================================
+=====================================
 At the moment, you can't use both ``CAPTCHA``
 (fobi.contrib.plugins.form_elements.security.captcha) and ``ReCAPTCHA``
 (fobi.contrib.plugins.form_elements.security.recaptcha) plugins alongside due
@@ -65,7 +65,7 @@ See the `following <https://github.com/praekelt/django-recaptcha/issues/32>`_
 thread for more information.
 
 Usage
-===============================================
+=====
 Note, that unlike most of the other form element plugins, default
 value for the ``required`` attribute is True, which makes the ReCaptcha
 obligatory. Although you could still set it to False, it does not make

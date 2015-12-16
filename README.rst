@@ -75,19 +75,18 @@ Main features and highlights
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/mezzanine_integration>`_
   (in a form of a Mezzanine page).
 - Reordering of form elements using drag-n-drop.
-- Data export (`db_store 
+- Data export (`DB store
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/db_store>`_
   form handler plugin) into XLS/CSV format.
 - `Dynamic initial values`_ for form elements.
 - Import/export forms to/from JSON format.
+- Import forms from MailChimp using `mailchimp importer
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_importers/mailchimp_importer>`_.
 
 Roadmap
 =======
 Some of the upcoming/in-development features/improvements are:
 
-- Form importers (and as a part of it - MailChimp integration,
-  which would allow to import forms from MailChimp into `django-fobi` using
-  a user-friendly wizard).
 - Fieldsets.
 
 See the `TODOS <https://raw.githubusercontent.com/barseghyanartur/django-fobi/master/TODOS.rst>`_
@@ -114,10 +113,10 @@ Credentials:
 
 Run demo locally
 ----------------
-In order to be able to quickly evaluate the `django-fobi`, a demo app (with a quick
-installer) has been created (works on Ubuntu/Debian, may work on other Linux
-systems as well, although not guaranteed). Follow the instructions below for
-having the demo running within a minute.
+In order to be able to quickly evaluate the `django-fobi`, a demo app (with a
+quick installer) has been created (works on Ubuntu/Debian, may work on other
+Linux systems as well, although not guaranteed). Follow the instructions below
+for having the demo running within a minute.
 
 Grab the latest `django_fobi_example_app_installer.sh`:
 
@@ -369,7 +368,7 @@ Defining the Sample textarea plugin.
         form = SampleTextareaForm
         group = "Samples" # Group to which the plugin belongs to
         
-        def get_form_field_instances(self):
+        def get_form_field_instances(self, request=None):
             kwargs = {
                 'required': self.data.required,
                 'label': self.data.label,

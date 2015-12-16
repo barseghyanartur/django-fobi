@@ -12,7 +12,7 @@ __all__ = (
     'delete_form_element_entry', 'add_form_handler_entry',
     'edit_form_handler_entry', 'delete_form_handler_entry',
     'dashboard', 'view_form_entry', 'form_entry_submitted',
-    'export_form_entry', 'import_form_entry',
+    'export_form_entry', 'import_form_entry', 'form_importer',
 )
 
 import datetime
@@ -41,6 +41,10 @@ from fobi.base import (
     fire_form_callbacks, run_form_handlers, form_element_plugin_registry,
     form_handler_plugin_registry, submit_plugin_form_data, get_theme,
     #get_registered_form_handler_plugins
+)
+from fobi.form_importers import (
+    form_importer_plugin_registry, get_form_impoter_plugin_urls,
+    ensure_autodiscover as ensure_importers_autodiscover
 )
 from fobi.constants import (
     CALLBACK_BEFORE_FORM_VALIDATION,
@@ -127,7 +131,10 @@ def dashboard(request, theme=None, template_name=None):
                             .filter(user__pk=request.user.pk) \
                             .select_related('user')
 
-    context = {'form_entries': form_entries}
+    context = {
+        'form_entries': form_entries,
+        'form_importers': get_form_impoter_plugin_urls(),
+    }
 
     # If given, pass to the template (and override the value set by
     # the context processor.
@@ -1232,3 +1239,25 @@ def import_form_entry(request, template_name=None):
 
     return render_to_response(template_name, context,
                               context_instance=RequestContext(request))
+
+
+# *****************************************************************************
+# *****************************************************************************
+# ****************************** Form importers *******************************
+# *****************************************************************************
+# *****************************************************************************
+
+@login_required
+@permissions_required(satisfy=SATISFY_ALL, perms=create_form_entry_permissions)
+def form_importer(request, form_importer_plugin_uid, template_name=None,
+                  *args, **kwargs):
+    """
+    """
+    ensure_importers_autodiscover()
+    form_importer_cls = form_importer_plugin_registry._registry.get(
+        form_importer_plugin_uid
+    )
+    form_importer = form_importer_cls(form_entry_cls=FormEntry,
+                                      form_element_entry_cls=FormElementEntry)
+
+    return form_importer.get_wizard(request, *args, **kwargs)

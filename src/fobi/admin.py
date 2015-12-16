@@ -9,7 +9,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.html import strip_tags
 from django.contrib.admin.views.decorators import staff_member_required
 from django.utils.decorators import method_decorator
-from django.conf.urls import patterns, url
+from django.conf.urls import url
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
 from django.contrib import messages
@@ -389,11 +389,11 @@ class FormElementAdmin(BasePluginModelAdmin):
         return 'admin:fobi_formelement_changelist'
 
     def get_urls(self):
-        my_urls = patterns('',
+        my_urls = [
             # Bulk change plugins
             url(r'^bulk-change-form-element-plugins/$', self.bulk_change_plugins,
                 name='bulk_change_form_element_plugins'),
-        )
+        ]
         return my_urls + super(FormElementAdmin, self).get_urls()
 
 
@@ -418,11 +418,11 @@ class FormHandlerAdmin(BasePluginModelAdmin):
         return 'admin:fobi_formhandler_changelist'
 
     def get_urls(self):
-        my_urls = patterns('',
+        my_urls = [
             # Bulk change plugins
             url(r'^bulk-change-form-handler-plugins/$', self.bulk_change_plugins,
                 name='bulk_change_form_handler_plugins'),
-        )
+        ]
         return my_urls + super(FormHandlerAdmin, self).get_urls()
 
 

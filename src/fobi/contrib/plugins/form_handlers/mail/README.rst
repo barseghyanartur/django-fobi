@@ -1,11 +1,11 @@
-===============================================
+=======================================
 fobi.contrib.plugins.form_handlers.mail
-===============================================
+=======================================
 A ``Fobi`` Mail form handler plugin. Submits the form
 data by email to the specified email address.
 
 Installation
-===============================================
+============
 1. Add ``fobi.contrib.plugins.form_handlers.mail`` to the
    ``INSTALLED_APPS`` in your ``settings.py``.
 
