@@ -101,7 +101,7 @@ STATICFILES_FINDERS = (
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '97818c*w97Zi8a-m^1coRRrmurMI6+q5_kyn*)s@(*_Pk6q423'
 
-from nine.versions import DJANGO_GTE_1_7, DJANGO_GTE_1_8
+from nine.versions import DJANGO_GTE_1_7, DJANGO_GTE_1_8, DJANGO_LTE_1_7
 
 if DJANGO_GTE_1_8:
     TEMPLATES = [
@@ -183,7 +183,7 @@ WSGI_APPLICATION = 'wsgi.application'
 #   PROJECT_DIR(os.path.join('..', 'fixtures'))
 #)
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     # Admin dashboard
     'admin_tools',
     'admin_tools.menu',
@@ -200,7 +200,7 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
 
     # Third party apps used in the project
-    'south', # Database migration app
+    #'south', # Database migration app
     #'tinymce', # TinyMCE
     'easy_thumbnails', # Thumbnailer
     'registration', # Auth views and registration app
@@ -212,7 +212,6 @@ INSTALLED_APPS = (
     # ***********************************************************************
     # ***********************************************************************
     'fobi',
-
 
     # ***********************************************************************
     # ***********************************************************************
@@ -323,7 +322,10 @@ INSTALLED_APPS = (
 
     # Other project specific apps
     'foo', # Test app
-)
+]
+
+if DJANGO_LTE_1_7:
+    INSTALLED_APPS.append('south')
 
 LOGIN_REDIRECT_URL = '/fobi/' # Important for passing the selenium tests
 

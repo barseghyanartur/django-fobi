@@ -13,6 +13,12 @@ Prerequisites
 - Django 1.5, 1.6, 1.7, 1.8
 - Python >= 2.6.8, >= 2.7, >= 3.3
 
+Note, that Django 1.9 is not yet proclaimed to be flawlessly supported, however
+it's in progress. The latest core and contrib packages (from master branch,
+with no additional dependencies) have been tested against the latest stable
+Django 1.9 release. All tests have successfully passed, although it's yet too
+early to claim that Django 1.9 is fully supported.
+
 Key concepts
 ============
 - Each form consists of elements. Form elements are divided
@@ -75,19 +81,18 @@ Main features and highlights
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/mezzanine_integration>`_
   (in a form of a Mezzanine page).
 - Reordering of form elements using drag-n-drop.
-- Data export (`db_store 
+- Data export (`DB store
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/db_store>`_
   form handler plugin) into XLS/CSV format.
 - `Dynamic initial values`_ for form elements.
 - Import/export forms to/from JSON format.
+- Import forms from MailChimp using `mailchimp importer
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_importers/mailchimp_importer>`_.
 
 Roadmap
 =======
 Some of the upcoming/in-development features/improvements are:
 
-- Form importers (and as a part of it - MailChimp integration,
-  which would allow to import forms from MailChimp into `django-fobi` using
-  a user-friendly wizard).
 - Fieldsets.
 
 See the `TODOS <https://raw.githubusercontent.com/barseghyanartur/django-fobi/master/TODOS.rst>`_
@@ -114,24 +119,24 @@ Credentials:
 
 Run demo locally
 ----------------
-In order to be able to quickly evaluate the `django-fobi`, a demo app (with a quick
-installer) has been created (works on Ubuntu/Debian, may work on other Linux
-systems as well, although not guaranteed). Follow the instructions below for
-having the demo running within a minute.
+In order to be able to quickly evaluate the `django-fobi`, a demo app (with a
+quick installer) has been created (works on Ubuntu/Debian, may work on other
+Linux systems as well, although not guaranteed). Follow the instructions below
+for having the demo running within a minute.
 
 Grab the latest `django_fobi_example_app_installer.sh`:
 
-.. code-block:: none
+.. code-block:: sh
 
-    $ wget https://raw.github.com/barseghyanartur/django-fobi/stable/examples/django_fobi_example_app_installer.sh
+    wget https://raw.github.com/barseghyanartur/django-fobi/stable/examples/django_fobi_example_app_installer.sh
 
 Assign execute rights to the installer and run the
 `django_fobi_example_app_installer.sh`:
 
-.. code-block:: none
+.. code-block:: sh
 
-    $ chmod +x django_fobi_example_app_installer.sh
-    $ ./django_fobi_example_app_installer.sh
+    chmod +x django_fobi_example_app_installer.sh
+    ./django_fobi_example_app_installer.sh
 
 Open your browser and test the app.
 
@@ -160,21 +165,21 @@ Installation
 
 (1) Install latest stable version from PyPI:
 
-.. code-block:: none
+.. code-block:: sh
 
-    $ pip install django-fobi
+    pip install django-fobi
 
 Or latest stable version from GitHub:
 
-.. code-block:: none
+.. code-block:: sh
 
-    $ pip install -e git+https://github.com/barseghyanartur/django-fobi@stable#egg=django-fobi
+    pip install -e git+https://github.com/barseghyanartur/django-fobi@stable#egg=django-fobi
 
 Or latest stable version from BitBucket:
 
-.. code-block:: none
+.. code-block:: sh
 
-    $ pip install -e hg+https://bitbucket.org/barseghyanartur/django-fobi@stable#egg=django-fobi
+    pip install -e hg+https://bitbucket.org/barseghyanartur/django-fobi@stable#egg=django-fobi
 
 (2) Add `fobi` to ``INSTALLED_APPS`` of the your projects' Django settings.
     Furthermore, all themes and plugins to be used, shall be added to the
@@ -323,7 +328,7 @@ There are several properties, each textarea should have. They are:
 Let's name that plugin `sample_textarea`. The plugin directory should then have
 the following structure.
 
-.. code-block:: none
+.. code-block:: sh
 
     path/to/sample_textarea/
     ├── __init__.py
@@ -369,7 +374,7 @@ Defining the Sample textarea plugin.
         form = SampleTextareaForm
         group = "Samples" # Group to which the plugin belongs to
         
-        def get_form_field_instances(self):
+        def get_form_field_instances(self, request=None):
             kwargs = {
                 'required': self.data.required,
                 'label': self.data.label,
@@ -555,9 +560,9 @@ Now, that everything is ready, make sure your plugin module is added to
 
 Afterwards, go to terminal and type the following command.
 
-.. code-block:: none
+.. code-block:: sh
 
-    $ ./manage.py fobi_sync_plugins
+    ./manage.py fobi_sync_plugins
 
 If your HTTP server is running, you would then be able to see the new plugin
 in the edit form interface.
@@ -594,7 +599,7 @@ Define and register the form handler plugin
 Let's name that plugin `sample_mail`. The plugin directory should then have
 the following structure.
 
-.. code-block:: none
+.. code-block:: text
 
     path/to/sample_mail/
     ├── __init__.py
@@ -771,9 +776,9 @@ Do not forget to add the form handler plugin module to ``INSTALLED_APPS``.
 
 Afterwards, go to terminal and type the following command.
 
-.. code-block:: none
+.. code-block:: sh
 
-    $ ./manage.py fobi_sync_plugins
+    ./manage.py fobi_sync_plugins
 
 If your HTTP server is running, you would then be able to see the new plugin
 in the edit form interface.
@@ -787,7 +792,7 @@ Let's place the callback in the `foo` module. The plugin directory should then
 have the following
 structure.
 
-.. code-block:: none
+.. code-block:: text
 
     path/to/foo/
     ├── __init__.py
@@ -899,7 +904,7 @@ Create a new theme
 Let's place the theme in the `sample_theme` module. The theme directory 
 should then have the following structure.
 
-.. code-block:: none
+.. code-block:: text
 
     path/to/sample_theme/
     ├── static
@@ -1060,7 +1065,7 @@ want to.
 Templates that you likely would want to re-write in your custom
 theme implementation are marked with three asterisks (\*\*\*):
 
-.. code-block:: none
+.. code-block:: text
 
     generic
     ├── snippets
@@ -1108,7 +1113,7 @@ example. In order to see it in action, run the project with
 <https://github.com/barseghyanartur/django-fobi/blob/master/examples/simple/settings_override_simple_theme.py>`_
 option:
 
-.. code-block:: none
+.. code-block:: sh
 
     ./manage.py runserver --settings=settings_override_simple_theme
 
@@ -1116,7 +1121,7 @@ Details explained below.
 
 Directory structure
 ~~~~~~~~~~~~~~~~~~~
-.. code-block:: none
+.. code-block:: text
 
     override_simple_theme/
     ├── static
@@ -1200,7 +1205,7 @@ once granted the right to use the news plugin to all users, but later on
 decided to limit it to Staff members group only). Note, that superusers have
 access to all plugins.
 
-.. code-block:: none
+.. code-block:: text
 
             Plugin access rights management interface in Django admin
 
@@ -1360,13 +1365,13 @@ Below a short overview of the form handler plugins. See the README.rst file
 in directory of each plugin for details.
 
 - `DB store
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/db_store/>`_:
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/db_store/>`__:
   Stores form data in a database.
 - `HTTP repost
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/http_repost/>`_:
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/http_repost/>`__:
   Repost the POST request to another endpoint.
 - `Mail
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/mail/>`_:
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/mail/>`__:
   Send the form data by email.
 
 Bundled themes
@@ -1455,7 +1460,7 @@ passed as a context variable.
 
 In your GUI, you should be refering to the initial values in the following way:
 
-.. code-block:: none
+.. code-block:: html
 
     {{ request.path }} {{ now }} {{ today }}
 
@@ -1636,13 +1641,13 @@ somehow doesn't appear in the list of available plugins, do run the following
 management command since it not only syncs your plugins into the database,
 but also is a great way of checking for possible errors.
 
-.. code-block:: none
+.. code-block:: sh
 
     ./manage.py fobi_sync_plugins
 
 Run the following command in order to identify the broken plugins.
 
-.. code-block:: none
+.. code-block:: sh
 
     ./manage.py fobi_find_broken_entries
 

@@ -9,6 +9,8 @@ Subpackages
     fobi.contrib
     fobi.integration
     fobi.management
+    fobi.migrations
+    fobi.south_migrations
     fobi.templatetags
     fobi.tests
     fobi.urls

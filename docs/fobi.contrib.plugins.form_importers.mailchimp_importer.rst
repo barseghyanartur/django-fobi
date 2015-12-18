@@ -20,10 +20,18 @@ fobi.contrib.plugins.form_importers.mailchimp_importer.fobi_form_importers modul
     :undoc-members:
     :show-inheritance:
 
-fobi.contrib.plugins.form_importers.mailchimp_importer.tests module
+fobi.contrib.plugins.form_importers.mailchimp_importer.forms module
 -------------------------------------------------------------------
 
-.. automodule:: fobi.contrib.plugins.form_importers.mailchimp_importer.tests
+.. automodule:: fobi.contrib.plugins.form_importers.mailchimp_importer.forms
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+fobi.contrib.plugins.form_importers.mailchimp_importer.views module
+-------------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_importers.mailchimp_importer.views
     :members:
     :undoc-members:
     :show-inheritance:

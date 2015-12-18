@@ -60,6 +60,14 @@ fobi.tests.test_dynamic_forms module
     :undoc-members:
     :show-inheritance:
 
+fobi.tests.test_form_importers_mailchimp module
+-----------------------------------------------
+
+.. automodule:: fobi.tests.test_form_importers_mailchimp
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.tests.test_sortable_dict module
 ------------------------------------
 
