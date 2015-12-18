@@ -15,6 +15,15 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.6
+---
+2015-12-18
+
+- Form importers (and as a part of it - MailChimp integration,
+  which would allow to import forms from MailChimp into `django-fobi` using
+  a user-friendly wizard).
+- Improved Django 1.9 support.
+
 0.5.19
 ------
 2015-12-15
