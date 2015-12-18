@@ -144,6 +144,7 @@ class FormImporterPluginRegistry(BaseRegistry):
 # Register form field plugins by calling form_field_plugin_registry.register()
 form_importer_plugin_registry = FormImporterPluginRegistry()
 
+
 def ensure_autodiscover():
     """
     Ensures that form importer plugins are auto-discovered.
@@ -166,6 +167,11 @@ def get_form_impoter_plugin_urls():
     ensure_autodiscover()
     for uid, plugin in form_importer_plugin_registry._registry.items():
         urls.append(
-            (uid, plugin.name, reverse('fobi.form_importer', kwargs={'form_importer_plugin_uid': uid}))
+            (
+                uid,
+                plugin.name,
+                reverse('fobi.form_importer',
+                        kwargs={'form_importer_plugin_uid': uid})
+            )
         )
     return urls

@@ -6,10 +6,20 @@ __all__ = (
     'ErrorDict', 'ErrorList',
 )
 
-from django.forms import util
+from nine.versions import DJANGO_GTE_1_7
+
+if DJANGO_GTE_1_7:
+    from django.forms.utils import (
+        ErrorDict as DjangoErrorDict, ErrorList as DjangoErrorList
+    )
+else:
+    from django.forms.util import (
+        ErrorDict as DjangoErrorDict, ErrorList as DjangoErrorList
+    )
+
 from django.utils.encoding import force_text
 
-class ErrorDict(util.ErrorDict):
+class ErrorDict(DjangoErrorDict):
     """
     A better ErrorDict.
     """
@@ -19,7 +29,7 @@ class ErrorDict(util.ErrorDict):
              for k, v in self.items()]
             )
 
-class ErrorList(util.ErrorList):
+class ErrorList(DjangoErrorList):
     """
     A better ErrorList.
     """

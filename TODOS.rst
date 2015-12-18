@@ -281,6 +281,9 @@ Must haves
   code from `decorators` into a separate package.
 - Update the `djangocms_admin_style` theme, since it stopped looking nice
   with the latest versions of the packages.
+- Add support for `imageurl` and `birthday` fields of MailChimp (they are
+  ignored at the moment).
+- Fix layout issue on step 2 of the Mailchimp import (step 2 of the wizard).
 
 Should haves
 ============
