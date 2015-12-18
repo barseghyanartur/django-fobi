@@ -31,7 +31,7 @@ template_dirs = [
     "src/fobi/contrib/plugins/form_handlers/mail/templates/mail", # Mail
     "src/fobi/contrib/plugins/form_handlers/http_repost/templates/http_repost", # Http repost
 
-    #"src/fobi/contrib/plugins/form_importers/mailchimp_importer/templates/mailchimp_importer", # MailChimp importer
+    "src/fobi/contrib/plugins/form_importers/mailchimp_importer/templates/mailchimp_importer", # MailChimp importer
 ]
 static_dirs = [
     "src/fobi/static", # Core static
