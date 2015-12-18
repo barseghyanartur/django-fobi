@@ -283,7 +283,8 @@ Must haves
   with the latest versions of the packages.
 - Add support for `imageurl` and `birthday` fields of MailChimp (they are
   ignored at the moment).
-- Fix layout issue on step 2 of the Mailchimp import (step 2 of the wizard).
+- Fix layout issue on step 2 of the MailChimp import (step 2 of the wizard).
+- Properly document the form importers API.
 
 Should haves
 ============
