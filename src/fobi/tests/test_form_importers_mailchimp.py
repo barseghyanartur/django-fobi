@@ -2,7 +2,7 @@ from django.conf import settings
 from django.contrib.auth import get_user_model
 
 from fobi.contrib.plugins.form_importers.mailchimp_importer.fobi_form_importers \
-    import MailChimpFormImporter
+    import MailChimpImporter
 
 test_form_data = [
     {
