@@ -93,6 +93,7 @@ def sync_plugins():
 # ****************************************************************************
 # ****************************************************************************
 
+
 def get_allowed_plugin_uids(PluginModel, user):
     """
     Gets allowed plugins uids for user given.
@@ -117,8 +118,11 @@ def get_allowed_plugin_uids(PluginModel, user):
             logger.debug(e)
         return []
 
-def get_user_plugins(get_allowed_plugin_uids_func, \
-                     get_registered_plugins_func, registry, user):
+
+def get_user_plugins(get_allowed_plugin_uids_func,
+                     get_registered_plugins_func,
+                     registry,
+                     user):
     """
     Gets a list of user plugins in a form if tuple (plugin name, plugin
     description). If not yet autodiscovered, autodiscovers them.
@@ -152,15 +156,19 @@ def get_user_plugins(get_allowed_plugin_uids_func, \
 
     return registered_plugins
 
-def get_user_plugins_grouped(get_allowed_plugin_uids_func, \
-                             get_registered_plugins_grouped_func, registry, \
-                             user, sort_items=True):
+
+def get_user_plugins_grouped(get_allowed_plugin_uids_func,
+                             get_registered_plugins_grouped_func,
+                             registry,
+                             user,
+                             sort_items=True):
     """
     Gets user plugins grouped.
+
     :param callable get_allowed_plugin_uids_func:
     :param callable get_registered_plugins_grouped_func:
     :param fobi.base.BaseRegistry registry: Subclass of
-           ``fobi.base.BaseRegistry`` instance.
+        ``fobi.base.BaseRegistry`` instance.
     :param django.contrib.auth.models.User user:
     :param bool sort_items:
     :return dict:
@@ -197,14 +205,17 @@ def get_user_plugins_grouped(get_allowed_plugin_uids_func, \
 
     return registered_plugins
 
-def get_user_plugin_uids(get_allowed_plugin_uids_func, \
-                         get_registered_plugin_uids_func, registry, user):
+
+def get_user_plugin_uids(get_allowed_plugin_uids_func,
+                         get_registered_plugin_uids_func,
+                         registry,
+                         user):
     """
     Gets a list of user plugin uids as a list . If not yet autodiscovered,
     autodiscovers them.
 
     :param callable get_allowed_plugin_uids_func:
-    :param callable get_registered_plugins_func:
+    :param callable get_registered_plugin_uids_func:
     :param fobi.base.BaseRegistry registry: Subclass of
         ``fobi.base.BaseRegistry`` instance.
     :param django.contrib.auth.models.User user:
@@ -231,26 +242,38 @@ def get_user_plugin_uids(get_allowed_plugin_uids_func, \
 # ****************************************************************************
 # ****************************************************************************
 
+
 def get_allowed_form_element_plugin_uids(user):
+    """
+    """
     return get_allowed_plugin_uids(FormElement, user)
 
+
 def get_user_form_element_plugins(user):
+    """
+    """
     return get_user_plugins(
         get_allowed_form_element_plugin_uids,
         get_registered_form_element_plugins,
         form_element_plugin_registry,
         user
-        )
+    )
+
 
 def get_user_form_element_plugins_grouped(user):
+    """
+    """
     return get_user_plugins_grouped(
         get_allowed_form_element_plugin_uids,
         get_registered_form_element_plugins_grouped,
         form_element_plugin_registry,
         user
-        )
+    )
+
 
 def get_user_form_field_plugin_uids(user):
+    """
+    """
     return get_user_plugin_uids(
         get_allowed_form_element_plugin_uids,
         get_registered_form_element_plugin_uids,
@@ -264,10 +287,15 @@ def get_user_form_field_plugin_uids(user):
 # ****************************************************************************
 # ****************************************************************************
 
+
 def get_allowed_form_handler_plugin_uids(user):
+    """
+    """
     return get_allowed_plugin_uids(FormHandler, user)
 
-def get_user_form_handler_plugins(user, exclude_used_singles=False,
+
+def get_user_form_handler_plugins(user,
+                                  exclude_used_singles=False,
                                   used_form_handler_plugin_uids=[]):
     """
     Get list of plugins allowed for user.
@@ -283,8 +311,9 @@ def get_user_form_handler_plugins(user, exclude_used_singles=False,
         form_handler_plugin_registry,
         user
         )
-    user_form_handler_plugin_uids = [plugin_uid for (plugin_uid, plugin_name) \
-                                                in user_form_handler_plugins]
+    user_form_handler_plugin_uids = [plugin_uid
+                                     for (plugin_uid, plugin_name)
+                                     in user_form_handler_plugins]
 
     if exclude_used_singles and used_form_handler_plugin_uids:
         # Get all registered form handler plugins (as instances)
@@ -310,7 +339,10 @@ def get_user_form_handler_plugins(user, exclude_used_singles=False,
 
     return user_form_handler_plugins
 
+
 def get_user_form_handler_plugins_grouped(user):
+    """
+    """
     return get_user_plugins_grouped(
         get_allowed_form_handler_plugin_uids,
         get_registered_form_handler_plugins,
@@ -318,7 +350,10 @@ def get_user_form_handler_plugins_grouped(user):
         user
         )
 
+
 def get_user_form_handler_plugin_uids(user):
+    """
+    """
     return get_user_plugin_uids(
         get_allowed_form_handler_plugin_uids,
         get_registered_form_handler_plugin_uids,
@@ -331,6 +366,7 @@ def get_user_form_handler_plugin_uids(user):
 # *************************** Dynamic forms specific *************************
 # ****************************************************************************
 # ****************************************************************************
+
 
 def get_assembled_form(form_entry, request=None):
     """
@@ -345,9 +381,12 @@ def get_assembled_form(form_entry, request=None):
     form = FormClass()
     return form
 
-def append_edit_and_delete_links_to_field(form_element_plugin, \
-                                          form_element_entry, origin=None, \
-                                          extra={}, widget_cls=None):
+
+def append_edit_and_delete_links_to_field(form_element_plugin,
+                                          form_element_entry,
+                                          origin=None,
+                                          extra={},
+                                          widget_cls=None):
     """
     Should return dictionary, which would be used to update default kwargs
     of form fields.
@@ -371,7 +410,10 @@ def append_edit_and_delete_links_to_field(form_element_plugin, \
         )
     help_text_extra = theme.edit_form_entry_help_text_extra().format(
         edit_option_html = edit_option_html if PluginForm else '',
-        delete_url = reverse('fobi.delete_form_element_entry', kwargs={'form_element_entry_id': form_element_entry.pk}),
+        delete_url = reverse(
+            'fobi.delete_form_element_entry',
+            kwargs={'form_element_entry_id': form_element_entry.pk}
+        ),
         delete_text = safe_text(ugettext("Delete")),
         form_element_pk = form_element_entry.pk,
         form_element_position = form_element_entry.position,
@@ -387,18 +429,35 @@ def append_edit_and_delete_links_to_field(form_element_plugin, \
     }
 
     label = safe_text(getattr(form_element_plugin.data, 'label', ''))
-    d.update({'label': "{0} ({1})".format(label, safe_text(form_element_plugin.name))})
+    d.update(
+        {'label': "{0} ({1})".format(label,
+                                     safe_text(form_element_plugin.name))}
+    )
 
     #if 'hidden' == form_element_plugin.uid:
     #    d.update({'widget': TextInput(attrs={'class': theme.form_element_html_class})})
     if widget_cls:
-        d.update({'widget': widget_cls(attrs={'class': theme.form_element_html_class})})
+        d.update(
+            {
+                'widget': widget_cls(
+                    attrs={'class': theme.form_element_html_class}
+                )
+            }
+        )
     elif form_element_plugin.is_hidden:
-        d.update({'widget': TextInput(attrs={'class': theme.form_element_html_class})})
+        d.update(
+            {
+                'widget': TextInput(
+                    attrs={'class': theme.form_element_html_class}
+                )
+            }
+        )
 
     return d
 
-def update_plugin_data_for_entries(entries=None, request=None, \
+
+def update_plugin_data_for_entries(entries=None,
+                                   request=None,
                                    entry_model_cls=None):
     """
     Updates the plugin data for all entries of all users. Rules for update 

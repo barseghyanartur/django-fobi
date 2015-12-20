@@ -21,6 +21,13 @@ import os
 sys.path.insert(0, os.path.abspath('../src'))
 sys.path.insert(0, os.path.abspath('../examples'))
 
+from nine.versions import DJANGO_LTE_1_7, DJANGO_GTE_1_8, DJANGO_GTE_1_7
+
+if DJANGO_GTE_1_7:
+    import django
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'simple.settings_docs')
+    django.setup()
+
 try:
     import fobi
     version = fobi.__version__
@@ -31,10 +38,8 @@ except ImportError as err:
     project = u'django-fobi'
     copyright = u'2014, Artur Barseghyan <artur.barseghyan@gmail.com>'
 
-from nine.versions import DJANGO_LTE_1_7, DJANGO_GTE_1_8
-
 try:
-    from simple import settings as example_settings
+    from simple import settings_docs as docs_settings
 except Exception as e:
     PROJECT_DIR = lambda base : os.path.abspath(os.path.join(os.path.dirname(__file__), base).replace('\\','/'))
     gettext = lambda s: s
@@ -42,7 +47,7 @@ except Exception as e:
     # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
     BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-    class ExampleSettings(object):
+    class DocsSettings(object):
         """
         """
         INSTALLED_APPS = (
@@ -74,7 +79,6 @@ except Exception as e:
             # *****************************************************************
             # *****************************************************************
             'fobi',
-
 
             # *****************************************************************
             # *****************************************************************
@@ -254,13 +258,13 @@ except Exception as e:
             TEMPLATE_DEBUG = False
     # END class ExampleSettings()
 
-    example_settings = ExampleSettings()
+    docs_settings = DocsSettings()
 
 # -- Django configuration ------------------------------------------------------
 from django.conf import settings
 
 if not settings.configured:
-    INSTALLED_APPS = list(example_settings.INSTALLED_APPS)
+    INSTALLED_APPS = list(docs_settings.INSTALLED_APPS)
 
     INSTALLED_APPS.append('mptt')
     INSTALLED_APPS.append('cms')
@@ -274,29 +278,29 @@ if not settings.configured:
         INSTALLED_APPS.remove('foo')
 
     django_configuration = {
-        'DATABASES': example_settings.DATABASES,
+        'DATABASES': docs_settings.DATABASES,
         'INSTALLED_APPS': INSTALLED_APPS,
-        'MEDIA_ROOT': example_settings.MEDIA_ROOT,
-        'MEDIA_URL': example_settings.MEDIA_URL,
-        'MIDDLEWARE_CLASSES': example_settings.MIDDLEWARE_CLASSES,
-        'ROOT_URLCONF': example_settings.ROOT_URLCONF,
-        'SECRET_KEY': example_settings.SECRET_KEY,
-        'SITE_ID': example_settings.SITE_ID,
-        'STATICFILES_DIRS': example_settings.STATICFILES_DIRS,
-        'STATICFILES_FINDERS': example_settings.STATICFILES_FINDERS,
-        'STATIC_URL': example_settings.STATIC_URL,
-        'STATIC_ROOT': example_settings.STATIC_ROOT,
+        'MEDIA_ROOT': docs_settings.MEDIA_ROOT,
+        'MEDIA_URL': docs_settings.MEDIA_URL,
+        'MIDDLEWARE_CLASSES': docs_settings.MIDDLEWARE_CLASSES,
+        'ROOT_URLCONF': docs_settings.ROOT_URLCONF,
+        'SECRET_KEY': docs_settings.SECRET_KEY,
+        'SITE_ID': docs_settings.SITE_ID,
+        'STATICFILES_DIRS': docs_settings.STATICFILES_DIRS,
+        'STATICFILES_FINDERS': docs_settings.STATICFILES_FINDERS,
+        'STATIC_URL': docs_settings.STATIC_URL,
+        'STATIC_ROOT': docs_settings.STATIC_ROOT,
     }
 
     if DJANGO_GTE_1_8:
         django_configuration.update({
-            'TEMPLATES': example_settings.TEMPLATES
+            'TEMPLATES': docs_settings.TEMPLATES
         })
     else:
         django_configuration.update({
-            'TEMPLATE_CONTEXT_PROCESSORS': example_settings.TEMPLATE_CONTEXT_PROCESSORS,
-            'TEMPLATE_DIRS': example_settings.TEMPLATE_DIRS,
-            'TEMPLATE_LOADERS': example_settings.TEMPLATE_LOADERS,
+            'TEMPLATE_CONTEXT_PROCESSORS': docs_settings.TEMPLATE_CONTEXT_PROCESSORS,
+            'TEMPLATE_DIRS': docs_settings.TEMPLATE_DIRS,
+            'TEMPLATE_LOADERS': docs_settings.TEMPLATE_LOADERS,
         })
 
     settings.configure(**django_configuration)
