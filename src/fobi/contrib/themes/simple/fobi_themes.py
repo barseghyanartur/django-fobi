@@ -77,6 +77,7 @@ class SimpleTheme(BaseTheme):
     create_form_entry_ajax_template = 'simple/create_form_entry_ajax.html'
 
     dashboard_template = 'simple/dashboard.html'
+    forms_list_template = 'simple/forms_list.html'
 
     edit_form_element_entry_template = 'simple/edit_form_element_entry.html'
     edit_form_element_entry_ajax_template = 'simple/edit_form_element_entry_ajax.html'

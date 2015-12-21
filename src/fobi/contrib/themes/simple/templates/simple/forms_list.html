@@ -1,0 +1,56 @@
+{% load i18n %}
+
+        <table id="result_list">
+          <thead>
+            <tr>
+              <th>
+                <div class="text">
+                  <span>{% trans "Name" %}</span>
+                </div>
+                <div class="clear"></div>
+              </th>
+              {% if show_custom_actions %}
+              <th>
+                <div class="text">
+                  <span>{% trans "Actions" %}</span>
+                </div>
+                <div class="clear"></div>
+              </th>
+              {% endif %}
+            </tr>
+          </thead>
+          <tbody>
+          {% for form_entry in form_entries %}
+            <tr class="{% if forloop.counter|divisibleby:2 %}row2{% else %}row1{% endif %}">
+              <th><a href="{% url 'fobi.view_form_entry' form_entry.slug %}">{{ form_entry.name }}</a></th>
+              {% if show_custom_actions %}
+              <td>
+                <ul class="list-inline">
+                  {% if show_edit_link %}
+                  <li>
+                      <a href="{% url 'fobi.edit_form_entry' form_entry.pk %}">
+                          <span class="glyphicon glyphicon-edit"></span> {% trans "Edit" %}
+                      </a>
+                  </li>
+                  {% endif %}
+                  {% if show_delete_link %}
+                  <li>
+                      <a href="{% url 'fobi.delete_form_entry' form_entry.pk %}">
+                          <span class="glyphicon glyphicon-remove"></span> {% trans "Delete" %}
+                      </a>
+                  </li>
+                  {% endif %}
+                  {% if show_export_link %}
+                  <li>
+                      <a href="{% url 'fobi.export_form_entry' form_entry.pk %}">
+                          <span class="glyphicon glyphicon-export"></span> {% trans "Export" %}
+                      </a>
+                  </li>
+                  {% endif %}
+                </ul>
+              </td>
+              {% endif %}
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>

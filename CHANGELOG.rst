@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.6.2
+-----
+2015-12-22
+
+- Make it possible to render a list of forms using custom template tag (not
+  only on the dashboard page).
+
 0.6.1
 -----
 2015-12-21

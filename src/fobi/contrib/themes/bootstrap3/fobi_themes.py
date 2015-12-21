@@ -76,6 +76,7 @@ class Bootstrap3Theme(BaseTheme):
     create_form_entry_ajax_template = 'bootstrap3/create_form_entry_ajax.html'
 
     dashboard_template = 'bootstrap3/dashboard.html'
+    forms_list_template = 'bootstrap3/forms_list.html'
 
     edit_form_element_entry_template = 'bootstrap3/edit_form_element_entry.html'
     edit_form_element_entry_ajax_template = \

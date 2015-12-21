@@ -86,6 +86,7 @@ class Foundation5Theme(BaseTheme):
     create_form_entry_ajax_template = 'foundation5/create_form_entry_ajax.html'
 
     dashboard_template = 'foundation5/dashboard.html'
+    forms_list_template = 'foundation5/forms_list.html'
 
     edit_form_element_entry_template = 'foundation5/edit_form_element_entry.html'
     edit_form_element_entry_ajax_template = \

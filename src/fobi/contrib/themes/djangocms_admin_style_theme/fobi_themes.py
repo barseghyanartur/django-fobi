@@ -78,6 +78,7 @@ class DjangoCMSAdminStyleTheme(BaseTheme):
     create_form_entry_ajax_template = 'djangocms_admin_style_theme/create_form_entry_ajax.html'
 
     dashboard_template = 'djangocms_admin_style_theme/dashboard.html'
+    forms_list_template = 'djangocms_admin_style_theme/forms_list.html'
 
     edit_form_element_entry_template = 'djangocms_admin_style_theme/edit_form_element_entry.html'
     edit_form_element_entry_ajax_template = 'djangocms_admin_style_theme/edit_form_element_entry_ajax.html'

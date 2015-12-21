@@ -27,7 +27,7 @@ from autoslug import AutoSlugField
 from fobi.base import (
     get_registered_form_element_plugins, get_registered_form_handler_plugins,
     form_element_plugin_registry, form_handler_plugin_registry
-    )
+)
 
 # ****************************************************************************
 # **************** Safe User import for Django > 1.5, < 1.8 ******************
@@ -95,7 +95,7 @@ class AbstractPluginModel(models.Model):
         """
         raise NotImplemented(
             "You should implement ``get_registered_plugins`` method!"
-            )
+        )
 
     def __unicode__(self):
         return "{0} ({1})".format(
@@ -158,7 +158,7 @@ class FormElement(AbstractPluginModel):
     plugin_uid = models.CharField(
         _("Plugin UID"), max_length=255, unique=True, editable=False,
         choices=get_registered_form_element_plugins()
-        )
+    )
     #objects = FormFieldPluginModelManager()
 
     class Meta:
@@ -189,7 +189,7 @@ class FormHandler(AbstractPluginModel):
     plugin_uid = models.CharField(
         _("Plugin UID"), max_length=255, unique=True, editable=False,
         choices=get_registered_form_handler_plugins()
-        )
+    )
     #objects = FormHandlerPluginModelManager()
 
     class Meta:
@@ -219,11 +219,11 @@ class FormWizardEntry(models.Model):
     is_public = models.BooleanField(
         _("Is public?"), default=False,
         help_text=_("Makes your form wizard visible to the public.")
-        )
+    )
     is_cloneable = models.BooleanField(
         _("Is cloneable?"), default=False,
         help_text=_("Makes your form wizard cloneable by other users.")
-        )
+    )
 
     class Meta:
         verbose_name = _("Form wizard entry")
@@ -259,38 +259,38 @@ class FormEntry(models.Model):
     """
     form_wizard_entry = models.ForeignKey(
         FormWizardEntry, verbose_name=_("Form wizard"), null=True, blank=True
-        )
+    )
     user = models.ForeignKey(AUTH_USER_MODEL, verbose_name=_("User"))
     name = models.CharField(_("Name"), max_length=255)
     slug = AutoSlugField(
         populate_from='name', verbose_name=_("Slug"), unique=True
-        )
+    )
     is_public = models.BooleanField(
         _("Public?"), default=False,
         help_text=_("Makes your form visible to the public.")
-        )
+    )
     is_cloneable = models.BooleanField(
         _("Cloneable?"), default=False,
         help_text=_("Makes your form cloneable by other users.")
-        )
+    )
     position = models.PositiveIntegerField(
         _("Position"), null=True, blank=True
-        )
+    )
     success_page_title = models.CharField(
         _("Success page title"), max_length=255, null=True, blank=True,
         help_text=_("Custom message title to display after valid form is "
                     "submitted")
-        )
+    )
     success_page_message = models.TextField(
         _("Success page body"), null=True, blank=True,
         help_text=_("Custom message text to display after valid form is "
                     "submitted")
-        )
+    )
     action = models.CharField(
         _("Action"), max_length=255, null=True, blank=True,
         help_text=_("Custom form action; don't fill this field, unless really "
                     "necessary.")
-        )
+    )
     created = models.DateTimeField(_("Created"), null=True, blank=True,
                                    auto_now_add=True)
     updated = models.DateTimeField(_("Updated"), null=True, blank=True,
@@ -323,7 +323,7 @@ class FormFieldsetEntry(models.Model):
     is_repeatable = models.BooleanField(
         _("Is repeatable?"), default=False,
         help_text=_("Makes your form fieldset repeatable.")
-        )
+    )
 
     class Meta:
         verbose_name = _("Form fieldset entry")
@@ -363,7 +363,7 @@ class AbstractPluginEntry(models.Model):
     def __unicode__(self):
         return "{0} plugin for user {1}".format(
             self.plugin_uid, self.form_entry.user
-            )
+        )
 
     def get_registered_plugins(self):
         """
@@ -395,7 +395,7 @@ class AbstractPluginEntry(models.Model):
             if registry.fail_on_missing_plugin:
                 err_msg = registry.plugin_not_found_error_message.format(
                     self.plugin_uid, registry.__class__
-                    )
+                )
                 raise registry.plugin_not_found_exception_cls(err_msg)
             return None
 
@@ -407,7 +407,7 @@ class AbstractPluginEntry(models.Model):
 
         return plugin.process(
             self.plugin_data, fetch_related_data=fetch_related_data
-            )
+        )
 
     def plugin_uid_code(self):
         """

@@ -1,0 +1,44 @@
+{% load i18n %}
+
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="col-sm-3">{% trans "Form" %}</th>
+              {% if show_custom_actions %}<th class="col-sm-3">{% trans "Actions" %}</th>{% endif %}
+            </tr>
+          </thead>
+          <tbody>
+          {% for form_entry in form_entries %}
+            <tr>
+              <td><a href="{% url 'fobi.view_form_entry' form_entry.slug %}">{{ form_entry.name }}</a></td>
+              {% if show_custom_actions %}
+              <td>
+                <ul class="list-inline">
+                  {% if show_edit_link %}
+                  <li>
+                      <a href="{% url 'fobi.edit_form_entry' form_entry.pk %}">
+                          <span class="glyphicon glyphicon-edit"></span> {% trans "Edit" %}
+                      </a>
+                  </li>
+                  {% endif %}
+                  {% if show_delete_link %}
+                  <li>
+                      <a href="{% url 'fobi.delete_form_entry' form_entry.pk %}">
+                          <span class="glyphicon glyphicon-remove"></span> {% trans "Delete" %}
+                      </a>
+                  </li>
+                  {% endif %}
+                  {% if show_export_link %}
+                  <li>
+                      <a href="{% url 'fobi.export_form_entry' form_entry.pk %}">
+                          <span class="glyphicon glyphicon-export"></span> {% trans "Export" %}
+                      </a>
+                  </li>
+                  {% endif %}
+                </ul>
+              </td>
+              {% endif %}
+            </tr>
+          {% endfor %}
+          </tbody>
+        </table>

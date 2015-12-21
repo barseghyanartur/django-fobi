@@ -6,6 +6,7 @@ __all__ = (
     'get_fobi_plugin', 'get_fobi_form_handler_plugin_custom_actions',
     'get_form_field_type', 'get_form_hidden_fields_errors',
     'has_edit_form_entry_permissions', 'render_auth_link',
+    'render_fobi_forms_list',
 )
 
 from django.template import Library, TemplateSyntaxError, Node
@@ -21,6 +22,8 @@ else:
     from django.forms.util import ErrorDict
 
 from fobi.settings import DISPLAY_AUTH_LINK
+from fobi.base import get_theme
+theme = get_theme(request=None, as_instance=True)
 
 register = Library()
 
@@ -185,6 +188,38 @@ def render_auth_link(context):
 register.inclusion_tag(
     'fobi/snippets/render_auth_link.html', takes_context=True
     )(render_auth_link)
+
+
+@register.inclusion_tag(theme.forms_list_template, takes_context=True)
+def render_fobi_forms_list(context, queryset, *args, **kwargs):
+    """
+    Render the list of fobi forms.
+
+    :syntax:
+
+        {% render_fobi_forms_list [queryset] [show_edit_link] \
+                                             [show_delete_link] \
+                                             [show_export_link] %}
+
+    :example:
+
+        {% render_fobi_forms_list queryset show_edit_link=True \
+                                           show_delete_link=False \
+                                           show_export_link=False %}
+    """
+    request = context.get('request', None)
+    show_edit_link = kwargs.get('edit_link', False)
+    show_delete_link = kwargs.get('delete_link', False)
+    show_export_link = kwargs.get('export_link', False)
+    return {
+        'show_custom_actions': (
+            show_edit_link or show_delete_link or show_export_link
+        ),
+        'show_edit_link': show_edit_link,
+        'show_delete_link': show_delete_link,
+        'show_export_link': show_export_link,
+    }
+
 
 # *****************************************************************************
 # *****************************************************************************

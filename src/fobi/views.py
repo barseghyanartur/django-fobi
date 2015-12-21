@@ -147,7 +147,7 @@ def dashboard(request, theme=None, template_name=None):
 
     return render_to_response(
         template_name, context, context_instance=RequestContext(request)
-        )
+    )
 
 # *****************************************************************************
 # *****************************************************************************

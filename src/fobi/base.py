@@ -169,6 +169,7 @@ class BaseTheme(object):
     create_form_entry_template = 'fobi/generic/create_form_entry.html'
     create_form_entry_ajax_template = 'fobi/generic/create_form_entry_ajax.html'
     dashboard_template = 'fobi/generic/dashboard.html'
+    forms_list_template = 'fobi/generic/forms_list.html'
     edit_form_element_entry_template = \
         'fobi/generic/edit_form_element_entry.html'
     edit_form_element_entry_ajax_template = \
