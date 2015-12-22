@@ -1,4 +1,5 @@
 Django
+django-fobi
 Jinja2
 MarkupSafe
 MySQL-python
