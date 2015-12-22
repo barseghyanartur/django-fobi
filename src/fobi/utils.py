@@ -93,7 +93,6 @@ def sync_plugins():
 # ****************************************************************************
 # ****************************************************************************
 
-
 def get_allowed_plugin_uids(PluginModel, user):
     """
     Gets allowed plugins uids for user given.
@@ -106,10 +105,10 @@ def get_allowed_plugin_uids(PluginModel, user):
     try:
         queryset_groups = PluginModel._default_manager.filter(
             groups__in = user.groups.all()
-            ).distinct()
+        ).distinct()
         queryset_users = PluginModel._default_manager.filter(
             users = user
-            ).distinct()
+        ).distinct()
         queryset = queryset_groups | queryset_users
         queryset = queryset.only('plugin_uid')
         return [p.plugin_uid for p in queryset]
@@ -190,10 +189,10 @@ def get_user_plugins_grouped(get_allowed_plugin_uids_func,
             else:
                 plugin_name = force_text(
                     plugin.name, encoding='utf-8'
-                    ).encode('utf-8')
+                ).encode('utf-8')
                 plugin_group = force_text(
                     plugin.group, encoding='utf-8'
-                    ).encode('utf-8')
+                ).encode('utf-8')
 
             if not plugin_group in registered_plugins:
                 registered_plugins[plugin_group] = []
@@ -242,7 +241,6 @@ def get_user_plugin_uids(get_allowed_plugin_uids_func,
 # ****************************************************************************
 # ****************************************************************************
 
-
 def get_allowed_form_element_plugin_uids(user):
     """
     """
@@ -279,7 +277,7 @@ def get_user_form_field_plugin_uids(user):
         get_registered_form_element_plugin_uids,
         form_element_plugin_registry,
         user
-        )
+    )
 
 # ****************************************************************************
 # ****************************************************************************
@@ -310,7 +308,7 @@ def get_user_form_handler_plugins(user,
         get_registered_form_handler_plugins,
         form_handler_plugin_registry,
         user
-        )
+    )
     user_form_handler_plugin_uids = [plugin_uid
                                      for (plugin_uid, plugin_name)
                                      in user_form_handler_plugins]
@@ -335,7 +333,7 @@ def get_user_form_handler_plugins(user,
                 plugin_name = safe_text(plugin.name)
                 user_form_handler_plugins.remove(
                     (plugin.uid, plugin_name)
-                    )
+                )
 
     return user_form_handler_plugins
 
@@ -348,7 +346,7 @@ def get_user_form_handler_plugins_grouped(user):
         get_registered_form_handler_plugins,
         form_handler_plugin_registry,
         user
-        )
+    )
 
 
 def get_user_form_handler_plugin_uids(user):
@@ -359,7 +357,7 @@ def get_user_form_handler_plugin_uids(user):
         get_registered_form_handler_plugin_uids,
         form_handler_plugin_registry,
         user
-        )
+    )
 
 # ****************************************************************************
 # ****************************************************************************

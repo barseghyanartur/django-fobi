@@ -19,6 +19,7 @@ else:
 
 from django.utils.encoding import force_text
 
+
 class ErrorDict(DjangoErrorDict):
     """
     A better ErrorDict.
@@ -28,6 +29,7 @@ class ErrorDict(DjangoErrorDict):
             [' %s\n%s' % (k, '\n'.join([' %s' % force_text(i) for i in v])) \
              for k, v in self.items()]
             )
+
 
 class ErrorList(DjangoErrorList):
     """

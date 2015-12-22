@@ -71,8 +71,13 @@ logger = logging.getLogger(__name__)
 # *****************************************************************************
 # *****************************************************************************
 
-def _delete_plugin_entry(request, entry_id, EntryModel,
-                         get_user_plugin_uids_func, message, html_anchor):
+
+def _delete_plugin_entry(request,
+                         entry_id,
+                         EntryModel,
+                         get_user_plugin_uids_func,
+                         message,
+                         html_anchor):
     """
     Abstract delete element entry.
 
@@ -81,6 +86,7 @@ def _delete_plugin_entry(request, entry_id, EntryModel,
     :param fobi.models.AbstractPluginEntry EntryModel: Subclass of
         ``fobi.models.AbstractPluginEntry``.
     :param callable get_user_plugin_uids_func:
+    :param str message:
     :return django.http.HttpResponse:
     """
     try:
@@ -102,7 +108,7 @@ def _delete_plugin_entry(request, entry_id, EntryModel,
 
     redirect_url = reverse(
         'fobi.edit_form_entry', kwargs={'form_entry_id': form_entry.pk}
-        )
+    )
     return redirect("{0}{1}".format(redirect_url, html_anchor))
 
 # *****************************************************************************
@@ -117,6 +123,7 @@ dashboard_permissions = [
     'fobi.delete_formentry',
 ]
 
+
 @login_required
 @permissions_required(satisfy=SATISFY_ANY, perms=dashboard_permissions)
 def dashboard(request, theme=None, template_name=None):
@@ -124,6 +131,7 @@ def dashboard(request, theme=None, template_name=None):
     Dashboard.
 
     :param django.http.HttpRequest request:
+    :param fobi.base.BaseTheme theme: Theme instance.
     :param string template_name:
     :return django.http.HttpResponse:
     """
@@ -165,11 +173,14 @@ create_form_entry_permissions = [
     'fobi.add_formhandlerentry',
 ]
 
+
 @login_required
 @permissions_required(satisfy=SATISFY_ALL, perms=create_form_entry_permissions)
 def create_form_entry(request, theme=None, template_name=None):
     """
     :param django.http.HttpRequest request:
+    :param fobi.base.BaseTheme theme: Theme instance.
+    :param str template_name:
     :return django.http.HttpResponse:
     """
     if 'POST' == request.method:
@@ -181,20 +192,18 @@ def create_form_entry(request, theme=None, template_name=None):
                 form_entry.save()
                 messages.info(
                     request,
-                    _('Form {0} was created successfully.').format(
-                        form_entry.name
-                        )
-                    )
+                    _('Form {0} was created '
+                      'successfully.').format(form_entry.name)
+                )
                 return redirect(
                     'fobi.edit_form_entry', form_entry_id=form_entry.pk
-                    )
+                )
             except IntegrityError as err:
                 messages.info(
                     request,
-                    _('Errors occured while saving the form: {0}.').format(
-                        str(err)
-                        )
-                    )
+                    _('Errors occured while saving '
+                      'the form: {0}.').format(str(err))
+                )
 
     else:
         form = FormEntryForm(request=request)
@@ -213,7 +222,7 @@ def create_form_entry(request, theme=None, template_name=None):
 
     return render_to_response(
         template_name, context, context_instance=RequestContext(request)
-        )
+    )
 
 # **************************************************************************
 # ******************************* Edit form entry **************************
@@ -226,6 +235,7 @@ edit_form_entry_permissions = [
     'fobi.delete_formelemententry', 'fobi.delete_formhandlerentry',
 ]
 
+
 @login_required
 @permissions_required(satisfy=SATISFY_ANY, perms=edit_form_entry_permissions)
 def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
@@ -234,7 +244,8 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
 
     :param django.http.HttpRequest request:
     :param int form_entry_id:
-    :param string template_name:
+    :param fobi.base.BaseTheme theme: Theme instance.
+    :param str template_name:
     :return django.http.HttpResponse:
     """
     try:
@@ -257,7 +268,7 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
                 request.FILES,
                 queryset = form_entry.formelemententry_set.all(),
                 #prefix = 'form_element'
-                )
+            )
             # If form elements aren't properly made (developers's fault)
             # there might be problems with saving the ordering - likely
             # in case of hidden elements only. Thus, we want to avoid
@@ -268,26 +279,26 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
                     messages.info(
                         request,
                         _("Elements ordering edited successfully.")
-                        )
+                    )
                     return redirect(
                         reverse('fobi.edit_form_entry',
                                 kwargs={'form_entry_id': form_entry_id})
-                        )
+                    )
             except MultiValueDictKeyError as err:
                 messages.error(
                     request,
                     _("Errors occured while trying to change the "
                       "elements ordering!")
-                    )
+                )
                 return redirect(
                     reverse('fobi.edit_form_entry',
                             kwargs={'form_entry_id': form_entry_id})
-                    )
+                )
         else:
             form_element_entry_formset = FormElementEntryFormSet(
                 queryset = form_entry.formelemententry_set.all(),
                 #prefix = 'form_element'
-                )
+            )
 
         if form.is_valid():
             obj = form.save(commit=False)
@@ -296,10 +307,9 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
                 obj.save()
                 messages.info(
                     request,
-                    _('Form {0} was edited successfully.').format(
-                        form_entry.name
-                        )
-                    )
+                    _('Form {0} was edited '
+                      'successfully.').format(form_entry.name)
+                )
                 return redirect(
                     reverse('fobi.edit_form_entry',
                             kwargs={'form_entry_id': form_entry_id})
@@ -307,10 +317,9 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
             except IntegrityError as err:
                 messages.info(
                     request,
-                    _('Errors occured while saving the form: {0}.').format(
-                        str(err)
-                        )
-                    )
+                    _('Errors occured while saving '
+                      'the form: {0}.').format(str(err))
+                )
     else:
         # The form entry form (does not contain form elenments)
         form = FormEntryForm(instance=form_entry, request=request)
@@ -318,7 +327,7 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
         form_element_entry_formset = FormElementEntryFormSet(
             queryset = form_entry.formelemententry_set.all(),
             #prefix = 'form_element'
-            )
+        )
 
     # In case of success, we don't need this (since redirect would happen).
     # Thus, fetch only if needed.
@@ -332,13 +341,13 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
     # List of form element plugins allowed to user
     user_form_element_plugins = get_user_form_element_plugins_grouped(
         request.user
-        )
+    )
     # List of form handler plugins allowed to user
     user_form_handler_plugins = get_user_form_handler_plugins(
         request.user,
         exclude_used_singles = True,
         used_form_handler_plugin_uids = used_form_handler_uids
-        )
+    )
 
     # Assembling the form for preview
     FormClass = assemble_form_class(
@@ -346,7 +355,7 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
         origin = 'edit_form_entry',
         origin_kwargs_update_func = append_edit_and_delete_links_to_field,
         request = request
-        )
+    )
 
     assembled_form = FormClass()
 
@@ -381,7 +390,7 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
 
     return render_to_response(
         template_name, context, context_instance=RequestContext(request)
-        )
+    )
 
 # *****************************************************************************
 # **************************** Add form element entry *************************
@@ -389,14 +398,18 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
 
 @login_required
 @permission_required('fobi.add_formelemententry')
-def add_form_element_entry(request, form_entry_id, form_element_plugin_uid,
-                           theme=None, template_name=None):
+def add_form_element_entry(request,
+                           form_entry_id,
+                           form_element_plugin_uid,
+                           theme=None,
+                           template_name=None):
     """
     Add form element entry.
 
     :param django.http.HttpRequest request:
     :param int form_entry_id:
     :param int form_element_plugin_uid:
+    :param fobi.base.BaseTheme theme: Theme instance.
     :param string template_name:
     :return django.http.HttpResponse:
     """
@@ -411,15 +424,15 @@ def add_form_element_entry(request, form_entry_id, form_element_plugin_uid,
 
     user_form_element_plugin_uids = get_user_form_field_plugin_uids(
         request.user
-        )
+    )
 
     if not form_element_plugin_uid in user_form_element_plugin_uids:
         raise Http404(ugettext("Plugin does not exist or you are not allowed "
-                        "to use this plugin!"))
+                               "to use this plugin!"))
 
     FormElementPlugin = form_element_plugin_registry.get(
         form_element_plugin_uid
-        )
+    )
     form_element_plugin = FormElementPlugin(user=request.user)
     form_element_plugin.request = request
 
@@ -479,13 +492,13 @@ def add_form_element_entry(request, form_entry_id, form_element_plugin_uid,
             request,
             _('The form element plugin "{0}" was added '
               'successfully.').format(form_element_plugin.name)
-            )
+        )
         return redirect(
             "{0}?active_tab=tab-form-elemenets".format(
                 reverse('fobi.edit_form_entry',
                         kwargs={'form_entry_id': form_entry_id})
-                )
             )
+        )
 
     context = {
         'form': form,
@@ -512,19 +525,23 @@ def add_form_element_entry(request, form_entry_id, form_element_plugin_uid,
 
 @login_required
 @permission_required('fobi.change_formelemententry')
-def edit_form_element_entry(request, form_element_entry_id, theme=None,
+def edit_form_element_entry(request,
+                            form_element_entry_id,
+                            theme=None,
                             template_name=None):
     """
     Edit form element entry.
 
     :param django.http.HttpRequest request:
     :param int form_element_entry_id:
+    :param fobi.base.BaseTheme: Theme instance.
     :param string template_name:
     :return django.http.HttpResponse:
     """
     try:
         obj = FormElementEntry._default_manager \
-                              .select_related('form_entry', 'form_entry__user') \
+                              .select_related('form_entry',
+                                              'form_entry__user') \
                               .get(pk=form_element_entry_id,
                                    form_entry__user__pk=request.user.pk)
     except ObjectDoesNotExist as err:
@@ -540,17 +557,16 @@ def edit_form_element_entry(request, form_element_entry_id, theme=None,
     if not FormElementPluginForm:
         messages.info(
             request,
-            _('The form element plugin "{0}" is not configurable!').format(
-                form_element_plugin.name
-                )
-            )
+            _('The form element plugin "{0}" '
+              'is not configurable!').format(form_element_plugin.name)
+        )
         return redirect('fobi.edit_form_entry', form_entry_id=form_entry.pk)
 
     elif 'POST' == request.method:
         form = form_element_plugin.get_initialised_edit_form_or_404(
             data = request.POST,
             files = request.FILES
-            )
+        )
 
         form_elements = FormElementEntry._default_manager \
                                         .select_related('form_entry', \
@@ -574,7 +590,7 @@ def edit_form_element_entry(request, form_element_entry_id, theme=None,
                 request,
                 _('The form element plugin "{0}" was edited '
                   'successfully.').format(form_element_plugin.name)
-                )
+            )
 
             return redirect('fobi.edit_form_entry', form_entry_id=form_entry.pk)
 
@@ -624,7 +640,7 @@ def delete_form_element_entry(request, form_element_entry_id):
         get_user_plugin_uids_func = get_user_form_field_plugin_uids,
         message = _('The form element plugin "{0}" was deleted successfully.'),
         html_anchor = '?active_tab=tab-form-elemenets'
-        )
+    )
 
 # *****************************************************************************
 # **************************** Add form handler entry *************************
@@ -632,14 +648,18 @@ def delete_form_element_entry(request, form_element_entry_id):
 
 @login_required
 @permission_required('fobi.add_formhandlerentry')
-def add_form_handler_entry(request, form_entry_id, form_handler_plugin_uid,
-                           theme=None, template_name=None):
+def add_form_handler_entry(request,
+                           form_entry_id,
+                           form_handler_plugin_uid,
+                           theme=None,
+                           template_name=None):
     """
     Add form handler entry.
 
     :param django.http.HttpRequest request:
     :param int form_entry_id:
     :param int form_handler_plugin_uid:
+    :param fobi.base.BaseTheme theme: Theme instance.
     :param string template_name:
     :return django.http.HttpResponse:
     """
@@ -650,7 +670,7 @@ def add_form_handler_entry(request, form_entry_id, form_handler_plugin_uid,
 
     user_form_handler_plugin_uids = get_user_form_handler_plugin_uids(
         request.user
-        )
+    )
 
     if not form_handler_plugin_uid in user_form_handler_plugin_uids:
         raise Http404(ugettext("Plugin does not exist or you are not allowed "
@@ -658,7 +678,7 @@ def add_form_handler_entry(request, form_entry_id, form_handler_plugin_uid,
 
     FormHandlerPlugin = form_handler_plugin_registry.get(
         form_handler_plugin_uid
-        )
+    )
 
     # Check if we deal with form handler plugin that is only allowed to be
     # used once. In that case, check if it has been used already in the current
@@ -692,7 +712,7 @@ def add_form_handler_entry(request, form_entry_id, form_handler_plugin_uid,
         form = form_handler_plugin.get_initialised_create_form_or_404(
             data = request.POST,
             files = request.FILES
-            )
+        )
         if form.is_valid():
             # Saving the plugin form data.
             form.save_plugin_data(request=request)
@@ -711,18 +731,17 @@ def add_form_handler_entry(request, form_entry_id, form_handler_plugin_uid,
 
         messages.info(
             request,
-            _('The form handler plugin "{0}" was added successfully.').format(
-                form_handler_plugin.name
-                )
-            )
+            _('The form handler plugin "{0}" was added '
+              'successfully.').format(form_handler_plugin.name)
+        )
         return redirect(
             "{0}?active_tab=tab-form-handlers".format(
                 reverse(
                     'fobi.edit_form_entry',
                     kwargs = {'form_entry_id': form_entry_id}
-                    )
                 )
             )
+        )
 
     context = {
         'form': form,
@@ -749,13 +768,16 @@ def add_form_handler_entry(request, form_entry_id, form_handler_plugin_uid,
 
 @login_required
 @permission_required('fobi.change_formhandlerentry')
-def edit_form_handler_entry(request, form_handler_entry_id, theme=None,
+def edit_form_handler_entry(request,
+                            form_handler_entry_id,
+                            theme=None,
                             template_name=None):
     """
     Edit form handler entry.
 
     :param django.http.HttpRequest request:
-    :param int form_element_entry_id:
+    :param int form_handler_entry_id:
+    :param fobi.base.BaseTheme theme: Theme instance.
     :param string template_name:
     :return django.http.HttpResponse:
     """
@@ -779,14 +801,14 @@ def edit_form_handler_entry(request, form_handler_entry_id, theme=None,
             request,
             _('The form handler plugin "{0}" is not '
               'configurable!').format(form_handler_plugin.name)
-            )
+        )
         return redirect('fobi.edit_form_entry', form_entry_id=form_entry.pk)
 
     elif 'POST' == request.method:
         form = form_handler_plugin.get_initialised_edit_form_or_404(
             data = request.POST,
             files = request.FILES
-            )
+        )
 
         if form.is_valid():
             # Saving the plugin form data.
@@ -802,7 +824,7 @@ def edit_form_handler_entry(request, form_handler_entry_id, theme=None,
                 request,
                 _('The form handler plugin "{0}" was edited '
                   'successfully.').format(form_handler_plugin.name)
-                )
+            )
 
             return redirect('fobi.edit_form_entry', form_entry_id=form_entry.pk)
 
@@ -839,7 +861,7 @@ def delete_form_handler_entry(request, form_handler_entry_id):
     Delete form handler entry.
 
     :param django.http.HttpRequest request:
-    :param int form_element_entry_id:
+    :param int form_handler_entry_id:
     :return django.http.HttpResponse:
     """
     return _delete_plugin_entry(
@@ -849,7 +871,7 @@ def delete_form_handler_entry(request, form_handler_entry_id):
         get_user_plugin_uids_func = get_user_form_handler_plugin_uids,
         message = _('The form handler plugin "{0}" was deleted successfully.'),
         html_anchor = '?active_tab=tab-form-handlers'
-        )
+    )
 
 # *****************************************************************************
 # *****************************************************************************
@@ -860,6 +882,7 @@ def delete_form_handler_entry(request, form_handler_entry_id):
 # *****************************************************************************
 # ******************************** View form entry ****************************
 # *****************************************************************************
+
 
 def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
     """
@@ -867,6 +890,7 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
 
     :param django.http.HttpRequest request:
     :param string form_entry_slug:
+    :param fobi.base.BaseTheme theme: Theme instance.
     :param string template_name:
     :return django.http.HttpResponse:
     """
@@ -887,7 +911,7 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
         form_entry,
         form_element_entries = form_element_entries,
         request = request
-        )
+    )
 
     if 'POST' == request.method:
         form = FormClass(request.POST, request.FILES)
@@ -904,7 +928,7 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
                 request = request,
                 form = form,
                 stage = CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA
-                )
+            )
 
             # Fire plugin processors
             form = submit_plugin_form_data(form_entry=form_entry,
@@ -921,7 +945,7 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
                 request = request,
                 form = form,
                 form_element_entries = form_element_entries
-                )
+            )
 
             # Warning that not everything went ok.
             if handler_errors:
@@ -930,7 +954,7 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
                         request,
                         _("Error occured: {0}."
                           "").format(handler_error)
-                        )
+                    )
 
             # Fire post handler callbacks
             fire_form_callbacks(
@@ -944,10 +968,10 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
                 request,
                 _("Form {0} was submitted successfully."
                   "").format(form_entry.name)
-                )
+            )
             return redirect(
                 reverse('fobi.form_entry_submitted', args=[form_entry.slug])
-                )
+            )
         else:
             # Fire post form validation callbacks
             fire_form_callbacks(form_entry=form_entry, request=request,
@@ -998,10 +1022,19 @@ def form_entry_submitted(request, form_entry_slug=None, template_name=None):
     :return django.http.HttpResponse:
     """
     try:
-        form_entry = FormEntry._default_manager.get(slug=form_entry_slug,
-                                                    user__pk=request.user.pk)
+        kwargs = {'slug': form_entry_slug}
+        if not request.user.is_authenticated():
+            kwargs.update({'is_public': True})
+        form_entry = FormEntry._default_manager.select_related('user') \
+                               .get(**kwargs)
     except ObjectDoesNotExist as err:
         raise Http404(ugettext("Form entry not found."))
+
+    # try:
+    #     form_entry = FormEntry._default_manager.get(slug=form_entry_slug,
+    #                                                 user__pk=request.user.pk)
+    # except ObjectDoesNotExist as err:
+    #     raise Http404(ugettext("Form entry not found."))
 
     context = {
         'form_entry_slug': form_entry_slug,
@@ -1026,6 +1059,7 @@ delete_form_entry_permissions = [
     'fobi.delete_formhandlerentry',
 ]
 
+
 @login_required
 @permissions_required(satisfy=SATISFY_ALL, perms=delete_form_entry_permissions)
 def delete_form_entry(request, form_entry_id, template_name=None):
@@ -1048,10 +1082,9 @@ def delete_form_entry(request, form_entry_id, template_name=None):
     messages.info(
         request,
         _('The form "{0}" was deleted successfully.').format(obj.name)
-        )
+    )
 
     return redirect('fobi.dashboard')
-
 
 # *****************************************************************************
 # *****************************************************************************
@@ -1100,7 +1133,7 @@ def export_form_entry(request, form_entry_id, template_name=None):
                 'position': form_element_entry.position,
                 'plugin_data': form_element_entry.plugin_data,
             }
-            )
+        )
 
     for form_handler_entry in form_handler_entries:
         data['form_handlers'].append(
@@ -1108,12 +1141,11 @@ def export_form_entry(request, form_entry_id, template_name=None):
                 'plugin_uid': form_handler_entry.plugin_uid,
                 'plugin_data': form_handler_entry.plugin_data,
             }
-            )
+        )
 
     data_exporter = JSONDataExporter(json.dumps(data), form_entry.slug)
 
     return data_exporter.export()
-
 
 # *****************************************************************************
 # *****************************************************************************
@@ -1136,8 +1168,8 @@ def import_form_entry(request, template_name=None):
 
         if form.is_valid():
             # Reading the contents of the file into JSON
-            file = form.cleaned_data['file']
-            file_contents = file.read()
+            json_file = form.cleaned_data['file']
+            file_contents = json_file.read()
 
             # This is the form data which we are going to use when recreating
             # the form.
@@ -1169,18 +1201,17 @@ def import_form_entry(request, template_name=None):
                     form_element.save()
                 else:
                     if form_element_data.get('plugin_uid', None):
-                       messages.warning(
+                        messages.warning(
                             request,
-                            _('Plugin {0} is missing in the system.').format(
-                                form_element_data.get('plugin_uid')
-                                )
-                            )
+                            _('Plugin {0} is missing in the system.'
+                              '').format(form_element_data.get('plugin_uid'))
+                        )
                     else:
                         messages.warning(
                             request,
                             _('Some essential plugin data missing in the JSON '
                               'import.')
-                            )
+                        )
 
             # One by one, importing form handler plugins.
             for form_handler_data in form_handlers_data:
@@ -1191,27 +1222,25 @@ def import_form_entry(request, template_name=None):
                     form_handler.save()
                 else:
                     if form_handler.get('plugin_uid', None):
-                       messages.warning(
+                        messages.warning(
                             request,
-                            _('Plugin {0} is missing in the system.').format(
-                                form_handler.get('plugin_uid')
-                                )
-                            )
+                            _('Plugin {0} is missing in the system.'
+                              '').format(form_handler.get('plugin_uid'))
+                        )
                     else:
                         messages.warning(
                             request,
                             _('Some essential data missing in the JSON '
                               'import.')
-                            )
-
+                        )
 
             messages.info(
                 request,
                 _('The form was imported successfully.')
-                )
+            )
             return redirect(
-                    'fobi.edit_form_entry', form_entry_id=form_entry.pk
-                    )
+                'fobi.edit_form_entry', form_entry_id=form_entry.pk
+            )
     else:
         form = ImportFormEntryForm()
 
@@ -1240,7 +1269,6 @@ def import_form_entry(request, template_name=None):
     return render_to_response(template_name, context,
                               context_instance=RequestContext(request))
 
-
 # *****************************************************************************
 # *****************************************************************************
 # ****************************** Form importers *******************************
@@ -1249,9 +1277,15 @@ def import_form_entry(request, template_name=None):
 
 @login_required
 @permissions_required(satisfy=SATISFY_ALL, perms=create_form_entry_permissions)
-def form_importer(request, form_importer_plugin_uid, template_name=None,
-                  *args, **kwargs):
+def form_importer(request,
+                  form_importer_plugin_uid,
+                  template_name=None,
+                  *args,
+                  **kwargs):
     """
+    :param django.http.HttpRequest request:
+    :param str form_importer_plugin_uid:
+    :param str template_name:
     """
     ensure_importers_autodiscover()
     form_importer_cls = form_importer_plugin_registry._registry.get(

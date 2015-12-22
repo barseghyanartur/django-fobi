@@ -152,12 +152,14 @@ def ensure_autodiscover():
     if not (form_importer_plugin_registry._registry):
         autodiscover()
 
+
 def get_form_importer_plugin_uids():
     """
 
     """
     ensure_autodiscover()
     return list(form_importer_plugin_registry._registry.keys())
+
 
 def get_form_impoter_plugin_urls():
     """
