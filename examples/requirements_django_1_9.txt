@@ -9,7 +9,7 @@ django-formtools==1.0
 django-localeurl==2.0.2
 django-nine==0.1.6
 django-nonefield==0.1
-django-registration-redux==1.3a0
+django-registration-redux>=1.3a0
 docopt==0.4.0
 docutils==0.12
 easy-thumbnails==2.3

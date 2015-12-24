@@ -51,15 +51,18 @@ class SavedFormDataEntry(models.Model):
 
         :return string:
         """
-        headers = json.loads(self.form_data_headers)
-        data = json.loads(self.saved_data)
-        for key, value in data.items():
-            if isinstance(value, string_types) and \
-               (value.startswith(settings.MEDIA_URL) or \
-                value.startswith('http://') or value.startswith('https://')):
+        try:
+            headers = json.loads(self.form_data_headers)
+            data = json.loads(self.saved_data)
+            for key, value in data.items():
+                if isinstance(value, string_types) and \
+                   (value.startswith(settings.MEDIA_URL) or \
+                    value.startswith('http://') or value.startswith('https://')):
 
-                data[key] = '<a href="{value}">{value}</a>'.format(value=value)
+                    data[key] = '<a href="{value}">{value}</a>'.format(value=value)
 
-        return two_dicts_to_string(headers, data)
+            return two_dicts_to_string(headers, data)
+        except (ValueError, json.decoder.JSONDecodeError as err):
+            return ''
     formatted_saved_data.allow_tags = True
     formatted_saved_data.short_description = _("Saved data")
