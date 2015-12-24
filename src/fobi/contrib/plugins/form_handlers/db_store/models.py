@@ -62,7 +62,7 @@ class SavedFormDataEntry(models.Model):
                     data[key] = '<a href="{value}">{value}</a>'.format(value=value)
 
             return two_dicts_to_string(headers, data)
-        except (ValueError, json.decoder.JSONDecodeError as err):
+        except (ValueError, json.decoder.JSONDecodeError) as err:
             return ''
     formatted_saved_data.allow_tags = True
     formatted_saved_data.short_description = _("Saved data")
