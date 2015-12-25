@@ -10,7 +10,7 @@ django-debug-toolbar>=0.11.0
 django-formtools
 django-localeurl>=2.0.2
 django-nine>=0.1.6
-django-registration-redux>=1.3a0
+#django-registration-redux>=1.3a0
 docutils
 ipdb
 ipython
@@ -19,3 +19,5 @@ ordereddict>=1.1
 selenium
 simple-timer>=0.2
 tox
+
+git+https://github.com/macropin/django-registration.git
