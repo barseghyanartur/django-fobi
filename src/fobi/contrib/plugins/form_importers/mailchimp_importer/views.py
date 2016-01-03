@@ -16,7 +16,7 @@ from django.utils.translation import ugettext_lazy as _
 from nine.versions import DJANGO_GTE_1_8
 
 if DJANGO_GTE_1_8:
-    from formtools.wizard.views import SessionWizardView, CookieWizardView
+    from formtools.wizard.views import SessionWizardView#, CookieWizardView
 else:
     from django.contrib.formtools.wizard.views import SessionWizardView
 
@@ -73,7 +73,7 @@ class MailchimpImporterWizardView(SessionWizardView):
 
         redirect_url = reverse(
             'fobi.edit_form_entry', kwargs={'form_entry_id': form_entry.pk}
-            )
+        )
 
         messages.info(
             self.request,

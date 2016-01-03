@@ -783,6 +783,260 @@ Afterwards, go to terminal and type the following command.
 If your HTTP server is running, you would then be able to see the new plugin
 in the edit form interface.
 
+Creating a new form importer plugin
+==================================
+Form importer plugins import the forms from some external data source into
+`django-fobi` form format. Number of form importers is not limited. Form
+importers are implemented in forms of wizards (since they may contain several
+steps).
+
+You should see a form importer as a Django micro app, which could have its' own
+models, admin interface, etc.
+
+At the moment `django-fobi` comes with only one bundled form handler plugin,
+which is the ``mailchimp_importer``, which is responsible for importing
+existing MailChimp forms into `django-fobi`.
+
+Define and register the form importer plugin
+-------------------------------------------
+Let's name that plugin `sample_importer`. The plugin directory should then have
+the following structure.
+
+.. code-block:: text
+
+    path/to/sample_importer/
+    ├── templates
+    │   └── sample_importer
+    │       ├── 0.html
+    │       └── 1.html
+    ├── __init__.py
+    ├── fobi_form_importers.py # Where plugins are defined and registered
+    ├── forms.py # Wizard forms
+    └── views.py # Wizard views
+
+Form importer plugins should be registered in "fobi_form_importers.py" file.
+Each plugin module should be put into the ``INSTALLED_APPS`` of your Django
+projects' settings.
+
+path/to/sample_importer/fobi_form_importers.py
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A single form importer plugin is registered by its' UID.
+
+Required imports.
+
+.. code-block:: python
+
+    from django.utils.translation import ugettext_lazy as _
+    from fobi.form_importers import BaseFormImporter, form_importer_plugin_registry
+    from fobi.contrib.plugins.form_elements import fields
+    from path.to.sample_importer.views import SampleImporterWizardView
+
+Defining the Sample importer plugin.
+
+.. code-block:: python
+
+    class SampleImporterPlugin(FormHandlerPlugin):
+        uid = 'sample_importer'
+        name = _("Sample importer)
+        wizard = SampleImporterWizardView
+        templates = [
+            'sample_importer/0.html',
+            'sample_importer/1.html',
+        ]
+
+        # field_type (at importer): uid (django-fobi)
+        fields_mapping = {
+            # Implemented
+            'email': fields.email.UID,
+            'text': fields.text.UID,
+            'number': fields.integer.UID,
+            'dropdown': fields.select.UID,
+            'date': fields.date.UID,
+            'url': fields.url.UID,
+            'radio': fields.radio.UID,
+
+            # Transformed into something else
+            'address': fields.text.UID,
+            'zip': fields.text.UID,
+            'phone': fields.text.UID,
+        }
+
+        # Django standard: remote
+        field_properties_mapping = {
+            'label': 'name',
+            'name': 'tag',
+            'help_text': 'helptext',
+            'initial': 'default',
+            'required': 'req',
+            'choices': 'choices',
+        }
+
+        field_type_prop_name = 'field_type'
+        position_prop_name = 'order'
+
+        def extract_field_properties(self, field_data):
+            field_properties = {}
+            for prop, val in self.field_properties_mapping.items():
+                if val in field_data:
+                    if 'choices' == val:
+                        field_properties[prop] = "\n".join(field_data[val])
+                    else:
+                        field_properties[prop] = field_data[val]
+            return field_properties
+
+
+    form_importer_plugin_registry.register(SampleImporter)
+
+path/to/sample_importer/forms.py
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+As mentioned above, form importers are implemented in form of wizards. The
+forms are the wizard steps.
+
+Required imports.
+
+.. code-block:: python
+
+    from django import forms
+    from django.utils.translation import ugettext_lazy as _
+    from sample_service_api import sample_api # Just an imaginary API client
+
+Defining the form for Sample importer plugin.
+
+.. code-block:: python
+
+    class SampleImporterStep1Form(forms.Form):
+        """
+        First form the the wizard.
+        """
+        api_key = forms.CharField(required=True)
+
+
+    class SampleImporterStep2Form(forms.Form):
+        """
+        Second form of the wizard.
+        """
+        list_id = forms.ChoiceField(required=True, choices=[])
+
+        def __init__(self, *args, **kwargs):
+            """
+            """
+            self._api_key = None
+
+            if 'api_key' in kwargs:
+                self._api_key = kwargs.pop('api_key', None)
+
+            super(SampleImporterStep2Form, self).__init__(*args, **kwargs)
+
+            if self._api_key:
+                client = sample_api.Api(self._api_key)
+                lists = client.lists.list()
+                choices = [(l['id'], l['name']) for l in lists['data']]
+                self.fields['list_id'].choices = choices
+
+
+path/to/sample_importer/views.py
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The wizard views.
+
+Required imports.
+
+.. code-block:: python
+
+    from sample_service_api import sample_api # Just an imaginary API client
+
+    from django.shortcuts import redirect
+    from django.core.urlresolvers import reverse
+    from django.contrib import messages
+    from django.utils.translation import ugettext_lazy as _
+
+    # For django LTE 1.8 import from `django.contrib.formtools.wizard.views`
+    from formtools.wizard.views import SessionWizardView
+
+    from path.to.sample_importer.forms import (
+        SampleImporterStep1Form, SampleImporterStep2Form
+    )
+
+Defining the wizard view for Sample importer plugin.
+
+.. code-block:: python
+
+    class SampleImporterWizardView(SessionWizardView):
+        """
+        """
+        form_list = [SampleImporterStep1Form, SampleImporterStep2Form]
+
+        def get_form_kwargs(self, step):
+            """
+            """
+            if '1' == step:
+                data = self.get_cleaned_data_for_step('0') or {}
+                api_key = data.get('api_key', None)
+                return {'api_key': api_key}
+            return {}
+
+        def done(self, form_list, **kwargs):
+            # Merging cleaned data into one dict
+            cleaned_data = {}
+            for form in form_list:
+                cleaned_data.update(form.cleaned_data)
+
+            # Connecting to sample client API
+            client = sample_client.Api(cleaned_data['api_key'])
+
+            # Fetching the form data
+            form_data = client.lists.merge_vars(
+                id={'list_id': cleaned_data['list_id']}
+            )
+
+            # We need the first form only
+            try:
+                form_data = form_data['data'][0]
+            except Exception as err:
+                messages.warning(
+                    self.request,
+                    _('Selected form could not be imported due errors.')
+                )
+                return redirect(reverse('fobi.dashboard'))
+
+            # Actually, import the form
+            form_entry = self._form_importer.import_data(
+                {'name': form_data['name'], 'user': self.request.user},
+                form_data['merge_vars']
+            )
+
+            redirect_url = reverse(
+                'fobi.edit_form_entry', kwargs={'form_entry_id': form_entry.pk}
+            )
+
+            messages.info(
+                self.request,
+                _('Form {0} imported successfully.').format(form_data['name'])
+            )
+
+            return redirect("{0}".format(redirect_url))
+
+
+Form importer plugin final steps
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Do not forget to add the form importer plugin module to ``INSTALLED_APPS``.
+
+.. code-block:: python
+
+    INSTALLED_APPS = (
+        # ...
+        'path.to.sample_importer',
+        # ...
+    )
+
+Afterwards, go to terminal and type the following command.
+
+.. code-block:: sh
+
+    ./manage.py fobi_sync_plugins
+
+If your HTTP server is running, you would then be able to see the new plugin
+in the dashboard form interface (implemented in all bundled themes).
+
 Creating a form callback
 ========================
 Form callbacks are additional hooks, that are executed on various stages of
