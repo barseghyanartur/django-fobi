@@ -98,5 +98,8 @@ class Bootstrap3Theme(BaseTheme):
     view_embed_form_entry_ajax_template = \
         'bootstrap3/view_embed_form_entry_ajax.html'
 
+    def __init__(self, user=None):
+        super(BaseTheme, self).__init__()
+        self.form_radio_element_html_class = ''
 
 theme_registry.register(Bootstrap3Theme)
