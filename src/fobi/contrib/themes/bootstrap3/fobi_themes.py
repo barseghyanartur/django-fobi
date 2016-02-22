@@ -103,5 +103,8 @@ class Bootstrap3Theme(BaseTheme):
     form_importer_template = 'bootstrap3/form_importer.html'
     form_importer_ajax_template = 'bootstrap3/form_importer_ajax.html'
 
+    def __init__(self, user=None):
+        super(Bootstrap3Theme, self).__init__(user=user)
+        self.form_radio_element_html_class = ''
 
 theme_registry.register(Bootstrap3Theme)
