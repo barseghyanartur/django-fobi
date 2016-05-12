@@ -21,8 +21,7 @@ early to claim that Django 1.9 is fully supported.
 
 Key concepts
 ============
-- Each form consists of elements. Form elements are divided
-  into two groups:
+- Each form consists of elements. Form elements are divided into two groups:
 
   (a) form fields (input field, textarea, hidden field, file field, etc.).
   (b) content (presentational) elements (text, image, embed video, etc.).
@@ -784,7 +783,7 @@ If your HTTP server is running, you would then be able to see the new plugin
 in the edit form interface.
 
 Creating a new form importer plugin
-==================================
+===================================
 Form importer plugins import the forms from some external data source into
 `django-fobi` form format. Number of form importers is not limited. Form
 importers are implemented in forms of wizards (since they may contain several
@@ -798,7 +797,7 @@ which is the ``mailchimp_importer``, which is responsible for importing
 existing MailChimp forms into `django-fobi`.
 
 Define and register the form importer plugin
--------------------------------------------
+--------------------------------------------
 Let's name that plugin `sample_importer`. The plugin directory should then have
 the following structure.
 
