@@ -53,7 +53,8 @@ Installation
 Usage
 ===============================================
 You should be entering a single choice per line. Choice might
-consist of just a single value or value/label pair.
+consist of just a single value or value/label pair. If you enter an integer in
+the 'max_choices' field, the user can choose only <max_choices> or less choices.
 
 For example:
 
