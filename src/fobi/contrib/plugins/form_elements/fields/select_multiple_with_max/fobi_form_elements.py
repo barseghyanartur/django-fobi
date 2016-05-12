@@ -20,7 +20,7 @@ from .settings import SUBMIT_VALUE_AS
 
 theme = get_theme(request=None, as_instance=True)
 
-class SelectMultipleInputWithMaxPlugin(FormFieldPlugin):
+class SelectMultipleWithMaxInputPlugin(FormFieldPlugin):
     """
     Select multiple field plugin with max.
     """

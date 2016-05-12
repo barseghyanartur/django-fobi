@@ -12,7 +12,7 @@ from fobi.helpers import validate_initial_for_multiple_choices
 
 theme = get_theme(request=None, as_instance=True)
 
-class SelectMultipleInputForm(forms.Form, BaseFormFieldPluginForm):
+class SelectMultipleWithMaxInputForm(forms.Form, BaseFormFieldPluginForm):
     """
     Form for ``SelectMultipleInputPlugin``.
     """
@@ -22,7 +22,8 @@ class SelectMultipleInputForm(forms.Form, BaseFormFieldPluginForm):
         ("choices", ""),
         ("help_text", ""),
         ("initial", ""),
-        ("required", False)
+        ("required", False),
+        ("max_choices", "")
     ]
 
     label = forms.CharField(
@@ -74,7 +75,7 @@ class SelectMultipleInputForm(forms.Form, BaseFormFieldPluginForm):
     max_choices = forms.IntegerField(
         label = _("Max choices"),
         required = False,
-        widget=forms.widgets.NumberInput(ttrs={'class': theme.form_element_html_class})
+        widget=forms.widgets.NumberInput(attrs={'class': theme.form_element_html_class})
     )
 
     def clean_initial(self):
