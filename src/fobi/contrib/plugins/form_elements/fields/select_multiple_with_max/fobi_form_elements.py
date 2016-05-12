@@ -25,7 +25,7 @@ class SelectMultipleWithMaxInputPlugin(FormFieldPlugin):
     Select multiple field plugin with max.
     """
     uid = UID
-    name = _("Select multiple")
+    name = _("Select multiple with max")
     group = _("Fields")
     form = SelectMultipleWithMaxInputForm
 
