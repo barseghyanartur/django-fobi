@@ -244,6 +244,7 @@ INSTALLED_APPS = [
     'fobi.contrib.plugins.form_elements.fields.select',
     'fobi.contrib.plugins.form_elements.fields.select_model_object',
     'fobi.contrib.plugins.form_elements.fields.select_multiple',
+    'fobi.contrib.plugins.form_elements.fields.select_multiple_with_max',
     'fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects',
     'fobi.contrib.plugins.form_elements.fields.slug',
     'fobi.contrib.plugins.form_elements.fields.text',
@@ -454,10 +455,12 @@ ADMIN_TOOLS_MENU = 'admin_tools_dashboard.menu.CustomMenu'
 
 SOUTH_MIGRATION_MODULES = {
     'fobi': 'fobi.south_migrations',
+    'db_store': 'ignore',
 }
 
 MIGRATION_MODULES = {
     'fobi': 'fobi.migrations',
+    'db_store': 'fobi.contrib.plugins.form_handlers.db_store.migrations',
 }
 
 # A sample logging configuration. The only tangible logging

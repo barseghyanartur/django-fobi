@@ -15,6 +15,15 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.6.6
+-----
+2016-05-12
+
+- Fixed broken dependencies in demos.
+- Minor fixes.
+- Adding a new `Select multiple with max` plugin, which restricts max number
+  of choices allowed to be chosen.
+
 0.6.5
 -----
 2015-12-24

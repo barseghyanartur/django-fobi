@@ -20,3 +20,6 @@ Thanks to the following people for their contributions:
 - `James Fenwick
   <https://github.com/barseghyanartur/django-fobi/commits?author=jmsfwk>`_
   for number of Django 1.9 support fixes.
+- `Mario Taddei
+  <https://github.com/barseghyanartur/django-fobi/commits/master?author=mariuccio>`_
+  for his initiative to make `Select multiple with max` plugin.
