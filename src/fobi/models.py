@@ -103,6 +103,9 @@ class AbstractPluginModel(models.Model):
             self.plugin_uid
             )
 
+    def __str__(self):
+        return self.__unicode__()
+
     def plugin_uid_code(self):
         """
         Mainly used in admin.
@@ -233,6 +236,9 @@ class FormWizardEntry(models.Model):
     def __unicode__(self):
         return self.name
 
+    def __str__(self):
+        return self.__unicode__()
+
     def get_absolute_url(self):
         """
         Absolute URL, which goes to the dashboard workspace page.
@@ -304,6 +310,9 @@ class FormEntry(models.Model):
     def __unicode__(self):
         return self.name
 
+    def __str__(self):
+        return self.__unicode__()
+
     def get_absolute_url(self):
         """
         Absolute URL, which goes to the dashboard workspace page.
@@ -332,6 +341,9 @@ class FormFieldsetEntry(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def __str__(self):
+        return self.__unicode__()
 
 
 class AbstractPluginEntry(models.Model):
@@ -364,6 +376,9 @@ class AbstractPluginEntry(models.Model):
         return "{0} plugin for user {1}".format(
             self.plugin_uid, self.form_entry.user
         )
+
+    def __str__(self):
+        return self.__unicode__()
 
     def get_registered_plugins(self):
         """
