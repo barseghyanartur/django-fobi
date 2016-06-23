@@ -233,6 +233,9 @@ class FormWizardEntry(models.Model):
     def __unicode__(self):
         return self.name
 
+    def __str__(self):
+        return self.name
+
     def get_absolute_url(self):
         """
         Absolute URL, which goes to the dashboard workspace page.
@@ -304,6 +307,9 @@ class FormEntry(models.Model):
     def __unicode__(self):
         return self.name
 
+    def __str__(self):
+        return self.name
+
     def get_absolute_url(self):
         """
         Absolute URL, which goes to the dashboard workspace page.
@@ -331,6 +337,9 @@ class FormFieldsetEntry(models.Model):
         unique_together = (('form_entry', 'name'),)
 
     def __unicode__(self):
+        return self.name
+
+    def __str__(self):
         return self.name
 
 
