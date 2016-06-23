@@ -313,6 +313,7 @@ class FormEntry(models.Model):
     def __str__(self):
         return self.__unicode__()
 
+
     def get_absolute_url(self):
         """
         Absolute URL, which goes to the dashboard workspace page.
