@@ -474,7 +474,7 @@ def add_form_element_entry(request,
     if save_object:
         # Handling the position
         position = 1
-        records = FormElementEntry._default_manager \
+        records = FormElementEntry.objects.filter(form_entry=form_entry) \
                                   .aggregate(models.Max('position'))
         if records:
             try:
