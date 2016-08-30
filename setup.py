@@ -69,7 +69,7 @@ for static_dir in static_dirs:
 for locale_dir in locale_dirs:
     locale_files += [os.path.join(locale_dir, f) for f in os.listdir(locale_dir)]
 
-version = '0.6.6'
+version = '0.6.7'
 
 install_requires = [
     'Pillow>=2.0.0',
@@ -106,12 +106,12 @@ except:
     pass
 
 setup(
-    name = 'django-fobi',
-    version = version,
-    description = ("Form generator/builder application for Django done right: "
-                   "customisable, modular, user- and developer- friendly."),
-    long_description = "{0}{1}".format(readme, screenshots),
-    classifiers = [
+    name='django-fobi',
+    version=version,
+    description=("Form generator/builder application for Django done right: "
+                 "customisable, modular, user- and developer- friendly."),
+    long_description="{0}{1}".format(readme, screenshots),
+    classifiers=[
         "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
@@ -127,18 +127,18 @@ setup(
         "Operating System :: OS Independent",
         "Development Status :: 4 - Beta",
     ],
-    keywords = "django, form generator, form builder, visual form designer, "
-               "user generated forms",
-    author = 'Artur Barseghyan',
-    author_email = 'artur.barseghyan@gmail.com',
-    url = 'https://github.com/barseghyanartur/django-fobi/',
-    package_dir = {'':'src'},
-    packages = find_packages(where='./src'),
-    license = 'GPL 2.0/LGPL 2.1',
-    install_requires = install_requires,
-    tests_require = tests_require,
-    package_data = {
+    keywords="django, form generator, form builder, visual form designer, "
+             "user generated forms",
+    author='Artur Barseghyan',
+    author_email='artur.barseghyan@gmail.com',
+    url='https://github.com/barseghyanartur/django-fobi/',
+    package_dir={'': 'src'},
+    packages=find_packages(where='./src'),
+    license='GPL 2.0/LGPL 2.1',
+    install_requires=install_requires,
+    tests_require=tests_require,
+    package_data={
         'fobi': templates + static_files + locale_files
     },
-    include_package_data = True,
+    include_package_data=True,
 )

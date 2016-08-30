@@ -8,6 +8,8 @@ from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 
+from nine.versions import DJANGO_LTE_1_5
+
 from .models import SavedFormDataEntry
 from .helpers import DataExporter
 
@@ -43,11 +45,18 @@ class SavedFormDataEntryAdmin(admin.ModelAdmin):
             '{0}db_store/js/jquery.expander.min.js'.format(settings.STATIC_URL),
             )
 
-    def queryset(self, request):
-        queryset = super(SavedFormDataEntryAdmin, self).queryset(request)
-        #queryset = queryset.select_related('form_entry', 'user',)
+    def __queryset(self, request):
+        if DJANGO_LTE_1_5:
+            queryset = super(SavedFormDataEntryAdmin, self).queryset(request)
+        else:
+            queryset = super(SavedFormDataEntryAdmin, self).get_queryset(
+                request
+            )
+
         return queryset
-    get_queryset = queryset
+    get_queryset = __queryset
+    if DJANGO_LTE_1_5:
+        queryset = __queryset
 
     def export_data(self, request, queryset):
         """

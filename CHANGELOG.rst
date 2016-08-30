@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+
+0.6.7
+-----
+2016-08-30
+
+- Minor fixes in `db_store` plugin (Django 1.6 compatibility issue).
+
 0.6.6
 -----
 2016-05-12
