@@ -21,6 +21,9 @@ are used for versioning (schema follows below):
 2016-08-30
 
 - Minor fixes in `db_store` plugin (Django 1.6 compatibility issue).
+- Added __str__ methods to models.
+- Restrict queryset to form element entries related to the form entry in
+  position calculation.
 
 0.6.6
 -----
