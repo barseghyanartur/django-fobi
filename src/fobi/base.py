@@ -1869,11 +1869,14 @@ def assemble_form_field_widget_class(base_class, plugin):
 # *********************************** Generic *********************************
 # *****************************************************************************
 
-def get_registered_plugins(registry, as_instances=False):
+def get_registered_plugins(registry, as_instances=False, sort_items=True):
     """
     Gets a list of registered plugins in a form if tuple (plugin name, plugin
     description). If not yet autodiscovered, autodiscovers them.
 
+    :param registry:
+    :param bool as_instances:
+    :param bool sort_items:
     :return list:
     """
     ensure_autodiscover()
@@ -1886,6 +1889,9 @@ def get_registered_plugins(registry, as_instances=False):
     for uid, plugin in registry._registry.items():
         plugin_name = safe_text(plugin.name)
         registered_plugins.append((uid, plugin_name))
+
+    if sort_items:
+        registered_plugins.sort()
 
     return registered_plugins
 
@@ -1914,11 +1920,16 @@ def get_registered_plugins_grouped(registry, sort_items=True):
 
     return registered_plugins
 
-def get_registered_plugin_uids(registry, flattern=True):
-    """
-    Gets a list of registered plugin uids as a list . If not yet
-    autodiscovered, autodiscovers them.
+def get_registered_plugin_uids(registry, flattern=True, sort_items=True):
+    """Get a list of registered plugin uids as a list .
 
+    If not yet auto-discovered, auto-discovers them.
+
+    The `sort_items` is applied only if `flattern` is True.
+
+    :param registry:
+    :param bool flattern:
+    :param bool sort_items:
     :return list:
     """
     ensure_autodiscover()
@@ -1927,6 +1938,8 @@ def get_registered_plugin_uids(registry, flattern=True):
 
     if flattern:
         registered_plugin_uids = list(registered_plugin_uids)
+        if sort_items:
+            registered_plugin_uids.sort()
 
     return registered_plugin_uids
 

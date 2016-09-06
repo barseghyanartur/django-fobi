@@ -16,6 +16,13 @@ are used for versioning (schema follows below):
 - All backwards incompatible changes are mentioned in this document.
 
 
+0.6.8
+-----
+2016-09-06
+
+- Fixed changing order of the `FormElement`, `FormElementEntry`, `FormHandler`
+  and `FormHandlerEntry` models.
+
 0.6.7
 -----
 2016-08-30
