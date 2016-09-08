@@ -22,7 +22,7 @@ from fobi.models import (
     FormEntry, FormFieldsetEntry, FormElementEntry
     )
 from fobi.constants import ACTION_CHOICES
-from fobi.base import get_theme
+from fobi.base import get_theme, get_registered_form_element_plugins
 from fobi.validators import url_exists
 from fobi.exceptions import ImproperlyConfigured
 
@@ -132,8 +132,35 @@ class FormFieldsetEntryForm(forms.ModelForm):
             )
 
 
+class FormElementForm(forms.ModelForm):
+    """FormElement form."""
+
+    plugin_uid = forms.ChoiceField(
+        choices=get_registered_form_element_plugins()
+    )
+
+    class Meta:
+        """Meta class."""
+
+        model = FormElement
+        fields = ('users', 'groups', 'plugin_uid')
+
+
+class FormElementEntryForm(forms.ModelForm):
+    """FormElementEntry form."""
+
+    plugin_uid = forms.ChoiceField(
+        choices=get_registered_form_element_plugins()
+    )
+
+    class Meta:
+        """Meta class."""
+
+        model = FormElementEntry
+        fields = ('form_entry', 'plugin_data', 'plugin_uid')
+
 FormElementEntryFormSet = modelformset_factory(
-    FormElementEntry, fields=('position',), extra=0
+    FormElementEntry, fields=('position',), extra=0, form=FormElementEntryForm
     )
 
 # *****************************************************************************

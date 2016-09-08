@@ -160,7 +160,7 @@ class FormElement(AbstractPluginModel):
     """
     plugin_uid = models.CharField(
         _("Plugin UID"), max_length=255, unique=True, editable=False,
-        choices=get_registered_form_element_plugins()
+        #choices=get_registered_form_element_plugins()
     )
     #objects = FormFieldPluginModelManager()
 
@@ -449,8 +449,10 @@ class FormElementEntry(AbstractPluginEntry):
     - `form_fieldset_entry`: Fieldset.
     - `position` (int): Entry position.
     """
-    plugin_uid = models.CharField(_("Plugin name"), max_length=255,
-                                  choices=get_registered_form_element_plugins())
+    plugin_uid = models.CharField(
+        _("Plugin name"), max_length=255,
+        #choices=get_registered_form_element_plugins()
+    )
     form_fieldset_entry = models.ForeignKey(FormFieldsetEntry,
                                             verbose_name=_("Form fieldset"),
                                             null=True, blank=True)
