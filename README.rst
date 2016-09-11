@@ -1405,7 +1405,7 @@ Overriding the "simple" theme.
 
 Register the overridden theme. Note, that it's important to set the `force`
 argument to True, in order to override the original theme. Force can be
-applied only once (for a overridden element).
+applied only once (for an overridden element).
 
 .. code-block:: python
 
@@ -1485,8 +1485,8 @@ There are several management commands available.
 
 Tuning
 ======
-There are number of `fobi` settings you can override in the settings module of
-your Django project:
+There are number of `django-fobi` settings you can override in the settings
+module of your Django project:
 
 - `FOBI_RESTRICT_PLUGIN_ACCESS` (bool): If set to True, (Django) permission 
   system for dash plugins is enabled. Defaults to True. Setting this to False
@@ -1642,7 +1642,7 @@ of each theme for details.
 
 HTML5 fields
 ============
-The following HTML5 fields are supported in appropriate bundled plugins:
+The following HTML5 fields are supported in corresponding bundled plugins:
 
 - date
 - datetime
@@ -1711,7 +1711,7 @@ In your GUI, you should be refering to the initial values in the following way:
 
     {{ request.path }} {{ now }} {{ today }}
 
-Notice, that you should not provide the `fobi_dynamic_values.` as a prefix.
+Note, that you should not provide the `fobi_dynamic_values.` as a prefix.
 Currently, the following variables are available in the
 `fobi.context_processors.dynamic_values` context processor:
 
@@ -1769,7 +1769,8 @@ Currently, the following variables are available in the
 Submitted form element plugins values
 =====================================
 While some values of form element plugins are submitted as is, some others
-need additional processing. There are 3 behaviours taken into consideration:
+need additional processing. There are 3 types of behaviour taken into
+consideration:
 
 - "val": value is being sent as is.
 - "repr": (human readable) representation of the value is used.
