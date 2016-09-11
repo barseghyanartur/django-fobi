@@ -15,14 +15,20 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.6.10
+------
+2016-09-11
+
+- Moved `plugin_uid` field choices from model level to form level for
+  `FormHandler` and `FormHandlerEntry` models. #37
 
 0.6.9
 -----
 2016-09-08
 
-- Fixed changing order of the `FormElement`, `FormElementEntry`, `FormHandler`
-  and `FormHandlerEntry` models. #37
-- Fixed element "name" field strips underscores issue. #33
+- Moved `plugin_uid` field choices from model level to form level for
+  `FormElement` and `FormElementEntry` models. #37
+- Fixed element "name" field stripping underscores issue. #33
 
 0.6.8
 -----

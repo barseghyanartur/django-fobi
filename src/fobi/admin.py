@@ -1,8 +1,3 @@
-__title__ = 'fobi.admin'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-
 from django.contrib import admin
 from django.contrib.admin import helpers
 from django.utils.translation import ugettext_lazy as _
@@ -21,9 +16,16 @@ from fobi.models import (
     #FormWizardEntry, FormFieldsetEntry,
     )
 from fobi.forms import (
-    BulkChangeFormElementPluginsForm, BulkChangeFormHandlerPluginsForm
+    BulkChangeFormElementPluginsForm, BulkChangeFormHandlerPluginsForm,
+    FormElementEntryForm, FormHandlerEntryForm
     )
 from fobi.constants import ACTION_CHOICE_REPLACE
+
+__title__ = 'fobi.admin'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2014-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+
 
 staff_member_required_m = method_decorator(staff_member_required)
 
@@ -33,11 +35,11 @@ staff_member_required_m = method_decorator(staff_member_required)
 # *****************************************************************************
 # *****************************************************************************
 
+
 def base_bulk_change_plugins(PluginForm, named_url, modeladmin, request, \
                              queryset):
-    """
-    Bulk change of plugins action additional view.
-    """
+    """Bulk change of plugins action additional view."""
+
     opts = modeladmin.model._meta
     app_label = opts.app_label
 
@@ -67,7 +69,9 @@ def base_bulk_change_plugins(PluginForm, named_url, modeladmin, request, \
         context_instance = RequestContext(request)
         )
 
+
 def bulk_change_form_element_plugins(modeladmin, request, queryset):
+    """Bulk change FormElement plugins."""
     return base_bulk_change_plugins(
         BulkChangeFormElementPluginsForm,
         'admin:bulk_change_form_element_plugins',
@@ -76,7 +80,9 @@ def bulk_change_form_element_plugins(modeladmin, request, queryset):
         queryset
         )
 
+
 def bulk_change_form_handler_plugins(modeladmin, request, queryset):
+    """Bulk change FormHandler plugins."""
     return base_bulk_change_plugins(
         BulkChangeFormHandlerPluginsForm,
         'admin:bulk_change_form_handler_plugins',
@@ -95,28 +101,28 @@ def bulk_change_form_handler_plugins(modeladmin, request, queryset):
 # ******************************* Form entry admin ****************************
 # *****************************************************************************
 
+
 class FormElementEntryInlineAdmin(admin.TabularInline):
-    """
-    Form element entry.
-    """
+    """FormElementEntry inline admin."""
+
     model = FormElementEntry
+    form = FormElementEntryForm
     fields = ('form_entry', 'plugin_uid', 'plugin_data', 'position',)
     extra = 0
 
 
 class FormHandlerEntryInlineAdmin(admin.TabularInline):
-    """
-    Form element entry.
-    """
+    """FormHandlerEntry inline admin."""
+
     model = FormHandlerEntry
+    form = FormHandlerEntryForm
     fields = ('form_entry', 'plugin_uid', 'plugin_data',)
     extra = 0
 
 
 class FormEntryAdmin(admin.ModelAdmin):
-    """
-    Form entry admin.
-    """
+    """FormEntry admin."""
+
     list_display = ('name', 'slug', 'user', 'is_public', 'created', 'updated', 'is_cloneable',)
     list_editable = ('is_public', 'is_cloneable',)
     list_filter = ('is_public', 'is_cloneable',)
@@ -155,10 +161,10 @@ admin.site.register(FormEntry, FormEntryAdmin)
 # ************************* Form fieldset entry admin *************************
 # *****************************************************************************
 
+
 class FormFieldsetEntryAdmin(admin.ModelAdmin):
-    """
-    Form fieldset entry admin.
-    """
+    """FormEieldsetEntry admin."""
+
     list_display = ('form_entry', 'name', 'is_repeatable')
     list_editable = ('is_repeatable',)
     list_filter = ('is_repeatable',)
@@ -180,9 +186,8 @@ class FormFieldsetEntryAdmin(admin.ModelAdmin):
 # *****************************************************************************
 
 class FormElementEntryAdmin(admin.ModelAdmin):
-    """
-    Form element entry admin.
-    """
+    """FormElementEntry admin."""
+
     list_display = ('plugin_uid', 'plugin_uid_code', 'plugin_data', 'position',
                     'form_entry',)
     list_filter = ('form_entry', 'plugin_uid')
@@ -220,9 +225,8 @@ class FormElementEntryAdmin(admin.ModelAdmin):
 # *****************************************************************************
 
 class FormHandlerEntryAdmin(admin.ModelAdmin):
-    """
-    Form handler entry admin.
-    """
+    """FormHandlerEntry admin."""
+
     list_display = ('plugin_uid', 'plugin_uid_code', 'plugin_data',
                     'form_entry',)
     list_filter = ('form_entry', 'plugin_uid')
@@ -263,10 +267,10 @@ class FormHandlerEntryAdmin(admin.ModelAdmin):
 # ********************************** Abstract *********************************
 # *****************************************************************************
 
+
 class BasePluginModelAdmin(admin.ModelAdmin):
-    """
-    Base plugin admin.
-    """
+    """Base plugin admin."""
+
     list_display = ('plugin_uid_admin', 'users_list', 'groups_list')
     readonly_fields = ('plugin_uid', 'plugin_uid_admin')
     fieldsets = (
@@ -280,7 +284,8 @@ class BasePluginModelAdmin(admin.ModelAdmin):
         app_label = _('Fobi')
 
     def has_add_permission(self, request):
-        """
+        """Has add permissions.
+
         We don't want to allow to add form elements/handlers manually. It
         should happen using the management command ``fobi_sync_plugins``
         instead.
@@ -288,6 +293,7 @@ class BasePluginModelAdmin(admin.ModelAdmin):
         return False
 
     def __queryset(self, request):
+        """Internal method used in get_queryset or queryset methods."""
         if DJANGO_LTE_1_5:
             queryset = super(BasePluginModelAdmin, self).queryset(request)
         else:
@@ -300,17 +306,21 @@ class BasePluginModelAdmin(admin.ModelAdmin):
         queryset = __queryset
 
     def _get_bulk_change_form_class(self):
+        """Get change form class for bulk actions."""
         raise NotImplemented("You should implement `get_bulk_change_form_class`")
 
     def _get_model(self):
+        """Get model."""
         raise NotImplemented("You should implement `_get_model`")
 
     def _get_changelist_named_url(self):
+        """Get changelist named URL."""
         raise NotImplemented("You should implement `_get_changelist_named_url`")
 
     @staff_member_required_m
     def bulk_change_plugins(self, request):
-        """
+        """Bulk change plugins.
+
         This is where the data is actually processed.
         """
         changelist_named_url = self._get_changelist_named_url()
@@ -374,9 +384,10 @@ class BasePluginModelAdmin(admin.ModelAdmin):
 # ********************************** Form element *****************************
 # *****************************************************************************
 
+
 class FormElementAdmin(BasePluginModelAdmin):
-    """
-    """
+    """FormElement admin."""
+
     actions = [bulk_change_form_element_plugins,]
 
     def _get_bulk_change_form_class(self):
@@ -403,9 +414,10 @@ admin.site.register(FormElement, FormElementAdmin)
 # *********************************** Form handler ****************************
 # *****************************************************************************
 
+
 class FormHandlerAdmin(BasePluginModelAdmin):
-    """
-    """
+    """FormHandler admin."""
+
     actions = [bulk_change_form_handler_plugins,]
 
     def _get_bulk_change_form_class(self):

@@ -10,14 +10,8 @@ handling the submitted form data).
 
 Prerequisites
 =============
-- Django 1.5, 1.6, 1.7, 1.8
+- Django 1.5, 1.6, 1.7, 1.8, 1.9
 - Python >= 2.6.8, >= 2.7, >= 3.3
-
-Note, that Django 1.9 is not yet proclaimed to be flawlessly supported, however
-it's in progress. The latest core and contrib packages (from master branch,
-with no additional dependencies) have been tested against the latest stable
-Django 1.9 release. All tests have successfully passed, although it's yet too
-early to claim that Django 1.9 is fully supported.
 
 Key concepts
 ============
@@ -586,7 +580,7 @@ example the ``db_store`` form handler isn't), while others are (``mail``,
 You should see a form handler as a Django micro app, which could have its' own
 models, admin interface, etc.
 
-By default, it's possible to use a form handler plugin multiple time per form.
+By default, it's possible to use a form handler plugin multiple times per form.
 If you wish to allow form handler plugin to be used only once in a form,
 set the ``allow_multiple`` property of the plugin to False.
 
@@ -1491,7 +1485,7 @@ There are several management commands available.
 
 Tuning
 ======
-There are number of Dash settings you can override in the settings module of
+There are number of `fobi` settings you can override in the settings module of
 your Django project:
 
 - `FOBI_RESTRICT_PLUGIN_ACCESS` (bool): If set to True, (Django) permission 

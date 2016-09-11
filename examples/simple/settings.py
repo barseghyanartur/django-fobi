@@ -275,7 +275,7 @@ INSTALLED_APPS = [
     # ***********************************************************************
     # ***********************************************************************
     'fobi.contrib.plugins.form_handlers.db_store',
-    'fobi.contrib.plugins.form_handlers.http_repost',
+    #'fobi.contrib.plugins.form_handlers.http_repost',
     'fobi.contrib.plugins.form_handlers.mail',
 
     # ***********************************************************************

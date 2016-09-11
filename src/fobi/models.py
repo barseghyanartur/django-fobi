@@ -160,7 +160,7 @@ class FormElement(AbstractPluginModel):
     """
     plugin_uid = models.CharField(
         _("Plugin UID"), max_length=255, unique=True, editable=False,
-        #choices=get_registered_form_element_plugins()
+        # choices=get_registered_form_element_plugins()
     )
     #objects = FormFieldPluginModelManager()
 
@@ -191,7 +191,7 @@ class FormHandler(AbstractPluginModel):
     """
     plugin_uid = models.CharField(
         _("Plugin UID"), max_length=255, unique=True, editable=False,
-        choices=get_registered_form_handler_plugins()
+        # choices=get_registered_form_handler_plugins()
     )
     #objects = FormHandlerPluginModelManager()
 
@@ -451,7 +451,7 @@ class FormElementEntry(AbstractPluginEntry):
     """
     plugin_uid = models.CharField(
         _("Plugin name"), max_length=255,
-        #choices=get_registered_form_element_plugins()
+        # choices=get_registered_form_element_plugins()
     )
     form_fieldset_entry = models.ForeignKey(FormFieldsetEntry,
                                             verbose_name=_("Form fieldset"),
@@ -485,8 +485,10 @@ class FormHandlerEntry(AbstractPluginEntry):
         - `plugin_uid` (str): Plugin UID.
         - `plugin_data` (str): JSON formatted string with plugin data.
     """
-    plugin_uid = models.CharField(_("Plugin name"), max_length=255,
-                                  choices=get_registered_form_handler_plugins())
+    plugin_uid = models.CharField(
+        _("Plugin name"), max_length=255,
+        # choices=get_registered_form_handler_plugins()
+    )
 
     class Meta:
         abstract = False

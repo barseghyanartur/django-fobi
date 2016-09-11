@@ -1,15 +1,6 @@
-__title__ = 'fobi.forms'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = (
-    'FormEntryForm', 'FormFieldsetEntryForm', 'FormElementEntryFormSet',
-    'BulkChangeFormElementPluginsForm', 'BulkChangeFormHandlerPluginsForm',
-    'ImportFormEntryForm',
-)
+import socket
 
 from six.moves.urllib.parse import urlparse
-import socket
 
 from django.forms.models import modelformset_factory
 from django import forms
@@ -19,12 +10,25 @@ from fobi.models import (
     FormElement, FormHandler,
 
     # Entries
-    FormEntry, FormFieldsetEntry, FormElementEntry
+    FormEntry, FormFieldsetEntry, FormElementEntry, FormHandlerEntry
     )
 from fobi.constants import ACTION_CHOICES
-from fobi.base import get_theme, get_registered_form_element_plugins
+from fobi.base import (
+    get_theme, get_registered_form_element_plugins,
+    get_registered_form_handler_plugins
+)
 from fobi.validators import url_exists
 from fobi.exceptions import ImproperlyConfigured
+
+__title__ = 'fobi.forms'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2014-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = (
+    'FormEntryForm', 'FormFieldsetEntryForm', 'FormElementEntryFormSet',
+    'BulkChangeFormElementPluginsForm', 'BulkChangeFormHandlerPluginsForm',
+    'ImportFormEntryForm', 'FormHandlerForm', 'FormHandlerEntryForm'
+)
 
 # *****************************************************************************
 # *****************************************************************************
@@ -32,16 +36,19 @@ from fobi.exceptions import ImproperlyConfigured
 # *****************************************************************************
 # *****************************************************************************
 
+
 class FormEntryForm(forms.ModelForm):
-    """
-    Form for ``fobi.models.FormEntry`` model.
-    """
+    """Form for ``fobi.models.FormEntry`` model."""
+
     class Meta:
+        """Meta class."""
+
         model = FormEntry
         fields = ('name', 'is_public', 'success_page_title',
-                  'success_page_message', 'action',) #'is_cloneable',
+                  'success_page_message', 'action',)  #'is_cloneable',
 
     def __init__(self, *args, **kwargs):
+        """Constructor."""
         self.request = kwargs.pop('request', None)
         if self.request is None:
             raise ImproperlyConfigured(
@@ -79,8 +86,9 @@ class FormEntryForm(forms.ModelForm):
         #    )
 
     def clean_action(self):
-        """
-        Validate the action (URL). Checks if URL exists.
+        """Validate the action (URL).
+
+        Checks if URL exists.
         """
         url = self.cleaned_data['action']
         if url:
@@ -117,14 +125,16 @@ class FormEntryForm(forms.ModelForm):
 
 
 class FormFieldsetEntryForm(forms.ModelForm):
-    """
-    Form for ``fobi.models.FormFieldsetEntry`` model.
-    """
+    """Form for ``fobi.models.FormFieldsetEntry`` model."""
+
     class Meta:
+        """Meta class."""
+
         model = FormFieldsetEntry
         fields = ('name',)
 
     def __init__(self, *args, **kwargs):
+        """Constructor."""
         super(FormFieldsetEntryForm, self).__init__(*args, **kwargs)
         theme = get_theme(request=None, as_instance=True)
         self.fields['name'].widget = forms.widgets.TextInput(
@@ -157,11 +167,40 @@ class FormElementEntryForm(forms.ModelForm):
         """Meta class."""
 
         model = FormElementEntry
-        fields = ('form_entry', 'plugin_data', 'plugin_uid')
+        fields = ('form_entry', 'plugin_data', 'plugin_uid', 'position')
+
 
 FormElementEntryFormSet = modelformset_factory(
     FormElementEntry, fields=('position',), extra=0, form=FormElementEntryForm
     )
+
+
+class FormHandlerForm(forms.ModelForm):
+    """FormHandler form."""
+
+    plugin_uid = forms.ChoiceField(
+        choices=get_registered_form_handler_plugins()
+    )
+
+    class Meta:
+        """Meta class."""
+
+        model = FormHandler
+        fields = ('users', 'groups', 'plugin_uid')
+
+
+class FormHandlerEntryForm(forms.ModelForm):
+    """FormHandlerEntry form."""
+
+    plugin_uid = forms.ChoiceField(
+        choices=get_registered_form_handler_plugins()
+    )
+
+    class Meta:
+        """Meta class."""
+
+        model = FormHandlerEntry
+        fields = ('form_entry', 'plugin_data', 'plugin_uid')
 
 # *****************************************************************************
 # *****************************************************************************
@@ -171,8 +210,7 @@ FormElementEntryFormSet = modelformset_factory(
 
 
 class BaseBulkChangePluginsForm(forms.ModelForm):
-    """
-    Bulk change plugins form.
+    """Bulk change plugins form.
 
     - `selected_plugins` (str): List of comma separated values to be
        changed.
@@ -181,6 +219,7 @@ class BaseBulkChangePluginsForm(forms.ModelForm):
     - `groups_action` (int): For indicating wheither the groups shall be
       appended to the dashboard plugins or replaced.
     """
+
     selected_plugins = forms.CharField(
         required=True, label=_("Selected plugins"),
         widget=forms.widgets.HiddenInput
@@ -201,28 +240,35 @@ class BaseBulkChangePluginsForm(forms.ModelForm):
         )
 
     class Media:
+        """Media class."""
+
         css = {
             'all': ('css/admin_custom.css',)
         }
 
     def __init__(self, *args, **kwargs):
+        """Constructor."""
         super(BaseBulkChangePluginsForm, self).__init__(*args, **kwargs)
         self.fields['users'].required = False
         self.fields['groups'].required = False
 
 
 class BulkChangeFormElementPluginsForm(BaseBulkChangePluginsForm):
-    """
-    """
+    """Bulk change form element plugins form."""
+
     class Meta:
+        """Meta class."""
+
         model = FormElement
         fields = ['groups', 'groups_action', 'users', 'users_action',]
 
 
 class BulkChangeFormHandlerPluginsForm(BaseBulkChangePluginsForm):
-    """
-    """
+    """Bulk change form handler plugins form."""
+
     class Meta:
+        """Meta class."""
+
         model = FormHandler
         fields = ['groups', 'groups_action', 'users', 'users_action',]
 
@@ -232,10 +278,10 @@ class BulkChangeFormHandlerPluginsForm(BaseBulkChangePluginsForm):
 # *****************************************************************************
 # *****************************************************************************
 
+
 class ImportFormEntryForm(forms.Form):
-    """
-    Import form entry form.
-    """
+    """Import form entry form."""
+
     file = forms.FileField(required=True, label=_("File"))
     # ignore_broken_form_element_entries = forms.BooleanField(
     #     required=False,
