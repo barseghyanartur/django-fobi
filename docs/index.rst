@@ -10,19 +10,12 @@ handling the submitted form data).
 
 Prerequisites
 =============
-- Django 1.5, 1.6, 1.7, 1.8
+- Django 1.5, 1.6, 1.7, 1.8, 1.9
 - Python >= 2.6.8, >= 2.7, >= 3.3
-
-Note, that Django 1.9 is not yet proclaimed to be flawlessly supported, however
-it's in progress. The latest core and contrib packages (from master branch,
-with no additional dependencies) have been tested against the latest stable
-Django 1.9 release. All tests have successfully passed, although it's yet too
-early to claim that Django 1.9 is fully supported.
 
 Key concepts
 ============
-- Each form consists of elements. Form elements are divided
-  into two groups:
+- Each form consists of elements. Form elements are divided into two groups:
 
   (a) form fields (input field, textarea, hidden field, file field, etc.).
   (b) content (presentational) elements (text, image, embed video, etc.).
@@ -587,7 +580,7 @@ example the ``db_store`` form handler isn't), while others are (``mail``,
 You should see a form handler as a Django micro app, which could have its' own
 models, admin interface, etc.
 
-By default, it's possible to use a form handler plugin multiple time per form.
+By default, it's possible to use a form handler plugin multiple times per form.
 If you wish to allow form handler plugin to be used only once in a form,
 set the ``allow_multiple`` property of the plugin to False.
 
@@ -782,6 +775,260 @@ Afterwards, go to terminal and type the following command.
 
 If your HTTP server is running, you would then be able to see the new plugin
 in the edit form interface.
+
+Creating a new form importer plugin
+===================================
+Form importer plugins import the forms from some external data source into
+`django-fobi` form format. Number of form importers is not limited. Form
+importers are implemented in forms of wizards (since they may contain several
+steps).
+
+You should see a form importer as a Django micro app, which could have its' own
+models, admin interface, etc.
+
+At the moment `django-fobi` comes with only one bundled form handler plugin,
+which is the ``mailchimp_importer``, which is responsible for importing
+existing MailChimp forms into `django-fobi`.
+
+Define and register the form importer plugin
+--------------------------------------------
+Let's name that plugin `sample_importer`. The plugin directory should then have
+the following structure.
+
+.. code-block:: text
+
+    path/to/sample_importer/
+    ├── templates
+    │   └── sample_importer
+    │       ├── 0.html
+    │       └── 1.html
+    ├── __init__.py
+    ├── fobi_form_importers.py # Where plugins are defined and registered
+    ├── forms.py # Wizard forms
+    └── views.py # Wizard views
+
+Form importer plugins should be registered in "fobi_form_importers.py" file.
+Each plugin module should be put into the ``INSTALLED_APPS`` of your Django
+projects' settings.
+
+path/to/sample_importer/fobi_form_importers.py
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+A single form importer plugin is registered by its' UID.
+
+Required imports.
+
+.. code-block:: python
+
+    from django.utils.translation import ugettext_lazy as _
+    from fobi.form_importers import BaseFormImporter, form_importer_plugin_registry
+    from fobi.contrib.plugins.form_elements import fields
+    from path.to.sample_importer.views import SampleImporterWizardView
+
+Defining the Sample importer plugin.
+
+.. code-block:: python
+
+    class SampleImporterPlugin(FormHandlerPlugin):
+        uid = 'sample_importer'
+        name = _("Sample importer)
+        wizard = SampleImporterWizardView
+        templates = [
+            'sample_importer/0.html',
+            'sample_importer/1.html',
+        ]
+
+        # field_type (at importer): uid (django-fobi)
+        fields_mapping = {
+            # Implemented
+            'email': fields.email.UID,
+            'text': fields.text.UID,
+            'number': fields.integer.UID,
+            'dropdown': fields.select.UID,
+            'date': fields.date.UID,
+            'url': fields.url.UID,
+            'radio': fields.radio.UID,
+
+            # Transformed into something else
+            'address': fields.text.UID,
+            'zip': fields.text.UID,
+            'phone': fields.text.UID,
+        }
+
+        # Django standard: remote
+        field_properties_mapping = {
+            'label': 'name',
+            'name': 'tag',
+            'help_text': 'helptext',
+            'initial': 'default',
+            'required': 'req',
+            'choices': 'choices',
+        }
+
+        field_type_prop_name = 'field_type'
+        position_prop_name = 'order'
+
+        def extract_field_properties(self, field_data):
+            field_properties = {}
+            for prop, val in self.field_properties_mapping.items():
+                if val in field_data:
+                    if 'choices' == val:
+                        field_properties[prop] = "\n".join(field_data[val])
+                    else:
+                        field_properties[prop] = field_data[val]
+            return field_properties
+
+
+    form_importer_plugin_registry.register(SampleImporter)
+
+path/to/sample_importer/forms.py
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+As mentioned above, form importers are implemented in form of wizards. The
+forms are the wizard steps.
+
+Required imports.
+
+.. code-block:: python
+
+    from django import forms
+    from django.utils.translation import ugettext_lazy as _
+    from sample_service_api import sample_api # Just an imaginary API client
+
+Defining the form for Sample importer plugin.
+
+.. code-block:: python
+
+    class SampleImporterStep1Form(forms.Form):
+        """
+        First form the the wizard.
+        """
+        api_key = forms.CharField(required=True)
+
+
+    class SampleImporterStep2Form(forms.Form):
+        """
+        Second form of the wizard.
+        """
+        list_id = forms.ChoiceField(required=True, choices=[])
+
+        def __init__(self, *args, **kwargs):
+            """
+            """
+            self._api_key = None
+
+            if 'api_key' in kwargs:
+                self._api_key = kwargs.pop('api_key', None)
+
+            super(SampleImporterStep2Form, self).__init__(*args, **kwargs)
+
+            if self._api_key:
+                client = sample_api.Api(self._api_key)
+                lists = client.lists.list()
+                choices = [(l['id'], l['name']) for l in lists['data']]
+                self.fields['list_id'].choices = choices
+
+
+path/to/sample_importer/views.py
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+The wizard views.
+
+Required imports.
+
+.. code-block:: python
+
+    from sample_service_api import sample_api # Just an imaginary API client
+
+    from django.shortcuts import redirect
+    from django.core.urlresolvers import reverse
+    from django.contrib import messages
+    from django.utils.translation import ugettext_lazy as _
+
+    # For django LTE 1.8 import from `django.contrib.formtools.wizard.views`
+    from formtools.wizard.views import SessionWizardView
+
+    from path.to.sample_importer.forms import (
+        SampleImporterStep1Form, SampleImporterStep2Form
+    )
+
+Defining the wizard view for Sample importer plugin.
+
+.. code-block:: python
+
+    class SampleImporterWizardView(SessionWizardView):
+        """
+        """
+        form_list = [SampleImporterStep1Form, SampleImporterStep2Form]
+
+        def get_form_kwargs(self, step):
+            """
+            """
+            if '1' == step:
+                data = self.get_cleaned_data_for_step('0') or {}
+                api_key = data.get('api_key', None)
+                return {'api_key': api_key}
+            return {}
+
+        def done(self, form_list, **kwargs):
+            # Merging cleaned data into one dict
+            cleaned_data = {}
+            for form in form_list:
+                cleaned_data.update(form.cleaned_data)
+
+            # Connecting to sample client API
+            client = sample_client.Api(cleaned_data['api_key'])
+
+            # Fetching the form data
+            form_data = client.lists.merge_vars(
+                id={'list_id': cleaned_data['list_id']}
+            )
+
+            # We need the first form only
+            try:
+                form_data = form_data['data'][0]
+            except Exception as err:
+                messages.warning(
+                    self.request,
+                    _('Selected form could not be imported due errors.')
+                )
+                return redirect(reverse('fobi.dashboard'))
+
+            # Actually, import the form
+            form_entry = self._form_importer.import_data(
+                {'name': form_data['name'], 'user': self.request.user},
+                form_data['merge_vars']
+            )
+
+            redirect_url = reverse(
+                'fobi.edit_form_entry', kwargs={'form_entry_id': form_entry.pk}
+            )
+
+            messages.info(
+                self.request,
+                _('Form {0} imported successfully.').format(form_data['name'])
+            )
+
+            return redirect("{0}".format(redirect_url))
+
+
+Form importer plugin final steps
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Do not forget to add the form importer plugin module to ``INSTALLED_APPS``.
+
+.. code-block:: python
+
+    INSTALLED_APPS = (
+        # ...
+        'path.to.sample_importer',
+        # ...
+    )
+
+Afterwards, go to terminal and type the following command.
+
+.. code-block:: sh
+
+    ./manage.py fobi_sync_plugins
+
+If your HTTP server is running, you would then be able to see the new plugin
+in the dashboard form interface (implemented in all bundled themes).
 
 Creating a form callback
 ========================
@@ -1158,7 +1405,7 @@ Overriding the "simple" theme.
 
 Register the overridden theme. Note, that it's important to set the `force`
 argument to True, in order to override the original theme. Force can be
-applied only once (for a overridden element).
+applied only once (for an overridden element).
 
 .. code-block:: python
 
@@ -1238,8 +1485,8 @@ There are several management commands available.
 
 Tuning
 ======
-There are number of Dash settings you can override in the settings module of
-your Django project:
+There are number of `django-fobi` settings you can override in the settings
+module of your Django project:
 
 - `FOBI_RESTRICT_PLUGIN_ACCESS` (bool): If set to True, (Django) permission 
   system for dash plugins is enabled. Defaults to True. Setting this to False
@@ -1395,7 +1642,7 @@ of each theme for details.
 
 HTML5 fields
 ============
-The following HTML5 fields are supported in appropriate bundled plugins:
+The following HTML5 fields are supported in corresponding bundled plugins:
 
 - date
 - datetime
@@ -1464,7 +1711,7 @@ In your GUI, you should be refering to the initial values in the following way:
 
     {{ request.path }} {{ now }} {{ today }}
 
-Notice, that you should not provide the `fobi_dynamic_values.` as a prefix.
+Note, that you should not provide the `fobi_dynamic_values.` as a prefix.
 Currently, the following variables are available in the
 `fobi.context_processors.dynamic_values` context processor:
 
@@ -1522,7 +1769,8 @@ Currently, the following variables are available in the
 Submitted form element plugins values
 =====================================
 While some values of form element plugins are submitted as is, some others
-need additional processing. There are 3 behaviours taken into consideration:
+need additional processing. There are 3 types of behaviour taken into
+consideration:
 
 - "val": value is being sent as is.
 - "repr": (human readable) representation of the value is used.
