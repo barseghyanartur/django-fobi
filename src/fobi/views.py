@@ -2,26 +2,13 @@
 Views.
 """
 
-__title__ = 'fobi.views'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2015 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = (
-    'create_form_entry', 'edit_form_entry', 'delete_form_entry',
-    'add_form_element_entry', 'edit_form_element_entry',
-    'delete_form_element_entry', 'add_form_handler_entry',
-    'edit_form_handler_entry', 'delete_form_handler_entry',
-    'dashboard', 'view_form_entry', 'form_entry_submitted',
-    'export_form_entry', 'import_form_entry', 'form_importer',
-)
-
 import datetime
 import logging
 
 import simplejson as json
 
 from django.template import RequestContext
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import redirect
 from django.core.exceptions import ObjectDoesNotExist
 from django.http import Http404
 from django.core.urlresolvers import reverse
@@ -62,6 +49,26 @@ from fobi.utils import (
 )
 from fobi.helpers import JSONDataExporter
 from fobi.settings import GET_PARAM_INITIAL_DATA, DEBUG
+
+from nine import versions
+
+if versions.DJANGO_GTE_1_10:
+    from django.shortcuts import render
+else:
+    from django.shortcuts import render_to_response
+
+__title__ = 'fobi.views'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2014-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = (
+    'create_form_entry', 'edit_form_entry', 'delete_form_entry',
+    'add_form_element_entry', 'edit_form_element_entry',
+    'delete_form_element_entry', 'add_form_handler_entry',
+    'edit_form_handler_entry', 'delete_form_handler_entry',
+    'dashboard', 'view_form_entry', 'form_entry_submitted',
+    'export_form_entry', 'import_form_entry', 'form_importer',
+)
 
 logger = logging.getLogger(__name__)
 
@@ -153,9 +160,12 @@ def dashboard(request, theme=None, template_name=None):
         theme = get_theme(request=request, as_instance=True)
         template_name = theme.dashboard_template
 
-    return render_to_response(
-        template_name, context, context_instance=RequestContext(request)
-    )
+    if versions.DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
+        )
 
 # *****************************************************************************
 # *****************************************************************************
@@ -220,9 +230,12 @@ def create_form_entry(request, theme=None, template_name=None):
             theme = get_theme(request=request, as_instance=True)
         template_name = theme.create_form_entry_template
 
-    return render_to_response(
-        template_name, context, context_instance=RequestContext(request)
-    )
+    if versions.DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
+        )
 
 # **************************************************************************
 # ******************************* Edit form entry **************************
@@ -388,9 +401,12 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
     if not template_name:
         template_name = theme.edit_form_entry_template
 
-    return render_to_response(
-        template_name, context, context_instance=RequestContext(request)
-    )
+    if versions.DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
+        )
 
 # *****************************************************************************
 # **************************** Add form element entry *************************
@@ -516,8 +532,12 @@ def add_form_element_entry(request,
             theme = get_theme(request=request, as_instance=True)
         template_name = theme.add_form_element_entry_template
 
-    return render_to_response(template_name, context,
-                              context_instance=RequestContext(request))
+    if versions.DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
+        )
 
 # *****************************************************************************
 # **************************** Edit form element entry ************************
@@ -616,8 +636,12 @@ def edit_form_element_entry(request,
             theme = get_theme(request=request, as_instance=True)
         template_name = theme.edit_form_element_entry_template
 
-    return render_to_response(template_name, context,
-                              context_instance=RequestContext(request))
+    if versions.DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
+        )
 
 # *****************************************************************************
 # **************************** Delete form element entry **********************
@@ -759,8 +783,12 @@ def add_form_handler_entry(request,
             theme = get_theme(request=request, as_instance=True)
         template_name = theme.add_form_handler_entry_template
 
-    return render_to_response(template_name, context,
-                              context_instance=RequestContext(request))
+    if versions.DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
+        )
 
 # *****************************************************************************
 # **************************** Edit form handler entry ************************
@@ -847,8 +875,12 @@ def edit_form_handler_entry(request,
             theme = get_theme(request=request, as_instance=True)
         template_name = theme.edit_form_handler_entry_template
 
-    return render_to_response(template_name, context,
-                              context_instance=RequestContext(request))
+    if versions.DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
+        )
 
 # *****************************************************************************
 # **************************** Delete form handler entry **********************
@@ -1005,8 +1037,12 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
     if not template_name:
         template_name = theme.view_form_entry_template
 
-    return render_to_response(template_name, context,
-                              context_instance=RequestContext(request))
+    if versions.DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
+        )
 
 # *****************************************************************************
 # **************************** View form entry success ************************
@@ -1045,8 +1081,12 @@ def form_entry_submitted(request, form_entry_slug=None, template_name=None):
         theme = get_theme(request=request, as_instance=True)
         template_name = theme.form_entry_submitted_template
 
-    return render_to_response(template_name, context,
-                              context_instance=RequestContext(request))
+    if versions.DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
+        )
 
 # *****************************************************************************
 # *****************************************************************************
@@ -1266,8 +1306,12 @@ def import_form_entry(request, template_name=None):
         theme = get_theme(request=request, as_instance=True)
         template_name = theme.import_form_entry_template
 
-    return render_to_response(template_name, context,
-                              context_instance=RequestContext(request))
+    if versions.DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
+        )
 
 # *****************************************************************************
 # *****************************************************************************

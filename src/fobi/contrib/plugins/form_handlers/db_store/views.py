@@ -1,21 +1,27 @@
-__title__ = 'fobi.contrib.plugins.form_handlers.db_store.views'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = (
-    'view_saved_form_data_entries',
-)
-
 from django.template import RequestContext
-from django.shortcuts import render_to_response
 from django.contrib.auth.decorators import login_required
 
 #from fobi.decorators import permissions_required, SATISFY_ALL, SATISFY_ANY
 from fobi.base import get_form_handler_plugin_widget
 
+from nine import versions
+
+if versions.DJANGO_GTE_1_10:
+    from django.shortcuts import render
+else:
+    from django.shortcuts import render_to_response
+
 from . import UID
 from .models import SavedFormDataEntry
 from .helpers import DataExporter
+
+__title__ = 'fobi.contrib.plugins.form_handlers.db_store.views'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = 'Copyright (c) 2014-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = (
+    'view_saved_form_data_entries',
+)
 
 #entries_permissions = [
 #    'db_store.add_savedformdataentry',
@@ -57,8 +63,11 @@ def view_saved_form_data_entries(request, form_entry_id=None, theme=None, \
     if widget and widget.view_saved_form_data_entries_template_name:
         template_name = widget.view_saved_form_data_entries_template_name
 
-    return render_to_response(
-        template_name, context, context_instance=RequestContext(request)
+    if versions.DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
         )
 
 @login_required

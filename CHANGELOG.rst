@@ -15,6 +15,15 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.6.11
+------
+2016-xx-xx (not released yet)
+
+- Step forward towards Django 1.10. use `render` instead of
+  `render_to_response`, get rid of `django-localeurl` and use `i18n_patterns`
+  instead.
+- Minor fixes.
+
 0.6.10
 ------
 2016-09-11

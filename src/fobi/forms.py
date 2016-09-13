@@ -145,15 +145,15 @@ class FormFieldsetEntryForm(forms.ModelForm):
 class FormElementForm(forms.ModelForm):
     """FormElement form."""
 
-    plugin_uid = forms.ChoiceField(
-        choices=get_registered_form_element_plugins()
-    )
+    # plugin_uid = forms.ChoiceField(
+    #     choices=get_registered_form_element_plugins()
+    # )
 
     class Meta:
         """Meta class."""
 
         model = FormElement
-        fields = ('users', 'groups', 'plugin_uid')
+        fields = ('users', 'groups')
 
 
 class FormElementEntryForm(forms.ModelForm):
@@ -178,15 +178,15 @@ FormElementEntryFormSet = modelformset_factory(
 class FormHandlerForm(forms.ModelForm):
     """FormHandler form."""
 
-    plugin_uid = forms.ChoiceField(
-        choices=get_registered_form_handler_plugins()
-    )
+    # plugin_uid = forms.ChoiceField(
+    #     choices=get_registered_form_handler_plugins()
+    # )
 
     class Meta:
         """Meta class."""
 
         model = FormHandler
-        fields = ('users', 'groups', 'plugin_uid')
+        fields = ('users', 'groups')
 
 
 class FormHandlerEntryForm(forms.ModelForm):

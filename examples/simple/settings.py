@@ -1,5 +1,8 @@
 # Django settings for example project.
 import os
+from nine.versions import (
+    DJANGO_GTE_1_7, DJANGO_GTE_1_8, DJANGO_LTE_1_7, DJANGO_GTE_1_10
+)
 PROJECT_DIR = lambda base : os.path.abspath(os.path.join(os.path.dirname(__file__), base).replace('\\','/'))
 gettext = lambda s: s
 
@@ -101,8 +104,6 @@ STATICFILES_FINDERS = (
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '97818c*w97Zi8a-m^1coRRrmurMI6+q5_kyn*)s@(*_Pk6q423'
 
-from nine.versions import DJANGO_GTE_1_7, DJANGO_GTE_1_8, DJANGO_LTE_1_7
-
 if DJANGO_GTE_1_8:
     TEMPLATES = [
         {
@@ -163,7 +164,7 @@ else:
         PROJECT_DIR('templates'),
     )
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE_CLASSES = [
     'django.contrib.sessions.middleware.SessionMiddleware',
     'localeurl.middleware.LocaleURLMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -172,7 +173,10 @@ MIDDLEWARE_CLASSES = (
     'django.contrib.messages.middleware.MessageMiddleware',
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-)
+]
+
+if DJANGO_GTE_1_10:
+    MIDDLEWARE_CLASSES.remove('localeurl.middleware.LocaleURLMiddleware')
 
 ROOT_URLCONF = 'urls'
 
@@ -328,21 +332,25 @@ INSTALLED_APPS = [
 if DJANGO_LTE_1_7:
     INSTALLED_APPS.append('south')
 
+if DJANGO_GTE_1_10:
+    INSTALLED_APPS.remove('localeurl')
+
 LOGIN_REDIRECT_URL = '/fobi/' # Important for passing the selenium tests
 
 #LOGIN_URL = '/accounts/login/'
 #LOGIN_ERROR_URL = '/accounts/login/'
 #LOGOUT_URL = '/accounts/logout/'
 
-# Tell localeurl to use sessions for language store.
-LOCALEURL_USE_SESSION = True
+if not DJANGO_GTE_1_10:
+    # Tell localeurl to use sessions for language store.
+    LOCALEURL_USE_SESSION = True
 
-# localeurl locale independent paths (language code won't be appended)
-LOCALE_INDEPENDENT_PATHS = (
-    r'^/sitemap.*\.xml$', # Global regex for all XML sitemaps
-    r'^/admin/',
-    #r'^/dashboard/',
-)
+    # localeurl locale independent paths (language code won't be appended)
+    LOCALE_INDEPENDENT_PATHS = (
+        r'^/sitemap.*\.xml$', # Global regex for all XML sitemaps
+        r'^/admin/',
+        #r'^/dashboard/',
+    )
 
 PACKAGE_NAME_FILEBROWSER = "filebrowser_safe" # Just for tests
 PACKAGE_NAME_GRAPPELLI = "grappelli_safe" # Just for tests
