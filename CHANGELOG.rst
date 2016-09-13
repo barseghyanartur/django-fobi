@@ -15,8 +15,8 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
-0.6.11
-------
+0.7
+---
 2016-xx-xx (not released yet)
 
 - Step forward towards Django 1.10. use `render` instead of
