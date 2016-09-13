@@ -17,7 +17,7 @@ are used for versioning (schema follows below):
 
 0.7
 ---
-2016-xx-xx (not released yet)
+2016-09-13
 
 - Step forward towards Django 1.10. use `render` instead of
   `render_to_response`, get rid of `django-localeurl` and use `i18n_patterns`
