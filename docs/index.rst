@@ -13,6 +13,12 @@ Prerequisites
 - Django 1.5, 1.6, 1.7, 1.8, 1.9
 - Python >= 2.6.8, >= 2.7, >= 3.3
 
+Note, that Django 1.10 is not yet proclaimed to be flawlessly supported,
+however it's in progress. The latest core and contrib packages (from master
+branch, with no additional dependencies) have been tested against the latest
+stable Django 1.10 release. All tests have successfully passed, although it's
+yet too early to claim that Django 1.10 is fully supported.
+
 Key concepts
 ============
 - Each form consists of elements. Form elements are divided into two groups:
@@ -86,7 +92,8 @@ Roadmap
 =======
 Some of the upcoming/in-development features/improvements are:
 
-- Fieldsets.
+- Integration with `django-rest-framework` (in version 0.8).
+- Fieldsets (in version 0.9).
 
 See the `TODOS <https://raw.githubusercontent.com/barseghyanartur/django-fobi/master/TODOS.rst>`_
 for the full list of planned-, pending- in-development- or to-be-implemented
