@@ -86,7 +86,9 @@ Roadmap
 =======
 Some of the upcoming/in-development features/improvements are:
 
-- Fieldsets.
+- Django 1.10 support (in version 0.7).
+- Integration with `django-rest-framework` (in version 0.8).
+- Fieldsets (in version 0.9).
 
 See the `TODOS <https://raw.githubusercontent.com/barseghyanartur/django-fobi/master/TODOS.rst>`_
 for the full list of planned-, pending- in-development- or to-be-implemented
