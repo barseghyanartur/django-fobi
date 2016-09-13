@@ -19,9 +19,8 @@ are used for versioning (schema follows below):
 ---
 2016-09-13
 
-- Step forward towards Django 1.10. use `render` instead of
-  `render_to_response`, get rid of `django-localeurl` and use `i18n_patterns`
-  instead.
+- Initial Django 1.10 support.
+- `django-localeurl` has been replaced with `i18n_patterns` in sample project.
 - Minor fixes.
 
 0.6.10
