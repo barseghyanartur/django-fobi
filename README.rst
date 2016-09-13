@@ -13,6 +13,12 @@ Prerequisites
 - Django 1.5, 1.6, 1.7, 1.8, 1.9
 - Python >= 2.6.8, >= 2.7, >= 3.3
 
+Note, that Django 1.10 is not yet proclaimed to be flawlessly supported,
+however it's in progress. The latest core and contrib packages (from master
+branch, with no additional dependencies) have been tested against the latest
+stable Django 1.10 release. All tests have successfully passed, although it's
+yet too early to claim that Django 1.10 is fully supported.
+
 Key concepts
 ============
 - Each form consists of elements. Form elements are divided into two groups:
