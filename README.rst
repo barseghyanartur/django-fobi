@@ -92,7 +92,6 @@ Roadmap
 =======
 Some of the upcoming/in-development features/improvements are:
 
-- Django 1.10 support (in version 0.7).
 - Integration with `django-rest-framework` (in version 0.8).
 - Fieldsets (in version 0.9).
 
