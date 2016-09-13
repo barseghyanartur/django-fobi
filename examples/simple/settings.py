@@ -366,6 +366,9 @@ if DJANGO_GTE_1_10:
 
 LOGIN_REDIRECT_URL = '/fobi/' # Important for passing the selenium tests
 
+if DJANGO_GTE_1_8:
+    LOGIN_REDIRECT_URL = '/en/fobi/'  # Important for passing the selenium tests
+
 #LOGIN_URL = '/accounts/login/'
 #LOGIN_ERROR_URL = '/accounts/login/'
 #LOGOUT_URL = '/accounts/logout/'

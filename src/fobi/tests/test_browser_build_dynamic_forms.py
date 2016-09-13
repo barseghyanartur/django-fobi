@@ -9,7 +9,8 @@ import logging
 
 from time import sleep
 
-from selenium.webdriver.firefox.webdriver import WebDriver
+# from selenium.webdriver.firefox.webdriver import WebDriver
+from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
 
 from django.core.urlresolvers import reverse
@@ -51,7 +52,8 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
 
     @classmethod
     def setUpClass(cls):
-        cls.selenium = WebDriver()
+        # cls.selenium = WebDriver()
+        cls.selenium = webdriver.Firefox()
 
         setup_fobi(fobi_sync_plugins=True)
         #user = get_or_create_admin_user()
@@ -93,7 +95,9 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         # Make sure the user exists
         user = get_or_create_admin_user()
 
-        self.selenium.get('{0}{1}'.format(self.__get_live_server_url(), settings.LOGIN_URL))
+        self.selenium.get(
+            '{0}{1}'.format(self.__get_live_server_url(), reverse('auth_login'))
+        )
         self.selenium.maximize_window()
         username_input = self.selenium.find_element_by_name("username")
         username_input.send_keys(constants.FOBI_TEST_USER_USERNAME)
