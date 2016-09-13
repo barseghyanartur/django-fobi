@@ -43,7 +43,7 @@ TIME_ZONE = 'America/Chicago'
 
 # Language code for this installation. All choices can be found here:
 # http://www.i18nguy.com/unicode/language-identifiers.html
-#LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'en'
 
 LANGUAGES = (
     ('en', gettext("English")), # Main language!
@@ -104,7 +104,36 @@ STATICFILES_FINDERS = (
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '97818c*w97Zi8a-m^1coRRrmurMI6+q5_kyn*)s@(*_Pk6q423'
 
-if DJANGO_GTE_1_8:
+if DJANGO_GTE_1_10:
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            # 'APP_DIRS': True,
+            'DIRS': [PROJECT_DIR('templates'), ],
+            'OPTIONS': {
+                'context_processors': [
+                    "django.template.context_processors.debug",
+                    'django.template.context_processors.request',
+                    "django.contrib.auth.context_processors.auth",
+                    # "django.core.context_processors.i18n",
+                    # "django.core.context_processors.media",
+                    # "django.core.context_processors.static",
+                    # "django.core.context_processors.tz",
+                    "django.contrib.messages.context_processors.messages",
+                    "fobi.context_processors.theme",  # Important!
+                    "fobi.context_processors.dynamic_values",  # Optional
+                ],
+                'loaders': [
+                    'django.template.loaders.filesystem.Loader',
+                    'django.template.loaders.app_directories.Loader',
+                    'django.template.loaders.eggs.Loader',
+                    'admin_tools.template_loaders.Loader',
+                ],
+                'debug': DEBUG,
+            }
+        },
+    ]
+elif DJANGO_GTE_1_8:
     TEMPLATES = [
         {
             'BACKEND': 'django.template.backends.django.DjangoTemplates',

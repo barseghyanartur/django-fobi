@@ -21,6 +21,7 @@ README_PARTS.rst
 /builddocs.zip
 /build/
 /dist/
+/var/
 
 fobi/fobi.migrations.rst
 
