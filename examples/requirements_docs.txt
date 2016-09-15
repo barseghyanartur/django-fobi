@@ -1,16 +1,16 @@
-Django
+Django==1.9.9
 django-fobi
 Jinja2
 MarkupSafe
 MySQL-python
 mailchimp
 Sphinx
-django-admin-tools>=0.5.2
-django-debug-toolbar>=0.11.0
-django-formtools
-django-localeurl>=2.0.2
-django-nine>=0.1.6
-#django-registration-redux>=1.3a0
+django-admin-tools>=0.8.0
+django-debug-toolbar>=1.5
+django-formtools>=1.0
+#django-localeurl>=2.0.2
+django-nine>=0.1.9
+django-registration-redux>=1.4
 docutils
 ipdb
 ipython
@@ -20,4 +20,4 @@ selenium
 simple-timer>=0.2
 tox
 
-git+https://github.com/macropin/django-registration.git
+#https://github.com/macropin/django-registration/archive/master.zip
