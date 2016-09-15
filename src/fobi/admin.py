@@ -13,12 +13,11 @@ from nine.versions import DJANGO_LTE_1_5
 
 from fobi.models import (
     FormElement, FormHandler, FormEntry, FormElementEntry, FormHandlerEntry
-    #FormWizardEntry, FormFieldsetEntry,
-    )
+)
 from fobi.forms import (
     BulkChangeFormElementPluginsForm, BulkChangeFormHandlerPluginsForm,
     FormElementEntryForm, FormHandlerEntryForm
-    )
+)
 from fobi.constants import ACTION_CHOICE_REPLACE
 
 __title__ = 'fobi.admin'
@@ -36,7 +35,7 @@ staff_member_required_m = method_decorator(staff_member_required)
 # *****************************************************************************
 
 
-def base_bulk_change_plugins(PluginForm, named_url, modeladmin, request, \
+def base_bulk_change_plugins(PluginForm, named_url, modeladmin, request,
                              queryset):
     """Bulk change of plugins action additional view."""
 
@@ -49,8 +48,8 @@ def base_bulk_change_plugins(PluginForm, named_url, modeladmin, request, \
         post['selected_plugins'] = ','.join(selected)
     if 'POST' == request.method:
         form = PluginForm(
-            data = post,
-            files = request.FILES,
+            data=post,
+            files=request.FILES,
             initial={'selected_plugins': ','.join(selected)}
             )
     else:
@@ -66,7 +65,7 @@ def base_bulk_change_plugins(PluginForm, named_url, modeladmin, request, \
     return render_to_response(
         'fobi/admin/bulk_change_plugins.html',
         context,
-        context_instance = RequestContext(request)
+        context_instance=RequestContext(request)
         )
 
 
@@ -123,7 +122,8 @@ class FormHandlerEntryInlineAdmin(admin.TabularInline):
 class FormEntryAdmin(admin.ModelAdmin):
     """FormEntry admin."""
 
-    list_display = ('name', 'slug', 'user', 'is_public', 'created', 'updated', 'is_cloneable',)
+    list_display = ('name', 'slug', 'user', 'is_public', 'created', 'updated',
+                    'is_cloneable',)
     list_editable = ('is_public', 'is_cloneable',)
     list_filter = ('is_public', 'is_cloneable',)
     readonly_fields = ('slug',)
@@ -136,10 +136,10 @@ class FormEntryAdmin(admin.ModelAdmin):
             'classes': ('collapse',),
             'fields': ('success_page_title', 'success_page_message', 'action',)
         }),
-        #(_("Wizard"), {
-        #    'classes': ('collapse',),
-        #    'fields': ('form_wizard_entry', 'position',)
-        #}),
+        # (_("Wizard"), {
+        #     'classes': ('collapse',),
+        #     'fields': ('form_wizard_entry', 'position',)
+        # }),
         (_("User"), {
             'classes': ('collapse',),
             'fields': ('user',)
@@ -152,6 +152,7 @@ class FormEntryAdmin(admin.ModelAdmin):
     inlines = [FormElementEntryInlineAdmin, FormHandlerEntryInlineAdmin]
 
     class Meta:
+        """Meta."""
         app_label = _('Fobi')
 
 
@@ -168,7 +169,7 @@ class FormFieldsetEntryAdmin(admin.ModelAdmin):
     list_display = ('form_entry', 'name', 'is_repeatable')
     list_editable = ('is_repeatable',)
     list_filter = ('is_repeatable',)
-    #readonly_fields = ('slug',)
+    # readonly_fields = ('slug',)
     fieldsets = (
         (None, {
             'fields': ('form_entry', 'name', 'is_repeatable')
@@ -179,7 +180,7 @@ class FormFieldsetEntryAdmin(admin.ModelAdmin):
         app_label = _('Fobi')
 
 
-#admin.site.register(FormFieldsetEntry, FormFieldsetEntryAdmin)
+# admin.site.register(FormFieldsetEntry, FormFieldsetEntryAdmin)
 
 # *****************************************************************************
 # ************************** Form element entry admin *************************
@@ -203,9 +204,11 @@ class FormElementEntryAdmin(admin.ModelAdmin):
     )
 
     class Meta:
+        """Meta."""
         app_label = _('Fobi')
 
     def __queryset(self, request):
+        """Internal method used in get_queryset or queryset methods."""
         if DJANGO_LTE_1_5:
             queryset = super(FormElementEntryAdmin, self).queryset(request)
         else:
@@ -217,7 +220,7 @@ class FormElementEntryAdmin(admin.ModelAdmin):
     if DJANGO_LTE_1_5:
         queryset = __queryset
 
-#admin.site.register(FormElementEntry, FormElementEntryAdmin)
+# admin.site.register(FormElementEntry, FormElementEntryAdmin)
 
 
 # *****************************************************************************
@@ -241,9 +244,11 @@ class FormHandlerEntryAdmin(admin.ModelAdmin):
     )
 
     class Meta:
+        """Meta."""
         app_label = _('Form handler entry')
 
     def __queryset(self, request):
+        """Internal method used in get_queryset or queryset methods."""
         if DJANGO_LTE_1_5:
             queryset = super(FormHandlerEntryAdmin, self).queryset(request)
         else:
@@ -255,7 +260,7 @@ class FormHandlerEntryAdmin(admin.ModelAdmin):
     if DJANGO_LTE_1_5:
         queryset = __queryset
 
-#admin.site.register(FormHandlerEntry, FormHandlerEntryAdmin)
+# admin.site.register(FormHandlerEntry, FormHandlerEntryAdmin)
 
 # *****************************************************************************
 # *****************************************************************************
@@ -281,6 +286,7 @@ class BasePluginModelAdmin(admin.ModelAdmin):
     filter_horizontal = ('users', 'groups',)
 
     class Meta:
+        """Meta."""
         app_label = _('Fobi')
 
     def has_add_permission(self, request):
@@ -307,7 +313,8 @@ class BasePluginModelAdmin(admin.ModelAdmin):
 
     def _get_bulk_change_form_class(self):
         """Get change form class for bulk actions."""
-        raise NotImplemented("You should implement `get_bulk_change_form_class`")
+        raise NotImplemented("You should implement "
+                             "`get_bulk_change_form_class`")
 
     def _get_model(self):
         """Get model."""
@@ -315,7 +322,8 @@ class BasePluginModelAdmin(admin.ModelAdmin):
 
     def _get_changelist_named_url(self):
         """Get changelist named URL."""
-        raise NotImplemented("You should implement `_get_changelist_named_url`")
+        raise NotImplemented("You should implement "
+                             "`_get_changelist_named_url`")
 
     @staff_member_required_m
     def bulk_change_plugins(self, request):
@@ -327,8 +335,8 @@ class BasePluginModelAdmin(admin.ModelAdmin):
         if 'POST' == request.method:
             form_cls = self._get_bulk_change_form_class()
             form = form_cls(
-                data = request.POST,
-                files = request.FILES
+                data=request.POST,
+                files=request.FILES
                 )
 
             if form.is_valid():
@@ -337,8 +345,11 @@ class BasePluginModelAdmin(admin.ModelAdmin):
                 groups = form.cleaned_data.pop('groups')
                 users_action = form.cleaned_data.pop('users_action')
                 groups_action = form.cleaned_data.pop('groups_action')
-                cleaned_data = dict((key, val) for (key, val) in \
-                    form.cleaned_data.iteritems() if val is not None)
+                cleaned_data = dict(
+                    (key, val)
+                    for (key, val) in form.cleaned_data.iteritems()
+                    if val is not None
+                )
 
                 # Queryset to work with
                 PluginModel = self._get_model()
@@ -359,18 +370,20 @@ class BasePluginModelAdmin(admin.ModelAdmin):
                     if users_action == ACTION_CHOICE_REPLACE:
                         plugin_model_entry.users.clear()
 
-                    plugin_model_entry.groups.add(*groups) # Adding groups
-                    plugin_model_entry.users.add(*users) # Adding users
+                    plugin_model_entry.groups.add(*groups)  # Adding groups
+                    plugin_model_entry.users.add(*users)  # Adding users
 
                 messages.info(
                     request,
-                    _('{0} plugins were changed successfully.').format(len(ids))
+                    _('{0} plugins were changed '
+                      'successfully.').format(len(ids))
                     )
                 return redirect(changelist_named_url)
             else:
                 messages.warning(
                     request,
-                    _('Form contains errors: {}').format(strip_tags(form.errors))
+                    _('Form contains '
+                      'errors: {}').format(strip_tags(form.errors))
                     )
                 return redirect(changelist_named_url)
         else:
@@ -388,21 +401,26 @@ class BasePluginModelAdmin(admin.ModelAdmin):
 class FormElementAdmin(BasePluginModelAdmin):
     """FormElement admin."""
 
-    actions = [bulk_change_form_element_plugins,]
+    actions = [bulk_change_form_element_plugins]
 
     def _get_bulk_change_form_class(self):
+        """Get bulk change form class."""
         return BulkChangeFormElementPluginsForm
 
     def _get_model(self):
+        """Get model."""
         return FormElement
 
     def _get_changelist_named_url(self):
+        """Get changelist named URL."""
         return 'admin:fobi_formelement_changelist'
 
     def get_urls(self):
+        """Get URLs."""
         my_urls = [
             # Bulk change plugins
-            url(r'^bulk-change-form-element-plugins/$', self.bulk_change_plugins,
+            url(r'^bulk-change-form-element-plugins/$',
+                self.bulk_change_plugins,
                 name='bulk_change_form_element_plugins'),
         ]
         return my_urls + super(FormElementAdmin, self).get_urls()
@@ -418,21 +436,26 @@ admin.site.register(FormElement, FormElementAdmin)
 class FormHandlerAdmin(BasePluginModelAdmin):
     """FormHandler admin."""
 
-    actions = [bulk_change_form_handler_plugins,]
+    actions = [bulk_change_form_handler_plugins]
 
     def _get_bulk_change_form_class(self):
+        """Get bulk change form class."""
         return BulkChangeFormHandlerPluginsForm
 
     def _get_model(self):
+        """Get model."""
         return FormHandler
 
     def _get_changelist_named_url(self):
+        """Get changelist named URL."""
         return 'admin:fobi_formhandler_changelist'
 
     def get_urls(self):
+        """Get URLs."""
         my_urls = [
             # Bulk change plugins
-            url(r'^bulk-change-form-handler-plugins/$', self.bulk_change_plugins,
+            url(r'^bulk-change-form-handler-plugins/$',
+                self.bulk_change_plugins,
                 name='bulk_change_form_handler_plugins'),
         ]
         return my_urls + super(FormHandlerAdmin, self).get_urls()
