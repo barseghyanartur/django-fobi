@@ -1,3 +1,50 @@
+import copy
+import logging
+import re
+import traceback
+import uuid
+
+import simplejson as json
+
+try:
+    from collections import OrderedDict
+except ImportError as err:
+    from ordereddict import OrderedDict
+
+from six import with_metaclass, string_types
+
+from django import forms
+from django.forms import ModelForm
+from django.http import Http404
+from django.utils.translation import ugettext_lazy as _
+from django.template import RequestContext, Template
+
+from nine.versions import DJANGO_GTE_1_7
+
+if DJANGO_GTE_1_7:
+    from django.forms.utils import ErrorList
+else:
+    from django.forms.util import ErrorList
+
+from .data_structures import SortableDict
+from .discover import autodiscover
+from .constants import CALLBACK_STAGES
+from .settings import (
+    DEFAULT_THEME, FORM_HANDLER_PLUGINS_EXECUTION_ORDER,
+    CUSTOM_THEME_DATA, THEME_FOOTER_TEXT, FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS,
+    FAIL_ON_MISSING_FORM_HANDLER_PLUGINS, DEBUG,
+    # FAIL_ON_ERRORS_IN_FORM_ELEMENT_PLUGINS,
+    FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS
+)
+from .exceptions import (
+    InvalidRegistryItemType, DoesNotExist, ThemeDoesNotExist,
+    FormElementPluginDoesNotExist, FormHandlerPluginDoesNotExist
+)
+from .helpers import (
+    uniquify_sequence, clean_dict, map_field_name_to_label,
+    get_ignorable_form_values, safe_text, StrippedRequest,
+)
+
 """
 All `uids` are supposed to be pythonic function names (see
 PEP http://www.python.org/dev/peps/pep-0008/#function-names).
@@ -5,7 +52,7 @@ PEP http://www.python.org/dev/peps/pep-0008/#function-names).
 
 __title__ = 'fobi.base'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2015 Artur Barseghyan'
+__copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'BaseDataStorage', 'FormElementPluginDataStorage',
@@ -32,56 +79,9 @@ __all__ = (
     'get_form_element_plugin_widget', 'get_form_handler_plugin_widget'
     )
 
-import traceback
-import logging
-import copy
-import uuid
-import re
-
-import simplejson as json
-
-try:
-    from collections import OrderedDict
-except ImportError as e:
-    from ordereddict import OrderedDict
-
-from six import with_metaclass, string_types
-
-from django import forms
-from django.forms import ModelForm
-from django.http import Http404
-from django.utils.translation import ugettext_lazy as _
-from django.template import RequestContext, Template
-
-from nine.versions import DJANGO_GTE_1_7
-
-if DJANGO_GTE_1_7:
-    from django.forms.utils import ErrorList
-else:
-    from django.forms.util import ErrorList
-
-from fobi.discover import autodiscover
-from fobi.constants import CALLBACK_STAGES
-from fobi.settings import (
-    DEFAULT_THEME, FORM_HANDLER_PLUGINS_EXECUTION_ORDER,
-    CUSTOM_THEME_DATA, THEME_FOOTER_TEXT, FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS,
-    FAIL_ON_MISSING_FORM_HANDLER_PLUGINS, DEBUG,
-    #FAIL_ON_ERRORS_IN_FORM_ELEMENT_PLUGINS,
-    FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS
-)
-from fobi.exceptions import (
-    InvalidRegistryItemType, DoesNotExist, ThemeDoesNotExist,
-    FormElementPluginDoesNotExist, FormHandlerPluginDoesNotExist
-)
-from fobi.helpers import (
-    uniquify_sequence, clean_dict, map_field_name_to_label,
-    get_ignorable_form_values, safe_text, StrippedRequest,
-)
-from fobi.data_structures import SortableDict
-
 logger = logging.getLogger(__name__)
 
-_ = lambda s: s
+# _ = lambda s: s
 
 # *****************************************************************************
 # *****************************************************************************
@@ -89,9 +89,9 @@ _ = lambda s: s
 # *****************************************************************************
 # *****************************************************************************
 
+
 class BaseTheme(object):
-    """
-    Base theme.
+    """Base theme.
 
     :property str view_embed_form_entry_ajax_template: A template to be used
         when integrating the form rendering from other products (for example,
@@ -102,6 +102,7 @@ class BaseTheme(object):
         used when integrating into other products (CMS page). Serves the
         thank you.
     """
+
     uid = None
     name = None
     description = None
@@ -110,14 +111,14 @@ class BaseTheme(object):
     media_js = []
 
     # General HTML specific
-    project_name = _("Build your forms") # Project name
-    footer_text = '' # '&copy; Company 2014'
+    project_name = _("Build your forms")  # Project name
+    footer_text = ''  # '&copy; Company 2014'
 
     # *************************************************************************
     # ********************** Form HTML specific *******************************
     # *************************************************************************
     # Used in almost all ``fobi_form_elements`` modules and forms.
-    form_element_html_class = '' #form-control
+    form_element_html_class = ''  # form-control
 
     # Radio element HTML class. Used in ``fobi_form_elements`` modules
     # and forms.
@@ -125,19 +126,19 @@ class BaseTheme(object):
 
     # Checkbox element HTML class. Used in ``fobi_form_elements`` modules
     # and forms.
-    form_element_checkbox_html_class = '' # checkbox
+    form_element_checkbox_html_class = ''  # checkbox
 
     # Important, since used in ``edit_form_entry_edit_option_html``
     # method.
-    form_edit_form_entry_option_class = '' #glyphicon glyphicon-edit
+    form_edit_form_entry_option_class = ''  # glyphicon glyphicon-edit
 
     # Important, since used in ``edit_form_entry_edit_option_html``
     # method.
-    form_delete_form_entry_option_class = '' #glyphicon glyphicon-remove
+    form_delete_form_entry_option_class = ''  # glyphicon glyphicon-remove
 
     # Important, since used in ``edit_form_entry_help_text_extra``
     # method.
-    form_list_container_class = '' #list-inline
+    form_list_container_class = ''  # list-inline
 
     # *************************************************************************
     # ********************** Templates specific *******************************
@@ -160,14 +161,17 @@ class BaseTheme(object):
     form_ajax = 'fobi/generic/snippets/form_ajax.html'
     form_view_ajax = None
     form_edit_ajax = None
-    add_form_element_entry_template = 'fobi/generic/add_form_element_entry.html'
+    add_form_element_entry_template = 'fobi/generic/' \
+                                      'add_form_element_entry.html'
     add_form_element_entry_ajax_template = \
         'fobi/generic/add_form_element_entry_ajax.html'
-    add_form_handler_entry_template = 'fobi/generic/add_form_handler_entry.html'
+    add_form_handler_entry_template = 'fobi/generic/' \
+                                      'add_form_handler_entry.html'
     add_form_handler_entry_ajax_template = \
         'fobi/generic/add_form_handler_entry_ajax.html'
     create_form_entry_template = 'fobi/generic/create_form_entry.html'
-    create_form_entry_ajax_template = 'fobi/generic/create_form_entry_ajax.html'
+    create_form_entry_ajax_template = 'fobi/generic/' \
+                                      'create_form_entry_ajax.html'
     dashboard_template = 'fobi/generic/dashboard.html'
     forms_list_template = 'fobi/generic/forms_list.html'
     edit_form_element_entry_template = \
@@ -189,7 +193,8 @@ class BaseTheme(object):
     view_embed_form_entry_ajax_template = None
 
     import_form_entry_template = 'fobi/generic/import_form_entry.html'
-    import_form_entry_ajax_template = 'fobi/generic/import_form_entry_ajax.html'
+    import_form_entry_ajax_template = 'fobi/generic/' \
+                                      'import_form_entry_ajax.html'
     form_importer_template = 'fobi/generic/form_importer.html'
     form_importer_ajax_template = 'fobi/generic/form_importer_ajax.html'
 
@@ -198,21 +203,22 @@ class BaseTheme(object):
     # *************************************************************************
     custom_data = {}
 
-    page_header_html_class = '' #page-header
-    form_html_class = '' #form-horizontal
-    form_button_outer_wrapper_html_class = '' #control-group
-    form_button_wrapper_html_class = '' #controls
-    form_button_html_class = '' #btn
-    form_primary_button_html_class = '' #btn-primary
+    page_header_html_class = ''  # page-header
+    form_html_class = ''  # form-horizontal
+    form_button_outer_wrapper_html_class = ''  # control-group
+    form_button_wrapper_html_class = ''  # controls
+    form_button_html_class = ''  # btn
+    form_primary_button_html_class = ''  # btn-primary
 
     def __init__(self, user=None):
-        """
+        """Constructor.
+
         :param django.contrib.auth.models.User user:
         """
         assert self.uid
         assert self.name
-        #assert self.view_template_name
-        #assert self.edit_template_name
+        # assert self.view_template_name
+        # assert self.edit_template_name
         assert isinstance(self.media_js, (list, tuple))
         assert isinstance(self.media_css, (list, tuple))
 
@@ -262,7 +268,7 @@ class BaseTheme(object):
         if not self.form_edit_ajax:
             self.form_edit_ajax = self.form_ajax
 
-        # If no specific ``view_embed_form_entry_ajax_template`` specified, 
+        # If no specific ``view_embed_form_entry_ajax_template`` specified,
         # fall back to the ``view_form_entry_ajax_template``.
         if not self.view_embed_form_entry_ajax_template:
             self.view_embed_form_entry_ajax_template = \
@@ -274,7 +280,7 @@ class BaseTheme(object):
                 self.form_entry_submitted_ajax_template
 
         # Set theme specific data from settings for to be
-        # refered like `fobi_theme.custom_data`.
+        # referred like `fobi_theme.custom_data`.
         self.custom_data = self.get_custom_data()
 
         # Set the footer text from settings if not specified
@@ -283,7 +289,8 @@ class BaseTheme(object):
             self.footer_text = self.get_footer_text()
 
     def _get_custom_data(self):
-        """
+        """Get custom data (used internally).
+
         Internal method for obtaining the custom data from settings.
 
         :return dict:
@@ -293,7 +300,8 @@ class BaseTheme(object):
         return {}
 
     def get_custom_data(self):
-        """
+        """Get custom data.
+
         Fills the theme with custom data from settings.
 
         :return dict:
@@ -301,7 +309,8 @@ class BaseTheme(object):
         return self._get_custom_data()
 
     def _get_footer_text(self):
-        """
+        """Get footer text (used internally).
+
         Internal method for returning the footer text from settings.
 
         :return str:
@@ -309,7 +318,8 @@ class BaseTheme(object):
         return _(THEME_FOOTER_TEXT)
 
     def get_footer_text(self):
-        """
+        """Get footer text.
+
         Returns the footer text from settings.
 
         :return str:
@@ -318,7 +328,8 @@ class BaseTheme(object):
 
     @classmethod
     def edit_form_entry_edit_option_html(cls):
-        """
+        """Edit FormEntry edit option HTML.
+
         For adding the edit link to edit form entry view.
 
         :return str:
@@ -328,14 +339,15 @@ class BaseTheme(object):
               <span class="{edit_option_class}"></span> {edit_text}</a>
             </li>
             """.format(
-                edit_url = "{edit_url}",
-                edit_option_class = cls.form_edit_form_entry_option_class,
-                edit_text = "{edit_text}",
-                )
+                edit_url="{edit_url}",
+                edit_option_class=cls.form_edit_form_entry_option_class,
+                edit_text="{edit_text}",
+            )
 
     @classmethod
     def edit_form_entry_help_text_extra(cls):
-        """
+        """Edit FormEntry help_text extra.
+
         For adding the edit link to edit form entry view.
 
         :return str:
@@ -354,18 +366,19 @@ class BaseTheme(object):
             <input type="hidden" value="{form_element_pk}"
                    name="form-{counter}-id" id="id_form-{counter}-id">
             """.format(
-                container_class = cls.form_list_container_class,
-                edit_option_html = "{edit_option_html}",
-                delete_url = "{delete_url}",
-                delete_option_class = cls.form_delete_form_entry_option_class,
-                delete_text = "{delete_text}",
-                form_element_position = "{form_element_position}",
-                counter = "{counter}",
-                form_element_pk = "{form_element_pk}",
-                )
+                container_class=cls.form_list_container_class,
+                edit_option_html="{edit_option_html}",
+                delete_url="{delete_url}",
+                delete_option_class=cls.form_delete_form_entry_option_class,
+                delete_text="{delete_text}",
+                form_element_position="{form_element_position}",
+                counter="{counter}",
+                form_element_pk="{form_element_pk}",
+            )
 
     def get_view_template_name(self, request=None, origin=None):
-        """
+        """Get view template name.
+
         Gets the view template name.
 
         :param django.http.HttpRequest request:
@@ -381,6 +394,7 @@ class BaseTheme(object):
             return self.view_template_name
 
     def get_edit_template_name(self, request=None):
+        """Get edit template name."""
         if not self.edit_template_name_ajax:
             return self.edit_template_name
         elif request and request.is_ajax():
@@ -389,8 +403,7 @@ class BaseTheme(object):
             return self.edit_template_name
 
     def collect_plugin_media(self, form_element_entries, request=None):
-        """
-        Collects the widget media files.
+        """Collect the widget media files.
 
         :param iterable form_element_entries: Iterable of
             ``fobi.models.FormElementEntry`` instances.
@@ -399,16 +412,15 @@ class BaseTheme(object):
         """
         plugin_media = collect_plugin_media(
             form_element_entries,
-            request = request
-            )
+            request=request
+        )
 
         if plugin_media:
             self.plugin_media_js = plugin_media['js']
             self.plugin_media_css = plugin_media['css']
 
     def get_media_css(self):
-        """
-        Gets all CSS media files (for the layout + plugins).
+        """Get all CSS media files (for the layout + plugins).
 
         :return list:
         """
@@ -421,8 +433,7 @@ class BaseTheme(object):
         return media_css
 
     def get_media_js(self):
-        """
-        Gets all JavaScript media files (for the layout + plugins).
+        """Get all JavaScript media files (for the layout + plugins).
 
         :return list:
         """
@@ -436,11 +447,13 @@ class BaseTheme(object):
 
     @property
     def primary_html_class(self):
+        """Primary HTML class."""
         return 'theme-{0}'.format(self.uid)
 
     @property
     def html_class(self):
-        """
+        """HTML classes.
+
         Class used in the HTML.
 
         :return string:
@@ -455,9 +468,9 @@ class BaseTheme(object):
 # *****************************************************************************
 # *****************************************************************************
 
+
 class BasePluginForm(object):
-    """
-    Not a form actually. Defined for magic only.
+    """Not a form actually; defined for magic only.
 
     :property iterable plugin_data_fields: Fields to get when calling the
         ``get_plugin_data`` method. These field will be JSON serialized. All
@@ -477,12 +490,11 @@ class BasePluginForm(object):
     plugin_data_fields = None
 
     def _get_plugin_data(self, fields, request=None, json_format=True):
-        """
-        Gets plugin data.
+        """Get plugin data.
 
         :param iterable fields: List of tuples to iterate.
         :param django.http.HttpRequest request:
-        :return string: JSON dumpled string.
+        :return string: JSON dumped string.
         """
         data = {}
 
@@ -495,7 +507,8 @@ class BasePluginForm(object):
         return json.dumps(data)
 
     def get_plugin_data(self, request=None, json_format=True):
-        """
+        """Get plugin data.
+
         Data that would be saved in the ``plugin_data`` field of the
         ``fobi.models.FormElementEntry`` or ``fobi.models.FormHandlerEntry`.`
         subclassed model.
@@ -508,12 +521,14 @@ class BasePluginForm(object):
                                          json_format=json_format)
 
     def save_plugin_data(self, request=None):
-        """
+        """Save plugin data.
+
         Dummy, but necessary.
         """
 
     def validate_plugin_data(self, form_element_entries, request=None):
-        """
+        """Validate plugin data.
+
         :param iterable form_element_entries: Iterable of
             ``fobi.models.FormElementEntry``.
         :param django.http.HttpRequest request:
@@ -523,9 +538,8 @@ class BasePluginForm(object):
 
 
 class BaseFormFieldPluginForm(BasePluginForm):
-    """
-    Base form for form field plugins.
-    """
+    """Base form for form field plugins."""
+
     plugin_data_fields = [
         ("name", ""),
         ("label", ""),
@@ -534,28 +548,29 @@ class BaseFormFieldPluginForm(BasePluginForm):
     ]
 
     name = forms.CharField(
-        label = _("Name"),
-        required = True,
-        #widget = forms.widgets.TextInput(attrs={})
-        )
+        label=_("Name"),
+        required=True,
+        # widget=forms.widgets.TextInput(attrs={})
+    )
     label = forms.CharField(
-        label = _("Label"),
-        required = True,
-        #widget = forms.widgets.TextInput(attrs={})
-        )
+        label=_("Label"),
+        required=True,
+        # widget = forms.widgets.TextInput(attrs={})
+    )
     help_text = forms.CharField(
-        label = _("Help text"),
-        required = False,
-        widget = forms.widgets.Textarea(attrs={})
-        )
+        label=_("Help text"),
+        required=False,
+        widget=forms.widgets.Textarea(attrs={})
+    )
     required = forms.BooleanField(
-        label = _("Required"),
-        required = False,
-        #widget = forms.widgets.CheckboxInput(attrs={})
-        )
+        label=_("Required"),
+        required=False,
+        # widget = forms.widgets.CheckboxInput(attrs={})
+    )
 
     def validate_plugin_data(self, form_element_entries, request=None):
-        """
+        """Validate plugin data.
+
         :param iterable form_element_entries: Iterable of
             ``fobi.models.FormElementEntry``.
         :param django.http.HttpRequest request:
@@ -589,38 +604,30 @@ class BaseFormFieldPluginForm(BasePluginForm):
 # *****************************************************************************
 # *****************************************************************************
 
+
 class BaseDataStorage(object):
-    """
-    Base storage data.
-    """
+    """Base storage data."""
 
 
 class FormElementPluginDataStorage(BaseDataStorage):
-    """
-    Storage for `FormField` data.
-    """
+    """Storage for `FormField` data."""
 
 
 class FormHandlerPluginDataStorage(BaseDataStorage):
-    """
-    Storage for `FormField` data.
-    """
+    """Storage for `FormField` data."""
 
 
 class FormElementPluginWidgetDataStorage(BaseDataStorage):
-    """
-    Storage for `FormField` data.
-    """
+    """Storage for `FormField` data."""
 
 
 class FormHandlerPluginWidgetDataStorage(BaseDataStorage):
-    """
-    Storage for `FormField` data.
-    """
+    """Storage for `FormField` data."""
 
 
 class BasePlugin(object):
-    """
+    """Base plugin.
+
     Base form field from which every form field should inherit.
 
     :Properties:
@@ -646,6 +653,7 @@ class BasePlugin(object):
         - `group` (string): Plugin are grouped under the specified group.
             Override in your plugin if necessary.
     """
+
     uid = None
     name = None
     description = None
@@ -661,7 +669,8 @@ class BasePlugin(object):
     storage = None
 
     def __init__(self, user=None):
-        """
+        """Constructor.
+
         :param django.contrib.auth.models.User user: Plugin owner.
         """
         # Making sure all necessary properties are defined.
@@ -669,13 +678,15 @@ class BasePlugin(object):
             assert self.uid
             assert self.name
             assert self.storage and issubclass(self.storage, BaseDataStorage)
-        except Exception as e:
+        except Exception as err:
             raise NotImplementedError(
                 "You should define `uid`, `name` and `storage` properties in "
                 "your `{0}.{1}` class. {2}".format(
-                    self.__class__.__module__, self.__class__.__name__, str(e)
-                    )
+                    self.__class__.__module__,
+                    self.__class__.__name__,
+                    str(err)
                 )
+            )
         self.user = user
 
         # Some initial values
@@ -687,11 +698,13 @@ class BasePlugin(object):
 
     @property
     def html_id(self):
+        """HTML id."""
         return self._html_id
 
-    @property # Comment the @property if something goes wrong.
+    @property  # Comment the @property if something goes wrong.
     def html_class(self):
-        """
+        """HTML class.
+
         A massive work on positioning the plugin and having it to be displayed
         in a given width is done here. We should be getting the plugin widget
         for the plugin given and based on its' properties (static!) as well as
@@ -699,18 +712,21 @@ class BasePlugin(object):
         with the exact class.
         """
         try:
-            html_class = ['plugin-{0} {1}'.format(
-                self.uid, ' '.join(self.html_classes)
-                )]
+            html_class = [
+                'plugin-{0} {1}'.format(
+                    self.uid, ' '.join(self.html_classes)
+                )
+            ]
             return ' '.join(html_class)
-        except Exception as e:
+        except Exception as err:
             logger.debug(
                 "Error in class {0}. Details: "
-                "{1}".format(self.__class__.__name__, str(e))
-                )
+                "{1}".format(self.__class__.__name__, str(err))
+            )
 
     def process(self, plugin_data=None, fetch_related_data=False):
-        """
+        """Process.
+
         Init plugin with data.
         """
         try:
@@ -722,34 +738,35 @@ class BasePlugin(object):
                     # Trying to load the plugin data to JSON.
                     plugin_data = json.loads(plugin_data)
 
-                    # If a valid JSON object, feed it to our plugin and process 
+                    # If a valid JSON object, feed it to our plugin and process
                     # the data. The ``process_data`` method should be defined
                     # in your subclassed plugin class.
                     if plugin_data:
                         self.load_plugin_data(plugin_data)
 
                         self.process_plugin_data(
-                            fetch_related_data = fetch_related_data
-                            )
-                except Exception as e:
+                            fetch_related_data=fetch_related_data
+                        )
+                except Exception as err:
                     logger.debug(
                         "Error in class {0}. Details: "
-                        "{1}".format(self.__class__.__name__, str(e))
-                        )
+                        "{1}".format(self.__class__.__name__, str(err))
+                    )
 
             # Calling the post processor.
             self.post_processor()
 
             return self
-        except Exception as e:
+        except Exception as err:
             logger.debug(
                 "Error in class {0}. Details: "
-                "{1}".format(self.__class__.__name__, str(e))
-                )
+                "{1}".format(self.__class__.__name__, str(err))
+            )
 
     def load_plugin_data(self, plugin_data):
-        """
-        Loads the plugin data saved in ``fobi.models.FormElementEntry``
+        """Load plugin data.
+
+        Load the plugin data saved in ``fobi.models.FormElementEntry``
         or ``fobi.models.FormHandlerEntry``. Plugin data is saved in JSON
         string.
 
@@ -758,8 +775,9 @@ class BasePlugin(object):
         self.plugin_data = plugin_data
 
     def _process_plugin_data(self, fields, fetch_related_data=False):
-        """
-        Process the plugin data. Override if need customisations.
+        """Process plugin data (internal method).
+
+        Override if need customisations.
 
         Beware, this is not always called.
         """
@@ -774,19 +792,16 @@ class BasePlugin(object):
                 setattr(self.data, field, default_value)
 
     def process_plugin_data(self, fetch_related_data=False):
-        """
-        Processes the plugin data.
-        """
+        """Processes plugin data."""
         form = self.get_form()
 
         return self._process_plugin_data(
             form.plugin_data_fields,
-            fetch_related_data = fetch_related_data
-            )
+            fetch_related_data=fetch_related_data
+        )
 
     def _get_plugin_form_data(self, fields):
-        """
-        Gets plugin data.
+        """Get plugin form data (used internally).
 
         :param iterable fields: List of tuples to iterate.
         :return dict:
@@ -805,7 +820,8 @@ class BasePlugin(object):
         return form_data
 
     def get_plugin_form_data(self):
-        """
+        """Get plugin form data.
+
         Fed as ``initial`` argument to the plugin form when initialising the
         instance for adding or editing the plugin. Override in your plugin
         class if you need customisations.
@@ -815,15 +831,16 @@ class BasePlugin(object):
         return self._get_plugin_form_data(form.plugin_data_fields)
 
     def get_instance(self):
+        """Get instance."""
         return None
 
     def get_form(self):
-        """
-        Get the plugin form class. Override this method in your subclassed
-        ``fobi.base.BasePlugin`` class when you need your plugin setup to vary
-        depending on the placeholder, workspace, user or request given. By
-        default returns the value of the ``form`` attribute defined in your
-        plugin.
+        """Get the plugin form class.
+
+        Override this method in your subclassed ``fobi.base.BasePlugin`` class
+        when you need your plugin setup to vary depending on the placeholder,
+        workspace, user or request given. By default returns the value of the
+        ``form`` attribute defined in your plugin.
 
         :return django.forms.Form|django.forms.ModelForm: Subclass of
             ``django.forms.Form`` or ``django.forms.ModelForm``.
@@ -832,7 +849,8 @@ class BasePlugin(object):
 
     def get_initialised_create_form(self, data=None, files=None,
                                     initial_data=None):
-        """
+        """Get initialized create form.
+
         Used ``fobi.views.add_form_element_entry`` and
         ``fobi.views.add_form_handler_entry`` view to gets initialised form
         for object to be created.
@@ -855,7 +873,8 @@ class BasePlugin(object):
                 raise Http404(e)
 
     def get_initialised_create_form_or_404(self, data=None, files=None):
-        """
+        """Get initialized create form or page 404.
+
         Same as ``get_initialised_create_form`` but raises
         ``django.http.Http404`` on errors.
         """
@@ -881,7 +900,8 @@ class BasePlugin(object):
                                   auto_id='id_%s', prefix=None, initial=None,
                                   error_class=ErrorList, label_suffix=':',
                                   empty_permitted=False, instance=None):
-        """
+        """Get initialized edit form.
+
         Used in ``fobi.views.edit_form_element_entry`` and
         ``fobi.views.edit_form_handler_entry`` views.
         """
@@ -906,7 +926,8 @@ class BasePlugin(object):
                                          error_class=ErrorList,
                                          label_suffix=':',
                                          empty_permitted=False):
-        """
+        """Get initialized edit form or page 404.
+
         Same as ``get_initialised_edit_form`` but raises
         ``django.http.Http404`` on errors.
         """
@@ -930,8 +951,7 @@ class BasePlugin(object):
                 raise Http404(e)
 
     def get_widget(self, request=None, as_instance=False):
-        """
-        Gets the plugin widget.
+        """Get the plugin widget.
 
         :param django.http.HttpRequest request:
         :param bool as_instance:
@@ -941,8 +961,7 @@ class BasePlugin(object):
         raise NotImplemented
 
     def render(self, request=None):
-        """
-        Renders the plugin HTML.
+        """Renders the plugin HTML.
 
         :param django.http.HttpRequest request:
         :return string:
@@ -958,21 +977,23 @@ class BasePlugin(object):
             logger.debug("No widget defined for {0}.".format(self.uid))
 
     def _update_plugin_data(self, entry):
-        """
+        """Update plugin data (internal method).
+
         For private use. Do not override this method. Override
         `update_plugin_data` instead.
         """
         try:
             updated_plugin_data = self.update_plugin_data(entry)
             plugin_data = self.get_updated_plugin_data(
-                update = updated_plugin_data
+                update=updated_plugin_data
                 )
             return self.save_plugin_data(entry, plugin_data=plugin_data)
         except Exception as e:
             logging.debug(str(e))
 
     def update_plugin_data(self, entry):
-        """
+        """Update plugin data.
+
         Used in ``fobi.management.commands.fobi_update_plugin_data``.
 
         Some plugins would contain data fetched from various sources (models,
@@ -993,7 +1014,8 @@ class BasePlugin(object):
         """
 
     def _delete_plugin_data(self):
-        """
+        """Delete plugin data (internal method).
+
         For private use. Do not override this method. Override
         `delete_plugin_data` instead.
         """
@@ -1003,7 +1025,8 @@ class BasePlugin(object):
             logging.debug(str(e))
 
     def delete_plugin_data(self):
-        """
+        """Delete plugin data (internal method).
+
         Used in ``fobi.views.delete_form_entry`` and
         ``fobi.views.delete_form_handler_entry``. Fired automatically, when
         ``fobi.models.FormEntry`` object is about to be deleted. Make use of
@@ -1012,7 +1035,8 @@ class BasePlugin(object):
         """
 
     def _clone_plugin_data(self, entry):
-        """
+        """Clone plugin data (internal method).
+
         For private use. Do not override this method. Override
         `clone_plugin_data` instead.
         """
@@ -1022,7 +1046,8 @@ class BasePlugin(object):
             logging.debug(str(e))
 
     def clone_plugin_data(self, entry):
-        """
+        """Clone plugin data.
+
         Used when copying entries. If any objects or files are created by
         plugin, they should be cloned.
 
@@ -1034,7 +1059,8 @@ class BasePlugin(object):
         """
 
     def get_cloned_plugin_data(self, update={}):
-        """
+        """Get cloned plugin data.
+
         Get the cloned plugin data and returns it in a JSON dumped format.
 
         :param dict update:
@@ -1065,8 +1091,9 @@ class BasePlugin(object):
         return json.dumps(data)
 
     def get_updated_plugin_data(self, update={}):
-        """
-        Get the plugin data and returns it in a JSON dumped format.
+        """Get updated plugin data.
+
+        Returns it in a JSON dumped format.
 
         :param dict update:
         :return string: JSON dumped string of the cloned plugin data.
@@ -1083,7 +1110,8 @@ class BasePlugin(object):
         return json.dumps(data)
 
     def pre_processor(self):
-        """
+        """Pre-processor (callback).
+
         Redefine in your subclassed plugin when necessary.
 
         Pre process plugin data (before rendering). This method is being 
@@ -1094,7 +1122,8 @@ class BasePlugin(object):
         """
 
     def post_processor(self):
-        """
+        """Post-processor (self).
+
         Redefine in your subclassed plugin when necessary.
 
         Post process plugin data here (before rendering). This methid is
@@ -1105,7 +1134,8 @@ class BasePlugin(object):
         """
 
     def plugin_data_repr(self):
-        """
+        """Plugin data repr.
+
         Human readable representation of plugin data. A very basic
         way would be just:
 
@@ -1116,8 +1146,7 @@ class BasePlugin(object):
 
 
 class FormElementPlugin(BasePlugin):
-    """
-    Base form element plugin.
+    """Base form element plugin.
 
     :property fobi.base.FormElementPluginDataStorage storage:
     :property bool has_value: If set to False, ignored (removed)
