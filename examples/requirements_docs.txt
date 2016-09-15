@@ -1,4 +1,4 @@
-Django==1.9.9
+Django==1.10.1
 django-fobi
 Jinja2
 MarkupSafe
