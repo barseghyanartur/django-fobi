@@ -2,10 +2,33 @@
 Another helper module. This module can NOT be safely imported from any fobi
 (sub)module - thus should be imported carefully.
 """
+import logging
+
+from six import PY3
+
+from django.core.urlresolvers import reverse
+from django.forms.widgets import TextInput
+from django.utils.encoding import force_text
+from django.utils.translation import ugettext
+
+from .base import (
+    form_element_plugin_registry, form_handler_plugin_registry,
+    ensure_autodiscover, get_registered_form_element_plugin_uids,
+    get_registered_form_element_plugins, ensure_autodiscover,
+    get_registered_form_handler_plugin_uids, get_theme,
+    get_registered_form_handler_plugins,
+    get_registered_form_element_plugins_grouped,
+)
+from .dynamic import assemble_form_class
+from .helpers import update_plugin_data, safe_text
+from .models import (
+    FormElement, FormHandler,
+)
+from .settings import RESTRICT_PLUGIN_ACCESS, DEBUG
 
 __title__ = 'fobi.utils'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2015 Artur Barseghyan'
+__copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'get_allowed_plugin_uids', 'get_user_plugins', 'get_user_plugin_uids',
@@ -17,37 +40,14 @@ __all__ = (
     'get_user_form_handler_plugins_grouped'
 )
 
-from six import PY3
-
-from django.core.urlresolvers import reverse
-from django.utils.encoding import force_text
-from django.utils.translation import ugettext
-from django.core.urlresolvers import reverse
-from django.forms.widgets import TextInput
-
-from fobi.base import (
-    form_element_plugin_registry, form_handler_plugin_registry,
-    ensure_autodiscover, get_registered_form_element_plugin_uids,
-    get_registered_form_element_plugins, ensure_autodiscover,
-    get_registered_form_handler_plugin_uids, get_theme,
-    get_registered_form_handler_plugins,
-    get_registered_form_element_plugins_grouped, 
-    )
-from fobi.models import (
-    FormElement, FormHandler, 
-    )
-from fobi.helpers import update_plugin_data, safe_text
-from fobi.settings import RESTRICT_PLUGIN_ACCESS, DEBUG
-from fobi.dynamic import assemble_form_class
-
-import logging
 logger = logging.getLogger(__name__)
 
 _ = lambda s: s
 
 
 def sync_plugins():
-    """
+    """Sync registered plugins.
+
     Syncs the registered plugin list with data in
     ``fobi.models.FormFieldPluginModel`` and
     ``fobi.models.FormHandlerPluginModel``.
@@ -55,7 +55,8 @@ def sync_plugins():
     ensure_autodiscover()
 
     def base_sync_plugins(get_plugin_uids_func, PluginModel):
-        """
+        """Base sync plugins.
+
         :param callable get_plugin_uids_func:
         :param fobi.models.AbstractPluginModel PluginModel: Subclass of
             ``fobi.models.AbstractPluginModel``.
@@ -64,12 +65,12 @@ def sync_plugins():
         # TODO - perform a subclass check
 
         # TODO - perhaps uncomment this after everything works
-        #if not RESTRICT_PLUGIN_ACCESS:
+        # if not RESTRICT_PLUGIN_ACCESS:
         #    return
 
         registered_plugins = set(get_plugin_uids_func())
 
-        synced_plugins = set([p.plugin_uid for p in \
+        synced_plugins = set([p.plugin_uid for p in
                               PluginModel._default_manager.only('plugin_uid')])
 
         non_synced_plugins = registered_plugins - synced_plugins
@@ -93,9 +94,9 @@ def sync_plugins():
 # ****************************************************************************
 # ****************************************************************************
 
+
 def get_allowed_plugin_uids(PluginModel, user):
-    """
-    Gets allowed plugins uids for user given.
+    """Get allowed plugins uids for user given.
 
     :param fobi.models.AbstractPluginModel PluginModel: Subclass of
         ``fobi.models.AbstractPluginModel``.
@@ -104,17 +105,17 @@ def get_allowed_plugin_uids(PluginModel, user):
     """
     try:
         queryset_groups = PluginModel._default_manager.filter(
-            groups__in = user.groups.all()
+            groups__in=user.groups.all()
         ).distinct()
         queryset_users = PluginModel._default_manager.filter(
-            users = user
+            users=user
         ).distinct()
         queryset = queryset_groups | queryset_users
         queryset = queryset.only('plugin_uid')
         return [p.plugin_uid for p in queryset]
-    except Exception as e:
+    except Exception as err:
         if DEBUG:
-            logger.debug(e)
+            logger.debug(err)
         return []
 
 
@@ -122,7 +123,8 @@ def get_user_plugins(get_allowed_plugin_uids_func,
                      get_registered_plugins_func,
                      registry,
                      user):
-    """
+    """Get user plugins.
+
     Gets a list of user plugins in a form if tuple (plugin name, plugin
     description). If not yet autodiscovered, autodiscovers them.
 
@@ -145,9 +147,9 @@ def get_user_plugins(get_allowed_plugin_uids_func,
     for uid, plugin in registry._registry.items():
         if uid in allowed_plugin_uids:
             plugin_name = safe_text(plugin.name)
-            #if PY3:
+            # if PY3:
             #    plugin_name = force_text(plugin.name, encoding='utf-8')
-            #else:
+            # else:
             #    plugin_name = force_text(
             #        plugin.name, encoding='utf-8'
             #        ).encode('utf-8')
@@ -161,8 +163,7 @@ def get_user_plugins_grouped(get_allowed_plugin_uids_func,
                              registry,
                              user,
                              sort_items=True):
-    """
-    Gets user plugins grouped.
+    """Get user plugins grouped.
 
     :param callable get_allowed_plugin_uids_func:
     :param callable get_registered_plugins_grouped_func:
@@ -194,7 +195,7 @@ def get_user_plugins_grouped(get_allowed_plugin_uids_func,
                     plugin.group, encoding='utf-8'
                 ).encode('utf-8')
 
-            if not plugin_group in registered_plugins:
+            if plugin_group not in registered_plugins:
                 registered_plugins[plugin_group] = []
             registered_plugins[plugin_group].append((uid, plugin_name))
 
@@ -209,9 +210,9 @@ def get_user_plugin_uids(get_allowed_plugin_uids_func,
                          get_registered_plugin_uids_func,
                          registry,
                          user):
-    """
-    Gets a list of user plugin uids as a list . If not yet autodiscovered,
-    autodiscovers them.
+    """Gets a list of user plugin uids as a list.
+
+    If not yet auto-discovered, auto-discovers them.
 
     :param callable get_allowed_plugin_uids_func:
     :param callable get_registered_plugin_uids_func:
@@ -241,15 +242,14 @@ def get_user_plugin_uids(get_allowed_plugin_uids_func,
 # ****************************************************************************
 # ****************************************************************************
 
+
 def get_allowed_form_element_plugin_uids(user):
-    """
-    """
+    """Get allowed form element plugin uids."""
     return get_allowed_plugin_uids(FormElement, user)
 
 
 def get_user_form_element_plugins(user):
-    """
-    """
+    """Get user form element plugins."""
     return get_user_plugins(
         get_allowed_form_element_plugin_uids,
         get_registered_form_element_plugins,
@@ -259,8 +259,7 @@ def get_user_form_element_plugins(user):
 
 
 def get_user_form_element_plugins_grouped(user):
-    """
-    """
+    """Get user form element plugins grouped."""
     return get_user_plugins_grouped(
         get_allowed_form_element_plugin_uids,
         get_registered_form_element_plugins_grouped,
@@ -270,8 +269,7 @@ def get_user_form_element_plugins_grouped(user):
 
 
 def get_user_form_field_plugin_uids(user):
-    """
-    """
+    """Get user form field plugin uids."""
     return get_user_plugin_uids(
         get_allowed_form_element_plugin_uids,
         get_registered_form_element_plugin_uids,
@@ -287,16 +285,14 @@ def get_user_form_field_plugin_uids(user):
 
 
 def get_allowed_form_handler_plugin_uids(user):
-    """
-    """
+    """Get allowed form handler plugin uids."""
     return get_allowed_plugin_uids(FormHandler, user)
 
 
 def get_user_form_handler_plugins(user,
                                   exclude_used_singles=False,
                                   used_form_handler_plugin_uids=[]):
-    """
-    Get list of plugins allowed for user.
+    """Get list of plugins allowed for user.
 
     :param django.contrib.auth.models.User user:
     :param bool exclude_used_singles:
@@ -322,7 +318,7 @@ def get_user_form_handler_plugins(user,
         # been marked to be used once per form and have been used already in
         # the current form.
         for plugin_uid, plugin \
-            in registered_form_handler_plugins.items():
+                in registered_form_handler_plugins.items():
 
             if plugin.uid in user_form_handler_plugin_uids \
                and not plugin.allow_multiple \
@@ -339,8 +335,7 @@ def get_user_form_handler_plugins(user,
 
 
 def get_user_form_handler_plugins_grouped(user):
-    """
-    """
+    """Get user form handler plugins grouped."""
     return get_user_plugins_grouped(
         get_allowed_form_handler_plugin_uids,
         get_registered_form_handler_plugins,
@@ -350,8 +345,7 @@ def get_user_form_handler_plugins_grouped(user):
 
 
 def get_user_form_handler_plugin_uids(user):
-    """
-    """
+    """Get user form handler plugin uids."""
     return get_user_plugin_uids(
         get_allowed_form_handler_plugin_uids,
         get_registered_form_handler_plugin_uids,
@@ -367,8 +361,7 @@ def get_user_form_handler_plugin_uids(user):
 
 
 def get_assembled_form(form_entry, request=None):
-    """
-    Gets assembled form.
+    """Get assembled form.
 
     :param fobi.models.FormEntry form_entry:
     :param django.http.HttpRequest request:
@@ -385,7 +378,8 @@ def append_edit_and_delete_links_to_field(form_element_plugin,
                                           origin=None,
                                           extra={},
                                           widget_cls=None):
-    """
+    """Append edit and delete links to the field.
+
     Should return dictionary, which would be used to update default kwargs
     of form fields.
 
@@ -399,24 +393,24 @@ def append_edit_and_delete_links_to_field(form_element_plugin,
     counter = extra.get('counter')
     edit_url = reverse(
         'fobi.edit_form_element_entry',
-        kwargs = {'form_element_entry_id': form_element_entry.pk}
-        )
+        kwargs={'form_element_entry_id': form_element_entry.pk}
+    )
 
     edit_option_html = theme.edit_form_entry_edit_option_html().format(
-        edit_url = edit_url,
-        edit_text = safe_text(ugettext("Edit")),
+        edit_url=edit_url,
+        edit_text=safe_text(ugettext("Edit")),
         )
     help_text_extra = theme.edit_form_entry_help_text_extra().format(
-        edit_option_html = edit_option_html if PluginForm else '',
-        delete_url = reverse(
+        edit_option_html=edit_option_html if PluginForm else '',
+        delete_url=reverse(
             'fobi.delete_form_element_entry',
             kwargs={'form_element_entry_id': form_element_entry.pk}
         ),
-        delete_text = safe_text(ugettext("Delete")),
-        form_element_pk = form_element_entry.pk,
-        form_element_position = form_element_entry.position,
-        counter = counter
-        )
+        delete_text=safe_text(ugettext("Delete")),
+        form_element_pk=form_element_entry.pk,
+        form_element_position=form_element_entry.position,
+        counter=counter
+    )
     try:
         help_text = safe_text(form_element_plugin.data.help_text)
     except:
@@ -432,8 +426,14 @@ def append_edit_and_delete_links_to_field(form_element_plugin,
                                      safe_text(form_element_plugin.name))}
     )
 
-    #if 'hidden' == form_element_plugin.uid:
-    #    d.update({'widget': TextInput(attrs={'class': theme.form_element_html_class})})
+    # if 'hidden' == form_element_plugin.uid:
+    #    d.update(
+    #        {
+    #            'widget': TextInput(
+    #                attrs={'class': theme.form_element_html_class}
+    #            )
+    #        }
+    #    )
     if widget_cls:
         d.update(
             {
@@ -457,11 +457,12 @@ def append_edit_and_delete_links_to_field(form_element_plugin,
 def update_plugin_data_for_entries(entries=None,
                                    request=None,
                                    entry_model_cls=None):
-    """
-    Updates the plugin data for all entries of all users. Rules for update 
+    """Update plugin data for entries.
+
+    Updates the plugin data for all entries of all users. Rules for update
     are specified in the plugin itself.
 
-    :param iterable entries: If given, is used to iterate through and update 
+    :param iterable entries: If given, is used to iterate through and update
         the plugin data. If left empty, all entries will be updated.
     :param django.http.HttpRequest request:
     :param fobi.models.AbstractPluginEntry entry_model_cls: Sublcass of
