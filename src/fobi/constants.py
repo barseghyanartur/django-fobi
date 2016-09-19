@@ -1,6 +1,8 @@
+from django.utils.translation import ugettext_lazy as _
+
 __title__ = 'fobi.constants'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'ACTION_CHOICE_REPLACE', 'ACTION_CHOICE_APPEND', 'ACTION_CHOICES',
@@ -11,8 +13,6 @@ __all__ = (
     'SUBMIT_VALUE_AS_VAL', 'SUBMIT_VALUE_AS_REPR', 'SUBMIT_VALUE_AS_MIX',
 )
 
-from django.utils.translation import ugettext_lazy as _
-
 ACTION_CHOICE_REPLACE = '1'
 ACTION_CHOICE_APPEND = '2'
 ACTION_CHOICES = (
@@ -21,7 +21,8 @@ ACTION_CHOICES = (
 )
 
 CALLBACK_BEFORE_FORM_VALIDATION = 'before_form_validation'
-CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA = 'before_submit_plugin_form_data'
+CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA = \
+    'before_submit_plugin_form_data'
 CALLBACK_FORM_VALID = 'form_valid'
 CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS = 'after_form_handlers'
 CALLBACK_FORM_INVALID = 'form_invalid'
