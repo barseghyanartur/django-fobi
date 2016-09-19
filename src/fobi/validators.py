@@ -1,14 +1,9 @@
-__title__ = 'fobi.validators'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2013-2015 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('url_exists',)
-
 import requests
+
 from requests.exceptions import (
     ConnectionError, ConnectTimeout, ReadTimeout, SSLError, ProxyError,
     RetryError
-    )
+)
 
 from django.conf import settings
 from django.core.urlresolvers import resolve, Resolver404
@@ -18,9 +13,15 @@ try:
 except ImportError as err:
     strip_path = None
 
+__title__ = 'fobi.validators'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2013-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('url_exists',)
+
+
 def url_exists(url, local=False):
-    """
-    Check if URL exists.
+    """Check if URL exists.
 
     :param str url:
     :param bool local:
