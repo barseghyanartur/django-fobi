@@ -887,9 +887,9 @@ class BasePlugin(object):
                 pass
             try:
                 return self.get_initialised_create_form(
-                    data = data,
-                    files = files,
-                    initial_data = initial_data
+                    data=data,
+                    files=files,
+                    initial_data=initial_data
                     )
             except Exception as e:
                 if DEBUG:
@@ -935,20 +935,20 @@ class BasePlugin(object):
         if plugin_form:
             try:
                 return self.get_initialised_edit_form(
-                    data = data,
-                    files = files,
-                    auto_id = auto_id,
-                    prefix = prefix,
-                    initial = self.get_plugin_form_data(),
-                    error_class = error_class,
-                    label_suffix = label_suffix,
-                    empty_permitted = empty_permitted,
-                    instance = self.get_instance()
-                    )
-            except Exception as e:
+                    data=data,
+                    files=files,
+                    auto_id=auto_id,
+                    prefix=prefix,
+                    initial=self.get_plugin_form_data(),
+                    error_class=error_class,
+                    label_suffix=label_suffix,
+                    empty_permitted=empty_permitted,
+                    instance=self.get_instance()
+                )
+            except Exception as err:
                 if DEBUG:
-                    logger.debug(e)
-                raise Http404(e)
+                    logger.debug(err)
+                raise Http404(err)
 
     def get_widget(self, request=None, as_instance=False):
         """Get the plugin widget.
@@ -986,10 +986,10 @@ class BasePlugin(object):
             updated_plugin_data = self.update_plugin_data(entry)
             plugin_data = self.get_updated_plugin_data(
                 update=updated_plugin_data
-                )
+            )
             return self.save_plugin_data(entry, plugin_data=plugin_data)
-        except Exception as e:
-            logging.debug(str(e))
+        except Exception as err:
+            logging.debug(str(err))
 
     def update_plugin_data(self, entry):
         """Update plugin data.
@@ -1021,8 +1021,8 @@ class BasePlugin(object):
         """
         try:
             self.delete_plugin_data()
-        except Exception as e:
-            logging.debug(str(e))
+        except Exception as err:
+            logging.debug(str(err))
 
     def delete_plugin_data(self):
         """Delete plugin data (internal method).
@@ -1042,8 +1042,8 @@ class BasePlugin(object):
         """
         try:
             return self.clone_plugin_data(entry)
-        except Exception as e:
-            logging.debug(str(e))
+        except Exception as err:
+            logging.debug(str(err))
 
     def clone_plugin_data(self, entry):
         """Clone plugin data.
@@ -1075,7 +1075,7 @@ class BasePlugin(object):
         >>>     cloned_image = clone_file(self.data.image, relative_path=True)
         >>>     return self.get_cloned_plugin_data(
         >>>         update={'image': cloned_image}
-        >>>         )
+        >>>     )
         """
         form = self.get_form()
 
@@ -1114,9 +1114,9 @@ class BasePlugin(object):
 
         Redefine in your subclassed plugin when necessary.
 
-        Pre process plugin data (before rendering). This method is being 
+        Pre process plugin data (before rendering). This method is being
         called before the data has been loaded into the plugin.
-        
+
         Note, that request (django.http.HttpRequest) is available (
         self.request).
         """
@@ -1126,9 +1126,9 @@ class BasePlugin(object):
 
         Redefine in your subclassed plugin when necessary.
 
-        Post process plugin data here (before rendering). This methid is
+        Post process plugin data here (before rendering). This method is
         being called after the data has been loaded into the plugin.
-        
+
         Note, that request (django.http.HttpRequest) is available
         (self.request).
         """
@@ -1152,6 +1152,7 @@ class FormElementPlugin(BasePlugin):
     :property bool has_value: If set to False, ignored (removed)
         from the POST when processing the form.
     """
+
     storage = FormElementPluginDataStorage
     has_value = False
     is_hidden = False
@@ -1159,7 +1160,8 @@ class FormElementPlugin(BasePlugin):
     def _get_form_field_instances(self, form_element_entry=None, origin=None,
                                   kwargs_update_func=None, return_func=None,
                                   extra={}, request=None):
-        """
+        """Get form field instances (internal method).
+
         Used internally. Do not override this method. Gets the instances of
         form fields, that plugin contains.
 
@@ -1243,27 +1245,26 @@ class FormElementPlugin(BasePlugin):
                 kwargs_update_func,
                 form_element_entry,
                 origin,
-                extra = extra,
-                widget_cls = Widget
-                )
+                extra=extra,
+                widget_cls=Widget
+            )
 
-            #if 'widget' in field_kwargs:
+            # if 'widget' in field_kwargs:
             #    field_kwargs['widget'] = assemble_form_field_widget_class(
-            #        base_class = field_kwargs['widget'],
-            #        plugin = self
-            #        )
+            #        base_class=field_kwargs['widget'],
+            #        plugin=self
+            #    )
             if kwargs_update:
                 field_kwargs.update(kwargs_update)
 
             processed_field_instances.append(
                 (field_name, Field(**field_kwargs))
-                )
+            )
 
         return processed_field_instances
 
     def get_form_field_instances(self, request=None):
-        """
-        Gets the instances of form fields, that plugin contains.
+        """Get the instances of form fields, that plugin contains.
 
         :param django.http.HttpRequest request:
         :return list: List of Django form field instances.
@@ -1274,9 +1275,10 @@ class FormElementPlugin(BasePlugin):
         """
         return []
 
-    def get_origin_return_func_results(self, return_func, form_element_entry, \
+    def get_origin_return_func_results(self, return_func, form_element_entry,
                                        origin):
-        """
+        """Get origin return func results.
+
         If ``return_func`` is given, is callable and returns results without
         failures, return the result. Otherwise - return None.
         """
@@ -1284,17 +1286,18 @@ class FormElementPlugin(BasePlugin):
         if return_func and callable(return_func):
             try:
                 return return_func(
-                    form_element_plugin = self,
-                    form_element_entry = form_element_entry,
-                    origin = origin
-                    )
-            except Exception as e:
+                    form_element_plugin=self,
+                    form_element_entry=form_element_entry,
+                    origin=origin
+                )
+            except Exception as err:
                 pass
 
-    def get_origin_kwargs_update_func_results(self, kwargs_update_func, \
-                                              form_element_entry, origin, \
+    def get_origin_kwargs_update_func_results(self, kwargs_update_func,
+                                              form_element_entry, origin,
                                               extra={}, widget_cls=None):
-        """
+        """Get origin kwargs update func results.
+
         If ``kwargs_update_func`` is given, is callable and returns results
         without failures, return the result. Otherwise - return None.
         """
@@ -1302,25 +1305,26 @@ class FormElementPlugin(BasePlugin):
         if kwargs_update_func and callable(kwargs_update_func):
             try:
                 kwargs_update = kwargs_update_func(
-                    form_element_plugin = self,
-                    form_element_entry = form_element_entry,
-                    origin = origin,
-                    extra = extra,
-                    widget_cls = widget_cls
-                    )
+                    form_element_plugin=self,
+                    form_element_entry=form_element_entry,
+                    origin=origin,
+                    extra=extra,
+                    widget_cls=widget_cls
+                )
                 if kwargs_update:
                     return kwargs_update
-            except Exception as e:
-                logger.debug(str(e))
+            except Exception as err:
+                logger.debug(str(err))
         return {}
 
     def _submit_plugin_form_data(self, form_entry, request, form):
-        """
-        Do not override this meathod. Use ``submit_plugin_form_data``,
+        """Submit plugin form data (internal method).
+
+        Do not override this method. Use ``submit_plugin_form_data``,
         instead.
 
-        Submit plugin form data. Called on form submittion (when user actually
-        posts the data to assembed form).
+        Submit plugin form data. Called on form submission (when user actually
+        posts the data to assembled form).
 
         :param fobi.models.FormEntry form_entry: Instance of
             ``fobi.models.FormEntry``.
@@ -1330,14 +1334,15 @@ class FormElementPlugin(BasePlugin):
         try:
             return self.submit_plugin_form_data(
                 form_entry=form_entry, request=request, form=form
-                )
+            )
         except Exception as e:
             logger.debug(str(e))
 
     def submit_plugin_form_data(self, form_entry, request, form):
-        """
-        Submit plugin form data. Called on form submittion (when user actually
-        posts the data to assembed form).
+        """Submit plugin form data.
+
+        Called on form submission (when user actually
+        posts the data to assembled form).
 
         :param fobi.models.FormEntry form_entry: Instance of
             ``fobi.models.FormEntry``.
@@ -1347,25 +1352,25 @@ class FormElementPlugin(BasePlugin):
 
 
 class FormFieldPlugin(FormElementPlugin):
-    """
-    Form field plugin.
-    """
+    """Form field plugin."""
+
     has_value = True
 
 
 class FormHandlerPlugin(BasePlugin):
-    """
-    Form handler plugin.
+    """Form handler plugin.
 
     :property fobi.base.FormHandlerPluginDataStorage storage:
     :property bool allow_multiple: If set to True, plugin can be used multiple
         times within (per form). Otherwise - just once.
     """
+
     storage = FormHandlerPluginDataStorage
     allow_multiple = True
 
     def _run(self, form_entry, request, form, form_element_entries=None):
-        """
+        """Run (internal method).
+
         Safely call the ``run`` method.
 
         :param fobi.models.FormEntry form_entry: Instance of
@@ -1381,7 +1386,8 @@ class FormHandlerPlugin(BasePlugin):
             form_element_entries = form_entry.formelemententry_set.all()[:]
 
         try:
-            response = self.run(form_entry, request, form, form_element_entries)
+            response = self.run(form_entry, request, form,
+                                form_element_entries)
             if response:
                 return response
             else:
@@ -1389,16 +1395,18 @@ class FormHandlerPlugin(BasePlugin):
         except Exception as err:
             if FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS:
                 raise err.__class__("Exception: {0}. {1}"
-                                    "".format(str(err), traceback.format_exc()))
+                                    "".format(str(err),
+                                              traceback.format_exc()))
             logger.error(
                 "Error in class {0}. Details: "
-                "{1}. Full trace: {2}".format(self.__class__.__name__, str(err),
-                                              traceback.format_exc())
+                "{1}. Full trace: {2}".format(self.__class__.__name__,
+                                              str(err), traceback.format_exc())
                 )
             return (False, err)
 
     def run(self, form_entry, request, form, form_element_entries=None):
-        """
+        """Run.
+
         Custom code should be implemented here.
 
         :param fobi.models.FormEntry form_entry: Instance of
@@ -1415,7 +1423,8 @@ class FormHandlerPlugin(BasePlugin):
             )
 
     def custom_actions(self, form_entry, request=None):
-        """
+        """Custom actions.
+
         Override this method in your form handler if you want to specify
         custom actions. Note, that expected return value of this method
         is an iterable with a triple, where the first item is the URL of
@@ -1438,19 +1447,18 @@ class FormHandlerPlugin(BasePlugin):
 
 
 class FormCallback(object):
-    """
-    Base form callback.
-    """
+    """Base form callback."""
+
     stage = None
 
     def __init__(self):
-        """
-        """
+        """Constructor."""
         assert self.stage in CALLBACK_STAGES
 
     def _callback(self, form_entry, request, form):
-        """
-        Callign the ``callback`` method in a safe way.
+        """Callback (internal method).
+
+        Calling the ``callback`` method in a safe way.
         """
         try:
             return self.callback(form_entry, request, form)
@@ -1461,7 +1469,8 @@ class FormCallback(object):
                 )
 
     def callback(self, form_entry, request, form):
-        """
+        """Callback.
+
         Custom callback code should be implemented here.
 
         :param fobi.models.FormEntry form_entry: Instance of
@@ -1470,20 +1479,22 @@ class FormCallback(object):
         :param django.forms.Form form:
         """
         raise NotImplemented(
-            "You should implement ``callback`` method in your {1} "
+            "You should implement ``callback`` method in your {0} "
             "subclass.".format(self.__class__.__name__)
-            )
+        )
 
 
 class ClassProperty(property):
+    """ClassProperty."""
+
     def __get__(self, cls, owner):
+        """Get."""
         return classmethod(self.fget).__get__(None, owner)()
 classproperty = ClassProperty
 
 
 class BasePluginWidget(object):
-    """
-    Base form element plugin widget.
+    """Base form element plugin widget.
 
     So, if we would want to register a plugin widget (renderer) for some
     theme, we would first define the plugin widget and then just write:
@@ -1495,6 +1506,7 @@ class BasePluginWidget(object):
     us quite flexible in what's related to use of CSS and JavaScript per
     theme.
     """
+
     theme_uid = None
     plugin_uid = None
     html_classes = []
@@ -1503,9 +1515,10 @@ class BasePluginWidget(object):
     storage = None
 
     def __init__(self, plugin):
+        """Constructor."""
         assert self.theme_uid
         assert self.plugin_uid and \
-               self.plugin_uid in get_registered_plugin_uids()
+            self.plugin_uid in get_registered_plugin_uids()
         assert isinstance(self.media_js, (list, tuple))
         assert isinstance(self.media_css, (list, tuple))
         assert self.storage
@@ -1522,8 +1535,7 @@ class BasePluginWidget(object):
 
     @classproperty
     def html_class(cls):
-        """
-        HTML class of the ``fobi.base.BaseFormElementPluginWidget``.
+        """HTML class of the ``fobi.base.BaseFormElementPluginWidget``.
 
         :return string:
         """
@@ -1531,16 +1543,14 @@ class BasePluginWidget(object):
 
 
 class FormElementPluginWidget(BasePluginWidget):
-    """
-    Form element plugin widget.
-    """
+    """Form element plugin widget."""
+
     storage = FormElementPluginWidgetDataStorage
 
 
 class FormHandlerPluginWidget(BasePluginWidget):
-    """
-    Form handler plugin widget.
-    """
+    """Form handler plugin widget."""
+
     storage = FormHandlerPluginWidgetDataStorage
 
 
@@ -1551,10 +1561,11 @@ class FormHandlerPluginWidget(BasePluginWidget):
 # *****************************************************************************
 
 class BaseRegistry(object):
-    """
-    Registry of dash plugins. It's essential, that class registered has the
+    """Base registry.
+
+    Registry of plugins. It's essential, that class registered has the
     ``uid`` property.
-    
+
     If ``fail_on_missing_plugin`` is set to True, an appropriate exception
     (``plugin_not_found_exception_cls``) is raised in cases if plugin cound't
     be found in the registry.
@@ -1564,6 +1575,7 @@ class BaseRegistry(object):
     :property fobi.exceptions.DoesNotExist plugin_not_found_exception_cls:
     :property str plugin_not_found_error_message:
     """
+
     type = None
     fail_on_missing_plugin = False
     plugin_not_found_exception_cls = DoesNotExist
@@ -1571,13 +1583,13 @@ class BaseRegistry(object):
                                      "`{1}` registry."
 
     def __init__(self):
+        """Constructor."""
         assert self.type
         self._registry = {}
         self._forced = []
 
     def register(self, cls, force=False):
-        """
-        Registers the plugin in the registry.
+        """Registers the plugin in the registry.
 
         :param mixed.
         """
@@ -1591,7 +1603,7 @@ class BaseRegistry(object):
         # registry.
         if force:
 
-            if not cls.uid in self._forced:
+            if cls.uid not in self._forced:
                 self._registry[cls.uid] = cls
                 self._forced.append(cls.uid)
                 return True
@@ -1607,6 +1619,7 @@ class BaseRegistry(object):
                 return True
 
     def unregister(self, cls):
+        """Un-register."""
         if not issubclass(cls, self.type):
             raise InvalidRegistryItemType(
                 "Invalid item type `{0}` for registry "
@@ -1614,15 +1627,14 @@ class BaseRegistry(object):
                 )
 
         # Only non-forced items are allowed to be unregistered.
-        if cls.uid in self._registry and not cls.uid in self._forced:
+        if cls.uid in self._registry and cls.uid not in self._forced:
             self._registry.pop(cls.uid)
             return True
         else:
             return False
 
     def get(self, uid, default=None):
-        """
-        Gets the given entry from the registry.
+        """Get the given entry from the registry.
 
         :param string uid:
         :return mixed.
@@ -1632,7 +1644,7 @@ class BaseRegistry(object):
         if not item:
             err_msg = self.plugin_not_found_error_message.format(
                 uid, self.__class__
-                )
+            )
             if self.fail_on_missing_plugin:
                 logger.error(err_msg)
                 raise self.plugin_not_found_exception_cls(err_msg)
@@ -1643,54 +1655,49 @@ class BaseRegistry(object):
 
 
 class FormElementPluginRegistry(BaseRegistry):
-    """
-    Form element plugins registry.
-    """
+    """Form element plugins registry."""
+
     type = (FormElementPlugin, FormFieldPlugin)
     fail_on_missing_plugin = FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS
     plugin_not_found_exception_cls = FormElementPluginDoesNotExist
 
 
 class FormHandlerPluginRegistry(BaseRegistry):
-    """
-    Form handler plugins registry.
-    """
+    """Form handler plugins registry."""
+
     type = FormHandlerPlugin
     fail_on_missing_plugin = FAIL_ON_MISSING_FORM_HANDLER_PLUGINS
     plugin_not_found_exception_cls = FormHandlerPluginDoesNotExist
 
 
 class ThemeRegistry(BaseRegistry):
-    """
-    Themes registry.
-    """
+    """Themes registry."""
     type = BaseTheme
 
 
 class FormCallbackRegistry(object):
-    """
-    Registry of callbacks. Holds callbacks for stages listed in the
+    """Registry of callbacks.
+
+    Holds callbacks for stages listed in the
     ``fobi.constants.CALLBACK_STAGES``.
     """
+
     def __init__(self):
-        """
-        """
+        """Constructor."""
         self._registry = {}
 
         for stage in CALLBACK_STAGES:
             self._registry[stage] = []
 
     def uidfy(self, cls):
-        """
-        Makes a UID string from the class given.
+        """Makes a UID string from the class given.
 
         :return string:
         """
         return "{0}.{1}".format(cls.__module__, cls.__name__)
 
     def register(self, cls):
-        """
-        Registers the plugin in the registry.
+        """Registers the plugin in the registry.
 
         :param mixed.
         """
@@ -1700,7 +1707,7 @@ class FormCallbackRegistry(object):
                 "`{1}`".format(cls, self.__class__)
                 )
 
-        #uid = self.uidfy(cls)
+        # uid = self.uidfy(cls)
         # If item has not been forced yet, add/replace its' value in the
         # registry.
 
@@ -1711,8 +1718,7 @@ class FormCallbackRegistry(object):
             return True
 
     def get_callbacks(self, stage=None):
-        """
-        Get callbacks for the stage given.
+        """Get callbacks for the stage given.
 
         :param string stage:
         :return list:
@@ -1727,9 +1733,7 @@ class FormCallbackRegistry(object):
 
 
 class BasePluginWidgetRegistry(object):
-    """
-    Registry of fobi plugins widgets (renderers).
-    """
+    """Registry of plugins widgets (renderers)."""
     type = None
 
     def __init__(self):
@@ -1739,11 +1743,11 @@ class BasePluginWidgetRegistry(object):
 
     @staticmethod
     def namify(theme, plugin_uid):
+        """Namify."""
         return '{0}.{1}'.format(theme, plugin_uid)
 
     def register(self, cls, force=False):
-        """
-        Registers the plugin renderer in the registry.
+        """Register the plugin renderer in the registry.
 
         :param fobi.base.BasePluginRenderer cls: Subclass of
             `fobi.base.BasePluginRenderer`.
@@ -1760,7 +1764,7 @@ class BasePluginWidgetRegistry(object):
         # registry.
         if force:
 
-            if not uid in self._forced:
+            if uid not in self._forced:
                 self._registry[uid] = cls
                 self._forced.append(uid)
                 return True
@@ -1776,6 +1780,7 @@ class BasePluginWidgetRegistry(object):
                 return True
 
     def unregister(self, cls):
+        """Un-register."""
         if not issubclass(cls, self.type):
             raise InvalidRegistryItemType(
                 "Invalid item type `{0}` for registry "
@@ -1785,15 +1790,14 @@ class BasePluginWidgetRegistry(object):
         uid = BasePluginWidgetRegistry.namify(cls.theme_uid, cls.plugin_uid)
 
         # Only non-forced items are allowed to be unregistered.
-        if uid in self._registry and not uid in self._forced:
+        if uid in self._registry and uid not in self._forced:
             self._registry.pop(uid)
             return True
         else:
             return False
 
     def get(self, uid, default=None):
-        """
-        Gets the given entry from the registry.
+        """Get the given entry from the registry.
 
         :param string uid:
         :return mixed.
@@ -1803,21 +1807,19 @@ class BasePluginWidgetRegistry(object):
             logger.debug(
                 "Can't find plugin widget with uid `{0}` in `{1}` "
                 "registry".format(uid, self.__class__)
-                )
+            )
         return item
 
 
 class FormElementPluginWidgetRegistry(BasePluginWidgetRegistry):
-    """
-    Registry of form element plugins.
-    """
+    """Registry of form element plugins."""
+
     type = FormElementPluginWidget
 
 
 class FormHandlerPluginWidgetRegistry(BasePluginWidgetRegistry):
-    """
-    Registry of form handler plugins.
-    """
+    """Registry of form handler plugins."""
+
     type = FormHandlerPluginWidget
 
 
@@ -1847,11 +1849,12 @@ form_handler_plugin_widget_registry = FormHandlerPluginWidgetRegistry()
 # *****************************************************************************
 # *****************************************************************************
 
+
 def ensure_autodiscover():
-    """
-    Ensures that plugins are auto-discovered. The form callbacks registry
-    is intentionally left out, since they will be auto-discovered in
-    any case if other modules are discovered.
+    """Ensure that plugins are auto-discovered.
+
+    The form callbacks registry is intentionally left out, since they will be
+    auto-discovered in any case if other modules are discovered.
     """
     if not (form_element_plugin_registry._registry
             and form_handler_plugin_registry._registry
@@ -1860,32 +1863,31 @@ def ensure_autodiscover():
 
 
 def assemble_form_field_widget_class(base_class, plugin):
-    """
+    """Assemble form field widget class.
+
     Finish this or remove.
 
     #TODO
     """
     class DeclarativeMetaclass(type):
-        """
-        Wrapped class.
-        """
+        """Wrapped class."""
+
         def __new__(cls, name, bases, attrs):
+            """New."""
             new_class = super(DeclarativeMetaclass, cls).__new__(
                 cls, name, bases, attrs
-                )
+            )
             return new_class
 
         def render(self, name, value, attrs=None):
-            """
-            Smart render.
-            """
+            """Smart render."""
             widget = plugin.get_widget()
             if widget.hasattr('render') and callable(widget.render):
                 return widget.render(name, value, attrs=attrs)
             else:
                 super(DeclarativeMetaclass, self).render(
                     name, value, attrs=attrs
-                    )
+                )
 
     class WrappedWidget(with_metaclass(DeclarativeMetaclass, base_class)):
         """
@@ -1898,10 +1900,12 @@ def assemble_form_field_widget_class(base_class, plugin):
 # *********************************** Generic *********************************
 # *****************************************************************************
 
+
 def get_registered_plugins(registry, as_instances=False, sort_items=True):
-    """
-    Gets a list of registered plugins in a form if tuple (plugin name, plugin
-    description). If not yet autodiscovered, autodiscovers them.
+    """Get registered plugins.
+
+    Get a list of registered plugins in a form if tuple (plugin name, plugin
+    description). If not yet auto-discovered, auto-discovers them.
 
     :param registry:
     :param bool as_instances:
@@ -1924,10 +1928,12 @@ def get_registered_plugins(registry, as_instances=False, sort_items=True):
 
     return registered_plugins
 
+
 def get_registered_plugins_grouped(registry, sort_items=True):
-    """
+    """Get registered plugins grouped.
+
     Gets a list of registered plugins in a form if tuple (plugin name, plugin
-    description). If not yet autodiscovered, autodiscovers them.
+    description). If not yet auto-discovered, auto-discovers them.
 
     :return dict:
     """
@@ -1939,7 +1945,7 @@ def get_registered_plugins_grouped(registry, sort_items=True):
         plugin_name = safe_text(plugin.name)
         plugin_group = safe_text(plugin.group)
 
-        if not plugin_group in registered_plugins:
+        if plugin_group not in registered_plugins:
             registered_plugins[plugin_group] = []
         registered_plugins[plugin_group].append((uid, plugin_name))
 
@@ -1948,6 +1954,7 @@ def get_registered_plugins_grouped(registry, sort_items=True):
             prop.sort()
 
     return registered_plugins
+
 
 def get_registered_plugin_uids(registry, flattern=True, sort_items=True):
     """Get a list of registered plugin uids as a list .
@@ -1972,9 +1979,9 @@ def get_registered_plugin_uids(registry, flattern=True, sort_items=True):
 
     return registered_plugin_uids
 
+
 def validate_plugin_uid(registry, plugin_uid):
-    """
-    Validates the plugin uid.
+    """Validate the plugin uid.
 
     :param string plugin_uid:
     :return bool:
@@ -1985,8 +1992,10 @@ def validate_plugin_uid(registry, plugin_uid):
 # ***************************** Form element specific *************************
 # *****************************************************************************
 
+
 def get_registered_form_element_plugins():
-    """
+    """Get registered form element plugins.
+
     Gets a list of registered plugins in a form if tuple (plugin name, plugin
     description). If not yet autodiscovered, autodiscovers them.
 
@@ -1994,38 +2003,42 @@ def get_registered_form_element_plugins():
     """
     return get_registered_plugins(form_element_plugin_registry)
 
+
 def get_registered_form_element_plugins_grouped():
-    """
+    """Get registered form element plugins grouped.
+
     Gets a list of registered plugins in a form if tuple (plugin name, plugin
-    description). If not yet autodiscovered, autodiscovers them.
+    description). If not yet auto-discovered, auto-discovers them.
 
     :return dict:
     """
     return get_registered_plugins_grouped(form_element_plugin_registry)
 
+
 def get_registered_form_element_plugin_uids(flattern=True):
-    """
+    """Get registered form element plugin uids.
+
     Gets a list of registered plugins in a form if tuple (plugin name, plugin
-    description). If not yet autodiscovered, autodiscovers them.
+    description). If not yet auto-discovered, auto-discovers them.
 
     :return list:
     """
     return get_registered_plugin_uids(
         form_element_plugin_registry, flattern=flattern
-        )
+    )
+
 
 def validate_form_element_plugin_uid(plugin_uid):
-    """
-    Validates the plugin uid.
+    """Validate the form element plugin uid.
 
     :param string plugin_uid:
     :return bool:
     """
     return validate_plugin_uid(form_element_plugin_registry, plugin_uid)
 
+
 def submit_plugin_form_data(form_entry, request, form):
-    """
-    Submit plugin form data for all plugins.
+    """Submit plugin form data for all plugins.
 
     :param fobi.models.FormEntry form_entry: Instance of
         ``fobi.models.FormEntry``.
@@ -2037,15 +2050,15 @@ def submit_plugin_form_data(form_entry, request, form):
         form_element_plugin = form_element_entry.get_plugin(request=request)
         updated_form = form_element_plugin._submit_plugin_form_data(
             form_entry=form_entry, request=request, form=form
-            )
+        )
         if updated_form:
             form = updated_form
 
     return form
 
+
 def get_ignorable_form_fields(form_element_entries):
-    """
-    Get ignorable form fields by getting those without values.
+    """Get ignorable form fields by getting those without values.
 
     :param iterable form_element_entries: Iterable of
         ``fobi.models.FormElementEntry`` objects.
@@ -2064,7 +2077,7 @@ def get_ignorable_form_fields(form_element_entries):
             form_element_plugin = form_element_entry.get_plugin()
             try:
                 ignorable_form_fields.append(form_element_plugin.data.name)
-            except AttributeError as e:
+            except AttributeError as err:
                 pass
 
     return ignorable_form_fields
@@ -2073,8 +2086,10 @@ def get_ignorable_form_fields(form_element_entries):
 # **************************** Form handler specific **************************
 # *****************************************************************************
 
+
 def get_cleaned_data(form, keys_to_remove=[], values_to_remove=[]):
-    """
+    """Get cleaned data.
+
     Gets cleaned data, having the trash (fields without values) filtered
     out.
 
@@ -2088,15 +2103,15 @@ def get_cleaned_data(form, keys_to_remove=[], values_to_remove=[]):
     cleaned_data = copy.copy(form.cleaned_data)
     cleaned_data = clean_dict(
         cleaned_data,
-        keys = list(set(cleaned_data.keys()) - set(keys_to_remove)),
-        values = values_to_remove
-        )
+        keys=list(set(cleaned_data.keys()) - set(keys_to_remove)),
+        values=values_to_remove
+    )
 
     return cleaned_data
 
+
 def get_field_name_to_label_map(form, keys_to_remove=[], values_to_remove=[]):
-    """
-    Get field name to label map.
+    """Get field name to label map.
 
     :param form:
     :param iterable keys_to_remove:
@@ -2113,15 +2128,17 @@ def get_field_name_to_label_map(form, keys_to_remove=[], values_to_remove=[]):
         map_field_name_to_label(form),
         keys_to_remove,
         values_to_remove
-        )
+    )
 
     return field_name_to_label_map
 
+
 def get_processed_form_data(form, form_element_entries):
-    """
-    Gets processed form handler data. Simply fires both 
-    ``fobi.base.get_cleaned_data`` and ``fobi.base.get_field_name_to_label_map``
-    functions and returns the result.
+    """Gets processed form handler data.
+
+    Simply fires both ``fobi.base.get_cleaned_data`` and
+    ``fobi.base.get_field_name_to_label_map`` functions and returns the
+    result.
 
     :param django.forms.Form form:
     :param iterable: Iterable of form element entries.
@@ -2138,40 +2155,46 @@ def get_processed_form_data(form, form_element_entries):
     return (
         field_name_to_label_map,
         get_cleaned_data(form, keys_to_remove, values_to_remove)
-        )
+    )
+
 
 def get_registered_form_handler_plugins(as_instances=False):
-    """
+    """Get registered form handler plugins.
+
     Gets a list of registered plugins in a form of tuple (plugin name, plugin
-    description). If not yet autodiscovered, autodiscovers them.
+    description). If not yet auto-discovered, auto-discovers them.
 
     :return list:
     """
     return get_registered_plugins(form_handler_plugin_registry,
                                   as_instances=as_instances)
 
+
 def get_registered_form_handler_plugin_uids(flattern=True):
-    """
+    """Get registered form handler plugin uids.
+
     Gets a list of UIDs of registered form handler plugins. If not yet
-    autodiscovered, autodiscovers them.
+    auto-discovered, auto-discovers them.
 
     :return list:
     """
     return get_registered_plugin_uids(
         form_handler_plugin_registry, flattern=flattern
-        )
+    )
+
 
 def validate_form_handler_plugin_uid(plugin_uid):
-    """
-    Validates the plugin uid.
+    """Validate the plugin uid.
 
     :param string plugin_uid:
     :return bool:
     """
     return validate_plugin_uid(form_handler_plugin_registry, plugin_uid)
 
+
 def get_ordered_form_handler_plugins():
-    """
+    """Get ordered form handler plugins.
+
     Gets form handler plugins in the execution order as a sortable
     dictionary, which can be later on used to add real plugins to
     be executed.
@@ -2186,14 +2209,14 @@ def get_ordered_form_handler_plugins():
 
     # Adding all the rest
     for uid in form_handler_plugin_registry._registry.keys():
-        if not uid in form_handler_plugins:
+        if uid not in form_handler_plugins:
             form_handler_plugins[uid] = []
 
     return form_handler_plugins
 
+
 def run_form_handlers(form_entry, request, form, form_element_entries=None):
-    """
-    Runs form handlers.
+    """Run form handlers.
 
     :param fobi.models.FormEntry form_entry:
     :param django.http.HttpRequest request:
@@ -2220,7 +2243,7 @@ def run_form_handlers(form_entry, request, form, form_element_entries=None):
     # Iterating through the form handlers in the order
     # specified in the settings.
     for uid, form_handlers in ordered_form_handlers.items():
-        #logger.debug("UID: {0}".format(uid))
+        # logger.debug("UID: {0}".format(uid))
         for form_handler in form_handlers:
             # Get the form handler plugin
             form_handler_plugin = form_handler.get_plugin(request=request)
@@ -2231,7 +2254,7 @@ def run_form_handlers(form_entry, request, form, form_element_entries=None):
                 request,
                 form,
                 form_element_entries
-                )
+            )
 
             if success:
                 responses.append((form_handler_plugin, response))
@@ -2244,35 +2267,41 @@ def run_form_handlers(form_entry, request, form, form_element_entries=None):
 # ******************************* Theme specific ******************************
 # *****************************************************************************
 
+
 def get_registered_themes():
-    """
+    """Get registered themes.
+
     Gets a list of registered themes in form of tuple (plugin name, plugin
-    description). If not yet autodiscovered, autodiscovers them.
+    description). If not yet auto-discovered, auto-discovers them.
 
     :return list:
     """
     return get_registered_plugins(theme_registry)
 
+
 def get_registered_theme_uids(flattern=True):
-    """
+    """Get registered theme uids.
+
     Gets a list of registered themes in a form of tuple (plugin name, plugin
-    description). If not yet autodiscovered, autodiscovers them.
+    description). If not yet auto-discovered, auto-discovers them.
 
     :return list:
     """
     return get_registered_plugin_uids(theme_registry, flattern=flattern)
 
+
 def validate_theme_uid(plugin_uid):
-    """
-    Validates the theme uid.
+    """Validate the theme uid.
 
     :param string plugin_uid:
     :return bool:
     """
     return validate_plugin_uid(theme_registry, plugin_uid)
 
+
 def get_theme(request=None, theme_uid=None, as_instance=False):
-    """
+    """Get theme.
+
     Gets the theme by ``theme_uid`` given. If left empty, takes the default
     one chosen in ``settings`` module.
 
@@ -2293,33 +2322,34 @@ def get_theme(request=None, theme_uid=None, as_instance=False):
     if not Theme:
         raise ThemeDoesNotExist(
             _("Theme `{0}` does not exist!").format(theme_uid)
-            )
+        )
 
     if as_instance:
         return Theme()
 
     return Theme
 
+
 get_default_theme = lambda: get_theme(as_instance=True)
 
+
 get_theme_by_uid = lambda theme_uid: get_theme(
-    theme_uid = theme_uid,
-    as_instance = True
-    )
+    theme_uid=theme_uid,
+    as_instance=True
+)
 
 # *****************************************************************************
 # **************************** Form callbacks specific ************************
 # *****************************************************************************
 
+
 def get_registered_form_callbacks(stage=None):
-    """
-    Gets registered form callbacks for the stage given.
-    """
+    """Get registered form callbacks for the stage given."""
     return form_callback_registry.get_callbacks(stage=stage)
 
+
 def fire_form_callbacks(form_entry, request, form, stage=None):
-    """
-    Fires callbacks.
+    """Fire form callbacks.
 
     :param fobi.models.FormEntry form_entry:
     :param django.http.HttpRequest request:
@@ -2338,11 +2368,13 @@ def fire_form_callbacks(form_entry, request, form, stage=None):
 # *****************************************************************************
 # ******************************* Widget specific *****************************
 # *****************************************************************************
+
+
 def get_plugin_widget(registry, plugin_uid, request=None, as_instance=False,
                       theme=None):
-    """
-    Gets the plugin widget for the ``plugin_uid`` given. Looks up in the
-    ``registry`` provided.
+    """Get the plugin widget for the ``plugin_uid`` given.
+
+    Looks up in the ``registry`` provided.
 
     :param fobi.base.BasePluginWidgetRegistry registry: Subclass of.
     :param str plugin_uid: UID of the plugin to get the widget for.
@@ -2356,12 +2388,12 @@ def get_plugin_widget(registry, plugin_uid, request=None, as_instance=False,
 
     return registry.get(
         BasePluginWidgetRegistry.namify(theme.uid, plugin_uid)
-        )
+    )
+
 
 def get_form_element_plugin_widget(plugin_uid, request=None, as_instance=False,
                                    theme=None):
-    """
-    Gets the form element plugin widget for the ``plugin_uid`` given.
+    """Get the form element plugin widget for the ``plugin_uid`` given.
 
     :param fobi.base.BasePluginWidgetRegistry registry: Subclass of.
     :param str plugin_uid: UID of the plugin to get the widget for.
@@ -2371,17 +2403,17 @@ def get_form_element_plugin_widget(plugin_uid, request=None, as_instance=False,
     :return BasePluginWidget: Subclass of.
     """
     return get_plugin_widget(
-        registry = form_element_plugin_widget_registry,
-        plugin_uid = plugin_uid,
-        request = request,
-        as_instance = as_instance,
-        theme = theme
-        )
+        registry=form_element_plugin_widget_registry,
+        plugin_uid=plugin_uid,
+        request=request,
+        as_instance=as_instance,
+        theme=theme
+    )
+
 
 def get_form_handler_plugin_widget(plugin_uid, request=None, as_instance=False,
                                    theme=None):
-    """
-    Gets the form handler plugin widget for the ``plugin_uid`` given.
+    """Get the form handler plugin widget for the ``plugin_uid`` given.
 
     :param fobi.base.BasePluginWidgetRegistry registry: Subclass of.
     :param str plugin_uid: UID of the plugin to get the widget for.
@@ -2391,20 +2423,20 @@ def get_form_handler_plugin_widget(plugin_uid, request=None, as_instance=False,
     :return BasePluginWidget: Subclass of.
     """
     return get_plugin_widget(
-        registry = form_handler_plugin_widget_registry,
-        plugin_uid = plugin_uid,
-        request = request,
-        as_instance = as_instance,
-        theme = theme
-        )
+        registry=form_handler_plugin_widget_registry,
+        plugin_uid=plugin_uid,
+        request=request,
+        as_instance=as_instance,
+        theme=theme
+    )
 
 # *****************************************************************************
 # ******************************** Media specific *****************************
 # *****************************************************************************
 
+
 def collect_plugin_media(form_element_entries, request=None):
-    """
-    Collects the plugin media for form element entries given.
+    """Collect the plugin media for form element entries given.
 
     :param iterable form_element_entries: Iterable of
         ``fobi.models.FormElementEntry`` instances.
@@ -2420,8 +2452,8 @@ def collect_plugin_media(form_element_entries, request=None):
         widget_cls = form_element_plugin_widget_registry.get(
             BasePluginWidgetRegistry.namify(
                 theme.uid, form_element_entry.plugin_uid
-                )
             )
+        )
         if widget_cls:
             media_js += getattr(widget_cls, 'media_js', [])
             media_css += getattr(widget_cls, 'media_css', [])
@@ -2429,5 +2461,5 @@ def collect_plugin_media(form_element_entries, request=None):
             logger.debug(
                 "No widget for form element entry "
                 "{0}".format(form_element_entry.__dict__)
-                )
+            )
     return {'js': media_js, 'css': media_css}
