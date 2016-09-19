@@ -4,12 +4,12 @@ import re
 import traceback
 import uuid
 
-import simplejson as json
-
 try:
     from collections import OrderedDict
 except ImportError as err:
     from ordereddict import OrderedDict
+
+import simplejson as json
 
 from six import with_metaclass, string_types
 
@@ -21,29 +21,29 @@ from django.template import RequestContext, Template
 
 from nine.versions import DJANGO_GTE_1_7
 
+from .constants import CALLBACK_STAGES
+from .data_structures import SortableDict
+from .discover import autodiscover
+from .exceptions import (
+    DoesNotExist, InvalidRegistryItemType, FormElementPluginDoesNotExist,
+    FormHandlerPluginDoesNotExist, ThemeDoesNotExist
+)
+from .helpers import (
+    clean_dict, get_ignorable_form_values, map_field_name_to_label,
+    safe_text, uniquify_sequence, StrippedRequest
+)
+from .settings import (
+    CUSTOM_THEME_DATA, DEFAULT_THEME, DEBUG,
+    FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS, FAIL_ON_MISSING_FORM_HANDLER_PLUGINS,
+    FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS,
+    FORM_HANDLER_PLUGINS_EXECUTION_ORDER, THEME_FOOTER_TEXT,
+    # FAIL_ON_ERRORS_IN_FORM_ELEMENT_PLUGINS,
+)
+
 if DJANGO_GTE_1_7:
     from django.forms.utils import ErrorList
 else:
     from django.forms.util import ErrorList
-
-from .data_structures import SortableDict
-from .discover import autodiscover
-from .constants import CALLBACK_STAGES
-from .settings import (
-    DEFAULT_THEME, FORM_HANDLER_PLUGINS_EXECUTION_ORDER,
-    CUSTOM_THEME_DATA, THEME_FOOTER_TEXT, FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS,
-    FAIL_ON_MISSING_FORM_HANDLER_PLUGINS, DEBUG,
-    # FAIL_ON_ERRORS_IN_FORM_ELEMENT_PLUGINS,
-    FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS
-)
-from .exceptions import (
-    InvalidRegistryItemType, DoesNotExist, ThemeDoesNotExist,
-    FormElementPluginDoesNotExist, FormHandlerPluginDoesNotExist
-)
-from .helpers import (
-    uniquify_sequence, clean_dict, map_field_name_to_label,
-    get_ignorable_form_values, safe_text, StrippedRequest,
-)
 
 """
 All `uids` are supposed to be pythonic function names (see
@@ -2330,13 +2330,15 @@ def get_theme(request=None, theme_uid=None, as_instance=False):
     return Theme
 
 
-get_default_theme = lambda: get_theme(as_instance=True)
+def get_default_theme:
+    """Get default theme."""
+    return get_theme(as_instance=True)
 
 
-get_theme_by_uid = lambda theme_uid: get_theme(
-    theme_uid=theme_uid,
-    as_instance=True
-)
+def get_theme_by_uid(theme_uid):
+    """Get theme by uid."""
+    return get_theme(theme_uid=theme_uid, as_instance=True)
+
 
 # *****************************************************************************
 # **************************** Form callbacks specific ************************
