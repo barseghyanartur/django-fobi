@@ -1,6 +1,15 @@
+from six import text_type
+
+import simplejson as json
+
+from django.core.urlresolvers import reverse
+
+from .base import BaseRegistry
+from .discover import autodiscover
+
 __title__ = 'fobi.form_importers'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
+__copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'BaseFormImporter', 'FormImporterPluginRegistry',
@@ -8,19 +17,10 @@ __all__ = (
     'get_form_importer_plugin_uids', 'get_form_impoter_plugin_urls',
 )
 
-from six import text_type
-
-import simplejson as json
-
-from django.core.urlresolvers import reverse
-
-from fobi.base import BaseRegistry
-from fobi.discover import autodiscover
 
 class BaseFormImporter(object):
-    """
-    Base importer.
-    """
+    """Base importer."""
+
     uid = None
     name = None
     description = None
@@ -40,6 +40,8 @@ class BaseFormImporter(object):
     def __init__(self, form_entry_cls, form_element_entry_cls,
                  form_properties=None, form_data=None):
         """
+        Constructor.
+
         :param django.contrib.auth.models.User user: User importing the form.
         :param dict form_properties: Properties of the form, that
             user provides (such as name, is_public, etc.)
@@ -63,9 +65,11 @@ class BaseFormImporter(object):
         self.form_element_entry_cls = form_element_entry_cls
 
     def get_form_data(self):
+        """Get form data."""
         return self.form_data
 
     def extract_field_properties(self, field_data):
+        """Extract field properties."""
         field_properties = {}
         for prop, val in self.field_properties_mapping.items():
             if val in field_data:
@@ -73,9 +77,7 @@ class BaseFormImporter(object):
         return field_properties
 
     def import_data(self, form_properties, form_data):
-        """
-        Imports data.
-        """
+        """Import data."""
         self.form_properties = form_properties
         self.form_data = form_data
 
@@ -89,7 +91,8 @@ class BaseFormImporter(object):
         data = self.get_form_data()
         for field_data in data:
             # Skip non-existing
-            if not field_data[self.field_type_prop_name] in self.fields_mapping:
+            if field_data[self.field_type_prop_name] \
+                    not in self.fields_mapping:
                 continue
 
             form_element_entry = self.form_element_entry_cls()
@@ -100,34 +103,33 @@ class BaseFormImporter(object):
             # Assign form data
             form_element_entry.plugin_data = json.dumps(
                 self.extract_field_properties(field_data)
-                )
+            )
 
             # Assign position in form
             if self.position_prop_name in field_data:
                 form_element_entry.position = field_data[
-                    self.position_prop_name]
+                    self.position_prop_name
+                ]
 
             form_element_entry.save()
 
         return form_entry
 
     def get_template_names(self):
-        """
-        """
+        """Get template names."""
         return {text_type(idx): tpl for idx, tpl in enumerate(self.templates)}
 
     def get_wizard(self, request, *args, **kwargs):
-        """
-        """
+        """Get wizard."""
         template_names = self.get_template_names()
 
         class FormImporterWizard(self.wizard):
-            """
-            Constructing the importer class dynamically.
-            """
+            """Constructing the importer class dynamically."""
+
             _form_importer = self
 
             def get_template_names(self):
+                """Get template names."""
                 return [template_names[self.steps.current]]
 
         wizard = FormImporterWizard.as_view()
@@ -135,9 +137,8 @@ class BaseFormImporter(object):
 
 
 class FormImporterPluginRegistry(BaseRegistry):
-    """
-    Form importer plugins registry.
-    """
+    """Form importer plugins registry."""
+
     type = BaseFormImporter
 
 
@@ -146,25 +147,19 @@ form_importer_plugin_registry = FormImporterPluginRegistry()
 
 
 def ensure_autodiscover():
-    """
-    Ensures that form importer plugins are auto-discovered.
-    """
+    """Ensure that form importer plugins are auto-discovered."""
     if not (form_importer_plugin_registry._registry):
         autodiscover()
 
 
 def get_form_importer_plugin_uids():
-    """
-
-    """
+    """Get form importer plugin uids."""
     ensure_autodiscover()
     return list(form_importer_plugin_registry._registry.keys())
 
 
 def get_form_impoter_plugin_urls():
-    """
-    Gets the form importers as a list of tuples.
-    """
+    """Gets the form importer plugin URLs as a list of tuples."""
     urls = []
     ensure_autodiscover()
     for uid, plugin in form_importer_plugin_registry._registry.items():
