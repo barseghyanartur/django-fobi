@@ -11,14 +11,16 @@ from fobi.models import (
 
     # Entries
     FormEntry, FormFieldsetEntry, FormElementEntry, FormHandlerEntry
-    )
-from fobi.constants import ACTION_CHOICES
-from fobi.base import (
-    get_theme, get_registered_form_element_plugins,
-    get_registered_form_handler_plugins
 )
-from fobi.validators import url_exists
-from fobi.exceptions import ImproperlyConfigured
+
+from .base import (
+    get_registered_form_element_plugins, get_registered_form_handler_plugins,
+    get_theme
+)
+from .constants import ACTION_CHOICES
+from .exceptions import ImproperlyConfigured
+from .validators import url_exists
+
 
 __title__ = 'fobi.forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -45,7 +47,7 @@ class FormEntryForm(forms.ModelForm):
 
         model = FormEntry
         fields = ('name', 'is_public', 'success_page_title',
-                  'success_page_message', 'action',)  #'is_cloneable',
+                  'success_page_message', 'action',)  # 'is_cloneable',
 
     def __init__(self, *args, **kwargs):
         """Constructor."""
@@ -61,29 +63,29 @@ class FormEntryForm(forms.ModelForm):
 
         self.fields['name'].widget = forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
-            )
+        )
 
         self.fields['success_page_title'].widget = forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
-            )
+        )
 
         self.fields['success_page_message'].widget = forms.widgets.Textarea(
             attrs={'class': theme.form_element_html_class}
-            )
+        )
 
         self.fields['action'].widget = forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
-            )
+        )
 
         # At the moment this is done for Foundation 5 theme. Remove this once
         # it's possible for a theme to override this form. Alternatively, add
         # the attrs to the theme API.
         self.fields['is_public'].widget = forms.widgets.CheckboxInput(
             attrs={'data-customforms': 'disabled'}
-            )
-        #self.fields['is_cloneable'].widget = forms.widgets.CheckboxInput(
+        )
+        # self.fields['is_cloneable'].widget = forms.widgets.CheckboxInput(
         #    attrs={'data-customforms': 'disabled'}
-        #    )
+        # )
 
     def clean_action(self):
         """Validate the action (URL).
@@ -119,7 +121,7 @@ class FormEntryForm(forms.ModelForm):
             if not url_exists(full_url, local=local):
                 raise forms.ValidationError(
                     ugettext("Invalid action URL {0}.").format(full_url)
-                    )
+                )
 
         return url
 
@@ -139,7 +141,7 @@ class FormFieldsetEntryForm(forms.ModelForm):
         theme = get_theme(request=None, as_instance=True)
         self.fields['name'].widget = forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
-            )
+        )
 
 
 class FormElementForm(forms.ModelForm):
@@ -172,7 +174,7 @@ class FormElementEntryForm(forms.ModelForm):
 
 FormElementEntryFormSet = modelformset_factory(
     FormElementEntry, fields=('position',), extra=0, form=FormElementEntryForm
-    )
+)
 
 
 class FormHandlerForm(forms.ModelForm):
@@ -221,23 +223,24 @@ class BaseBulkChangePluginsForm(forms.ModelForm):
     """
 
     selected_plugins = forms.CharField(
-        required=True, label=_("Selected plugins"),
+        required=True,
+        label=_("Selected plugins"),
         widget=forms.widgets.HiddenInput
-        )
+    )
     users_action = forms.ChoiceField(
-        required = False,
-        label = _("Users action"),
-        choices = ACTION_CHOICES,
-        help_text = _("If set to ``replace``, the groups are replaced; "
-                      "otherwise - appended.")
-        )
+        required=False,
+        label=_("Users action"),
+        choices=ACTION_CHOICES,
+        help_text=_("If set to ``replace``, the groups are replaced; "
+                    "otherwise - appended.")
+    )
     groups_action = forms.ChoiceField(
-        required = False,
-        label = _("Groups action"),
-        choices = ACTION_CHOICES,
-        help_text = _("If set to ``replace``, the groups are replaced; "
-                      "otherwise - appended.")
-        )
+        required=False,
+        label=_("Groups action"),
+        choices=ACTION_CHOICES,
+        help_text=_("If set to ``replace``, the groups are replaced; "
+                    "otherwise - appended.")
+    )
 
     class Media:
         """Media class."""
@@ -260,7 +263,7 @@ class BulkChangeFormElementPluginsForm(BaseBulkChangePluginsForm):
         """Meta class."""
 
         model = FormElement
-        fields = ['groups', 'groups_action', 'users', 'users_action',]
+        fields = ['groups', 'groups_action', 'users', 'users_action']
 
 
 class BulkChangeFormHandlerPluginsForm(BaseBulkChangePluginsForm):
@@ -270,7 +273,7 @@ class BulkChangeFormHandlerPluginsForm(BaseBulkChangePluginsForm):
         """Meta class."""
 
         model = FormHandler
-        fields = ['groups', 'groups_action', 'users', 'users_action',]
+        fields = ['groups', 'groups_action', 'users', 'users_action']
 
 # *****************************************************************************
 # *****************************************************************************
