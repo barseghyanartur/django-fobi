@@ -1,16 +1,17 @@
-__title__ = 'fobi.data_structures'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('SortableDict', )
-
 import copy
 
 import six
 
+__title__ = 'fobi.data_structures'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2014-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('SortableDict', )
+
 
 class SortableDict(dict):
-    """
+    """SortableDict.
+
     A dictionary that keeps its keys in the order in which they're
     inserted. Very similar to (and partly based on) ``SortedDict`` of
     the ``Django``, but has several additional methods implemented,
@@ -18,11 +19,13 @@ class SortableDict(dict):
     """
 
     def __new__(cls, *args, **kwargs):
+        """New."""
         instance = super(SortableDict, cls).__new__(cls, *args, **kwargs)
         instance.key_order = []
         return instance
 
     def __init__(self, data=None):
+        """Constructor."""
         if data is None or isinstance(data, dict):
             data = data or []
             super(SortableDict, self).__init__(data)
@@ -63,6 +66,7 @@ class SortableDict(dict):
         return reversed(self.key_order)
 
     def pop(self, k, *args):
+        """Pop."""
         result = super(SortableDict, self).pop(k, *args)
         try:
             self.key_order.remove(k)
@@ -72,11 +76,13 @@ class SortableDict(dict):
         return result
 
     def popitem(self):
+        """Pop item."""
         result = super(SortableDict, self).popitem()
         self.key_order.remove(result[0])
         return result
 
     def _iteritems(self):
+        """Iter items (internal method)."""
         for key in self.key_order:
             yield key, self[key]
 
@@ -85,6 +91,7 @@ class SortableDict(dict):
             yield key
 
     def _itervalues(self):
+        """Iter values (internal method)."""
         for key in self.key_order:
             yield self[key]
 
@@ -107,10 +114,12 @@ class SortableDict(dict):
             return [self[k] for k in self.key_order]
 
     def update(self, dict_):
+        """Update."""
         for k, v in six.iteritems(dict_):
             self[k] = v
 
     def setdefault(self, key, default):
+        """Set default."""
         if key not in self:
             self.key_order.append(key)
         return super(SortableDict, self).setdefault(key, default)
@@ -138,7 +147,8 @@ class SortableDict(dict):
         return self.__class__(self)
 
     def __repr__(self):
-        """
+        """Repr.
+
         Replaces the normal dict.__repr__ with a version that returns the keys
         in their sorted order.
         """
@@ -146,6 +156,7 @@ class SortableDict(dict):
                                    for k, v in six.iteritems(self)])
 
     def clear(self):
+        """Clear."""
         super(SortableDict, self).clear()
         self.key_order = []
 
@@ -156,8 +167,7 @@ class SortableDict(dict):
     def insert_before_key(self, target_key, key, value,
                           fail_silently=True,
                           offset=0):
-        """
-        Inserts the {``key``: ``value``} before the ``target_key``.
+        """Insert the {``key``: ``value``} before the ``target_key``.
 
         :param immutable target_key:
         :param immutable key:
@@ -177,8 +187,7 @@ class SortableDict(dict):
             return False
 
     def insert_after_key(self, target_key, key, value, fail_silently=True):
-        """
-        Inserts the {``key``: ``value``} after the ``target_key``.
+        """Insert the {``key``: ``value``} after the ``target_key``.
 
         :param immutable target_key:
         :param immutable key:
@@ -196,8 +205,7 @@ class SortableDict(dict):
     def move_before_key(self, source_key, target_key,
                         fail_silently=True,
                         offset=0):
-        """
-        Moves the {``key``: ``value``} before the given ``source_key``.
+        """Move the {``key``: ``value``} before the given ``source_key``.
 
         :param immutable source_key:
         :param immutable target_key:
@@ -217,8 +225,7 @@ class SortableDict(dict):
             return False
 
     def move_after_key(self, source_key, target_key, fail_silently=True):
-        """
-        Moves the {``key``: ``value``} after the given ``source_key``.
+        """Move the {``key``: ``value``} after the given ``source_key``.
 
         :param immutable source_key:
         :param immutable target_key:
