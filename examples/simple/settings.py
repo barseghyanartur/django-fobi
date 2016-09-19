@@ -1,7 +1,8 @@
 # Django settings for example project.
 import os
 from nine.versions import (
-    DJANGO_GTE_1_7, DJANGO_GTE_1_8, DJANGO_LTE_1_7, DJANGO_GTE_1_10
+    DJANGO_GTE_1_7, DJANGO_GTE_1_8, DJANGO_LTE_1_7, DJANGO_GTE_1_9,
+    DJANGO_GTE_1_10
 )
 PROJECT_DIR = lambda base : os.path.abspath(os.path.join(os.path.dirname(__file__), base).replace('\\','/'))
 gettext = lambda s: s
@@ -204,7 +205,7 @@ MIDDLEWARE_CLASSES = [
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-if DJANGO_GTE_1_10:
+if DJANGO_GTE_1_8:
     MIDDLEWARE_CLASSES.remove('localeurl.middleware.LocaleURLMiddleware')
 
 ROOT_URLCONF = 'urls'
@@ -361,19 +362,21 @@ INSTALLED_APPS = [
 if DJANGO_LTE_1_7:
     INSTALLED_APPS.append('south')
 
-if DJANGO_GTE_1_10:
+if DJANGO_GTE_1_8:
     INSTALLED_APPS.remove('localeurl')
 
+LOGIN_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/fobi/' # Important for passing the selenium tests
 
 if DJANGO_GTE_1_8:
+    LOGIN_URL = '/en/accounts/login/'
     LOGIN_REDIRECT_URL = '/en/fobi/'  # Important for passing the selenium tests
 
 #LOGIN_URL = '/accounts/login/'
 #LOGIN_ERROR_URL = '/accounts/login/'
 #LOGOUT_URL = '/accounts/logout/'
 
-if not DJANGO_GTE_1_10:
+if not DJANGO_GTE_1_8:
     # Tell localeurl to use sessions for language store.
     LOCALEURL_USE_SESSION = True
 

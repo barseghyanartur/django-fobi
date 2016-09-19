@@ -15,6 +15,6 @@ ipdb
 ipython
 ordereddict>=1.1
 # Selenium shall always be upgraded
-selenium
+selenium==2.53.6
 simple-timer>=0.2
 tox

@@ -2330,7 +2330,7 @@ def get_theme(request=None, theme_uid=None, as_instance=False):
     return Theme
 
 
-def get_default_theme:
+def get_default_theme():
     """Get default theme."""
     return get_theme(as_instance=True)
 

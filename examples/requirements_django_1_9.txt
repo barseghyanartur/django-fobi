@@ -30,7 +30,7 @@ py==1.4.30
 Pygments==2.0.2
 pytz==2015.6
 requests==2.8.1
-selenium==2.48.0
+selenium==2.53.6
 simple-timer==0.2
 simplegeneric==0.8.1
 simplejson==3.8.0
