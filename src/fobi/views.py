@@ -1,45 +1,44 @@
 """
 Views.
 """
-
 import datetime
 import logging
 
 import simplejson as json
 
+from django.db import models, IntegrityError
+from django.contrib import messages
+from django.contrib.auth.decorators import login_required, permission_required
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.urlresolvers import reverse
+from django.http import Http404
 from django.template import RequestContext
 from django.shortcuts import redirect
-from django.core.exceptions import ObjectDoesNotExist
-from django.http import Http404
-from django.core.urlresolvers import reverse
-from django.contrib import messages
-from django.utils.translation import ugettext, ugettext_lazy as _
-from django.contrib.auth.decorators import login_required, permission_required
-from django.db import models, IntegrityError
 from django.utils.datastructures import MultiValueDictKeyError
+from django.utils.translation import ugettext, ugettext_lazy as _
 
-from fobi.models import FormEntry, FormElementEntry, FormHandlerEntry
-from fobi.forms import (
+from .models import FormEntry, FormElementEntry, FormHandlerEntry
+from .forms import (
     FormEntryForm, FormElementEntryFormSet, ImportFormEntryForm
 )
-from fobi.dynamic import assemble_form_class
-from fobi.decorators import permissions_required, SATISFY_ALL, SATISFY_ANY
-from fobi.base import (
+from .dynamic import assemble_form_class
+from .decorators import permissions_required, SATISFY_ALL, SATISFY_ANY
+from .base import (
     fire_form_callbacks, run_form_handlers, form_element_plugin_registry,
     form_handler_plugin_registry, submit_plugin_form_data, get_theme,
     #get_registered_form_handler_plugins
 )
-from fobi.form_importers import (
+from .form_importers import (
     form_importer_plugin_registry, get_form_impoter_plugin_urls,
     ensure_autodiscover as ensure_importers_autodiscover
 )
-from fobi.constants import (
+from .constants import (
     CALLBACK_BEFORE_FORM_VALIDATION,
     CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA,
     CALLBACK_FORM_VALID, CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS,
     CALLBACK_FORM_INVALID
 )
-from fobi.utils import (
+from .utils import (
     get_user_form_field_plugin_uids,
     #get_user_form_element_plugins,
     get_user_form_element_plugins_grouped,
