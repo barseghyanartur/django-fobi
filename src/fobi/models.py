@@ -1,8 +1,23 @@
 from __future__ import absolute_import
 
+import logging
+
+from django.conf import settings
+from django.contrib.auth.models import Group
+from django.core.urlresolvers import reverse
+from django.db import models
+from django.utils.translation import ugettext_lazy as _
+
+from autoslug import AutoSlugField
+
+from .base import (
+    form_element_plugin_registry, form_handler_plugin_registry,
+    get_registered_form_element_plugins, get_registered_form_handler_plugins
+)
+
 __title__ = 'fobi.models'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     # Plugins
@@ -13,41 +28,13 @@ __all__ = (
     'FormFieldsetEntry', 'FormHandlerEntry',
 )
 
-import logging
+
 logger = logging.getLogger(__name__)
-
-from django.core.urlresolvers import reverse
-from django.db import models
-from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import Group
-from django.conf import settings
-
-from autoslug import AutoSlugField
-
-from fobi.base import (
-    get_registered_form_element_plugins, get_registered_form_handler_plugins,
-    form_element_plugin_registry, form_handler_plugin_registry
-)
 
 # ****************************************************************************
 # **************** Safe User import for Django > 1.5, < 1.8 ******************
 # ****************************************************************************
 AUTH_USER_MODEL = settings.AUTH_USER_MODEL
-
-# Note, that this may cause circular imports - thus the ``get_user_model``
-# should be moved elsewhere (be used on the function/method level). For
-# now leave commented and solve in future. Possible use the DjangoCMS solution
-# https://github.com/divio/django-cms/blob/develop/cms/models/permissionmodels.py#L18
-
-# Sanity checks.
-#user = User()
-#
-#if not hasattr(user, 'username'):
-#    from fobi.exceptions import ImproperlyConfigured
-#    raise ImproperlyConfigured("Your custom user model ({0}.{1}) doesn't "
-#                               "have ``username`` property, while "
-#                               "``django-fobi`` relies on its' presence"
-#                               ".".format(user._meta.app_label, user._meta.object_name))
 
 # ****************************************************************************
 # ****************************************************************************
@@ -59,9 +46,9 @@ AUTH_USER_MODEL = settings.AUTH_USER_MODEL
 # ****************************************************************************
 # ****************************************************************************
 
+
 class AbstractPluginModel(models.Model):
-    """
-    Abstract plugin model.
+    """Abstract plugin model.
 
     Used when ``fobi.settings.RESTRICT_PLUGIN_ACCESS`` is set to True.
 
@@ -73,16 +60,18 @@ class AbstractPluginModel(models.Model):
         - `groups` (django.contrib.auth.models.Group): White list of the
           user groups allowed to use the plugin.
     """
-    #plugin_uid = models.CharField(_("Plugin UID"), max_length=255,
+
+    # plugin_uid = models.CharField(_("Plugin UID"), max_length=255,
     #                              unique=True, editable=False)
     users = models.ManyToManyField(AUTH_USER_MODEL, verbose_name=_("User"),
                                    blank=True)
     groups = models.ManyToManyField(Group, verbose_name=_("Group"), blank=True)
 
     class Meta:
+        """Meta class."""
         abstract = True
 
-    #def __init__(self, *args, **kwargs):
+    # def __init__(self, *args, **kwargs):
     #    """
     #    Add choices.
     #    """
@@ -91,8 +80,7 @@ class AbstractPluginModel(models.Model):
     #    plugin_uid._choices = self.get_registered_plugins()
 
     def get_registered_plugins(self):
-        """
-        """
+        """Get registered plugins."""
         raise NotImplemented(
             "You should implement ``get_registered_plugins`` method!"
         )
@@ -101,13 +89,14 @@ class AbstractPluginModel(models.Model):
         return "{0} ({1})".format(
             dict(self.get_registered_plugins()).get(self.plugin_uid, ''),
             self.plugin_uid
-            )
+        )
 
     def __str__(self):
         return self.__unicode__()
 
     def plugin_uid_code(self):
-        """
+        """Plugin uid code.
+
         Mainly used in admin.
         """
         return self.plugin_uid
@@ -115,7 +104,8 @@ class AbstractPluginModel(models.Model):
     plugin_uid_code.short_description = _('UID')
 
     def plugin_uid_admin(self):
-        """
+        """Plugin uid admin.
+
         Mainly used in admin.
         """
         return self.__unicode__()
@@ -123,7 +113,8 @@ class AbstractPluginModel(models.Model):
     plugin_uid_admin.short_description = _('Plugin')
 
     def groups_list(self):
-        """
+        """Groups list.
+
         Flat list (comma separated string) of groups allowed to use the
         plugin. Used in Django admin.
 
@@ -134,7 +125,8 @@ class AbstractPluginModel(models.Model):
     groups_list.short_description = _('Groups')
 
     def users_list(self):
-        """
+        """Users list.
+
         Flat list (comma separated string) of users allowed to use the
         plugin. Used in Django admin.
 
@@ -146,7 +138,8 @@ class AbstractPluginModel(models.Model):
 
 
 class FormElement(AbstractPluginModel):
-    """
+    """Form element.
+
     Form field plugin. Used when ``fobi.settings.RESTRICT_PLUGIN_ACCESS``
     is set to True.
 
@@ -162,17 +155,16 @@ class FormElement(AbstractPluginModel):
         _("Plugin UID"), max_length=255, unique=True, editable=False,
         # choices=get_registered_form_element_plugins()
     )
-    #objects = FormFieldPluginModelManager()
+    # objects = FormFieldPluginModelManager()
 
     class Meta:
+        """Meta class."""
         abstract = False
         verbose_name = _("Form element plugin")
         verbose_name_plural = _("Form element plugins")
 
     def get_registered_plugins(self):
-        """
-        Add choices.
-        """
+        """Add choices."""
         return get_registered_form_element_plugins()
 
 
@@ -193,17 +185,16 @@ class FormHandler(AbstractPluginModel):
         _("Plugin UID"), max_length=255, unique=True, editable=False,
         # choices=get_registered_form_handler_plugins()
     )
-    #objects = FormHandlerPluginModelManager()
+    # objects = FormHandlerPluginModelManager()
 
     class Meta:
+        """Class meta."""
         abstract = False
         verbose_name = _("Form handler plugin")
         verbose_name_plural = _("Form handler plugins")
 
     def get_registered_plugins(self):
-        """
-        Add choices.
-        """
+        """Add choices."""
         return get_registered_form_handler_plugins()
 
 # *****************************************************************************
@@ -212,9 +203,10 @@ class FormHandler(AbstractPluginModel):
 # *****************************************************************************
 # *****************************************************************************
 
+
 class FormWizardEntry(models.Model):
-    """
-    """
+    """Form wizard entry."""
+
     user = models.ForeignKey(AUTH_USER_MODEL, verbose_name=_("User"))
     name = models.CharField(_("Name"), max_length=255)
     slug = AutoSlugField(populate_from='name', verbose_name=_("Slug"),
@@ -229,6 +221,7 @@ class FormWizardEntry(models.Model):
     )
 
     class Meta:
+        """Meta class."""
         verbose_name = _("Form wizard entry")
         verbose_name_plural = _("Form wizard entries")
         unique_together = (('user', 'slug'), ('user', 'name'),)
@@ -240,7 +233,8 @@ class FormWizardEntry(models.Model):
         return self.__unicode__()
 
     def get_absolute_url(self):
-        """
+        """Get absolute URL.
+
         Absolute URL, which goes to the dashboard workspace page.
 
         :return string:
@@ -249,8 +243,7 @@ class FormWizardEntry(models.Model):
 
 
 class FormEntry(models.Model):
-    """
-    Form entry.
+    """Form entry.
 
     :Properties:
 
@@ -303,6 +296,7 @@ class FormEntry(models.Model):
                                    auto_now=True)
 
     class Meta:
+        """Meta class."""
         verbose_name = _("Form entry")
         verbose_name_plural = _("Form entries")
         unique_together = (('user', 'slug'), ('user', 'name'),)
@@ -314,7 +308,8 @@ class FormEntry(models.Model):
         return self.__unicode__()
 
     def get_absolute_url(self):
-        """
+        """Get absolute URL.
+
         Absolute URL, which goes to the dashboard workspace page.
 
         :return string:
@@ -323,9 +318,8 @@ class FormEntry(models.Model):
 
 
 class FormFieldsetEntry(models.Model):
-    """
-    Form fieldset entry.
-    """
+    """Form fieldset entry."""
+
     form_entry = models.ForeignKey(FormEntry, verbose_name=_("Form"),
                                    null=True, blank=True)
     name = models.CharField(_("Name"), max_length=255)
@@ -335,6 +329,7 @@ class FormFieldsetEntry(models.Model):
     )
 
     class Meta:
+        """Meta class."""
         verbose_name = _("Form fieldset entry")
         verbose_name_plural = _("Form fieldset entries")
         unique_together = (('form_entry', 'name'),)
@@ -347,8 +342,7 @@ class FormFieldsetEntry(models.Model):
 
 
 class AbstractPluginEntry(models.Model):
-    """
-    Abstract plugin entry.
+    """Abstract plugin entry.
 
     :Properties:
 
@@ -362,9 +356,10 @@ class AbstractPluginEntry(models.Model):
                                    blank=True)
 
     class Meta:
+        """Meta class."""
         abstract = True
 
-    #def __init__(self, *args, **kwargs):
+    # def __init__(self, *args, **kwargs):
     #    """
     #    Add choices.
     #    """
@@ -381,18 +376,17 @@ class AbstractPluginEntry(models.Model):
         return self.__unicode__()
 
     def get_registered_plugins(self):
-        """
-        """
+        """Get registered plugins."""
         raise NotImplemented("You should implement ``get_registered_plugins``"
                              " method!")
 
     def get_registry(self):
-        """
-        """
+        """Get registry."""
         raise NotImplemented("You should implement ``get_registry`` method!")
 
     def get_plugin(self, fetch_related_data=False, request=None):
-        """
+        """Get plugin.
+
         Gets the plugin class (by ``plugin_uid`` property), makes an instance
         of it, serves the data stored in ``plugin_data`` field (if available).
         Once all is done, plugin is ready to be rendered.
@@ -425,7 +419,8 @@ class AbstractPluginEntry(models.Model):
         )
 
     def plugin_uid_code(self):
-        """
+        """Plugin uid code.
+
         Mainly used in admin.
         """
         return self.plugin_uid
@@ -433,12 +428,12 @@ class AbstractPluginEntry(models.Model):
     plugin_uid_code.short_description = _('UID')
 
     def plugin_name(self):
+        """Plugin name."""
         return dict(self.get_registered_plugins()).get(self.plugin_uid, '')
 
 
 class FormElementEntry(AbstractPluginEntry):
-    """
-    Form field entry.
+    """Form field entry.
 
     :Properties:
 
@@ -456,27 +451,27 @@ class FormElementEntry(AbstractPluginEntry):
     form_fieldset_entry = models.ForeignKey(FormFieldsetEntry,
                                             verbose_name=_("Form fieldset"),
                                             null=True, blank=True)
-    position = models.PositiveIntegerField(_("Position"), null=True, blank=True)
+    position = models.PositiveIntegerField(_("Position"), null=True,
+                                           blank=True)
 
     class Meta:
+        """Meta class."""
         abstract = False
         verbose_name = _("Form element entry")
         verbose_name_plural = _("Form element entries")
-        ordering = ['position',]
+        ordering = ['position']
 
     def get_registered_plugins(self):
-        """
-        Gets registered plugins.
-        """
+        """Gets registered plugins."""
         return get_registered_form_element_plugins()
 
     def get_registry(self):
+        """Get registry."""
         return form_element_plugin_registry
 
 
 class FormHandlerEntry(AbstractPluginEntry):
-    """
-    Form handler entry.
+    """Form handler entry.
 
     :Properties:
 
@@ -491,15 +486,15 @@ class FormHandlerEntry(AbstractPluginEntry):
     )
 
     class Meta:
+        """Meta class."""
         abstract = False
         verbose_name = _("Form handler entry")
         verbose_name_plural = _("Form handler entries")
 
     def get_registered_plugins(self):
-        """
-        Gets registered plugins.
-        """
+        """Gets registered plugins."""
         return get_registered_form_handler_plugins()
 
     def get_registry(self):
+        """Get registry."""
         return form_handler_plugin_registry
