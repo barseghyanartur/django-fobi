@@ -1,22 +1,25 @@
 """
 - `RESTRICT_PLUGIN_ACCESS` (bool): If set to True, (Django) permission system
   for fobi plugins is enabled.
-- `FORM_ELEMENT_PLUGINS_MODULE_NAME` (str): Name of the module to placed in 
+- `FORM_ELEMENT_PLUGINS_MODULE_NAME` (str): Name of the module to placed in
   the (external) apps in which the fobi form element plugin code should be
   implemented and registered.
-- `FORM_HANDLER_PLUGINS_MODULE_NAME` (str): Name of the module to placed in 
+- `FORM_HANDLER_PLUGINS_MODULE_NAME` (str): Name of the module to placed in
   the (external) apps in which the fobi form handler plugin code should be
   implemented and registered.
-- `FORM_CALLBACKS_MODULE_NAME` (str): Name of the module to placed in the 
+- `FORM_CALLBACKS_MODULE_NAME` (str): Name of the module to placed in the
   (external) apps in which the fobi form callback code should be implemented
   and registered.
-- `FORM_HANDLER_PLUGINS_EXECUTION_ORDER` (tuple): Order in which the form 
+- `FORM_HANDLER_PLUGINS_EXECUTION_ORDER` (tuple): Order in which the form
   handler plugins are to be executed.
 - `DEBUG`
 """
+from .conf import get_setting
+from .exceptions import NoDefaultThemeSet
+
 __title__ = 'fobi.settings'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'RESTRICT_PLUGIN_ACCESS', 'FORM_ELEMENT_PLUGINS_MODULE_NAME',
@@ -34,9 +37,6 @@ __all__ = (
 
     'WAIT_BETWEEN_TEST_STEPS', 'WAIT_AT_TEST_END',
 )
-
-from fobi.conf import get_setting
-from fobi.exceptions import NoDefaultThemeSet
 
 # **************************************************************
 # **************************************************************
