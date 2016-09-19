@@ -1,6 +1,6 @@
 __title__ = 'fobi.defaults'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'RESTRICT_PLUGIN_ACCESS', 'FORM_ELEMENT_PLUGINS_MODULE_NAME',
@@ -19,8 +19,6 @@ __all__ = (
     'WAIT_BETWEEN_TEST_STEPS', 'WAIT_AT_TEST_END',
 )
 
-from django.utils.translation import ugettext
-
 gettext = lambda s: s
 
 # **************************************************************
@@ -29,7 +27,7 @@ gettext = lambda s: s
 # **************************************************************
 # **************************************************************
 
-# If set to True, plugins would be only accessible by the white-listed user(s) 
+# If set to True, plugins would be only accessible by the white-listed user(s)
 # or group(s). If set to False, all users have the same access rights to all
 # plugins.
 RESTRICT_PLUGIN_ACCESS = True
