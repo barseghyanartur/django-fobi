@@ -1,10 +1,4 @@
-__title__ = 'fobi.urls.edit'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('urlpatterns',)
-
-from django.conf.urls import url #patterns, include
+from django.conf.urls import url  # patterns, include
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.views import (
@@ -12,9 +6,15 @@ from fobi.views import (
     add_form_element_entry, edit_form_element_entry, delete_form_element_entry,
     add_form_handler_entry, edit_form_handler_entry, delete_form_handler_entry,
     export_form_entry, import_form_entry, form_importer
-    )
+)
 
-#urlpatterns = patterns('fobi.views',
+__title__ = 'fobi.urls.edit'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2014-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('urlpatterns',)
+
+
 urlpatterns = [
     # Create form entry
     url(_(r'^forms/create/$'),
@@ -47,7 +47,8 @@ urlpatterns = [
         name='fobi.form_importer'),
 
     # Add form element entry
-    url(_(r'^forms/elements/add/(?P<form_entry_id>\d+)/(?P<form_element_plugin_uid>[\w_\-]+)/$'),
+    url(_(r'^forms/elements/add/(?P<form_entry_id>\d+)/'
+          r'(?P<form_element_plugin_uid>[\w_\-]+)/$'),
         add_form_element_entry,
         name='fobi.add_form_element_entry'),
 
@@ -62,7 +63,8 @@ urlpatterns = [
         name='fobi.delete_form_element_entry'),
 
     # Add form handler entry
-    url(_(r'^forms/handlers/add/(?P<form_entry_id>\d+)/(?P<form_handler_plugin_uid>[\w_\-]+)/$'),
+    url(_(r'^forms/handlers/add/(?P<form_entry_id>\d+)/'
+          r'(?P<form_handler_plugin_uid>[\w_\-]+)/$'),
         add_form_handler_entry,
         name='fobi.add_form_handler_entry'),
 
@@ -80,5 +82,4 @@ urlpatterns = [
     url(_(r'^$'),
         view=dashboard,
         name='fobi.dashboard'),
-#)
 ]
