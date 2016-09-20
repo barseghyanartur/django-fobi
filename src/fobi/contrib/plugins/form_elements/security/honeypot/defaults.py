@@ -7,4 +7,3 @@ __all__ = (
 )
 
 HONEYPOT_VALUE = ''
-
