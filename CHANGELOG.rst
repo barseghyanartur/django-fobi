@@ -573,20 +573,20 @@ carefully.
 
 0.4.11
 ------
-2012-12-29
+2014-12-29
 
 - Styling fixes in the ``radio`` button field of the ``bootstrap3`` theme.
 - Fixed ``db_store`` issue with CSV/XLS export failing on Django 1.7.
 
 0.4.10
 ------
-2012-12-28
+2014-12-28
 
 - Minor fixes in FeinCMS integration app.
 
 0.4.9
 -----
-2012-12-28
+2014-12-28
 
 - Third party app integration (at the moment, FeinCMS, DjangoCMS, Mezzanine)
   had been generalised and unified.
@@ -595,13 +595,13 @@ carefully.
 
 0.4.8
 -----
-2012-12-25
+2014-12-25
 
 - More verbose debugging.
 
 0.4.7
 -----
-2012-12-24
+2014-12-24
 
 - Temporary left out the "cloneable" column from the dashboard templates.
 - Fixed broken imports in CAPTCHA plugin.
@@ -609,7 +609,7 @@ carefully.
 
 0.4.6
 -----
-2012-12-23
+2014-12-23
 
 - Updated requirements for the ``vishap`` package to avoid the ``six`` version
   conflicts.
@@ -617,7 +617,7 @@ carefully.
 
 0.4.5
 -----
-2012-12-17
+2014-12-17
 
 - ReCAPTCHA field added.
 - Mezzanine integration app added.
