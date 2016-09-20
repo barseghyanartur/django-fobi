@@ -1,9 +1,3 @@
-__title__ = 'fobi.contrib.plugins.form_elements.fields.radio.fobi_form_elements'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2016 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('RadioInputPlugin',)
-
 from django.forms.fields import ChoiceField
 from django.forms.widgets import RadioSelect
 from django.utils.translation import ugettext_lazy as _
@@ -11,28 +5,33 @@ from django.utils.translation import ugettext_lazy as _
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
 from fobi.constants import (
     SUBMIT_VALUE_AS_VAL, SUBMIT_VALUE_AS_REPR
-    )
+)
 from fobi.helpers import get_select_field_choices, safe_text
 
 from . import UID
 from .forms import RadioInputForm
 from .settings import SUBMIT_VALUE_AS
 
+__title__ = 'fobi.contrib.plugins.form_elements.fields.' \
+            'radio.fobi_form_elements'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2014-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('RadioInputPlugin',)
+
 theme = get_theme(request=None, as_instance=True)
 
+
 class RadioInputPlugin(FormFieldPlugin):
-    """
-    Radio field plugin.
-    """
+    """Radio field plugin."""
+
     uid = UID
     name = _("Radio")
     group = _("Fields")
     form = RadioInputForm
 
     def get_form_field_instances(self, request=None):
-        """
-        Get form field instances.
-        """
+        """Get form field instances."""
         choices = get_select_field_choices(self.data.choices)
 
         widget_attrs = {'class': theme.form_radio_element_html_class}
@@ -48,8 +47,7 @@ class RadioInputPlugin(FormFieldPlugin):
         return [(self.data.name, ChoiceField, kwargs)]
 
     def submit_plugin_form_data(self, form_entry, request, form):
-        """
-        Submit plugin form data/process.
+        """Submit plugin form data/process.
 
         :param fobi.models.FormEntry form_entry: Instance of
             ``fobi.models.FormEntry``.
