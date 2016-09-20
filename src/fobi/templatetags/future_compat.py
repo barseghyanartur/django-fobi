@@ -1,20 +1,18 @@
 __title__ = 'fobi.templatetags.future_compat'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('firstof',)
 
 try:
     # We're using the Django 1.6 admin templates, that make use of new
     # things. One of the new additions (changed) was the ``firstof``
-    # template tag. If we can't import it, we simply define it outselves
+    # template tag. If we can't import it, we simply define it ourselves.
     from django.template.deafulttags import firstof
 except ImportError:
     import warnings
 
-    from django.template.base import (
-        Node, TemplateSyntaxError
-        )
+    from django.template.base import Node, TemplateSyntaxError
     from django.template import Library
     from django.utils.timezone import template_localtime
     from django.utils.formats import localize
@@ -25,10 +23,11 @@ except ImportError:
     register = Library()
 
     def render_value_in_context(value, context):
-        """
-        Converts any value to a string to become part of a rendered template. This
-        means escaping, if required, and conversion to a unicode object. If value
-        is a string, it is expected to have already been translated.
+        """Render value in context.
+
+        Converts any value to a string to become part of a rendered template.
+        This means escaping, if required, and conversion to a unicode object.
+        If value is a string, it is expected to have already been translated.
         """
         value = template_localtime(value, use_tz=context.use_tz)
         value = localize(value, use_l10n=context.use_l10n)
@@ -40,11 +39,15 @@ except ImportError:
             return value
 
     class FirstOfNode(Node):
+        """First of node."""
+
         def __init__(self, variables, escape=False):
+            """Constructor."""
             self.vars = variables
-            self.escape = escape        # only while the "future" version exists
+            self.escape = escape  # only while the "future" version exists
 
         def render(self, context):
+            """Render."""
             for var in self.vars:
                 value = var.resolve(context, True)
                 if value:
@@ -53,10 +56,10 @@ except ImportError:
                     return render_value_in_context(value, context)
             return ''
 
-
     @register.tag
     def firstof(parser, token, escape=False):
-        """
+        """Outputs the first variable passed that is not False.
+
         Outputs the first variable passed that is not False, without escaping.
 
         Outputs nothing if all the passed variables are False.
@@ -91,12 +94,15 @@ except ImportError:
         """
         if not escape:
             warnings.warn(
-                "'The `firstof` template tag is changing to escape its arguments; "
-                "the non-autoescaping version is deprecated. Load it "
-                "from the `future` tag library to start using the new behavior.",
+                "'The `firstof` template tag is changing to escape its "
+                "arguments; the non-autoescaping version is deprecated. Load "
+                "it from the `future` tag library to start using the new "
+                "behavior.",
                 DeprecationWarning, stacklevel=2)
 
         bits = token.split_contents()[1:]
         if len(bits) < 1:
-            raise TemplateSyntaxError("'firstof' statement requires at least one argument")
-        return FirstOfNode([parser.compile_filter(bit) for bit in bits], escape=escape)
+            raise TemplateSyntaxError("'firstof' statement requires at least "
+                                      "one argument")
+        return FirstOfNode([parser.compile_filter(bit) for bit in bits],
+                           escape=escape)
