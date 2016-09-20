@@ -10,6 +10,8 @@ try:
     from django.apps import AppConfig
 
     class Config(AppConfig):
+        """Config."""
+
         name = 'fobi.contrib.plugins.form_elements.fields.time'
         label = 'fobi_contrib_plugins_form_elements_fields_time'
 
