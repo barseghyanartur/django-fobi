@@ -6,7 +6,7 @@ since it never imports from any of the fobi (sub)modules (except for the
 
 __title__ = 'fobi.helpers'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'do_slugify', 'lists_overlap', 'iterable_to_dict', 'map_field_name_to_label',
