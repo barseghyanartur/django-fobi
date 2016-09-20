@@ -29,7 +29,7 @@ class Bootstrap3Theme(BaseTheme):
         'bootstrap3/js/bootstrap.min.js',
         'js/jquery.slugify.js',
         'js/fobi.core.js',
-        'bootstrap3/js/bootstrap3_fobi_extras.js', # Theme-specific scripts
+        'bootstrap3/js/bootstrap3_fobi_extras.js',  # Theme-specific scripts
     )
 
     # footer_text = '&copy; django-fobi example site 2014'
@@ -110,5 +110,6 @@ class Bootstrap3Theme(BaseTheme):
         """Constructor."""
         super(Bootstrap3Theme, self).__init__(user=user)
         self.form_radio_element_html_class = ''
+
 
 theme_registry.register(Bootstrap3Theme)
