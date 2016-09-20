@@ -1,8 +1,4 @@
-__title__ = 'fobi.contrib.plugins.form_elements.fields.ip_address.fobi_form_elements'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2016 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('IPAddressInputPlugin',)
+
 
 from django.forms.fields import GenericIPAddressField
 from django.forms.widgets import TextInput
@@ -13,21 +9,26 @@ from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
 from . import UID
 from .forms import IPAddressInputForm
 
+__title__ = 'fobi.contrib.plugins.form_elements.fields.' \
+            'ip_address.fobi_form_elements'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2014-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('IPAddressInputPlugin',)
+
 theme = get_theme(request=None, as_instance=True)
 
+
 class IPAddressInputPlugin(FormFieldPlugin):
-    """
-    Char field plugin.
-    """
+    """IP address field plugin."""
+
     uid = UID
     name = _("IP address")
     group = _("Fields")
     form = IPAddressInputForm
 
     def get_form_field_instances(self, request=None):
-        """
-        Get form field instances.
-        """
+        """Get form field instances."""
         widget_attrs = {
             'class': theme.form_element_html_class,
             'placeholder': self.data.placeholder,
