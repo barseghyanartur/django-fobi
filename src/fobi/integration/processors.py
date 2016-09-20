@@ -1,32 +1,32 @@
-__title__ = 'fobi.integration.processors'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('IntegrationProcessor',)
-
-from django.utils.translation import ugettext_lazy as _
-from django.template.loader import render_to_string
-from django.template import RequestContext
+from django.conf import settings
 from django.contrib import messages
 from django.shortcuts import redirect
-from django.conf import settings
+from django.template import RequestContext
+from django.template.loader import render_to_string
+from django.utils.translation import ugettext_lazy as _
 
-from fobi.dynamic import assemble_form_class
 from fobi.base import (
     fire_form_callbacks, run_form_handlers,
     submit_plugin_form_data, get_theme
-    )
+)
 from fobi.constants import (
     CALLBACK_BEFORE_FORM_VALIDATION, CALLBACK_FORM_INVALID,
     CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA, CALLBACK_FORM_VALID,
     CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS
-    )
+)
+from fobi.dynamic import assemble_form_class
 from fobi.exceptions import ImproperlyConfigured
 from fobi.settings import GET_PARAM_INITIAL_DATA
 
+__title__ = 'fobi.integration.processors'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2014-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('IntegrationProcessor',)
+
+
 class IntegrationProcessor(object):
-    """
-    Generic integration processor.
+    """Generic integration processor.
 
     :param str form_sent_get_param:
     :param bool can_redirect: If set to True, if not authenticated
@@ -38,15 +38,16 @@ class IntegrationProcessor(object):
     :param str login_required_template_name: Template to be used for
         rendering the login required message. This is only important when
         ``login_required_redirect`` is set to False.
-    :param 
     """
+
     form_sent_get_param = 'sent'
     can_redirect = True
     login_required_template_name = None
 
     def integration_check(self, instance):
-        """
-        Perofrms a simple check to identify whether the model instance
+        """Integration check.
+
+        Performs a simple check to identify whether the model instance
         has been implemented according to the expectations.
         """
         expected_fields = (
@@ -66,10 +67,11 @@ class IntegrationProcessor(object):
                 raise ImproperlyConfigured(
                     "You should have a field {0} in your {1} model "
                     "({2})".format(field_name, field_info, type(instance))
-                    )
+                )
 
     def _process_form(self, request, instance, **kwargs):
-        """
+        """Process form.
+
         Handle the form if no "sent" GET argument (see the
         ``WIDGET_FORM_SENT_GET_PARAM`` setting).
 
@@ -82,99 +84,102 @@ class IntegrationProcessor(object):
         # Handle public/non-public forms. If form requires user authentication
         # redirect to login form with next parameter set to current request
         # path.
-        if not request.user.is_authenticated() and not instance.form_entry.is_public:
+        if not request.user.is_authenticated() \
+                and not instance.form_entry.is_public:
             if self.can_redirect:
                 return redirect(
                     "{0}?next={1}".format(settings.LOGIN_URL, request.path)
-                    )
+                )
             else:
                 return self._show_login_required_page(
                     request, instance, **kwargs
-                    )
+                )
 
-        form_element_entries = instance.form_entry.formelemententry_set.all()[:]
+        form_element_entries = instance.form_entry.formelemententry_set.all()[
+                               :]
         # This is where the most of the magic happens. Our form is being built
         # dynamically.
         FormClass = assemble_form_class(
             instance.form_entry,
-            form_element_entries = form_element_entries,
-            request = request
-            )
+            form_element_entries=form_element_entries,
+            request=request
+        )
 
         if 'POST' == request.method:
             form = FormClass(request.POST, request.FILES)
 
             # Fire pre form validation callbacks
             fire_form_callbacks(
-                form_entry = instance.form_entry,
-                request = request,
-                form = form,
-                stage = CALLBACK_BEFORE_FORM_VALIDATION)
+                form_entry=instance.form_entry,
+                request=request,
+                form=form,
+                stage=CALLBACK_BEFORE_FORM_VALIDATION
+            )
 
             if form.is_valid():
                 # Fire form valid callbacks, before handling sufrom
                 # django.http import HttpResponseRedirectbmitted plugin
                 # form data
                 form = fire_form_callbacks(
-                    form_entry = instance.form_entry,
-                    request = request,
-                    form = form,
-                    stage = CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA
-                    )
+                    form_entry=instance.form_entry,
+                    request=request,
+                    form=form,
+                    stage=CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA
+                )
 
                 # Fire plugin processors
                 form = submit_plugin_form_data(
-                    form_entry = instance.form_entry,
-                    request = request,
-                    form = form
-                    )
+                    form_entry=instance.form_entry,
+                    request=request,
+                    form=form
+                )
 
                 # Fire form valid callbacks
                 form = fire_form_callbacks(
-                    form_entry = instance.form_entry,
-                    request = request,
-                    form = form,
-                    stage = CALLBACK_FORM_VALID
-                    )
+                    form_entry=instance.form_entry,
+                    request=request,
+                    form=form,
+                    stage=CALLBACK_FORM_VALID
+                )
 
                 # Run all handlers
                 run_form_handlers(
-                    form_entry = instance.form_entry,
-                    request = request,
-                    form = form
-                    )
+                    form_entry=instance.form_entry,
+                    request=request,
+                    form=form
+                )
 
                 # Fire post handler callbacks
                 fire_form_callbacks(
-                    form_entry = instance.form_entry,
-                    request = request,
-                    form = form,
-                    stage = CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS
-                    )
+                    form_entry=instance.form_entry,
+                    request=request,
+                    form=form,
+                    stage=CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS
+                )
 
                 messages.info(
                     request,
                     _('Form {0} was submitted '
                       'successfully.').format(instance.form_entry.name)
-                    )
+                )
 
                 if self.can_redirect:
                     return redirect(
-                        "{0}?{1}={2}".format(request.path, \
-                                             self.form_sent_get_param, \
+                        "{0}?{1}={2}".format(request.path,
+                                             self.form_sent_get_param,
                                              instance.form_entry.slug)
-                        )
+                    )
                 else:
                     return self._show_thanks_page(request, instance, **kwargs)
 
             else:
                 # Fire post form validation callbacks
                 fire_form_callbacks(
-                    form_entry = instance.form_entry,
-                    request = request,
-                    form = form,
-                    stage = CALLBACK_FORM_INVALID
-                    )
+                    form_entry=instance.form_entry,
+                    request=request,
+                    form=form,
+                    stage=CALLBACK_FORM_INVALID
+                )
 
         else:
             # Providing initial form data by feeding entire GET dictionary
@@ -202,28 +207,28 @@ class IntegrationProcessor(object):
 
         self.rendered_output = render_to_string(
             template_name, context, context_instance=RequestContext(request)
-            )
+        )
 
     def _show_login_required_page(self, request, instance, **kwargs):
-        """
-        Displays text with login required.
+        """Displays text with login required.
 
         :param django.http.HttpRequest request:
         :return django.http.HttpResponse | str:
         """
         context = {
-            'login_url': "{0}?next={1}".format(settings.LOGIN_URL, request.path),
+            'login_url': "{0}?next={1}".format(settings.LOGIN_URL,
+                                               request.path),
         }
         template_name = self.login_required_template_name \
-                        or 'fobi/integration/login_required.html'
+            if self.login_required_template_name \
+            else 'fobi/integration/login_required.html'
 
         return render_to_string(
             template_name, context, context_instance=RequestContext(request)
-            )
+        )
 
     def _show_thanks_page(self, request, instance, **kwargs):
-        """
-        Renders the thanks page after successful form submission.
+        """Render the thanks page after successful form submission.
 
         :param django.http.HttpRequest request:
         :param fobi.models.FormEntry instance: FormEntry instance.
@@ -246,11 +251,10 @@ class IntegrationProcessor(object):
 
         self.rendered_output = render_to_string(
             template_name, context, context_instance=RequestContext(request)
-            )
+        )
 
     def _process(self, request, instance, **kwargs):
-        """
-        This is where most of the form handling happens.
+        """This is where most of the form handling happens.
 
         :param django.http.HttpRequest request:
         :param fobi.models.FormEntry instance: FormEntry instance.
