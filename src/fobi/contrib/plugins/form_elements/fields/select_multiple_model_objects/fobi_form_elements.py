@@ -1,12 +1,5 @@
-__title__ = 'fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects.fobi_form_elements'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2016 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('SelectMultipleModelObjectsInputPlugin',)
-
 import simplejson as json
 
-from django.db import models
 from django.forms.models import ModelMultipleChoiceField
 from django.forms.widgets import SelectMultiple
 from django.utils.translation import ugettext_lazy as _
@@ -14,10 +7,14 @@ from django.utils.translation import ugettext_lazy as _
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
 from fobi.constants import (
     SUBMIT_VALUE_AS_VAL, SUBMIT_VALUE_AS_REPR
-    )
+)
 from fobi.helpers import safe_text, get_app_label_and_model_name
 
 from nine.versions import DJANGO_GTE_1_7
+
+from . import UID
+from .forms import SelectMultipleModelObjectsInputForm
+from .settings import SUBMIT_VALUE_AS
 
 if DJANGO_GTE_1_7:
     from django.apps import apps
@@ -25,25 +22,26 @@ if DJANGO_GTE_1_7:
 else:
     from django.db.models import get_model
 
-from . import UID
-from .forms import SelectMultipleModelObjectsInputForm
-from .settings import SUBMIT_VALUE_AS
+__title__ = 'fobi.contrib.plugins.form_elements.fields.' \
+            'select_multiple_model_objects.fobi_form_elements'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2014-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('SelectMultipleModelObjectsInputPlugin',)
 
 theme = get_theme(request=None, as_instance=True)
 
+
 class SelectMultipleModelObjectsInputPlugin(FormFieldPlugin):
-    """
-    Select model object field plugin.
-    """
+    """Select multiple model objects field plugin."""
+
     uid = UID
     name = _("Select multiple model objects")
     group = _("Fields")
     form = SelectMultipleModelObjectsInputForm
 
     def get_form_field_instances(self, request=None):
-        """
-        Get form field instances.
-        """
+        """Get form field instances."""
         app_label, model_name = get_app_label_and_model_name(self.data.model)
         model = get_model(app_label, model_name)
         queryset = model._default_manager.all()
@@ -54,7 +52,9 @@ class SelectMultipleModelObjectsInputPlugin(FormFieldPlugin):
             'initial': self.data.initial,
             'required': self.data.required,
             'queryset': queryset,
-            'widget': SelectMultiple(attrs={'class': theme.form_element_html_class}),
+            'widget': SelectMultiple(
+                attrs={'class': theme.form_element_html_class}
+            ),
         }
 
         return [(self.data.name, ModelMultipleChoiceField, kwargs)]
@@ -63,7 +63,8 @@ class SelectMultipleModelObjectsInputPlugin(FormFieldPlugin):
         """
         Submit plugin form data/process.
 
-        :param fobi.models.FormEntry form_entry: Instance of ``fobi.models.FormEntry``.
+        :param fobi.models.FormEntry form_entry: Instance of
+            ``fobi.models.FormEntry``.
         :param django.http.HttpRequest request:
         :param django.forms.Form form:
         """
