@@ -1,9 +1,3 @@
-__title__ = 'fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple.fobi_form_elements'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014-2015 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('CheckboxSelectMultipleInputPlugin',)
-
 from django.forms.fields import MultipleChoiceField
 from django.forms.widgets import CheckboxSelectMultiple
 from django.utils.translation import ugettext_lazy as _
@@ -11,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
 from fobi.constants import (
     SUBMIT_VALUE_AS_VAL, SUBMIT_VALUE_AS_REPR
-    )
+)
 from fobi.helpers import get_select_field_choices, safe_text
 
 from . import UID
@@ -20,19 +14,24 @@ from .settings import SUBMIT_VALUE_AS
 
 theme = get_theme(request=None, as_instance=True)
 
+__title__ = 'fobi.contrib.plugins.form_elements.fields.' \
+            'checkbox_select_multiple.fobi_form_elements'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2014-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('CheckboxSelectMultipleInputPlugin',)
+
+
 class CheckboxSelectMultipleInputPlugin(FormFieldPlugin):
-    """
-    Checkbox select multiple field plugin.
-    """
+    """Checkbox select multiple field plugin."""
+
     uid = UID
     name = _("Checkbox select multiple")
     group = _("Fields")
     form = CheckboxSelectMultipleInputForm
 
     def get_form_field_instances(self, request=None):
-        """
-        Get form field instances.
-        """
+        """Get form field instances."""
         choices = get_select_field_choices(self.data.choices)
 
         kwargs = {
@@ -41,14 +40,15 @@ class CheckboxSelectMultipleInputPlugin(FormFieldPlugin):
             'initial': self.data.initial,
             'required': self.data.required,
             'choices': choices,
-            'widget': CheckboxSelectMultiple(attrs={'class': theme.form_element_html_class}),
+            'widget': CheckboxSelectMultiple(
+                attrs={'class': theme.form_element_html_class}
+            ),
         }
 
         return [(self.data.name, MultipleChoiceField, kwargs)]
 
     def submit_plugin_form_data(self, form_entry, request, form):
-        """
-        Submit plugin form data/process.
+        """Submit plugin form data/process.
 
         :param fobi.models.FormEntry form_entry: Instance of
             ``fobi.models.FormEntry``.
