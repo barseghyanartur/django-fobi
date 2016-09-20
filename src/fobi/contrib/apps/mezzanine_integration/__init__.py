@@ -1,8 +1,7 @@
 __title__ = 'fobi.contrib.apps.mezzanine_integration'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('default_app_config',)
 
 default_app_config = 'fobi.contrib.apps.mezzanine_integration.apps.Config'
-
