@@ -1,39 +1,39 @@
+import logging
+
+import mailchimp
+
+from django.contrib import messages
+from django.core.urlresolvers import reverse
+from django.shortcuts import redirect
+from django.utils.translation import ugettext_lazy as _
+
+from nine.versions import DJANGO_GTE_1_8
+
+from .forms import MailchimpAPIKeyForm, MailchimpListIDForm
+
+if DJANGO_GTE_1_8:
+    from formtools.wizard.views import SessionWizardView  # , CookieWizardView
+else:
+    from django.contrib.formtools.wizard.views import SessionWizardView
+
 __title__ = 'fobi.contrib.plugins.form_importers.mailchimp_importer.views'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('MailchimpImporterWizardView',)
 
-import logging
-
-import mailchimp
-
-from django.shortcuts import redirect
-from django.core.urlresolvers import reverse
-from django.contrib import messages
-from django.utils.translation import ugettext_lazy as _
-
-from nine.versions import DJANGO_GTE_1_8
-
-if DJANGO_GTE_1_8:
-    from formtools.wizard.views import SessionWizardView#, CookieWizardView
-else:
-    from django.contrib.formtools.wizard.views import SessionWizardView
-
-from .forms import MailchimpAPIKeyForm, MailchimpListIDForm
-
 logger = logging.getLogger(__name__)
 
+
 class MailchimpImporterWizardView(SessionWizardView):
-    """
-    """
+    """MailchimpImporterWizardView."""
+
     form_list = [MailchimpAPIKeyForm, MailchimpListIDForm]
 
     def get_form_kwargs(self, step):
-        """
-        """
-        #logger.debug('step: ' + step)
-        #logger.debug(self.request.session.__dict__)
+        """Get form kwargs."""
+        # logger.debug('step: ' + step)
+        # logger.debug(self.request.session.__dict__)
         if '1' == step:
             data = self.get_cleaned_data_for_step('0') or {}
             api_key = data.get('api_key', None)
@@ -45,7 +45,7 @@ class MailchimpImporterWizardView(SessionWizardView):
         cleaned_data = {}
         for form in form_list:
             cleaned_data.update(form.cleaned_data)
-        #cleaned_data = self.get_all_cleaned_data()
+        # cleaned_data = self.get_all_cleaned_data()
 
         # Connecting to mailchimp
         client = mailchimp.Mailchimp(cleaned_data['api_key'])

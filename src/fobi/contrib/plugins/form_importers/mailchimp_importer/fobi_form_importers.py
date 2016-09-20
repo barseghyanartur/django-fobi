@@ -1,20 +1,21 @@
-__title__ = 'fobi.contrib.plugins.form_importers.mailchimp_importer.fobi_form_importers'
+from django.utils.translation import ugettext_lazy as _
+
+from fobi.contrib.plugins.form_elements import fields
+from fobi.form_importers import BaseFormImporter, form_importer_plugin_registry
+
+from .views import MailchimpImporterWizardView
+
+__title__ = 'fobi.contrib.plugins.form_importers.mailchimp_importer.' \
+            'fobi_form_importers'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('MailChimpImporter',)
 
-from django.utils.translation import ugettext_lazy as _
-
-from fobi.form_importers import BaseFormImporter, form_importer_plugin_registry
-from fobi.contrib.plugins.form_elements import fields
-
-from .views import MailchimpImporterWizardView
 
 class MailChimpImporter(BaseFormImporter):
-    """
-    MailChimp data importer.
-    """
+    """MailChimp data importer."""
+
     uid = 'mailchimp'
     name = _("MailChimp")
     wizard = MailchimpImporterWizardView
@@ -40,10 +41,10 @@ class MailChimpImporter(BaseFormImporter):
         'phone': fields.text.UID,
 
         # Unsure of what to do
-        #'imageurl': '???',
+        # 'imageurl': '???',
 
         # Not implemented yet
-        #'birthday': '???',
+        # 'birthday': '???',
     }
 
     # Django standard: remote
@@ -60,7 +61,8 @@ class MailChimpImporter(BaseFormImporter):
     position_prop_name = 'order'
 
     def extract_field_properties(self, field_data):
-        """
+        """Extract field properties.
+
         Handle choices differently as we know what the mailchimp
         format is.
         """
