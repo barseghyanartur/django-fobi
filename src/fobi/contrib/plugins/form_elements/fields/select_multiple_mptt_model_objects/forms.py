@@ -15,6 +15,7 @@ __all__ = ('SelectMultipleMPTTModelObjectsInputForm',)
 
 theme = get_theme(request=None, as_instance=True)
 
+
 class SelectMultipleMPTTModelObjectsInputForm(forms.Form,
                                               BaseFormFieldPluginForm):
     """Form for ``SelectMultipleMPTTModelObjectsPlugin``."""

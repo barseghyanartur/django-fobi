@@ -15,6 +15,6 @@ try:
                'select_multiple_mptt_model_objects'
         label = 'fobi_contrib_plugins_form_elements_fields_' \
                 'select_multiple_mptt_model_objects'
-        
+
 except ImportError:
     pass

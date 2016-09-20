@@ -1,28 +1,28 @@
+from django.utils.translation import ugettext_lazy as _
+
+from fobi.base import BaseTheme, theme_registry
+from fobi.contrib.themes.simple import UID
+
 __title__ = 'fobi.contrib.themes.simple.fobi_themes'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('SimpleTheme',)
 
-from django.utils.translation import ugettext_lazy as _
-
-from fobi.base import BaseTheme, theme_registry
-from fobi.contrib.themes.simple import UID
 
 class SimpleTheme(BaseTheme):
-    """
-    Simple theme that has a native Django style.
-    """
+    """Simple theme that has a native Django style."""
+
     uid = UID
     name = _("Simple")
 
     media_css = (
-        #'admin/css/base.css',
-        #'admin/css/forms.css',
-        #'admin/css/widgets.css',
+        # 'admin/css/base.css',
+        # 'admin/css/forms.css',
+        # 'admin/css/widgets.css',
         'simple/css/fobi.simple.css',
         'jquery-ui/css/django-admin-theme/jquery-ui-1.10.4.custom.min.css',
-        #'admin_tools/css/menu.css', # TODO at least a conditional insert
+        # 'admin_tools/css/menu.css', # TODO at least a conditional insert
     )
 
     media_js = (
@@ -30,10 +30,10 @@ class SimpleTheme(BaseTheme):
         'jquery-ui/js/jquery-ui-1.10.4.custom.min.js',
         'js/jquery.slugify.js',
         'js/fobi.core.js',
-        #'js/fobi.simple.js',
+        # 'js/fobi.simple.js',
     )
 
-    #footer_text = '&copy; django-fobi example site 2014'
+    # footer_text = '&copy; django-fobi example site 2014'
 
     # *************************************************************************
     # ********************** Form HTML specific *******************************
@@ -64,14 +64,17 @@ class SimpleTheme(BaseTheme):
     form_view_snippet_template_name = 'simple/snippets/form_view_snippet.html'
     form_edit_ajax = 'simple/snippets/form_edit_ajax.html'
     form_edit_snippet_template_name = 'simple/snippets/form_edit_snippet.html'
-    form_properties_snippet_template_name = 'simple/snippets/form_properties_snippet.html'
+    form_properties_snippet_template_name = \
+        'simple/snippets/form_properties_snippet.html'
     messages_snippet_template_name = 'simple/snippets/messages_snippet.html'
 
     add_form_element_entry_template = 'simple/add_form_element_entry.html'
-    add_form_element_entry_ajax_template = 'simple/add_form_element_entry_ajax.html'
+    add_form_element_entry_ajax_template = \
+        'simple/add_form_element_entry_ajax.html'
 
     add_form_handler_entry_template = 'simple/add_form_handler_entry.html'
-    add_form_handler_entry_ajax_template = 'simple/add_form_handler_entry_ajax.html'
+    add_form_handler_entry_ajax_template = \
+        'simple/add_form_handler_entry_ajax.html'
 
     create_form_entry_template = 'simple/create_form_entry.html'
     create_form_entry_ajax_template = 'simple/create_form_entry_ajax.html'
@@ -80,16 +83,19 @@ class SimpleTheme(BaseTheme):
     forms_list_template = 'simple/forms_list.html'
 
     edit_form_element_entry_template = 'simple/edit_form_element_entry.html'
-    edit_form_element_entry_ajax_template = 'simple/edit_form_element_entry_ajax.html'
+    edit_form_element_entry_ajax_template = \
+        'simple/edit_form_element_entry_ajax.html'
 
     edit_form_entry_template = 'simple/edit_form_entry.html'
     edit_form_entry_ajax_template = 'simple/edit_form_entry_ajax.html'
 
     edit_form_handler_entry_template = 'simple/edit_form_handler_entry.html'
-    edit_form_handler_entry_ajax_template = 'simple/edit_form_handler_entry_ajax.html'
+    edit_form_handler_entry_ajax_template = \
+        'simple/edit_form_handler_entry_ajax.html'
 
     form_entry_submitted_template = 'simple/form_entry_submitted.html'
-    form_entry_submitted_ajax_template = 'simple/form_entry_submitted_ajax.html'
+    form_entry_submitted_ajax_template = \
+        'simple/form_entry_submitted_ajax.html'
 
     view_form_entry_template = 'simple/view_form_entry.html'
     view_form_entry_ajax_template = 'simple/view_form_entry_ajax.html'

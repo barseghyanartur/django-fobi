@@ -8,6 +8,8 @@ try:
     from django.apps import AppConfig
 
     class Config(AppConfig):
+        """Config."""
+
         name = 'fobi.contrib.themes.simple'
         label = 'fobi_contrib_themes_simple'
 
