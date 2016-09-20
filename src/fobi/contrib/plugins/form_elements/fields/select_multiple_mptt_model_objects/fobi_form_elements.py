@@ -1,12 +1,5 @@
-__title__ = 'fobi.contrib.plugins.form_elements.fields.select_multiple_mptt_model_objects.fobi_form_elements'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2016 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('SelectMultipleMPTTModelObjectsInputPlugin',)
-
 import simplejson as json
 
-from django.db import models
 from django.forms.widgets import SelectMultiple
 from django.utils.translation import ugettext_lazy as _
 
@@ -20,31 +13,36 @@ from fobi.helpers import safe_text, get_app_label_and_model_name
 
 from nine.versions import DJANGO_GTE_1_7
 
+from . import UID
+from .forms import SelectMultipleMPTTModelObjectsInputForm
+from .settings import SUBMIT_VALUE_AS
+
 if DJANGO_GTE_1_7:
     from django.apps import apps
     get_model = apps.get_model
 else:
     from django.db.models import get_model
 
-from . import UID
-from .forms import SelectMultipleMPTTModelObjectsInputForm
-from .settings import SUBMIT_VALUE_AS
+__title__ = 'fobi.contrib.plugins.form_elements.fields.' \
+            'select_multiple_mptt_model_objects.fobi_form_elements'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2014-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('SelectMultipleMPTTModelObjectsInputPlugin',)
 
 theme = get_theme(request=None, as_instance=True)
 
+
 class SelectMultipleMPTTModelObjectsInputPlugin(FormFieldPlugin):
-    """
-    Select multiple MPTT model object field plugin.
-    """
+    """Select multiple MPTT model object field plugin."""
+
     uid = UID
     name = _("Select multiple MPTT model objects")
     group = _("Fields")
     form = SelectMultipleMPTTModelObjectsInputForm
 
     def get_form_field_instances(self, request=None):
-        """
-        Get form field instances.
-        """
+        """Get form field instances."""
         app_label, model_name = get_app_label_and_model_name(self.data.model)
         model = get_model(app_label, model_name)
         queryset = model._default_manager.all()
@@ -55,16 +53,18 @@ class SelectMultipleMPTTModelObjectsInputPlugin(FormFieldPlugin):
             'initial': self.data.initial,
             'required': self.data.required,
             'queryset': queryset,
-            'widget': SelectMultiple(attrs={'class': theme.form_element_html_class}),
+            'widget': SelectMultiple(
+                attrs={'class': theme.form_element_html_class}
+            ),
         }
 
         return [(self.data.name, TreeNodeMultipleChoiceField, kwargs)]
 
     def submit_plugin_form_data(self, form_entry, request, form):
-        """
-        Submit plugin form data/process.
+        """Submit plugin form data/process.
 
-        :param fobi.models.FormEntry form_entry: Instance of ``fobi.models.FormEntry``.
+        :param fobi.models.FormEntry form_entry: Instance of
+            ``fobi.models.FormEntry``.
         :param django.http.HttpRequest request:
         :param django.forms.Form form:
         """
@@ -106,4 +106,6 @@ class SelectMultipleMPTTModelObjectsInputPlugin(FormFieldPlugin):
         return form
 
 
-form_element_plugin_registry.register(SelectMultipleMPTTModelObjectsInputPlugin)
+form_element_plugin_registry.register(
+    SelectMultipleMPTTModelObjectsInputPlugin
+)
