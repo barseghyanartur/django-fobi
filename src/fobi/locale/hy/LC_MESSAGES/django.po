@@ -402,7 +402,7 @@ msgid "Form {0} was created successfully."
 msgstr ""
 
 #: views.py:173 views.py:280
-msgid "Errors occured while saving the form: {0}."
+msgid "Errors occurred while saving the form: {0}."
 msgstr ""
 
 #: views.py:224 views.py:365 views.py:603 views.py:823 views.py:934
@@ -415,7 +415,7 @@ msgid "Elements ordering edited successfully."
 msgstr ""
 
 #: views.py:254
-msgid "Errors occured while trying to change the elements ordering!"
+msgid "Errors occurred while trying to change the elements ordering!"
 msgstr ""
 
 #: views.py:272

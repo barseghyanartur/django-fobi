@@ -498,7 +498,7 @@ msgstr "Форма {0} успешно создана."
 
 #: views.py:187
 #: views.py:303
-msgid "Errors occured while saving the form: {0}."
+msgid "Errors occurred while saving the form: {0}."
 msgstr "Во время сохранения данных формы произошли следующие ошибки: {0}."
 
 #: views.py:240
@@ -516,7 +516,7 @@ msgid "Elements ordering edited successfully."
 msgstr "Порядок элементов успешно сохранен."
 
 #: views.py:272
-msgid "Errors occured while trying to change the elements ordering!"
+msgid "Errors occurred while trying to change the elements ordering!"
 msgstr "При попытке сохранения порядка элементов произошла ошибка!"
 
 #: views.py:292
@@ -573,7 +573,7 @@ msgid "The form handler plugin \"{0}\" was deleted successfully."
 msgstr "Oработчик формы \"{0}\" успешно удален."
 
 #: views.py:924
-msgid "Error occured: {0}."
+msgid "Error occurred: {0}."
 msgstr "Произошли следующие ошибки: {0}."
 
 #: views.py:938

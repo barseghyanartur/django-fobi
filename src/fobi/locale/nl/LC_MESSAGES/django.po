@@ -498,7 +498,7 @@ msgstr "Formulier {0} is succesvol aangemaakt."
 
 #: views.py:187
 #: views.py:303
-msgid "Errors occured while saving the form: {0}."
+msgid "Errors occurred while saving the form: {0}."
 msgstr "Er zijn fouten opgetreden tijdens het opslaan van het formulier: {0}."
 
 #: views.py:240
@@ -516,7 +516,7 @@ msgid "Elements ordering edited successfully."
 msgstr "Volgorde van de elementen is met succes gewijzigd."
 
 #: views.py:272
-msgid "Errors occured while trying to change the elements ordering!"
+msgid "Errors occurred while trying to change the elements ordering!"
 msgstr "Er zijn fouten opgetreden tijdens het opslaan van het elementen volgoorde."
 
 #: views.py:292
@@ -573,7 +573,7 @@ msgid "The form handler plugin \"{0}\" was deleted successfully."
 msgstr "Het formulier afhandelaar \"{0}\" is met succes verwijdert."
 
 #: views.py:924
-msgid "Error occured: {0}."
+msgid "Error occurred: {0}."
 msgstr "Er is een fout opgetreden: {0}."
 
 #: views.py:938

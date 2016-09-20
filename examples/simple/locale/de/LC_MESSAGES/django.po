@@ -775,7 +775,7 @@ msgstr ""
 #~ msgid "Form {0} was created successfully."
 #~ msgstr "Formular {0} erfolgreich erstellt."
 
-#~ msgid "Errors occured while saving the form: {0}."
+#~ msgid "Errors occurred while saving the form: {0}."
 #~ msgstr "Beim speichern des Formulars {0} ist ein Fehler aufgetreten"
 
 #~ msgid "Form entry not found."
@@ -784,7 +784,7 @@ msgstr ""
 #~ msgid "Elements ordering edited successfully."
 #~ msgstr "Element Reihenfolge erfolgreich bearbeitet"
 
-#~ msgid "Errors occured while trying to change the elements ordering!"
+#~ msgid "Errors occurred while trying to change the elements ordering!"
 #~ msgstr "Während der Änderung der Reihenfolge ist ein Fehler aufgetreten!"
 
 #~ msgid "Form {0} was edited successfully."

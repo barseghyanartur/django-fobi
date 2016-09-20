@@ -477,7 +477,7 @@ msgid "Form {0} was created successfully."
 msgstr "Formular {0} erfolgreich erstellt."
 
 #: views.py:187 views.py:303
-msgid "Errors occured while saving the form: {0}."
+msgid "Errors occurred while saving the form: {0}."
 msgstr "Beim speichern des Formulars {0} ist ein Fehler aufgetreten"
 
 #: views.py:240 views.py:401 views.py:642 views.py:873 views.py:997
@@ -490,7 +490,7 @@ msgid "Elements ordering edited successfully."
 msgstr "Element Reihenfolge erfolgreich bearbeitet"
 
 #: views.py:272
-msgid "Errors occured while trying to change the elements ordering!"
+msgid "Errors occurred while trying to change the elements ordering!"
 msgstr "Während der Änderung der Reihenfolge ist ein Fehler aufgetreten!"
 
 #: views.py:292
@@ -547,7 +547,7 @@ msgid "The form handler plugin \"{0}\" was deleted successfully."
 msgstr "Das Formularübergabeplugin \"{0}\" erfolgreich gelöscht."
 
 #: views.py:924
-msgid "Error occured: {0}."
+msgid "Error occurred: {0}."
 msgstr "Beim speichern des Formulars {0} ist ein Fehler aufgetreten"
 
 #: views.py:938 integration/processors.py:157
