@@ -1,4 +1,5 @@
-__title__ = 'fobi.contrib.plugins.form_elements.fields.select_multiple_with_max.apps'
+__title__ = 'fobi.contrib.plugins.form_elements.fields.' \
+            'select_multiple_with_max.apps'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
@@ -8,8 +9,12 @@ try:
     from django.apps import AppConfig
 
     class Config(AppConfig):
-        name = 'fobi.contrib.plugins.form_elements.fields.select_multiple_with_max'
-        label = 'fobi_contrib_plugins_form_elements_fields_select_multiple_with_max'
+        """Config."""
+
+        name = 'fobi.contrib.plugins.form_elements.fields.' \
+               'select_multiple_with_max'
+        label = 'fobi_contrib_plugins_form_elements_fields_' \
+                'select_multiple_with_max'
 
 except ImportError:
     pass
