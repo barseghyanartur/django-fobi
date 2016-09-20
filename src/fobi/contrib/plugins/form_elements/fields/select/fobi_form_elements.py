@@ -1,9 +1,3 @@
-__title__ = 'fobi.contrib.plugins.form_elements.fields.select.fobi_form_elements'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2016 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('SelectInputPlugin',)
-
 from django.forms.fields import ChoiceField
 from django.forms.widgets import Select
 from django.utils.translation import ugettext_lazy as _
@@ -11,28 +5,33 @@ from django.utils.translation import ugettext_lazy as _
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
 from fobi.constants import (
     SUBMIT_VALUE_AS_VAL, SUBMIT_VALUE_AS_REPR
-    )
+)
 from fobi.helpers import get_select_field_choices, safe_text
 
 from . import UID
 from .forms import SelectInputForm
 from .settings import SUBMIT_VALUE_AS
 
+__title__ = 'fobi.contrib.plugins.form_elements.fields.' \
+            'select.fobi_form_elements'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2014-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('SelectInputPlugin',)
+
 theme = get_theme(request=None, as_instance=True)
 
+
 class SelectInputPlugin(FormFieldPlugin):
-    """
-    Select field plugin.
-    """
+    """Select field plugin."""
+
     uid = UID
     name = _("Select")
     group = _("Fields")
     form = SelectInputForm
 
     def get_form_field_instances(self, request=None):
-        """
-        Get form field instances.
-        """
+        """Get form field instances."""
         choices = get_select_field_choices(self.data.choices)
 
         kwargs = {
@@ -47,8 +46,7 @@ class SelectInputPlugin(FormFieldPlugin):
         return [(self.data.name, ChoiceField, kwargs)]
 
     def submit_plugin_form_data(self, form_entry, request, form):
-        """
-        Submit plugin form data/process.
+        """Submit plugin form data/process.
 
         :param fobi.models.FormEntry form_entry: Instance of
             ``fobi.models.FormEntry``.
@@ -80,8 +78,8 @@ class SelectInputPlugin(FormFieldPlugin):
                 # qualifier.
                 form.cleaned_data[self.data.name] = value
 
-                # It's critically important to return the ``form`` with updated
-                # ``cleaned_data``
+                # It's critically important to return the ``form`` with
+                # updated ``cleaned_data``
                 return form
 
 
