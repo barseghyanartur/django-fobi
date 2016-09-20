@@ -1,9 +1,3 @@
-__title__ = 'fobi.contrib.plugins.form_handlers.db_store.models'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2016 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('SavedFormDataEntry',)
-
 import simplejson as json
 
 from six import string_types
@@ -11,6 +5,14 @@ from six import string_types
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.db import models
+
+from fobi.helpers import two_dicts_to_string
+
+__title__ = 'fobi.contrib.plugins.form_handlers.db_store.models'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2014-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('SavedFormDataEntry',)
 
 # ****************************************************************************
 # **************** Safe User import for Django > 1.5, < 1.8 ******************
@@ -21,12 +23,10 @@ AUTH_USER_MODEL = settings.AUTH_USER_MODEL
 # ****************************************************************************
 # ****************************************************************************
 
-from fobi.helpers import two_dicts_to_string
 
 class SavedFormDataEntry(models.Model):
-    """
-    Saved form data.
-    """
+    """Saved form data."""
+
     form_entry = models.ForeignKey('fobi.FormEntry', verbose_name=_("Form"),
                                    null=True, blank=True)
     user = models.ForeignKey(AUTH_USER_MODEL, verbose_name=_("User"),
@@ -37,6 +37,7 @@ class SavedFormDataEntry(models.Model):
     created = models.DateTimeField(_("Date created"), auto_now_add=True)
 
     class Meta:
+        """Meta class."""
         abstract = False
         verbose_name = _("Saved form data entry")
         verbose_name_plural = _("Saved form data entries")
@@ -46,8 +47,7 @@ class SavedFormDataEntry(models.Model):
         return "Saved form data entry from {0}".format(self.created)
 
     def formatted_saved_data(self):
-        """
-        Shows the formatted saved data records.
+        """Shows the formatted saved data records.
 
         :return string:
         """
@@ -56,10 +56,13 @@ class SavedFormDataEntry(models.Model):
             data = json.loads(self.saved_data)
             for key, value in data.items():
                 if isinstance(value, string_types) and \
-                   (value.startswith(settings.MEDIA_URL) or \
-                    value.startswith('http://') or value.startswith('https://')):
+                       (value.startswith(settings.MEDIA_URL) or
+                        value.startswith('http://') or
+                        value.startswith('https://')):
 
-                    data[key] = '<a href="{value}">{value}</a>'.format(value=value)
+                    data[key] = '<a href="{value}">{value}</a>'.format(
+                        value=value
+                    )
 
             return two_dicts_to_string(headers, data)
         except (ValueError, json.decoder.JSONDecodeError) as err:

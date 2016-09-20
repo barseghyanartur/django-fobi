@@ -1,19 +1,5 @@
-__title__ = 'fobi.contrib.plugins.form_handlers.db_store.helpers'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2016 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('DataExporter',)
-
-XLWT_INSTALLED = False
-try:
-    import xlwt
-    XLWT_INSTALLED = True
-except ImportError:
-    pass
-
 import csv
 
-#import json
 import simplejson as json
 
 from six import StringIO, BytesIO
@@ -27,15 +13,30 @@ from fobi.helpers import safe_text
 
 from .settings import CSV_DELIMITER, CSV_QUOTECHAR
 
+XLWT_INSTALLED = False
+try:
+    import xlwt
+    XLWT_INSTALLED = True
+except ImportError:
+    pass
+
+__title__ = 'fobi.contrib.plugins.form_handlers.db_store.helpers'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2014-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('DataExporter',)
+
+
 class DataExporter(object):
-    """
-    Exporting the data.
-    """
+    """Exporting the data."""
+
     def __init__(self, queryset):
+        """Constructor."""
         self.queryset = queryset
 
     def _get_initial_response(self, mimetype="application/csv"):
-        """
+        """Get initial response.
+
         For compatibility with older versions (`mimetype` vs `content_type`).
         """
         response_kwargs = {}
@@ -46,7 +47,8 @@ class DataExporter(object):
         return HttpResponse(**response_kwargs)
 
     def _get_data_headers(self):
-        """
+        """Get data headers.
+
         Since we have to deal with non-structured form data, we want to make
         sure that we obtain all the possible headers, so that later on
         we can just fill the slots needed.
@@ -74,14 +76,12 @@ class DataExporter(object):
         return data_headers
 
     def _export_to_xls(self):
-        """
-        Export data to XLS format.
-        """
-        #cellstyle = xlwt.easyxf(
+        """Export data to XLS format."""
+        # cellstyle = xlwt.easyxf(
         #    'align: wrap on, vert top, horiz left;', num_format_str='general'
-        #    )
+        # )
 
-        #response = HttpResponse(mimetype="application/csv")
+        # response = HttpResponse(mimetype="application/csv")
         response = self._get_initial_response(mimetype="application/csv")
         response['Content-Disposition'] = \
             'attachment; filename=db_store_export_data.xls'
@@ -101,7 +101,7 @@ class DataExporter(object):
 
         for cell, value in enumerate(data_values):
             ws.write(row, cell, unicode(value), xlwt.easyxf('font: bold on'))
-            ws.col(cell).width = 256 * 20 # about 20 chars wide
+            ws.col(cell).width = 256 * 20  # about 20 chars wide
             cell += 1
         row += 1
 
@@ -117,18 +117,17 @@ class DataExporter(object):
         return response
 
     def export_to_xls(self):
+        """Export data to XLS."""
         if XLWT_INSTALLED:
             return self._export_to_xls()
         else:
             raise ImproperlyConfigured(
                 "For XLS export xlwt shall be installed."
-                )
+            )
 
     def export_to_csv(self):
-        """
-        Export data to CSV.
-        """
-        #response = HttpResponse(mimetype="text/csv")
+        """Export data to CSV."""
+        # response = HttpResponse(mimetype="text/csv")
         response = self._get_initial_response(mimetype="text/csv")
         response['Content-Disposition'] = \
             'attachment; filename=db_store_export_data.csv'
@@ -141,7 +140,7 @@ class DataExporter(object):
         try:
             csv_obj = csv.writer(
                 queue, delimiter=CSV_DELIMITER, quotechar=CSV_QUOTECHAR
-                )
+            )
             writerow = csv_obj.writerow
         except TypeError:
             queue = BytesIO()
@@ -149,9 +148,12 @@ class DataExporter(object):
             quotechar = bytes(CSV_QUOTECHAR, encoding="utf-8")
             csv_obj = csv.writer(
                 queue, delimiter=delimiter, quotechar=quotechar
-                )
-            writerow = lambda row: csv.writerow(
-                [safe_text(cell) for cell in row]
+            )
+
+            def writerow(row):
+                """Write row."""
+                return csv.writerow(
+                    [safe_text(__cell) for __cell in row]
                 )
 
         data_values = [safe_text(value) for value in data_values]
@@ -171,9 +173,7 @@ class DataExporter(object):
         return response
 
     def graceful_export(self):
-        """
-        Export data into XLS/CSV depending on what is available.
-        """
+        """Export data into XLS/CSV depending on what is available."""
         if XLWT_INSTALLED:
             return self._export_to_xls()
         else:

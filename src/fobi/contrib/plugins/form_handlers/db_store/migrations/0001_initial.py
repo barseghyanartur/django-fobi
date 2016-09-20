@@ -16,12 +16,21 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='SavedFormDataEntry',
             fields=[
-                ('id', models.AutoField(auto_created=True, verbose_name='ID', serialize=False, primary_key=True)),
-                ('form_data_headers', models.TextField(verbose_name='Form data headers', blank=True, null=True)),
-                ('saved_data', models.TextField(verbose_name='Plugin data', blank=True, null=True)),
-                ('created', models.DateTimeField(verbose_name='Date created', auto_now_add=True)),
-                ('form_entry', models.ForeignKey(verbose_name='Form', blank=True, to='fobi.FormEntry', null=True)),
-                ('user', models.ForeignKey(verbose_name='User', blank=True, to=settings.AUTH_USER_MODEL, null=True)),
+                ('id', models.AutoField(auto_created=True, verbose_name='ID',
+                                        serialize=False, primary_key=True)),
+                ('form_data_headers', models.TextField(
+                    verbose_name='Form data headers', blank=True, null=True)),
+                ('saved_data', models.TextField(verbose_name='Plugin data',
+                                                blank=True, null=True)),
+                ('created', models.DateTimeField(verbose_name='Date created',
+                                                 auto_now_add=True)),
+                ('form_entry', models.ForeignKey(verbose_name='Form',
+                                                 blank=True,
+                                                 to='fobi.FormEntry',
+                                                 null=True)),
+                ('user', models.ForeignKey(verbose_name='User', blank=True,
+                                           to=settings.AUTH_USER_MODEL,
+                                           null=True)),
             ],
             options={
                 'verbose_name': 'Saved form data entry',

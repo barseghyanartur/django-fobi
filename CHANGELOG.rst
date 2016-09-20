@@ -15,9 +15,21 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.7.1
+-----
+yyyy-mm-dd (not yet released)
+
+Release sponsored by `Goldmund, Wyldebeast & Wunderliebe
+<https://www.goldmund-wyldebeast-wunderliebe.nl/>`_.
+
+- Code comply with pep8.
+
 0.7
 ---
 2016-09-13
+
+Release sponsored by `Goldmund, Wyldebeast & Wunderliebe
+<https://www.goldmund-wyldebeast-wunderliebe.nl/>`_.
 
 - Initial Django 1.10 support.
 - `django-localeurl` has been replaced with `i18n_patterns` in sample project.

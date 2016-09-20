@@ -1,19 +1,19 @@
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
 
-#from fobi.decorators import permissions_required, SATISFY_ALL, SATISFY_ANY
+# from fobi.decorators import permissions_required, SATISFY_ALL, SATISFY_ANY
 from fobi.base import get_form_handler_plugin_widget
 
 from nine import versions
+
+from . import UID
+from .models import SavedFormDataEntry
+from .helpers import DataExporter
 
 if versions.DJANGO_GTE_1_10:
     from django.shortcuts import render
 else:
     from django.shortcuts import render_to_response
-
-from . import UID
-from .models import SavedFormDataEntry
-from .helpers import DataExporter
 
 __title__ = 'fobi.contrib.plugins.form_handlers.db_store.views'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -23,18 +23,19 @@ __all__ = (
     'view_saved_form_data_entries',
 )
 
-#entries_permissions = [
+# entries_permissions = [
 #    'db_store.add_savedformdataentry',
 #    'db_store.change_savedformdataentry',
 #    'db_store.delete_savedformdataentry',
-#]
+# ]
 
-#@permissions_required(satisfy=SATISFY_ANY, perms=entries_permissions)
+
+# @permissions_required(satisfy=SATISFY_ANY, perms=entries_permissions)
 @login_required
-def view_saved_form_data_entries(request, form_entry_id=None, theme=None, \
-                                 template_name='db_store/view_saved_form_data_entries.html'):
-    """
-    View saved form data entries.
+def view_saved_form_data_entries(
+        request, form_entry_id=None, theme=None,
+        template_name='db_store/view_saved_form_data_entries.html'):
+    """View saved form data entries.
 
     :param django.http.HttpRequest request:
     :param int form_entry_id: Form ID.
@@ -70,10 +71,10 @@ def view_saved_form_data_entries(request, form_entry_id=None, theme=None, \
             template_name, context, context_instance=RequestContext(request)
         )
 
+
 @login_required
 def export_saved_form_data_entries(request, form_entry_id=None, theme=None):
-    """
-    Export saved form data entries.
+    """Export saved form data entries.
 
     :param django.http.HttpRequest request:
     :param int form_entry_id: Form ID.
@@ -82,7 +83,7 @@ def export_saved_form_data_entries(request, form_entry_id=None, theme=None):
     """
     entries = SavedFormDataEntry._default_manager \
                                 .filter(user__pk=request.user.pk)
-    #entries = entries.select_related('form_entry')
+    # entries = entries.select_related('form_entry')
 
     if form_entry_id:
         entries = entries.filter(form_entry__id=form_entry_id)
