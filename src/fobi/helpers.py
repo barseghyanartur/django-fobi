@@ -3,22 +3,6 @@ Helpers module. This module can be safely imported from any fobi (sub)module,
 since it never imports from any of the fobi (sub)modules (except for the
 `fobi.constants` and `fobi.exceptions` modules).
 """
-
-__title__ = 'fobi.helpers'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2016 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = (
-    'do_slugify', 'lists_overlap', 'iterable_to_dict', 'map_field_name_to_label',
-    'clean_dict', 'two_dicts_to_string', 'empty_string', 'ensure_unique_filename',
-    'handle_uploaded_file', 'delete_file', 'clone_file', 'get_registered_models',
-    'admin_change_url', 'uniquify_sequence', 'safe_text', 'combine_dicts',
-    'update_plugin_data', 'get_select_field_choices',
-    'validate_initial_for_choices', 'validate_initial_for_multiple_choices',
-    'validate_submit_value_as', 'get_app_label_and_model_name',
-    'StrippedUser', 'StrippedRequest', 'JSONDataExporter',
-)
-
 import os
 import glob
 import logging
@@ -51,6 +35,21 @@ from fobi.constants import (
     )
 from fobi.exceptions import ImproperlyConfigured
 
+__title__ = 'fobi.helpers'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2014-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = (
+    'do_slugify', 'lists_overlap', 'iterable_to_dict', 'map_field_name_to_label',
+    'clean_dict', 'two_dicts_to_string', 'empty_string', 'ensure_unique_filename',
+    'handle_uploaded_file', 'delete_file', 'clone_file', 'get_registered_models',
+    'admin_change_url', 'uniquify_sequence', 'safe_text', 'combine_dicts',
+    'update_plugin_data', 'get_select_field_choices',
+    'validate_initial_for_choices', 'validate_initial_for_multiple_choices',
+    'validate_submit_value_as', 'get_app_label_and_model_name',
+    'StrippedUser', 'StrippedRequest', 'JSONDataExporter',
+)
+
 logger = logging.getLogger(__name__)
 
 # *****************************************************************************
@@ -62,8 +61,7 @@ logger = logging.getLogger(__name__)
 do_slugify = lambda s: slugify(s.lower()).lower()
 
 def safe_text(text):
-    """
-    Safe text (encode).
+    """Safe text (encode).
 
     :return str:
     """
@@ -72,15 +70,17 @@ def safe_text(text):
     else:
         return force_text(text, encoding='utf-8').encode('utf-8')
 
+
 def lists_overlap(sub, main):
+    """Check whether lists overlap."""
     for i in sub:
         if i in main:
             return True
     return False
 
+
 def iterable_to_dict(items, key_attr_name):
-    """
-    Converts iterable of certain objects to dict.
+    """Converts iterable of certain objects to dict.
 
     :param iterable items:
     :param string key_attr_name: Attribute to use as a dictionary key.
@@ -91,20 +91,19 @@ def iterable_to_dict(items, key_attr_name):
         items_dict.update({getattr(item, key_attr_name): item})
     return items_dict
 
+
 def map_field_name_to_label(form):
-    """
-    Takes a form and creates label to field name map.
+    """Takes a form and creates label to field name map.
 
     :param django.forms.Form form: Instance of ``django.forms.Form``.
-    :param list keys_to_remove:
     :return dict:
     """
     return dict([(field_name, field.label) \
                  for (field_name, field) in form.base_fields.items()])
 
+
 def clean_dict(source, keys=[], values=[]):
-    """
-    Removes given keys and values from dictionary.
+    """Removes given keys and values from dictionary.
 
     :param dict source:
     :param iterable keys:
@@ -117,33 +116,39 @@ def clean_dict(source, keys=[], values=[]):
             d[key] = value
     return d
 
+
 def combine_dicts(headers, data):
-    """
+    """Combine dicts.
+
     Takes two dictionaries, assuming one contains a mapping keys to titles
     and another keys to data. Joins as string and returns a result dict.
     """
     return [(value, data.get(key, '')) for key, value in list(headers.items())]
 
 def two_dicts_to_string(headers, data, html_element='p'):
-    """
+    """Two dicts to string.
+
     Takes two dictionaries, assuming one contains a mapping keys to titles 
     and another keys to data. Joins as string and returns wrapped into
     HTML "p" tag.
     """
     formatted_data = [
         (value, data.get(key, '')) for key, value in list(headers.items())
-        ]
+    ]
     return "".join(
         ["<{0}>{1}: {2}</{3}>".format(html_element, safe_text(key),
                                       safe_text(value), html_element)
          for key, value in formatted_data]
-        )
+    )
 
 empty_string = text_type('')
 
+
 def uniquify_sequence(sequence):
-    """
-    Makes sure items in the given sequence are unique, having the original order preserved.
+    """Uniqify sequence.
+
+    Makes sure items in the given sequence are unique, having the original
+    order preserved.
 
     :param iterable sequence:
     :return list:
@@ -152,8 +157,10 @@ def uniquify_sequence(sequence):
     seen_add = seen.add
     return [x for x in sequence if x not in seen and not seen_add(x)]
 
+
 def get_ignorable_form_values():
-    """
+    """Get ignorable for form values.
+
     Gets an iterable of form values to ignore.
 
     :return iterable:
@@ -166,9 +173,9 @@ def get_ignorable_form_values():
 # *****************************************************************************
 # *****************************************************************************
 
+
 def ensure_unique_filename(destination):
-    """
-    Makes sure filenames are never overwritten.
+    """Makes sure filenames are never overwritten.
 
     :param string destination:
     :return string:
@@ -179,8 +186,10 @@ def ensure_unique_filename(destination):
     else:
         return destination
 
+
 def handle_uploaded_file(upload_dir, image_file):
-    """
+    """Handle uploaded files.
+
     :param django.core.files.uploadedfile.InMemoryUploadedFile image_file:
     :return string: Path to the image (relative).
     """
@@ -193,7 +202,7 @@ def handle_uploaded_file(upload_dir, image_file):
     if isinstance(image_file, File):
         destination_path = ensure_unique_filename(
             os.path.join(upload_dir_absolute_path, image_file.name)
-            )
+        )
         image_filename = image_file.name
         with open(destination_path, 'wb+') as destination:
             image_filename = os.path.basename(destination.name)
@@ -202,10 +211,9 @@ def handle_uploaded_file(upload_dir, image_file):
         return os.path.join(upload_dir, image_filename)
     return image_file
 
+
 def delete_file(image_file):
-    """
-    Delete file from disc.
-    """
+    """Delete file from disc."""
     try:
         # Delete the main file.
         file_path = os.path.join(settings.MEDIA_ROOT, image_file)
@@ -221,9 +229,10 @@ def delete_file(image_file):
 
         # If all goes well...
         return True
-    except Exception as e:
-        logger.debug(str(e))
+    except Exception as err:
+        logger.debug(str(err))
         return False
+
 
 def clone_file(upload_dir, source_filename, relative_path=True):
     """
@@ -248,9 +257,9 @@ def clone_file(upload_dir, source_filename, relative_path=True):
     except Exception as e:
         logger.debug(str(e))
 
+
 def extract_file_path(name):
-    """
-    Extracts the file path.
+    """Extracts the file path.
 
     :param string name:
     :return string:
@@ -263,9 +272,9 @@ def extract_file_path(name):
 # *****************************************************************************
 # *****************************************************************************
 
+
 def get_registered_models(ignore=[]):
-    """
-    Gets registered models as list.
+    """Gets registered models as list.
 
     :param iterable ignore: Ignore the following content types (should
         be in ``app_label.model`` format (example ``auth.User``).
@@ -276,11 +285,11 @@ def get_registered_models(ignore=[]):
         content_types = ContentType._default_manager.all()
 
         for content_type in content_types:
-            #model = content_type.model_class()
+            # model = content_type.model_class()
             content_type_id = "{0}.{1}".format(
                 content_type.app_label, content_type.model
-                )
-            if not content_type_id in ignore:
+            )
+            if content_type_id not in ignore:
                 registered_models.append((content_type_id, content_type.name))
     except DatabaseError as e:
         logger.debug(str(e))
@@ -288,8 +297,7 @@ def get_registered_models(ignore=[]):
     return registered_models
 
 def get_app_label_and_model_name(path):
-    """
-    Gets app_label and model_name from the path given.
+    """Gets app_label and model_name from the path given.
 
     :param str path: Dotted path to the model (without ".model", as stored
         in the Django `ContentType` model.
@@ -303,6 +311,7 @@ def get_app_label_and_model_name(path):
 # ****************************** Admin helpers ********************************
 # *****************************************************************************
 # *****************************************************************************
+
 
 def admin_change_url(app_label, module_name, object_id, extra_path='',
                      url_title=None):
@@ -334,7 +343,8 @@ def admin_change_url(app_label, module_name, object_id, extra_path='',
 # *****************************************************************************
 
 def update_plugin_data(entry, request=None):
-    """
+    """Update plugin data.
+
     Update plugin data of a given entry.
     """
     if entry:
@@ -343,8 +353,10 @@ def update_plugin_data(entry, request=None):
         if plugin:
             return plugin._update_plugin_data(entry)
 
+
 def get_select_field_choices(raw_choices_data):
-    """
+    """Get select field choices.
+
     Used in ``radio``, ``select`` and other choice based
     fields.
 
@@ -379,16 +391,17 @@ def get_select_field_choices(raw_choices_data):
 
     return choices
 
+
 def validate_initial_for_choices(plugin_form, field_name_choices='choices',
                                  field_name_initial='initial'):
-    """
+    """Validate init for choices.
     Validates the initial value for the choices given.
 
     :param fobi.base.BaseFormFieldPluginForm plugin_form:
     """
     available_choices = dict(
         get_select_field_choices(plugin_form.cleaned_data[field_name_choices])
-        ).keys()
+    ).keys()
 
     if plugin_form.cleaned_data[field_name_initial] \
        and not plugin_form.cleaned_data[field_name_initial] \
@@ -397,15 +410,15 @@ def validate_initial_for_choices(plugin_form, field_name_choices='choices',
             _("Invalid value for initial: {0}. Should be any of the following"
               ": {1}".format(plugin_form.cleaned_data[field_name_initial],
                              ','.join(available_choices)))
-            )
+        )
 
     return plugin_form.cleaned_data[field_name_initial]
+
 
 def validate_initial_for_multiple_choices(plugin_form,
                                           field_name_choices='choices',
                                           field_name_initial='initial'):
-    """
-    Validates the initial value for the multiple choices given.
+    """Validates the initial value for the multiple choices given.
 
     :param fobi.base.BaseFormFieldPluginForm plugin_form:
     """
@@ -416,7 +429,7 @@ def validate_initial_for_multiple_choices(plugin_form,
     if plugin_form.cleaned_data[field_name_initial]:
         for choice in plugin_form.cleaned_data[field_name_initial].split(','):
             choice = choice.strip()
-            if not choice in available_choices:
+            if choice not in available_choices:
                 raise forms.ValidationError(
                    _("Invalid value for initial: {0}. Should be any "
                      "of the following: {1}"
@@ -425,13 +438,13 @@ def validate_initial_for_multiple_choices(plugin_form,
 
     return plugin_form.cleaned_data[field_name_initial]
 
+
 def validate_submit_value_as(value):
-    """
-    Validates the `SUBMIT_AS_VALUE`.
+    """Validates the `SUBMIT_AS_VALUE`.
 
     :param str value:
     """
-    if not value in (SUBMIT_VALUE_AS_VAL, SUBMIT_VALUE_AS_REPR,
+    if value in not (SUBMIT_VALUE_AS_VAL, SUBMIT_VALUE_AS_REPR,
                      SUBMIT_VALUE_AS_MIX):
         raise ImproperlyConfigured("The `SUBMIT_AS_VALUE` may have one of "
                                    "the following values: {0}, {1} or {2}"
@@ -441,11 +454,10 @@ def validate_submit_value_as(value):
 
 
 class StrippedUser(object):
-    """
-    Stripped user object.
-    """
+    """Stripped user object."""
+
     def __init__(self, user):
-        """
+        """Computer.
 
         :param user:
         :return:
@@ -458,11 +470,11 @@ class StrippedUser(object):
 
     @property
     def email(self):
+        """Email."""
         return self._user.email
 
     def get_username(self):
-        """
-        """
+        """Get username."""
         if not self._user.is_anonymous():
             try:
                 return self._user.get_username()
@@ -470,8 +482,7 @@ class StrippedUser(object):
                 pass
 
     def get_full_name(self):
-        """
-        """
+        """Get full name."""
         if not self._user.is_anonymous():
             try:
                 return self._user.get_full_name()
@@ -479,8 +490,7 @@ class StrippedUser(object):
                 pass
 
     def get_short_name(self):
-        """
-        """
+        """Get short name."""
         if not self._user.is_anonymous():
             try:
                 return self._user.get_full_name()
@@ -488,15 +498,15 @@ class StrippedUser(object):
                 pass
 
     def is_anonymous(self):
+        """Is anonymous."""
         return self._user.is_anonymous()
 
 
 class StrippedRequest(object):
-    """
-    Stripped request object.
-    """
+    """Stripped request object."""
+
     def __init__(self, request):
-        """
+        """Constructor.
 
         :param django.http.HttpRequest request:
         :return:
@@ -516,16 +526,15 @@ class StrippedRequest(object):
 
     @property
     def path(self):
-        """
+        """Path.
+
         A string representing the full path to the requested page, not
         including the scheme or domain.
         """
         return self._request.path
 
     def get_full_path(self):
-        """
-        Returns the path, plus an appended query string, if applicable.
-        """
+        """Returns the path, plus an appended query string, if applicable."""
         return self._request.get_full_path()
 
     def is_secure(self):
