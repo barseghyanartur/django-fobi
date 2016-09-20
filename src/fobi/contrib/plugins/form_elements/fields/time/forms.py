@@ -27,35 +27,35 @@ class TimeInputForm(forms.Form, BaseFormFieldPluginForm):
     ]
 
     label = forms.CharField(
-        label = _("Label"),
-        required = True,
-        widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
+        label=_("Label"),
+        required=True,
+        widget=forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
         )
     name = forms.CharField(
-        label = _("Name"),
-        required = True,
-        widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
+        label=_("Name"),
+        required=True,
+        widget=forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
         )
     help_text = forms.CharField(
-        label = _("Help text"),
-        required = False,
-        widget = forms.widgets.Textarea(attrs={'class': theme.form_element_html_class})
+        label=_("Help text"),
+        required=False,
+        widget=forms.widgets.Textarea(attrs={'class': theme.form_element_html_class})
         )
     initial = forms.TimeField(
-        label = _("Initial"),
-        required = False,
+        label=_("Initial"),
+        required=False,
         widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class,
                                                 'type': 'time'})
         )
     input_formats = forms.CharField(
         label = _("Input formats"),
-        required = False,
-        widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
+        required=False,
+        widget=forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
         )
     required = forms.BooleanField(
-        label = _("Required"),
-        required = False,
-        widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_checkbox_html_class})
+        label=_("Required"),
+        required=False,
+        widget=forms.widgets.CheckboxInput(attrs={'class': theme.form_element_checkbox_html_class})
         )
 
     def clean_initial(self):

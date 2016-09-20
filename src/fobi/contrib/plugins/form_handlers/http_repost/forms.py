@@ -21,6 +21,6 @@ class HTTPRepostForm(forms.Form, BasePluginForm):
 
     endpoint_url = forms.URLField(
         label = _("Endpoint URL"),
-        required = True,
-        widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
+        required=True,
+        widget=forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
         )

@@ -1,15 +1,17 @@
+from django.conf import settings
+
+from . import defaults
+
 __title__ = 'fobi.contrib.plugins.form_elements.fields.file.conf'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('get_setting',)
 
-from django.conf import settings
-
-from . import defaults
 
 def get_setting(setting, override=None):
-    """
+    """Get setting.
+
     Get a setting from ``fobi.contrib.plugins.form_elements.fields.conf``
     module, falling back to the default.
 

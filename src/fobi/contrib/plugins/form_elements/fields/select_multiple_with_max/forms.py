@@ -27,18 +27,18 @@ class SelectMultipleWithMaxInputForm(forms.Form, BaseFormFieldPluginForm):
     ]
 
     label = forms.CharField(
-        label = _("Label"),
-        required = True,
-        widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
+        label=_("Label"),
+        required=True,
+        widget=forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
         )
     name = forms.CharField(
-        label = _("Name"),
-        required = True,
-        widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
+        label=_("Name"),
+        required=True,
+        widget=forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
         )
     choices = forms.CharField(
         label = _("Choices"),
-        required = False,
+        required=False,
         help_text = _("Enter single values/pairs per line. Example:<code><br/>"
                       "&nbsp;&nbsp;&nbsp;&nbsp;1<br/>"
                       "&nbsp;&nbsp;&nbsp;&nbsp;2<br/>"
@@ -55,26 +55,26 @@ class SelectMultipleWithMaxInputForm(forms.Form, BaseFormFieldPluginForm):
                       '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value="omega"&gt;omega&lt;/option&gt;<br/>'
                       '&nbsp;&nbsp;&nbsp;&nbsp;&lt;/select&gt;'
                       "</code>"),
-        widget = forms.widgets.Textarea(attrs={'class': theme.form_element_html_class})
+        widget=forms.widgets.Textarea(attrs={'class': theme.form_element_html_class})
         )
     help_text = forms.CharField(
-        label = _("Help text"),
-        required = False,
-        widget = forms.widgets.Textarea(attrs={'class': theme.form_element_html_class})
+        label=_("Help text"),
+        required=False,
+        widget=forms.widgets.Textarea(attrs={'class': theme.form_element_html_class})
         )
     initial = forms.CharField(
-        label = _("Initial"),
-        required = False,
-        widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
+        label=_("Initial"),
+        required=False,
+        widget=forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
         )
     required = forms.BooleanField(
-        label = _("Required"),
-        required = False,
-        widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_checkbox_html_class})
+        label=_("Required"),
+        required=False,
+        widget=forms.widgets.CheckboxInput(attrs={'class': theme.form_element_checkbox_html_class})
         )
     max_choices = forms.IntegerField(
         label = _("Max choices"),
-        required = False,
+        required=False,
         widget=forms.widgets.NumberInput(attrs={'class': theme.form_element_html_class})
     )
 

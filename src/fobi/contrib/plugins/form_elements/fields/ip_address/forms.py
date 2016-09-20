@@ -30,49 +30,49 @@ class IPAddressInputForm(forms.Form, BaseFormFieldPluginForm):
     ]
 
     label = forms.CharField(
-        label = _("Label"),
-        required = True,
-        widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
+        label=_("Label"),
+        required=True,
+        widget=forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
         )
     name = forms.CharField(
-        label = _("Name"),
-        required = True,
-        widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
+        label=_("Name"),
+        required=True,
+        widget=forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
         )
     help_text = forms.CharField(
-        label = _("Help text"),
-        required = False,
-        widget = forms.widgets.Textarea(attrs={'class': theme.form_element_html_class})
+        label=_("Help text"),
+        required=False,
+        widget=forms.widgets.Textarea(attrs={'class': theme.form_element_html_class})
         )
     initial = forms.CharField(
-        label = _("Initial"),
-        required = False,
-        widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
+        label=_("Initial"),
+        required=False,
+        widget=forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
         )
     protocol = forms.ChoiceField(
         label = _("Protocol"),
         choices = [(pr, pr) for pr in ip_address_validator_map.keys()],
-        required = True,
+        required=True,
         widget = forms.widgets.Select(attrs={'class': theme.form_element_html_class})
         )
     unpack_ipv4 = forms.BooleanField(
         label = _("Unpack IPV4"),
-        required = False,
-        widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_checkbox_html_class})
+        required=False,
+        widget=forms.widgets.CheckboxInput(attrs={'class': theme.form_element_checkbox_html_class})
         )
     max_length = forms.IntegerField(
-        label = _("Max length"),
-        required = True,
-        widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class}),
+        label=_("Max length"),
+        required=True,
+        widget=forms.widgets.TextInput(attrs={'class': theme.form_element_html_class}),
         initial = DEFAULT_MAX_LENGTH
         )
     required = forms.BooleanField(
-        label = _("Required"),
-        required = False,
-        widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_checkbox_html_class})
+        label=_("Required"),
+        required=False,
+        widget=forms.widgets.CheckboxInput(attrs={'class': theme.form_element_checkbox_html_class})
         )
     placeholder = forms.CharField(
-        label = _("Placeholder"),
-        required = False,
-        widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
+        label=_("Placeholder"),
+        required=False,
+        widget=forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
         )

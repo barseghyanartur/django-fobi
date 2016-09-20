@@ -27,38 +27,38 @@ class URLInputForm(forms.Form, BaseFormFieldPluginForm):
     ]
 
     label = forms.CharField(
-        label = _("Label"),
-        required = True,
-        widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
+        label=_("Label"),
+        required=True,
+        widget=forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
         )
     name = forms.CharField(
-        label = _("Name"),
-        required = True,
-        widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
+        label=_("Name"),
+        required=True,
+        widget=forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
         )
     help_text = forms.CharField(
-        label = _("Help text"),
-        required = False,
-        widget = forms.widgets.Textarea(attrs={'class': theme.form_element_html_class})
+        label=_("Help text"),
+        required=False,
+        widget=forms.widgets.Textarea(attrs={'class': theme.form_element_html_class})
         )
     initial = forms.URLField(
-        label = _("Initial"),
-        required = False,
-        widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
+        label=_("Initial"),
+        required=False,
+        widget=forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
         )
     max_length = forms.IntegerField(
-        label = _("Max length"),
-        required = True,
-        widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class}),
+        label=_("Max length"),
+        required=True,
+        widget=forms.widgets.TextInput(attrs={'class': theme.form_element_html_class}),
         initial = DEFAULT_MAX_LENGTH
         )
     required = forms.BooleanField(
-        label = _("Required"),
-        required = False,
-        widget = forms.widgets.CheckboxInput(attrs={'class': theme.form_element_checkbox_html_class})
+        label=_("Required"),
+        required=False,
+        widget=forms.widgets.CheckboxInput(attrs={'class': theme.form_element_checkbox_html_class})
         )
     placeholder = forms.CharField(
-        label = _("Placeholder"),
-        required = False,
-        widget = forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
+        label=_("Placeholder"),
+        required=False,
+        widget=forms.widgets.TextInput(attrs={'class': theme.form_element_html_class})
         )

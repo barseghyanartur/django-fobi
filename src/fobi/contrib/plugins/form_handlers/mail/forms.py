@@ -31,42 +31,42 @@ class MailForm(forms.Form, BasePluginForm):
 
     from_name = forms.CharField(
         label = _("From name"),
-        required = True,
+        required=True,
         widget = forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
             )
         )
     from_email = forms.EmailField(
         label = _("From email"),
-        required = True,
+        required=True,
         widget = forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
             )
         )
     to_name = forms.CharField(
         label = _("To name"),
-        required = True,
+        required=True,
         widget = forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
             )
         )
     to_email = MultiEmailField(#forms.EmailField(
         label = _("To email"),
-        required = True,
+        required=True,
         widget = MultiEmailWidget(#forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
             )
         )
     subject = forms.CharField(
         label = _("Subject"),
-        required = True,
+        required=True,
         widget = forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
             )
         )
     body = forms.CharField(
         label = _("Body"),
-        required = False,
+        required=False,
         widget = forms.widgets.Textarea(
             attrs={'class': theme.form_element_html_class}
             )
