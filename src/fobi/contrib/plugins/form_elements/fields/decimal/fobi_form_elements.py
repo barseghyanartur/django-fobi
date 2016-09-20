@@ -1,11 +1,5 @@
 from __future__ import absolute_import
 
-__title__ = 'fobi.contrib.plugins.form_elements.fields.decimal.fobi_form_elements'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2016 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('DecimalInputPlugin',)
-
 from django.forms.fields import DecimalField
 from django.utils.translation import ugettext_lazy as _
 
@@ -15,21 +9,26 @@ from fobi.widgets import NumberInput
 from . import UID
 from .forms import DecimalInputForm
 
+__title__ = 'fobi.contrib.plugins.form_elements.fields.' \
+            'decimal.fobi_form_elements'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2014-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('DecimalInputPlugin',)
+
 theme = get_theme(request=None, as_instance=True)
 
+
 class DecimalInputPlugin(FormFieldPlugin):
-    """
-    Decimal input plugin.
-    """
+    """Decimal input plugin."""
+
     uid = UID
     name = _("Decimal")
     group = _("Fields")
     form = DecimalInputForm
 
     def get_form_field_instances(self, request=None):
-        """
-        Get form field instances.
-        """
+        """Get form field instances."""
         widget_attrs = {
             'class': theme.form_element_html_class,
             'type': 'number',
