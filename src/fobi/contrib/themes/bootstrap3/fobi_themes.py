@@ -1,19 +1,19 @@
-__title__ = 'fobi.contrib.themes.bootstrap3.fobi_themes'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2016 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('Bootstrap3Theme',)
-
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import BaseTheme, theme_registry
 
 from . import UID
 
+__title__ = 'fobi.contrib.themes.bootstrap3.fobi_themes'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2014-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('Bootstrap3Theme',)
+
+
 class Bootstrap3Theme(BaseTheme):
-    """
-    Bootstrap3 theme.
-    """
+    """Bootstrap3 theme."""
+
     uid = UID
     name = _("Bootstrap 3")
 
@@ -32,7 +32,7 @@ class Bootstrap3Theme(BaseTheme):
         'bootstrap3/js/bootstrap3_fobi_extras.js', # Theme-specific scripts
     )
 
-    #footer_text = '&copy; django-fobi example site 2014'
+    # footer_text = '&copy; django-fobi example site 2014'
 
     # *************************************************************************
     # ********************** Form HTML specific *******************************
@@ -60,7 +60,8 @@ class Bootstrap3Theme(BaseTheme):
     form_snippet_template_name = 'bootstrap3/snippets/form_snippet.html'
     form_properties_snippet_template_name = \
         'bootstrap3/snippets/form_properties_snippet.html'
-    messages_snippet_template_name = 'bootstrap3/snippets/messages_snippet.html'
+    messages_snippet_template_name = \
+        'bootstrap3/snippets/messages_snippet.html'
     form_non_field_and_hidden_errors_snippet_template = \
         'bootstrap3/snippets/form_non_field_and_hidden_errors_snippet.html'
 
@@ -78,14 +79,16 @@ class Bootstrap3Theme(BaseTheme):
     dashboard_template = 'bootstrap3/dashboard.html'
     forms_list_template = 'bootstrap3/forms_list.html'
 
-    edit_form_element_entry_template = 'bootstrap3/edit_form_element_entry.html'
+    edit_form_element_entry_template = \
+        'bootstrap3/edit_form_element_entry.html'
     edit_form_element_entry_ajax_template = \
         'bootstrap3/edit_form_element_entry_ajax.html'
 
     edit_form_entry_template = 'bootstrap3/edit_form_entry.html'
     edit_form_entry_ajax_template = 'bootstrap3/edit_form_entry_ajax.html'
 
-    edit_form_handler_entry_template = 'bootstrap3/edit_form_handler_entry.html'
+    edit_form_handler_entry_template = \
+        'bootstrap3/edit_form_handler_entry.html'
     edit_form_handler_entry_ajax_template = \
         'bootstrap3/edit_form_handler_entry_ajax.html'
 
@@ -104,6 +107,7 @@ class Bootstrap3Theme(BaseTheme):
     form_importer_ajax_template = 'bootstrap3/form_importer_ajax.html'
 
     def __init__(self, user=None):
+        """Constructor."""
         super(Bootstrap3Theme, self).__init__(user=user)
         self.form_radio_element_html_class = ''
 
