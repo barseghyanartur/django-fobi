@@ -1,10 +1,3 @@
-__title__ = 'fobi.contrib.plugins.form_elements.fields.select_mptt_model_object.fobi_form_elements'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2016 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('SelectMPTTModelObjectInputPlugin',)
-
-from django.db import models
 from django.forms.widgets import Select
 from django.utils.translation import ugettext_lazy as _
 
@@ -13,36 +6,42 @@ from mptt.fields import TreeNodeChoiceField
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
 from fobi.constants import (
     SUBMIT_VALUE_AS_VAL, SUBMIT_VALUE_AS_REPR
-    )
+)
 from fobi.helpers import safe_text, get_app_label_and_model_name
 
 from nine.versions import DJANGO_GTE_1_7
-
-if DJANGO_GTE_1_7:
-    from django.apps import apps
-    get_model = apps.get_model
-else:
-    from django.db.models import get_model
 
 from . import UID
 from .forms import SelectMPTTModelObjectInputForm
 from .settings import SUBMIT_VALUE_AS
 
+if DJANGO_GTE_1_7:
+    from django.apps import apps
+
+    get_model = apps.get_model
+else:
+    from django.db.models import get_model
+
+__title__ = 'fobi.contrib.plugins.form_elements.fields.' \
+            'select_mptt_model_object.fobi_form_elements'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2014-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('SelectMPTTModelObjectInputPlugin',)
+
 theme = get_theme(request=None, as_instance=True)
 
+
 class SelectMPTTModelObjectInputPlugin(FormFieldPlugin):
-    """
-    Select MPTT model object field plugin.
-    """
+    """Select MPTT model object field plugin."""
+
     uid = UID
     name = _("Select MPTT model object")
     group = _("Fields")
     form = SelectMPTTModelObjectInputForm
 
     def get_form_field_instances(self, request=None):
-        """
-        Get form field instances.
-        """
+        """Get form field instances."""
         app_label, model_name = get_app_label_and_model_name(self.data.model)
         model = get_model(app_label, model_name)
         queryset = model._default_manager.all()
@@ -59,8 +58,7 @@ class SelectMPTTModelObjectInputPlugin(FormFieldPlugin):
         return [(self.data.name, TreeNodeChoiceField, kwargs)]
 
     def submit_plugin_form_data(self, form_entry, request, form):
-        """
-        Submit plugin form data/process.
+        """Submit plugin form data/process.
 
         :param fobi.models.FormEntry form_entry: Instance of
             ``fobi.models.FormEntry``.
