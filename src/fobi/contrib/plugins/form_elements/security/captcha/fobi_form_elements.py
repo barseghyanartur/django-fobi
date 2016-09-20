@@ -1,12 +1,13 @@
-__title__ = 'fobi.contrib.plugins.form_elements.security.captcha.fobi_form_elements'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2016 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('CaptchaInputPlugin',)
-
 import logging
 
 from django.utils.translation import ugettext_lazy as _
+
+from fobi.base import (
+    FormElementPlugin, form_element_plugin_registry, get_theme
+)
+
+from . import UID
+from .forms import CaptchaInputForm
 
 logger = logging.getLogger(__name__)
 
@@ -15,10 +16,11 @@ DJANGO_SIMPLE_CAPTCHA_INSTALLED = False
 
 try:
     from captcha.fields import CaptchaField, CaptchaTextInput
+
     DJANGO_SIMPLE_CAPTCHA_INSTALLED = True
-except ImportError as e:
+except ImportError as err:
     # Logging original exception
-    logger.error(e)
+    logger.error(err)
 
     # Trying to identify the problem
     try:
@@ -36,7 +38,7 @@ except ImportError as e:
                     "`django-simple-captcha` if you want to make use of the "
                     "`fobi.contrib.plugins.form_elements.security.captcha` "
                     "package."
-                    )
+                )
             if "django-simple-captcha" == str(installed_package.key):
                 DJANGO_SIMPLE_CAPTCHA_INSTALLED = True
 
@@ -48,7 +50,7 @@ except ImportError as e:
                 "`django-simple-captcha` if you want to make use of the "
                 "`fobi.contrib.plugins.form_elements.security.captcha` "
                 "package."
-                )
+            )
 
     except ImportError:
         logger.error(
@@ -57,37 +59,37 @@ except ImportError as e:
             "the moment you can't have both `django-recaptcha` "
             "and `django-simple-captcha` installed alongside "
             "due to app name collision (captcha)."
-            )
+        )
 
-from fobi.base import FormElementPlugin, form_element_plugin_registry, get_theme
-
-from . import UID
-from .forms import CaptchaInputForm
+__title__ = 'fobi.contrib.plugins.form_elements.security.' \
+            'captcha.fobi_form_elements'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2014-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('CaptchaInputPlugin',)
 
 theme = get_theme(request=None, as_instance=True)
 
+
 class CaptchaInputPlugin(FormElementPlugin):
-    """
-    Captcha field plugin.
-    """
+    """Captcha field plugin."""
+
     uid = UID
     name = _("Captcha")
     group = _("Security")
     form = CaptchaInputForm
 
     def get_form_field_instances(self, request=None):
-        """
-        Get form field instances.
-        """
+        """Get form field instances."""
         widget_attrs = {
             'class': theme.form_element_html_class,
-            #'placeholder': self.data.placeholder,
+            # 'placeholder': self.data.placeholder,
         }
 
         kwargs = {
             'label': self.data.label,
             'help_text': self.data.help_text,
-            #'initial': self.data.initial,
+            # 'initial': self.data.initial,
             'required': self.data.required,
             'widget': CaptchaTextInput(attrs=widget_attrs),
         }
