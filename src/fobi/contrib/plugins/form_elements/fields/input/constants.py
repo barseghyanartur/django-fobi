@@ -8,7 +8,7 @@ __all__ = (
 )
 
 FORM_FIELD_TYPE_CHOICES = (
-    #('button', 'button'),
+    # ('button', 'button'),
     ('checkbox', 'checkbox'),
     ('color', 'color'),
     ('date', 'date'),
@@ -25,13 +25,13 @@ FORM_FIELD_TYPE_CHOICES = (
     ('range', 'range'),
     ('reset', 'reset'),
     ('search', 'search'),
-    #('submit', 'submit'),
+    # ('submit', 'submit'),
     ('tel', 'tel'),
     ('text', 'text'),
     ('time', 'time'),
     ('url', 'url'),
     ('week', 'week'),
-    )
+)
 
 FIELD_TYPE_TO_DJANGO_FORM_FIELD_MAPPING = {
     'button': '',
