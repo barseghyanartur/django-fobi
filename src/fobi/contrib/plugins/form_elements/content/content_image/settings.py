@@ -10,20 +10,21 @@
 - ``IMAGES_UPLOAD_DIR`` (string)
 """
 
+from .conf import get_setting
+
 __title__ = 'fobi.contrib.plugins.form_elements.content.content_image.settings'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'FIT_METHOD_CROP_SMART', 'FIT_METHOD_CROP_CENTER', 'FIT_METHOD_CROP_SCALE',
-    'FIT_METHOD_FIT_WIDTH', 'FIT_METHOD_FIT_HEIGHT', 'DEFAULT_FIT_METHOD', 
+    'FIT_METHOD_FIT_WIDTH', 'FIT_METHOD_FIT_HEIGHT', 'DEFAULT_FIT_METHOD',
     'FIT_METHODS_CHOICES', 'FIT_METHODS_CHOICES_WITH_EMPTY_OPTION',
     'IMAGES_UPLOAD_DIR', 'SIZES', 'SIZE_100x100', 'SIZE_200x200',
     'SIZE_300x300', 'SIZE_400x400', 'SIZE_500x500', 'SIZE_600x600',
     'DEFAULT_SIZE',
 )
 
-from .conf import get_setting
 
 FIT_METHOD_CROP_SMART = get_setting('FIT_METHOD_CROP_SMART')
 FIT_METHOD_CROP_CENTER = get_setting('FIT_METHOD_CROP_CENTER')
