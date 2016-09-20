@@ -1,20 +1,22 @@
+import six
+
+from django.core import validators
+from django.core.exceptions import ValidationError
+from django.forms.widgets import Textarea
+
+from .settings import MULTI_EMAIL_FIELD_VALUE_SPLITTER
+
 __title__ = 'fobi.contrib.plugins.form_handlers.mail.widgets'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('MultiEmailWidget',)
 
-import six
-
-from django.forms.widgets import Textarea
-from django.core.exceptions import ValidationError
-from django.core import validators
-
-from .settings import MULTI_EMAIL_FIELD_VALUE_SPLITTER
-
 MULTI_EMAIL_FIELD_EMPTY_VALUES = validators.EMPTY_VALUES + ('[]',)
 
+
 class MultiEmailWidget(Textarea):
+    """Multi email widget."""
 
     is_hidden = False
 
@@ -29,5 +31,6 @@ class MultiEmailWidget(Textarea):
         raise ValidationError('Invalid format.')
 
     def render(self, name, value, attrs=None):
+        """Render."""
         value = self.prep_value(value)
         return super(MultiEmailWidget, self).render(name, value, attrs)

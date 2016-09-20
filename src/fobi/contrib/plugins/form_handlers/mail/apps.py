@@ -10,6 +10,8 @@ try:
     from django.apps import AppConfig
 
     class Config(AppConfig):
+        """Config."""
+
         name = 'fobi.contrib.plugins.form_handlers.mail'
         label = 'fobi_contrib_plugins_form_handlers_mail'
 

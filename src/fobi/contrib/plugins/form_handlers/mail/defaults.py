@@ -6,5 +6,4 @@ __all__ = (
     'MULTI_EMAIL_FIELD_VALUE_SPLITTER',
 )
 
-MULTI_EMAIL_FIELD_VALUE_SPLITTER = ',' # But can be '\n'
-
+MULTI_EMAIL_FIELD_VALUE_SPLITTER = ','  # But can be '\n'

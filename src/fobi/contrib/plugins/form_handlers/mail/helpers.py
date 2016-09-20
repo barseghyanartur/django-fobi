@@ -1,18 +1,20 @@
 from __future__ import absolute_import
 
+from django.core.mail import get_connection
+from django.core.mail.message import EmailMultiAlternatives
+
 __title__ = 'fobi.contrib.plugins.form_handlers.mail.helpers'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('send_mail',)
 
-from django.core.mail import get_connection
-from django.core.mail.message import EmailMultiAlternatives
 
 def send_mail(subject, message, from_email, recipient_list,
               fail_silently=False, auth_user=None, auth_password=None,
               connection=None, html_message=None, attachments=None):
-    """
+    """Send email.
+
     Easy wrapper for sending a single message to a recipient list. All members
     of the recipient list will see the other recipients in the 'To' field.
 

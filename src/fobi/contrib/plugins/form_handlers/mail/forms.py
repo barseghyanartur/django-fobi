@@ -1,11 +1,5 @@
 from __future__ import absolute_import
 
-__title__ = 'fobi.contrib.plugins.form_handlers.mail.forms'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2016 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('MailForm',)
-
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
@@ -14,12 +8,18 @@ from fobi.base import BasePluginForm, get_theme
 from .fields import MultiEmailField
 from .widgets import MultiEmailWidget
 
+__title__ = 'fobi.contrib.plugins.form_handlers.mail.forms'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2014-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('MailForm',)
+
 theme = get_theme(request=None, as_instance=True)
 
+
 class MailForm(forms.Form, BasePluginForm):
-    """
-    Form for ``BooleanSelectPlugin``.
-    """
+    """Form for ``BooleanSelectPlugin``."""
+
     plugin_data_fields = [
         ("from_name", ""),
         ("from_email", ""),
@@ -30,44 +30,44 @@ class MailForm(forms.Form, BasePluginForm):
     ]
 
     from_name = forms.CharField(
-        label = _("From name"),
+        label=_("From name"),
         required=True,
-        widget = forms.widgets.TextInput(
+        widget=forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
-            )
         )
+    )
     from_email = forms.EmailField(
-        label = _("From email"),
+        label=_("From email"),
         required=True,
-        widget = forms.widgets.TextInput(
+        widget=forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
-            )
         )
+    )
     to_name = forms.CharField(
-        label = _("To name"),
+        label=_("To name"),
         required=True,
-        widget = forms.widgets.TextInput(
+        widget=forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
-            )
         )
-    to_email = MultiEmailField(#forms.EmailField(
-        label = _("To email"),
+    )
+    to_email = MultiEmailField(  # forms.EmailField(
+        label=_("To email"),
         required=True,
-        widget = MultiEmailWidget(#forms.widgets.TextInput(
+        widget=MultiEmailWidget(  # forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
-            )
         )
+    )
     subject = forms.CharField(
-        label = _("Subject"),
+        label=_("Subject"),
         required=True,
-        widget = forms.widgets.TextInput(
+        widget=forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
-            )
         )
+    )
     body = forms.CharField(
-        label = _("Body"),
+        label=_("Body"),
         required=False,
-        widget = forms.widgets.Textarea(
+        widget=forms.widgets.Textarea(
             attrs={'class': theme.form_element_html_class}
-            )
         )
+    )
