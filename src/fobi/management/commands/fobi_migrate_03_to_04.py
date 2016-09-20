@@ -4,14 +4,17 @@ from django.core.management.base import BaseCommand
 
 from fobi.models import FormElementEntry
 
-class Command(BaseCommand):
-    def handle(self, *args, **options):
-        """
-        Database related changes necessary to upgrade fobi==0.3.* to
-        fobi==0.4. The full list of changes is listed below:
 
-        - Change the "birthday" occurances to "date_drop_down".
-        """
+class Command(BaseCommand):
+    """Database related changes necessary to upgrade fobi==0.3.* to fobi==0.4.
+
+    The full list of changes is listed below:
+
+    - Change the "birthday" occurrences to "date_drop_down".
+    """
+
+    def handle(self, *args, **options):
+        """Handle."""
         n_updated = FormElementEntry._default_manager \
                                     .filter(plugin_uid='birthday') \
                                     .only('id', 'plugin_uid') \

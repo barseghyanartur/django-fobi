@@ -1,6 +1,21 @@
+from django import forms
+from django.conf import settings
+from django.template import Library, TemplateSyntaxError, Node
+from django.utils.translation import ugettext_lazy as _
+
+from nine.versions import DJANGO_GTE_1_7
+
+from fobi.base import get_theme
+from fobi.settings import DISPLAY_AUTH_LINK
+
+if DJANGO_GTE_1_7:
+    from django.forms.utils import ErrorDict
+else:
+    from django.forms.util import ErrorDict
+
 __title__ = 'fobi.templatetags.fobi_tags'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014 Artur Barseghyan'
+__copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'get_fobi_plugin', 'get_fobi_form_handler_plugin_custom_actions',
@@ -9,20 +24,6 @@ __all__ = (
     'render_fobi_forms_list',
 )
 
-from django.template import Library, TemplateSyntaxError, Node
-from django.conf import settings
-from django import forms
-from django.utils.translation import ugettext_lazy as _
-
-from nine.versions import DJANGO_GTE_1_7
-
-if DJANGO_GTE_1_7:
-    from django.forms.utils import ErrorDict
-else:
-    from django.forms.util import ErrorDict
-
-from fobi.settings import DISPLAY_AUTH_LINK
-from fobi.base import get_theme
 theme = get_theme(request=None, as_instance=True)
 
 register = Library()
@@ -35,15 +36,17 @@ register = Library()
 # *****************************************************************************
 # *****************************************************************************
 
+
 class GetFobiPluginNode(Node):
-    """
-    Node for ``get_fobi_plugin`` tag.
-    """
+    """Node for ``get_fobi_plugin`` tag."""
+
     def __init__(self, entry, as_var=None):
+        """Constructor."""
         self.entry = entry
         self.as_var = as_var
 
     def render(self, context):
+        """Render."""
         request = context['request']
         entry = self.entry.resolve(context, True)
 
@@ -54,10 +57,11 @@ class GetFobiPluginNode(Node):
 
 @register.tag
 def get_fobi_plugin(parser, token):
-    """
-    Gets the plugin. Note, that ``entry`` shall be a instance of
+    """Get the plugin.
+
+    Note, that ``entry`` shall be a instance of
     ``fobi.models.FormElementEntry`` or ``fobi.models.FormHandlerEntry``.
-    
+
     :syntax:
 
         {% get_fobi_plugin entry as [context_var_name] %}
@@ -74,15 +78,17 @@ def get_fobi_plugin(parser, token):
     if 4 == len(bits):
         if 'as' != bits[-2]:
             raise TemplateSyntaxError(
-                "Invalid syntax for {0}. Incorrect number of arguments.".format(
+                "Invalid syntax for {0}. Incorrect number of "
+                "arguments.".format(
                     bits[0]
-                    )
                 )
+            )
         as_var = bits[-1]
     else:
         raise TemplateSyntaxError(
-            "Invalid syntax for {0}. See docs for valid syntax.".format(bits[0])
-            )
+            "Invalid syntax for {0}. See docs for valid "
+            "syntax.".format(bits[0])
+        )
 
     entry = parser.compile_filter(bits[1])
 
@@ -90,15 +96,16 @@ def get_fobi_plugin(parser, token):
 
 
 class GetFobiFormHandlerPluginCustomActionsNode(Node):
-    """
-    Node for ``get_fobi_form_handler_plugin_custom_actions`` tag.
-    """
+    """Node for ``get_fobi_form_handler_plugin_custom_actions`` tag."""
+
     def __init__(self, plugin, form_entry, as_var=None):
+        """Constructor."""
         self.plugin = plugin
         self.form_entry = form_entry
         self.as_var = as_var
 
     def render(self, context):
+        """Render."""
         request = context['request']
         plugin = self.plugin.resolve(context, True)
         form_entry = self.form_entry.resolve(context, True)
@@ -109,39 +116,44 @@ class GetFobiFormHandlerPluginCustomActionsNode(Node):
 
 @register.tag
 def get_fobi_form_handler_plugin_custom_actions(parser, token):
-    """
-    Gets the form handler plugin custom actions. Note, that ``plugin`` shall
-    be a instance of ``fobi.models.FormHandlerEntry``.
+    """Get the form handler plugin custom actions.
+
+    Note, that ``plugin`` shall be a instance of
+    ``fobi.models.FormHandlerEntry``.
 
     :syntax:
 
-        {% get_fobi_form_handler_plugin_custom_actions [plugin] [form_entry] as [context_var_name] %}
+        {% get_fobi_form_handler_plugin_custom_actions
+            [plugin] [form_entry] as [context_var_name] %}
 
     :example:
 
-        {% get_fobi_form_handler_plugin_custom_actions plugin form_entry as form_handler_plugin_custom_actions %}
+        {% get_fobi_form_handler_plugin_custom_actions
+            plugin form_entry as form_handler_plugin_custom_actions %}
     """
     bits = token.contents.split()
 
     if 5 == len(bits):
         if 'as' != bits[-2]:
             raise TemplateSyntaxError(
-                "Invalid syntax for {0}. Incorrect number of arguments.".format(
+                "Invalid syntax for {0}. Incorrect number of "
+                "arguments.".format(
                     bits[0]
-                    )
                 )
+            )
         as_var = bits[-1]
     else:
         raise TemplateSyntaxError(
-            "Invalid syntax for {0}. See docs for valid syntax.".format(bits[0])
-            )
+            "Invalid syntax for {0}. See docs for valid "
+            "syntax.".format(bits[0])
+        )
 
     plugin = parser.compile_filter(bits[1])
     form_entry = parser.compile_filter(bits[2])
 
     return GetFobiFormHandlerPluginCustomActionsNode(
         plugin=plugin, form_entry=form_entry, as_var=as_var
-        )
+    )
 
 # *****************************************************************************
 # *****************************************************************************
@@ -151,10 +163,9 @@ def get_fobi_form_handler_plugin_custom_actions(parser, token):
 # *****************************************************************************
 # *****************************************************************************
 
+
 def render_auth_link(context):
-    """
-    Render auth link.
-    """
+    """Render auth link."""
     if not DISPLAY_AUTH_LINK:
         return {}
 
@@ -187,13 +198,12 @@ def render_auth_link(context):
 
 register.inclusion_tag(
     'fobi/snippets/render_auth_link.html', takes_context=True
-    )(render_auth_link)
+)(render_auth_link)
 
 
 @register.inclusion_tag(theme.forms_list_template, takes_context=True)
 def render_fobi_forms_list(context, queryset, *args, **kwargs):
-    """
-    Render the list of fobi forms.
+    """Render the list of fobi forms.
 
     :syntax:
 
@@ -229,17 +239,19 @@ def render_fobi_forms_list(context, queryset, *args, **kwargs):
 # *****************************************************************************
 # *****************************************************************************
 
+
 class HasEditFormEntryPermissionsNode(Node):
-    """
-    Node for ``has_edit_form_entry_permissions`` tag.
-    """
+    """Node for ``has_edit_form_entry_permissions`` tag."""
+
     def __init__(self, as_var=None):
+        """Constructor."""
         self.as_var = as_var
 
     def render(self, context):
+        """Render."""
         try:
             perms = context['perms']
-        except Exception as e:
+        except Exception as err:
             if self.as_var:
                 context[self.as_var] = False
                 return ''
@@ -272,8 +284,7 @@ class HasEditFormEntryPermissionsNode(Node):
 
 @register.tag
 def has_edit_form_entry_permissions(parser, token):
-    """
-    Checks the permissions
+    """Checks the permissions
 
     :syntax:
 
@@ -291,10 +302,10 @@ def has_edit_form_entry_permissions(parser, token):
 
     if len(bits) not in (1, 3):
         raise TemplateSyntaxError(
-                "Invalid syntax for {0}. Incorrect number of arguments.".format(
-                    bits[0]
-                    )
-                )
+            "Invalid syntax for {0}. Incorrect number of arguments.".format(
+                bits[0]
+            )
+        )
 
     if 3 == len(bits):
         as_var = bits[-1]
@@ -312,10 +323,10 @@ def has_edit_form_entry_permissions(parser, token):
 # *****************************************************************************
 # *****************************************************************************
 
+
 class FormFieldType(object):
-    """
-    Form field type container.
-    """
+    """Form field type container."""
+
     is_checkbox = False
     is_password = False
     is_hidden = False
@@ -324,7 +335,8 @@ class FormFieldType(object):
     is_textarea = False
 
     def __init__(self, properties=[]):
-        """
+        """Constructor.
+
         By default all of them are false. Provide only property
         names that should be set to True.
         """
@@ -333,14 +345,15 @@ class FormFieldType(object):
 
 
 class GetFormFieldTypeNode(Node):
-    """
-    Node for ``get_form_field_type`` tag.
-    """
+    """Node for ``get_form_field_type`` tag."""
+
     def __init__(self, field, as_var=None):
+        """Constructor."""
         self.field = field
         self.as_var = as_var
 
     def render(self, context):
+        """Render."""
         field = self.field.resolve(context, True)
         properties = []
 
@@ -361,8 +374,7 @@ class GetFormFieldTypeNode(Node):
 
 @register.tag
 def get_form_field_type(parser, token):
-    """
-    Get form field type.
+    """Get form field type.
 
     Syntax::
 
@@ -380,15 +392,17 @@ def get_form_field_type(parser, token):
     if 4 == len(bits):
         if 'as' != bits[-2]:
             raise TemplateSyntaxError(
-                "Invalid syntax for {0}. Incorrect number of arguments.".format(
+                "Invalid syntax for {0}. Incorrect number of "
+                "arguments.".format(
                     bits[0]
-                    )
                 )
+            )
         as_var = bits[-1]
     else:
         raise TemplateSyntaxError(
-            "Invalid syntax for {0}. See docs for valid syntax.".format(bits[0])
-            )
+            "Invalid syntax for {0}. See docs for valid "
+            "syntax.".format(bits[0])
+        )
 
     field = parser.compile_filter(bits[1])
 
@@ -396,14 +410,15 @@ def get_form_field_type(parser, token):
 
 
 class GetFormHiddenFieldsErrorsNode(Node):
-    """
-    Node for ``get_form_hidden_fields_errors`` tag.
-    """
+    """Node for ``get_form_hidden_fields_errors`` tag."""
+
     def __init__(self, form, as_var=None):
+        """Constructor."""
         self.form = form
         self.as_var = as_var
 
     def render(self, context):
+        """Render."""
         form = self.form.resolve(context, True)
 
         hidden_fields_errors = ErrorDict()
@@ -418,8 +433,7 @@ class GetFormHiddenFieldsErrorsNode(Node):
 
 @register.tag
 def get_form_hidden_fields_errors(parser, token):
-    """
-    Get form hidden fields errors.
+    """Get form hidden fields errors.
 
     :syntax:
 
@@ -435,15 +449,17 @@ def get_form_hidden_fields_errors(parser, token):
     if 4 == len(bits):
         if 'as' != bits[-2]:
             raise TemplateSyntaxError(
-                "Invalid syntax for {0}. Incorrect number of arguments.".format(
+                "Invalid syntax for {0}. Incorrect number of "
+                "arguments.".format(
                     bits[0]
-                    )
                 )
+            )
         as_var = bits[-1]
     else:
         raise TemplateSyntaxError(
-            "Invalid syntax for {0}. See docs for valid syntax.".format(bits[0])
-            )
+            "Invalid syntax for {0}. See docs for valid "
+            "syntax.".format(bits[0])
+        )
 
     form = parser.compile_filter(bits[1])
 
