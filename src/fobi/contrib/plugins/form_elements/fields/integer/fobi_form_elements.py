@@ -1,10 +1,4 @@
-__title__ = 'fobi.contrib.plugins.form_elements.fields.integer.fobi_form_elements'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2016 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('IntegerInputPlugin',)
-
-from django.forms.fields import IntegerField#, DecimalField, FloatField
+from django.forms.fields import IntegerField  # , DecimalField, FloatField
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
@@ -13,21 +7,26 @@ from fobi.widgets import NumberInput
 from . import UID
 from .forms import IntegerInputForm
 
+__title__ = 'fobi.contrib.plugins.form_elements.fields.' \
+            'integer.fobi_form_elements'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2014-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('IntegerInputPlugin',)
+
 theme = get_theme(request=None, as_instance=True)
 
+
 class IntegerInputPlugin(FormFieldPlugin):
-    """
-    Integer input plugin.
-    """
+    """Integer input plugin."""
+
     uid = UID
     name = _("Integer")
     group = _("Fields")
     form = IntegerInputForm
 
     def get_form_field_instances(self, request=None):
-        """
-        Get form field instances.
-        """
+        """Get form field instances."""
         widget_attrs = {
             'class': theme.form_element_html_class,
             'type': 'number',
