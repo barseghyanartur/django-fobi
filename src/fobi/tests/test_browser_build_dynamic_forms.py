@@ -1,12 +1,15 @@
-import unittest
+import gc
 import logging
+import unittest
 
 from time import sleep
 
 # from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium import webdriver
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.common.exceptions import WebDriverException
 
+from django.core.management import call_command
 from django.core.urlresolvers import reverse
 from django.test import LiveServerTestCase
 from django.conf import settings
@@ -41,14 +44,25 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
 
     Backed up by selenium. This test is based on the bootstrap3 theme.
     """
+
+    cleans_up_after_itself = True
     try:
         LIVE_SERVER_URL = settings.LIVE_SERVER_URL
     except Exception as e:
         LIVE_SERVER_URL = None
 
+    def tearDown(self):
+        """Tear down."""
+        super(FobiBrowserBuldDynamicFormsTest, self).tearDown()
+        call_command('flush', verbosity=0, interactive=False,
+                     reset_sequences=False,
+                     allow_cascade=False,
+                     inhibit_post_migrate=False)
+        gc.collect()
+
     @classmethod
     def setUpClass(cls):
-        """Set up."""
+        """Set up class."""
         # cls.selenium = WebDriver()
         cls.selenium = webdriver.Firefox()
 
@@ -60,13 +74,18 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
 
     @classmethod
     def tearDownClass(cls):
-        """Tear down."""
+        """Tear down class."""
         try:
             cls.selenium.quit()
-        except Exception as e:
-            print(e)
+        except Exception as err:
+            print(err)
 
         super(FobiBrowserBuldDynamicFormsTest, cls).tearDownClass()
+        call_command('flush', verbosity=0, interactive=False,
+                     reset_sequences=False,
+                     allow_cascade=False,
+                     inhibit_post_migrate=False)
+        gc.collect()
 
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -133,6 +152,33 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         )
 
         self.__sleep(wait)
+
+    def _scroll_to_element(self, form_element, simple=False):
+        """Scroll to element."""
+        coordinates = form_element.location_once_scrolled_into_view
+        if simple:
+            return
+
+        x = coordinates.get('x', 0)
+        y = coordinates.get('y', 0)
+        self.selenium.execute_script(
+            "window.scrollTo({0}, {1});".format(x, y)
+        )
+        self.selenium.execute_script(
+            "window.scrollBy({0}, {1});".format(0, -100)
+        )
+
+    def _scroll_to(self, x, y):
+        """Scroll to."""
+        self.selenium.execute_script(
+            "window.scrollTo({0}, {1});".format(x, y)
+        )
+
+    def _scroll_by(self, x, y):
+        """Scroll by."""
+        self.selenium.execute_script(
+            "window.scrollBy({0}, {1});".format(x, y)
+        )
 
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # ++++++++++++++++++++++ Form related +++++++++++++++++++++++++++
@@ -210,6 +256,8 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         add_form_element_link = self.selenium.find_element_by_xpath(
             """//a[contains(text(), 'Choose form element to add') and contains(@class, "dropdown-toggle")]"""
         )
+
+        self._scroll_to(0, 0)
         add_form_element_link.click()
 
         # Find the parent element
@@ -227,6 +275,9 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
             add_form_element_available_elements_container.find_element_by_xpath(
             '//a[text()="{0}"]'.format(form_element_name)
         )
+
+        self._scroll_to_element(form_element_to_add, simple=True)
+        self._scroll_by(0, -150)
         form_element_to_add.click()
 
         # Adding form data

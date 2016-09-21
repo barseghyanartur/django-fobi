@@ -663,4 +663,6 @@ if DEBUG:
 # Make the `django-fobi` package available without installation.
 if DEV:
     import sys
-    sys.path.insert(0, os.path.abspath('../../src'))
+    fobi_source_path = os.environ.get('FOBI_SOURCE_PATH', '../../src')
+    # sys.path.insert(0, os.path.abspath('../../src'))
+    sys.path.insert(0, os.path.abspath(fobi_source_path))

@@ -5,6 +5,10 @@ DEBUG = True
 DEBUG_TOOLBAR = not True
 TEMPLATE_DEBUG = not True
 DEV = True
+os.environ.setdefault(
+    'FOBI_SOURCE_PATH',
+    '/home/foreverchild/bbrepos/django-fobi/release/django-fobi/src'
+)
 
 DATABASES = {
     'default': {
