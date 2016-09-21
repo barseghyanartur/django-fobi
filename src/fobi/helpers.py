@@ -40,14 +40,15 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'do_slugify', 'lists_overlap', 'iterable_to_dict', 'map_field_name_to_label',
-    'clean_dict', 'two_dicts_to_string', 'empty_string', 'ensure_unique_filename',
-    'handle_uploaded_file', 'delete_file', 'clone_file', 'get_registered_models',
-    'admin_change_url', 'uniquify_sequence', 'safe_text', 'combine_dicts',
-    'update_plugin_data', 'get_select_field_choices',
-    'validate_initial_for_choices', 'validate_initial_for_multiple_choices',
-    'validate_submit_value_as', 'get_app_label_and_model_name',
-    'StrippedUser', 'StrippedRequest', 'JSONDataExporter',
+    'do_slugify', 'lists_overlap', 'iterable_to_dict',
+    'map_field_name_to_label', 'clean_dict', 'two_dicts_to_string',
+    'empty_string', 'ensure_unique_filename', 'handle_uploaded_file',
+    'delete_file', 'clone_file', 'get_registered_models', 'admin_change_url',
+    'uniquify_sequence', 'safe_text', 'combine_dicts', 'update_plugin_data',
+    'get_select_field_choices', 'validate_initial_for_choices',
+    'validate_initial_for_multiple_choices', 'validate_submit_value_as',
+    'get_app_label_and_model_name', 'StrippedUser', 'StrippedRequest',
+    'JSONDataExporter',
 )
 
 logger = logging.getLogger(__name__)
@@ -58,7 +59,11 @@ logger = logging.getLogger(__name__)
 # *****************************************************************************
 # *****************************************************************************
 
-do_slugify = lambda s: slugify(s.lower()).lower()
+
+def do_slugify(s):
+    """Slugify."""
+    return slugify(s.lower()).lower()
+
 
 def safe_text(text):
     """Safe text (encode).
@@ -98,8 +103,9 @@ def map_field_name_to_label(form):
     :param django.forms.Form form: Instance of ``django.forms.Form``.
     :return dict:
     """
-    return dict([(field_name, field.label) \
-                 for (field_name, field) in form.base_fields.items()])
+    return dict([(field_name, field.label)
+                 for (field_name, field)
+                 in form.base_fields.items()])
 
 
 def clean_dict(source, keys=[], values=[]):
@@ -112,7 +118,7 @@ def clean_dict(source, keys=[], values=[]):
     """
     d = {}
     for key, value in source.items():
-        if (not key in keys) and (not value in values):
+        if (key not in keys) and (value not in values):
             d[key] = value
     return d
 
@@ -125,10 +131,11 @@ def combine_dicts(headers, data):
     """
     return [(value, data.get(key, '')) for key, value in list(headers.items())]
 
+
 def two_dicts_to_string(headers, data, html_element='p'):
     """Two dicts to string.
 
-    Takes two dictionaries, assuming one contains a mapping keys to titles 
+    Takes two dictionaries, assuming one contains a mapping keys to titles
     and another keys to data. Joins as string and returns wrapped into
     HTML "p" tag.
     """
@@ -140,6 +147,7 @@ def two_dicts_to_string(headers, data, html_element='p'):
                                       safe_text(value), html_element)
          for key, value in formatted_data]
     )
+
 
 empty_string = text_type('')
 
@@ -165,7 +173,7 @@ def get_ignorable_form_values():
 
     :return iterable:
     """
-    return [None, empty_string,]
+    return [None, empty_string]
 
 # *****************************************************************************
 # *****************************************************************************
@@ -296,6 +304,7 @@ def get_registered_models(ignore=[]):
 
     return registered_models
 
+
 def get_app_label_and_model_name(path):
     """Gets app_label and model_name from the path given.
 
@@ -342,6 +351,7 @@ def admin_change_url(app_label, module_name, object_id, extra_path='',
 # *****************************************************************************
 # *****************************************************************************
 
+
 def update_plugin_data(entry, request=None):
     """Update plugin data.
 
@@ -363,9 +373,9 @@ def get_select_field_choices(raw_choices_data):
     :param str raw_choices_data:
     :return list:
     """
-    choices = [] # Holds return value
-    keys = set([]) # For checking uniqueness of keys
-    values = set([]) # For checking uniqueness of values
+    choices = []  # Holds return value
+    keys = set([])  # For checking uniqueness of keys
+    values = set([])  # For checking uniqueness of values
 
     # Looping through the raw data
     for choice in raw_choices_data.split('\n'):
@@ -376,7 +386,7 @@ def get_select_field_choices(raw_choices_data):
             key, value = choice.split(',', 1)
             key = key.strip()
             value = value.strip()
-            if key and not key in keys and not value in values:
+            if key and key not in keys and value not in values:
                 choices.append((key, value))
                 keys.add(key)
                 values.add(value)
@@ -384,7 +394,7 @@ def get_select_field_choices(raw_choices_data):
         # If key is also the value
         else:
             choice = choice.strip()
-            if choice and not choice in keys and not choice in values:
+            if choice and choice not in keys and choice not in values:
                 choices.append((choice, choice))
                 keys.add(choice)
                 values.add(choice)
@@ -433,7 +443,7 @@ def validate_initial_for_multiple_choices(plugin_form,
                 raise forms.ValidationError(
                    _("Invalid value for initial: {0}. Should be any "
                      "of the following: {1}"
-                      "".format(choice, ','.join(available_choices)))
+                     "".format(choice, ','.join(available_choices)))
                 )
 
     return plugin_form.cleaned_data[field_name_initial]
@@ -444,7 +454,7 @@ def validate_submit_value_as(value):
 
     :param str value:
     """
-    if value in not (SUBMIT_VALUE_AS_VAL, SUBMIT_VALUE_AS_REPR,
+    if value not in (SUBMIT_VALUE_AS_VAL, SUBMIT_VALUE_AS_REPR,
                      SUBMIT_VALUE_AS_MIX):
         raise ImproperlyConfigured("The `SUBMIT_AS_VALUE` may have one of "
                                    "the following values: {0}, {1} or {2}"
@@ -457,7 +467,7 @@ class StrippedUser(object):
     """Stripped user object."""
 
     def __init__(self, user):
-        """Computer.
+        """Constructor.
 
         :param user:
         :return:
@@ -538,22 +548,26 @@ class StrippedRequest(object):
         return self._request.get_full_path()
 
     def is_secure(self):
-        """
+        """Is secure.
+
         Returns True if the request is secure; that is, if it was made with
         HTTPS.
         """
         return self._request.is_secure()
 
     def is_ajax(self):
-        """
-        Returns True if the request was made via an XMLHttpRequest, by checking
-        the HTTP_X_REQUESTED_WITH header for the string 'XMLHttpRequest'
+        """Is ajax?
+
+        Returns True if the request was made via an XMLHttpRequest, by
+        checking the HTTP_X_REQUESTED_WITH header for the string
+        'XMLHttpRequest'.
         """
         return self._request.is_ajax()
 
     @property
     def META(self):
-        """
+        """Request meta stripped down.
+
         A standard Python dictionary containing all available HTTP
         headers. Available headers depend on the client and server, but here
         are some examples:
@@ -565,12 +579,14 @@ class StrippedRequest(object):
             - HTTP_USER_AGENT: The clients user-agent string.
             - QUERY_STRING: The query string, as a single (unparsed) string.
             - REMOTE_ADDR: The IP address of the client.
-            """
+        """
         META = {
-            'HTTP_ACCEPT_ENCODING': self._request.META \
-                                                 .get('HTTP_ACCEPT_ENCODING'),
-            'HTTP_ACCEPT_LANGUAGE': self._request.META \
-                                                 .get('HTTP_ACCEPT_LANGUAGE'),
+            'HTTP_ACCEPT_ENCODING': self._request.META.get(
+                'HTTP_ACCEPT_ENCODING'
+            ),
+            'HTTP_ACCEPT_LANGUAGE': self._request.META.get(
+                'HTTP_ACCEPT_LANGUAGE'
+            ),
             'HTTP_HOST': self._request.META.get('HTTP_HOST'),
             'HTTP_REFERER': self._request.META.get('HTTP_REFERER'),
             'HTTP_USER_AGENT': self._request.META.get('HTTP_USER_AGENT'),
@@ -581,11 +597,11 @@ class StrippedRequest(object):
 
 
 class JSONDataExporter(object):
-    """
-    Exporting the data into JSON.
-    """
+    """Exporting the data into JSON."""
+
     def __init__(self, data, filename):
-        """
+        """Constructor.
+
         :param str data: Dumped JSON data (`json.dumps()`).
         :param str filename: File name prefix.
         """
@@ -593,7 +609,8 @@ class JSONDataExporter(object):
         self.filename = filename
 
     def _get_initial_response(self, mimetype="application/json"):
-        """
+        """Get initial response.
+
         For compatibility with older versions (`mimetype` vs `content_type`).
         """
         response_kwargs = {}
@@ -604,9 +621,7 @@ class JSONDataExporter(object):
         return HttpResponse(**response_kwargs)
 
     def export_to_json(self):
-        """
-        Export data to JSON.
-        """
+        """Export data to JSON."""
         response = self._get_initial_response(mimetype="text/json")
         response['Content-Disposition'] = \
             'attachment; filename={0}.json'.format(self.filename)
@@ -615,4 +630,5 @@ class JSONDataExporter(object):
         return response
 
     def export(self):
+        """Export."""
         return self.export_to_json()

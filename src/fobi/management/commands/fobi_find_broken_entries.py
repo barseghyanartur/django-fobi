@@ -35,7 +35,7 @@ class Command(BaseCommand):
             get_registered_form_handler_plugin_uids()
 
         for entry_id, plugin_uid, form_entry_id in form_element_entries:
-            if not plugin_uid in registered_form_element_plugin_uids:
+            if plugin_uid not in registered_form_element_plugin_uids:
                 broken_form_element_entries.append(
                     (form_entry_id, entry_id, plugin_uid)
                 )
@@ -48,7 +48,7 @@ class Command(BaseCommand):
             )
 
         for entry_id, plugin_uid, form_entry_id in form_handler_entries:
-            if not plugin_uid in registered_form_handler_plugin_uids:
+            if plugin_uid not in registered_form_handler_plugin_uids:
                 broken_form_handler_entries.append(
                     (form_entry_id, entry_id, plugin_uid)
                 )
