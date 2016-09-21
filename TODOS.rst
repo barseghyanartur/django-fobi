@@ -285,6 +285,7 @@ Must haves
   ignored at the moment).
 - Fix layout issue on step 2 of the MailChimp import (step 2 of the wizard).
 - Properly document the form importers API.
+- django-rest-framework integration.
 
 Should haves
 ============
