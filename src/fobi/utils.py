@@ -42,8 +42,6 @@ __all__ = (
 
 logger = logging.getLogger(__name__)
 
-_ = lambda s: s
-
 
 def sync_plugins():
     """Sync registered plugins.
