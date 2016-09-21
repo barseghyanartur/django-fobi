@@ -17,12 +17,13 @@ are used for versioning (schema follows below):
 
 0.7.1
 -----
-yyyy-mm-dd (not yet released)
+2016-09-22
 
 Release sponsored by `Goldmund, Wyldebeast & Wunderliebe
 <https://www.goldmund-wyldebeast-wunderliebe.nl/>`_.
 
 - Code comply with pep8.
+- Minor fixes in selenium tests.
 
 0.7
 ---
