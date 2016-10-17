@@ -14,6 +14,7 @@ Subpackages
     fobi.templatetags
     fobi.tests
     fobi.urls
+    fobi.wizard
 
 Submodules
 ----------

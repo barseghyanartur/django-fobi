@@ -7,8 +7,6 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
 
-from nine.versions import DJANGO_GTE_1_8
-
 from fobi.wizard import SessionWizardView
 
 from .forms import MailchimpAPIKeyForm, MailchimpListIDForm
@@ -29,8 +27,6 @@ class MailchimpImporterWizardView(SessionWizardView):
 
     def get_form_kwargs(self, step):
         """Get form kwargs."""
-        # logger.debug('step: ' + step)
-        # logger.debug(self.request.session.__dict__)
         if '1' == step:
             data = self.get_cleaned_data_for_step('0') or {}
             api_key = data.get('api_key', None)

@@ -2677,18 +2677,17 @@ def get_ordered_form_wizard_handler_plugins():
 
 def run_form_wizard_handlers(form_wizard_entry, request, form_list,
                              form_wizard, form_element_entries=None):
-    """Run form wizard handlers."""
-    """Run form handlers.
+    """Run form wizard handlers.
 
-        :param fobi.models.FormWizardEntry form_wizard_entry:
-        :param django.http.HttpRequest request:
-        :param list form_list: List of :class:`django.forms.Form` objects.
-        :param fobi.wizard.views.dynamic.DynamicWizardView form_wizard: The
-            form wizard view object.
-        :param iterable form_element_entries: Iterable
-            of :class:`fobi.base.FormElementEntry` objects.
-        :return tuple: List of success responses, list of error responses
-        """
+    :param fobi.models.FormWizardEntry form_wizard_entry:
+    :param django.http.HttpRequest request:
+    :param list form_list: List of :class:`django.forms.Form` objects.
+    :param fobi.wizard.views.dynamic.DynamicWizardView form_wizard: The
+        form wizard view object.
+    :param iterable form_element_entries: Iterable
+        of :class:`fobi.base.FormElementEntry` objects.
+    :return tuple: List of success responses, list of error responses
+    """
     # Errors list
     errors = []
 

@@ -7,8 +7,12 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'PRINT_INFO', 'TRACK_TIME', 'print_info', 'fobi_setup', 'skip',
-    'is_fobi_setup_completed', 'mark_fobi_setup_as_completed',
+    'PRINT_INFO',
+    'print_info',
+    'fobi_setup',
+    'skip',
+    'is_fobi_setup_completed',
+    'mark_fobi_setup_as_completed',
 )
 
 # ****************************************************************************
