@@ -1,6 +1,14 @@
 fobi.contrib.plugins.form_handlers.db_store package
 ===================================================
 
+Subpackages
+-----------
+
+.. toctree::
+
+    fobi.contrib.plugins.form_handlers.db_store.migrations
+    fobi.contrib.plugins.form_handlers.db_store.urls
+
 Submodules
 ----------
 
@@ -64,14 +72,6 @@ fobi.contrib.plugins.form_handlers.db_store.settings module
 -----------------------------------------------------------
 
 .. automodule:: fobi.contrib.plugins.form_handlers.db_store.settings
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-fobi.contrib.plugins.form_handlers.db_store.urls module
--------------------------------------------------------
-
-.. automodule:: fobi.contrib.plugins.form_handlers.db_store.urls
     :members:
     :undoc-members:
     :show-inheritance:
