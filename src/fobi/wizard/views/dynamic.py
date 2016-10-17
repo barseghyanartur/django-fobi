@@ -121,6 +121,20 @@ class StepsHelper(object):
         return int(self.index) + 1
 
 
+# class DynamicTemplateView(TemplateView):
+#     """Dynamic template view."""
+#
+#     def __init__(self, *args, **kwargs):
+#         """Constructor.
+#
+#         Called in the URLconf; can contain helpful extra keyword arguments,
+#         and other things.
+#         """
+#         # Go through keyword arguments, and either save their values to our
+#         # instance, or raise an error.
+#         super(DynamicTemplateView, self).__init__(**kwargs)
+
+
 class DynamicWizardView(TemplateView):
     """The WizardView is used to create multi-page forms.
 
@@ -326,6 +340,7 @@ class DynamicWizardView(TemplateView):
         self.storage.current_step = self.steps.first
         return self.render(self.get_form())
 
+    # def post(self, request, *args, **kwargs):
     def post(self, *args, **kwargs):
         """POST requests.
 
