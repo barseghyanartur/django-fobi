@@ -1,0 +1,18 @@
+{% load i18n %}
+    {% block form_page_header_wrapper %}
+    <div class="page-header">
+        <h1>{% if fobi_success_page_title %}{{ fobi_success_page_title }}{% else %}{% if form_wizard_entry.success_page_title %}{{ form_wizard_entry.success_page_title }}{% else %}{% trans "Thank you!" %}{% endif %}{% endif %}</h1>
+    </div>
+    {% endblock form_page_header_wrapper %}
+
+    <p>
+      {% if fobi_success_page_text %}
+        {{ fobi_success_page_text }}
+      {% else %}
+        {% if form_wizard_entry.success_page_message %}
+          {{ form_wizard_entry.success_page_message|safe }}
+        {% else %}
+          {% blocktrans %}Form wizard submitted successfully.{% endblocktrans %}
+        {% endif %}
+      {% endif %}
+    </p>

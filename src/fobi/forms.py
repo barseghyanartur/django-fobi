@@ -2,34 +2,57 @@ import socket
 
 from six.moves.urllib.parse import urlparse
 
-from django.forms.models import modelformset_factory
 from django import forms
+from django.forms.models import modelformset_factory
 from django.utils.translation import ugettext, ugettext_lazy as _
-from fobi.models import (
-    # Plugins
-    FormElement, FormHandler,
 
-    # Entries
-    FormEntry, FormFieldsetEntry, FormElementEntry, FormHandlerEntry
-)
+from nonefield.fields import NoneField
 
 from .base import (
-    get_registered_form_element_plugins, get_registered_form_handler_plugins,
+    get_registered_form_element_plugins,
+    get_registered_form_handler_plugins,
+    get_registered_form_wizard_handler_plugins,
     get_theme
 )
 from .constants import ACTION_CHOICES
 from .exceptions import ImproperlyConfigured
-from .validators import url_exists
+from .models import (
+    # Form plugins
+    FormElement,
+    FormHandler,
+    FormWizardHandler,
 
+    # Form entries
+    FormEntry,
+    FormFieldsetEntry,
+    FormElementEntry,
+    FormHandlerEntry,
+
+    # Form wizard entries
+    FormWizardEntry,
+    FormWizardHandlerEntry,
+    FormWizardFormEntry
+)
+from .validators import url_exists
 
 __title__ = 'fobi.forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'FormEntryForm', 'FormFieldsetEntryForm', 'FormElementEntryFormSet',
-    'BulkChangeFormElementPluginsForm', 'BulkChangeFormHandlerPluginsForm',
-    'ImportFormEntryForm', 'FormHandlerForm', 'FormHandlerEntryForm'
+    'BulkChangeFormElementPluginsForm',
+    'BulkChangeFormHandlerPluginsForm',
+    'BulkChangeFormWizardHandlerPluginsForm',
+    'FormElementEntryFormSet',
+    'FormEntryForm',
+    'FormFieldsetEntryForm',
+    'FormHandlerEntryForm',
+    'FormHandlerForm',
+    'FormWizardEntryForm',
+    'FormWizardFormEntryForm',
+    'FormWizardFormEntryFormSet',
+    'FormWizardHandlerEntryForm',
+    'ImportFormEntryForm',
 )
 
 # *****************************************************************************
@@ -172,8 +195,24 @@ class FormElementEntryForm(forms.ModelForm):
         fields = ('form_entry', 'plugin_data', 'plugin_uid', 'position')
 
 
+class _FormElementEntryForm(forms.ModelForm):
+    """FormElementEntry form.
+
+    To be used with `FormElementEntryFormSet` only.
+    """
+
+    class Meta:
+        """Meta class."""
+
+        model = FormElementEntry
+        fields = ('position',)
+
+
 FormElementEntryFormSet = modelformset_factory(
-    FormElementEntry, fields=('position',), extra=0, form=FormElementEntryForm
+    FormElementEntry,
+    fields=('position',),
+    extra=0,
+    form=_FormElementEntryForm
 )
 
 
@@ -203,6 +242,177 @@ class FormHandlerEntryForm(forms.ModelForm):
 
         model = FormHandlerEntry
         fields = ('form_entry', 'plugin_data', 'plugin_uid')
+
+
+# *****************************************************************************
+# *****************************************************************************
+# ****************************** Wizard forms *********************************
+# *****************************************************************************
+# *****************************************************************************
+
+class FormWizardFormEntryForm(forms.ModelForm):
+    """FormWizardFormEntryForm form.
+
+
+    """
+
+    class Meta:
+        """Meta class."""
+
+        model = FormWizardFormEntry
+        fields = ('form_wizard_entry', 'form_entry',)
+
+
+class _FormWizardFormEntryForm(forms.ModelForm):
+    """FormWizardFormEntryForm for formset.
+
+    .. note::
+        We have only two fields in the form: `form_entry` and `position`. The
+        `form_entry` field is a `nonefield.NoneField`, thus - read only. The
+        only changeable field is `position`.
+
+    .. warning::
+
+        To be used in `FormWizardFormEntryFormSet` only. If you need model
+        form for `FormWizardFormEntry` model, make another one and leave this
+        intact.
+    """
+
+    class Meta:
+        """Meta class."""
+
+        model = FormWizardFormEntry
+        fields = ('position',)
+
+    # def __init__(self, *args, **kwargs):
+    #     """Constructor."""
+    #     super(_FormWizardFormEntryForm, self).__init__(*args, **kwargs)
+    #
+    #     self.fields['position'].widget = forms.widgets.HiddenInput(
+    #         attrs={'class': 'form-element-position'}
+    #     )
+    #     # self.fields['form_entry'] = NoneField(
+    #     #     required=False,
+    #     #     label=self.fields['form_entry'].label,
+    #     #     initial=self.fields['form_entry'].initial,
+    #     #     help_text=self.fields['form_entry'].help_text
+    #     # )
+
+
+FormWizardFormEntryFormSet = modelformset_factory(
+    FormWizardFormEntry,
+    fields=('position',),
+    extra=0,
+    form=_FormWizardFormEntryForm
+)
+
+
+class FormWizardEntryForm(forms.ModelForm):
+    """Form for ``fobi.models.FormWizardEntry`` model."""
+
+    class Meta:
+        """Meta class."""
+
+        model = FormWizardEntry
+        fields = ('name', 'is_public', 'success_page_title',
+                  'success_page_message',)
+        # 'wizard_type'
+        # 'action',
+        # 'is_cloneable',
+
+    def __init__(self, *args, **kwargs):
+        """Constructor."""
+        self.request = kwargs.pop('request', None)
+        if self.request is None:
+            raise ImproperlyConfigured(
+                ugettext("The {0} form requires a "
+                         "request argument.".format(self.__class__.__name__))
+                )
+
+        super(FormWizardEntryForm, self).__init__(*args, **kwargs)
+        theme = get_theme(request=None, as_instance=True)
+
+        self.fields['name'].widget = forms.widgets.TextInput(
+            attrs={'class': theme.form_element_html_class}
+        )
+
+        self.fields['success_page_title'].widget = forms.widgets.TextInput(
+            attrs={'class': theme.form_element_html_class}
+        )
+
+        self.fields['success_page_message'].widget = forms.widgets.Textarea(
+            attrs={'class': theme.form_element_html_class}
+        )
+
+        # self.fields['action'].widget = forms.widgets.TextInput(
+        #     attrs={'class': theme.form_element_html_class}
+        # )
+
+        # self.fields['wizard_type'].widget.attrs = {
+        #     'class': theme.form_element_html_class
+        # }
+
+        # At the moment this is done for Foundation 5 theme. Remove this once
+        # it's possible for a theme to override this form. Alternatively, add
+        # the attrs to the theme API.
+        self.fields['is_public'].widget = forms.widgets.CheckboxInput(
+            attrs={'data-customforms': 'disabled'}
+        )
+        # self.fields['is_cloneable'].widget = forms.widgets.CheckboxInput(
+        #    attrs={'data-customforms': 'disabled'}
+        # )
+
+    # def clean_action(self):
+    #     """Validate the action (URL).
+    #
+    #     Checks if URL exists.
+    #     """
+    #     url = self.cleaned_data['action']
+    #     if url:
+    #         full_url = url
+    #
+    #         if not (url.startswith('http://') or url.startswith('https://')):
+    #             full_url = self.request.build_absolute_uri(url)
+    #
+    #         parsed_url = urlparse(full_url)
+    #
+    #         local = False
+    #
+    #         try:
+    #             localhost = socket.gethostbyname('localhost')
+    #         except Exception as err:
+    #             localhost = '127.0.0.1'
+    #
+    #         try:
+    #             host = socket.gethostbyname(parsed_url.hostname)
+    #
+    #             local = (localhost == host)
+    #         except socket.gaierror as err:
+    #             pass
+    #
+    #         if local:
+    #             full_url = parsed_url.path
+    #
+    #         if not url_exists(full_url, local=local):
+    #             raise forms.ValidationError(
+    #                 ugettext("Invalid action URL {0}.").format(full_url)
+    #             )
+    #
+    #     return url
+
+
+class FormWizardHandlerEntryForm(forms.ModelForm):
+    """FormWizardHandlerEntry form."""
+
+    plugin_uid = forms.ChoiceField(
+        choices=get_registered_form_handler_plugins()
+    )
+
+    class Meta:
+        """Meta class."""
+
+        model = FormWizardHandlerEntry
+        fields = ('form_wizard_entry', 'plugin_data', 'plugin_uid')
 
 # *****************************************************************************
 # *****************************************************************************
@@ -273,6 +483,16 @@ class BulkChangeFormHandlerPluginsForm(BaseBulkChangePluginsForm):
         """Meta class."""
 
         model = FormHandler
+        fields = ['groups', 'groups_action', 'users', 'users_action']
+
+
+class BulkChangeFormWizardHandlerPluginsForm(BaseBulkChangePluginsForm):
+    """Bulk change form wizard handler plugins form."""
+
+    class Meta:
+        """Meta class."""
+
+        model = FormWizardHandler
         fields = ['groups', 'groups_action', 'users', 'users_action']
 
 # *****************************************************************************

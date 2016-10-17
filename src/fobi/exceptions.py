@@ -3,11 +3,20 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'BaseException', 'ImproperlyConfigured', 'InvalidRegistryItemType',
-    'DoesNotExist', 'ThemeDoesNotExist', 'PluginDoesNotExist',
-    'FormElementPluginDoesNotExist', 'FormHandlerPluginDoesNotExist',
-    'NoDefaultThemeSet', 'FormPluginError', 'FormElementPluginError',
-    'FormHandlerPluginError', 'FormCallbackError',
+    'BaseException',
+    'ImproperlyConfigured',
+    'InvalidRegistryItemType',
+    'DoesNotExist',
+    'ThemeDoesNotExist',
+    'PluginDoesNotExist',
+    'FormElementPluginDoesNotExist',
+    'FormHandlerPluginDoesNotExist',
+    'FormWizardHandlerPluginDoesNotExist',
+    'NoDefaultThemeSet',
+    'FormPluginError',
+    'FormElementPluginError',
+    'FormHandlerPluginError',
+    'FormCallbackError',
 )
 
 
@@ -48,6 +57,13 @@ class FormElementPluginDoesNotExist(PluginDoesNotExist):
 
 class FormHandlerPluginDoesNotExist(PluginDoesNotExist):
     """Raised when no form handler plugin with given uid can be found."""
+
+
+class FormWizardHandlerPluginDoesNotExist(PluginDoesNotExist):
+    """FormWizardHandlerPlugin does not exist.
+
+    Raised when no form wizard handler plugin with given uid can be found.
+    """
 
 
 class NoDefaultThemeSet(ImproperlyConfigured):

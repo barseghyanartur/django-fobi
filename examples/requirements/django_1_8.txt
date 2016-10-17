@@ -1,0 +1,13 @@
+-r common_python2.txt
+
+Django>=1.8,<1.9
+django-admin-tools>=0.6.0
+django-autoslug==1.7.1
+django-debug-toolbar==0.11.0
+django-formtools
+#django-localeurl>=2.0.2
+django-nine>=0.1.10
+django-nonefield>=0.1
+django-registration-redux>=1.4
+easy-thumbnails==2.3
+vishap>=0.1.5

@@ -1,0 +1,68 @@
+{% extends fobi_theme.base_edit_template %}
+
+{% load i18n static %}
+
+{% block page-title %}{% trans "View form wizard data" %}{% endblock page-title %}
+
+{% block theme-javascripts %}
+    {{ block.super }}
+    <script src="{% static 'db_store/js/jquery.expander.min.js' %}"></script>
+    <script src="{% static 'db_store/js/db_store.js' %}"></script>
+{% endblock theme-javascripts %}
+
+{% block navbar-menu-content %}
+{% comment %}
+{% if form_entry_id %}
+<li class="active"><a href="{% url 'fobi.edit_form_wizard_entry' form_wizard_entry_id %}">{% trans "Edit" %}</a></li>
+{% endif %}
+{% endcomment %}
+{% endblock navbar-menu-content %}
+
+{% block content-wrapper %}
+    <div class="page-header">
+      <h1>{% trans "View form data" %}</h1>
+    </div>
+
+    <div class="row">
+      <div class="col-12 col-sm-12 col-lg-12">
+        <!-- Form element plugins -->
+        <div>
+          <h2 id="form_elements">{% trans "Saved form data" %}</h2>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+
+            <table class="table table-striped db-store-saved-form-data-entry-table">
+              <thead>
+                <tr>
+                  <th>{% trans "Form" %}</th>
+                  <th>{% trans "Data" %}</th>
+                  <th>{% trans "Date" %}</th>
+                </tr>
+              </thead>
+              <tbody>
+              {% for entry in entries %}
+                <tr>
+                  <td>
+                    {#<a href="{% url 'fobi.view_form_wizard_entry' entry.form_wizard_entry.slug %}">{{ entry.form_wizard_entry.name }}</a>#}
+                    <a href="{% url 'fobi.contrib.plugins.form_handlers.db_store.view_saved_form_wizard_data_entries' entry.form_wizard_entry.pk %}" title="{% trans 'Filter' %}">{{ entry.form_wizard_entry.name }}</a>
+                  </td>
+                  <td class="content"><div>{{ entry.formatted_saved_data|safe }}</div></td>
+                  <td>{{ entry.created }}</td>
+                </tr>
+              {% endfor %}
+              </tbody>
+            </table>
+
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock content-wrapper %}
+
+{% block main-content-inner-attrs %}
+{% endblock main-content-inner-attrs %}
+
+{% block sidebar-wrapper %}
+{% endblock sidebar-wrapper %}

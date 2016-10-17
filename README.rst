@@ -70,6 +70,7 @@ Main features and highlights
   and "DjangoCMS admin style" theme (which is another simple theme with editing
   interface in style of `djangocms-admin-style
   <https://github.com/divio/djangocms-admin-style>`_).
+- `Form wizards`_.
 - Implemented `integration with FeinCMS
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/feincms_integration>`_
   (in a form of a FeinCMS page widget).
@@ -92,8 +93,8 @@ Roadmap
 =======
 Some of the upcoming/in-development features/improvements are:
 
-- Integration with `django-rest-framework` (in version 0.8).
-- Fieldsets (in version 0.9).
+- Form-wizards (in version 0.8).
+- Integration with `django-rest-framework` (in version 0.9).
 
 See the `TODOS <https://raw.githubusercontent.com/barseghyanartur/django-fobi/master/TODOS.rst>`_
 for the full list of planned-, pending- in-development- or to-be-implemented
@@ -369,6 +370,8 @@ Defining the Sample textarea plugin.
 .. code-block:: python
 
     class SampleTextareaPlugin(FormFieldPlugin):
+        """Sample textarea plugin."""
+
         uid = "sample_textarea"
         name = "Sample Textarea"
         form = SampleTextareaForm
@@ -423,6 +426,7 @@ Example (taken from fobi.contrib.plugins.form_elements.fields.file):
 .. code-block:: python
 
     def submit_plugin_form_data(self, form_entry, request, form):
+        """Submit plugin form data."""
         # Get the file path
         file_path = form.cleaned_data.get(self.data.name, None)
         if file_path:
@@ -432,7 +436,7 @@ Example (taken from fobi.contrib.plugins.form_elements.fields.file):
             # file.
             form.cleaned_data[self.data.name] = "{0}{1}".format(
                 settings.MEDIA_URL, saved_file
-                )
+            )
 
         # It's critically important to return the ``form`` with updated
         # ``cleaned_data``
@@ -466,6 +470,7 @@ Form for for ``SampleTextareaPlugin`` form element plugin.
 .. code-block:: python
 
     class SampleTextareaForm(forms.Form, BasePluginForm):
+        """Sample textarea form."""
         plugin_data_fields = [
             ("name", ""),
             ("label", ""),
@@ -494,9 +499,7 @@ See the following `example
 .. code-block:: python
 
     def save_plugin_data(self, request=None):
-        """
-        Saving the plugin data and moving the file.
-        """
+        """Saving the plugin data and moving the file."""
         file_path = self.cleaned_data.get('file', None)
         if file_path:
             saved_image = handle_uploaded_file(IMAGES_UPLOAD_DIR, file_path)
@@ -515,6 +518,8 @@ Defining the base plugin widget.
 .. code-block:: python
 
     class BaseSampleTextareaPluginWidget(FormElementPluginWidget):
+        """Base sample textarea plugin widget."""
+
         # Same as ``uid`` value of the ``SampleTextareaPlugin``.
         plugin_uid = "sample_textarea"
 
@@ -535,6 +540,8 @@ Define the theme specific plugin.
 .. code-block:: python
 
     class SampleTextareaPluginWidget(BaseSampleTextareaPluginWidget):
+        """Sample textarea plugin widget."""
+
         theme_uid = 'bootstrap3' # Theme for which the widget is loaded
         media_js = ['sample_layout/js/fobi.plugins.form_elements.sample_textarea.js',]
         media_css = ['sample_layout/css/fobi.plugins.form_elements.sample_textarea.css',]
@@ -628,18 +635,21 @@ Defining the Sample mail handler plugin.
 .. code-block:: python
 
     class SampleMailHandlerPlugin(FormHandlerPlugin):
+        """Sample mail handler plugin."""
+
         uid = "sample_mail"
         name = _("Sample mail")
         form = SampleMailForm
 
         def run(self, form_entry, request, form):
+            """To be executed by handler."""
             send_mail(
                 self.data.subject,
                 json.dumps(form.cleaned_data),
                 self.data.from_email,
                 [self.data.to_email],
-                fail_silently = True
-                )
+                fail_silently=True
+            )
 
 Some form handlers are configurable, some others not. In order to
 have a user friendly way of showing the form handler settings, what's
@@ -649,8 +659,7 @@ Simplest implementation of it would look as follows:
 .. code-block:: python
 
     def plugin_data_repr(self):
-        """
-        Human readable representation of plugin data.
+        """Human readable representation of plugin data.
 
         :return string:
         """
@@ -686,6 +695,8 @@ Defining the form for Sample mail handler plugin.
 .. code-block:: python
 
     class MailForm(forms.Form, BasePluginForm):
+        """Mail form."""
+
         plugin_data_fields = [
             ("from_name", ""),
             ("from_email", ""),
@@ -700,7 +711,7 @@ Defining the form for Sample mail handler plugin.
         to_name = forms.CharField(label=_("To name"), required=True)
         to_email = forms.EmailField(label=_("To email"), required=True)
         subject = forms.CharField(label=_("Subject"), required=True)
-        body = forms.CharField(label=_("Body"), required = False,
+        body = forms.CharField(label=_("Body"), required=False,
                                widget=forms.widgets.Textarea)
 
 After the plugin has been processed, all its' data is available in a
@@ -749,8 +760,7 @@ The following example is taken from the "db_store" plugin.
 .. code-block:: python
 
     def custom_actions(self):
-        """
-        Adding a link to view the saved form enties.
+        """Adding a link to view the saved form entries.
 
         :return iterable:
         """
@@ -836,6 +846,8 @@ Defining the Sample importer plugin.
 .. code-block:: python
 
     class SampleImporterPlugin(FormHandlerPlugin):
+        """Sample importer plugin."""
+
         uid = 'sample_importer'
         name = _("Sample importer)
         wizard = SampleImporterWizardView
@@ -905,21 +917,17 @@ Defining the form for Sample importer plugin.
 .. code-block:: python
 
     class SampleImporterStep1Form(forms.Form):
-        """
-        First form the the wizard.
-        """
+        """First form the the wizard."""
+
         api_key = forms.CharField(required=True)
 
 
     class SampleImporterStep2Form(forms.Form):
-        """
-        Second form of the wizard.
-        """
+        """Second form of the wizard."""
+
         list_id = forms.ChoiceField(required=True, choices=[])
 
         def __init__(self, *args, **kwargs):
-            """
-            """
             self._api_key = None
 
             if 'api_key' in kwargs:
@@ -961,13 +969,12 @@ Defining the wizard view for Sample importer plugin.
 .. code-block:: python
 
     class SampleImporterWizardView(SessionWizardView):
-        """
-        """
+        """Sample importer wizard view."""
+
         form_list = [SampleImporterStep1Form, SampleImporterStep2Form]
 
         def get_form_kwargs(self, step):
-            """
-            """
+            """Get form kwargs (to be used internally)."""
             if '1' == step:
                 data = self.get_cleaned_data_for_step('0') or {}
                 api_key = data.get('api_key', None)
@@ -975,6 +982,7 @@ Defining the wizard view for Sample importer plugin.
             return {}
 
         def done(self, form_list, **kwargs):
+            """After all forms are submitted."""
             # Merging cleaned data into one dict
             cleaned_data = {}
             for form in form_list:
@@ -1071,9 +1079,12 @@ Define and register the callback
 .. code-block:: python
 
     class SampleFooCallback(FormCallback):
+        """Sample foo callback."""
+
         stage = CALLBACK_FORM_VALID
 
         def callback(self, form_entry, request, form):
+            """Define your callback code here."""
             print("Great! Your form is valid!")
 
     form_callback_registry.register(SampleFooCallback)
@@ -1185,9 +1196,8 @@ See the theme example below.
     from fobi.base import BaseTheme, theme_registry
 
     class SampleTheme(BaseTheme):
-        """
-        Sample theme.
-        """
+        """Sample theme."""
+
         uid = 'sample'
         name = _("Sample")
 
@@ -1406,6 +1416,8 @@ Overriding the "simple" theme.
     from fobi.contrib.themes.simple.fobi_themes import SimpleTheme
 
     class MySimpleTheme(SimpleTheme):
+        """My simple theme, inherited from `SimpleTheme` theme."""
+
         html_classes = ['my-simple-theme',]
         base_view_template = 'override_simple_theme/base_view.html'
         form_ajax = 'override_simple_theme/snippets/form_ajax.html'
@@ -1447,6 +1459,36 @@ templates/override_simple_theme/snippets/form_ajax.html
     {% extends "fobi/generic/snippets/form_ajax.html" %}
 
     {% block form_html_class %}basic-grey{% endblock %}
+
+Form wizards
+============
+Basics
+------
+With form wizards you can split forms across multiple pages. State is
+maintained in one of the backends (at the moment the Session backend). Data
+processing is delayed until the submission of the final form.
+
+In `django-fobi` wizards work in the following way:
+
+- Number of forms in a form wizard is not limited.
+- Form callbacks, handlers are totally ignored in form wizards. Instead,
+  the form-wizard specific handlers (form wizard handlers) take over handling
+  of the form data on the final step.
+
+Bundled form wizard handler plugins
+-----------------------------------
+Below a short overview of the form wizard handler plugins. See the
+README.rst file in directory of each plugin for details.
+
+- `DB store
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/db_store/>`__:
+  Stores form data in a database.
+- `HTTP repost
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/http_repost/>`__:
+  Repost the POST request to another endpoint.
+- `Mail
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/mail/>`__:
+  Send the form data by email.
 
 Permissions
 ===========
@@ -1646,6 +1688,15 @@ of each theme for details.
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/themes/djangocms_admin_style_theme/>`_:
   Basic theme with form editing is in a style of `djangocms-admin-style
   <https://github.com/divio/djangocms-admin-style>`_.
+
+Third-party plugins and themes
+==============================
+List of remarkable third-party plugins:
+
+- `fobi-phonenumber <https://pypi.python.org/pypi/fobi-phonenumber>`_ - A Fobi
+  PhoneNumber form field plugin. Makes use of the
+  `phonenumber_field.formfields.PhoneNumberField` and
+  `phonenumber_field.widgets.PhoneNumberPrefixWidget`.
 
 HTML5 fields
 ============
@@ -1906,7 +1957,7 @@ Run the following command in order to identify the broken plugins.
 
     ./manage.py fobi_find_broken_entries
 
-If you have forms refering to form element- of form handler- plugins
+If you have forms referring to form element- of form handler- plugins
 that are currently missing (not registered, removed, failed to load - thus
 there would be a risk that your form would't be rendered properly/fully and
 the necessary data handling wouldn't happen either) you will get an
@@ -1939,5 +1990,5 @@ Support
 For any issues contact me at the e-mail given in the `Author` section.
 
 Author
-=======
+======
 Artur Barseghyan <artur.barseghyan@gmail.com>

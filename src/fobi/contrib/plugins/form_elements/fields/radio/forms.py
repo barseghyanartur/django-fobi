@@ -90,7 +90,7 @@ class RadioInputForm(forms.Form, BaseFormFieldPluginForm):
         widget=forms.widgets.CheckboxInput(
             attrs={'class': theme.form_element_checkbox_html_class}
         )
-        )
+    )
 
     def clean_initial(self):
         """Validating the initial value."""

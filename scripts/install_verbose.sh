@@ -1,4 +1,3 @@
-#cd ..
 pip install -r examples/requirements.txt
 python setup.py install
 mkdir examples/logs
@@ -9,4 +8,3 @@ python examples/simple/manage.py collectstatic --noinput
 python examples/simple/manage.py syncdb --noinput
 python examples/simple/manage.py migrate --noinput
 python examples/simple/manage.py fobi_create_test_data
-#cd scripts

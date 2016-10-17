@@ -71,7 +71,7 @@ class FobiCoreTest(TestCase):
         request_factory = RequestFactory()
         request = request_factory.post(
             '/en/fobi/forms/edit/27/',
-            data = {
+            data={
                 'name': "John Doe",
                 'is_public': False,
                 'success_page_title': '',

@@ -25,18 +25,34 @@ from .constants import CALLBACK_STAGES
 from .data_structures import SortableDict
 from .discover import autodiscover
 from .exceptions import (
-    DoesNotExist, InvalidRegistryItemType, FormElementPluginDoesNotExist,
-    FormHandlerPluginDoesNotExist, ThemeDoesNotExist
+    DoesNotExist,
+    InvalidRegistryItemType,
+    FormElementPluginDoesNotExist,
+    FormHandlerPluginDoesNotExist,
+    FormWizardHandlerPluginDoesNotExist,
+    ThemeDoesNotExist
 )
 from .helpers import (
-    clean_dict, get_ignorable_form_values, map_field_name_to_label,
-    safe_text, uniquify_sequence, StrippedRequest
+    clean_dict,
+    get_ignorable_form_values,
+    get_form_element_entries_for_form_wizard_entry,
+    map_field_name_to_label,
+    safe_text,
+    uniquify_sequence,
+    StrippedRequest
 )
 from .settings import (
-    CUSTOM_THEME_DATA, DEFAULT_THEME, DEBUG,
-    FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS, FAIL_ON_MISSING_FORM_HANDLER_PLUGINS,
+    CUSTOM_THEME_DATA,
+    DEFAULT_THEME,
+    DEBUG,
+    FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS,
+    FAIL_ON_MISSING_FORM_HANDLER_PLUGINS,
+    FAIL_ON_MISSING_FORM_WIZARD_HANDLER_PLUGINS,
     FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS,
-    FORM_HANDLER_PLUGINS_EXECUTION_ORDER, THEME_FOOTER_TEXT,
+    FAIL_ON_ERRORS_IN_FORM_WIZARD_HANDLER_PLUGINS,
+    FORM_HANDLER_PLUGINS_EXECUTION_ORDER,
+    FORM_WIZARD_HANDLER_PLUGINS_EXECUTION_ORDER,
+    THEME_FOOTER_TEXT,
     # FAIL_ON_ERRORS_IN_FORM_ELEMENT_PLUGINS,
 )
 
@@ -55,29 +71,69 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'BaseDataStorage', 'FormElementPluginDataStorage',
-    'FormHandlerPluginDataStorage', 'BasePluginForm', 'BasePlugin',
-    'FormElementPlugin', 'FormHandlerPlugin', 'FormCallback', 'BaseRegistry',
-    'FormElementPluginRegistry', 'FormHandlerPluginRegistry',
-    'FormCallbackRegistry', 'ClassProperty', 'classproperty',
-    'form_element_plugin_registry', 'form_handler_plugin_registry',
-    'form_callback_registry', 'get_registered_plugins',
-    'get_registered_plugin_uids', 'get_registered_form_element_plugins',
-    'get_registered_form_element_plugin_uids',
-    'validate_form_element_plugin_uid', 'get_registered_form_handler_plugins',
-    'get_registered_form_handler_plugin_uids',
-    'validate_form_handler_plugin_uid', 'get_registered_form_callbacks',
-    'fire_form_callbacks', 'run_form_handlers', 'ensure_autodiscover',
-    'collect_plugin_media', 'theme_registry', 'get_registered_themes',
-    'get_registered_theme_uids', 'validate_theme_uid',
-    'BaseFormFieldPluginForm', 'FormFieldPlugin',
+    'assemble_form_field_widget_class',
+    'BaseDataStorage',
+    'BaseFormFieldPluginForm',
+    'BasePlugin',
+    'BasePluginForm',
+    'BaseRegistry',
+    'ClassProperty',
+    'classproperty',
+    'collect_plugin_media',
+    'ensure_autodiscover',
+    'fire_form_callbacks',
+    'form_callback_registry',
+    'form_element_plugin_registry',
     'form_element_plugin_widget_registry',
-    'form_handler_plugin_widget_registry', 'FormElementPluginWidgetRegistry',
-    'FormHandlerPluginWidgetRegistry', 'FormElementPluginWidget',
-    'FormHandlerPluginWidget', 'get_ordered_form_handlers',
-    'assemble_form_field_widget_class', 'get_plugin_widget',
-    'get_form_element_plugin_widget', 'get_form_handler_plugin_widget'
-    )
+    'form_handler_plugin_registry',
+    'form_handler_plugin_widget_registry',
+    'form_wizard_handler_plugin_registry',
+    'form_wizard_handler_plugin_widget_registry',
+    'FormCallback',
+    'FormCallbackRegistry',
+    'FormElementPlugin',
+    'FormElementPluginDataStorage',
+    'FormElementPluginRegistry',
+    'FormElementPluginWidget',
+    'FormElementPluginWidgetRegistry',
+    'FormFieldPlugin',
+    'FormHandlerPlugin',
+    'FormHandlerPluginDataStorage',
+    'FormHandlerPluginRegistry',
+    'FormHandlerPluginWidget',
+    'FormHandlerPluginWidgetRegistry',
+    'FormWizardHandlerPlugin',
+    'FormWizardHandlerPluginDataStorage',
+    'FormWizardHandlerPluginRegistry',
+    'FormWizardHandlerPluginWidget',
+    'FormWizardHandlerPluginWidgetRegistry',
+    'get_form_element_plugin_widget',
+    'get_form_handler_plugin_widget',
+    'get_form_wizard_handler_plugin_widget',
+    'get_ordered_form_handlers',
+    'get_ordered_form_wizard_handlers',
+    'get_plugin_widget',
+    'get_processed_form_data',
+    'get_processed_form_wizard_data',
+    'get_registered_form_callbacks',
+    'get_registered_form_element_plugin_uids',
+    'get_registered_form_element_plugins',
+    'get_registered_form_handler_plugin_uids',
+    'get_registered_form_handler_plugins',
+    'get_registered_form_wizard_handler_plugin_uids',
+    'get_registered_form_wizard_handler_plugins',
+    'get_registered_plugin_uids',
+    'get_registered_plugins',
+    'get_registered_theme_uids',
+    'get_registered_themes',
+    'run_form_handlers',
+    'run_form_wizard_handlers',
+    'theme_registry',
+    'validate_form_element_plugin_uid',
+    'validate_form_handler_plugin_uid',
+    'validate_form_wizard_handler_plugin_uid',
+    'validate_theme_uid',
+)
 
 logger = logging.getLogger(__name__)
 
@@ -114,9 +170,11 @@ class BaseTheme(object):
     project_name = _("Build your forms")  # Project name
     footer_text = ''  # '&copy; Company 2014'
 
-    # *************************************************************************
-    # ********************** Form HTML specific *******************************
-    # *************************************************************************
+    # ***********************************************************************
+    # ***********************************************************************
+    # ********************** Form HTML specific *****************************
+    # ***********************************************************************
+    # ***********************************************************************
     # Used in almost all ``fobi_form_elements`` modules and forms.
     form_element_html_class = ''  # form-control
 
@@ -130,6 +188,10 @@ class BaseTheme(object):
 
     # Important, since used in ``edit_form_entry_edit_option_html``
     # method.
+    form_view_form_entry_option_class = ''  # glyphicon glyphicon-list
+
+    # Important, since used in ``edit_form_entry_edit_option_html``
+    # method.
     form_edit_form_entry_option_class = ''  # glyphicon glyphicon-edit
 
     # Important, since used in ``edit_form_entry_edit_option_html``
@@ -140,61 +202,166 @@ class BaseTheme(object):
     # method.
     form_list_container_class = ''  # list-inline
 
-    # *************************************************************************
-    # ********************** Templates specific *******************************
-    # *************************************************************************
+    # ***********************************************************************
+    # ***********************************************************************
+    # ****************************** Templates ******************************
+    # ***********************************************************************
+    # ***********************************************************************
+
+    # ***********************************************************************
+    # *************************** Base templates ****************************
+    # ***********************************************************************
     master_base_template = 'fobi/generic/_base.html'
     base_template = 'fobi/generic/base.html'
     base_view_template = None
     base_edit_template = None
+
+    # ***********************************************************************
+    # ***************************** Snippets ********************************
+    # ***********************************************************************
     form_snippet_template_name = 'fobi/generic/snippets/form_snippet.html'
-    form_wizard_template = 'fobi/generic/snippets/form_wizard.html'
     form_view_snippet_template_name = None
     form_edit_snippet_template_name = None
+
     form_properties_snippet_template_name = \
         'fobi/generic/snippets/form_properties_snippet.html'
+
     messages_snippet_template_name = \
         'fobi/generic/snippets/messages_snippet.html'
+
     form_non_field_and_hidden_errors_snippet_template = \
         'fobi/generic/snippets/form_non_field_and_hidden_errors_snippet.html'
 
     form_ajax = 'fobi/generic/snippets/form_ajax.html'
     form_view_ajax = None
     form_edit_ajax = None
-    add_form_element_entry_template = 'fobi/generic/' \
-                                      'add_form_element_entry.html'
+
+    # TODO
+    form_wizard_ajax = 'fobi/generic/snippets/form_wizard_ajax.html'
+    form_wizard_view_ajax = None
+    form_wizard_edit_ajax = None
+    # END TODO
+
+    form_wizard_snippet_template_name = \
+        'fobi/generic/snippets/form_wizard_snippet.html'
+    form_wizard_view_snippet_template_name = None
+    form_wizard_edit_snippet_template_name = None
+
+    form_wizard_properties_snippet_template_name = \
+        'fobi/generic/snippets/form_wizard_properties_snippet.html'
+
+    # ***********************************************************************
+    # *********************** Form entry CUD and add-ons ********************
+    # ***********************************************************************
+    create_form_entry_template = 'fobi/generic/create_form_entry.html'
+    create_form_entry_ajax_template = \
+        'fobi/generic/create_form_entry_ajax.html'
+
+    edit_form_entry_template = 'fobi/generic/edit_form_entry.html'
+    edit_form_entry_ajax_template = 'fobi/generic/edit_form_entry_ajax.html'
+
+    form_entry_submitted_template = 'fobi/generic/form_entry_submitted.html'
+    form_entry_submitted_ajax_template = \
+        'fobi/generic/form_entry_submitted_ajax.html'
+
+    embed_form_entry_submitted_ajax_template = None
+
+    view_form_entry_template = 'fobi/generic/view_form_entry.html'
+    view_form_entry_ajax_template = 'fobi/generic/view_form_entry_ajax.html'
+
+    view_embed_form_entry_ajax_template = None
+
+    # ***********************************************************************
+    # *********************** Form element entry CUD ************************
+    # ***********************************************************************
+    add_form_element_entry_template = \
+        'fobi/generic/add_form_element_entry.html'
     add_form_element_entry_ajax_template = \
         'fobi/generic/add_form_element_entry_ajax.html'
-    add_form_handler_entry_template = 'fobi/generic/' \
-                                      'add_form_handler_entry.html'
-    add_form_handler_entry_ajax_template = \
-        'fobi/generic/add_form_handler_entry_ajax.html'
-    create_form_entry_template = 'fobi/generic/create_form_entry.html'
-    create_form_entry_ajax_template = 'fobi/generic/' \
-                                      'create_form_entry_ajax.html'
-    dashboard_template = 'fobi/generic/dashboard.html'
-    forms_list_template = 'fobi/generic/forms_list.html'
+
     edit_form_element_entry_template = \
         'fobi/generic/edit_form_element_entry.html'
     edit_form_element_entry_ajax_template = \
         'fobi/generic/edit_form_element_entry_ajax.html'
-    edit_form_entry_template = 'fobi/generic/edit_form_entry.html'
-    edit_form_entry_ajax_template = 'fobi/generic/edit_form_entry_ajax.html'
+
+    # ***********************************************************************
+    # *********************** Form handler entry CUD ************************
+    # ***********************************************************************
+    add_form_handler_entry_template = \
+        'fobi/generic/add_form_handler_entry.html'
+    add_form_handler_entry_ajax_template = \
+        'fobi/generic/add_form_handler_entry_ajax.html'
+
     edit_form_handler_entry_template = \
         'fobi/generic/edit_form_handler_entry.html'
     edit_form_handler_entry_ajax_template = \
         'fobi/generic/edit_form_handler_entry_ajax.html'
-    form_entry_submitted_template = 'fobi/generic/form_entry_submitted.html'
-    form_entry_submitted_ajax_template = \
-        'fobi/generic/form_entry_submitted_ajax.html'
-    embed_form_entry_submitted_ajax_template = None
-    view_form_entry_template = 'fobi/generic/view_form_entry.html'
-    view_form_entry_ajax_template = 'fobi/generic/view_form_entry_ajax.html'
-    view_embed_form_entry_ajax_template = None
 
+    # ***********************************************************************
+    # ******************* Form wizard handler entry CUD *********************
+    # ***********************************************************************
+    add_form_wizard_handler_entry_template = \
+        'fobi/generic/add_form_wizard_handler_entry.html'
+    add_form_wizard_handler_entry_ajax_template = \
+        'fobi/generic/add_form_wizard_handler_entry_ajax.html'
+
+    edit_form_wizard_handler_entry_template = \
+        'fobi/generic/edit_form_wizard_handler_entry.html'
+    edit_form_wizard_handler_entry_ajax_template = \
+        'fobi/generic/edit_form_wizard_handler_entry_ajax.html'
+
+    # ***********************************************************************
+    # ***************************** Dashboard *******************************
+    # ***********************************************************************
+    dashboard_template = 'fobi/generic/dashboard.html'
+
+    form_wizards_dashboard_template = \
+        'fobi/generic/form_wizards_dashboard.html'
+
+    forms_list_template = 'fobi/generic/forms_list.html'
+
+    # ***********************************************************************
+    # ************************ Form wizard entry CUD ************************
+    # ***********************************************************************
+    # Not even sure if this one is used - TODO: find out
+    form_wizard_template = 'fobi/generic/snippets/form_wizard.html'
+
+    create_form_wizard_entry_template = \
+        'fobi/generic/create_form_wizard_entry.html'
+    create_form_wizard_entry_ajax_template = \
+        'fobi/generic/create_form_wizard_entry_ajax.html'
+
+    edit_form_wizard_entry_template = \
+        'fobi/generic/edit_form_wizard_entry.html'
+    edit_form_wizard_entry_ajax_template = \
+        'fobi/generic/edit_form_wizard_entry_ajax.html'
+
+    # TODO
+    form_wizard_entry_submitted_template = \
+        'fobi/generic/form_wizard_entry_submitted.html'
+    form_wizard_entry_submitted_ajax_template = \
+        'fobi/generic/form_wizard_entry_submitted_ajax.html'
+
+    embed_form_wizard_entry_submitted_ajax_template = None
+
+    view_form_wizard_entry_template = \
+        'fobi/generic/view_form_wizard_entry.html'
+    view_form_wizard_entry_ajax_template = \
+        'fobi/generic/view_form_wizard_entry_ajax.html'
+
+    view_embed_form_wizard_entry_ajax_template = None
+    # END TODO
+
+    # ***********************************************************************
+    # *************************** Service templates *************************
+    # ***********************************************************************
     import_form_entry_template = 'fobi/generic/import_form_entry.html'
-    import_form_entry_ajax_template = 'fobi/generic/' \
-                                      'import_form_entry_ajax.html'
+    import_form_entry_ajax_template = \
+        'fobi/generic/import_form_entry_ajax.html'
+
+    # ***********************************************************************
+    # ************************* Form importer templates *********************
+    # ***********************************************************************
     form_importer_template = 'fobi/generic/form_importer.html'
     form_importer_ajax_template = 'fobi/generic/form_importer_ajax.html'
 
@@ -258,6 +425,18 @@ class BaseTheme(object):
             self.form_edit_snippet_template_name = \
                 self.form_snippet_template_name
 
+        # If no specific ``form_wizard_view_snippet_template_name`` specified,
+        # fall back to the ``form_wizard_snippet_template_name``.
+        if not self.form_wizard_view_snippet_template_name:
+            self.form_wizard_view_snippet_template_name = \
+                self.form_wizard_snippet_template_name
+
+        # If no specific ``form_wizard_edit_snippet_template_name`` specified,
+        # fall back to the ``form_wizard_snippet_template_name``.
+        if not self.form_wizard_edit_snippet_template_name:
+            self.form_wizard_edit_snippet_template_name = \
+                self.form_wizard_snippet_template_name
+
         # If no specific ``form_view_ajax`` specified, fall
         # back to the ``form_ajax``.
         if not self.form_view_ajax:
@@ -267,6 +446,16 @@ class BaseTheme(object):
         # back to the ``form_ajax``.
         if not self.form_edit_ajax:
             self.form_edit_ajax = self.form_ajax
+
+        # If no specific ``form_wizard_view_ajax`` specified, fall
+        # back to the ``form_wizard_ajax``.
+        if not self.form_wizard_view_ajax:
+            self.form_wizard_view_ajax = self.form_wizard_ajax
+
+        # If no specific ``form_wizard_edit_ajax`` specified, fall
+        # back to the ``form_wizard_ajax``.
+        if not self.form_wizard_edit_ajax:
+            self.form_wizard_edit_ajax = self.form_wizard_ajax
 
         # If no specific ``view_embed_form_entry_ajax_template`` specified,
         # fall back to the ``view_form_entry_ajax_template``.
@@ -460,7 +649,7 @@ class BaseTheme(object):
         """
         return '{0} {1}'.format(
             self.primary_html_class, ' '.join(self.html_classes)
-            )
+        )
 
 # *****************************************************************************
 # *****************************************************************************
@@ -610,19 +799,27 @@ class BaseDataStorage(object):
 
 
 class FormElementPluginDataStorage(BaseDataStorage):
-    """Storage for `FormField` data."""
+    """Storage for `FormElementPlugin` data."""
 
 
 class FormHandlerPluginDataStorage(BaseDataStorage):
-    """Storage for `FormField` data."""
+    """Storage for `FormHandlerPlugin` data."""
+
+
+class FormWizardHandlerPluginDataStorage(BaseDataStorage):
+    """Storage for `FormWizardHandlerPlugin` handler data."""
 
 
 class FormElementPluginWidgetDataStorage(BaseDataStorage):
-    """Storage for `FormField` data."""
+    """Storage for `FormElementPluginWidget` data."""
 
 
 class FormHandlerPluginWidgetDataStorage(BaseDataStorage):
-    """Storage for `FormField` data."""
+    """Storage for `FormHandlerPluginWidget` data."""
+
+
+class FormWizardHandlerPluginWidgetDataStorage(BaseDataStorage):
+    """Storage for `FormWizardHandlerPluginWidget` data."""
 
 
 class BasePlugin(object):
@@ -787,7 +984,7 @@ class BasePlugin(object):
                     self.data,
                     field,
                     self.plugin_data.get(field, default_value)
-                    )
+                )
             except Exception as e:
                 setattr(self.data, field, default_value)
 
@@ -816,7 +1013,7 @@ class BasePlugin(object):
                 logger.debug(
                     "Error in class {0}. Details: "
                     "{1}".format(self.__class__.__name__, str(e))
-                    )
+                )
         return form_data
 
     def get_plugin_form_data(self):
@@ -890,7 +1087,7 @@ class BasePlugin(object):
                     data=data,
                     files=files,
                     initial_data=initial_data
-                    )
+                )
             except Exception as e:
                 if DEBUG:
                     logger.debug(e)
@@ -1031,7 +1228,7 @@ class BasePlugin(object):
         ``fobi.views.delete_form_handler_entry``. Fired automatically, when
         ``fobi.models.FormEntry`` object is about to be deleted. Make use of
         it if your plugin creates database records or files that are not
-        monitored externally but by dash only.
+        monitored externally but by fobi only.
         """
 
     def _clone_plugin_data(self, entry):
@@ -1373,6 +1570,11 @@ class FormHandlerPlugin(BasePlugin):
 
         Safely call the ``run`` method.
 
+        Note, that we DO need `form_element_entries` in any case to
+        determine the form elements that do have value (or form elements
+        that matter). We do need this in both, form handlers and form wizard
+        handlers.
+
         :param fobi.models.FormEntry form_entry: Instance of
             ``fobi.models.FormEntry``.
         :param django.http.HttpRequest request:
@@ -1401,7 +1603,7 @@ class FormHandlerPlugin(BasePlugin):
                 "Error in class {0}. Details: "
                 "{1}. Full trace: {2}".format(self.__class__.__name__,
                                               str(err), traceback.format_exc())
-                )
+            )
             return (False, err)
 
     def run(self, form_entry, request, form, form_element_entries=None):
@@ -1418,9 +1620,9 @@ class FormHandlerPlugin(BasePlugin):
         :return mixed: May be a tuple (bool, mixed) or None
         """
         raise NotImplemented(
-            "You should implement ``callback`` method in your {1} "
+            "You should implement ``run`` method in your {0} "
             "subclass.".format(self.__class__.__name__)
-            )
+        )
 
     def custom_actions(self, form_entry, request=None):
         """Custom actions.
@@ -1440,10 +1642,105 @@ class FormHandlerPlugin(BasePlugin):
         """
 
     def get_custom_actions(self, form_entry, request=None):
-        """
-        Internal method to for obtaining the ``get_custom_actions``.
-        """
+        """Internal method to for obtaining the ``get_custom_actions``."""
         return self.custom_actions(form_entry, request)
+
+
+class FormWizardHandlerPlugin(BasePlugin):
+    """Form wizard handler plugin.
+
+    :property fobi.base.FormWizardHandlerPluginDataStorage storage:
+    :property bool allow_multiple: If set to True, plugin can be used multiple
+        times within (per form). Otherwise - just once.
+
+    DONE
+    """
+
+    storage = FormWizardHandlerPluginDataStorage
+    allow_multiple = True
+
+    def _run(self, form_wizard_entry, request, form_list, form_wizard,
+             form_element_entries=None):
+        """Run (internal method).
+
+        Safely call the ``run`` method.
+
+        :param fobi.models.FormEntry form_wizard_entry: Instance of
+            ``fobi.models.FormEntry``.
+        :param django.http.HttpRequest request:
+        :param django.forms.Form form:
+        :param iterable form_element_entries: Iterable of
+            ``fobi.models.FormElementEntry`` objects.
+        :return tuple:
+        """
+        # For backwards compatibility.
+        if not form_element_entries:
+            form_element_entries = \
+                get_form_element_entries_for_form_wizard_entry(
+                    form_wizard_entry
+                )
+
+        try:
+            response = self.run(form_wizard_entry,
+                                request,
+                                form_list,
+                                form_wizard,
+                                form_element_entries)
+            if response:
+                return response
+            else:
+                return (True, None)
+        except Exception as err:
+            if FAIL_ON_ERRORS_IN_FORM_WIZARD_HANDLER_PLUGINS:
+                raise err.__class__("Exception: {0}. {1}"
+                                    "".format(str(err),
+                                              traceback.format_exc()))
+            logger.error(
+                "Error in class {0}. Details: "
+                "{1}. Full trace: {2}".format(self.__class__.__name__,
+                                              str(err), traceback.format_exc())
+            )
+            return (False, err)
+
+    def run(self, form_wizard_entry, request, form_list, form_wizard,
+            form_element_entries=None):
+        """Run.
+
+        Custom code should be implemented here.
+
+        :param fobi.models.FormEntry form_wizard_entry: Instance of
+            ``fobi.models.FormEntry``.
+        :param django.http.HttpRequest request:
+        :param django.forms.Form form:
+        :param iterable form_element_entries: Iterable of
+            ``fobi.models.FormElementEntry`` objects.
+        :return mixed: May be a tuple (bool, mixed) or None
+        """
+        raise NotImplemented(
+            "You should implement ``run`` method in your {0} "
+            "subclass.".format(self.__class__.__name__)
+        )
+
+    def custom_actions(self, form_wizard_entry, request=None):
+        """Custom actions.
+
+        Override this method in your form handler if you want to specify
+        custom actions. Note, that expected return value of this method
+        is an iterable with a triple, where the first item is the URL of
+        the action and the second item is the action title and the third
+        item is the icon class of the action.
+
+        :example:
+        >>>  return (
+        >>>      ('/add-to-favorites/',
+        >>>       'Add to favourites',
+        >>>       'glyphicon glyphicon-favourties'),
+        >>>  )
+        """
+
+    def get_custom_actions(self, form_wizard_entry, request=None):
+        """Internal method to for obtaining the ``get_custom_actions``."""
+        return self.custom_actions(form_wizard_entry, request)
 
 
 class FormCallback(object):
@@ -1490,6 +1787,8 @@ class ClassProperty(property):
     def __get__(self, cls, owner):
         """Get."""
         return classmethod(self.fget).__get__(None, owner)()
+
+
 classproperty = ClassProperty
 
 
@@ -1554,6 +1853,12 @@ class FormHandlerPluginWidget(BasePluginWidget):
     storage = FormHandlerPluginWidgetDataStorage
 
 
+class FormWizardHandlerPluginWidget(BasePluginWidget):
+    """Form wizard handler plugin widget."""
+
+    storage = FormWizardHandlerPluginWidgetDataStorage
+
+
 # *****************************************************************************
 # *****************************************************************************
 # ******************************* Registry ************************************
@@ -1567,7 +1872,7 @@ class BaseRegistry(object):
     ``uid`` property.
 
     If ``fail_on_missing_plugin`` is set to True, an appropriate exception
-    (``plugin_not_found_exception_cls``) is raised in cases if plugin cound't
+    (``plugin_not_found_exception_cls``) is raised in cases if plugin could't
     be found in the registry.
 
     :property mixed type:
@@ -1591,7 +1896,8 @@ class BaseRegistry(object):
     def register(self, cls, force=False):
         """Registers the plugin in the registry.
 
-        :param mixed.
+        :param mixed cls:
+        :param bool force:
         """
         if not issubclass(cls, self.type):
             raise InvalidRegistryItemType(
@@ -1637,6 +1943,7 @@ class BaseRegistry(object):
         """Get the given entry from the registry.
 
         :param string uid:
+        :param mixed default:
         :return mixed.
         """
         item = self._registry.get(uid, default)
@@ -1670,6 +1977,14 @@ class FormHandlerPluginRegistry(BaseRegistry):
     plugin_not_found_exception_cls = FormHandlerPluginDoesNotExist
 
 
+class FormWizardHandlerPluginRegistry(BaseRegistry):
+    """Form wizard handler plugins registry."""
+
+    type = FormWizardHandlerPlugin
+    fail_on_missing_plugin = FAIL_ON_MISSING_FORM_WIZARD_HANDLER_PLUGINS
+    plugin_not_found_exception_cls = FormWizardHandlerPluginDoesNotExist
+
+
 class ThemeRegistry(BaseRegistry):
     """Themes registry."""
     type = BaseTheme
@@ -1692,6 +2007,7 @@ class FormCallbackRegistry(object):
     def uidfy(self, cls):
         """Makes a UID string from the class given.
 
+        :param mixed cls:
         :return string:
         """
         return "{0}.{1}".format(cls.__module__, cls.__name__)
@@ -1699,7 +2015,7 @@ class FormCallbackRegistry(object):
     def register(self, cls):
         """Registers the plugin in the registry.
 
-        :param mixed.
+        :param mixed cls:
         """
         if not issubclass(cls, FormCallback):
             raise InvalidRegistryItemType(
@@ -1800,7 +2116,7 @@ class BasePluginWidgetRegistry(object):
         """Get the given entry from the registry.
 
         :param string uid:
-        :return mixed.
+        :return mixed:
         """
         item = self._registry.get(uid, default)
         if not item:
@@ -1823,11 +2139,20 @@ class FormHandlerPluginWidgetRegistry(BasePluginWidgetRegistry):
     type = FormHandlerPluginWidget
 
 
+class FormWizardHandlerPluginWidgetRegistry(BasePluginWidgetRegistry):
+    """Registry of form wizard handler plugins."""
+
+    type = FormWizardHandlerPluginWidget
+
+
 # Register form field plugins by calling form_field_plugin_registry.register()
 form_element_plugin_registry = FormElementPluginRegistry()
 
 # Register action plugins by calling form_action_plugin_registry.register()
 form_handler_plugin_registry = FormHandlerPluginRegistry()
+
+# Register action plugins by calling form_action_plugin_registry.register()
+form_wizard_handler_plugin_registry = FormWizardHandlerPluginRegistry()
 
 # Register themes by calling theme_registry.register()
 theme_registry = ThemeRegistry()
@@ -1842,6 +2167,11 @@ form_element_plugin_widget_registry = FormElementPluginWidgetRegistry()
 # Register plugin widgets by calling
 # form_handler_plugin_widget_registry.register()
 form_handler_plugin_widget_registry = FormHandlerPluginWidgetRegistry()
+
+# Register plugin widgets by calling
+# form_wizard_handler_plugin_widget_registry.register()
+form_wizard_handler_plugin_widget_registry = \
+    FormWizardHandlerPluginWidgetRegistry()
 
 # *****************************************************************************
 # *****************************************************************************
@@ -2062,7 +2392,8 @@ def get_ignorable_form_fields(form_element_entries):
 
     :param iterable form_element_entries: Iterable of
         ``fobi.models.FormElementEntry`` objects.
-    :return iterable: Iterable of ignorable form element entries.
+    :return iterable: Iterable of ignorable form element entries - field
+        names.
     """
     # Get ignorable plugins
     ignorable_plugins = []
@@ -2134,14 +2465,14 @@ def get_field_name_to_label_map(form, keys_to_remove=[], values_to_remove=[]):
 
 
 def get_processed_form_data(form, form_element_entries):
-    """Gets processed form handler data.
+    """Gets processed form data.
 
     Simply fires both ``fobi.base.get_cleaned_data`` and
     ``fobi.base.get_field_name_to_label_map`` functions and returns the
     result.
 
     :param django.forms.Form form:
-    :param iterable: Iterable of form element entries.
+    :param iterable form_element_entries: Iterable of form element entries.
     :return tuple:
     """
     keys_to_remove = get_ignorable_form_fields(form_element_entries)
@@ -2155,6 +2486,25 @@ def get_processed_form_data(form, form_element_entries):
     return (
         field_name_to_label_map,
         get_cleaned_data(form, keys_to_remove, values_to_remove)
+    )
+
+
+def get_processed_form_wizard_data(form_wizard, form_list,
+                                   form_element_entries):
+    """Get processed form wizard data."""
+    field_name_to_label_map = {}
+    cleaned_data = {}
+    for form in form_list:
+        _field_name_to_label_map, _cleaned_data = get_processed_form_data(
+            form,
+            form_element_entries
+        )
+        field_name_to_label_map.update(_field_name_to_label_map)
+        cleaned_data.update(_cleaned_data)
+
+    return (
+        field_name_to_label_map,
+        cleaned_data
     )
 
 
@@ -2203,7 +2553,7 @@ def get_ordered_form_handler_plugins():
     """
     form_handler_plugins = SortableDict()
 
-    # Prio goes to the ones specified as first in the settings
+    # Priority goes to the ones specified as first in the settings
     for uid in FORM_HANDLER_PLUGINS_EXECUTION_ORDER:
         form_handler_plugins[uid] = []
 
@@ -2227,7 +2577,7 @@ def run_form_handlers(form_entry, request, form, form_element_entries=None):
     # Errors list
     errors = []
 
-    # Responses of successfully procesessed handlers
+    # Responses of successfully processed handlers
     responses = []
 
     # Getting form handler plugins in their execution order.
@@ -2260,6 +2610,127 @@ def run_form_handlers(form_entry, request, form, form_element_entries=None):
                 responses.append((form_handler_plugin, response))
             else:
                 errors.append((form_handler_plugin, response))
+
+    return (responses, errors)
+
+# *****************************************************************************
+# ************************ Form wizard handler specific ***********************
+# *****************************************************************************
+
+
+def get_registered_form_wizard_handler_plugins(as_instances=False):
+    """Get registered form handler wizard plugins.
+
+    Gets a list of registered plugins in a form of tuple (plugin name, plugin
+    description). If not yet auto-discovered, auto-discovers them.
+
+    :return list:
+    """
+    return get_registered_plugins(form_wizard_handler_plugin_registry,
+                                  as_instances=as_instances)
+
+
+def get_registered_form_wizard_handler_plugin_uids(flattern=True):
+    """Get registered form handler plugin uids.
+
+    Gets a list of UIDs of registered form wizard handler plugins. If not yet
+    auto-discovered, auto-discovers them.
+
+    :return list:
+    """
+    return get_registered_plugin_uids(
+        form_wizard_handler_plugin_registry, flattern=flattern
+    )
+
+
+def validate_form_wizard_handler_plugin_uid(plugin_uid):
+    """Validate the plugin uid.
+
+    :param string plugin_uid:
+    :return bool:
+    """
+    return validate_plugin_uid(form_wizard_handler_plugin_registry, plugin_uid)
+
+
+def get_ordered_form_wizard_handler_plugins():
+    """Get ordered form wizard_handler plugins.
+
+    Gets form wizard handler plugins in the execution order as a sortable
+    dictionary, which can be later on used to add real plugins to
+    be executed.
+
+    :return fobi.data_structures.SortableDict:
+    """
+    form_wizard_handler_plugins = SortableDict()
+
+    # Priority goes to the ones specified as first in the settings
+    for uid in FORM_WIZARD_HANDLER_PLUGINS_EXECUTION_ORDER:
+        form_wizard_handler_plugins[uid] = []
+
+    # Adding all the rest
+    for uid in form_wizard_handler_plugin_registry._registry.keys():
+        if uid not in form_wizard_handler_plugins:
+            form_wizard_handler_plugins[uid] = []
+
+    return form_wizard_handler_plugins
+
+
+def run_form_wizard_handlers(form_wizard_entry, request, form_list,
+                             form_wizard, form_element_entries=None):
+    """Run form wizard handlers."""
+    """Run form handlers.
+
+        :param fobi.models.FormWizardEntry form_wizard_entry:
+        :param django.http.HttpRequest request:
+        :param list form_list: List of :class:`django.forms.Form` objects.
+        :param fobi.wizard.views.dynamic.DynamicWizardView form_wizard: The
+            form wizard view object.
+        :param iterable form_element_entries: Iterable
+            of :class:`fobi.base.FormElementEntry` objects.
+        :return tuple: List of success responses, list of error responses
+        """
+    # Errors list
+    errors = []
+
+    # Responses of successfully processed handlers
+    responses = []
+
+    # Getting form handler plugins in their execution order.
+    ordered_form_wizard_handlers = get_ordered_form_wizard_handler_plugins()
+
+    # Getting the form handlers to be executed.
+    form_wizard_handlers = form_wizard_entry.formwizardhandlerentry_set \
+                                            .order_by('plugin_uid')[:]
+
+    # Assembling a new dictionary of the form handlers to iterate later.
+    for form_wizard_handler in form_wizard_handlers:
+        ordered_form_wizard_handlers[form_wizard_handler.plugin_uid].append(
+            form_wizard_handler
+        )
+
+    # Iterating through the form handlers in the order
+    # specified in the settings.
+    for uid, form_wizard_handlers in ordered_form_wizard_handlers.items():
+        # logger.debug("UID: {0}".format(uid))
+        for form_wizard_handler in form_wizard_handlers:
+            # Get the form handler plugin
+            form_wizard_handler_plugin = form_wizard_handler.get_plugin(
+                request=request
+            )
+
+            # Run the form handler
+            success, response = form_wizard_handler_plugin._run(
+                form_wizard_entry,
+                request,
+                form_list,
+                form_wizard,
+                form_element_entries
+            )
+
+            if success:
+                responses.append((form_wizard_handler_plugin, response))
+            else:
+                errors.append((form_wizard_handler_plugin, response))
 
     return (responses, errors)
 
@@ -2311,7 +2782,7 @@ def get_theme(request=None, theme_uid=None, as_instance=False):
     :param django.http.HttpRequest request:
     :param int theme_uid:
     :param bool as_instance:
-    :return fobi.base.BaseTheme: Sublcass of `fobi.base.BaseTheme`.
+    :return fobi.base.BaseTheme: Subclcass of `fobi.base.BaseTheme`.
     """
     ensure_autodiscover()
 
@@ -2397,7 +2868,6 @@ def get_form_element_plugin_widget(plugin_uid, request=None, as_instance=False,
                                    theme=None):
     """Get the form element plugin widget for the ``plugin_uid`` given.
 
-    :param fobi.base.BasePluginWidgetRegistry registry: Subclass of.
     :param str plugin_uid: UID of the plugin to get the widget for.
     :param django.http.HttpRequest request:
     :param bool as_instance:
@@ -2417,7 +2887,6 @@ def get_form_handler_plugin_widget(plugin_uid, request=None, as_instance=False,
                                    theme=None):
     """Get the form handler plugin widget for the ``plugin_uid`` given.
 
-    :param fobi.base.BasePluginWidgetRegistry registry: Subclass of.
     :param str plugin_uid: UID of the plugin to get the widget for.
     :param django.http.HttpRequest request:
     :param bool as_instance:
@@ -2426,6 +2895,25 @@ def get_form_handler_plugin_widget(plugin_uid, request=None, as_instance=False,
     """
     return get_plugin_widget(
         registry=form_handler_plugin_widget_registry,
+        plugin_uid=plugin_uid,
+        request=request,
+        as_instance=as_instance,
+        theme=theme
+    )
+
+
+def get_form_wizard_handler_plugin_widget(plugin_uid, request=None,
+                                          as_instance=False, theme=None):
+    """Get the form wizard handler plugin widget for the ``plugin_uid`` given.
+
+    :param str plugin_uid: UID of the plugin to get the widget for.
+    :param django.http.HttpRequest request:
+    :param bool as_instance:
+    :param fobi.base.BaseTheme theme: Subclass of.
+    :return BasePluginWidget: Subclass of.
+    """
+    return get_plugin_widget(
+        registry=form_wizard_handler_plugin_widget_registry,
         plugin_uid=plugin_uid,
         request=request,
         as_instance=as_instance,

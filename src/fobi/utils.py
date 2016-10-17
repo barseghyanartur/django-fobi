@@ -12,17 +12,26 @@ from django.utils.encoding import force_text
 from django.utils.translation import ugettext
 
 from .base import (
-    form_element_plugin_registry, form_handler_plugin_registry,
-    ensure_autodiscover, get_registered_form_element_plugin_uids,
-    get_registered_form_element_plugins, ensure_autodiscover,
-    get_registered_form_handler_plugin_uids, get_theme,
+    form_element_plugin_registry,
+    form_handler_plugin_registry,
+    form_wizard_handler_plugin_registry,
+    get_registered_form_element_plugin_uids,
+    get_registered_form_element_plugins,
+    ensure_autodiscover,
+    get_registered_form_handler_plugin_uids,
+    get_registered_form_wizard_handler_plugin_uids,
+    get_theme,
     get_registered_form_handler_plugins,
+    get_registered_form_wizard_handler_plugins,
     get_registered_form_element_plugins_grouped,
+
 )
 from .dynamic import assemble_form_class
 from .helpers import update_plugin_data, safe_text
 from .models import (
-    FormElement, FormHandler,
+    FormElement,
+    FormHandler,
+    FormWizardHandler
 )
 from .settings import RESTRICT_PLUGIN_ACCESS, DEBUG
 
@@ -31,13 +40,23 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'get_allowed_plugin_uids', 'get_user_plugins', 'get_user_plugin_uids',
-    'sync_plugins', 'get_allowed_form_element_plugin_uids',
-    'get_user_form_element_plugins', 'get_user_form_element_plugin_uids',
-    'get_allowed_form_handler_plugin_uids', 'get_user_form_handler_plugins',
-    'get_user_form_handler_plugin_uids', 'get_user_plugins_grouped',
+    'get_allowed_plugin_uids',
+    'get_user_plugins',
+    'get_user_plugin_uids',
+    'sync_plugins',
+    'get_allowed_form_element_plugin_uids',
+    'get_user_form_element_plugins',
+    'get_user_form_element_plugin_uids',
+    'get_allowed_form_handler_plugin_uids',
+    'get_allowed_form_wizard_handler_plugin_uids',
+    'get_user_form_handler_plugins',
+    'get_user_form_wizard_handler_plugins',
+    'get_user_form_handler_plugin_uids',
+    'get_user_form_wizard_handler_plugin_uids',
+    'get_user_plugins_grouped',
     'get_user_form_element_plugins_grouped',
-    'get_user_form_handler_plugins_grouped'
+    'get_user_form_handler_plugins_grouped',
+    'get_user_form_wizard_handler_plugins_grouped',
 )
 
 logger = logging.getLogger(__name__)
@@ -47,8 +66,9 @@ def sync_plugins():
     """Sync registered plugins.
 
     Syncs the registered plugin list with data in
-    ``fobi.models.FormFieldPluginModel`` and
-    ``fobi.models.FormHandlerPluginModel``.
+    ``fobi.models.FormFieldPluginModel``,
+    ``fobi.models.FormHandlerPluginModel`` and
+    ``fobi.models.FormWizardHandlerPluginModel``.
     """
     ensure_autodiscover()
 
@@ -85,6 +105,8 @@ def sync_plugins():
 
     base_sync_plugins(get_registered_form_element_plugin_uids, FormElement)
     base_sync_plugins(get_registered_form_handler_plugin_uids, FormHandler)
+    base_sync_plugins(get_registered_form_wizard_handler_plugin_uids,
+                      FormWizardHandler)
 
 # ****************************************************************************
 # ****************************************************************************
@@ -234,6 +256,57 @@ def get_user_plugin_uids(get_allowed_plugin_uids_func,
 
     return registered_plugins
 
+
+def get_user_handler_plugins(get_allowed_handler_plugin_uids,
+                             get_registered_handler_plugins,
+                             handler_plugin_registry,
+                             user,
+                             exclude_used_singles=False,
+                             used_handler_plugin_uids=[]):
+    """Get list of plugins allowed for user.
+
+    :param get_allowed_handler_plugin_uids:
+    :param get_registered_handler_plugins:
+    :param handler_plugin_registry:
+    :param django.contrib.auth.models.User user:
+    :param bool exclude_used_singles:
+    :param list used_handler_plugin_uids:
+    :return list:
+    """
+    user_handler_plugins = get_user_plugins(
+        get_allowed_handler_plugin_uids,
+        get_registered_handler_plugins,
+        handler_plugin_registry,
+        user
+    )
+    user_handler_plugin_uids = [plugin_uid
+                                for (plugin_uid, plugin_name)
+                                in user_handler_plugins]
+
+    if exclude_used_singles and used_handler_plugin_uids:
+        # Get all registered form handler plugins (as instances)
+        registered_handler_plugins = \
+            get_registered_handler_plugins(as_instances=True)
+
+        # Check if we need to reduce the list of allowed plugins if they have
+        # been marked to be used once per form and have been used already in
+        # the current form.
+        for plugin_uid, plugin \
+                in registered_handler_plugins.items():
+
+            if plugin.uid in user_handler_plugin_uids \
+               and not plugin.allow_multiple \
+               and plugin.uid in used_handler_plugin_uids:
+
+                # Remove the plugin so that we don't get links to add it
+                # in the UI.
+                plugin_name = safe_text(plugin.name)
+                user_handler_plugins.remove(
+                    (plugin.uid, plugin_name)
+                )
+
+    return user_handler_plugins
+
 # ****************************************************************************
 # ****************************************************************************
 # **************************** Form field specific ***************************
@@ -297,39 +370,59 @@ def get_user_form_handler_plugins(user,
     :param list used_form_handler_plugin_uids:
     :return list:
     """
-    user_form_handler_plugins = get_user_plugins(
+    return get_user_handler_plugins(
         get_allowed_form_handler_plugin_uids,
         get_registered_form_handler_plugins,
         form_handler_plugin_registry,
-        user
+        user,
+        exclude_used_singles=exclude_used_singles,
+        used_handler_plugin_uids=used_form_handler_plugin_uids
     )
-    user_form_handler_plugin_uids = [plugin_uid
-                                     for (plugin_uid, plugin_name)
-                                     in user_form_handler_plugins]
 
-    if exclude_used_singles and used_form_handler_plugin_uids:
-        # Get all registered form handler plugins (as instances)
-        registered_form_handler_plugins = \
-            get_registered_form_handler_plugins(as_instances=True)
 
-        # Check if we need to reduce the list of allowed plugins if they have
-        # been marked to be used once per form and have been used already in
-        # the current form.
-        for plugin_uid, plugin \
-                in registered_form_handler_plugins.items():
-
-            if plugin.uid in user_form_handler_plugin_uids \
-               and not plugin.allow_multiple \
-               and plugin.uid in used_form_handler_plugin_uids:
-
-                # Remove the plugin so that we don't get links to add it
-                # in the UI.
-                plugin_name = safe_text(plugin.name)
-                user_form_handler_plugins.remove(
-                    (plugin.uid, plugin_name)
-                )
-
-    return user_form_handler_plugins
+# def get_user_form_handler_plugins(user,
+#                                   exclude_used_singles=False,
+#                                   used_form_handler_plugin_uids=[]):
+#     """Get list of plugins allowed for user.
+#
+#     :param django.contrib.auth.models.User user:
+#     :param bool exclude_used_singles:
+#     :param list used_form_handler_plugin_uids:
+#     :return list:
+#     """
+#     user_form_handler_plugins = get_user_plugins(
+#         get_allowed_form_handler_plugin_uids,
+#         get_registered_form_handler_plugins,
+#         form_handler_plugin_registry,
+#         user
+#     )
+#     user_form_handler_plugin_uids = [plugin_uid
+#                                      for (plugin_uid, plugin_name)
+#                                      in user_form_handler_plugins]
+#
+#     if exclude_used_singles and used_form_handler_plugin_uids:
+#         # Get all registered form handler plugins (as instances)
+#         registered_form_handler_plugins = \
+#             get_registered_form_handler_plugins(as_instances=True)
+#
+#         # Check if we need to reduce the list of allowed plugins if they have
+#         # been marked to be used once per form and have been used already in
+#         # the current form.
+#         for plugin_uid, plugin \
+#                 in registered_form_handler_plugins.items():
+#
+#             if plugin.uid in user_form_handler_plugin_uids \
+#                and not plugin.allow_multiple \
+#                and plugin.uid in used_form_handler_plugin_uids:
+#
+#                 # Remove the plugin so that we don't get links to add it
+#                 # in the UI.
+#                 plugin_name = safe_text(plugin.name)
+#                 user_form_handler_plugins.remove(
+#                     (plugin.uid, plugin_name)
+#                 )
+#
+#     return user_form_handler_plugins
 
 
 def get_user_form_handler_plugins_grouped(user):
@@ -348,6 +441,58 @@ def get_user_form_handler_plugin_uids(user):
         get_allowed_form_handler_plugin_uids,
         get_registered_form_handler_plugin_uids,
         form_handler_plugin_registry,
+        user
+    )
+
+# ****************************************************************************
+# ****************************************************************************
+# ************************* Form wizard handler specific *********************
+# ****************************************************************************
+# ****************************************************************************
+
+
+def get_allowed_form_wizard_handler_plugin_uids(user):
+    """Get allowed form wizard handler plugin uids."""
+    return get_allowed_plugin_uids(FormWizardHandler, user)
+
+
+def get_user_form_wizard_handler_plugins(
+        user,
+        exclude_used_singles=False,
+        used_form_wizard_handler_plugin_uids=[]):
+    """Get list of plugins allowed for user.
+
+    :param django.contrib.auth.models.User user:
+    :param bool exclude_used_singles:
+    :param list used_form_wizard_handler_plugin_uids:
+    :return list:
+    """
+    return get_user_handler_plugins(
+        get_allowed_form_wizard_handler_plugin_uids,
+        get_registered_form_wizard_handler_plugins,
+        form_wizard_handler_plugin_registry,
+        user,
+        exclude_used_singles=exclude_used_singles,
+        used_handler_plugin_uids=used_form_wizard_handler_plugin_uids
+    )
+
+
+def get_user_form_wizard_handler_plugins_grouped(user):
+    """Get user form wizard handler plugins grouped."""
+    return get_user_plugins_grouped(
+        get_allowed_form_wizard_handler_plugin_uids,
+        get_registered_form_wizard_handler_plugins,
+        form_wizard_handler_plugin_registry,
+        user
+    )
+
+
+def get_user_form_wizard_handler_plugin_uids(user):
+    """Get user form handler plugin uids."""
+    return get_user_plugin_uids(
+        get_allowed_form_wizard_handler_plugin_uids,
+        get_registered_form_wizard_handler_plugin_uids,
+        form_wizard_handler_plugin_registry,
         user
     )
 

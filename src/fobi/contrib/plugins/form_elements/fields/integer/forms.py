@@ -64,7 +64,7 @@ class IntegerInputForm(forms.Form, BaseFormFieldPluginForm):
         label=_("Max value"),
         required=False,
         widget=NumberInput(attrs={'class': theme.form_element_html_class})
-        )
+    )
     required = forms.BooleanField(
         label=_("Required"),
         required=False,

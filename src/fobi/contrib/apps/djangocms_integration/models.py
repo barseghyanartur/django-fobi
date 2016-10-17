@@ -3,10 +3,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from cms.models import CMSPlugin
 
-try:
-    from cms.utils.compat.dj import python_2_unicode_compatible
-except ImportError:
-    from django.utils.encoding import python_2_unicode_compatible
+from six import python_2_unicode_compatible
 
 from .helpers import (
     get_form_template_choices, get_success_page_template_choices

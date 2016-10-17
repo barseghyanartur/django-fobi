@@ -29,7 +29,7 @@ def get_template_choices(source, choices, theme_specific_choices_key):
     try:
         theme_template_choices = list(
             theme.custom_data[source][theme_specific_choices_key]
-            )
+        )
         # template_choices += [(None, _("--- Theme templates ---"))]
         # template_choices += (_("Theme templates"), theme_template_choices)
         template_choices += theme_template_choices

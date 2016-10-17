@@ -1,0 +1,24 @@
+-r common_python2.txt
+
+Django==1.10.1
+django-fobi
+Jinja2
+MarkupSafe
+MySQL-python
+mailchimp
+Sphinx
+django-admin-tools>=0.8.0
+django-debug-toolbar>=1.5
+django-formtools>=1.0
+#django-localeurl>=2.0.2
+django-nine>=0.1.9
+django-registration-redux>=1.4
+docutils
+ipdb
+ipython
+ordereddict>=1.1
+# Selenium shall always be upgraded
+selenium
+tox
+
+#https://github.com/macropin/django-registration/archive/master.zip

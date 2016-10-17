@@ -6,6 +6,7 @@
 .tox/
 .travis.yml~
 .zip
+/.coverage
 /dev.db
 
 MANIFEST.in~
@@ -39,11 +40,11 @@ fobi/fobi.migrations.rst
 /examples/media/fobi_plugins/content_image/
 /examples/media/fobi_plugins/file/
 /examples/media/cache/
-/examples/simple/local_settings.py
-/examples/simple/local_settings_foundation5.py
+/examples/simple/settings/local_settings.py
+/examples/simple/settings/local_settings_foundation5.py
 /examples/quickstart/local_settings.py
 /examples/quick_start/db.sqlite3
 /examples/quickstart/
 /examples/static/
-/examples/requirements_wagtail.txt
+/examples/requirements/wagtail.txt
 /examples/wagtail_example/

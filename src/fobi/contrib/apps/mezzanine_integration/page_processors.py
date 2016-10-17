@@ -10,7 +10,10 @@ __title__ = 'fobi.contrib.apps.mezzanine_integration.page_processors'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('FobiFormProcessor', 'process_fobi_form',)
+__all__ = (
+    'FobiFormProcessor',
+    'process_fobi_form',
+)
 
 
 class FobiFormProcessor(IntegrationProcessor):

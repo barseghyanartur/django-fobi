@@ -31,8 +31,10 @@ from nine.user import User
 from nine.versions import DJANGO_GTE_1_7
 
 from fobi.constants import (
-    SUBMIT_VALUE_AS_VAL, SUBMIT_VALUE_AS_REPR, SUBMIT_VALUE_AS_MIX
-    )
+    SUBMIT_VALUE_AS_VAL,
+    SUBMIT_VALUE_AS_REPR,
+    SUBMIT_VALUE_AS_MIX
+)
 from fobi.exceptions import ImproperlyConfigured
 
 __title__ = 'fobi.helpers'
@@ -40,15 +42,32 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'do_slugify', 'lists_overlap', 'iterable_to_dict',
-    'map_field_name_to_label', 'clean_dict', 'two_dicts_to_string',
-    'empty_string', 'ensure_unique_filename', 'handle_uploaded_file',
-    'delete_file', 'clone_file', 'get_registered_models', 'admin_change_url',
-    'uniquify_sequence', 'safe_text', 'combine_dicts', 'update_plugin_data',
-    'get_select_field_choices', 'validate_initial_for_choices',
-    'validate_initial_for_multiple_choices', 'validate_submit_value_as',
-    'get_app_label_and_model_name', 'StrippedUser', 'StrippedRequest',
+    'admin_change_url',
+    'clean_dict',
+    'clone_file',
+    'combine_dicts',
+    'delete_file',
+    'do_slugify',
+    'empty_string',
+    'ensure_unique_filename',
+    'get_app_label_and_model_name',
+    'get_form_element_entries_for_form_wizard_entry',
+    'get_registered_models',
+    'get_select_field_choices',
+    'handle_uploaded_file',
+    'iterable_to_dict',
     'JSONDataExporter',
+    'lists_overlap',
+    'map_field_name_to_label',
+    'safe_text',
+    'StrippedRequest',
+    'StrippedUser',
+    'two_dicts_to_string',
+    'uniquify_sequence',
+    'update_plugin_data',
+    'validate_initial_for_choices',
+    'validate_initial_for_multiple_choices',
+    'validate_submit_value_as',
 )
 
 logger = logging.getLogger(__name__)
@@ -408,6 +427,9 @@ def validate_initial_for_choices(plugin_form, field_name_choices='choices',
     Validates the initial value for the choices given.
 
     :param fobi.base.BaseFormFieldPluginForm plugin_form:
+    :param str field_name_choices:
+    :param str field_name_initial:
+    :return str:
     """
     available_choices = dict(
         get_select_field_choices(plugin_form.cleaned_data[field_name_choices])
@@ -431,6 +453,9 @@ def validate_initial_for_multiple_choices(plugin_form,
     """Validates the initial value for the multiple choices given.
 
     :param fobi.base.BaseFormFieldPluginForm plugin_form:
+    :param str field_name_choices:
+    :param str field_name_initial:
+    :return str:
     """
     available_choices = dict(
         get_select_field_choices(plugin_form.cleaned_data[field_name_choices])
@@ -580,7 +605,7 @@ class StrippedRequest(object):
             - QUERY_STRING: The query string, as a single (unparsed) string.
             - REMOTE_ADDR: The IP address of the client.
         """
-        META = {
+        _meta = {
             'HTTP_ACCEPT_ENCODING': self._request.META.get(
                 'HTTP_ACCEPT_ENCODING'
             ),
@@ -593,7 +618,7 @@ class StrippedRequest(object):
             'QUERY_STRING': self._request.META.get('QUERY_STRING'),
             'REMOTE_ADDR': self._request.META.get('REMOTE_ADDR'),
         }
-        return META
+        return _meta
 
 
 class JSONDataExporter(object):
@@ -612,6 +637,9 @@ class JSONDataExporter(object):
         """Get initial response.
 
         For compatibility with older versions (`mimetype` vs `content_type`).
+
+        :param str mimetype:
+        :return django.http.HttpResponse:
         """
         response_kwargs = {}
         if DJANGO_GTE_1_7:
@@ -632,3 +660,15 @@ class JSONDataExporter(object):
     def export(self):
         """Export."""
         return self.export_to_json()
+
+
+def get_form_element_entries_for_form_wizard_entry(form_wizard_entry):
+    """Get form element entries for the form wizard entry."""
+    form_element_entries = []
+    # TODO: Perhaps add select related here?
+    for form_wizard_form_entry \
+            in form_wizard_entry.formwizardformentry_set.all():
+        form_element_entries += form_wizard_form_entry \
+                                    .form_entry \
+                                    .formelemententry_set.all()[:]
+    return form_element_entries

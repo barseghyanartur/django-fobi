@@ -34,11 +34,16 @@ class Bootstrap3Theme(BaseTheme):
 
     # footer_text = '&copy; django-fobi example site 2014'
 
-    # *************************************************************************
-    # ********************** Form HTML specific *******************************
-    # *************************************************************************
+    # ***********************************************************************
+    # ***********************************************************************
+    # ********************** Form HTML specific *****************************
+    # ***********************************************************************
+    # ***********************************************************************
     form_element_html_class = 'form-control'
     form_element_checkbox_html_class = 'checkbox'
+
+    # Important!
+    form_view_form_entry_option_class = 'glyphicon glyphicon-list'
 
     # Important!
     form_edit_form_entry_option_class = 'glyphicon glyphicon-edit'
@@ -49,60 +54,131 @@ class Bootstrap3Theme(BaseTheme):
     # Important!
     form_list_container_class = 'list-inline'
 
-    # *************************************************************************
-    # ********************** Templates specific *******************************
-    # *************************************************************************
+    # ***********************************************************************
+    # ***********************************************************************
+    # **************************** Templates ********************************
+    # ***********************************************************************
+    # ***********************************************************************
+
+    # ***********************************************************************
+    # *************************** Base templates ****************************
+    # ***********************************************************************
     master_base_template = 'bootstrap3/_base.html'
     base_template = 'bootstrap3/base.html'
 
-    form_ajax = 'bootstrap3/snippets/form_ajax.html'
-    form_wizard_template = 'bootstrap3/snippets/form_wizard.html'
+    # ***********************************************************************
+    # ***************************** Snippets ********************************
+    # ***********************************************************************
     form_snippet_template_name = 'bootstrap3/snippets/form_snippet.html'
+
     form_properties_snippet_template_name = \
         'bootstrap3/snippets/form_properties_snippet.html'
+
     messages_snippet_template_name = \
         'bootstrap3/snippets/messages_snippet.html'
+
     form_non_field_and_hidden_errors_snippet_template = \
         'bootstrap3/snippets/form_non_field_and_hidden_errors_snippet.html'
 
-    add_form_element_entry_template = 'bootstrap3/add_form_element_entry.html'
-    add_form_element_entry_ajax_template = \
-        'bootstrap3/add_form_element_entry_ajax.html'
+    form_ajax = 'bootstrap3/snippets/form_ajax.html'
 
-    add_form_handler_entry_template = 'bootstrap3/add_form_handler_entry.html'
-    add_form_handler_entry_ajax_template = \
-        'bootstrap3/add_form_handler_entry_ajax.html'
+    form_wizard_ajax = 'bootstrap3/snippets/form_wizard_ajax.html'
 
+    form_wizard_snippet_template_name = \
+        'bootstrap3/snippets/form_wizard_snippet.html'
+
+    form_wizard_properties_snippet_template_name = \
+        'bootstrap3/snippets/form_wizard_properties_snippet.html'
+    # ***********************************************************************
+    # **************************** Form entry CRUD **************************
+    # ***********************************************************************
     create_form_entry_template = 'bootstrap3/create_form_entry.html'
     create_form_entry_ajax_template = 'bootstrap3/create_form_entry_ajax.html'
 
-    dashboard_template = 'bootstrap3/dashboard.html'
-    forms_list_template = 'bootstrap3/forms_list.html'
+    edit_form_entry_template = 'bootstrap3/edit_form_entry.html'
+    edit_form_entry_ajax_template = 'bootstrap3/edit_form_entry_ajax.html'
+
+    form_entry_submitted_template = 'bootstrap3/form_entry_submitted.html'
+    form_entry_submitted_ajax_template = \
+        'bootstrap3/form_entry_submitted_ajax.html'
+
+    embed_form_entry_submitted_ajax_template = \
+        'bootstrap3/embed_form_entry_submitted_ajax.html'
+
+    view_form_entry_template = 'bootstrap3/view_form_entry.html'
+    view_form_entry_ajax_template = 'bootstrap3/view_form_entry_ajax.html'
+
+    view_embed_form_entry_ajax_template = \
+        'bootstrap3/view_embed_form_entry_ajax.html'
+
+    # ***********************************************************************
+    # *********************** Form element entry CUD ************************
+    # ***********************************************************************
+    add_form_element_entry_template = 'bootstrap3/add_form_element_entry.html'
+    add_form_element_entry_ajax_template = \
+        'bootstrap3/add_form_element_entry_ajax.html'
 
     edit_form_element_entry_template = \
         'bootstrap3/edit_form_element_entry.html'
     edit_form_element_entry_ajax_template = \
         'bootstrap3/edit_form_element_entry_ajax.html'
 
-    edit_form_entry_template = 'bootstrap3/edit_form_entry.html'
-    edit_form_entry_ajax_template = 'bootstrap3/edit_form_entry_ajax.html'
+    # ***********************************************************************
+    # *********************** Form handler entry CUD ************************
+    # ***********************************************************************
+    add_form_handler_entry_template = 'bootstrap3/add_form_handler_entry.html'
+    add_form_handler_entry_ajax_template = \
+        'bootstrap3/add_form_handler_entry_ajax.html'
 
     edit_form_handler_entry_template = \
         'bootstrap3/edit_form_handler_entry.html'
     edit_form_handler_entry_ajax_template = \
         'bootstrap3/edit_form_handler_entry_ajax.html'
 
-    form_entry_submitted_template = 'bootstrap3/form_entry_submitted.html'
-    form_entry_submitted_ajax_template = \
-        'bootstrap3/form_entry_submitted_ajax.html'
-    embed_form_entry_submitted_ajax_template = \
-        'bootstrap3/embed_form_entry_submitted_ajax.html'
+    # ***********************************************************************
+    # ******************* Form wizard handler entry CUD *********************
+    # ***********************************************************************
+    # Not even sure if this one is used - TODO: find out
+    form_wizard_template = 'bootstrap3/snippets/form_wizard.html'
 
-    view_form_entry_template = 'bootstrap3/view_form_entry.html'
-    view_form_entry_ajax_template = 'bootstrap3/view_form_entry_ajax.html'
-    view_embed_form_entry_ajax_template = \
-        'bootstrap3/view_embed_form_entry_ajax.html'
+    add_form_wizard_handler_entry_template = \
+        'bootstrap3/add_form_wizard_handler_entry.html'
+    add_form_wizard_handler_entry_ajax_template = \
+        'bootstrap3/add_form_wizard_handler_entry_ajax.html'
 
+    edit_form_wizard_handler_entry_template = \
+        'bootstrap3/edit_form_wizard_handler_entry.html'
+    edit_form_wizard_handler_entry_ajax_template = \
+        'bootstrap3/edit_form_wizard_handler_entry_ajax.html'
+
+    # ***********************************************************************
+    # ***************************** Dashboard *******************************
+    # ***********************************************************************
+    dashboard_template = 'bootstrap3/dashboard.html'
+    form_wizards_dashboard_template = 'bootstrap3/form_wizards_dashboard.html'
+    forms_list_template = 'bootstrap3/forms_list.html'
+
+    # ***********************************************************************
+    # ************************ Form wizard entry CUD ************************
+    # ***********************************************************************
+    create_form_wizard_entry_template = \
+        'bootstrap3/create_form_wizard_entry.html'
+    create_form_wizard_entry_ajax_template = \
+        'bootstrap3/create_form_wizard_entry_ajax.html'
+
+    edit_form_wizard_entry_template = \
+        'bootstrap3/edit_form_wizard_entry.html'
+    edit_form_wizard_entry_ajax_template = \
+        'bootstrap3/edit_form_wizard_entry_ajax.html'
+
+    view_form_wizard_entry_template = \
+        'bootstrap3/view_form_wizard_entry.html'
+    view_form_wizard_entry_ajax_template = \
+        'bootstrap3/view_form_wizard_entry_ajax.html'
+
+    # ***********************************************************************
+    # ************************* Form importer templates *********************
+    # ***********************************************************************
     form_importer_template = 'bootstrap3/form_importer.html'
     form_importer_ajax_template = 'bootstrap3/form_importer_ajax.html'
 

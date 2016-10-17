@@ -1,0 +1,35 @@
+{% extends fobi_theme.form_wizard_view_ajax %}
+
+{% load i18n %}
+
+{% block form_page_title %}
+{% if fobi_form_title %}{{ fobi_form_title }}{% else %}{% trans "View form" %}{% endif %}
+{% endblock form_page_title %}
+
+{% block form_primary_button_text %}{% if fobi_form_submit_button_text %}{{ fobi_form_submit_button_text }}{% else %}{% trans "Submit" %}{% endif %}{% endblock %}
+{% block form_buttons %}
+    {{ block.super }}
+{% endblock form_buttons %}
+
+{% comment %}
+{% load i18n %}
+<form method="post" enctype="multipart/form-data">
+{% csrf_token %}
+{{ wizard.form.media }}
+{{ wizard.management_form }}
+{% if wizard.form.forms %}
+    {{ wizard.form.management_form }}
+    {% for form in wizard.form.forms %}
+        {{ form.as_p }}
+    {% endfor %}
+{% else %}
+    {{ wizard.form.as_p }}
+{% endif %}
+
+{% if wizard.steps.prev %}
+<button name="wizard_goto_step" type="submit" value="{{ wizard.steps.first }}">{% trans "first step" %}</button>
+<button name="wizard_goto_step" type="submit" value="{{ wizard.steps.prev }}">{% trans "prev step" %}</button>
+{% endif %}
+<input type="submit" name="submit" value="{% trans "submit" %}" />
+</form>
+{% endcomment %}

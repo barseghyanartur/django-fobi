@@ -1,7 +1,7 @@
-from django.conf import settings
 from django.contrib.auth import get_user_model
 
-from fobi.contrib.plugins.form_importers.mailchimp_importer.fobi_form_importers \
+from \
+    fobi.contrib.plugins.form_importers.mailchimp_importer.fobi_form_importers \
     import MailChimpImporter
 
 test_form_data = [
@@ -210,9 +210,14 @@ test_form_data = [
     }
 ]
 
+
 def do():
+    """Do test.
+
+    TODO: Make a normal test out of this.
+    """
     User = get_user_model()
-    kwargs = {User.USERNAME_FIELD: 'test_user',}
+    kwargs = {User.USERNAME_FIELD: 'test_user'}
     user = User.objects.get(**kwargs)
 
     form_properties = {'name': 'Test mailchimp form', 'user': user}

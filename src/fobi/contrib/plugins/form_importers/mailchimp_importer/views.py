@@ -9,12 +9,9 @@ from django.utils.translation import ugettext_lazy as _
 
 from nine.versions import DJANGO_GTE_1_8
 
-from .forms import MailchimpAPIKeyForm, MailchimpListIDForm
+from fobi.wizard import SessionWizardView
 
-if DJANGO_GTE_1_8:
-    from formtools.wizard.views import SessionWizardView  # , CookieWizardView
-else:
-    from django.contrib.formtools.wizard.views import SessionWizardView
+from .forms import MailchimpAPIKeyForm, MailchimpListIDForm
 
 __title__ = 'fobi.contrib.plugins.form_importers.mailchimp_importer.views'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'

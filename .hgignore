@@ -4,6 +4,8 @@ syntax: regexp
 \.gitignore~
 \.git/
 \.tox/
+\.cache/
+\.coverage$
 \.travis\.yml~
 
 ^MANIFEST\.in~
@@ -23,8 +25,8 @@ syntax: regexp
 ^examples/media/fobi_plugins/content_image/
 ^examples/media/fobi_plugins/file/
 ^examples/static/
-^examples/simple/local_settings\.py
-^examples/simple/local_settings_foundation5\.py
+^examples/simple/settings/local_settings\.py
+^examples/simple/settings/local_settings_foundation5\.py
 ^examples/mezzanine_example/static/media/fobi_plugins/
 ^examples/mezzanine_example/static/
 ^examples/quickstart/local_settings\.py

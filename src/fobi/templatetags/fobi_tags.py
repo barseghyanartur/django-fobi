@@ -18,9 +18,13 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'get_fobi_plugin', 'get_fobi_form_handler_plugin_custom_actions',
-    'get_form_field_type', 'get_form_hidden_fields_errors',
-    'has_edit_form_entry_permissions', 'render_auth_link',
+    'get_fobi_plugin',
+    'get_fobi_form_handler_plugin_custom_actions',
+    'get_fobi_form_wizard_handler_plugin_custom_actions',
+    'get_form_field_type',
+    'get_form_hidden_fields_errors',
+    'has_edit_form_entry_permissions',
+    'render_auth_link',
     'render_fobi_forms_list',
 )
 
@@ -34,6 +38,10 @@ register = Library()
 # **************************** General Fobi tags ******************************
 # *****************************************************************************
 # *****************************************************************************
+# *****************************************************************************
+
+# *****************************************************************************
+# ******************************* Plugin specific *****************************
 # *****************************************************************************
 
 
@@ -94,6 +102,10 @@ def get_fobi_plugin(parser, token):
 
     return GetFobiPluginNode(entry=entry, as_var=as_var)
 
+# *****************************************************************************
+# ********************** Form handler plugin specific *************************
+# *****************************************************************************
+
 
 class GetFobiFormHandlerPluginCustomActionsNode(Node):
     """Node for ``get_fobi_form_handler_plugin_custom_actions`` tag."""
@@ -153,6 +165,73 @@ def get_fobi_form_handler_plugin_custom_actions(parser, token):
 
     return GetFobiFormHandlerPluginCustomActionsNode(
         plugin=plugin, form_entry=form_entry, as_var=as_var
+    )
+
+# *****************************************************************************
+# ******************* Form wizard handler plugin specific *********************
+# *****************************************************************************
+
+
+class GetFobiFormWizardHandlerPluginCustomActionsNode(Node):
+    """Node for ``get_fobi_form_wizard_handler_plugin_custom_actions`` tag."""
+
+    def __init__(self, plugin, form_wizard_entry, as_var=None):
+        """Constructor."""
+        self.plugin = plugin
+        self.form_wizard_entry = form_wizard_entry
+        self.as_var = as_var
+
+    def render(self, context):
+        """Render."""
+        request = context['request']
+        plugin = self.plugin.resolve(context, True)
+        form_wizard_entry = self.form_wizard_entry.resolve(context, True)
+
+        context[self.as_var] = plugin.get_custom_actions(form_wizard_entry,
+                                                         request)
+        return ''
+
+
+@register.tag
+def get_fobi_form_wizard_handler_plugin_custom_actions(parser, token):
+    """Get the form wizard handler plugin custom actions.
+
+    Note, that ``plugin`` shall be a instance of
+    ``fobi.models.FormWizardHandlerEntry``.
+
+    :syntax:
+
+        {% get_fobi_form_wizard_handler_plugin_custom_actions
+            [plugin] [form_wizard_entry] as [context_var_name] %}
+
+    :example:
+
+        {% get_fobi_form_wizard_handler_plugin_custom_actions
+            plugin form_wizard_entry as
+                form_wizard_handler_plugin_custom_actions %}
+    """
+    bits = token.contents.split()
+
+    if 5 == len(bits):
+        if 'as' != bits[-2]:
+            raise TemplateSyntaxError(
+                "Invalid syntax for {0}. Incorrect number of "
+                "arguments.".format(
+                    bits[0]
+                )
+            )
+        as_var = bits[-1]
+    else:
+        raise TemplateSyntaxError(
+            "Invalid syntax for {0}. See docs for valid "
+            "syntax.".format(bits[0])
+        )
+
+    plugin = parser.compile_filter(bits[1])
+    form_wizard_entry = parser.compile_filter(bits[2])
+
+    return GetFobiFormWizardHandlerPluginCustomActionsNode(
+        plugin=plugin, form_wizard_entry=form_wizard_entry, as_var=as_var
     )
 
 # *****************************************************************************

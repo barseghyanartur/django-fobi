@@ -1,0 +1,4 @@
+-r django_1_7.txt
+
+FeinCMS>=1.9,<1.11
+django-tinymce>=1.5.3

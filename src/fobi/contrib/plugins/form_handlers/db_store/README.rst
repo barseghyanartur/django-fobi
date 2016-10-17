@@ -1,8 +1,8 @@
 ===========================================
 fobi.contrib.plugins.form_handlers.db_store
 ===========================================
-A ``Fobi`` Database Store form handler plugin. Saves submitted form
-data into the ``SavedFormDataEntry`` model.
+A ``Fobi`` Database Store form-/wizard- handler plugin. Saves submitted form
+data into the ``SavedFormDataEntry``/``SavedFormWizardDataEntry`` models.
 
 Dependencies
 ============
@@ -43,3 +43,14 @@ Installation
         url(r'^fobi/plugins/form-handlers/db-store/',
             include('fobi.contrib.plugins.form_handlers.db_store.urls')),
     ]
+
+For form wizards do:
+
+.. code-block:: python
+
+    urlpatterns = [
+            # DB Store plugin URLs
+            url(r'^fobi/plugins/form-wizard-handlers/db-store/',
+                include('fobi.contrib.plugins.form_handlers.db_store.urls.'
+                        'form_wizard_handlers')),
+        ]

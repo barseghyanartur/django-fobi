@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
     ]
 
     if DJANGO_GTE_1_8:
-        dependencies += [('auth', '0006_require_contenttypes_0002'),]
+        dependencies += [('auth', '0006_require_contenttypes_0002')]
 
     operations = [
         migrations.CreateModel(

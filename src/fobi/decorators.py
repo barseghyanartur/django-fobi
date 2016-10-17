@@ -11,8 +11,12 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'SATISFY_ANY', 'SATISFY_ALL', 'DEFAULT_SATISFY', 'permissions_required',
-    'all_permissions_required', 'any_permission_required',
+    'SATISFY_ANY',
+    'SATISFY_ALL',
+    'DEFAULT_SATISFY',
+    'permissions_required',
+    'all_permissions_required',
+    'any_permission_required',
     'edit_dashboard_permission_required',
 )
 

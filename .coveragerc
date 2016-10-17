@@ -1,0 +1,7 @@
+[run]
+omit =
+    src/fobi/migrations/*
+    src/fobi/south_migrations/*
+    src/fobi/tests/*
+    example/simple/settings/*
+    example/simple/wsgi.py

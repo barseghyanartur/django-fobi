@@ -14,7 +14,7 @@ class SimpleTheme(BaseTheme):
     """Simple theme that has a native Django style."""
 
     uid = UID
-    name = _("Simple")
+    name = _("Django admin style")
 
     media_css = (
         # 'admin/css/base.css',
@@ -41,6 +41,9 @@ class SimpleTheme(BaseTheme):
     form_element_html_class = 'vTextField'
     form_radio_element_html_class = 'radiolist'
     form_element_checkbox_html_class = 'checkbox'
+
+    # Important
+    form_view_form_entry_option_class = 'glyphicon glyphicon-list'
 
     # Important
     form_edit_form_entry_option_class = 'glyphicon glyphicon-edit'

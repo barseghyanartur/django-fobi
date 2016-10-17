@@ -1,0 +1,4 @@
+-r django_1_6.txt
+
+django-cms==2.4.3
+django-mptt

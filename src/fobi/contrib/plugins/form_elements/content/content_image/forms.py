@@ -39,8 +39,8 @@ class ContentImageForm(forms.Form, BasePluginForm):
         required=True,
         widget=forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
-            )
         )
+    )
     fit_method = forms.ChoiceField(
         label=_("Fit method"),
         required=False,
@@ -48,8 +48,8 @@ class ContentImageForm(forms.Form, BasePluginForm):
         choices=FIT_METHODS_CHOICES,
         widget=forms.widgets.Select(
             attrs={'class': theme.form_element_html_class}
-            )
         )
+    )
     size = forms.ChoiceField(
         label=_("Size"),
         required=False,
@@ -57,8 +57,8 @@ class ContentImageForm(forms.Form, BasePluginForm):
         choices=SIZES,
         widget=forms.widgets.Select(
             attrs={'class': theme.form_element_html_class}
-            )
         )
+    )
 
     def save_plugin_data(self, request=None):
         """Saving the plugin data and moving the file."""

@@ -55,6 +55,9 @@ class Foundation5Theme(BaseTheme):
     form_element_checkbox_html_class = 'checkbox'
 
     # Important
+    form_view_form_entry_option_class = 'fi-list'
+
+    # Important
     form_edit_form_entry_option_class = 'fi-page-edit'
 
     # Important

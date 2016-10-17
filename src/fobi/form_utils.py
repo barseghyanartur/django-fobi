@@ -7,7 +7,8 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'ErrorDict', 'ErrorList',
+    'ErrorDict',
+    'ErrorList',
 )
 
 if DJANGO_GTE_1_7:

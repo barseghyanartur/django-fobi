@@ -15,6 +15,96 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.8
+---
+2016-10-17
+
+Release supported by `Lund University Cognitive Science
+<http://www.lucs.lu.se/choice-blindness-group/>`_.
+
+- Adding form-wizards functionality. Note, that at the moment only
+  `bootstrap3` theme was updated to filly support the form wizards. Although,
+  all other themes would by default support form-wizard functionality, they
+  may not look as nice as they should be (to be fixed in 0.8.x releases
+  shortly).
+- The `six` package requirements increased to >= 1.8.
+- Tests comply with pep8.
+- Fixed recently broken drag-and-drop ordering of the form elements.
+- Fixed typo for HTML id "tab-form-elemenets" -> "tab-form-elements". You
+  may need to update your custom CSS/JS/HTML accordingly. See the listing
+  0.8.a for the files affected.
+- An additional property `form_view_form_entry_option_class` has been added
+  to all the themes. Change your custom CSS/jS/HTML accordingly. See the
+  listing 0.8.b for the files affected.
+- Fixed drag-and-drop not working for ordering of form elements. #43
+- Fixed issue with non-proper rendering of the form-importer templates.
+
+Although this release does not contain backwards incompatible changes, there
+have been several changes in GUI and some parts of the generic HTML and themes
+were updated. If you have custom themes implemented, you should likely make
+some minor updates to the HTML in order to reflect the latest GUI changes.
+The following templates have been affected:
+
+New files
+~~~~~~~~~
+- src/fobi/contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_wizard_data_entries.html
+- src/fobi/contrib/themes/bootstrap3/templates/bootstrap3/add_form_wizard_handler_entry.html
+- src/fobi/contrib/themes/bootstrap3/templates/bootstrap3/add_form_wizard_handler_entry_ajax.html
+- src/fobi/contrib/themes/bootstrap3/templates/bootstrap3/create_form_wizard_entry.html
+- src/fobi/contrib/themes/bootstrap3/templates/bootstrap3/create_form_wizard_entry_ajax.html
+- src/fobi/contrib/themes/bootstrap3/templates/bootstrap3/edit_form_wizard_entry.html
+- src/fobi/contrib/themes/bootstrap3/templates/bootstrap3/edit_form_wizard_entry_ajax.html
+- src/fobi/contrib/themes/bootstrap3/templates/bootstrap3/form_wizards_dashboard.html
+- src/fobi/contrib/themes/bootstrap3/templates/bootstrap3/snippets/form_wizard_ajax.html
+- src/fobi/contrib/themes/bootstrap3/templates/bootstrap3/snippets/form_wizard_properties_snippet.html
+- src/fobi/contrib/themes/bootstrap3/templates/bootstrap3/snippets/form_wizard_snippet.html
+- src/fobi/contrib/themes/bootstrap3/templates/bootstrap3/view_form_wizard_entry.html
+- src/fobi/contrib/themes/bootstrap3/templates/bootstrap3/view_form_wizard_entry_ajax.html
+- src/fobi/templates/fobi/generic/add_form_wizard_handler_entry.html
+- src/fobi/templates/fobi/generic/add_form_wizard_handler_entry_ajax.html
+- src/fobi/templates/fobi/generic/create_form_wizard_entry.html
+- src/fobi/templates/fobi/generic/create_form_wizard_entry_ajax.html
+- src/fobi/templates/fobi/generic/edit_form_wizard_entry.html
+- src/fobi/templates/fobi/generic/edit_form_wizard_entry_ajax.html
+- src/fobi/templates/fobi/generic/form_wizard_entry_submitted.html
+- src/fobi/templates/fobi/generic/form_wizard_entry_submitted_ajax.html
+- src/fobi/templates/fobi/generic/form_wizards_dashboard.html
+- src/fobi/templates/fobi/generic/snippets/form_wizard_ajax.html
+- src/fobi/templates/fobi/generic/snippets/form_wizard_properties_snippet.html
+- src/fobi/templates/fobi/generic/snippets/form_wizard_snippet.html
+- src/fobi/templates/fobi/generic/snippets/form_wizard_view_ajax.html
+- src/fobi/templates/fobi/generic/view_form_wizard_entry.html
+- src/fobi/templates/fobi/generic/view_form_wizard_entry_ajax.html
+
+Existing files
+~~~~~~~~~~~~~~
+- src/fobi/contrib/plugins/form_importers/mailchimp_importer/templates/mailchimp_importer/1.html
+- src/fobi/contrib/plugins/form_importers/mailchimp_importer/views.py
+- src/fobi/contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/edit_form_entry_ajax.html
+- src/fobi/contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html
+- src/fobi/templates/fobi/generic/edit_form_entry_ajax.html
+
+Additional listings
+~~~~~~~~~~~~~~~~~~~
+Listing 0.8.a "tab-form-elemenets" -> "tab-form-elements"
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- src/fobi/contrib/themes/djangocms_admin_style_theme/static/djangocms_admin_style_theme/css/fobi.djangocms_admin_style_theme.edit.css
+- src/fobi/contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/edit_form_entry_ajax.html
+- src/fobi/contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html
+- src/fobi/contrib/themes/simple/static/simple/css/fobi.simple.edit.css
+- src/fobi/contrib/themes/simple/templates/simple/edit_form_entry_ajax.html
+- src/fobi/templates/fobi/generic/edit_form_entry_ajax.html
+- src/fobi/templates/fobi/generic/edit_form_wizard_entry_ajax.html
+
+Listing 0.8.b `form_view_form_entry_option_class` property
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+- src/fobi/contrib/themes/bootstrap3/fobi_themes.py
+- src/fobi/contrib/themes/djangocms_admin_style_theme/fobi_themes.py
+- src/fobi/contrib/themes/foundation5/fobi_themes.py
+- src/fobi/contrib/themes/simple/fobi_themes.py
+- src/fobi/templates/fobi/generic/edit_form_wizard_entry_ajax.html
+
 0.7.1
 -----
 2016-09-22

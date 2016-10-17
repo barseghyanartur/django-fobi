@@ -44,6 +44,9 @@ class DjangoCMSAdminStyleTheme(BaseTheme):
     form_element_checkbox_html_class = 'checkbox'
 
     # Important
+    form_view_form_entry_option_class = 'viewlink'
+
+    # Important
     form_edit_form_entry_option_class = 'edit'
 
     # Important

@@ -1,0 +1,5 @@
+# Style checkers
+pydocstyle
+flake8
+isort
+pre-commit

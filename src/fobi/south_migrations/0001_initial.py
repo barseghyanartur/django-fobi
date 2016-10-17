@@ -129,7 +129,6 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'fobi', ['FormHandlerEntry'])
 
-
     def backwards(self, orm):
         # Removing unique constraint on 'FormFieldsetEntry', fields ['form_entry', 'name']
         db.delete_unique(u'fobi_formfieldsetentry', ['form_entry_id', 'name'])
@@ -178,7 +177,6 @@ class Migration(SchemaMigration):
 
         # Deleting model 'FormHandlerEntry'
         db.delete_table(u'fobi_formhandlerentry')
-
 
     models = {
         u'auth.group': {

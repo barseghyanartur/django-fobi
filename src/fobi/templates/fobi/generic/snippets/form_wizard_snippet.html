@@ -1,0 +1,73 @@
+{% load i18n fobi_tags %}
+                {% block form_required_fields_message_block %}
+                <div class="{% block form_required_fields_message_wrapper_class %}{% endblock %}">
+                    {% blocktrans %}Fields marked with <span class="required-field">*</span> are required{% endblocktrans %}
+                </div>
+                {% endblock form_required_fields_message_block %}
+
+            {{ wizard.form.media }}
+            {{ wizard.management_form }}
+
+            {% block form_non_field_and_hidden_errors %}
+                {% get_form_hidden_fields_errors form as form_hidden_fields_errors %}
+                {% if form.non_field_errors or form_hidden_fields_errors %}
+                    {% include fobi_theme.form_non_field_and_hidden_errors_snippet_template %}
+                {% endif %}
+            {% endblock form_non_field_and_hidden_errors %}
+
+            {% for field in form %}
+
+                {% if field.is_hidden %}
+                    <div class="{% block hidden_form_element_wrapper_html_class %}hidden{% endblock %}">{{ field }}</div>
+                {% else %}
+                    <div class="{% spaceless %}
+                                {% block form_element_wrapper_html_class %}form-group{% endblock %}
+                                {% if field.errors %} {% block form_element_wrapper_error_html_class %}{% endblock %}{% endif %}
+                                {% endspaceless %}">
+
+                        <label class="{% block form_element_label_html_class %}{% endblock %}" for="{{ field.id_for_label }}">
+                            {{ field.label }}{% if field.field.required %}<span class="{% block form_element_required_field_sign_html_class %}required-field{% endblock %}">*</span>{% endif %}
+                        </label>
+
+                        <div class="{% block form_element_field_wrapper_html_class %}{% endblock %}">
+                            {% get_form_field_type field as form_field_type %}
+
+                            {% if form_field_type.is_radio %}
+                                {% for choice_value, choice_label in field.field.choices %}
+                            <div class="radio">
+                              <label for="{{ field.html_name }}_{{ forloop.counter0 }}">
+                                <input type="radio" id="{{ field.html_name }}_{{ forloop.counter0 }}" name="{{ field.html_name }}" value="{{ choice_value }}"{% if field.value == choice_value %}checked{% endif %}>
+                                {{ choice_label }}
+                              </label>
+                            </div>
+                                {% endfor %}
+                            {% elif form_field_type.is_checkbox_multiple %}
+                                {% for choice_value, choice_label in field.field.choices %}
+                            <div class="checkbox">
+                              <label for="{{ field.html_name }}_{{ forloop.counter0 }}">
+                                <input type="checkbox" id="{{ field.html_name }}_{{ forloop.counter0 }}" name="{{ field.html_name }}" value="{{ choice_value }}"{% if choice_value in field.value %}checked{% endif %}>
+                                {{ choice_label }}
+                              </label>
+                            </div>
+                                {% endfor %}
+                            {% else %}
+                                {{ field }}
+                            {% endif %}
+
+                            {% if field.errors %}
+                            <span class="{% block form_element_error_html_class %}help-block has-error{% endblock %}">
+                                {% for field_error in field.errors %}
+                                    {{ field_error }}
+                                {% endfor %}
+                            </span>
+                            {% endif %}
+
+                            {% if field.help_text %}
+                            <span class="{% block form_element_help_text_html_class %}help-block{% endblock %}">{{ field.help_text|safe }}</span>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                {% endif %}
+
+            {% endfor %}

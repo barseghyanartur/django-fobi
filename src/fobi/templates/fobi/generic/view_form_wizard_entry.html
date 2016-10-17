@@ -1,0 +1,17 @@
+{% extends fobi_theme.base_view_template %}
+
+{% load i18n %}
+
+{% block page-title %}{% trans "View form wizard" %}{% endblock page-title %}
+
+{% block navbar-menu-content %}
+<li><a href="{% url 'fobi.edit_form_wizard_entry' form_wizard_entry.pk %}">{% trans "Edit" %}</a></li>
+<li class="active"><a href="{% url 'fobi.view_form_wizard_entry' form_wizard_entry.slug %}">{% trans "View" %}</a></li>
+{% endblock navbar-menu-content %}
+
+{% block content %}
+    {% include fobi_theme.view_form_wizard_entry_ajax_template %}
+{% endblock content %}
+
+{% block sidebar-wrapper %}
+{% endblock sidebar-wrapper %}

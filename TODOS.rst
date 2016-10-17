@@ -9,6 +9,29 @@ worked on.
 
 Must haves
 ==========
+Regarding the form wizards
+--------------------------
++ Finish form wizard handler plugins.
++ Copy form handler functionality into form wizard handler functionality.
++ Change management interface to be able to add form wizard handlers to the
+  form wizard. This includes all views for changes, such as add form-wizard
+  handler and urls.
++ Create models for form-wizard handler models.
+- Find out if `db_store` views `view_saved_form_data_entries` and
+  `view_saved_form_handler_data_entries` should be protected. Perhaps,
+  in case of private forms/wizards, they should be visible to author only,
+  while being visible to everyone in case of public forms/wizards.
++ Update `fobi_update_plugin_data` module with form-wizard.
+- Make sure to update the MANIFEST.in to include all additional templates.
++ Find a way to handle duplicates in saved form data in wizards (if labels
+  are same within a couple of forms of the wizard).
++ Add link/switch between forms and form wizards in the main template and
+  separate listing templates.
++ Make sure to include django-formtools package in the requirements.
+- Add navigation buttons to the form wizards.
+
+General
+-------
 + Finish the NoneField.
 + At the moment, NoneField is imported in the function scope. See if that works
   already to move
@@ -246,6 +269,7 @@ Must haves
 + Check if it's safe to use the initial dynamic values.
 + In the updated GUI (bootstrap3), if form names are too long, the layout
   doesn't look nice anymore.
+- Somehow, the drag and drop of the form elements got broken. Fix ASAP.
 - Since tests have been made quite general, create them for all contrib
   form elements and handlers (not yet for things like CAPTCHA).
 - Translate German and Russian URLs.

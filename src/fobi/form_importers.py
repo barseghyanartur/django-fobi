@@ -12,9 +12,12 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'BaseFormImporter', 'FormImporterPluginRegistry',
-    'form_importer_plugin_registry', 'ensure_autodiscover',
-    'get_form_importer_plugin_uids', 'get_form_impoter_plugin_urls',
+    'BaseFormImporter',
+    'FormImporterPluginRegistry',
+    'form_importer_plugin_registry',
+    'ensure_autodiscover',
+    'get_form_importer_plugin_uids',
+    'get_form_impoter_plugin_urls',
 )
 
 
@@ -39,8 +42,7 @@ class BaseFormImporter(object):
 
     def __init__(self, form_entry_cls, form_element_entry_cls,
                  form_properties=None, form_data=None):
-        """
-        Constructor.
+        """Constructor.
 
         :param django.contrib.auth.models.User user: User importing the form.
         :param dict form_properties: Properties of the form, that

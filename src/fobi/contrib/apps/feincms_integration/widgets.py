@@ -1,6 +1,8 @@
 from django.db import models
 from django.utils.translation import ugettext, ugettext_lazy as _
 
+from six import python_2_unicode_compatible
+
 from fobi.integration.processors import IntegrationProcessor
 
 from .helpers import (
@@ -15,6 +17,7 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('FobiFormWidget',)
 
 
+@python_2_unicode_compatible
 class FobiFormWidget(models.Model, IntegrationProcessor):
     """Widget for to FeinCMS.
 
@@ -77,7 +80,7 @@ class FobiFormWidget(models.Model, IntegrationProcessor):
         app_label = 'fobi'
         # db_table = 'page_page_fobiformwidget'
 
-    def __unicode__(self):
+    def __str__(self):
         return ugettext('Fobi form')
 
     def process(self, request, **kwargs):

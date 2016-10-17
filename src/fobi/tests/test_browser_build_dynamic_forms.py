@@ -4,8 +4,9 @@ import unittest
 
 from time import sleep
 
-# from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium import webdriver
+from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
+# from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.common.exceptions import WebDriverException
 
@@ -30,7 +31,13 @@ __title__ = 'fobi.tests.test_browser_build_dynamic_forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('FobiBrowserBuldDynamicFormsTest',)
+__all__ = (
+    'BaseFobiBrowserBuldDynamicFormsTest',
+    # 'GeneralFobiBrowserBuldDynamicFormsTest',
+    # 'FormSpecificFobiBrowserBuldDynamicFormsTest',
+    # 'FormElementSpecificFobiBrowserBuldDynamicFormsTest',
+    # 'FormHandlerSpecificFobiBrowserBuldDynamicFormsTest',
+)
 
 logger = logging.getLogger(__name__)
 
@@ -39,7 +46,7 @@ WAIT = False
 WAIT_FOR = 0
 
 
-class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
+class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
     """Browser tests django-fobi bulding forms functionality.
 
     Backed up by selenium. This test is based on the bootstrap3 theme.
@@ -53,7 +60,7 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
 
     def tearDown(self):
         """Tear down."""
-        super(FobiBrowserBuldDynamicFormsTest, self).tearDown()
+        super(BaseFobiBrowserBuldDynamicFormsTest, self).tearDown()
         call_command('flush', verbosity=0, interactive=False,
                      reset_sequences=False,
                      allow_cascade=False,
@@ -64,13 +71,18 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
     def setUpClass(cls):
         """Set up class."""
         # cls.selenium = WebDriver()
-        cls.selenium = webdriver.Firefox()
+        firefox_bin_path = getattr(settings, 'FIREFOX_BIN_PATH', None)
+        if firefox_bin_path:
+            binary = FirefoxBinary(firefox_bin_path)
+            cls.selenium = webdriver.Firefox(firefox_binary=binary)
+        else:
+            cls.selenium = webdriver.Firefox()
 
         setup_fobi(fobi_sync_plugins=True)
         # user = get_or_create_admin_user()
         # create_form_with_entries(user)
 
-        super(FobiBrowserBuldDynamicFormsTest, cls).setUpClass()
+        super(BaseFobiBrowserBuldDynamicFormsTest, cls).setUpClass()
 
     @classmethod
     def tearDownClass(cls):
@@ -80,7 +92,7 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         except Exception as err:
             print(err)
 
-        super(FobiBrowserBuldDynamicFormsTest, cls).tearDownClass()
+        super(BaseFobiBrowserBuldDynamicFormsTest, cls).tearDownClass()
         call_command('flush', verbosity=0, interactive=False,
                      reset_sequences=False,
                      allow_cascade=False,
@@ -99,19 +111,20 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
     # +++++++++++++++++++++++++++ General +++++++++++++++++++++++++++
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    def __get_live_server_url(self):
+    def _get_live_server_url(self):
         """Get live server URL."""
-        return self.LIVE_SERVER_URL if self.LIVE_SERVER_URL \
-                                    else self.live_server_url
+        return self.LIVE_SERVER_URL \
+            if self.LIVE_SERVER_URL \
+            else self.live_server_url
 
-    def __authenticate(self):
+    def _authenticate(self):
         """Authenticate."""
         # Make sure the user exists
         user = get_or_create_admin_user()
 
         self.selenium.get(
             '{0}{1}'.format(
-                self.__get_live_server_url(),
+                self._get_live_server_url(),
                 reverse('auth_login')
             )
         )
@@ -130,19 +143,23 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
             )
         )
 
-    def __sleep(self, wait=WAIT_FOR):
+    def _sleep(self, wait=WAIT_FOR):
         """Sleep."""
         if WAIT and wait:
             self.selenium.implicitly_wait(wait)
 
-    def __go_to_dashboard(self, wait=WAIT_FOR):
+    def _click(self, element):
+        """Click on any element."""
+        self.selenium.execute_script("$(arguments[0]).click();", element)
+
+    def _go_to_dashboard(self, wait=WAIT_FOR):
         """Go to dashboard."""
         # Authenticate user.
-        self.__authenticate()
+        self._authenticate()
 
         # Open the dashboard.
         url = reverse('fobi.dashboard')
-        self.selenium.get('{0}{1}'.format(self.__get_live_server_url(), url))
+        self.selenium.get('{0}{1}'.format(self._get_live_server_url(), url))
 
         # Wait until the edit widget form opens
         WebDriverWait(self.selenium, timeout=TIMEOUT).until(
@@ -151,7 +168,7 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
             )
         )
 
-        self.__sleep(wait)
+        self._sleep(wait)
 
     def _scroll_to_element(self, form_element, simple=False):
         """Scroll to element."""
@@ -184,10 +201,10 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
     # ++++++++++++++++++++++ Form related +++++++++++++++++++++++++++
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    def __test_add_form(self, wait=WAIT_FOR):
+    def _test_add_form(self, wait=WAIT_FOR):
         """Test add form."""
         # First open the dashboard
-        self.__go_to_dashboard()
+        self._go_to_dashboard()
 
         # Follow the create form link.
         # Click the button to go to dashboard edit
@@ -235,9 +252,9 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
             )
         )
 
-        self.__sleep(wait)
+        self._sleep(wait)
 
-    def __get_form(self):
+    def _get_form(self):
         """Get form object."""
         return FormEntry._default_manager.get(name=constants.TEST_FORM_NAME)
 
@@ -245,8 +262,8 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
     # ++++++++++++++++++++ Form element specific ++++++++++++++++++++
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    def __add_form_element(self, form_element_name, form_element_data,
-                           wait=WAIT_FOR):
+    def _add_form_element(self, form_element_name, form_element_data,
+                          wait=WAIT_FOR):
         """Add a single plugin to the form.
 
         At this stage we should be in the edit form entry interface.
@@ -267,14 +284,14 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         # Find the container of the available form elements
         add_form_element_available_elements_container = \
             add_form_element_parent_container.find_element_by_xpath(
-            '//ul[contains(@class, "dropdown-menu")]'
-        )
+                '//ul[contains(@class, "dropdown-menu")]'
+            )
 
         # Click on the element we want
         form_element_to_add = \
             add_form_element_available_elements_container.find_element_by_xpath(
-            '//a[text()="{0}"]'.format(form_element_name)
-        )
+                '//a[text()="{0}"]'.format(form_element_name)
+            )
 
         self._scroll_to_element(form_element_to_add, simple=True)
         self._scroll_by(0, -150)
@@ -311,19 +328,19 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
             )
         )
 
-    def __test_add_form_elements(self, create_form=False):
+    def _test_add_form_elements(self, create_form=False):
         """Test of adding multiple form elements.
 
         At this point form should be created.
         """
         if create_form:
             # Adding a form first
-            self.__test_add_form()
+            self._test_add_form()
 
         # One by one adding form elements with data.
         # Example follows:
         #
-        # self.__add_form_element(
+        # self._add_form_element(
         #     force_text(BooleanSelectPlugin.name),
         #     {
         #         'label': "Test boolean",
@@ -335,10 +352,10 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
 
         for plugin_name, plugin_data in TEST_FORM_ELEMENT_PLUGIN_DATA.items():
             # Add form element to the form
-            self.__add_form_element(plugin_name, plugin_data)
+            self._add_form_element(plugin_name, plugin_data)
 
-    def __remove_form_element(self, form_element_name, form_element_data,
-                              wait=WAIT_FOR):
+    def _remove_form_element(self, form_element_name, form_element_data,
+                             wait=WAIT_FOR):
         """Add a single plugin to the form.
 
         At this stage we should be in the edit form entry interface.
@@ -361,7 +378,8 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
             delete_form_element_label_parent_container.find_element_by_partial_link_text(
                 'Delete'
             )
-        delete_form_element_link.click()
+        # delete_form_element_link.click()
+        self._click(delete_form_element_link)
 
         logger.debug(form_element_name)
 
@@ -374,21 +392,21 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
             )
         )
 
-    def __test_remove_form_elements(self):
+    def _test_remove_form_elements(self):
         """Test of removing multiple form elements.
 
         At this point form should be created.
         """
         for plugin_name, plugin_data in TEST_FORM_ELEMENT_PLUGIN_DATA.items():
             # Add form element to the form
-            self.__remove_form_element(plugin_name, plugin_data)
+            self._remove_form_element(plugin_name, plugin_data)
 
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # ++++++++++++++++++++ Form handler specific ++++++++++++++++++++
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    def __add_form_handler(self, form_handler_name, form_handler_data,
-                           wait=WAIT_FOR):
+    def _add_form_handler(self, form_handler_name, form_handler_data,
+                          wait=WAIT_FOR):
         """Add a single handler to the form.
 
         At this stage we should be in the edit form entry interface.
@@ -416,8 +434,8 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         # Find the container of the available form elements
         add_form_handler_available_elements_container = \
             add_form_handler_parent_container.find_element_by_xpath(
-            '//ul[contains(@class, "dropdown-menu")]'
-        )
+                '//ul[contains(@class, "dropdown-menu")]'
+            )
 
         # Click on the element we want
         form_handler_to_add = \
@@ -456,19 +474,19 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
             )
         )
 
-    def __test_add_form_handlers(self, create_form=False):
+    def _test_add_form_handlers(self, create_form=False):
         """Test of adding multiple form handlers.
 
         At this point form should be created.
         """
         if create_form:
             # Adding a form first
-            self.__test_add_form()
+            self._test_add_form()
 
         # One by one adding form elements with data.
         # Example follows:
         #
-        # self.__add_form_element(
+        # self._add_form_element(
         #     force_text(BooleanSelectPlugin.name),
         #     {
         #         'label': "Test boolean",
@@ -480,10 +498,10 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
 
         for plugin_name, plugin_data in TEST_FORM_HANDLER_PLUGIN_DATA.items():
             # Add form element to the form
-            self.__add_form_handler(plugin_name, plugin_data)
+            self._add_form_handler(plugin_name, plugin_data)
 
-    def __remove_form_handler(self, form_handler_name, form_handler_data,
-                              wait=WAIT_FOR):
+    def _remove_form_handler(self, form_handler_name, form_handler_data,
+                             wait=WAIT_FOR):
         """Remove a single handler from the form.
 
         At this stage we should be in the edit form entry interface.
@@ -526,14 +544,14 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
             )
         )
 
-    def __test_remove_form_handlers(self):
+    def _test_remove_form_handlers(self):
         """Test of removing multiple form handlers.
 
         At this point form should be created.
         """
         for plugin_name, plugin_data in TEST_FORM_HANDLER_PLUGIN_DATA.items():
             # Remove form handler from the form
-            self.__remove_form_handler(plugin_name, plugin_data)
+            self._remove_form_handler(plugin_name, plugin_data)
 
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
@@ -551,7 +569,17 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
     @print_info
     def test_1001_open_dashboard(self):
         """Test open dashboard."""
-        self.__go_to_dashboard()
+        self._go_to_dashboard()
+
+
+# class GeneralFobiBrowserBuldDynamicFormsTest(
+#         BaseFobiBrowserBuldDynamicFormsTest):
+#     """General tests."""
+#
+#
+# class FormSpecificFobiBrowserBuldDynamicFormsTest(
+#         BaseFobiBrowserBuldDynamicFormsTest):
+#     """Form specific tests."""
 
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # ++++++++++++++++++++++ Form specific ++++++++++++++++++++++++++
@@ -564,7 +592,7 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         # Clean up database
         db_clean_up()
 
-        self.__test_add_form(wait=WAIT_FOR)
+        self._test_add_form(wait=WAIT_FOR)
 
         # Make sure the success message is there
         # self.selenium.find_element_by_xpath(
@@ -593,16 +621,16 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         db_clean_up()
 
         # Add form elements
-        self.__test_add_form_elements(create_form=True)
+        self._test_add_form_elements(create_form=True)
 
-        # self.__sleep(wait)
+        # self._sleep(wait)
 
         # Getting a form object
-        form = self.__get_form()
+        form = self._get_form()
 
         # Getting the form URL
         url = reverse('fobi.view_form_entry', args=[form.slug])
-        self.selenium.get('{0}{1}'.format(self.__get_live_server_url(), url))
+        self.selenium.get('{0}{1}'.format(self._get_live_server_url(), url))
 
         # Wait until the edit widget form opens
         WebDriverWait(self.selenium, timeout=TIMEOUT).until(
@@ -615,7 +643,7 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
             field_input = self.selenium.find_element_by_name(field_name)
             field_input.send_keys(field_value)
 
-        self.__sleep(2)
+        self._sleep(2)
 
         # Click add widget button
         self.selenium.find_element_by_xpath('//button[@type="submit"]').click()
@@ -629,7 +657,12 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
             )
         )
 
-        self.__sleep(wait)
+        self._sleep(wait)
+
+
+# class FormElementSpecificFobiBrowserBuldDynamicFormsTest(
+#         BaseFobiBrowserBuldDynamicFormsTest):
+#     """Form element specific."""
 
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # ++++++++++++++++++++ Form element specific ++++++++++++++++++++
@@ -642,9 +675,9 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         # Clean up database
         db_clean_up()
 
-        self.__test_add_form_elements(create_form=True)
+        self._test_add_form_elements(create_form=True)
 
-        self.__sleep(wait)
+        self._sleep(wait)
 
     @skip
     @print_info
@@ -653,14 +686,19 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         # Clean up database
         db_clean_up()
 
-        self.__test_add_form_elements(create_form=True)
+        self._test_add_form_elements(create_form=True)
 
-        self.__test_remove_form_elements()
+        self._test_remove_form_elements()
 
     @skip
     @print_info
     def test_3003_edit_form_elements(self):
         """Test edit form element."""
+
+
+# class FormHandlerSpecificFobiBrowserBuldDynamicFormsTest(
+#         BaseFobiBrowserBuldDynamicFormsTest):
+#     """Form handler specific."""
 
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # ++++++++++++++++++++ Form handler specific ++++++++++++++++++++
@@ -676,9 +714,9 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         # Clean up database
         db_clean_up()
 
-        self.__test_add_form_handlers(create_form=True)
+        self._test_add_form_handlers(create_form=True)
 
-        self.__sleep(wait)
+        self._sleep(wait)
 
     @skip
     @print_info
@@ -687,9 +725,9 @@ class FobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         # Clean up database
         db_clean_up()
 
-        self.__test_add_form_handlers(create_form=True)
+        self._test_add_form_handlers(create_form=True)
 
-        self.__test_remove_form_handlers()
+        self._test_remove_form_handlers()
 
     @skip
     @print_info

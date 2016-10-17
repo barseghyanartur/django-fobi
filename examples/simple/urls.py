@@ -31,13 +31,19 @@ urlpatterns = []
 
 urlpatterns += i18n_patterns(
     # DB Store plugin URLs
+    # namespace='fobi'
     url(r'^fobi/plugins/form-handlers/db-store/',
-        include('fobi.contrib.plugins.form_handlers.db_store.urls')), #,namespace='fobi'
+        include('fobi.contrib.plugins.form_handlers.db_store.urls')),
+    url(r'^fobi/plugins/form-wizard-handlers/db-store/',
+        include('fobi.contrib.plugins.form_handlers.db_store.urls.'
+                'form_wizard_handlers')),
 
     # django-fobi URLs:
-    url(r'^fobi/', include('fobi.urls.view')), #, namespace='fobi'
+    # namespace='fobi'
+    url(r'^fobi/', include('fobi.urls.view')),
+    # namespace='fobi'
     url(r'^{0}fobi/'.format(FOBI_EDIT_URLS_PREFIX),
-        include('fobi.urls.edit')), #, namespace='fobi'
+        include('fobi.urls.edit')),
 
     url(r'^admin_tools/', include('admin_tools.urls')),
 
@@ -52,13 +58,14 @@ urlpatterns += i18n_patterns(
     url(r'^$', TemplateView.as_view(template_name=fobi_home_template)),
 
     # django-fobi public forms contrib app:
-    #url(r'^', include('fobi.contrib.apps.public_forms.urls')),
+    # url(r'^', include('fobi.contrib.apps.public_forms.urls')),
 )
 
 # Serving media and static in debug/developer mode.
 if settings.DEBUG:
     urlpatterns += staticfiles_urlpatterns()
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
 
 # Conditionally including FeinCMS URls in case if
 # FeinCMS in installed apps.

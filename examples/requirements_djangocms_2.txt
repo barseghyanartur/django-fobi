@@ -1,2 +1,0 @@
-django-cms==2.4.3
-django-mptt

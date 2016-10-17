@@ -1,3 +1,5 @@
+from six import python_2_unicode_compatible
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
@@ -15,6 +17,7 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('FobiFormPage',)
 
 
+@python_2_unicode_compatible
 class FobiFormPage(Page, RichText):
     """Widget for to Mezzanine.
 
@@ -74,5 +77,5 @@ class FobiFormPage(Page, RichText):
         verbose_name_plural = _("Fobi forms")
         # db_table = 'fobi_fobiformpage'
 
-    def __unicode__(self):
+    def __str__(self):
         return _('Fobi form')

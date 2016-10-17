@@ -18,14 +18,12 @@ class Migration(SchemaMigration):
                       self.gf('django.db.models.fields.DateTimeField')(auto_now=True, null=True, blank=True),
                       keep_default=False)
 
-
     def backwards(self, orm):
         # Deleting field 'FormEntry.created'
         db.delete_column(u'fobi_formentry', 'created')
 
         # Deleting field 'FormEntry.updated'
         db.delete_column(u'fobi_formentry', 'updated')
-
 
     models = {
         u'auth.group': {

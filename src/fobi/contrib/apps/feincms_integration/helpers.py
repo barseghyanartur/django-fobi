@@ -6,7 +6,10 @@ __title__ = 'fobi.contrib.apps.feincms_integration.helpers'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('get_form_template_choices', 'get_success_page_template_choices',)
+__all__ = (
+    'get_form_template_choices',
+    'get_success_page_template_choices',
+)
 
 
 def get_form_template_choices():

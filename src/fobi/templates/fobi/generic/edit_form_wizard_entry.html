@@ -1,0 +1,33 @@
+{% extends fobi_theme.base_edit_template %}
+
+{% load i18n %}
+
+{% block page-title %}{% trans "Edit form wizard entry" %}{% endblock page-title %}
+
+{% block navbar-menu-content %}
+<li class="active"><a href="{% url 'fobi.edit_form_wizard_entry' form_wizard_entry.pk %}">{% trans "Edit" %}</a></li>
+<li><a href="{% url 'fobi.view_form_wizard_entry' form_wizard_entry.slug %}">{% trans "View" %}</a></li>
+{% comment %}
+<li class="dropdown">
+  <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+  {% trans "Your form wizards" %} <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu">
+    {% for entry in all_form_wizard_entries %}
+    <li>
+      <a href="{% url 'fobi.edit_form_wizard_entry' entry.pk %}">{{ entry.name }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+</li>
+{% endcomment %}
+{% endblock navbar-menu-content %}
+
+{% block main-content-inner-attrs %}{% endblock main-content-inner-attrs %}
+
+{% block content-wrapper %}
+    {% include fobi_theme.edit_form_wizard_entry_ajax_template %}
+{% endblock content-wrapper %}
+
+{% block sidebar-wrapper %}
+{% endblock sidebar-wrapper %}

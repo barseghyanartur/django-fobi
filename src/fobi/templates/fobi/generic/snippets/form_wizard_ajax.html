@@ -1,0 +1,21 @@
+    {% block form_page_header_wrapper %}
+    <div class="{% block form_page_header_html_class %}{% endblock %}">
+      {% block form_page_title_wrapper %}<h1>{% block form_page_title %}{% endblock %}</h1>{% endblock form_page_title_wrapper %}
+    </div>
+    {% endblock form_page_header_wrapper %}
+
+    <form method="{% block form_method %}post{% endblock %}" action="{% block form_wizard_action %}{% if form_wizard_entry.action %}{{ form_wizard_entry.action }}{% else %}{{ request.path }}{% endif %}{% endblock %}" {% block form_enctype %}enctype="multipart/form-data"{% endblock %} class="{% block form_html_class %}{% endblock %}" {% block form_extra_attrs %}{% endblock %}>
+      {% csrf_token %}
+      {% if form_wizard_mode %}
+        {% include fobi_theme.form_wizard_snippet_template_name with form=wizard.form %}
+      {% else %}
+        {% include fobi_theme.form_wizard_snippet_template_name %}
+      {% endif %}
+      <div class="{% block form_button_outer_wrapper_html_class %}{% endblock %}">
+        <div class="{% block form_button_wrapper_html_class %}{% endblock %}">
+          {% block form_buttons %}
+          <button type="submit" class="{% block form_primary_button_html_class %}{% endblock %}">{% block form_primary_button_text %}{% endblock %}</button>
+          {% endblock form_buttons %}
+        </div>
+      </div>
+    </form>

@@ -1,30 +1,65 @@
-from django.contrib import admin
-from django.contrib.admin import helpers
-from django.utils.translation import ugettext_lazy as _
-from django.utils.html import strip_tags
-from django.contrib.admin.views.decorators import staff_member_required
-from django.utils.decorators import method_decorator
 from django.conf.urls import url
+from django.contrib import admin
+from django.contrib import messages
+from django.contrib.admin import helpers
+from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import render_to_response, redirect
 from django.template import RequestContext
-from django.contrib import messages
+from django.utils.decorators import method_decorator
+from django.utils.translation import ugettext_lazy as _
+from django.utils.html import strip_tags
 
 from nine.versions import DJANGO_LTE_1_5
 
-from fobi.models import (
-    FormElement, FormHandler, FormEntry, FormElementEntry, FormHandlerEntry
+from .constants import ACTION_CHOICE_REPLACE
+from .forms import (
+    BulkChangeFormElementPluginsForm,
+    BulkChangeFormHandlerPluginsForm,
+    BulkChangeFormWizardHandlerPluginsForm,
+    FormElementEntryForm,
+    FormHandlerEntryForm,
+    FormWizardHandlerEntryForm
 )
-from fobi.forms import (
-    BulkChangeFormElementPluginsForm, BulkChangeFormHandlerPluginsForm,
-    FormElementEntryForm, FormHandlerEntryForm
+from .models import (
+    FormElement,
+    FormHandler,
+    FormWizardHandler,
+    FormEntry,
+    FormElementEntry,
+    FormHandlerEntry,
+    FormWizardEntry,
+    FormWizardFormEntry,
+    FormWizardHandlerEntry
 )
-from fobi.constants import ACTION_CHOICE_REPLACE
 
 __title__ = 'fobi.admin'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = (
+    'base_bulk_change_plugins',
+    'bulk_change_form_element_plugins',
+    'bulk_change_form_handler_plugins',
+    'bulk_change_form_wizard_handler_plugins',
 
+    'FormElementEntryInlineAdmin',
+    'FormHandlerEntryInlineAdmin',
+    'FormWizardFormEntryInlineAdmin',
+
+    'FormWizardHandlerEntryInlineAdmin',
+    'FormEntryAdmin',
+    'FormWizardEntryAdmin',
+    'FormFieldsetEntryAdmin',
+
+    'FormElementEntryAdmin',
+    'FormHandlerEntryAdmin',
+
+    'BasePluginModelAdmin',
+
+    'FormElementAdmin',
+    'FormHandlerAdmin',
+    'FormWizardHandlerAdmin',
+)
 
 staff_member_required_m = method_decorator(staff_member_required)
 
@@ -51,7 +86,7 @@ def base_bulk_change_plugins(PluginForm, named_url, modeladmin, request,
             data=post,
             files=request.FILES,
             initial={'selected_plugins': ','.join(selected)}
-            )
+        )
     else:
         form = PluginForm(initial={'selected_plugins': ','.join(selected)})
 
@@ -66,7 +101,7 @@ def base_bulk_change_plugins(PluginForm, named_url, modeladmin, request,
         'fobi/admin/bulk_change_plugins.html',
         context,
         context_instance=RequestContext(request)
-        )
+    )
 
 
 def bulk_change_form_element_plugins(modeladmin, request, queryset):
@@ -77,7 +112,7 @@ def bulk_change_form_element_plugins(modeladmin, request, queryset):
         modeladmin,
         request,
         queryset
-        )
+    )
 
 
 def bulk_change_form_handler_plugins(modeladmin, request, queryset):
@@ -88,7 +123,18 @@ def bulk_change_form_handler_plugins(modeladmin, request, queryset):
         modeladmin,
         request,
         queryset
-        )
+    )
+
+
+def bulk_change_form_wizard_handler_plugins(modeladmin, request, queryset):
+    """Bulk change FormWizardHandler plugins."""
+    return base_bulk_change_plugins(
+        BulkChangeFormWizardHandlerPluginsForm,
+        'admin:bulk_change_form_wizard_handler_plugins',
+        modeladmin,
+        request,
+        queryset
+    )
 
 # *****************************************************************************
 # *****************************************************************************
@@ -153,10 +199,76 @@ class FormEntryAdmin(admin.ModelAdmin):
 
     class Meta:
         """Meta."""
+
         app_label = _('Fobi')
 
 
 admin.site.register(FormEntry, FormEntryAdmin)
+
+
+# *****************************************************************************
+# *************************** Form wizard entry admin *************************
+# *****************************************************************************
+
+
+class FormWizardFormEntryInlineAdmin(admin.TabularInline):
+    """FormWizardFormEntry inline admin."""
+
+    model = FormWizardFormEntry
+    # form = FormElementEntryForm
+    fields = ('form_entry', 'position',)
+    extra = 0
+
+
+class FormWizardHandlerEntryInlineAdmin(admin.TabularInline):
+    """FormWizardHandlerEntry inline admin."""
+
+    model = FormWizardHandlerEntry
+    form = FormWizardHandlerEntryForm
+    fields = ('plugin_uid', 'plugin_data',)
+    extra = 0
+
+
+class FormWizardEntryAdmin(admin.ModelAdmin):
+    """FormWizardEntry admin."""
+
+    list_display = ('name', 'slug', 'user', 'is_public', 'created', 'updated',
+                    'is_cloneable',)
+    list_editable = ('is_public', 'is_cloneable',)
+    list_filter = ('is_public', 'is_cloneable',)
+    readonly_fields = ('slug',)
+    radio_fields = {"user": admin.VERTICAL}
+    fieldsets = (
+        (_("Form"), {
+            'fields': ('name', 'is_public', 'is_cloneable',)
+        }),
+        (_("Custom"), {
+            'classes': ('collapse',),
+            'fields': ('success_page_title', 'success_page_message',)
+        }),
+        # (_("Wizard"), {
+        #     'classes': ('collapse',),
+        #     'fields': ('form_wizard_entry', 'position',)
+        # }),
+        (_("User"), {
+            'classes': ('collapse',),
+            'fields': ('user',)
+        }),
+        (_('Additional'), {
+            'classes': ('collapse',),
+            'fields': ('slug',)
+        }),
+    )
+    inlines = [FormWizardFormEntryInlineAdmin,
+               FormWizardHandlerEntryInlineAdmin]
+
+    class Meta:
+        """Meta."""
+
+        app_label = _('Fobi')
+
+
+admin.site.register(FormWizardEntry, FormWizardEntryAdmin)
 
 # *****************************************************************************
 # ************************* Form fieldset entry admin *************************
@@ -337,7 +449,7 @@ class BasePluginModelAdmin(admin.ModelAdmin):
             form = form_cls(
                 data=request.POST,
                 files=request.FILES
-                )
+            )
 
             if form.is_valid():
                 ids = form.cleaned_data.pop('selected_plugins').split(',')
@@ -377,20 +489,20 @@ class BasePluginModelAdmin(admin.ModelAdmin):
                     request,
                     _('{0} plugins were changed '
                       'successfully.').format(len(ids))
-                    )
+                )
                 return redirect(changelist_named_url)
             else:
                 messages.warning(
                     request,
                     _('Form contains '
                       'errors: {}').format(strip_tags(form.errors))
-                    )
+                )
                 return redirect(changelist_named_url)
         else:
             messages.warning(
                 request,
                 _('POST required when changing in bulk!')
-                )
+            )
             return redirect(changelist_named_url)
 
 # *****************************************************************************
@@ -462,3 +574,38 @@ class FormHandlerAdmin(BasePluginModelAdmin):
 
 
 admin.site.register(FormHandler, FormHandlerAdmin)
+
+# *****************************************************************************
+# ****************************** Form wizard handler **************************
+# *****************************************************************************
+
+
+class FormWizardHandlerAdmin(BasePluginModelAdmin):
+    """FormHandler admin."""
+
+    actions = [bulk_change_form_wizard_handler_plugins]
+
+    def _get_bulk_change_form_class(self):
+        """Get bulk change form class."""
+        return BulkChangeFormWizardHandlerPluginsForm
+
+    def _get_model(self):
+        """Get model."""
+        return FormHandler
+
+    def _get_changelist_named_url(self):
+        """Get changelist named URL."""
+        return 'admin:fobi_formwizardhandler_changelist'
+
+    def get_urls(self):
+        """Get URLs."""
+        my_urls = [
+            # Bulk change plugins
+            url(r'^bulk-change-form-wizard-handler-plugins/$',
+                self.bulk_change_plugins,
+                name='bulk_change_form_wizard_handler_plugins'),
+        ]
+        return my_urls + super(FormWizardHandlerAdmin, self).get_urls()
+
+
+admin.site.register(FormWizardHandler, FormWizardHandlerAdmin)

@@ -84,6 +84,17 @@
             </li>
             -->
             {% endblock navbar-menu-content %}
+            {% block navbar-menu-navigation-content %}
+            <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                  {% trans "Dashboards" %} <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li><a href="{% url 'fobi.dashboard' %}">{% trans "Forms dashboard" %}</a></li>
+                    <li><a href="{% url 'fobi.form_wizards_dashboard' %}">{% trans "Form wizards dashboard" %}</a></li>
+                </ul>
+            </li>
+            {% endblock navbar-menu-navigation-content %}
           </ul>
           {% endblock navbar-menu %}
         </div><!-- /.nav-collapse -->
