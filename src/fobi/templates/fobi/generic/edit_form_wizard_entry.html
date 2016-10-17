@@ -6,7 +6,7 @@
 
 {% block navbar-menu-content %}
 <li class="active"><a href="{% url 'fobi.edit_form_wizard_entry' form_wizard_entry.pk %}">{% trans "Edit" %}</a></li>
-<li><a href="{% url 'fobi.view_form_wizard_entry' form_wizard_entry.slug %}">{% trans "View" %}</a></li>
+{% if form_wizard_entry_forms %}<li><a href="{% url 'fobi.view_form_wizard_entry' form_wizard_entry.slug %}">{% trans "View" %}</a></li>{% endif %}
 {% comment %}
 <li class="dropdown">
   <a class="dropdown-toggle" data-toggle="dropdown" href="#">

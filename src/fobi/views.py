@@ -1427,6 +1427,12 @@ class FormWizardView(DynamicSessionWizardView):
             form_list.append(
                 (form_entry.slug, form_cls)
             )
+
+        if 0 == len(form_list):
+            raise Http404(
+                ugettext("Form wizard entry does not contain any forms.")
+            )
+
         theme = get_theme(request=request, as_instance=True)
         return {
             'form_list': form_list,
