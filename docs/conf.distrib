@@ -25,7 +25,7 @@ from nine.versions import DJANGO_LTE_1_7, DJANGO_GTE_1_8, DJANGO_GTE_1_7
 
 if DJANGO_GTE_1_7:
     import django
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'simple.settings_docs')
+    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'simple.settings.docs')
     django.setup()
 
 try:
@@ -67,11 +67,11 @@ except Exception as e:
             'django.contrib.sitemaps',
 
             # Third party apps used in the project
-            #'south', # Database migration app
-            #'tinymce', # TinyMCE
+            # 'south', # Database migration app
+            # 'tinymce', # TinyMCE
             'easy_thumbnails', # Thumbnailer
             'registration', # Auth views and registration app
-            'localeurl', # Locale URL
+            # 'localeurl', # Locale URL
 
             # *****************************************************************
             # *****************************************************************
@@ -100,7 +100,7 @@ except Exception as e:
             'fobi.contrib.plugins.form_elements.fields.file',
             'fobi.contrib.plugins.form_elements.fields.float',
             'fobi.contrib.plugins.form_elements.fields.hidden',
-            #'fobi.contrib.plugins.form_elements.fields.hidden_model_object',
+            # 'fobi.contrib.plugins.form_elements.fields.hidden_model_object',
             'fobi.contrib.plugins.form_elements.fields.input',
             'fobi.contrib.plugins.form_elements.fields.integer',
             'fobi.contrib.plugins.form_elements.fields.ip_address',
@@ -183,7 +183,7 @@ except Exception as e:
         MEDIA_URL = '/media/'
         MIDDLEWARE_CLASSES = (
             'django.contrib.sessions.middleware.SessionMiddleware',
-            'localeurl.middleware.LocaleURLMiddleware',
+            # 'localeurl.middleware.LocaleURLMiddleware',
             'django.middleware.common.CommonMiddleware',
             'django.middleware.csrf.CsrfViewMiddleware',
             'django.contrib.auth.middleware.AuthenticationMiddleware',
