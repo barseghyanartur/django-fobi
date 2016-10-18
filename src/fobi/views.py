@@ -2170,7 +2170,7 @@ def export_form_entry(request, form_entry_id, template_name=None):
         'slug': form_entry.slug,
         'is_public': False,
         'is_cloneable': False,
-        'position': form_entry.position,
+        # 'position': form_entry.position,
         'success_page_title': form_entry.success_page_title,
         'success_page_message': form_entry.success_page_message,
         'action': form_entry.action,
@@ -2236,6 +2236,22 @@ def import_form_entry(request, template_name=None):
             # `form_handler_data` for filling the missing plugin data.
             form_elements_data = form_data.pop('form_elements', [])
             form_handlers_data = form_data.pop('form_handlers', [])
+
+            form_data_keys_whitelist = (
+                'name',
+                'slug',
+                'is_public',
+                'is_cloneable',
+                # 'position',
+                'success_page_title',
+                'success_page_message',
+                'action',
+            )
+
+            # In this way we keep possible trash out.
+            for key in form_data.keys():
+                if key not in form_data_keys_whitelist:
+                    form_data.pop(key)
 
             # User information we always recreate!
             form_data['user'] = request.user

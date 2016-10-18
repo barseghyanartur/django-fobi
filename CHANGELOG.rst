@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.8.4
+-----
+2016-10-19
+
+- Fix broken export (to JSON) of form entries.
+- Fix broken import (from JSON) of form entries.
+
 0.8.3
 -----
 2016-10-18
