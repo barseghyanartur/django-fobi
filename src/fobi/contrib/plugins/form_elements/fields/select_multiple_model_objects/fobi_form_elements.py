@@ -8,7 +8,11 @@ from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
 from fobi.constants import (
     SUBMIT_VALUE_AS_VAL, SUBMIT_VALUE_AS_REPR
 )
-from fobi.helpers import safe_text, get_app_label_and_model_name
+from fobi.helpers import (
+    safe_text,
+    get_app_label_and_model_name,
+    get_model_name_for_object
+)
 
 from nine.versions import DJANGO_GTE_1_7
 
@@ -85,17 +89,17 @@ class SelectMultipleModelObjectsInputPlugin(FormFieldPlugin):
                 elif SUBMIT_VALUE_AS == SUBMIT_VALUE_AS_VAL:
                     value = '{0}.{1}.{2}'.format(
                         obj._meta.app_label,
-                        obj._meta.module_name,
+                        get_model_name_for_object(obj),
                         obj.pk
-                        )
+                    )
                 else:
                     # Handle the submitted form value
                     value = '{0}.{1}.{2}.{3}'.format(
                         obj._meta.app_label,
-                        obj._meta.module_name,
+                        get_model_name_for_object(obj),
                         obj.pk,
                         safe_text(obj)
-                        )
+                    )
                 values.append(value)
 
         # Overwrite ``cleaned_data`` of the ``form`` with object qualifier.

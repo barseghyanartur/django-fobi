@@ -138,7 +138,7 @@ for locale_dir in locale_dirs:
                      for f
                      in os.listdir(locale_dir)]
 
-version = '0.8.1'
+version = '0.8.2'
 
 install_requires = [
     'Pillow>=2.0.0',

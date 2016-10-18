@@ -52,6 +52,7 @@ __all__ = (
     'ensure_unique_filename',
     'get_app_label_and_model_name',
     'get_form_element_entries_for_form_wizard_entry',
+    'get_model_name_for_object',
     'get_registered_models',
     'get_select_field_choices',
     'handle_uploaded_file',
@@ -193,6 +194,13 @@ def get_ignorable_form_values():
     :return iterable:
     """
     return [None, empty_string]
+
+
+def get_model_name_for_object(obj):
+    """Get model name for object.
+
+    Django version agnostic."""
+    return obj._meta.model_name if DJANGO_GTE_1_7 else obj._meta.module_name
 
 # *****************************************************************************
 # *****************************************************************************
