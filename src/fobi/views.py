@@ -6,6 +6,8 @@ import logging
 
 import simplejson as json
 
+from collections import OrderedDict
+
 from django.db import models, IntegrityError
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
@@ -1413,6 +1415,7 @@ class FormWizardView(DynamicSessionWizardView):
                                 .select_related('form_entry')
         ]
         form_list = []
+        form_entry_mapping = {}
         wizard_form_element_entries = []
         for creation_counter, form_entry in enumerate(form_entries):
             # Using frozen queryset to minimize query usage
@@ -1427,6 +1430,7 @@ class FormWizardView(DynamicSessionWizardView):
             form_list.append(
                 (form_entry.slug, form_cls)
             )
+            form_entry_mapping[form_entry.slug] = form_entry
 
         if 0 == len(form_list):
             raise Http404(
@@ -1439,7 +1443,50 @@ class FormWizardView(DynamicSessionWizardView):
             'template_name': theme.view_form_wizard_entry_template,
             'form_wizard_entry': form_wizard_entry,
             'wizard_form_element_entries': wizard_form_element_entries,
+            'form_entry_mapping': form_entry_mapping,
         }
+
+    def render_done(self, form, **kwargs):
+        """Render done.
+
+        This method gets called when all forms passed. The method should also
+        re-validate all steps to prevent manipulation. If any form fails to
+        validate, `render_revalidation_failure` should get called.
+        If everything is fine call `done`.
+        """
+        final_forms = OrderedDict()
+        # walk through the form list and try to validate the data again.
+        for form_key in self.get_form_list():
+
+            form_obj = self.get_form(
+                step=form_key,
+                data=self.storage.get_step_data(form_key),
+                files=self.storage.get_step_files(form_key)
+            )
+
+            if not form_obj.is_valid():
+                return self.render_revalidation_failure(form_key,
+                                                        form_obj,
+                                                        **kwargs)
+
+            # Fire plugin processors
+            form_entry = self.form_entry_mapping[form_key]
+            form_obj = submit_plugin_form_data(
+                form_entry=form_entry,
+                request=self.request,
+                form=form_obj
+            )
+
+            final_forms[form_key] = form_obj
+
+        # render the done view and reset the wizard before returning the
+        # response. This is needed to prevent from rendering done with the
+        # same data twice.
+        done_response = self.done(final_forms.values(),
+                                  form_dict=final_forms,
+                                  **kwargs)
+        self.storage.reset()
+        return done_response
 
     def done(self, form_list, **kwargs):
         """Done."""
