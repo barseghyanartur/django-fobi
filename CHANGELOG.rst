@@ -15,6 +15,12 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.8.6
+-----
+2016-10-21
+
+- Functional improvements of `slider` plugin.
+
 0.8.5
 -----
 2016-10-20

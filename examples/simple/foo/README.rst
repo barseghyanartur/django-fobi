@@ -1,7 +1,7 @@
-=====================================
-Example app
-=====================================
-Gemeral purpose example app that:
+===
+foo
+===
+A general purpose example app that:
 
 - Shows how to make a form callback.
 - Contains a sample endpoint for testing the HTTP repost form handler plugin.

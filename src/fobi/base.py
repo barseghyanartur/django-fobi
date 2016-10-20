@@ -1411,7 +1411,7 @@ class FormElementPlugin(BasePlugin):
                     # fobi specific context processor. By automatically
                     # force-prefixing all dynamic value definitions with
                     # "fobi_dynamic_values." string. See the docs for
-                    # more ("Dyamic initial values" section).
+                    # more ("Dynamic initial values" section).
                     initial = field_kwargs['initial']
 
                     # For the moment, only string types are dynamic

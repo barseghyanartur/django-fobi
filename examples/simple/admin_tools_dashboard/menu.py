@@ -12,12 +12,14 @@ from django.utils.translation import ugettext_lazy as _
 
 from admin_tools.menu import items, Menu
 
-from admin_tools_dashboard import conf
+from . import conf
+
+__all__ = ('CustomMenu',)
+
 
 class CustomMenu(Menu):
-    """
-    Custom Menu.
-    """
+    """Custom Menu."""
+
     def __init__(self, **kwargs):
         Menu.__init__(self, **kwargs)
         self.children += [
@@ -26,13 +28,13 @@ class CustomMenu(Menu):
 
         # Foo
         self.children.append(items.ModelList(_('Foo'),
-            models = conf.foo_apps
+            models=conf.foo_apps
         ))
 
         # Fobi
         self.children.append(items.MenuItem(
             _('Fobi'),
-            children = [
+            children=[
                 items.ModelList(_('Plugins'), models=conf.fobi_plugins),
                 items.ModelList(_('Forms'), models=conf.fobi_forms),
                 items.ModelList(_('Data'), models=conf.fobi_data),
@@ -43,24 +45,22 @@ class CustomMenu(Menu):
             # FeinCMS pages integration
             self.children.append(items.AppList(
                 _('FeinCMS Pages'),
-                models = conf.feincms_pages
+                models=conf.feincms_pages
             ))
 
         if 'cms' in settings.INSTALLED_APPS:
             # DjangoCMS pages integration
             self.children.append(items.AppList(
                 _('DjangoCMS Pages'),
-                models = conf.djangocms_pages
+                models=conf.djangocms_pages
             ))
 
         # append an app list module for "Administration"
         self.children.append(items.AppList(
             _('Administration'),
-            models = ['django.contrib.*',]
+            models=['django.contrib.*',]
         ))
 
     def init_with_context(self, context):
-        """
-            Use this method if you need to access the request context.
-        """
+        """Use this method if you need to access the request context."""
         return super(CustomMenu, self).init_with_context(context)

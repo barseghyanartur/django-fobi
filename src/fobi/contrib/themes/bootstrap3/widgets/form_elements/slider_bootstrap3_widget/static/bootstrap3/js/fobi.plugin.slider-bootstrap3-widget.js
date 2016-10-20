@@ -9,4 +9,5 @@
 
 $(document).ready(function() {
     $('.slider').bootstrapSlider();
+    $('.slider-no-background').bootstrapSlider();
 });

@@ -13,8 +13,9 @@ fobi_plugins = [
 ]
 
 fobi_forms = [
-    'fobi.models.FormWizardEntry', 'fobi.models.FormEntry', 'fobi.models.FormElementEntry',
-    'fobi.models.FormFieldsetEntry', 'fobi.models.FormHandlerEntry',
+    'fobi.models.FormWizardEntry', 'fobi.models.FormEntry',
+    'fobi.models.FormElementEntry', 'fobi.models.FormFieldsetEntry',
+    'fobi.models.FormHandlerEntry',
 ]
 
 fobi_data = [

@@ -1,8 +1,9 @@
 from django.utils.translation import ugettext_lazy as _
 
-from feincms.module.page.models import Page
 from feincms.content.raw.models import RawContent
 from feincms.content.richtext.models import RichTextContent
+from feincms.module.page.models import Page
+
 # Import the ``django-fobi`` widget.
 from fobi.contrib.apps.feincms_integration.widgets import FobiFormWidget
 
@@ -19,7 +20,7 @@ Page.register_templates(
             ('sidebar', _(u"Sidebar")),
         )
     },
-    )
+)
 
 # Standard content types
 Page.create_content_type(RawContent)

@@ -1,24 +1,34 @@
-import uuid
 import logging
+import uuid
 
 from django.http import HttpResponse
-from django.views.decorators.csrf import csrf_exempt
 from django.template import RequestContext
-from django.shortcuts import render_to_response
+from django.views.decorators.csrf import csrf_exempt
 
-from fobi.models import FormEntry
-from fobi.helpers import handle_uploaded_file
 from fobi.base import get_theme
+from fobi.helpers import handle_uploaded_file
+from fobi.models import FormEntry
+
+from nine import versions
+
+if versions.DJANGO_GTE_1_10:
+    from django.shortcuts import render
+else:
+    from django.shortcuts import render_to_response
 
 logger = logging.getLogger('fobi')
 
+__all__ = (
+    'endpoint',
+    'forms_list',
+)
+
+
 @csrf_exempt
 def endpoint(request):
-    """
-    Endpoint.
+    """Endpoint.
 
     :param django.http.HttpRequest request:
-    :param string template_name:
     :return django.http.HttpResponse:
     """
     logger.debug("POST: {0}\nFILES: {1}".format(request.POST, request.FILES))
@@ -32,8 +42,11 @@ def endpoint(request):
 
 
 def forms_list(request, template_name='foo/forms_list.html'):
-    """
-    Fobi forms list.
+    """Fobi forms list.
+
+    :param django.http.HttpRequest request:
+    :param string template_name:
+    :return django.http.HttpResponse:
     """
     form_entries = FormEntry._default_manager.filter(is_public=True) \
                                              .select_related('user')
@@ -46,6 +59,10 @@ def forms_list(request, template_name='foo/forms_list.html'):
         'show_delete_link': False,
         'show_export_link': False,
     }
-    return render_to_response(
-        template_name, context, context_instance=RequestContext(request)
-    )
+
+    if versions.DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
+        )
