@@ -29,6 +29,11 @@ Regarding the form wizards
   separate listing templates.
 + Make sure to include django-formtools package in the requirements.
 + Add navigation buttons to the form wizards.
+- Make sure plugin media is collected in wizards.
+- Add data-slider-tooltip="hide" option to the `slider`.
+- Ideally, it would be great to support data-slider-handle="square" (or
+  "round", "triangle") options of the bootstrap-slider plugin. See the first
+  issue in "Uncategorised".
 - Rethink the new navigation of forms and form wizards.
 - Add support for form wizard conditions.
 
