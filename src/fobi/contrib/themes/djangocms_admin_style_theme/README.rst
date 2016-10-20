@@ -7,9 +7,9 @@ Relies on ``djangocms-admin-style`` package and some jQuery UI only.
 jQuery UI "Smoothness" theme comes from `here <http://jqueryui.com/>`_.
 
 Installation
-===============================================
+============
 Install `djangocms-admin-style`
------------------------------------------------
+-------------------------------
 See the original `installation instructions
 <https://pypi.python.org/pypi/djangocms-admin-style#installation>`_.
 

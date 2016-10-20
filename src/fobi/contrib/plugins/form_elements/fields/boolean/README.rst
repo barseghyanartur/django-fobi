@@ -5,7 +5,7 @@ A ``Fobi`` Boolean form field plugin. Makes use of the
 ``django.forms.fields.BooleanField``.
 
 Installation
-===============================================
+============
 1. Add ``fobi.contrib.plugins.form_elements.fields.boolean`` to the
    ``INSTALLED_APPS`` in your ``settings.py``.
 

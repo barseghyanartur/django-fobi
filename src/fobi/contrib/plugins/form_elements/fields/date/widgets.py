@@ -1,7 +1,8 @@
 from __future__ import absolute_import
 
 from fobi.base import FormElementPluginWidget
-from fobi.contrib.plugins.form_elements.fields.date import UID
+
+from . import UID
 
 __title__ = 'fobi.contrib.plugins.form_elements.fields.date.widgets'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'

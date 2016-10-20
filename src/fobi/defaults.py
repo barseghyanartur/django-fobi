@@ -1,3 +1,5 @@
+import os
+
 __title__ = 'fobi.defaults'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
@@ -25,6 +27,8 @@ __all__ = (
     'FAIL_ON_ERRORS_IN_FORM_ELEMENT_PLUGINS',
     'FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS',
     'FAIL_ON_ERRORS_IN_FORM_WIZARD_HANDLER_PLUGINS',
+
+    'WIZARD_FILES_UPLOAD_DIR',
 
     'WAIT_BETWEEN_TEST_STEPS',
     'WAIT_AT_TEST_END',
@@ -71,6 +75,7 @@ DEBUG = False
 # ************************ Theme related ***********************
 # **************************************************************
 # **************************************************************
+
 CUSTOM_THEME_DATA = {}
 THEME_FOOTER_TEXT = '&copy; django-fobi example site 2014'
 
@@ -102,6 +107,15 @@ FAIL_ON_MISSING_FORM_WIZARD_HANDLER_PLUGINS = True
 FAIL_ON_ERRORS_IN_FORM_ELEMENT_PLUGINS = False
 FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS = False
 FAIL_ON_ERRORS_IN_FORM_WIZARD_HANDLER_PLUGINS = False
+
+# **************************************************************
+# **************************************************************
+# ********************** Wizards related ***********************
+# **************************************************************
+# **************************************************************
+
+# Relative path. If relative path provided, `MEDIA_ROOT` would be prepended.
+WIZARD_FILES_UPLOAD_DIR = os.path.join('fobi_wizards', 'files')
 
 # **************************************************************
 # **************************************************************

@@ -15,6 +15,19 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.8.5
+-----
+2016-10-20
+
+- Add `percentage` and `slider_percentage` form field plugins.
+- Fixed custom CSS classes not appearing in the rendered HTML of the field
+  plugin/widget.
+- Fixed issue with undefined file storage for form wizards. From now on
+  the `FileSystemStorage` storage is used for wizard uploads.
+- Fixed too much of extreme data view/export security of the `db_store`
+  plugin.
+- Backwards compatibility fixes for Django < 1.7.
+
 0.8.4
 -----
 2016-10-19

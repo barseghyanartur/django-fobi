@@ -22,16 +22,27 @@ Regarding the form wizards
   in case of private forms/wizards, they should be visible to author only,
   while being visible to everyone in case of public forms/wizards.
 + Update `fobi_update_plugin_data` module with form-wizard.
-- Make sure to update the MANIFEST.in to include all additional templates.
++ Make sure to update the MANIFEST.in to include all additional templates.
 + Find a way to handle duplicates in saved form data in wizards (if labels
   are same within a couple of forms of the wizard).
 + Add link/switch between forms and form wizards in the main template and
   separate listing templates.
 + Make sure to include django-formtools package in the requirements.
-- Add navigation buttons to the form wizards.
++ Add navigation buttons to the form wizards.
+- Rethink the new navigation of forms and form wizards.
+- Add support for form wizard conditions.
 
-General
+Roadmap
 -------
+- django-rest-framework integration.
+- Reusable React app to communicate with django-rest-framework integration
+  app.
+
+Uncategorised
+-------------
+- Make sure form element plugin widgets allow more customisations than
+  they do now. For instance, setting an additional class or additional data
+  attributes should be made really easy. A must!
 + Finish the NoneField.
 + At the moment, NoneField is imported in the function scope. See if that works
   already to move

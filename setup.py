@@ -1,8 +1,65 @@
 import os
 import sys
 
+from distutils.version import LooseVersion
 from setuptools import setup, find_packages
 
+# ****************************************************
+DJANGO_INSTALLED = False
+try:
+    import django
+    DJANGO_INSTALLED = True
+
+    LOOSE_DJANGO_VERSION = LooseVersion(django.get_version())
+    LOOSE_DJANGO_MINOR_VERSION = LooseVersion(
+        '.'.join([str(i) for i in LOOSE_DJANGO_VERSION.version[0:2]])
+    )
+
+    # Loose versions
+    LOOSE_VERSIONS = (
+        '1.4', '1.5', '1.6', '1.7', '1.8', '1.9', '1.10', '1.11', '2.0', '2.1',
+        '2.2', '3.0'
+    )
+
+    for v in LOOSE_VERSIONS:
+        var_name = 'LOOSE_VERSION_{0}'.format(v.replace('.', '_'))
+        globals()[var_name] = LooseVersion(v)
+
+    # Exact versions
+    EXACT_VERSIONS = LOOSE_VERSIONS[:-1]
+
+    for i, v in enumerate(EXACT_VERSIONS):
+        l_cur = globals()['LOOSE_VERSION_{0}' \
+                          ''.format(LOOSE_VERSIONS[i].replace('.', '_'))]
+        l_nxt = globals()['LOOSE_VERSION_{0}' \
+                          ''.format(LOOSE_VERSIONS[i + 1].replace('.', '_'))]
+        var_name = 'DJANGO_{0}'.format(v.replace('.', '_'))
+        globals()[var_name] = (l_cur <= LOOSE_DJANGO_VERSION < l_nxt)
+
+    # LTE list
+    LTE_VERSIONS = LOOSE_VERSIONS[:-1]
+
+    for i, v in enumerate(EXACT_VERSIONS):
+        l_cur = globals()['LOOSE_VERSION_{0}' \
+                          ''.format(LOOSE_VERSIONS[i].replace('.', '_'))]
+        var_name = 'DJANGO_LTE_{0}'.format(v.replace('.', '_'))
+        globals()[var_name] = (LOOSE_DJANGO_MINOR_VERSION <= l_cur)
+
+    # GTE list
+    GTE_VERSIONS = LOOSE_VERSIONS[:-1]
+
+    for i, v in enumerate(EXACT_VERSIONS):
+        l_cur = globals()['LOOSE_VERSION_{0}' \
+                          ''.format(LOOSE_VERSIONS[i].replace('.', '_'))]
+        var_name = 'DJANGO_GTE_{0}'.format(v.replace('.', '_'))
+        globals()[var_name] = (
+            LOOSE_DJANGO_MINOR_VERSION >= l_cur
+        )
+
+except Exception as err:
+    pass
+
+# ****************************************************
 try:
     readme = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
     readme = readme.replace('.. code-block:: none', '.. code-block::')
@@ -89,6 +146,10 @@ static_dirs = [
     "src/fobi/contrib/themes/bootstrap3/widgets/form_elements/"
     "date_bootstrap3_widget/static",
 
+    # Bootstrap3 slider widget
+    "src/fobi/contrib/themes/bootstrap3/widgets/form_elements/"
+    "slider_bootstrap3_widget/static",
+
     # Foundation5
     "src/fobi/contrib/themes/foundation5/static",
 
@@ -138,20 +199,78 @@ for locale_dir in locale_dirs:
                      for f
                      in os.listdir(locale_dir)]
 
-version = '0.8.4'
+version = '0.8.5'
 
-install_requires = [
-    'Pillow>=2.0.0',
-    'requests>=1.0.0',
-    'django-autoslug>=1.9.3',
-    'django-nonefield>=0.1',
-    'ordereddict>=1.1',
-    'six>=1.9',
-    'vishap>=0.1.3,<2.0',
-    'Unidecode>=0.04.1',
-    'django-nine>=0.1.9',
-    'django-formtools>=1.0',
-]
+install_requires = []
+# If certain version of Django is already installed, choose version agnostic
+# dependencies.
+if DJANGO_INSTALLED:
+    if DJANGO_1_5 or DJANGO_1_6 or DJANGO_1_7:
+        install_requires = [
+            'django-autoslug==1.7.1',
+            # 'django-formtools>=1.0',
+            'django-nine>=0.1.10',
+            'django-nonefield>=0.1',
+            'ordereddict>=1.1',
+            'Pillow>=2.0.0',
+            'requests>=1.0.0',
+            'six>=1.9',
+            'Unidecode>=0.04.1',
+            'vishap>=0.1.5,<2.0',
+        ]
+    elif DJANGO_1_8:
+        install_requires = [
+            'django-autoslug==1.7.1',
+            'django-formtools>=1.0',
+            'django-nine>=0.1.10',
+            'django-nonefield>=0.1',
+            'ordereddict>=1.1',
+            'Pillow>=2.0.0',
+            'requests>=1.0.0',
+            'six>=1.9',
+            'Unidecode>=0.04.1',
+            'vishap>=0.1.5,<2.0',
+        ]
+    elif DJANGO_1_9:
+        install_requires = [
+            'django-autoslug==1.9.3',
+            'django-formtools>=1.0',
+            'django-nine>=0.1.10',
+            'django-nonefield>=0.1',
+            'ordereddict>=1.1',
+            'Pillow>=2.0.0',
+            'requests>=1.0.0',
+            'six>=1.9',
+            'Unidecode>=0.04.1',
+            'vishap>=0.1.5,<2.0',
+        ]
+    elif DJANGO_1_10:
+        install_requires = [
+            'django-autoslug==1.9.3',
+            'django-formtools>=1.0',
+            'django-nine>=0.1.10',
+            'django-nonefield>=0.1',
+            'ordereddict>=1.1',
+            'Pillow>=2.0.0',
+            'requests>=1.0.0',
+            'six>=1.9',
+            'Unidecode>=0.04.1',
+            'vishap>=0.1.5,<2.0',
+        ]
+# Fall back to the latest dependencies
+if not install_requires:
+    install_requires = [
+        'django-autoslug>=1.9.3',
+        'django-formtools>=1.0',
+        'django-nine>=0.1.10',
+        'django-nonefield>=0.1',
+        'ordereddict>=1.1',
+        'Pillow>=2.0.0',
+        'requests>=1.0.0',
+        'six>=1.9',
+        'Unidecode>=0.04.1',
+        'vishap>=0.1.5,<2.0',
+    ]
 
 # There are also conditional PY3/PY2 requirements. Scroll down to see them.
 
@@ -165,7 +284,7 @@ try:
     PY3 = sys.version_info[0] == 3
     if PY3:
         install_requires.append('simplejson>=3.0.0')  # When using Python 3
-        install_requires.append('easy-thumbnails>=2.1')
+        install_requires.append('easy-thumbnails>=2.3')
     else:
         install_requires.append('simplejson>=2.1.0')  # When using Python 2.*
         install_requires.append('easy-thumbnails>=1.4')

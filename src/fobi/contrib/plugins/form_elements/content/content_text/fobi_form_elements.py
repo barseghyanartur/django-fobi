@@ -41,10 +41,7 @@ class ContentTextPlugin(FormElementPlugin):
             'label': '',
         }
 
-        form_field_instances = []
-
-        form_field_instances.append((self.data.name, NoneField, kwargs))
-        return form_field_instances
+        return [(self.data.name, NoneField, kwargs)]
 
 
 form_element_plugin_registry.register(ContentTextPlugin)

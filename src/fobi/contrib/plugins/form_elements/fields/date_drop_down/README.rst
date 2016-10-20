@@ -6,7 +6,7 @@ A ``Fobi`` Birthday form field plugin. Makes use of the
 ``django.forms.extras.widgets.SelectDateWidget``.
 
 Installation
-===============================================
+============
 1. Add ``fobi.contrib.plugins.form_elements.fields.date_drop_down`` to the
    ``INSTALLED_APPS`` in your ``settings.py``.
 

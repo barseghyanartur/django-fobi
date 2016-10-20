@@ -16,6 +16,7 @@ recursive-include src/fobi/contrib/themes/bootstrap3/static *
 recursive-include src/fobi/contrib/themes/bootstrap3/widgets/form_elements/datetime_bootstrap3_widget/static *
 recursive-include src/fobi/contrib/themes/bootstrap3/widgets/form_elements/date_bootstrap3_widget/static *
 recursive-include src/fobi/contrib/themes/bootstrap3/widgets/form_elements/dummy_bootstrap3_widget/static *
+recursive-include src/fobi/contrib/themes/bootstrap3/widgets/form_elements/slider_bootstrap3_widget/static *
 recursive-include src/fobi/contrib/themes/foundation5/static *
 recursive-include src/fobi/contrib/themes/foundation5/widgets/form_elements/datetime_foundation5_widget/static *
 recursive-include src/fobi/contrib/themes/foundation5/widgets/form_elements/date_foundation5_widget/static *

@@ -2,11 +2,11 @@
 
 Django>=1.10,<1.11
 django-admin-tools>=0.8.0
-django-autoslug==1.9.3
+#django-autoslug==1.9.3
 django-debug-toolbar==1.5
-django-formtools==1.0
-django-nine>=0.1.10
-django-nonefield==0.1
+#django-formtools==1.0
+#django-nine>=0.1.10
+#django-nonefield==0.1
 django-registration-redux>=1.4
-easy-thumbnails==2.3
-vishap>=0.1.5
+#easy-thumbnails==2.3
+#vishap>=0.1.5

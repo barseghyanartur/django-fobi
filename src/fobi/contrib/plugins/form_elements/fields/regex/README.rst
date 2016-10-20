@@ -1,11 +1,11 @@
-================================================
+===============================================
 fobi.contrib.plugins.form_elements.fields.regex
-================================================
+===============================================
 A ``Fobi`` Text form field plugin. Makes use of the
 ``django.forms.fields.RegexField`` and ``django.forms.widgets.TextInput``.
 
 Installation
-===============================================
+============
 1. Add ``fobi.contrib.plugins.form_elements.fields.regex`` to the
    ``INSTALLED_APPS`` in your ``settings.py``.
 

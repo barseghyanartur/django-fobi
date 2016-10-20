@@ -48,6 +48,8 @@ __all__ = (
     'FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS',
     'FAIL_ON_ERRORS_IN_FORM_WIZARD_HANDLER_PLUGINS',
 
+    'WIZARD_FILES_UPLOAD_DIR',
+
     'WAIT_BETWEEN_TEST_STEPS',
     'WAIT_AT_TEST_END',
 )
@@ -57,6 +59,7 @@ __all__ = (
 # *************************** Core *****************************
 # **************************************************************
 # **************************************************************
+
 RESTRICT_PLUGIN_ACCESS = get_setting('RESTRICT_PLUGIN_ACCESS')
 
 FORM_ELEMENT_PLUGINS_MODULE_NAME = \
@@ -88,6 +91,7 @@ DEBUG = get_setting('DEBUG')
 # ************************ Theme related ***********************
 # **************************************************************
 # **************************************************************
+
 CUSTOM_THEME_DATA = get_setting('CUSTOM_THEME_DATA')
 THEME_FOOTER_TEXT = get_setting('THEME_FOOTER_TEXT')
 
@@ -96,6 +100,7 @@ THEME_FOOTER_TEXT = get_setting('THEME_FOOTER_TEXT')
 # *********************** Plugin related ***********************
 # **************************************************************
 # **************************************************************
+
 DEFAULT_MAX_LENGTH = get_setting('DEFAULT_MAX_LENGTH')
 
 FORM_HANDLER_PLUGINS_EXECUTION_ORDER = \
@@ -121,6 +126,14 @@ FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS = \
 
 FAIL_ON_ERRORS_IN_FORM_WIZARD_HANDLER_PLUGINS = \
     get_setting('FAIL_ON_ERRORS_IN_FORM_WIZARD_HANDLER_PLUGINS')
+
+# **************************************************************
+# **************************************************************
+# ********************** Wizards related ***********************
+# **************************************************************
+# **************************************************************
+
+WIZARD_FILES_UPLOAD_DIR = get_setting('WIZARD_FILES_UPLOAD_DIR')
 
 # **************************************************************
 # **************************************************************

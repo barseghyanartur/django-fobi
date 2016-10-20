@@ -53,9 +53,9 @@ def view_saved_form_data_entries(
     :param string template_name:
     :return django.http.HttpResponse:
     """
-    entries = SavedFormDataEntry._default_manager \
-                                .filter(user__pk=request.user.pk) \
-                                .select_related('form_entry')
+    entries = SavedFormDataEntry._default_manager\
+        .select_related('form_entry') \
+        .filter(form_entry__user__pk=request.user.pk)
 
     if form_entry_id:
         entries = entries.filter(form_entry__id=form_entry_id)
@@ -92,8 +92,8 @@ def export_saved_form_data_entries(request, form_entry_id=None, theme=None):
     :return django.http.HttpResponse:
     """
     entries = SavedFormDataEntry._default_manager \
-                                .filter(user__pk=request.user.pk)
-    # entries = entries.select_related('form_entry')
+        .select_related('form_entry') \
+        .filter(form_entry__user__pk=request.user.pk)
 
     if form_entry_id:
         entries = entries.filter(form_entry__id=form_entry_id)
@@ -120,8 +120,8 @@ def view_saved_form_wizard_data_entries(
     :return django.http.HttpResponse:
     """
     entries = SavedFormWizardDataEntry._default_manager \
-                                      .filter(user__pk=request.user.pk) \
-                                      .select_related('form_wizard_entry')
+        .select_related('form_wizard_entry') \
+        .filter(form_wizard_entry__user__pk=request.user.pk)
 
     if form_wizard_entry_id:
         entries = entries.filter(form_wizard_entry__id=form_wizard_entry_id)
@@ -164,8 +164,8 @@ def export_saved_form_wizard_data_entries(request,
     :return django.http.HttpResponse:
     """
     entries = SavedFormWizardDataEntry._default_manager \
-                                      .filter(user__pk=request.user.pk)
-    # entries = entries.select_related('form_entry')
+        .select_related('form_wizard_entry') \
+        .filter(form_wizard_entry__user__pk=request.user.pk)
 
     if form_wizard_entry_id:
         entries = entries.filter(form_wizard_entry__id=form_wizard_entry_id)

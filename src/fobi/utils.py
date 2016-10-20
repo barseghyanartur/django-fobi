@@ -2,10 +2,12 @@
 Another helper module. This module can NOT be safely imported from any fobi
 (sub)module - thus should be imported carefully.
 """
+import os
 import logging
 
 from six import PY3
 
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.forms.widgets import TextInput
 from django.utils.encoding import force_text
@@ -33,7 +35,7 @@ from .models import (
     FormHandler,
     FormWizardHandler
 )
-from .settings import RESTRICT_PLUGIN_ACCESS, DEBUG
+from .settings import RESTRICT_PLUGIN_ACCESS, DEBUG, WIZARD_FILES_UPLOAD_DIR
 
 __title__ = 'fobi.utils'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -621,3 +623,25 @@ def update_plugin_data_for_entries(entries=None,
         update_plugin_data(entry, request=request)
 
     logger.debug(entries)
+
+
+# ****************************************************************************
+# ****************************************************************************
+# **************************** Form wizards specific *************************
+# ****************************************************************************
+# ****************************************************************************
+
+def get_wizard_files_upload_dir():
+    """Get absolute path to the upload directory of fobi form wizard files.
+
+    If `WIZARD_FILES_UPLOAD_DIR` path is absolute, return as is. Otherwise,
+    prepend `BASE_PATH`.
+
+    :return str: Absolute path.
+    """
+    if os.path.isabs(WIZARD_FILES_UPLOAD_DIR):
+        return WIZARD_FILES_UPLOAD_DIR
+    else:
+        return os.path.abspath(
+            os.path.join(settings.BASE_DIR, WIZARD_FILES_UPLOAD_DIR)
+        )

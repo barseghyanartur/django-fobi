@@ -15,8 +15,8 @@ in the `Account API <https://us5.admin.mailchimp.com/account/api/>`_.
 For additional information on MailChimp import see the following `article
 <http://kb.mailchimp.com/lists/managing-subscribers/manage-list-and-signup-form-fields>`_.
 
-Rerequiresites
-==============
+Prerequisites
+=============
 Python wrapper for the Mailchimp:
 
 .. code-block:: sh
@@ -44,7 +44,7 @@ your_project/settings.py
 How it works
 ============
 Assuming that you have configured the `mailchimp_importer` plugin properly and
-have the Django runnig locally on port 8000, accessing the following URL would
+have the Django running locally on port 8000, accessing the following URL would
 bring you to the MailChimp form import wizard.
 
 - http://localhost:8000/en/fobi/forms/importer/mailchimp/

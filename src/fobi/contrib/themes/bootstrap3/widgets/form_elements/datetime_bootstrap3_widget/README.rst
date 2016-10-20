@@ -5,7 +5,7 @@ A fancy datetime picker widget to the ``datetime`` plugin (for Bootstrap 3
 theme).
 
 Installation
-===============================================
+============
 1. Add ``fobi.contrib.themes.bootstrap3.widgets.form_elements.datetime_bootstrap3_widget`` 
    to the ``INSTALLED_APPS`` in your ``settings.py``.
 

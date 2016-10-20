@@ -56,11 +56,11 @@ Install `select_mptt_model_object` plugin
 
 5. By default, the submitted form value of `select_mptt_model_object` elements
    is `app_label.model_name.object_pk.object_repr`. However, that part of the
-   bahaviour has been made configurable. You can choose between the following
+   behaviour has been made configurable. You can choose between the following
    options:
 
    - "val": `app_label.model_name.object_pk.object_repr`.
-   - "repr": `object_repr` (uses the ``__unicode__`` nethod of the model).
+   - "repr": `object_repr` (uses the ``__unicode__`` method of the model).
    - "mix" (default): `app_label.model_name.object_pk.object_repr`.
 
    Simply set the ``FOBI_FORM_ELEMENT_SELECT_MPTT_MODEL_OBJECT_SUBMIT_VALUE_AS``

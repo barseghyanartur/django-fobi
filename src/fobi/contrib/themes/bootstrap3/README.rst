@@ -1,10 +1,10 @@
-===============================================
+==============================
 fobi.contrib.themes.bootstrap3
-===============================================
+==============================
 A ``django-fobi`` Bootstrap 3 theme. Based on the ??? template.
 
 Installation
-===============================================
+============
 1. Add ``fobi.contrib.themes.bootstrap3`` to the
    ``INSTALLED_APPS`` in your ``settings.py``.
 

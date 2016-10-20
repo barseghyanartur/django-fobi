@@ -5,7 +5,7 @@ A ``Fobi`` Email form field plugin. Makes use of the
 ``django.forms.fields.EmailField`` and ``django.forms.widgets.TextInput``.
 
 Installation
-===============================================
+============
 1. Add ``fobi.contrib.plugins.form_elements.fields.email`` to the
    ``INSTALLED_APPS`` in your ``settings.py``.
 

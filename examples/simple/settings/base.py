@@ -99,7 +99,7 @@ STATICFILES_DIRS = (
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # Make this unique, and don't share it with anybody.
@@ -138,7 +138,7 @@ elif DJANGO_GTE_1_8:
     TEMPLATES = [
         {
             'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            #'APP_DIRS': True,
+            # 'APP_DIRS': True,
             'DIRS': [PROJECT_DIR(os.path.join('..', 'templates')),],
             'OPTIONS': {
                 'context_processors': [
@@ -167,12 +167,14 @@ else:
     TEMPLATE_DEBUG = DEBUG
 
     # List of callables that know how to import templates from various sources.
-    TEMPLATE_LOADERS = (
+    TEMPLATE_LOADERS = [
         'django.template.loaders.filesystem.Loader',
         'django.template.loaders.app_directories.Loader',
         'django.template.loaders.eggs.Loader',
-        'admin_tools.template_loaders.Loader',
-    )
+
+    ]
+    if DJANGO_GTE_1_7:
+        TEMPLATE_LOADERS.append('admin_tools.template_loaders.Loader')
 
     TEMPLATE_CONTEXT_PROCESSORS = (
         "django.contrib.auth.context_processors.auth",
@@ -196,7 +198,7 @@ else:
 
 MIDDLEWARE_CLASSES = [
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'localeurl.middleware.LocaleURLMiddleware',
+    # 'localeurl.middleware.LocaleURLMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -205,17 +207,17 @@ MIDDLEWARE_CLASSES = [
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-if DJANGO_GTE_1_8:
-    MIDDLEWARE_CLASSES.remove('localeurl.middleware.LocaleURLMiddleware')
+# if DJANGO_GTE_1_8:
+#    MIDDLEWARE_CLASSES.remove('localeurl.middleware.LocaleURLMiddleware')
 
 ROOT_URLCONF = 'urls'
 
 # Python dotted path to the WSGI application used by Django's runserver.
 WSGI_APPLICATION = 'wsgi.application'
 
-#FIXTURE_DIRS = (
+# FIXTURE_DIRS = (
 #   PROJECT_DIR(os.path.join('..', 'fixtures'))
-#)
+# )
 
 INSTALLED_APPS = [
     # Admin dashboard
@@ -234,11 +236,11 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
 
     # Third party apps used in the project
-    #'south', # Database migration app
-    #'tinymce', # TinyMCE
-    'easy_thumbnails', # Thumbnailer
-    'registration', # Auth views and registration app
-    'localeurl', # Locale URL
+    # 'south',  # Database migration app
+    # 'tinymce',  # TinyMCE
+    'easy_thumbnails',  # Thumbnailer
+    'registration',  # Auth views and registration app
+    # 'localeurl',  # Locale URL
 
     # ***********************************************************************
     # ***********************************************************************
@@ -256,7 +258,7 @@ INSTALLED_APPS = [
     # ***********************************************************************
     # **************************** Form fields ******************************
     # ***********************************************************************
-    #'fobi.contrib.plugins.form_elements.fields.birthday',
+    # 'fobi.contrib.plugins.form_elements.fields.birthday',
     'fobi.contrib.plugins.form_elements.fields.boolean',
     'fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple',
     'fobi.contrib.plugins.form_elements.fields.date',
@@ -267,19 +269,21 @@ INSTALLED_APPS = [
     'fobi.contrib.plugins.form_elements.fields.file',
     'fobi.contrib.plugins.form_elements.fields.float',
     'fobi.contrib.plugins.form_elements.fields.hidden',
-    #'fobi.contrib.plugins.form_elements.fields.hidden_model_object',
+    # 'fobi.contrib.plugins.form_elements.fields.hidden_model_object',
     'fobi.contrib.plugins.form_elements.fields.input',
     'fobi.contrib.plugins.form_elements.fields.integer',
     'fobi.contrib.plugins.form_elements.fields.ip_address',
     'fobi.contrib.plugins.form_elements.fields.null_boolean',
     'fobi.contrib.plugins.form_elements.fields.password',
     'fobi.contrib.plugins.form_elements.fields.radio',
+    'fobi.contrib.plugins.form_elements.fields.range_select',
     'fobi.contrib.plugins.form_elements.fields.regex',
     'fobi.contrib.plugins.form_elements.fields.select',
     'fobi.contrib.plugins.form_elements.fields.select_model_object',
     'fobi.contrib.plugins.form_elements.fields.select_multiple',
     'fobi.contrib.plugins.form_elements.fields.select_multiple_with_max',
     'fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects',
+    'fobi.contrib.plugins.form_elements.fields.slider',
     'fobi.contrib.plugins.form_elements.fields.slug',
     'fobi.contrib.plugins.form_elements.fields.text',
     'fobi.contrib.plugins.form_elements.fields.textarea',
@@ -328,73 +332,76 @@ INSTALLED_APPS = [
     # ***********************************************************************
     # ************************ Bootstrap 3 theme ****************************
     # ***********************************************************************
-    'fobi.contrib.themes.bootstrap3', # Bootstrap 3 theme
+    'fobi.contrib.themes.bootstrap3',  # Bootstrap 3 theme
     # DateTime widget
     'fobi.contrib.themes.bootstrap3.widgets.form_elements.datetime_bootstrap3_widget',
     'fobi.contrib.themes.bootstrap3.widgets.form_elements.date_bootstrap3_widget',
 
+    # SliderPercentage widget
+    'fobi.contrib.themes.bootstrap3.widgets.form_elements.slider_bootstrap3_widget',
+
     # ***********************************************************************
     # ************************ Foundation 5 theme ***************************
     # ***********************************************************************
-    'fobi.contrib.themes.foundation5', # Foundation 5 theme
+    'fobi.contrib.themes.foundation5',  # Foundation 5 theme
     'fobi.contrib.themes.foundation5.widgets.form_handlers.db_store_foundation5_widget',
 
     # ***********************************************************************
     # **************************** Simple theme *****************************
     # ***********************************************************************
-    'fobi.contrib.themes.simple', # Simple theme
+    'fobi.contrib.themes.simple',  # Simple theme
 
     # ***********************************************************************
     # ***********************************************************************
     # ************************* Fobi form importers *************************
     # ***********************************************************************
     # ***********************************************************************
-    #'fobi.contrib.plugins.form_importers.mailchimp_importer',
+    # 'fobi.contrib.plugins.form_importers.mailchimp_importer',
 
     # ***********************************************************************
     # ***********************************************************************
     # ***********************************************************************
 
     # Other project specific apps
-    'foo', # Test app
+    'foo',  # Test app
 ]
 
 if DJANGO_LTE_1_7:
     INSTALLED_APPS.append('south')
 
-if DJANGO_GTE_1_8:
-    INSTALLED_APPS.remove('localeurl')
+# if DJANGO_GTE_1_8:
+#     INSTALLED_APPS.remove('localeurl')
 
-LOGIN_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/fobi/' # Important for passing the selenium tests
+# LOGIN_URL = '/accounts/login/'
+# LOGIN_REDIRECT_URL = '/fobi/' # Important for passing the selenium tests
 
-if DJANGO_GTE_1_8:
-    LOGIN_URL = '/en/accounts/login/'
-    LOGIN_REDIRECT_URL = '/en/fobi/'  # Important for passing the selenium tests
+# if DJANGO_GTE_1_8:
+LOGIN_URL = '/en/accounts/login/'
+LOGIN_REDIRECT_URL = '/en/fobi/'  # Important for passing the selenium tests
 
 #LOGIN_URL = '/accounts/login/'
 #LOGIN_ERROR_URL = '/accounts/login/'
 #LOGOUT_URL = '/accounts/logout/'
 
-if not DJANGO_GTE_1_8:
-    # Tell localeurl to use sessions for language store.
-    LOCALEURL_USE_SESSION = True
-
-    # localeurl locale independent paths (language code won't be appended)
-    LOCALE_INDEPENDENT_PATHS = (
-        r'^/sitemap.*\.xml$', # Global regex for all XML sitemaps
-        r'^/admin/',
-        #r'^/dashboard/',
-    )
+# if not DJANGO_GTE_1_8:
+#     # Tell localeurl to use sessions for language store.
+#     LOCALEURL_USE_SESSION = True
+#
+#     # localeurl locale independent paths (language code won't be appended)
+#     LOCALE_INDEPENDENT_PATHS = (
+#         r'^/sitemap.*\.xml$', # Global regex for all XML sitemaps
+#         r'^/admin/',
+#         #r'^/dashboard/',
+#     )
 
 PACKAGE_NAME_FILEBROWSER = "filebrowser_safe" # Just for tests
 PACKAGE_NAME_GRAPPELLI = "grappelli_safe" # Just for tests
 
-#MIGRATION_MODULES = {
-#    'fobi': 'migrations',
-#    'db_store': 'fobi.contrib.plugins.form_handlers.db_store.migrations'
-#}
-#SOUTH_MIGRATION_MODULES = 'south_migrations'
+MIGRATION_MODULES = {
+   'fobi': 'migrations',
+   'db_store': 'fobi.contrib.plugins.form_handlers.db_store.migrations'
+}
+SOUTH_MIGRATION_MODULES = 'south_migrations'
 
 # **************************************************************
 # ************************ Fobi settings ***********************

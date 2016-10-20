@@ -50,6 +50,8 @@ Install `fobi` ReCAPTCHA plugin
 
 Troubleshooting and usage limitations
 =====================================
+In combination with other captcha solutions
+-------------------------------------------
 At the moment, you can't use both ``CAPTCHA``
 (fobi.contrib.plugins.form_elements.security.captcha) and ``ReCAPTCHA``
 (fobi.contrib.plugins.form_elements.security.recaptcha) plugins alongside due
@@ -63,6 +65,12 @@ invalid", make sure to have defined (and filled in properly) the
 ``RECAPTCHA_PUBLIC_KEY`` and ``RECAPTCHA_PRIVATE_KEY`` in your settnings.py.
 See the `following <https://github.com/praekelt/django-recaptcha/issues/32>`_
 thread for more information.
+
+In form wizards
+---------------
+At the moment, captcha fields do not work in form wizards, as they are
+invalidated on the last step, which breaks the cycle. Therefore, it's not
+recommended to use captcha plugins in form wizards.
 
 Usage
 =====

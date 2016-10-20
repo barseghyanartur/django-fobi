@@ -56,6 +56,8 @@ Install `fobi` Captcha plugin
 
 Troubleshooting and usage limitations
 =====================================
+In combination with other captcha solutions
+-------------------------------------------
 At the moment, you can't use both ``CAPTCHA``
 (fobi.contrib.plugins.form_elements.security.captcha) and ``ReCAPTCHA``
 (fobi.contrib.plugins.form_elements.security.recaptcha) plugins alongside due
@@ -63,6 +65,12 @@ to app name collision of the ``django-simple-captcha`` and ``django-recaptcha``
 packages. That limitation is likely to be solved in future in the
 ``django-recaptcha`` package. Until then, you should choose either one or
 another, but not both on the same time.
+
+In form wizards
+---------------
+At the moment, captcha fields do not work in form wizards, as they are
+invalidated on the last step, which breaks the cycle. Therefore, it's not
+recommended to use captcha plugins in form wizards.
 
 Usage
 =====

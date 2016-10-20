@@ -5,7 +5,7 @@ A ``db_store`` form handler plugin widget for Simple theme.
 was used.
 
 Installation
-===============================================
+============
 1. Add ``fobi.contrib.themes.simple.widgets.form_handlers.db_store`` to
    the ``INSTALLED_APPS`` in your ``settings.py``.
 

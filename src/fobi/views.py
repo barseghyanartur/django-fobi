@@ -12,6 +12,7 @@ from django.db import models, IntegrityError
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import ObjectDoesNotExist
+from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import redirect
@@ -74,7 +75,8 @@ from .utils import (
     get_user_form_handler_plugins,
     get_user_form_wizard_handler_plugins,
     get_user_form_handler_plugin_uids,
-    get_user_form_wizard_handler_plugin_uids
+    get_user_form_wizard_handler_plugin_uids,
+    get_wizard_files_upload_dir
 )
 from .wizard import DynamicSessionWizardView, DynamicCookieWizardView
 
@@ -1381,6 +1383,10 @@ def delete_form_wizard_entry(request, form_wizard_entry_id,
 
 class FormWizardView(DynamicSessionWizardView):
     """Dynamic form wizard."""
+
+    file_storage = FileSystemStorage(
+        location=get_wizard_files_upload_dir()
+    )
 
     def get_context_data(self, form, **kwargs):
         """Get context data."""

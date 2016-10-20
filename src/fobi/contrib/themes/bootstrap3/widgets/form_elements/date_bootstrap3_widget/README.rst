@@ -1,11 +1,11 @@
-===============================================================================
+===========================================================================
 fobi.contrib.themes.bootstrap3.widgets.form_elements.date_bootstrap3_widget
-===============================================================================
+===========================================================================
 A fancy date picker widget to the ``date`` plugin (for Bootstrap 3
 theme).
 
 Installation
-===============================================
+============
 1. Add ``fobi.contrib.themes.bootstrap3.widgets.form_elements.date_bootstrap3_widget`` 
    to the ``INSTALLED_APPS`` in your ``settings.py``.
 

@@ -1,27 +1,29 @@
-===============================================
+=====================================
 fobi.contrib.apps.feincms_integration
-===============================================
+=====================================
 A ``django-fobi`` integration with FeinCMS.
 
 Installation
-===============================================
+============
 Versions
 -----------------------------------------------
-See the `requirements file <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements_feincms.txt>`_.
+See the `requirements file
+<https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements_feincms.txt>`_.
 
 your_project/settings.py
 -----------------------------------------------
-See the `example settings file <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/settings_bootstrap3_theme_feincms.py>`_.
+See the `example settings file
+<https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/settings_bootstrap3_theme_feincms.py>`_.
 
 .. code-block:: python
 
     INSTALLED_APPS = list(INSTALLED_APPS)
     INSTALLED_APPS += [
-        'feincms', # FeinCMS
+        'feincms',  # FeinCMS
 
-        'fobi.contrib.apps.feincms_integration', # Fobi FeinCMS app
+        'fobi.contrib.apps.feincms_integration',  # Fobi FeinCMS app
 
-        'page', # Example
+        'page',  # Example
     ]
 
     FEINCMS_RICHTEXT_INIT_CONTEXT = {
@@ -29,7 +31,7 @@ See the `example settings file <https://github.com/barseghyanartur/django-fobi/b
     }
 
 your_project/page/models.py
------------------------------------------------
+---------------------------
 .. code-block:: python
 
     from django.utils.translation import ugettext_lazy as _
@@ -63,7 +65,7 @@ your_project/page/models.py
     Page.create_content_type(FobiFormWidget)
 
 your_project/admin.py
------------------------------------------------
+---------------------
 .. code-block:: python
 
     from django.contrib import admin
@@ -75,15 +77,14 @@ your_project/admin.py
     admin.site.register(Page, PageAdmin)
 
 Information for developers
-===============================================
+==========================
 Template rendering
------------------------------------------------
+------------------
 The embed FeinCMS widget is rendered with use of two theme templates:
 
 - ``view_embed_form_entry_ajax_template``: Used for rendering the form.
 - ``embed_form_entry_submitted_ajax_template``: Used for rendering the form
   sent event.
-
 
 Using custom templates for rendering the widget
 -----------------------------------------------
@@ -147,7 +148,7 @@ example below.
     }
 
 Usage
-===============================================
+=====
 The ``fobi.contrib.apps.feincms_integration.widgets.FobiFormWidget`` consists
 of the following fields:
 

@@ -1,60 +1,70 @@
-===============================================
+=======================================
 fobi.contrib.apps.djangocms_integration
-===============================================
+=======================================
 A ``django-fobi`` integration with DjangoCMS.
 
 Prerequisites
-===============================================
-Has been tested with DjangoCMS 2.4.3 and 3.0.6 only. Might work on earlier versions as well.
+=============
+Has been tested with DjangoCMS 2.4.3 and 3.0.6 only. Might work on earlier
+versions as well.
 
 Installation
-===============================================
+============
 Versions
 -----------------------------------------------
 See the requirements files:
 
-- `DjangoCMS 2.4.3 requirements <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements_djangocms_2.txt>`_.
-- `DjangoCMS 3.0.6 requirements <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements_djangocms.txt>`_.
+- `DjangoCMS 2.4.3 requirements
+  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements_djangocms_2.txt>`_.
+- `DjangoCMS 3.0.6 requirements
+  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements_djangocms.txt>`_.
 
 your_project/settings.py
------------------------------------------------
+------------------------
 See the example settings files:
 
-- `DjangoCMS 2.4.3 settings <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/settings_bootstrap3_theme_djangocms_2.py>`_.
-- `DjangoCMS 3.0.6 settings <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/settings_bootstrap3_theme_djangocms.py>`_.
+- `DjangoCMS 2.4.3 settings
+  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/settings_bootstrap3_theme_djangocms_2.py>`_.
+- `DjangoCMS 3.0.6 settings
+  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/settings_bootstrap3_theme_djangocms.py>`_.
 
 .. code-block:: python
 
     INSTALLED_APPS = list(INSTALLED_APPS)
     INSTALLED_APPS += [
-        'cms', # FeinCMS
+        'cms',  # FeinCMS
 
-        'fobi.contrib.apps.djangocms_integration', # Fobi DjangoCMS app
+        'fobi.contrib.apps.djangocms_integration',  # Fobi DjangoCMS app
     ]
 
 Information for developers
-===============================================
+==========================
 Templates for DjangoCMS
------------------------------------------------
+-----------------------
 Django-CMS templates are quite specific and in some aspects are not 100%
 compatible with built-in themes (due to the fact that DjangoCMS intensively 
 makes use of ``django-sekizai`` which isn't used in the generic templates).
 
 That does not anyhow affect the core ``fobi`` and the built-in themes,
 although you can't magically reuse built-in ``fobi`` themes with Django-CMS
-(as it's done for `FeinCMS page templates <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/templates/page/base.html>`_).
+(as it's done for `FeinCMS page templates
+<https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/templates/page/base.html>`_).
 
 You would have to make custom page templates from scratch (or based on a
 copy of the desired bundled template). See how I did it for all bundled themes
-`here <https://github.com/barseghyanartur/django-fobi/tree/stable/examples/simple/templates/cms_page>`_:
+`here
+<https://github.com/barseghyanartur/django-fobi/tree/stable/examples/simple/templates/cms_page>`_:
 
-- `Bootstrap 3 <https://github.com/barseghyanartur/django-fobi/tree/stable/examples/simple/templates/cms_page/bootstrap3>`_
-- `Foundation 5 <https://github.com/barseghyanartur/django-fobi/tree/stable/examples/simple/templates/cms_page/foundation5>`_
-- `Simple <https://github.com/barseghyanartur/django-fobi/tree/stable/examples/simple/templates/cms_page/simple>`_
+- `Bootstrap 3
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/examples/simple/templates/cms_page/bootstrap3>`_
+- `Foundation 5
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/examples/simple/templates/cms_page/foundation5>`_
+- `Simple
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/examples/simple/templates/cms_page/simple>`_
 
 Template rendering
------------------------------------------------
-The embed DjagnoCMS widget is rendered with use of two theme templates:
+------------------
+The embed DjangoCMS widget is rendered with use of two theme templates:
 
 - ``view_embed_form_entry_ajax_template``: Used for rendering the form.
 - ``embed_form_entry_submitted_ajax_template``: Used for rendering the form
@@ -122,7 +132,7 @@ example below.
     }
 
 Usage
-===============================================
+=====
 The ``fobi.contrib.apps.djangocms_integration.models.FobiFormWidget`` consists
 of the following fields:
 
