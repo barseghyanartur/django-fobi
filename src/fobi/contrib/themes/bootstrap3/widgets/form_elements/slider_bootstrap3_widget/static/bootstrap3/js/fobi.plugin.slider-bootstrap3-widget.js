@@ -8,6 +8,13 @@
 ;
 
 $(document).ready(function() {
-    $('.slider').bootstrapSlider();
-    $('.slider-no-background').bootstrapSlider();
+    var selectElement = $('select.slider');
+    var selectedValue = null;
+    try {
+        selectedValue = parseInt(selectElement.val());
+    } catch(err) {
+        selectedValue = parseInt(selectElement.data('data-slider-value'));
+    }
+    var sliderElement = $('.slider').bootstrapSlider();
+    sliderElement.bootstrapSlider('setValue', selectedValue);
 });

@@ -3,7 +3,7 @@ from django.forms.widgets import Select
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
-from fobi.helpers import get_select_field_choices
+# from fobi.helpers import get_select_field_choices
 
 from . import UID
 from .constants import SLIDER_DEFAULT_TOOLTIP, SLIDER_DEFAULT_HANDLE
@@ -62,6 +62,7 @@ class SliderInputPlugin(FormFieldPlugin):
             'data-slider-min': min_value,
             'data-slider-max': max_value,
             'data-slider-step': step,
+            'data-slider-value': initial,
             'data-slider-tooltip': tooltip,
             'data-slider-handle': handle,
         }
@@ -86,24 +87,6 @@ class SliderInputPlugin(FormFieldPlugin):
                         tick_label_start, tick_label_end
                     ),
                 })
-
-        # I hate to do so, but it seems like a dirty workaround that works.
-        if 'POST' == request.method:
-            try:
-                value = int(request.POST.get(self.data.name, initial))
-            except (ValueError, TypeError) as err:
-                value = initial
-
-            if value < min_value or value > max_value:
-                value = initial
-
-            widget_attrs.update({
-                'data-slider-value': value,
-            })
-        else:
-            widget_attrs.update({
-                'data-slider-value': initial,
-            })
 
         kwargs = {
             'label': self.data.label,
