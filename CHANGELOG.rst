@@ -19,7 +19,7 @@ are used for versioning (schema follows below):
 -----
 2016-10-20
 
-- Add `percentage` and `slider_percentage` form field plugins.
+- Add `range_select` and `slider` form field plugins.
 - Fixed custom CSS classes not appearing in the rendered HTML of the field
   plugin/widget.
 - Fixed issue with undefined file storage for form wizards. From now on
