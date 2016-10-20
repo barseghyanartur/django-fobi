@@ -37,7 +37,6 @@ Regarding the form wizards
 - Rethink the new navigation of forms and form wizards.
 - Add support for form wizard conditions.
 - Fixed broken dependencies for docs.
-- Fixed non-collected media in the form wizard.
 
 Roadmap
 -------

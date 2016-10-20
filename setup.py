@@ -4,7 +4,9 @@ import sys
 from distutils.version import LooseVersion
 from setuptools import setup, find_packages
 
-# ****************************************************
+# ***************************************************************************
+# ************************** Django version *********************************
+# ***************************************************************************
 DJANGO_INSTALLED = False
 try:
     import django
@@ -59,7 +61,10 @@ try:
 except Exception as err:
     pass
 
-# ****************************************************
+# ***************************************************************************
+# ***************************************************************************
+# ***************************************************************************
+
 try:
     readme = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
     readme = readme.replace('.. code-block:: none', '.. code-block::')
@@ -199,7 +204,7 @@ for locale_dir in locale_dirs:
                      for f
                      in os.listdir(locale_dir)]
 
-version = '0.8.6'
+version = '0.8.7'
 
 install_requires = []
 # If certain version of Django is already installed, choose version agnostic

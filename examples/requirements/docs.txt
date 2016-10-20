@@ -2,18 +2,18 @@
 
 Django==1.10.1
 django-fobi
-Jinja2
-MarkupSafe
-MySQL-python
-mailchimp
-Sphinx
+#Jinja2
+#MarkupSafe
+#MySQL-python
+#mailchimp
+#Sphinx
 django-admin-tools>=0.8.0
 django-debug-toolbar>=1.5
 django-registration-redux>=1.4
-docutils
-ipdb
-ipython
-ordereddict>=1.1
+#docutils
+#ipdb
+#ipython
+#ordereddict>=1.1
 # Selenium shall always be upgraded
-selenium
+#selenium
 tox

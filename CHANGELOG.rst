@@ -15,6 +15,12 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.8.7
+-----
+2016-10-21
+
+- Fixed issue of plugin media not being collected in the form wizard.
+
 0.8.6
 -----
 2016-10-21

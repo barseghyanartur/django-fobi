@@ -1396,7 +1396,8 @@ class FormWizardView(DynamicSessionWizardView):
 
         context_data.update({
             'form_wizard_entry': self.form_wizard_entry,
-            'form_wizard_mode': True
+            'form_wizard_mode': True,
+            'fobi_theme': self.fobi_theme,
         })
 
         return context_data
@@ -1444,12 +1445,15 @@ class FormWizardView(DynamicSessionWizardView):
             )
 
         theme = get_theme(request=request, as_instance=True)
+        theme.collect_plugin_media(wizard_form_element_entries)
+
         return {
             'form_list': form_list,
             'template_name': theme.view_form_wizard_entry_template,
             'form_wizard_entry': form_wizard_entry,
             'wizard_form_element_entries': wizard_form_element_entries,
             'form_entry_mapping': form_entry_mapping,
+            'fobi_theme': theme,
         }
 
     def render_done(self, form, **kwargs):
