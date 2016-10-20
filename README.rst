@@ -89,7 +89,6 @@ Roadmap
 =======
 Some of the upcoming/in-development features/improvements are:
 
-- Form-wizards (in version 0.8).
 - Integration with `django-rest-framework` (in version 0.9).
 
 See the `TODOS <https://raw.githubusercontent.com/barseghyanartur/django-fobi/master/TODOS.rst>`_
