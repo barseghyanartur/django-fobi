@@ -16,4 +16,4 @@ django-registration-redux>=1.4
 #ordereddict>=1.1
 # Selenium shall always be upgraded
 #selenium
-tox
+#tox
