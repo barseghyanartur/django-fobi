@@ -40,8 +40,10 @@ fobi/fobi.migrations.rst
 /examples/media/fobi_plugins/content_image/
 /examples/media/fobi_plugins/file/
 /examples/media/cache/
+/examples/simple/lund/
 /examples/simple/settings/local_settings.py
 /examples/simple/settings/local_settings_foundation5.py
+/examples/simple/settings/lund.py
 /examples/quickstart/local_settings.py
 /examples/quick_start/db.sqlite3
 /examples/quickstart/
