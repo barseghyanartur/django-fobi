@@ -521,6 +521,8 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
 
     # In debug mode, try to identify possible problems.
     if DEBUG:
+        assembled_form.as_p()
+    else:
         try:
             assembled_form.as_p()
         except Exception as err:
@@ -2082,6 +2084,8 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
 
     # In debug mode, try to identify possible problems.
     if DEBUG:
+        form.as_p()
+    else:
         try:
             form.as_p()
         except Exception as err:

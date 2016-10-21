@@ -1378,14 +1378,16 @@ class FormElementPlugin(BasePlugin):
         # Get form field instances (as defined by ``get_form_field_instances``
         # methods in plugins). In DEBUG mode raise an exception if something
         # goes wrong. Otherwise - skip the element.
-        try:
+        if DEBUG:
             form_field_instances = self.get_form_field_instances(
                 request=request
             )
-        except AttributeError as e:
-            if DEBUG:
-                raise e
-            else:
+        else:
+            try:
+                form_field_instances = self.get_form_field_instances(
+                    request=request
+                )
+            except AttributeError as e:
                 return []
 
         processed_field_instances = []

@@ -3,7 +3,18 @@ from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import BaseFormFieldPluginForm, get_theme
 
-from . import constants
+from .constants import (
+    SLIDER_DEFAULT_TOOLTIP,
+    SLIDER_DEFAULT_HANDLE,
+    SLIDER_DEFAULT_SHOW_ENDPOINTS_AS,
+    SLIDER_TOOLTIP_CHOICES,
+    SLIDER_HANDLE_CHOICES,
+    SLIDER_SHOW_ENDPOINTS_AS_CHOICES,
+    SLIDER_HANDLE_TRIANGLE,
+    SLIDER_HANDLE_CUSTOM,
+    SLIDER_SHOW_ENDPOINTS_AS_LABELED_TICKS,
+    SLIDER_SHOW_ENDPOINTS_AS_TICKS
+)
 
 from .settings import INITIAL, MAX_VALUE, MIN_VALUE, STEP
 
@@ -25,12 +36,12 @@ class SliderInputForm(forms.Form, BaseFormFieldPluginForm):
         ("min_value", MIN_VALUE),
         ("max_value", MAX_VALUE),
         ("step", STEP),
-        ("tooltip", constants.SLIDER_DEFAULT_TOOLTIP),
-        ("handle", constants.SLIDER_DEFAULT_HANDLE),
+        ("tooltip", SLIDER_DEFAULT_TOOLTIP),
+        ("handle", SLIDER_DEFAULT_HANDLE),
         # ("disable_slider_background", False),
-        ("enable_ticks", False),
-        ("tick_label_start", ""),
-        ("tick_label_end", ""),
+        ("show_endpoints_as", SLIDER_DEFAULT_SHOW_ENDPOINTS_AS),
+        ("label_start", ""),
+        ("label_end", ""),
         # ("custom_ticks", ""),
         ("help_text", ""),
         ("initial", INITIAL),
@@ -81,7 +92,7 @@ class SliderInputForm(forms.Form, BaseFormFieldPluginForm):
     )
     tooltip = forms.ChoiceField(
         label=_("Tooltip"),
-        choices=constants.SLIDER_TOOLTIP_CHOICES,
+        choices=SLIDER_TOOLTIP_CHOICES,
         required=False,
         widget=forms.widgets.Select(
             attrs={'class': theme.form_element_html_class}
@@ -89,7 +100,7 @@ class SliderInputForm(forms.Form, BaseFormFieldPluginForm):
     )
     handle = forms.ChoiceField(
         label=_("Handle"),
-        choices=constants.SLIDER_HANDLE_CHOICES,
+        choices=SLIDER_HANDLE_CHOICES,
         required=False,
         widget=forms.widgets.Select(
             attrs={'class': theme.form_element_html_class}
@@ -102,23 +113,25 @@ class SliderInputForm(forms.Form, BaseFormFieldPluginForm):
     #         attrs={'class': theme.form_element_checkbox_html_class}
     #     )
     # )
-    enable_ticks = forms.BooleanField(
-        label=_("Enable ticks"),
-        help_text=_("Adds ticks (endpoints) at start/end"),
+    show_endpoints_as = forms.ChoiceField(
+        label=_("Show endpoints as"),
+        choices=SLIDER_SHOW_ENDPOINTS_AS_CHOICES,
         required=False,
-        widget=forms.widgets.CheckboxInput(
-            attrs={'class': theme.form_element_checkbox_html_class}
+        widget=forms.widgets.Select(
+            attrs={'class': theme.form_element_html_class}
         )
     )
-    tick_label_start = forms.CharField(
-        label=_("Tick start label"),
+    label_start = forms.CharField(
+        label=_("Start label"),
+        help_text=_("Start endpoint label"),
         required=False,
         widget=forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
         )
     )
-    tick_label_end = forms.CharField(
-        label=_("Tick end label"),
+    label_end = forms.CharField(
+        label=_("End label"),
+        help_text=_("End endpoint label"),
         required=False,
         widget=forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
@@ -178,7 +191,7 @@ class SliderInputForm(forms.Form, BaseFormFieldPluginForm):
         min_value = self.cleaned_data['min_value']
         initial = self.cleaned_data['initial']
         step = self.cleaned_data['step']
-        enable_ticks = self.cleaned_data['enable_ticks']
+        show_endpoints_as = self.cleaned_data['show_endpoints_as']
         handle = self.cleaned_data['handle']
 
         if max_value < min_value:
@@ -205,8 +218,12 @@ class SliderInputForm(forms.Form, BaseFormFieldPluginForm):
                 _("`initial` should be >= than `min_value`.")
             )
 
-        if handle in (constants.SLIDER_HANDLE_TRIANGLE,
-                      constants.SLIDER_HANDLE_CUSTOM) and enable_ticks:
+        label_handles = (SLIDER_HANDLE_TRIANGLE, SLIDER_HANDLE_CUSTOM)
+        tick_endpoints = (
+            SLIDER_SHOW_ENDPOINTS_AS_LABELED_TICKS,
+            SLIDER_SHOW_ENDPOINTS_AS_TICKS
+        )
+        if handle in label_handles and show_endpoints_as in tick_endpoints:
             self.add_error(
                 'handle',
                 _("You are not allowed to use Triangle or Custom handles "

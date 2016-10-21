@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.8.9
+-----
+2016-10-22
+
+- Simplified debugging (never set `FOBI_DEBUG` to True in production!).
+- Major `slider` plugin improvements.
+
 0.8.8
 -----
 2016-10-21

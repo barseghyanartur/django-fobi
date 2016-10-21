@@ -204,7 +204,7 @@ for locale_dir in locale_dirs:
                      for f
                      in os.listdir(locale_dir)]
 
-version = '0.8.8'
+version = '0.8.9'
 
 install_requires = []
 # If certain version of Django is already installed, choose version agnostic
