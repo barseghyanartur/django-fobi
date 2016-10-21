@@ -1,4 +1,5 @@
 from django.forms.fields import ChoiceField
+from django.forms.utils import flatatt
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
@@ -117,14 +118,24 @@ class SliderInputPlugin(FormFieldPlugin):
         else:
 
             if self.data.label_start:
-                prepend_html_list.append(format_html(" "))
+                prepend_html_list.append(
+                    format_html(
+                        " <span {}>",
+                        flatatt({'class': "slider-endpoint-label-start"})
+                    )
+                )
                 prepend_html_list.append(format_html(self.data.label_start))
-                prepend_html_list.append(format_html(" "))
+                prepend_html_list.append(format_html(" </span>"))
 
             if self.data.label_end:
-                append_html_list.append(format_html(" "))
+                append_html_list.append(
+                    format_html(
+                        " <span {}>",
+                        flatatt({'class': "slider-endpoint-label-end"})
+                    )
+                )
                 append_html_list.append(format_html(self.data.label_end))
-                append_html_list.append(format_html(" "))
+                append_html_list.append(format_html(" </span>"))
 
         widget_kwargs = {'attrs': widget_attrs}
 

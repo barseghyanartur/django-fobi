@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.8.10
+------
+2016-10-22
+
+- Minor CSS improvements of the `slider` plugin.
+- Fixed broken readthedocs requirements.
+
 0.8.9
 -----
 2016-10-22
