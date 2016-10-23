@@ -26,7 +26,8 @@ class DateDropDownInputPlugin(FormFieldPlugin):
     group = _("Fields")
     form = DateDropDownInputForm
 
-    def get_form_field_instances(self, request=None):
+    def get_form_field_instances(self, request=None, form_entry=None,
+                                 form_element_entries=None, **kwargs):
         """Get form field instances."""
         widget_attrs = {
             'class': theme.form_element_html_class,
@@ -37,7 +38,7 @@ class DateDropDownInputPlugin(FormFieldPlugin):
         if self.data.year_min and self.data.year_max:
             years = range(self.data.year_min, self.data.year_max)
 
-        kwargs = {
+        field_kwargs = {
             'label': self.data.label,
             'help_text': self.data.help_text,
             'initial': self.data.initial,
@@ -48,7 +49,7 @@ class DateDropDownInputPlugin(FormFieldPlugin):
         # if self.data.input_formats:
         #     kwargs['input_formats'] = self.data.input_formats
 
-        return [(self.data.name, DateField, kwargs)]
+        return [(self.data.name, DateField, field_kwargs)]
 
 
 form_element_plugin_registry.register(DateDropDownInputPlugin)

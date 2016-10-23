@@ -27,9 +27,10 @@ class FileInputPlugin(FormFieldPlugin):
     group = _("Fields")
     form = FileInputForm
 
-    def get_form_field_instances(self, request=None):
+    def get_form_field_instances(self, request=None, form_entry=None,
+                                 form_element_entries=None, **kwargs):
         """Get form field instances."""
-        kwargs = {
+        field_kwargs = {
             'label': self.data.label,
             'help_text': self.data.help_text,
             'initial': self.data.initial,
@@ -37,9 +38,9 @@ class FileInputPlugin(FormFieldPlugin):
             'widget': ClearableFileInput(attrs={}),
         }
         if self.data.max_length:
-            kwargs['max_length'] = self.data.max_length
+            field_kwargs['max_length'] = self.data.max_length
 
-        return [(self.data.name, FileField, kwargs)]
+        return [(self.data.name, FileField, field_kwargs)]
 
     def submit_plugin_form_data(self, form_entry, request, form):
         """Submit plugin form data/process file upload.

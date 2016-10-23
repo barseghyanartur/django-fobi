@@ -33,15 +33,16 @@ class ContentTextPlugin(FormElementPlugin):
         """
         self.data.name = "{0}_{1}".format(self.uid, uuid4())
 
-    def get_form_field_instances(self, request=None):
+    def get_form_field_instances(self, request=None, form_entry=None,
+                                 form_element_entries=None, **kwargs):
         """Get form field instances."""
-        kwargs = {
+        field_kwargs = {
             'initial': "<p>{0}</p>".format(smart_str(self.data.text)),
             'required': False,
             'label': '',
         }
 
-        return [(self.data.name, NoneField, kwargs)]
+        return [(self.data.name, NoneField, field_kwargs)]
 
 
 form_element_plugin_registry.register(ContentTextPlugin)

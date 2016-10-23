@@ -28,10 +28,11 @@ class HoneypotInputPlugin(FormElementPlugin):
     form = HoneypotInputForm
     is_hidden = True
 
-    def get_form_field_instances(self, request=None):
+    def get_form_field_instances(self, request=None, form_entry=None,
+                                 form_element_entries=None, **kwargs):
         """Get form field instances."""
 
-        kwargs = {
+        field_kwargs = {
             'label': self.data.label,
             'initial': self.data.initial,
             # 'help_text': self.data.help_text,
@@ -42,10 +43,10 @@ class HoneypotInputPlugin(FormElementPlugin):
         }
 
         if self.data.max_length:
-            kwargs['max_length'] = self.data.max_length
+            field_kwargs['max_length'] = self.data.max_length
 
         # return [(self.data.name, (HoneypotField, TextInput), kwargs)]
-        return [(self.data.name, HoneypotField, kwargs)]
+        return [(self.data.name, HoneypotField, field_kwargs)]
 
 
 form_element_plugin_registry.register(HoneypotInputPlugin)

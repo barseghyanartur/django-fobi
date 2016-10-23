@@ -55,6 +55,9 @@ __all__ = (
     'get_model_name_for_object',
     'get_registered_models',
     'get_select_field_choices',
+    'get_wizard_form_field_value_from_post',
+    'get_wizard_form_field_value_from_request',
+    'get_wizard_form_field_value_from_session',
     'handle_uploaded_file',
     'iterable_to_dict',
     'JSONDataExporter',
@@ -72,6 +75,8 @@ __all__ = (
 )
 
 logger = logging.getLogger(__name__)
+
+# DEBUG = not True
 
 # *****************************************************************************
 # *****************************************************************************
@@ -680,3 +685,170 @@ def get_form_element_entries_for_form_wizard_entry(form_wizard_entry):
                                     .form_entry \
                                     .formelemententry_set.all()[:]
     return form_element_entries
+
+
+def get_wizard_form_field_value_from_session(request,
+                                             wizard_view_name,
+                                             form_key,
+                                             field_name,
+                                             fail_silently=True):
+    """Get wizard form field value from session.
+
+    This is what we could have:
+
+        >>> request.session['wizard_form_wizard_view']['step_data']
+        >>> {
+        >>>     'slider-form': {
+        >>>         'csrfmiddlewaretoken': ['DhINThGTgQ50e2lDnGG4nYrG0a'],
+        >>>         'slider-form-test_slider': ['14'],
+        >>>         'form_wizard_view-current_step': ['slider-form'],
+        >>>         'slider-form-test_email': ['user@example.com']
+        >>>     }
+        >>> }
+
+    Note, that we know nothing about the types here, type conversion should
+    be done manually. The values returned are strings always.
+
+    :param django.http.HttpRequest request:
+    :param str wizard_view_name:
+    :param str form_key: Typically, this would be the step name (form slug).
+    :param str field_name: Field name.
+    :param bool fail_silently: If set to True, no errors raised.
+    :return str: Since everything in session is stored as string.
+    """
+    # Field name in the session contains the form key
+    session_field_name = "{0}-{1}".format(form_key, field_name)
+
+    if not fail_silently:
+
+        return request.session[wizard_view_name]['step_data'][form_key][
+            session_field_name][0]
+
+    else:
+
+        try:
+            return request.session[wizard_view_name]['step_data'][form_key][
+                session_field_name][0]
+        except (KeyError, IndexError) as err:
+            logger.error(err)
+            return None
+
+
+def get_wizard_form_field_value_from_post(request,
+                                          wizard_view_name,
+                                          form_key,
+                                          field_name,
+                                          fail_silently=True):
+    """Get wizard form field value from POST.
+
+    This is what we could have:
+
+    >>> request.POST
+    >>> {
+    >>>     'csrfmiddlewaretoken': ['kEprTL218a8HNcC02QefNNnF'],
+    >>>     'slider-form-test_slider': ['14'],
+    >>>     'form_wizard_view-current_step': ['slider-form'],
+    >>>     'slider-form-test_email': ['user@example.com']
+    >>> }
+
+    Note, that we know nothing about the types here, type conversion should
+    be done manually. The values returned are strings always.
+
+    :param django.http.HttpRequest request:
+    :param str wizard_view_name:
+    :param str form_key: Typically, this would be the step name (form slug).
+    :param str field_name: Field name.
+    :param bool fail_silently: If set to True, no errors raised.
+    :return str: Since everything in session is stored as string.
+    """
+    # Field name in the POST contains the form key
+    form_field_name = "{0}-{1}".format(form_key, field_name)
+    # current_step_name = "{0}-{1}".format(wizard_view_name, form_key)
+
+    if not fail_silently:
+
+        # if not (current_step_name in request.POST and
+        #         request.POST[current_step_name] == form_key):
+        #     return None
+        return request.POST[form_field_name]
+
+    else:
+
+        try:
+            # if not (current_step_name in request.POST and
+            #         request.POST[current_step_name] == form_key):
+            #     return None
+
+            return request.POST[form_field_name]
+        except (KeyError, IndexError) as err:
+            logger.error(err)
+            return None
+
+
+def get_wizard_form_field_value_from_request(request,
+                                             wizard_view_name,
+                                             form_key,
+                                             field_name,
+                                             fail_silently=True,
+                                             session_priority=False):
+    """Get wizard form field value from request.
+
+    Note, that we know nothing about the types here, type conversion should
+    be done manually. The values returned are strings always.
+
+    :param django.http.HttpRequest request:
+    :param str wizard_view_name:
+    :param str form_key: Typically, this would be the step name (form slug).
+    :param str field_name: Field name.
+    :param bool fail_silently: If set to True, no errors raised.
+    :param bool session_priority: If set to True, first try to read from
+        session.
+    :return str: Since everything in session is stored as string.
+    """
+    if session_priority:
+        # First try session
+        value = get_wizard_form_field_value_from_session(
+            request,
+            wizard_view_name,
+            form_key,
+            field_name,
+            fail_silently
+        )
+
+        if value is not None:
+            return value
+
+        # Then try POST
+        if 'POST' == request.method:
+            value = get_wizard_form_field_value_from_post(
+                request,
+                wizard_view_name,
+                form_key,
+                field_name,
+                fail_silently
+            )
+
+    else:
+        # First try POST
+        if 'POST' == request.method:
+            value = get_wizard_form_field_value_from_post(
+                request,
+                wizard_view_name,
+                form_key,
+                field_name,
+                fail_silently
+            )
+
+            if value is not None:
+                return value
+
+        # Then try session
+        value = get_wizard_form_field_value_from_session(
+            request,
+            wizard_view_name,
+            form_key,
+            field_name,
+            fail_silently
+        )
+
+    return value

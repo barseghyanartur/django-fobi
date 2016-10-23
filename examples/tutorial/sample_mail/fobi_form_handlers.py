@@ -6,7 +6,10 @@ from fobi.base import FormHandlerPlugin, form_handler_plugin_registry
 
 from sample_mail.forms import SampleMailForm
 
+
 class SampleMailHandlerPlugin(FormHandlerPlugin):
+    """SampleMailHandlerPlugin."""
+
     uid = "sample_mail"
     name = _("Sample mail")
     form = SampleMailForm
@@ -17,14 +20,13 @@ class SampleMailHandlerPlugin(FormHandlerPlugin):
             json.dumps(form.cleaned_data),
             self.data.from_email,
             [self.data.to_email],
-            fail_silently = True
-            )
+            fail_silently=True
+        )
 
     def plugin_data_repr(self):
-        """
-        Human readable representation of plugin data.
+        """Human readable representation of plugin data.
 
-        :return string:
+        :return str:
         """
         return self.data.__dict__
 

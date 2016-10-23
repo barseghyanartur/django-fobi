@@ -79,14 +79,15 @@ class CaptchaInputPlugin(FormElementPlugin):
     group = _("Security")
     form = CaptchaInputForm
 
-    def get_form_field_instances(self, request=None):
+    def get_form_field_instances(self, request=None, form_entry=None,
+                                 form_element_entries=None, **kwargs):
         """Get form field instances."""
         widget_attrs = {
             'class': theme.form_element_html_class,
             # 'placeholder': self.data.placeholder,
         }
 
-        kwargs = {
+        field_kwargs = {
             'label': self.data.label,
             'help_text': self.data.help_text,
             # 'initial': self.data.initial,
@@ -94,7 +95,7 @@ class CaptchaInputPlugin(FormElementPlugin):
             'widget': CaptchaTextInput(attrs=widget_attrs),
         }
 
-        return [(self.data.name, CaptchaField, kwargs)]
+        return [(self.data.name, CaptchaField, field_kwargs)]
 
 
 # Register only if safe to use.

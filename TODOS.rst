@@ -36,7 +36,7 @@ Regarding the form wizards
   issue in "Uncategorised".
 - Rethink the new navigation of forms and form wizards.
 - Add support for form wizard conditions.
-- Fixed broken dependencies for docs.
++ Fixed broken dependencies for docs.
 
 Roadmap
 -------

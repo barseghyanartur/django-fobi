@@ -25,29 +25,30 @@ class FloatInputPlugin(FormFieldPlugin):
     group = _("Fields")
     form = FloatInputForm
 
-    def get_form_field_instances(self, request=None):
+    def get_form_field_instances(self, request=None, form_entry=None,
+                                 form_element_entries=None, **kwargs):
         """Get form field instances."""
         widget_attrs = {
             'class': theme.form_element_html_class,
             'type': 'number',
             'placeholder': self.data.placeholder,
         }
-        kwargs = {
+        field_kwargs = {
             'label': self.data.label,
             'help_text': self.data.help_text,
             'initial': self.data.initial,
             'required': self.data.required,
         }
         if self.data.max_value:
-            kwargs['max_value'] = self.data.max_value
+            field_kwargs['max_value'] = self.data.max_value
             widget_attrs['max'] = self.data.max_value
         if self.data.min_value:
-            kwargs['min_value'] = self.data.min_value
+            field_kwargs['min_value'] = self.data.min_value
             widget_attrs['min'] = self.data.min_value
 
-        kwargs['widget'] = NumberInput(attrs=widget_attrs)
+        field_kwargs['widget'] = NumberInput(attrs=widget_attrs)
 
-        return [(self.data.name, FloatField, kwargs)]
+        return [(self.data.name, FloatField, field_kwargs)]
 
 
 form_element_plugin_registry.register(FloatInputPlugin)

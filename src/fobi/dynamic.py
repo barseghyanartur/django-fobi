@@ -41,7 +41,8 @@ __all__ = (
 
 def assemble_form_class(form_entry, base_class=BaseForm, request=None,
                         origin=None, origin_kwargs_update_func=None,
-                        origin_return_func=None, form_element_entries=None):
+                        origin_return_func=None, form_element_entries=None,
+                        get_form_field_instances_kwargs={}):
     """Assemble a form class by given entry.
 
     :param form_entry:
@@ -52,6 +53,8 @@ def assemble_form_class(form_entry, base_class=BaseForm, request=None,
     :param callable origin_return_func:
     :param iterable form_element_entries: If given, used instead of
         ``form_entry.formelemententry_set.all`` (no additional database hit).
+    :param dict get_form_field_instances_kwargs: To be passed as **kwargs to
+        the :method:`get_form_field_instances_kwargs`.
     """
     if form_element_entries is None:
         form_element_entries = form_entry.formelemententry_set.all()
@@ -85,7 +88,10 @@ def assemble_form_class(form_entry, base_class=BaseForm, request=None,
                             kwargs_update_func=origin_kwargs_update_func,
                             return_func=origin_return_func,
                             extra={'counter': creation_counter},
-                            request=request
+                            request=request,
+                            form_entry=form_entry,
+                            form_element_entries=form_element_entries,
+                            **get_form_field_instances_kwargs
                         )
                     for form_field_name, form_field_instance \
                             in plugin_form_field_instances:

@@ -25,7 +25,8 @@ class InputPlugin(FormFieldPlugin):
     group = _("Fields")
     form = InputForm
 
-    def get_form_field_instances(self, request=None):
+    def get_form_field_instances(self, request=None, form_entry=None,
+                                 form_element_entries=None, **kwargs):
         """Get form field instances."""
         widget_attrs = {
             'class': theme.form_element_html_class,
@@ -71,7 +72,7 @@ class InputPlugin(FormFieldPlugin):
                                                              'reset',):
             widget_attrs.update({'value': self.data.label})
 
-        kwargs = {
+        field_kwargs = {
             'label': self.data.label
             if self.data.type_value not in ('submit', 'button', 'reset',)
             else '',
@@ -83,7 +84,7 @@ class InputPlugin(FormFieldPlugin):
         # if self.data.max_length:
         #     kwargs['max_length'] = self.data.max_length
 
-        return [(self.data.name, Field, kwargs)]
+        return [(self.data.name, Field, field_kwargs)]
 
 
 form_element_plugin_registry.register(InputPlugin)

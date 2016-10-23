@@ -30,9 +30,10 @@ class DummyPlugin(FormElementPlugin):
         """
         self.data.name = "{0}_{1}".format(self.uid, uuid4())
 
-    def get_form_field_instances(self, request=None):
+    def get_form_field_instances(self, request=None, form_entry=None,
+                                 form_element_entries=None, **kwargs):
         """Get form field instances."""
-        kwargs = {
+        field_kwargs = {
             'initial': "<p>{0}</p>".format(
                 safe_text(ugettext("Dummy content"))
             ),
@@ -40,10 +41,7 @@ class DummyPlugin(FormElementPlugin):
             'label': '',
         }
 
-        form_field_instances = []
-
-        form_field_instances.append((self.data.name, NoneField, kwargs))
-        return form_field_instances
+        return[(self.data.name, NoneField, field_kwargs)]
 
 
 form_element_plugin_registry.register(DummyPlugin)

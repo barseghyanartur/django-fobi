@@ -15,6 +15,23 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.9
+---
+2016-10-24
+
+Note, that this release contain minor backwards incompatible changes, that
+may break your existing code (your data is left intact). If you have written
+custom form element plugins you should update your code!
+
+- The :method:`get_form_field_instances`
+  and :method:`_get_form_field_instances` of
+  the :class:`fobi.base.FormElementPlugin` both accept two new optional
+  arguments: `form_entry` and `form_element_entries` as well as **kwargs.
+  Make sure to update your custom plugins if you have written any.
+- Minor fixes in the form wizards: forms in intermediate steps do receive
+  updates from the `submit_plugin_form_data` of the plugins.
+- Fixed issue in the `base_bulk_change_plugins` function on Django 1.10.
+
 0.8.10
 ------
 2016-10-22

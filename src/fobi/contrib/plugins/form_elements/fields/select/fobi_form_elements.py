@@ -30,11 +30,12 @@ class SelectInputPlugin(FormFieldPlugin):
     group = _("Fields")
     form = SelectInputForm
 
-    def get_form_field_instances(self, request=None):
+    def get_form_field_instances(self, request=None, form_entry=None,
+                                 form_element_entries=None, **kwargs):
         """Get form field instances."""
         choices = get_select_field_choices(self.data.choices)
 
-        kwargs = {
+        field_kwargs = {
             'label': self.data.label,
             'help_text': self.data.help_text,
             'initial': self.data.initial,
@@ -43,7 +44,7 @@ class SelectInputPlugin(FormFieldPlugin):
             'widget': Select(attrs={'class': theme.form_element_html_class}),
         }
 
-        return [(self.data.name, ChoiceField, kwargs)]
+        return [(self.data.name, ChoiceField, field_kwargs)]
 
     def submit_plugin_form_data(self, form_entry, request, form):
         """Submit plugin form data/process.

@@ -513,8 +513,8 @@ def get_assembled_form(form_entry, request=None):
     :return django.forms.Form:
     """
     # TODO
-    FormClass = assemble_form_class(form_entry, request=request)
-    form = FormClass()
+    form_cls = assemble_form_class(form_entry, request=request)
+    form = form_cls()
     return form
 
 

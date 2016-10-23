@@ -3,13 +3,13 @@ from django.contrib import admin
 from django.contrib import messages
 from django.contrib.admin import helpers
 from django.contrib.admin.views.decorators import staff_member_required
-from django.shortcuts import render_to_response, redirect
+from django.shortcuts import redirect
 from django.template import RequestContext
 from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
 from django.utils.html import strip_tags
 
-from nine.versions import DJANGO_LTE_1_5
+from nine import versions
 
 from .constants import ACTION_CHOICE_REPLACE
 from .forms import (
@@ -31,6 +31,11 @@ from .models import (
     FormWizardFormEntry,
     FormWizardHandlerEntry
 )
+
+if versions.DJANGO_GTE_1_10:
+    from django.shortcuts import render
+else:
+    from django.shortcuts import render_to_response
 
 __title__ = 'fobi.admin'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -97,11 +102,15 @@ def base_bulk_change_plugins(PluginForm, named_url, modeladmin, request,
         'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
         'named_url': named_url,
     }
-    return render_to_response(
-        'fobi/admin/bulk_change_plugins.html',
-        context,
-        context_instance=RequestContext(request)
-    )
+
+    template_name = 'fobi/admin/bulk_change_plugins.html'
+
+    if versions.DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
+        )
 
 
 def bulk_change_form_element_plugins(modeladmin, request, queryset):
@@ -321,7 +330,7 @@ class FormElementEntryAdmin(admin.ModelAdmin):
 
     def __queryset(self, request):
         """Internal method used in get_queryset or queryset methods."""
-        if DJANGO_LTE_1_5:
+        if versions.DJANGO_LTE_1_5:
             queryset = super(FormElementEntryAdmin, self).queryset(request)
         else:
             queryset = super(FormElementEntryAdmin, self).get_queryset(request)
@@ -329,7 +338,7 @@ class FormElementEntryAdmin(admin.ModelAdmin):
         queryset = queryset.select_related('form_entry', 'form_fieldset_entry')
         return queryset
     get_queryset = __queryset
-    if DJANGO_LTE_1_5:
+    if versions.DJANGO_LTE_1_5:
         queryset = __queryset
 
 # admin.site.register(FormElementEntry, FormElementEntryAdmin)
@@ -361,7 +370,7 @@ class FormHandlerEntryAdmin(admin.ModelAdmin):
 
     def __queryset(self, request):
         """Internal method used in get_queryset or queryset methods."""
-        if DJANGO_LTE_1_5:
+        if versions.DJANGO_LTE_1_5:
             queryset = super(FormHandlerEntryAdmin, self).queryset(request)
         else:
             queryset = super(FormHandlerEntryAdmin, self).get_queryset(request)
@@ -369,7 +378,7 @@ class FormHandlerEntryAdmin(admin.ModelAdmin):
         queryset = queryset.select_related('form_entry',)
         return queryset
     get_queryset = __queryset
-    if DJANGO_LTE_1_5:
+    if versions.DJANGO_LTE_1_5:
         queryset = __queryset
 
 # admin.site.register(FormHandlerEntry, FormHandlerEntryAdmin)
@@ -412,7 +421,7 @@ class BasePluginModelAdmin(admin.ModelAdmin):
 
     def __queryset(self, request):
         """Internal method used in get_queryset or queryset methods."""
-        if DJANGO_LTE_1_5:
+        if versions.DJANGO_LTE_1_5:
             queryset = super(BasePluginModelAdmin, self).queryset(request)
         else:
             queryset = super(BasePluginModelAdmin, self).get_queryset(request)
@@ -420,7 +429,7 @@ class BasePluginModelAdmin(admin.ModelAdmin):
         queryset = queryset.prefetch_related('users', 'groups')
         return queryset
     get_queryset = __queryset
-    if DJANGO_LTE_1_5:
+    if versions.DJANGO_LTE_1_5:
         queryset = __queryset
 
     def _get_bulk_change_form_class(self):

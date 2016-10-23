@@ -8,8 +8,8 @@ from . import UID
 from .forms import RangeSelectInputForm
 from .settings import INITIAL, MAX_VALUE, MIN_VALUE, STEP
 
-__title__ = 'fobi.contrib.plugins.form_elements.fields.' \
-            'range_select.fobi_form_elements'
+__title__ = 'fobi.contrib.plugins.form_elements.fields.range_select.' \
+            'fobi_form_elements'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
@@ -19,14 +19,15 @@ theme = get_theme(request=None, as_instance=True)
 
 
 class RangeSelectInputPlugin(FormFieldPlugin):
-    """Percentage field plugin."""
+    """Range select input plugin."""
 
     uid = UID
     name = _("Range select")
     group = _("Fields")
     form = RangeSelectInputForm
 
-    def get_form_field_instances(self, request=None):
+    def get_form_field_instances(self, request=None, form_entry=None,
+                                 form_element_entries=None, **kwargs):
         """Get form field instances."""
         initial = self.data.initial if self.data.initial else INITIAL
         max_value = self.data.max_value if self.data.max_value else MAX_VALUE
@@ -36,7 +37,7 @@ class RangeSelectInputPlugin(FormFieldPlugin):
         _choices = range(min_value, max_value, step)
         choices = zip(_choices, _choices)
 
-        kwargs = {
+        field_kwargs = {
             'label': self.data.label,
             'help_text': self.data.help_text,
             'initial': initial,
@@ -45,7 +46,7 @@ class RangeSelectInputPlugin(FormFieldPlugin):
             'widget': Select(attrs={'class': theme.form_element_html_class}),
         }
 
-        return [(self.data.name, ChoiceField, kwargs)]
+        return [(self.data.name, ChoiceField, field_kwargs)]
 
 
 form_element_plugin_registry.register(RangeSelectInputPlugin)

@@ -25,13 +25,14 @@ class TextareaPlugin(FormFieldPlugin):
     group = _("Fields")
     form = TextareaForm
 
-    def get_form_field_instances(self, request=None):
+    def get_form_field_instances(self, request=None, form_entry=None,
+                                 form_element_entries=None, **kwargs):
         """Get form field instances."""
         widget_attrs = {
             'class': theme.form_element_html_class,
             'placeholder': self.data.placeholder,
         }
-        kwargs = {
+        field_kwargs = {
             'label': self.data.label,
             'help_text': self.data.help_text,
             'initial': self.data.initial,
@@ -39,7 +40,7 @@ class TextareaPlugin(FormFieldPlugin):
             'widget': Textarea(attrs=widget_attrs)
         }
 
-        return [(self.data.name, CharField, kwargs)]
+        return [(self.data.name, CharField, field_kwargs)]
 
 
 form_element_plugin_registry.register(TextareaPlugin)

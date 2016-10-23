@@ -22,16 +22,17 @@ class BooleanSelectPlugin(FormFieldPlugin):
     group = _("Fields")
     form = BooleanSelectForm
 
-    def get_form_field_instances(self, request=None):
+    def get_form_field_instances(self, request=None, form_entry=None,
+                                 form_element_entries=None, **kwargs):
         """Get form field instances."""
-        kwargs = {
+        field_kwargs = {
             'label': self.data.label,
             'help_text': self.data.help_text,
             'initial': self.data.initial,
             'required': self.data.required,
         }
 
-        return [(self.data.name, BooleanField, kwargs)]
+        return [(self.data.name, BooleanField, field_kwargs)]
 
 
 form_element_plugin_registry.register(BooleanSelectPlugin)

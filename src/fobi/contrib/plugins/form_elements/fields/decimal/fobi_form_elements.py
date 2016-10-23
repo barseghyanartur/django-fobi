@@ -27,36 +27,37 @@ class DecimalInputPlugin(FormFieldPlugin):
     group = _("Fields")
     form = DecimalInputForm
 
-    def get_form_field_instances(self, request=None):
+    def get_form_field_instances(self, request=None, form_entry=None,
+                                 form_element_entries=None, **kwargs):
         """Get form field instances."""
         widget_attrs = {
             'class': theme.form_element_html_class,
             'type': 'number',
             'placeholder': self.data.placeholder,
         }
-        kwargs = {
+        field_kwargs = {
             'label': self.data.label,
             'help_text': self.data.help_text,
             'initial': self.data.initial,
             'required': self.data.required,
         }
         if self.data.max_value:
-            kwargs['max_value'] = self.data.max_value
+            field_kwargs['max_value'] = self.data.max_value
             widget_attrs['max'] = self.data.max_value
         if self.data.min_value:
-            kwargs['min_value'] = self.data.min_value
+            field_kwargs['min_value'] = self.data.min_value
             widget_attrs['min'] = self.data.min_value
 
         if self.data.max_digits:
-            kwargs['max_digits'] = self.data.max_digits
+            field_kwargs['max_digits'] = self.data.max_digits
             widget_attrs['max'] = self.data.max_value
         if self.data.decimal_places:
-            kwargs['decimal_places'] = self.data.decimal_places
+            field_kwargs['decimal_places'] = self.data.decimal_places
             widget_attrs['min'] = self.data.min_value
 
-        kwargs['widget'] = NumberInput(attrs=widget_attrs)
+        field_kwargs['widget'] = NumberInput(attrs=widget_attrs)
 
-        return [(self.data.name, DecimalField, kwargs)]
+        return [(self.data.name, DecimalField, field_kwargs)]
 
 
 form_element_plugin_registry.register(DecimalInputPlugin)

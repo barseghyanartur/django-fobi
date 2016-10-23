@@ -3,7 +3,6 @@ from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
-
 # Safe import of ``NumberInput``
 try:
     from django.forms.widgets import NumberInput
@@ -63,20 +62,27 @@ class RichSelect(Select):
     """
 
     def __init__(self, attrs=None, choices=(), prepend_html=None,
-                 append_html=None):
+                 append_html=None, override_name=None):
         """Constructor.
 
         :param dict attrs:
         :param tuple choices:
         :param str prepend_html:
         :param str append_html:
+        :param str override_name:
         """
         self.prepend_html = prepend_html if prepend_html else ""
         self.append_html = append_html if append_html else ""
+        self.override_name = override_name \
+            if override_name is not None \
+            else None
         super(RichSelect, self).__init__(attrs=attrs, choices=choices)
 
     def render(self, name, value, attrs=None):
         """Renders the element, having prepended and appended extra parts."""
+        if self.override_name is not None:
+            name = self.override_name
+
         rendered_select = super(RichSelect, self).render(
             name=name,
             value=value,

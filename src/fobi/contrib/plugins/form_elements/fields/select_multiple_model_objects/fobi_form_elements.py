@@ -44,13 +44,14 @@ class SelectMultipleModelObjectsInputPlugin(FormFieldPlugin):
     group = _("Fields")
     form = SelectMultipleModelObjectsInputForm
 
-    def get_form_field_instances(self, request=None):
+    def get_form_field_instances(self, request=None, form_entry=None,
+                                 form_element_entries=None, **kwargs):
         """Get form field instances."""
         app_label, model_name = get_app_label_and_model_name(self.data.model)
         model = get_model(app_label, model_name)
         queryset = model._default_manager.all()
 
-        kwargs = {
+        field_kwargs = {
             'label': self.data.label,
             'help_text': self.data.help_text,
             'initial': self.data.initial,
@@ -61,7 +62,7 @@ class SelectMultipleModelObjectsInputPlugin(FormFieldPlugin):
             ),
         }
 
-        return [(self.data.name, ModelMultipleChoiceField, kwargs)]
+        return [(self.data.name, ModelMultipleChoiceField, field_kwargs)]
 
     def submit_plugin_form_data(self, form_entry, request, form):
         """

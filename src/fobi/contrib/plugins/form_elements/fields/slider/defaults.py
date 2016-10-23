@@ -1,5 +1,4 @@
-__title__ = 'fobi.contrib.plugins.form_elements.fields.' \
-            'slider.defaults'
+__title__ = 'fobi.contrib.plugins.form_elements.fields.slider.defaults'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'

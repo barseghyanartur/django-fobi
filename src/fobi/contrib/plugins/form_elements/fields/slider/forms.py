@@ -28,11 +28,12 @@ theme = get_theme(request=None, as_instance=True)
 
 
 class SliderInputForm(forms.Form, BaseFormFieldPluginForm):
-    """Form for ``SliderPercentageInputPlugin``."""
+    """Form for ``SliderInputPlugin``."""
 
     plugin_data_fields = [
         ("label", ""),
         ("name", ""),
+        ("initial", INITIAL),
         ("min_value", MIN_VALUE),
         ("max_value", MAX_VALUE),
         ("step", STEP),
@@ -44,7 +45,6 @@ class SliderInputForm(forms.Form, BaseFormFieldPluginForm):
         ("label_end", ""),
         # ("custom_ticks", ""),
         ("help_text", ""),
-        ("initial", INITIAL),
         ("required", False)
     ]
 
@@ -61,6 +61,16 @@ class SliderInputForm(forms.Form, BaseFormFieldPluginForm):
         widget=forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
         )
+    )
+    initial = forms.IntegerField(
+        label=_("Initial"),
+        required=False,
+        widget=forms.widgets.TextInput(
+            attrs={'class': theme.form_element_html_class}
+        ),
+        min_value=MIN_VALUE,
+        max_value=MAX_VALUE,
+        initial=INITIAL
     )
     min_value = forms.IntegerField(
         label=_("Min value"),
@@ -164,16 +174,6 @@ class SliderInputForm(forms.Form, BaseFormFieldPluginForm):
         widget=forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
         )
-    )
-    initial = forms.IntegerField(
-        label=_("Initial"),
-        required=False,
-        widget=forms.widgets.TextInput(
-            attrs={'class': theme.form_element_html_class}
-        ),
-        min_value=MIN_VALUE,
-        max_value=MAX_VALUE,
-        initial=INITIAL
     )
     required = forms.BooleanField(
         label=_("Required"),

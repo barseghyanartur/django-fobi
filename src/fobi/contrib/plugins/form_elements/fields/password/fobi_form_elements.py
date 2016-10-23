@@ -25,14 +25,15 @@ class PasswordInputPlugin(FormFieldPlugin):
     group = _("Fields")
     form = PasswordInputForm
 
-    def get_form_field_instances(self, request=None):
+    def get_form_field_instances(self, request=None, form_entry=None,
+                                 form_element_entries=None, **kwargs):
         """Get form field instances."""
         widget_attrs = {
             'class': theme.form_element_html_class,
             'placeholder': self.data.placeholder,
         }
 
-        kwargs = {
+        field_kwargs = {
             'label': self.data.label,
             'help_text': self.data.help_text,
             'initial': self.data.initial,
@@ -40,9 +41,9 @@ class PasswordInputPlugin(FormFieldPlugin):
             'widget': PasswordInput(attrs=widget_attrs),
         }
         if self.data.max_length:
-            kwargs['max_length'] = self.data.max_length
+            field_kwargs['max_length'] = self.data.max_length
 
-        return [(self.data.name, CharField, kwargs)]
+        return [(self.data.name, CharField, field_kwargs)]
 
 
 form_element_plugin_registry.register(PasswordInputPlugin)

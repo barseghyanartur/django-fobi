@@ -14,6 +14,7 @@ from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.storage import FileSystemStorage
 from django.core.urlresolvers import reverse
+from django.forms import ValidationError
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.template import RequestContext
@@ -84,6 +85,11 @@ if versions.DJANGO_GTE_1_10:
     from django.shortcuts import render
 else:
     from django.shortcuts import render_to_response
+
+if versions.DJANGO_GTE_1_8:
+    from formtools.wizard.forms import ManagementForm
+else:
+    from django.contrib.formtools.wizard.forms import ManagementForm
 
 __title__ = 'fobi.views'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -1433,7 +1439,10 @@ class FormWizardView(DynamicSessionWizardView):
             form_cls = assemble_form_class(
                 form_entry,
                 request=request,
-                form_element_entries=form_element_entries
+                form_element_entries=form_element_entries,
+                get_form_field_instances_kwargs={
+                    'form_wizard_entry': form_wizard_entry,
+                }
             )
 
             form_list.append(
@@ -1457,6 +1466,75 @@ class FormWizardView(DynamicSessionWizardView):
             'form_entry_mapping': form_entry_mapping,
             'fobi_theme': theme,
         }
+
+    def post(self, *args, **kwargs):
+        """POST requests.
+
+        This method handles POST requests.
+
+        The wizard will render either the current step (if form validation
+        wasn't successful), the next step (if the current step was stored
+        successful) or the done view (if no more steps are available)
+        """
+        # Look for a wizard_goto_step element in the posted data which
+        # contains a valid step name. If one was found, render the requested
+        # form. (This makes stepping back a lot easier).
+        wizard_goto_step = self.request.POST.get('wizard_goto_step', None)
+        if wizard_goto_step and wizard_goto_step in self.get_form_list():
+            return self.render_goto_step(wizard_goto_step)
+
+        # Check if form was refreshed
+        management_form = ManagementForm(self.request.POST, prefix=self.prefix)
+        if not management_form.is_valid():
+            raise ValidationError(
+                _('ManagementForm data is missing or has been tampered.'),
+                code='missing_management_form',
+            )
+
+        form_current_step = management_form.cleaned_data['current_step']
+        if (form_current_step != self.steps.current and
+                self.storage.current_step is not None):
+            # form refreshed, change current step
+            self.storage.current_step = form_current_step
+
+        # get the form for the current step
+        form = self.get_form(data=self.request.POST, files=self.request.FILES)
+
+        # and try to validate
+        if form.is_valid():
+            # Get current form entry
+            form_entry = self.form_entry_mapping[self.steps.current]
+            # Fire plugin processors
+            form = submit_plugin_form_data(form_entry=form_entry,
+                                           request=self.request, form=form)
+            # Form wizards make use of form.data instead of form.cleaned_data.
+            # Therefore, we update the form.data with values from
+            # form.cleaned_data.
+            wizard_field_pattern = "{0}-{1}"
+            # We can't update values of a `MultiValueDict`, which `QueryDict`
+            # is, using `update` method. That's why we do it one by one.
+            for field_key, field_value in form.cleaned_data.items():
+                wizard_form_key = wizard_field_pattern.format(
+                    self.steps.current,
+                    field_key
+                )
+                form.data[wizard_form_key] = field_value
+
+            # if the form is valid, store the cleaned data and files.
+            self.storage.set_step_data(self.steps.current,
+                                       self.process_step(form))
+
+            self.storage.set_step_files(self.steps.current,
+                                        self.process_step_files(form))
+
+            # check if the current step is the last step
+            if self.steps.current == self.steps.last:
+                # no more steps, render done view
+                return self.render_done(form, **kwargs)
+            else:
+                # proceed to the next step
+                return self.render_next_step(form)
+        return self.render(form)
 
     def render_done(self, form, **kwargs):
         """Render done.

@@ -26,14 +26,15 @@ class DateInputPlugin(FormFieldPlugin):
     group = _("Fields")
     form = DateInputForm
 
-    def get_form_field_instances(self, request=None):
+    def get_form_field_instances(self, request=None, form_entry=None,
+                                 form_element_entries=None, **kwargs):
         """Get form field instances."""
         widget_attrs = {
             'class': theme.form_element_html_class,
             'type': 'date',
         }
 
-        kwargs = {
+        field_kwargs = {
             'label': self.data.label,
             'help_text': self.data.help_text,
             'initial': self.data.initial,
@@ -44,7 +45,7 @@ class DateInputPlugin(FormFieldPlugin):
         # if self.data.input_formats:
         #     kwargs['input_formats'] = self.data.input_formats
 
-        return [(self.data.name, DateField, kwargs)]
+        return [(self.data.name, DateField, field_kwargs)]
 
     def submit_plugin_form_data(self, form_entry, request, form):
         """Submit plugin form data/process.

@@ -34,11 +34,12 @@ class ContentVideoPlugin(FormElementPlugin):
         """
         self.data.name = "{0}_{1}".format(self.uid, uuid4())
 
-    def get_form_field_instances(self, request=None):
+    def get_form_field_instances(self, request=None, form_entry=None,
+                                 form_element_entries=None, **kwargs):
         """Get form field instances."""
         width, height = self.data.size.split('x')
 
-        kwargs = {
+        field_kwargs = {
             'initial': '<div class="video-wrapper">{0}</div>'.format(
                 render_video(self.data.url, width, height)
             ),
@@ -46,7 +47,7 @@ class ContentVideoPlugin(FormElementPlugin):
             'label': '',
         }
 
-        return [(self.data.name, NoneField, kwargs)]
+        return [(self.data.name, NoneField, field_kwargs)]
 
 
 form_element_plugin_registry.register(ContentVideoPlugin)

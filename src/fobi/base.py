@@ -1356,7 +1356,8 @@ class FormElementPlugin(BasePlugin):
 
     def _get_form_field_instances(self, form_element_entry=None, origin=None,
                                   kwargs_update_func=None, return_func=None,
-                                  extra={}, request=None):
+                                  extra={}, request=None, form_entry=None,
+                                  form_element_entries=None, **kwargs):
         """Get form field instances (internal method).
 
         Used internally. Do not override this method. Gets the instances of
@@ -1366,6 +1367,11 @@ class FormElementPlugin(BasePlugin):
         :param string origin:
         :param callable kwargs_update_func:
         :param callable return_func:
+        :param dict extra:
+        :param django.http.HttpRequest request:
+        :param fobi.models.FormEntry form_entry:
+        :param django.db.models.QuerySet form_element_entries: Queryset of
+            :class:`fobi.models.FormElementEntry` instances.
         :return list: List of Django form field instances.
         """
         # For the moment, this piece of code has to be present here.
@@ -1380,12 +1386,18 @@ class FormElementPlugin(BasePlugin):
         # goes wrong. Otherwise - skip the element.
         if DEBUG:
             form_field_instances = self.get_form_field_instances(
-                request=request
+                request=request,
+                form_entry=form_entry,
+                form_element_entries=form_element_entries,
+                **kwargs
             )
         else:
             try:
                 form_field_instances = self.get_form_field_instances(
-                    request=request
+                    request=request,
+                    form_entry=form_entry,
+                    form_element_entries=form_element_entries,
+                    **kwargs
                 )
             except AttributeError as e:
                 return []
@@ -1462,10 +1474,14 @@ class FormElementPlugin(BasePlugin):
 
         return processed_field_instances
 
-    def get_form_field_instances(self, request=None):
+    def get_form_field_instances(self, request=None, form_entry=None,
+                                 form_element_entries=None, **kwargs):
         """Get the instances of form fields, that plugin contains.
 
         :param django.http.HttpRequest request:
+        :param fobi.models.FormEntry form_entry:
+        :param django.db.models.QuerySet form_element_entries: Queryset of
+            :class:`fobi.models.FormElementEntry` instances.
         :return list: List of Django form field instances.
 
         :example:
@@ -1530,12 +1546,17 @@ class FormElementPlugin(BasePlugin):
         :param django.http.HttpRequest request:
         :param django.forms.Form form:
         """
-        try:
+        if DEBUG:
             return self.submit_plugin_form_data(
                 form_entry=form_entry, request=request, form=form
             )
-        except Exception as e:
-            logger.debug(str(e))
+        else:
+            try:
+                return self.submit_plugin_form_data(
+                    form_entry=form_entry, request=request, form=form
+                )
+            except Exception as e:
+                logger.debug(str(e))
 
     def submit_plugin_form_data(self, form_entry, request, form):
         """Submit plugin form data.
@@ -1894,6 +1915,15 @@ class BaseRegistry(object):
         assert self.type
         self._registry = {}
         self._forced = []
+
+    @property
+    def registry(self):
+        """Shortcut to self._registry."""
+        return self._registry
+
+    def items(self):
+        """Shortcut to self._registry.items()."""
+        return self._registry.items()
 
     def register(self, cls, force=False):
         """Registers the plugin in the registry.

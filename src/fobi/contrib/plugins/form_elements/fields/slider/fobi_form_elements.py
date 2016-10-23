@@ -18,8 +18,8 @@ from .constants import (
 from .forms import SliderInputForm
 from .settings import INITIAL, MAX_VALUE, MIN_VALUE, STEP
 
-__title__ = 'fobi.contrib.plugins.form_elements.fields.' \
-            'slider_percentage.fobi_form_elements'
+__title__ = 'fobi.contrib.plugins.form_elements.fields.slider.' \
+            'fobi_form_elements'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
@@ -37,7 +37,8 @@ class SliderInputPlugin(FormFieldPlugin):
     form = SliderInputForm
     html_classes = ['slider']
 
-    def get_form_field_instances(self, request=None):
+    def get_form_field_instances(self, request=None, form_entry=None,
+                                 form_element_entries=None, **kwargs):
         """Get form field instances."""
         initial = self.data.initial if self.data.initial else INITIAL
         max_value = self.data.max_value if self.data.max_value else MAX_VALUE
@@ -150,7 +151,7 @@ class SliderInputPlugin(FormFieldPlugin):
                 'append_html': mark_safe(''.join(append_html_list)),
             })
 
-        kwargs = {
+        field_kwargs = {
             'label': self.data.label,
             'help_text': self.data.help_text,
             'initial': initial,
@@ -159,7 +160,7 @@ class SliderInputPlugin(FormFieldPlugin):
             'widget': RichSelect(**widget_kwargs),
         }
 
-        return [(self.data.name, ChoiceField, kwargs)]
+        return [(self.data.name, ChoiceField, field_kwargs)]
 
 
 form_element_plugin_registry.register(SliderInputPlugin)

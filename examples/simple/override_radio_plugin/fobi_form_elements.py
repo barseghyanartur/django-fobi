@@ -21,12 +21,13 @@ class RadioInputPlugin(FormFieldPlugin):
     group = _("Fields")
     form = RadioInputForm
 
-    def get_form_field_instances(self, request=None):
+    def get_form_field_instances(self, request=None, form_entry=None,
+                                 form_element_entries=None, **kwargs):
         """Get form field instances."""
         choices = get_select_field_choices(self.data.choices)
 
         widget_attrs = {'class': theme.form_radio_element_html_class}
-        kwargs = {
+        field_kwargs = {
             'label': self.data.label,
             'help_text': self.data.help_text,
             'initial': self.data.initial,
@@ -35,7 +36,7 @@ class RadioInputPlugin(FormFieldPlugin):
             'widget': RadioSelect(attrs=widget_attrs),
         }
 
-        return [(self.data.name, ChoiceField, kwargs)]
+        return [(self.data.name, ChoiceField, field_kwargs)]
 
     def submit_plugin_form_data(self, form_entry, request, form):
         """Submit plugin form data/process.

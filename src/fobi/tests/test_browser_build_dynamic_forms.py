@@ -42,6 +42,7 @@ __all__ = (
 logger = logging.getLogger(__name__)
 
 TIMEOUT = 4
+LONG_TIMEOUT = 8
 WAIT = False
 WAIT_FOR = 0
 
@@ -384,7 +385,7 @@ class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         logger.debug(form_element_name)
 
         # Wait until the fobi page opens with the form element in.
-        WebDriverWait(self.selenium, timeout=TIMEOUT).until(
+        WebDriverWait(self.selenium, timeout=LONG_TIMEOUT).until(
             lambda driver: driver.find_element_by_xpath(
                 """//div[contains(text(), 'The form element plugin "{0}" was deleted successfully.') and contains(@class, "alert-info")]""".format(
                     form_element_name

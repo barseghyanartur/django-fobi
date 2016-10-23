@@ -89,7 +89,7 @@ Roadmap
 =======
 Some of the upcoming/in-development features/improvements are:
 
-- Integration with `django-rest-framework` (in version 0.9).
+- Integration with `django-rest-framework` (in version 0.10).
 
 See the `TODOS <https://raw.githubusercontent.com/barseghyanartur/django-fobi/master/TODOS.rst>`_
 for the full list of planned-, pending- in-development- or to-be-implemented

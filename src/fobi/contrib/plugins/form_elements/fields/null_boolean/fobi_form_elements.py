@@ -25,9 +25,10 @@ class NullBooleanSelectPlugin(FormFieldPlugin):
     group = _("Fields")
     form = NullBooleanSelectForm
 
-    def get_form_field_instances(self, request=None):
+    def get_form_field_instances(self, request=None, form_entry=None,
+                                 form_element_entries=None, **kwargs):
         """Get form field instances."""
-        kwargs = {
+        field_kwargs = {
             'label': self.data.label,
             'help_text': self.data.help_text,
             'initial': self.data.initial,
@@ -37,7 +38,7 @@ class NullBooleanSelectPlugin(FormFieldPlugin):
             ),
         }
 
-        return [(self.data.name, NullBooleanField, kwargs)]
+        return [(self.data.name, NullBooleanField, field_kwargs)]
 
 
 form_element_plugin_registry.register(NullBooleanSelectPlugin)

@@ -1,7 +1,7 @@
 Roadmap of upcoming releases
 ============================
-0.9
----
+0.10
+----
 yyyy-mm-ddd (upcoming).
 
 This release contains minor backwards incompatible changes, related to the

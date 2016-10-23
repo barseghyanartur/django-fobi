@@ -30,11 +30,12 @@ class CheckboxSelectMultipleInputPlugin(FormFieldPlugin):
     group = _("Fields")
     form = CheckboxSelectMultipleInputForm
 
-    def get_form_field_instances(self, request=None):
+    def get_form_field_instances(self, request=None, form_entry=None,
+                                 form_element_entries=None, **kwargs):
         """Get form field instances."""
         choices = get_select_field_choices(self.data.choices)
 
-        kwargs = {
+        field_kwargs = {
             'label': self.data.label,
             'help_text': self.data.help_text,
             'initial': self.data.initial,
@@ -45,7 +46,7 @@ class CheckboxSelectMultipleInputPlugin(FormFieldPlugin):
             ),
         }
 
-        return [(self.data.name, MultipleChoiceField, kwargs)]
+        return [(self.data.name, MultipleChoiceField, field_kwargs)]
 
     def submit_plugin_form_data(self, form_entry, request, form):
         """Submit plugin form data/process.
