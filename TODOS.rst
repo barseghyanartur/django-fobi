@@ -46,6 +46,15 @@ Roadmap
 
 Uncategorised
 -------------
+- In the form element plugins, when handling submit_form_data, somehow
+  make it possible to tell whether field returned should or should not
+  overwrite cleaned form data value (that's mainly interesting for form
+  wizards).
+- Possibly, make plugins (same as form field plugins) for the thanks page of
+  the form wizard.
+- Solve the issue with session/post data when plugin on the next step wants
+  to access data from the previous (not there should be an intermediate step
+  for form data first to be written into the session).
 - Make sure form element plugin widgets allow more customisations than
   they do now. For instance, setting an additional class or additional data
   attributes should be made really easy. A must!

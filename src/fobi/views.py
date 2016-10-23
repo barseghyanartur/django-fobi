@@ -1518,7 +1518,10 @@ class FormWizardView(DynamicSessionWizardView):
                     self.steps.current,
                     field_key
                 )
-                form.data[wizard_form_key] = field_value
+                # Do not overwrite field data. Only empty or missing values.
+                if not (wizard_form_key in form.data
+                        and form.data[wizard_form_key]):
+                    form.data[wizard_form_key] = field_value
 
             # if the form is valid, store the cleaned data and files.
             self.storage.set_step_data(self.steps.current,
