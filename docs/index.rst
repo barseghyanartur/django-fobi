@@ -10,14 +10,8 @@ handling the submitted form data).
 
 Prerequisites
 =============
-- Django 1.5, 1.6, 1.7, 1.8, 1.9
+- Django 1.5, 1.6, 1.7, 1.8, 1.9, 1.10
 - Python >= 2.6.8, >= 2.7, >= 3.3
-
-Note, that Django 1.10 is not yet proclaimed to be flawlessly supported,
-however it's in progress. The latest core and contrib packages (from master
-branch, with no additional dependencies) have been tested against the latest
-stable Django 1.10 release. All tests have successfully passed, although it's
-yet too early to claim that Django 1.10 is fully supported.
 
 Key concepts
 ============
@@ -48,6 +42,9 @@ Main features and highlights
 - User-friendly GUI to quickly build forms.
 - Large variety of `Bundled form element plugins`_. Most of the Django fields
   are supported. `HTML5 fields`_ are supported as well.
+- `Form wizards`_. Combine your forms into wizards. Form wizards may contain
+  handlers. Handler processes the form wizard data (for example, saves it or
+  mails it). Number of the form wizard handlers is not limited.
 - Anti-spam solutions like `CAPTCHA
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/captcha>`_,
   `ReCAPTCHA
@@ -70,7 +67,6 @@ Main features and highlights
   and "DjangoCMS admin style" theme (which is another simple theme with editing
   interface in style of `djangocms-admin-style
   <https://github.com/divio/djangocms-admin-style>`_).
-- `Form wizards`_.
 - Implemented `integration with FeinCMS
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/feincms_integration>`_
   (in a form of a FeinCMS page widget).
@@ -93,8 +89,7 @@ Roadmap
 =======
 Some of the upcoming/in-development features/improvements are:
 
-- Form-wizards (in version 0.8).
-- Integration with `django-rest-framework` (in version 0.9).
+- Integration with `django-rest-framework` (in version 0.10).
 
 See the `TODOS <https://raw.githubusercontent.com/barseghyanartur/django-fobi/master/TODOS.rst>`_
 for the full list of planned-, pending- in-development- or to-be-implemented
@@ -377,7 +372,8 @@ Defining the Sample textarea plugin.
         form = SampleTextareaForm
         group = "Samples" # Group to which the plugin belongs to
         
-        def get_form_field_instances(self, request=None):
+        def get_form_field_instances(self, request=None, form_entry=None,
+                                     form_element_entries=None, **kwargs):
             kwargs = {
                 'required': self.data.required,
                 'label': self.data.label,
@@ -454,7 +450,7 @@ Why to have another file for defining forms? Just to keep the code clean and
 less messy, although you could perfectly define all your plugin forms in the
 module `fobi_form_elements.py`, it's recommended to keep it separate.
 
-Take into consideration, that `forms.py` is not an autodiscovered file pattern.
+Take into consideration, that `forms.py` is not an auto-discovered file pattern.
 All your form element plugins should be registered in modules named
 `fobi_form_elements.py`.
 
@@ -678,7 +674,7 @@ Why to have another file for defining forms? Just to keep the code clean and
 less messy, although you could perfectly define all your plugin forms in the
 module `fobi_form_handlers.py`, it's recommended to keep it separate.
 
-Take into consideration, that `forms.py` is not an autodiscovered file pattern.
+Take into consideration, that `forms.py` is not an auto-discovered file pattern.
 All your form handler plugins should be registered in modules named
 `fobi_form_handlers.py`.
 
@@ -1490,6 +1486,16 @@ README.rst file in directory of each plugin for details.
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/mail/>`__:
   Send the form data by email.
 
+Limitations
+-----------
+- At the moment, if you have used `django-simple-captcha` or
+  `django-recaptcha` plugins in one of the forms of the wizard, the wizard
+  becomes invalid at the end and sends you back to the form which used
+  captcha (see the issue `here
+  <https://github.com/mbi/django-simple-captcha/issues/6>`__ and `here
+  <https://github.com/praekelt/django-recaptcha/issues/115>`__). Therefore,
+  you're not recommended to use captcha solutions in wizard forms (yet).
+
 Permissions
 ===========
 Plugin system allows administrators to specify the access rights to every
@@ -1560,7 +1566,7 @@ in directory of each plugin for details.
 
 Fields
 ~~~~~~
-Fields marked with asterics (*) fall under the definition of text elements.
+Fields marked with asterisk (*) fall under the definition of text elements.
 It's possible to provide `Dynamic initial values`_ for text elements.
 
 - `Boolean (checkbox)
@@ -1581,10 +1587,6 @@ It's possible to provide `Dynamic initial values`_ for text elements.
   <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/float>`_
 - `Hidden*
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/hidden/>`_
-- `Password*
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/password/>`_
-- `Radio select (radio button)
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/radio/>`_
 - `Input
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/input/>`_
 - `IP address*
@@ -1593,16 +1595,24 @@ It's possible to provide `Dynamic initial values`_ for text elements.
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/integer/>`_
 - `Null boolean
   <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/null_boolean>`_
+- `Password*
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/password/>`_
+- `Radio select (radio button)
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/radio/>`_
+- `Range select
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/range_select/>`_
 - `Select (drop-down)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select/>`_
 - `Select model object (drop-down)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_model_object/>`_
 - `Select multiple (drop-down)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple/>`_
-- `Slug*
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/slug>`_
 - `Select multiple model objects (drop-down)
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple_model_objects/>`_
+- `Slider
+  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/slider>`_
+- `Slug*
+  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/slug>`_
 - `Text*
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/text/>`_
 - `Textarea*

@@ -372,7 +372,8 @@ Defining the Sample textarea plugin.
         form = SampleTextareaForm
         group = "Samples" # Group to which the plugin belongs to
         
-        def get_form_field_instances(self, request=None):
+        def get_form_field_instances(self, request=None, form_entry=None,
+                                     form_element_entries=None, **kwargs):
             kwargs = {
                 'required': self.data.required,
                 'label': self.data.label,

@@ -24,7 +24,9 @@ README_PARTS.rst
 /dist/
 /var/
 
-fobi/fobi.migrations.rst
+/docs/fobi/fobi.migrations.rst
+/docs/fobi.contrib.apps.wagtail_integration.rst
+/docs/fobi.contrib.plugins.form_elements.fields.hidden_model_object.rst
 
 /src/django_fobi.egg-info
 /src/fobi/contrib/plugins/form_elements/fields/hidden_model_object/

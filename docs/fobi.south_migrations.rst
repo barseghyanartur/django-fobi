@@ -20,6 +20,14 @@ fobi.south_migrations.0002_auto__add_field_formentry_created__add_field_formentr
     :undoc-members:
     :show-inheritance:
 
+fobi.south_migrations.0003_auto__add_formwizardformentry__add_unique_formwizardformentry_form_wiz module
+--------------------------------------------------------------------------------------------------------
+
+.. automodule:: fobi.south_migrations.0003_auto__add_formwizardformentry__add_unique_formwizardformentry_form_wiz
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

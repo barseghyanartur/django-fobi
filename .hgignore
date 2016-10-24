@@ -12,6 +12,7 @@ syntax: regexp
 ^tmp/
 \.zip
 ^release/
+^docs/fobi\.contrib\.apps\.wagtail_integration\.rst
 ^demo/
 ^var/
 ^demos/heroku_demo/staticfiles/
