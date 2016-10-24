@@ -1,7 +1,9 @@
 =============================================================================
 fobi.contrib.themes.bootstrap3.widgets.form_elements.slider_bootstrap3_widget
 =============================================================================
-A fancy slider widget to the ``slider`` plugin (for Bootstrap 3 theme).
+A fancy slider widget to the ``slider`` plugin (for Bootstrap 3 theme). Based
+on `bootstrap-slider.js <http://seiyria.com/bootstrap-slider/>`_. See the
+`github <https://github.com/seiyria/bootstrap-slider>`_ for more.
 
 Installation
 ============

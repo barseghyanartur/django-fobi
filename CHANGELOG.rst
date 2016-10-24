@@ -15,6 +15,14 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.9.4
+-----
+2016-10-24
+
+- Fix issue with `select_multiple`, `select_multiple_model_objects` and
+  `select_multiple_mptt_model_objects` being invalidated on the last step
+  of the form wizard.
+
 0.9.3
 -----
 2016-10-24

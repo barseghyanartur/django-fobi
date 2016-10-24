@@ -86,7 +86,8 @@ class SelectMultipleInputPlugin(FormFieldPlugin):
 
             # Overwrite ``cleaned_data`` of the ``form`` with object
             # qualifier.
-            form.cleaned_data[self.data.name] = ret_values
+            if ret_values:
+                form.cleaned_data[self.data.name] = ret_values
 
             # It's critically important to return the ``form`` with updated
             # ``cleaned_data``

@@ -104,7 +104,10 @@ class SelectMultipleMPTTModelObjectsInputPlugin(FormFieldPlugin):
                 values.append(value)
 
         # Overwrite ``cleaned_data`` of the ``form`` with object qualifier.
-        form.cleaned_data[self.data.name] = json.dumps(values)
+        if values:
+            form.cleaned_data[self.data.name] = json.dumps(values)
+        else:
+            del form.cleaned_data[self.data.name]
 
         # It's critically important to return the ``form`` with updated
         # ``cleaned_data``

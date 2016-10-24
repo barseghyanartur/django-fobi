@@ -8,6 +8,8 @@ import simplejson as json
 
 from collections import OrderedDict
 
+from six import string_types
+
 from django.db import models, IntegrityError
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
@@ -1522,6 +1524,15 @@ class FormWizardView(DynamicSessionWizardView):
                 if not (wizard_form_key in form.data
                         and form.data[wizard_form_key]):
                     form.data[wizard_form_key] = field_value
+
+                # This is dirty hack to make wizard validate empty multiple
+                # choice fields. Otherwise it would fail with message
+                # Select a valid choice. [] is not one of the available
+                # choices.
+                if wizard_form_key in form.data:
+                    if not form.data[wizard_form_key]:
+                        if isinstance(form.data[wizard_form_key], list):
+                            del form.data[wizard_form_key]
 
             # if the form is valid, store the cleaned data and files.
             self.storage.set_step_data(self.steps.current,
