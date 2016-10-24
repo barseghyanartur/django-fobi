@@ -96,9 +96,7 @@ class SelectMultipleWithMaxInputForm(forms.Form, BaseFormFieldPluginForm):
     max_choices = forms.IntegerField(
         label=_("Max choices"),
         required=False,
-        widget=NumberInput(
-            attrs={'class': theme.form_element_html_class}
-        )
+        widget=NumberInput(attrs={'class': theme.form_element_html_class})
     )
 
     def clean_initial(self):

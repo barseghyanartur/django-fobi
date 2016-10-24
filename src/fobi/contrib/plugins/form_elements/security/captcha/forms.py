@@ -2,6 +2,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import BaseFormFieldPluginForm, get_theme
+# from fobi.widgets import NumberInput
 
 __title__ = 'fobi.contrib.plugins.form_elements.security.captcha.forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -56,7 +57,7 @@ class CaptchaInputForm(forms.Form, BaseFormFieldPluginForm):
     # max_length = forms.IntegerField(
     #     label=_("Max length"),
     #     required=True,
-    #     widget=forms.widgets.TextInput(
+    #     widget=NumberInput(
     #         attrs={'class': theme.form_element_html_class}
     #     ),
     #     initial=DEFAULT_MAX_LENGTH

@@ -5,6 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import BaseFormFieldPluginForm, get_theme
 from fobi.settings import DEFAULT_MAX_LENGTH
+from fobi.widgets import NumberInput
 
 __title__ = 'fobi.contrib.plugins.form_elements.fields.regex.forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -77,9 +78,7 @@ class RegexInputForm(forms.Form, BaseFormFieldPluginForm):
     max_length = forms.IntegerField(
         label=_("Max length"),
         required=True,
-        widget=forms.widgets.TextInput(
-            attrs={'class': theme.form_element_html_class}
-        ),
+        widget=NumberInput(attrs={'class': theme.form_element_html_class}),
         initial=DEFAULT_MAX_LENGTH
     )
     required = forms.BooleanField(

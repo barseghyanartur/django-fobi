@@ -3,18 +3,9 @@ from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import BaseFormFieldPluginForm, get_theme
 from fobi.settings import DEFAULT_MAX_LENGTH
+from fobi.widgets import NumberInput
 
 from .constants import FORM_FIELD_TYPE_CHOICES
-
-try:
-    from django.forms.widgets import NumberInput
-except ImportError:
-    from django.forms.widgets import TextInput
-
-    class NumberInput(TextInput):
-        """Number input."""
-
-        input_type = 'number'
 
 __title__ = 'fobi.contrib.plugins.form_elements.fields.input.forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -88,9 +79,7 @@ class InputForm(forms.Form, BaseFormFieldPluginForm):
     max_length = forms.IntegerField(
         label=_("Max length"),
         required=True,
-        widget=forms.widgets.TextInput(
-            attrs={'class': theme.form_element_html_class}
-        ),
+        widget=NumberInput(attrs={'class': theme.form_element_html_class}),
         initial=DEFAULT_MAX_LENGTH
     )
     required = forms.BooleanField(
@@ -182,9 +171,7 @@ class InputForm(forms.Form, BaseFormFieldPluginForm):
     step_value = forms.IntegerField(
         label=_("Step (HTML5 step)"),
         required=False,
-        widget=NumberInput(
-            attrs={'class': theme.form_element_html_class}
-        )
+        widget=NumberInput(attrs={'class': theme.form_element_html_class})
     )
     type_value = forms.ChoiceField(
         label=_("Type (HTML type)"),

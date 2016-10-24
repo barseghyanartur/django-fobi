@@ -1,3 +1,5 @@
+from six import text_type
+
 from django.forms.fields import ChoiceField
 from django.forms.utils import flatatt
 from django.utils.html import format_html
@@ -88,11 +90,11 @@ class SliderInputPlugin(FormFieldPlugin):
 
             label_start = self.data.label_start \
                 if self.data.label_start \
-                else min_value
+                else text_type(min_value)
 
             label_end = self.data.label_end \
                 if self.data.label_end \
-                else max_value
+                else text_type(max_value)
 
             widget_attrs.update({
                 'data-slider-ticks': "[{0}, {1}]".format(

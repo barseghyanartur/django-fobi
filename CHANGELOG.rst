@@ -15,6 +15,15 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.9.3
+-----
+2016-10-24
+
+- Change to `NumberInput` widget for all numbers.
+- Fixed issue with `slider` plugin missing labels if `Show endpoints as` is
+  set to `Labeled ticks`.
+- Link to edit form entry added to edit form wizard view.
+
 0.9.2
 -----
 2016-10-24

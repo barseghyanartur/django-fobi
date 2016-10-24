@@ -51,9 +51,7 @@ class IntegerInputForm(forms.Form, BaseFormFieldPluginForm):
     initial = forms.IntegerField(
         label=_("Initial"),
         required=False,
-        widget=NumberInput(
-            attrs={'class': theme.form_element_html_class}
-        )
+        widget=NumberInput(attrs={'class': theme.form_element_html_class})
     )
     min_value = forms.IntegerField(
         label=_("Min value"),

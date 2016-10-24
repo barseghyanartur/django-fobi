@@ -60,16 +60,12 @@ class DateDropDownInputForm(forms.Form, BaseFormFieldPluginForm):
     year_min = forms.IntegerField(
         label=_("Minimum year value"),
         required=False,
-        widget=NumberInput(
-            attrs={'class': theme.form_element_html_class}
-        )
+        widget=NumberInput(attrs={'class': theme.form_element_html_class})
     )
     year_max = forms.IntegerField(
         label=_("Maximum year value"),
         required=False,
-        widget=NumberInput(
-            attrs={'class': theme.form_element_html_class}
-        )
+        widget=NumberInput(attrs={'class': theme.form_element_html_class})
     )
     initial = forms.CharField(
         label=_("Initial"),

@@ -58,6 +58,11 @@
                                 </a>
                               </li>
                               <li>
+                                <a href="{% url 'fobi.edit_form_entry' form_wizard_form_entry.form_entry.pk %}">
+                                  <span class="{{ fobi_theme.form_edit_form_entry_option_class }}"></span> {% trans "Edit" %}
+                                </a>
+                              </li>
+                              <li>
                                 <a href="{% url 'fobi.delete_form_wizard_form_entry' form_wizard_form_entry.pk %}">
                                   <span class="{{ fobi_theme.form_delete_form_entry_option_class }}"></span> {% trans "Delete" %}
                                 </a>

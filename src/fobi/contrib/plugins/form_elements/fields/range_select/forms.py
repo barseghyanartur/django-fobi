@@ -46,18 +46,14 @@ class RangeSelectInputForm(forms.Form, BaseFormFieldPluginForm):
     min_value = forms.IntegerField(
         label=_("Min value"),
         required=True,
-        widget=NumberInput(
-            attrs={'class': theme.form_element_html_class}
-        ),
+        widget=NumberInput(attrs={'class': theme.form_element_html_class}),
         min_value=MIN_VALUE,
         max_value=MAX_VALUE
     )
     max_value = forms.IntegerField(
         label=_("Max value"),
         required=True,
-        widget=NumberInput(
-            attrs={'class': theme.form_element_html_class}
-        ),
+        widget=NumberInput(attrs={'class': theme.form_element_html_class}),
         min_value=MIN_VALUE,
         max_value=MAX_VALUE
     )
@@ -65,9 +61,7 @@ class RangeSelectInputForm(forms.Form, BaseFormFieldPluginForm):
         label=_("Step"),
         required=True,
         help_text=_("Step size"),
-        widget=NumberInput(
-            attrs={'class': theme.form_element_html_class}
-        ),
+        widget=NumberInput(attrs={'class': theme.form_element_html_class}),
         min_value=MIN_VALUE,
         max_value=MAX_VALUE
     )
@@ -81,9 +75,7 @@ class RangeSelectInputForm(forms.Form, BaseFormFieldPluginForm):
     initial = forms.IntegerField(
         label=_("Initial"),
         required=False,
-        widget=NumberInput(
-            attrs={'class': theme.form_element_html_class}
-        ),
+        widget=NumberInput(attrs={'class': theme.form_element_html_class}),
         min_value=MIN_VALUE,
         max_value=MAX_VALUE,
         initial=INITIAL
