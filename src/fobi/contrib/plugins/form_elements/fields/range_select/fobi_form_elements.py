@@ -34,7 +34,7 @@ class RangeSelectInputPlugin(FormFieldPlugin):
         min_value = self.data.min_value if self.data.min_value else MIN_VALUE
         step = self.data.step if self.data.step else STEP
 
-        _choices = range(min_value, max_value, step)
+        _choices = range(min_value, max_value+1, step)
         choices = zip(_choices, _choices)
 
         field_kwargs = {

@@ -57,7 +57,7 @@ class SliderInputPlugin(FormFieldPlugin):
         #     if self.data.custom_ticks \
         #     else []
 
-        _choices = range(min_value, max_value, step)
+        _choices = range(min_value, max_value+1, step)
         choices = zip(_choices, _choices)
 
         # slider_html_class = "slider-no-background" \
