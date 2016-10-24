@@ -11,5 +11,5 @@ __all__ = (
 
 INITIAL = 50
 MIN_VALUE = 0
-MAX_VALUE = 100
+MAX_VALUE = 5000
 STEP = 1

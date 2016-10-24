@@ -2,6 +2,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import BaseFormFieldPluginForm, get_theme
+from fobi.widgets import NumberInput
 
 from .settings import INITIAL, MAX_VALUE, MIN_VALUE, STEP
 
@@ -45,7 +46,7 @@ class RangeSelectInputForm(forms.Form, BaseFormFieldPluginForm):
     min_value = forms.IntegerField(
         label=_("Min value"),
         required=True,
-        widget=forms.widgets.TextInput(
+        widget=NumberInput(
             attrs={'class': theme.form_element_html_class}
         ),
         min_value=MIN_VALUE,
@@ -54,7 +55,7 @@ class RangeSelectInputForm(forms.Form, BaseFormFieldPluginForm):
     max_value = forms.IntegerField(
         label=_("Max value"),
         required=True,
-        widget=forms.widgets.TextInput(
+        widget=NumberInput(
             attrs={'class': theme.form_element_html_class}
         ),
         min_value=MIN_VALUE,
@@ -64,7 +65,7 @@ class RangeSelectInputForm(forms.Form, BaseFormFieldPluginForm):
         label=_("Step"),
         required=True,
         help_text=_("Step size"),
-        widget=forms.widgets.TextInput(
+        widget=NumberInput(
             attrs={'class': theme.form_element_html_class}
         ),
         min_value=MIN_VALUE,
@@ -80,7 +81,7 @@ class RangeSelectInputForm(forms.Form, BaseFormFieldPluginForm):
     initial = forms.IntegerField(
         label=_("Initial"),
         required=False,
-        widget=forms.widgets.TextInput(
+        widget=NumberInput(
             attrs={'class': theme.form_element_html_class}
         ),
         min_value=MIN_VALUE,
