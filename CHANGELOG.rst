@@ -19,10 +19,10 @@ are used for versioning (schema follows below):
 -----
 2016-10-24
 
-- Change to `NumberInput` widget for all numbers.
+- Change to `NumberInput` widget for all number inputs.
 - Fixed issue with `slider` plugin missing labels if `Show endpoints as` is
   set to `Labeled ticks`.
-- Link to edit form entry added to edit form wizard view.
+- Link to edit form entry added to edit form wizard entry view.
 
 0.9.2
 -----
