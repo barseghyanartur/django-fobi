@@ -40,9 +40,9 @@ class IntegrationProcessor(object):
         ``login_required_redirect`` is set to False.
     """
 
-    form_sent_get_param = 'sent'
     can_redirect = True
-    login_required_template_name = None
+    form_sent_get_param = 'sent'
+    login_required_template_name = 'fobi/integration/login_required.html'
 
     def integration_check(self, instance):
         """Integration check.
@@ -69,6 +69,22 @@ class IntegrationProcessor(object):
                     "({2})".format(field_name, field_info, type(instance))
                 )
 
+    def get_context_data(self, request, instance, **kwargs):
+        context = {
+            'form_entry': instance.form_entry,
+        }
+        context.update(kwargs)
+        return context
+
+    def get_form_template_name(self, request, instance):
+        return instance.form_template_name or None
+
+    def get_success_page_template_name(self, request, instance):
+        return instance.success_page_template_name or None
+
+    def get_login_required_template_name(self, request, instance):
+        return self.login_required_template_name or None
+
     def _process_form(self, request, instance, **kwargs):
         """Process form.
 
@@ -79,7 +95,7 @@ class IntegrationProcessor(object):
         :param fobi.models.FormEntry instance: FormEntry instance.
         :return django.http.HttpResponse | str:
         """
-        template_name = instance.form_template_name or None
+        template_name = self.get_form_template_name(request, instance)
 
         # Handle public/non-public forms. If form requires user authentication
         # redirect to login form with next parameter set to current request
@@ -96,7 +112,7 @@ class IntegrationProcessor(object):
                 )
 
         form_element_entries = instance.form_entry.formelemententry_set.all()[
-                               :]
+            :]
         # This is where the most of the magic happens. Our form is being built
         # dynamically.
         FormClass = assemble_form_class(
@@ -193,14 +209,15 @@ class IntegrationProcessor(object):
         theme = get_theme(request=request, as_instance=True)
         theme.collect_plugin_media(form_element_entries)
 
-        context = {
-            'form': form,
-            'form_entry': instance.form_entry,
-            'fobi_theme': theme,
-            'fobi_form_title': instance.form_title,
-            'fobi_hide_form_title': instance.hide_form_title,
-            'fobi_form_submit_button_text': instance.form_submit_button_text
-        }
+        context = self.get_context_data(
+            request=request,
+            instance=instance,
+            form=form,
+            fobi_theme=theme,
+            fobi_form_title=instance.form_title,
+            fobi_hide_form_title=instance.hide_form_title,
+            fobi_form_submit_button_text=instance.form_submit_button_text
+        )
 
         if not template_name:
             template_name = theme.view_embed_form_entry_ajax_template
@@ -215,13 +232,13 @@ class IntegrationProcessor(object):
         :param django.http.HttpRequest request:
         :return django.http.HttpResponse | str:
         """
-        context = {
-            'login_url': "{0}?next={1}".format(settings.LOGIN_URL,
-                                               request.path),
-        }
-        template_name = self.login_required_template_name \
-            if self.login_required_template_name \
-            else 'fobi/integration/login_required.html'
+        context = self.get_context_data(
+            request=request,
+            instance=instance,
+            login_url="{0}?next={1}".format(settings.LOGIN_URL, request.path),
+        )
+        template_name = self.get_login_required_template_name(request,
+                                                              instance)
 
         return render_to_string(
             template_name, context, context_instance=RequestContext(request)
@@ -234,17 +251,18 @@ class IntegrationProcessor(object):
         :param fobi.models.FormEntry instance: FormEntry instance.
         :return str:
         """
-        template_name = instance.success_page_template_name or None
+        template_name = self.get_success_page_template_name(request, instance)
 
         theme = get_theme(request=request, as_instance=True)
 
-        context = {
-            'form_entry': instance.form_entry,
-            'fobi_theme': theme,
-            'fobi_hide_success_page_title': instance.hide_success_page_title,
-            'fobi_success_page_title': instance.success_page_title,
-            'fobi_success_page_text': instance.success_page_text,
-        }
+        context = self.get_context_data(
+            request=request,
+            instance=instance,
+            fobi_theme=theme,
+            fobi_hide_success_page_title=instance.hide_success_page_title,
+            fobi_success_page_title=instance.success_page_title,
+            fobi_success_page_text=instance.success_page_text,
+        )
 
         if not template_name:
             template_name = theme.embed_form_entry_submitted_ajax_template
