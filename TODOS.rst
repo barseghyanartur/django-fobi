@@ -40,6 +40,7 @@ Regarding the form wizards
 - Add FeinCMS integration app for form wizards.
 - Add Django-CMS integration app for form wizards.
 - Add Mezzanine integration app for form wizards.
+- Add form wizards callbacks.
 
 Roadmap
 -------
