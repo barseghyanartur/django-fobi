@@ -41,6 +41,8 @@ Regarding the form wizards
 - Add Django-CMS integration app for form wizards.
 - Add Mezzanine integration app for form wizards.
 - Add form wizards callbacks.
+- Update documentation (wizards API parts is almost not covered there).
+- Add selenium tests for form wizards.
 
 Roadmap
 -------
@@ -50,6 +52,8 @@ Roadmap
 
 Uncategorised
 -------------
+- Add tests for import/export of forms.
+- Add tests for export of plugin data (db_store).
 - In the form element plugins, when handling submit_form_data, somehow
   make it possible to tell whether field returned should or should not
   overwrite cleaned form data value (that's mainly interesting for form
