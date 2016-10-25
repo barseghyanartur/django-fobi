@@ -43,6 +43,8 @@ Regarding the form wizards
 - Add form wizards callbacks.
 - Update documentation (wizards API parts is almost not covered there).
 - Add selenium tests for form wizards.
+- Make `foundation5` and `django-admin-theme` themes to reflect the latest
+  GUI changes (form wizards).
 
 Roadmap
 -------
