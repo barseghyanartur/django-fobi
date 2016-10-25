@@ -37,6 +37,9 @@ Regarding the form wizards
 - Rethink the new navigation of forms and form wizards.
 - Add support for form wizard conditions.
 + Fixed broken dependencies for docs.
+- Add FeinCMS integration app for form wizards.
+- Add Django-CMS integration app for form wizards.
+- Add Mezzanine integration app for form wizards.
 
 Roadmap
 -------
