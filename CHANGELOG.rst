@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.9.7
+-----
+yyyy-mm-dd (not released yet)
+
+- Minor improvements to the generic integration processor.
+- Wagtail integration.
+
 0.9.6
 -----
 2016-10-25

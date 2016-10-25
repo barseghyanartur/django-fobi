@@ -379,8 +379,8 @@ class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
             delete_form_element_label_parent_container.find_element_by_partial_link_text(
                 'Delete'
             )
-        # delete_form_element_link.click()
-        self._click(delete_form_element_link)
+        delete_form_element_link.click()
+        # self._click(delete_form_element_link)
 
         logger.debug(form_element_name)
 
