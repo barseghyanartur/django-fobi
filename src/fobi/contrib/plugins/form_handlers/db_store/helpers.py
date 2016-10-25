@@ -30,9 +30,10 @@ __all__ = ('DataExporter',)
 class DataExporter(object):
     """Exporting the data."""
 
-    def __init__(self, queryset):
+    def __init__(self, queryset, only_args):
         """Constructor."""
         self.queryset = queryset
+        self.only_args = only_args
 
     def _get_initial_response(self, mimetype="application/csv"):
         """Get initial response.
@@ -53,15 +54,16 @@ class DataExporter(object):
         sure that we obtain all the possible headers, so that later on
         we can just fill the slots needed.
         """
+        only_args = ['form_data_headers'] + self.only_args
         # Normal RDMBs
         try:
-            qs = self.queryset.only('form_data_headers')
+            qs = self.queryset.only(*only_args)
             qs = qs.distinct('form_data_headers')
             qs = [obj.form_data_headers for obj in qs]
 
         # Engines like SQLite
         except NotImplementedError:
-            qs = self.queryset.only('form_data_headers')
+            qs = self.queryset.only(*only_args)
             qs = [obj.form_data_headers for obj in qs]
             qs = list(set(qs))
 

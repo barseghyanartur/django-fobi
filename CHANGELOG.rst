@@ -15,6 +15,15 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.9.6
+-----
+2016-10-25
+
+- Fixed InvalidQuery exception raised when attempting to export entry from a
+  'DB store' handler. #44
+- Fixed ProgrammingError raised when using the 'Export data to CSV/XLS'
+  action. #45
+
 0.9.5
 -----
 2016-10-25

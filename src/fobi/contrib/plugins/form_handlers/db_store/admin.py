@@ -27,6 +27,7 @@ class BaseSavedFormDataEntryAdmin(admin.ModelAdmin):
     readonly_fields = ('created', 'formatted_saved_data')
 
     actions = ['export_data']
+    only_args = []
 
     class Media:
         """Media class."""
@@ -59,7 +60,7 @@ class BaseSavedFormDataEntryAdmin(admin.ModelAdmin):
 
     def export_data(self, request, queryset):
         """Export data into XLS."""
-        data_exporter = DataExporter(queryset)
+        data_exporter = DataExporter(queryset, self.only_args)
 
         return data_exporter.graceful_export()
 
@@ -90,6 +91,7 @@ class SavedFormDataEntryAdmin(BaseSavedFormDataEntryAdmin):
     )
 
     actions = ['export_data']
+    only_args = ['form_entry']
 
     class Meta:
         """Meta class."""
@@ -160,6 +162,7 @@ class SavedFormWizardDataEntryAdmin(BaseSavedFormDataEntryAdmin):
     )
 
     actions = ['export_data']
+    only_args = ['form_wizard_entry']
 
     class Meta:
         """Meta class."""

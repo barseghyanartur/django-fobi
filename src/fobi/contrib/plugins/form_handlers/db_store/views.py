@@ -98,7 +98,7 @@ def export_saved_form_data_entries(request, form_entry_id=None, theme=None):
     if form_entry_id:
         entries = entries.filter(form_entry__id=form_entry_id)
 
-    data_exporter = DataExporter(entries)
+    data_exporter = DataExporter(entries, ['form_entry'])
 
     return data_exporter.graceful_export()
 
@@ -170,6 +170,6 @@ def export_saved_form_wizard_data_entries(request,
     if form_wizard_entry_id:
         entries = entries.filter(form_wizard_entry__id=form_wizard_entry_id)
 
-    data_exporter = DataExporter(entries)
+    data_exporter = DataExporter(entries, ['form_wizard_entry'])
 
     return data_exporter.graceful_export()
