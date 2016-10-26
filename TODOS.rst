@@ -54,6 +54,9 @@ Roadmap
 
 Uncategorised
 -------------
+- Rethink templating of the integration packages (feincms_integration, 
+  djangocms_integration, mezzanine_intergration), as now they are a bit
+  of a mess. Document integration properly, if not yet done.
 - Add tests for import/export of forms.
 - Add tests for export of plugin data (db_store).
 - In the form element plugins, when handling submit_form_data, somehow

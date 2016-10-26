@@ -9,9 +9,19 @@
 
 {% block main-content-inner-attrs %}{% endblock main-content-inner-attrs %}
 
+{% block dashboard-menu-item %}
+{% url 'fobi.form_wizards_dashboard' as fobi_wizards_dashboard_url %}
+<a class="navbar-brand" href="{{ fobi_wizards_dashboard_url }}">{{ fobi_theme.project_name }}</a>
+{% endblock dashboard-menu-item %}
+
+{% block navbar-menu-right-content %}
+            <li><a href="{% url 'fobi.dashboard' %}">{% trans "Forms" %}</a></li>
+            <li class="active"><a href="{% url 'fobi.form_wizards_dashboard' %}">{% trans "Wizards" %}</a></li>
+{% endblock navbar-menu-right-content %}
+
 {% block content-wrapper %}
 <div class="page-header">
-  <h1>{% trans "Form wizards dashboard" %}</h1>
+  <h1>{% trans "Dashboard" %}</h1>
 </div>
 
 <div class="row">
