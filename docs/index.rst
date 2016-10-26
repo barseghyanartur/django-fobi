@@ -1985,6 +1985,45 @@ element- and form handler- plugins.
   shown in case of missing form element handlers, set this to False in
   your settings module. Default value is True.
 
+Tests
+=====
+Project is covered by test (functional- and browser-tests).
+
+To test type:
+
+.. code:: sh
+
+    tox
+
+It's assumed that you have all the requirements installed. If not, first
+install the test requirements:
+
+.. code:: sh
+
+    pip install -r examples/simple/requirements/common_test_requirements.txt
+
+Selenium
+--------
+Latest versions of Firefox are often not supported by Selenium. Current
+version of the Selenium for Python (2.53.6) works fine with Firefox 47.
+Thus, instead of using system Firefox you could better use a custom one.
+
+Set up Firefox 47
+~~~~~~~~~~~~~~~~~
+1. Download Firefox 47 from
+   `this
+   <https://ftp.mozilla.org/pub/firefox/releases/47.0.1/linux-x86_64/en-GB/firefox-47.0.1.tar.bz2>`__
+   location and unzip it into ``/usr/lib/firefox47/``
+
+2. Specify the full path to your Firefox in ``FIREFOX_BIN_PATH``
+   setting. Example:
+
+   .. code:: python
+
+       FIREFOX_BIN_PATH = '/usr/lib/firefox47/firefox'
+
+After that your Selenium tests would work.
+
 Troubleshooting
 ===============
 If you get a ``FormElementPluginDoesNotExist`` or a
