@@ -1,0 +1,23 @@
+{% extends "pages/page.html" %}
+
+{% load static %}
+
+{% block extra_css %}
+    {{ block.super }}
+    {% for css_file in fobi_theme.get_media_css %}
+    <link href="{% static css_file %}" rel="stylesheet" media="all" />
+    {% endfor %}
+{% endblock extra_css %}
+
+{% block main %}
+    {{ block.super }}
+    {% if not fobi_hide_form_title and fobi_form_title %}<h2>{{ fobi_form_title }}</h2>{% endif %}
+    {% include fobi_theme.form_snippet_template_name %}
+{% endblock main %}
+
+{% block extra_js %}
+    {{ block.super }}
+    {% for js_file in fobi_theme.get_media_js %}
+    <script src="{% static js_file %}"></script>
+    {% endfor %}
+{% endblock extra_js %}

@@ -31,7 +31,6 @@ README_PARTS.rst
 /src/django_fobi.egg-info
 /src/fobi/contrib/plugins/form_elements/fields/hidden_model_object/
 /src/fobi/contrib/plugins/form_importers/mailchimp_importer/bucket.py
-/src/fobi/contrib/apps/wagtail_integration/
 
 /scripts/install_django_1_7_wagtail.sh
 /scripts/reinstall_django_1_7_wagtail.sh
