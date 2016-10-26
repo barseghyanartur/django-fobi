@@ -10,8 +10,7 @@
 {% block main-content-inner-attrs %}{% endblock main-content-inner-attrs %}
 
 {% block dashboard-menu-item %}
-{% url 'fobi.form_wizards_dashboard' as fobi_wizards_dashboard_url %}
-<a class="navbar-brand" href="{{ fobi_wizards_dashboard_url }}">{{ fobi_theme.project_name }}</a>
+<a class="navbar-brand" href="{% url 'fobi.form_wizards_dashboard' %}">{{ fobi_theme.project_name }}</a>
 {% endblock dashboard-menu-item %}
 
 {% block navbar-menu-right-content %}
@@ -61,13 +60,11 @@
                           <span class="glyphicon glyphicon-remove"></span> {% trans "Delete" %}
                       </a>
                   </li>
-                  {% comment %}
                   <li>
-                      <a href="{% url 'fobi.export_form_entry' form_entry.pk %}">
+                      <a href="{% url 'fobi.export_form_wizard_entry' form_wizard_entry.pk %}">
                           <span class="glyphicon glyphicon-export"></span> {% trans "Export" %}
                       </a>
                   </li>
-                  {% endcomment %}
                 </ul>
               </td>
             </tr>
@@ -88,10 +85,10 @@
       <a href="{% url 'fobi.create_form_wizard_entry' %}" class="list-group-item">
           <span class="glyphicon glyphicon-plus"></span> {% trans "Create form wizard" %}
       </a>
-      {% comment %}
-      <a href="{% url 'fobi.import_form_entry' %}" class="list-group-item">
-          <span class="glyphicon glyphicon-import"></span> {% trans "Import form" %}
+      <a href="{% url 'fobi.import_form_wizard_entry' %}" class="list-group-item">
+          <span class="glyphicon glyphicon-import"></span> {% trans "Import form wizard" %}
       </a>
+      {% comment %}
       {% for form_importer_uid,form_importer_name,form_importer_url in form_importers %}
         <a href="{{ form_importer_url }}" class="list-group-item">
           <span class="glyphicon glyphicon-import glyphicon-import-{{ form_importer_uid }}"></span> {{ form_importer_name }}

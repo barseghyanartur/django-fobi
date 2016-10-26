@@ -53,6 +53,7 @@ __all__ = (
     'FormWizardFormEntryFormSet',
     'FormWizardHandlerEntryForm',
     'ImportFormEntryForm',
+    'ImportFormWizardEntryForm',
 )
 
 # *****************************************************************************
@@ -512,3 +513,14 @@ class ImportFormEntryForm(forms.Form):
     # ignore_broken_form_handler_entries = forms.BooleanField(
     #     required=False,
     #     label=_("Ignore broken form handler entries"))
+
+
+# *****************************************************************************
+# *****************************************************************************
+# ************************** Import form wizard entry *************************
+# *****************************************************************************
+# *****************************************************************************
+
+
+class ImportFormWizardEntryForm(ImportFormEntryForm):
+    """Import form entry wizard form."""

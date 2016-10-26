@@ -21,9 +21,11 @@ from fobi.views import (
     edit_form_wizard_entry,
     edit_form_wizard_handler_entry,
     export_form_entry,
+    export_form_wizard_entry,
     form_importer,
     form_wizards_dashboard,
     import_form_entry,
+    import_form_wizard_entry
 )
 
 __title__ = 'fobi.urls.edit'
@@ -170,6 +172,20 @@ urlpatterns = [
     url(_(r'^wizard/handlers/delete/(?P<form_wizard_handler_entry_id>\d+)/$'),
         delete_form_wizard_handler_entry,
         name='fobi.delete_form_wizard_handler_entry'),
+
+    # ***********************************************************************
+    # *********************** Form wizard entry add-ons *********************
+    # ***********************************************************************
+
+    # Export form wizard entry
+    url(_(r'^wizard/export/(?P<form_wizard_entry_id>\d+)/$'),
+        export_form_wizard_entry,
+        name='fobi.export_form_wizard_entry'),
+
+    # Import form wizard entry
+    url(_(r'^wizard/import/$'),
+        import_form_wizard_entry,
+        name='fobi.import_form_wizard_entry'),
 
     # ***********************************************************************
     # ****************************** Dashboard ******************************

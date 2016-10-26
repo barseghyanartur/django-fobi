@@ -4,6 +4,8 @@ import sys
 from distutils.version import LooseVersion
 from setuptools import setup, find_packages
 
+version = '0.9.7'
+
 # ***************************************************************************
 # ************************** Django version *********************************
 # ***************************************************************************
@@ -203,8 +205,6 @@ for locale_dir in locale_dirs:
     locale_files += [os.path.join(locale_dir, f)
                      for f
                      in os.listdir(locale_dir)]
-
-version = '0.9.6'
 
 install_requires = []
 # If certain version of Django is already installed, choose version agnostic

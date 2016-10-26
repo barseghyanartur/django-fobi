@@ -2,16 +2,18 @@
 Another helper module. This module can NOT be safely imported from any fobi
 (sub)module - thus should be imported carefully.
 """
+import datetime
 import os
 import logging
 
 from six import PY3
 
 from django.conf import settings
+from django.contrib import messages
 from django.core.urlresolvers import reverse
 from django.forms.widgets import TextInput
 from django.utils.encoding import force_text
-from django.utils.translation import ugettext
+from django.utils.translation import ugettext, ugettext_lazy as _
 
 from .base import (
     form_element_plugin_registry,
@@ -31,8 +33,11 @@ from .base import (
 from .dynamic import assemble_form_class
 from .helpers import update_plugin_data, safe_text
 from .models import (
+    FormEntry,
     FormElement,
+    FormElementEntry,
     FormHandler,
+    FormHandlerEntry,
     FormWizardHandler
 )
 from .settings import RESTRICT_PLUGIN_ACCESS, DEBUG, WIZARD_FILES_UPLOAD_DIR
@@ -59,6 +64,8 @@ __all__ = (
     'get_user_form_element_plugins_grouped',
     'get_user_form_handler_plugins_grouped',
     'get_user_form_wizard_handler_plugins_grouped',
+    'prepare_form_entry_export_data',
+    'perform_form_entry_import',
 )
 
 logger = logging.getLogger(__name__)
@@ -645,3 +652,140 @@ def get_wizard_files_upload_dir():
         return os.path.abspath(
             os.path.join(settings.BASE_DIR, WIZARD_FILES_UPLOAD_DIR)
         )
+
+# *****************************************************************************
+# *****************************************************************************
+# ******************************** Export related *****************************
+# *****************************************************************************
+# *****************************************************************************
+
+
+def prepare_form_entry_export_data(form_entry,
+                                   form_element_entries=None,
+                                   form_handler_entries=None):
+    """Prepare form entry export data.
+
+    :param fobi.modes.FormEntry form_entry: Instance of.
+    :param django.db.models.QuerySet form_element_entries: QuerySet of
+        FormElementEntry instances.
+    :param django.db.models.QuerySet form_handler_entries: QuerySet of
+        FormHandlerEntry instances.
+    :return str:
+    """
+    data = {
+        'name': form_entry.name,
+        'slug': form_entry.slug,
+        'is_public': False,
+        'is_cloneable': False,
+        # 'position': form_entry.position,
+        'success_page_title': form_entry.success_page_title,
+        'success_page_message': form_entry.success_page_message,
+        'action': form_entry.action,
+        'form_elements': [],
+        'form_handlers': [],
+    }
+
+    if not form_element_entries:
+        form_element_entries = form_entry.formelemententry_set.all()[:]
+
+    if not form_handler_entries:
+        form_handler_entries = form_entry.formhandlerentry_set.all()[:]
+
+    for form_element_entry in form_element_entries:
+        data['form_elements'].append(
+            {
+                'plugin_uid': form_element_entry.plugin_uid,
+                'position': form_element_entry.position,
+                'plugin_data': form_element_entry.plugin_data,
+            }
+        )
+
+    for form_handler_entry in form_handler_entries:
+        data['form_handlers'].append(
+            {
+                'plugin_uid': form_handler_entry.plugin_uid,
+                'plugin_data': form_handler_entry.plugin_data,
+            }
+        )
+    return data
+
+
+def perform_form_entry_import(request, form_data):
+    """Perform form entry import.
+
+    :param django.http.HttpRequest request:
+    :param dict form_data:
+    :return :class:`fobi.modes.FormEntry: Instance of.
+    """
+    form_elements_data = form_data.pop('form_elements', [])
+    form_handlers_data = form_data.pop('form_handlers', [])
+
+    form_data_keys_whitelist = (
+        'name',
+        'slug',
+        'is_public',
+        'is_cloneable',
+        # 'position',
+        'success_page_title',
+        'success_page_message',
+        'action',
+    )
+
+    # In this way we keep possible trash out.
+    for key in form_data.keys():
+        if key not in form_data_keys_whitelist:
+            form_data.pop(key)
+
+    # User information we always recreate!
+    form_data['user'] = request.user
+
+    form_entry = FormEntry(**form_data)
+
+    form_entry.name += ugettext(" (imported on {0})").format(
+        datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    )
+    form_entry.save()
+
+    # One by one, importing form element plugins.
+    for form_element_data in form_elements_data:
+        if form_element_plugin_registry.registry.get(
+                form_element_data.get('plugin_uid', None), None):
+            form_element = FormElementEntry(**form_element_data)
+            form_element.form_entry = form_entry
+            form_element.save()
+        else:
+            if form_element_data.get('plugin_uid', None):
+                messages.warning(
+                    request,
+                    _('Plugin {0} is missing in the system.'
+                      '').format(form_element_data.get('plugin_uid'))
+                )
+            else:
+                messages.warning(
+                    request,
+                    _('Some essential plugin data missing in the JSON '
+                      'import.')
+                )
+
+    # One by one, importing form handler plugins.
+    for form_handler_data in form_handlers_data:
+        if form_handler_plugin_registry.registry.get(
+                form_handler_data.get('plugin_uid', None), None):
+            form_handler = FormHandlerEntry(**form_handler_data)
+            form_handler.form_entry = form_entry
+            form_handler.save()
+        else:
+            if form_handler_data.get('plugin_uid', None):
+                messages.warning(
+                    request,
+                    _('Plugin {0} is missing in the system.'
+                      '').format(form_handler_data.get('plugin_uid'))
+                )
+            else:
+                messages.warning(
+                    request,
+                    _('Some essential data missing in the JSON '
+                      'import.')
+                )
+
+    return form_entry

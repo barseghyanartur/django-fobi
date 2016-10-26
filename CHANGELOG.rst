@@ -17,10 +17,12 @@ are used for versioning (schema follows below):
 
 0.9.7
 -----
-yyyy-mm-dd (not released yet)
+2016-10-27
 
-- Minor improvements to the generic integration processor.
-- Wagtail integration.
+- Improvements in the generic integration processor.
+- Improved form wizard interface and navigation.
+- Fixed a broken test.
+- Added import/export functionality for form wizards.
 
 0.9.6
 -----
