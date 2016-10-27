@@ -43,6 +43,7 @@ README_PARTS.rst
 /examples/media/fobi_plugins/content_image/
 /examples/media/fobi_plugins/file/
 /examples/media/cache/
+/examples/simple/lund_urls.py
 /examples/simple/lund/
 /examples/simple/settings/local_settings.py
 /examples/simple/settings/local_settings_foundation5.py

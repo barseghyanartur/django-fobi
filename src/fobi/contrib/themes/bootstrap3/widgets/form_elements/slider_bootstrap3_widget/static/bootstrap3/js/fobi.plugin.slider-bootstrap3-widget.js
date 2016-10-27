@@ -8,13 +8,17 @@
 ;
 
 $(document).ready(function() {
-    var selectElement = $('select.slider');
-    var selectedValue = null;
-    try {
-        selectedValue = parseInt(selectElement.val());
-    } catch(err) {
-        selectedValue = parseInt(selectElement.data('data-slider-value'));
-    }
-    var sliderElement = $('.slider').bootstrapSlider();
-    sliderElement.bootstrapSlider('setValue', selectedValue);
+    // We consider multiple sliders
+    $('select.slider').each(function() {
+        var selectElement = $(this);
+        var selectedValue = null;
+        try {
+            selectedValue = parseInt(selectElement.val());
+        } catch(err) {
+            selectedValue = parseInt(selectElement.data('data-slider-value'));
+        }
+        var sliderElement = $(this).bootstrapSlider();
+        sliderElement.bootstrapSlider('setValue', selectedValue);
+    });
+
 });
