@@ -6,7 +6,12 @@ from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
-from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
+from fobi.base import (
+    FormFieldPlugin,
+    form_element_plugin_registry,
+    get_theme
+)
+from fobi.helpers import get_select_field_choices
 from fobi.widgets import RichSelect
 
 from . import UID
@@ -18,6 +23,7 @@ from .constants import (
     SLIDER_DEFAULT_SHOW_ENDPOINTS_AS
 )
 from .forms import SliderInputForm
+from .helpers import generate_ticks
 from .settings import INITIAL, MAX_VALUE, MIN_VALUE, STEP
 
 __title__ = 'fobi.contrib.plugins.form_elements.fields.slider.' \
@@ -53,9 +59,11 @@ class SliderInputPlugin(FormFieldPlugin):
             if self.data.handle \
             else SLIDER_DEFAULT_HANDLE
 
-        # custom_ticks = get_select_field_choices(self.data.custom_ticks) \
-        #     if self.data.custom_ticks \
-        #     else []
+        custom_ticks = get_select_field_choices(self.data.custom_ticks,
+                                                key_type=int,
+                                                value_type=text_type) \
+            if self.data.custom_ticks \
+            else []
 
         _choices = range(min_value, max_value+1, step)
         choices = zip(_choices, _choices)
@@ -88,34 +96,53 @@ class SliderInputPlugin(FormFieldPlugin):
         # Show endpoints as labeled ticks
         if SLIDER_SHOW_ENDPOINTS_AS_LABELED_TICKS == show_endpoints_as:
 
-            label_start = self.data.label_start \
-                if self.data.label_start \
-                else text_type(min_value)
+            if custom_ticks:
+                ticks_data = generate_ticks(custom_ticks)
+            else:
+                ticks_data = generate_ticks([
+                    (min_value, self.data.label_start),
+                    (max_value, self.data.label_end),
+                ])
+            # label_start = self.data.label_start \
+            #     if self.data.label_start \
+            #     else text_type(min_value)
+            #
+            # label_end = self.data.label_end \
+            #     if self.data.label_end \
+            #     else text_type(max_value)
 
-            label_end = self.data.label_end \
-                if self.data.label_end \
-                else text_type(max_value)
+            # widget_attrs.update({
+            #     'data-slider-ticks': "[{0}, {1}]".format(
+            #         min_value, max_value
+            #     ),
+            #     'data-slider-ticks-labels': '["{0!s}", "{1!s}"]'.format(
+            #         label_start.encode('utf8'), label_end.encode('utf8')
+            #     ),
+            # })
 
-            widget_attrs.update({
-                'data-slider-ticks': "[{0}, {1}]".format(
-                    min_value, max_value
-                ),
-                'data-slider-ticks-labels': '["{0!s}", "{1!s}"]'.format(
-                    label_start.encode('utf8'), label_end.encode('utf8')
-                ),
-            })
+            widget_attrs.update(ticks_data)
 
         # Show endpoints as ticks
         elif SLIDER_SHOW_ENDPOINTS_AS_TICKS == show_endpoints_as:
 
-            widget_attrs.update({
-                'data-slider-ticks': "[{0}, {1}]".format(
-                    min_value, max_value
-                ),
-                'data-slider-ticks-labels': '["{0}", "{1}"]'.format(
-                    "", ""
-                ),
-            })
+            if custom_ticks:
+                ticks_data = generate_ticks(custom_ticks, empty_labels=True)
+            else:
+                ticks_data = generate_ticks([
+                    (min_value, ""),
+                    (max_value, ""),
+                ])
+
+            # widget_attrs.update({
+            #     'data-slider-ticks': "[{0}, {1}]".format(
+            #         min_value, max_value
+            #     ),
+            #     'data-slider-ticks-labels': '["{0}", "{1}"]'.format(
+            #         "", ""
+            #     ),
+            # })
+
+            widget_attrs.update(ticks_data)
 
         # Show endpoints as labels
         else:

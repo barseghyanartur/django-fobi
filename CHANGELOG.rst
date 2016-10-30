@@ -15,6 +15,12 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.9.9
+-----
+2016-10-31
+
+- Make it possible to add custom ticks to the `slider` plugin.
+
 0.9.8
 -----
 2016-10-27

@@ -4,6 +4,13 @@
 
 {% block page-title %}{% blocktrans with form_element_plugin.name as plugin_name %}Edit "{{ plugin_name }}" element of the form{% endblocktrans %}{% endblock page-title %}
 
+{% block extrahead %}
+    {% if form %}
+        {{ form.media }}
+    {% endif %}
+    {{ block.super }}
+{% endblock extrahead %}
+
 {% block navbar-menu-content %}
 {% endblock navbar-menu-content %}
 

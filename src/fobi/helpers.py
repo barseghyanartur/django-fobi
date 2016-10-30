@@ -396,13 +396,19 @@ def update_plugin_data(entry, request=None):
             return plugin._update_plugin_data(entry)
 
 
-def get_select_field_choices(raw_choices_data):
+def get_select_field_choices(raw_choices_data,
+                             key_type=None,
+                             value_type=None,
+                             fail_silently=True):
     """Get select field choices.
 
     Used in ``radio``, ``select`` and other choice based
     fields.
 
     :param str raw_choices_data:
+    :param type key_type:
+    :param type value_type:
+    :param bool fail_silently:
     :return list:
     """
     choices = []  # Holds return value
@@ -417,8 +423,25 @@ def get_select_field_choices(raw_choices_data):
         if ',' in choice:
             key, value = choice.split(',', 1)
             key = key.strip()
+
+            # If type specified, cast to the type
+            if key_type and key is not None:
+                try:
+                    key = key_type(key)
+                except (ValueError, TypeError):
+                    return [] if fail_silently else None
+
             value = value.strip()
-            if key and key not in keys and value not in values:
+            # If type specified, cast to the type
+            if value_type and value is not None:
+                try:
+                    value = value_type(value)
+                except (ValueError, TypeError):
+                    return [] if fail_silently else None
+
+            if key is not None \
+                    and key not in keys \
+                    and value not in values:
                 choices.append((key, value))
                 keys.add(key)
                 values.add(value)
@@ -426,7 +449,9 @@ def get_select_field_choices(raw_choices_data):
         # If key is also the value
         else:
             choice = choice.strip()
-            if choice and choice not in keys and choice not in values:
+            if choice is not None \
+                    and choice not in keys \
+                    and choice not in values:
                 choices.append((choice, choice))
                 keys.add(choice)
                 values.add(choice)
