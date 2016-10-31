@@ -21,5 +21,7 @@ matrix:
     python: 3.4
   - env: TOXENV=py35-django110
     python: 3.5
+install:
+  - pip install tox
 script:
 - tox
