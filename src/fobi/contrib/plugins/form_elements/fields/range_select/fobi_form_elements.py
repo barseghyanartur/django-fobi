@@ -6,7 +6,14 @@ from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
 
 from . import UID
 from .forms import RangeSelectInputForm
-from .settings import INITIAL, MAX_VALUE, MIN_VALUE, STEP
+from .settings import (
+    INITIAL,
+    INITIAL_MAX_VALUE,
+    INITIAL_MIN_VALUE,
+    # MAX_VALUE,
+    # MIN_VALUE,
+    STEP
+)
 
 __title__ = 'fobi.contrib.plugins.form_elements.fields.range_select.' \
             'fobi_form_elements'
@@ -30,8 +37,12 @@ class RangeSelectInputPlugin(FormFieldPlugin):
                                  form_element_entries=None, **kwargs):
         """Get form field instances."""
         initial = self.data.initial if self.data.initial else INITIAL
-        max_value = self.data.max_value if self.data.max_value else MAX_VALUE
-        min_value = self.data.min_value if self.data.min_value else MIN_VALUE
+        max_value = self.data.max_value \
+            if self.data.max_value \
+            else INITIAL_MAX_VALUE
+        min_value = self.data.min_value \
+            if self.data.min_value \
+            else INITIAL_MIN_VALUE
         step = self.data.step if self.data.step else STEP
 
         _choices = range(min_value, max_value+1, step)

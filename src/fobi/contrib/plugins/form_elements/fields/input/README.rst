@@ -38,9 +38,9 @@ Installation
 
 2. In the terminal type:
 
-.. code-block:: none
+.. code-block:: sh
 
-    $ ./manage.py fobi_sync_plugins
+    ./manage.py fobi_sync_plugins
 
 3. Assign appropriate permissions to the target users/groups to be using
    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.

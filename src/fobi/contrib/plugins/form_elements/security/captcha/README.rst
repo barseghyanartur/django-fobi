@@ -14,9 +14,9 @@ Taken from django-simple-captcha `installation instructions
 
 1. Download ``django-simple-captcha`` using pip by running:
 
-.. code-block:: none
+.. code-block:: sh
 
-    $ pip install django-simple-captcha
+    pip install django-simple-captcha
 
 2. Add ``captcha`` to the ``INSTALLED_APPS`` in your ``settings.py``.
 
@@ -47,9 +47,9 @@ Install `fobi` Captcha plugin
 
 2. In the terminal type:
 
-.. code-block:: none
+.. code-block:: sh
 
-    $ ./manage.py fobi_sync_plugins
+    ./manage.py fobi_sync_plugins
 
 3. Assign appropriate permissions to the target users/groups to be using
    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.

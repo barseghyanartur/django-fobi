@@ -19,9 +19,9 @@ Installation
 
 2. In the terminal type:
 
-.. code-block:: none
+.. code-block:: sh
 
-    $ ./manage.py fobi_sync_plugins
+    ./manage.py fobi_sync_plugins
 
 3. Assign appropriate permissions to the target users/groups to be using
    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
@@ -42,9 +42,11 @@ Installation
           ('gamma', 'Gamma'),
       ]
 
-   - "val": `value` (example: "alpha").
-   - "repr" (default): `label` (example: "Alpha").
-   - "mix": `value (label)` (example: "Alpha (alpha)").
+   .. code-block:: text
+
+       - "val": `value` (example: "alpha").
+       - "repr" (default): `label` (example: "Alpha").
+       - "mix": `value (label)` (example: "Alpha (alpha)").
 
    Simply set the
    ``FOBI_FORM_ELEMENT_RADIO_SUBMIT_VALUE_AS`` assign one of the following
@@ -57,7 +59,7 @@ consist of just a single value or value/label pair.
 
 For example:
 
-.. code-block:: none
+.. code-block:: text
 
     1
     2

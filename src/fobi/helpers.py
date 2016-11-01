@@ -19,6 +19,7 @@ from django.core.files.base import File
 from django.contrib.contenttypes.models import ContentType
 from django.db.utils import DatabaseError
 from django.utils.encoding import force_text
+from django.utils.html import format_html_join
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth.models import AnonymousUser
@@ -50,6 +51,7 @@ __all__ = (
     'do_slugify',
     'empty_string',
     'ensure_unique_filename',
+    'flatatt_inverse_quotes',
     'get_app_label_and_model_name',
     'get_form_element_entries_for_form_wizard_entry',
     'get_model_name_for_object',
@@ -883,3 +885,34 @@ def get_wizard_form_field_value_from_request(request,
 
     return value
 
+# *****************************************************************************
+# *****************************************************************************
+# ******************************** Export related *****************************
+# *****************************************************************************
+# *****************************************************************************
+
+
+def flatatt_inverse_quotes(attrs):
+    """Convert a dictionary of attributes to a single string.
+
+    The returned string will contain a leading space followed by key="value",
+    XML-style pairs. In the case of a boolean value, the key will appear
+    without a value. It is assumed that the keys do not need to be
+    XML-escaped. If the passed dictionary is empty, then return an empty
+    string.
+
+    The result is passed through 'mark_safe' (by way of 'format_html_join').
+    """
+    key_value_attrs = []
+    boolean_attrs = []
+    for attr, value in attrs.items():
+        if isinstance(value, bool):
+            if value:
+                boolean_attrs.append((attr,))
+        else:
+            key_value_attrs.append((attr, value))
+
+    return (
+        format_html_join("", " {}='{}'", sorted(key_value_attrs)) +
+        format_html_join("", " {}", sorted(boolean_attrs))
+    )

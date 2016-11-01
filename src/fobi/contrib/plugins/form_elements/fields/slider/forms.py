@@ -18,7 +18,14 @@ from .constants import (
     SLIDER_SHOW_ENDPOINTS_AS_TICKS
 )
 
-from .settings import INITIAL, MAX_VALUE, MIN_VALUE, STEP
+from .settings import (
+    INITIAL,
+    INITIAL_MAX_VALUE,
+    INITIAL_MIN_VALUE,
+    MAX_VALUE,
+    MIN_VALUE,
+    STEP
+)
 
 __title__ = 'fobi.contrib.plugins.form_elements.fields.slider.forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -36,8 +43,8 @@ class SliderInputForm(forms.Form, BaseFormFieldPluginForm):
         ("label", ""),
         ("name", ""),
         ("initial", INITIAL),
-        ("min_value", MIN_VALUE),
-        ("max_value", MAX_VALUE),
+        ("min_value", INITIAL_MIN_VALUE),
+        ("max_value", INITIAL_MAX_VALUE),
         ("step", STEP),
         ("tooltip", SLIDER_DEFAULT_TOOLTIP),
         ("handle", SLIDER_DEFAULT_HANDLE),
@@ -75,6 +82,7 @@ class SliderInputForm(forms.Form, BaseFormFieldPluginForm):
     min_value = forms.IntegerField(
         label=_("Min value"),
         required=True,
+        initial=INITIAL_MIN_VALUE,
         widget=NumberInput(attrs={'class': theme.form_element_html_class}),
         min_value=MIN_VALUE,
         max_value=MAX_VALUE
@@ -82,6 +90,7 @@ class SliderInputForm(forms.Form, BaseFormFieldPluginForm):
     max_value = forms.IntegerField(
         label=_("Max value"),
         required=True,
+        initial=INITIAL_MAX_VALUE,
         widget=NumberInput(attrs={'class': theme.form_element_html_class}),
         min_value=MIN_VALUE,
         max_value=MAX_VALUE

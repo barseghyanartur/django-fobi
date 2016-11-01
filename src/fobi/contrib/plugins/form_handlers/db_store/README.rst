@@ -25,11 +25,11 @@ Installation
 
 2. In the terminal type:
 
-.. code-block:: none
+.. code-block:: sh
 
-    $ ./manage.py syncdb
+    ./manage.py migrate
 
-    $ ./manage.py fobi_sync_plugins
+    ./manage.py fobi_sync_plugins
 
 3. Assign appropriate permissions to the target users/groups to be using
    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
@@ -49,8 +49,8 @@ For form wizards do:
 .. code-block:: python
 
     urlpatterns = [
-            # DB Store plugin URLs
-            url(r'^fobi/plugins/form-wizard-handlers/db-store/',
-                include('fobi.contrib.plugins.form_handlers.db_store.urls.'
-                        'form_wizard_handlers')),
-        ]
+        # DB Store plugin URLs
+        url(r'^fobi/plugins/form-wizard-handlers/db-store/',
+            include('fobi.contrib.plugins.form_handlers.db_store.urls.'
+                    'form_wizard_handlers')),
+    ]

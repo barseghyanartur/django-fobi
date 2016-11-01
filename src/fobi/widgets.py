@@ -3,6 +3,8 @@ from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
+from .helpers import flatatt_inverse_quotes
+
 # Safe import of ``NumberInput``
 try:
     from django.forms.widgets import NumberInput
@@ -22,6 +24,7 @@ __all__ = (
     'NumberInput',
     'BooleanRadioSelect',
     'RichSelect',
+    'RichSelectInverseQuotes',
 )
 
 
@@ -96,3 +99,24 @@ class RichSelect(Select):
                 format_html(self.append_html)
             ])
         )
+
+
+class RichSelectInverseQuotes(RichSelect):
+    """Almost same as original, but uses alternative flatatt function.
+
+    Uses inverse quotes.
+    """
+
+    def render(self, name, value, attrs=None):
+        if value is None:
+            value = ''
+        final_attrs = self.build_attrs(attrs, name=name)
+        output = [format_html(
+            '<select{}>',
+            flatatt_inverse_quotes(final_attrs)
+        )]
+        options = self.render_options([value])
+        if options:
+            output.append(options)
+        output.append('</select>')
+        return mark_safe('\n'.join(output))

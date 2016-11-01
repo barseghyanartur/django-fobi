@@ -11,9 +11,9 @@ Install `django-recaptcha`
 --------------------------
 1. Download ``django-recaptcha`` using pip by running:
 
-.. code-block:: none
+.. code-block:: sh
 
-    $ pip install django-recaptcha
+    pip install django-recaptcha
 
 2. Add ``captcha`` to the ``INSTALLED_APPS`` in your ``settings.py``.
 
@@ -36,14 +36,16 @@ Install `fobi` ReCAPTCHA plugin
 
 2. In the terminal type:
 
-.. code-block:: none
+.. code-block:: sh
 
-    $ ./manage.py fobi_sync_plugins
+    ./manage.py fobi_sync_plugins
 
 3. Assign appropriate permissions to the target users/groups to be using
    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 4. Specify the following ReCAPTCHA credentials in your settings.
+
+.. code-block:: text
 
    - ``RECAPTCHA_PUBLIC_KEY``
    - ``RECAPTCHA_PRIVATE_KEY``

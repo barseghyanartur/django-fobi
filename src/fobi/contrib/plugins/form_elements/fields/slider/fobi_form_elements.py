@@ -1,10 +1,12 @@
 from six import text_type
 
 from django.forms.fields import ChoiceField
-from django.forms.utils import flatatt
+
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
+
+from nine import versions
 
 from fobi.base import (
     FormFieldPlugin,
@@ -12,7 +14,7 @@ from fobi.base import (
     get_theme
 )
 from fobi.helpers import get_select_field_choices
-from fobi.widgets import RichSelect
+from fobi.widgets import RichSelectInverseQuotes
 
 from . import UID
 from .constants import (
@@ -24,7 +26,19 @@ from .constants import (
 )
 from .forms import SliderInputForm
 from .helpers import generate_ticks
-from .settings import INITIAL, MAX_VALUE, MIN_VALUE, STEP
+from .settings import (
+    INITIAL,
+    INITIAL_MAX_VALUE,
+    INITIAL_MIN_VALUE,
+    # MAX_VALUE,
+    # MIN_VALUE,
+    STEP
+)
+
+if versions.DJANGO_GTE_1_7:
+    from django.forms.utils import flatatt
+else:
+    from django.forms.util import flatatt
 
 __title__ = 'fobi.contrib.plugins.form_elements.fields.slider.' \
             'fobi_form_elements'
@@ -49,8 +63,12 @@ class SliderInputPlugin(FormFieldPlugin):
                                  form_element_entries=None, **kwargs):
         """Get form field instances."""
         initial = self.data.initial if self.data.initial else INITIAL
-        max_value = self.data.max_value if self.data.max_value else MAX_VALUE
-        min_value = self.data.min_value if self.data.min_value else MIN_VALUE
+        max_value = self.data.max_value \
+            if self.data.max_value \
+            else INITIAL_MAX_VALUE
+        min_value = self.data.min_value \
+            if self.data.min_value \
+            else INITIAL_MIN_VALUE
         step = self.data.step if self.data.step else STEP
         tooltip = self.data.tooltip \
             if self.data.tooltip \
@@ -186,7 +204,7 @@ class SliderInputPlugin(FormFieldPlugin):
             'initial': initial,
             'required': self.data.required,
             'choices': choices,
-            'widget': RichSelect(**widget_kwargs),
+            'widget': RichSelectInverseQuotes(**widget_kwargs),
         }
 
         return [(self.data.name, ChoiceField, field_kwargs)]

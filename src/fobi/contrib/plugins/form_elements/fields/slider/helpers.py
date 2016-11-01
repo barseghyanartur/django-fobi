@@ -1,6 +1,6 @@
 from six import text_type
 
-from django.utils.safestring import mark_safe
+from django.utils.html import format_html
 
 __title__ = 'fobi.contrib.plugins.form_elements.fields.slider.helpers'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -32,8 +32,8 @@ def generate_ticks(choices, empty_labels=False):
                 values.append(text_type(k).encode('utf8'))
 
     ticks = {
-        'data-slider-ticks': mark_safe(str(keys)),
-        'data-slider-ticks-labels': mark_safe(str(values)),
+        'data-slider-ticks': format_html(str(keys)),
+        'data-slider-ticks-labels': format_html(str(values).replace("'", '"')),
     }
 
     return ticks

@@ -15,6 +15,15 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.9.10
+------
+2016-11-01
+
+- Fixed issue with custom labels in the `slider` plugin.
+- Made `slider` plugin compatible with Django <= 1.6.
+- Fixes `get_absolute_url` methods on `FormEntry` and `FormWizardEntry`
+  models. #48
+
 0.9.9
 -----
 2016-10-31
@@ -31,7 +40,7 @@ are used for versioning (schema follows below):
 -----
 2016-10-27
 
-- Improvements in the generic integration processor.
+- Improvements in the generic integration processor. #47
 - Improved form wizard interface and navigation.
 - Fixed a broken test.
 - Added import/export functionality for form wizards.
