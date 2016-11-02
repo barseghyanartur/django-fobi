@@ -1985,8 +1985,8 @@ element- and form handler- plugins.
   shown in case of missing form element handlers, set this to False in
   your settings module. Default value is True.
 
-Tests
-=====
+Testing
+=======
 Project is covered by test (functional- and browser-tests).
 
 To test type:
@@ -2000,7 +2000,7 @@ install the test requirements:
 
 .. code:: sh
 
-    pip install -r examples/simple/requirements/common_test_requirements.txt
+    pip install -r examples/requirements/common_test_requirements.txt
 
 Selenium
 --------

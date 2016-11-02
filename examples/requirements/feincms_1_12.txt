@@ -1,0 +1,5 @@
+-r django_1_9.txt
+
+FeinCMS==1.12.1
+django-mptt==0.8.6
+django-tinymce==2.4.0

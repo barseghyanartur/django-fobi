@@ -669,7 +669,7 @@ def add_form_element_entry(request,
         form = form_element_plugin.get_initialised_create_form_or_404(
             data=request.POST,
             files=request.FILES
-            )
+        )
         form.validate_plugin_data(form_elements, request=request)
         if form.is_valid():
             # Saving the plugin form data.

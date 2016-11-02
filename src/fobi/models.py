@@ -387,6 +387,7 @@ class FormEntry(models.Model):
         return reverse('fobi.view_form_entry', kwargs={'slug': self.slug})
 
 
+@python_2_unicode_compatible
 class FormWizardFormEntry(models.Model):
     """Form wizard form entry.
 
@@ -409,6 +410,9 @@ class FormWizardFormEntry(models.Model):
         verbose_name_plural = _("Form wizard form entries")
         ordering = ['position']
         unique_together = (('form_wizard_entry', 'form_entry'),)
+
+    def __str__(self):
+        return "{0} - {1}".format(self.form_wizard_entry, self.form_entry)
 
 
 @python_2_unicode_compatible

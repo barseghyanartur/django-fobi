@@ -1055,15 +1055,13 @@ class BasePlugin(object):
         plugin_form = self.get_form()
         if plugin_form:
             try:
-                plugin_form = self.get_form()
-                if plugin_form:
-                    kwargs = {
-                        'data': data,
-                        'files': files,
-                    }
-                    if initial_data:
-                        kwargs.update({'initial': initial_data})
-                    return plugin_form(**kwargs)
+                kwargs = {
+                    'data': data,
+                    'files': files,
+                }
+                if initial_data:
+                    kwargs.update({'initial': initial_data})
+                return plugin_form(**kwargs)
             except Exception as e:
                 if DEBUG:
                     logger.debug(e)
@@ -1610,24 +1608,30 @@ class FormHandlerPlugin(BasePlugin):
         if not form_element_entries:
             form_element_entries = form_entry.formelemententry_set.all()[:]
 
-        try:
+        if FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS:
             response = self.run(form_entry, request, form,
                                 form_element_entries)
             if response:
                 return response
             else:
                 return (True, None)
-        except Exception as err:
-            if FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS:
-                raise err.__class__("Exception: {0}. {1}"
-                                    "".format(str(err),
-                                              traceback.format_exc()))
-            logger.error(
-                "Error in class {0}. Details: "
-                "{1}. Full trace: {2}".format(self.__class__.__name__,
-                                              str(err), traceback.format_exc())
-            )
-            return (False, err)
+        else:
+            try:
+                response = self.run(form_entry, request, form,
+                                    form_element_entries)
+                if response:
+                    return response
+                else:
+                    return (True, None)
+            except Exception as err:
+                logger.error(
+                    "Error in class {0}. Details: "
+                    "{1}. Full trace: {2}".format(
+                        self.__class__.__name__,
+                        str(err), traceback.format_exc()
+                    )
+                )
+                return (False, err)
 
     def run(self, form_entry, request, form, form_element_entries=None):
         """Run.
