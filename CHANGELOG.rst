@@ -15,6 +15,17 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.9.13
+------
+2016-11-05
+
+Officially announcing dropping support for Django 1.5 and 1.6. At the
+moment everything is still backwards compatible with versions 1.5 and 1.6,
+but in future versions compatibility with those versions would be wiped out.
+
+- Fix backwards compatibility of `slider` and `range_select` plugins with
+  Django versions 1.5 and 1.6.
+
 0.9.12
 ------
 2016-11-02

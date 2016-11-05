@@ -787,6 +787,11 @@ class BaseFormFieldPluginForm(BasePluginForm):
 
         return True
 
+    if not DJANGO_GTE_1_7:
+        def add_error(self, field, error):
+            """Backwards compatibility hack."""
+            raise forms.ValidationError(error, 'invalid')
+
 # *****************************************************************************
 # *****************************************************************************
 # ******************************** Plugins ************************************
