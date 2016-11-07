@@ -34,7 +34,7 @@ Regarding the form wizards
 + Ideally, it would be great to support data-slider-handle="square" (or
   "round", "triangle") options of the bootstrap-slider plugin. See the first
   issue in "Uncategorised".
-- Rethink the new navigation of forms and form wizards.
++ Rethink the new navigation of forms and form wizards.
 - Add support for form wizard conditions.
 + Fixed broken dependencies for docs.
 - Add FeinCMS integration app for form wizards.
@@ -55,7 +55,7 @@ Roadmap
 Uncategorised
 -------------
 - Rethink templating of the integration packages (feincms_integration, 
-  djangocms_integration, mezzanine_intergration), as now they are a bit
+  djangocms_integration, mezzanine_integration), as now they are a bit
   of a mess. Document integration properly, if not yet done.
 - Add tests for import/export of forms.
 - Add tests for export of plugin data (db_store).
@@ -106,9 +106,9 @@ Uncategorised
   validation method there, which accepts the request, the form and the
   form_entry object for validation. Also, in the BaseFormFieldPlugin, there
   should be `name`, `required`, `help_text`, `label` fields to be present (
-  scheck other fields of Django formfield). In formfield plugins, subclass
+  check other fields of Django formfield). In formfield plugins, subclass
   from BaseFormFieldPlugin, instead of the BaseFormElementPlugin.
-+ In the view, validate the form fields (if they are sublcass of
++ In the view, validate the form fields (if they are subclass of
   BaseFormFieldPlugin).
 + Actually, if plugin doesn't have a form, save it immediately. Do not wait
   for POST.
@@ -308,7 +308,7 @@ Uncategorised
 + Check if it's safe to use the initial dynamic values.
 + In the updated GUI (bootstrap3), if form names are too long, the layout
   doesn't look nice anymore.
-- Somehow, the drag and drop of the form elements got broken. Fix ASAP.
++ Somehow, the drag and drop of the form elements got broken. Fix ASAP.
 - Since tests have been made quite general, create them for all contrib
   form elements and handlers (not yet for things like CAPTCHA).
 - Translate German and Russian URLs.
