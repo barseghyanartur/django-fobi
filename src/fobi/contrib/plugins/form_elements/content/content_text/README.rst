@@ -34,7 +34,7 @@ Installation
    By default the content of the text field is stripped using either the 
    awesome `bleach <https://bleach.readthedocs.io/>`_ library or if bleach 
    is not installed just Django's own `strip_tags` function. To configure  
-   the strip (bleach only)behaviour, two settings are introduced:
+   the strip (bleach only) behaviour, two settings are introduced:
 
 .. code-block:: text
 
