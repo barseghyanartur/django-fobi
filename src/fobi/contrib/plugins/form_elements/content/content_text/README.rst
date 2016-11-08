@@ -31,10 +31,10 @@ Installation
    ``FOBI_PLUGIN_CONTENT_TEXT_`` to the desired variable name from the
    above mentioned ``defaults`` module.
 
-   By default the text field is stripped using the either the awesome `bleach
-   <https://bleach.readthedocs.io/>`_ library or if bleach is not installed
-   just Django's own `strip_tags` function. To configure the strip behaviour,
-   two settings are introduced:
+   By default the content of the text field is stripped using either the 
+   awesome `bleach <https://bleach.readthedocs.io/>`_ library or if bleach 
+   is not installed just Django's own `strip_tags` function. To configure  
+   the strip (bleach only)behaviour, two settings are introduced:
 
 .. code-block:: text
 
@@ -62,5 +62,6 @@ The default values are:
 
     ALLOWED_ATTRIBUTES = {
         'a': ['href', 'title'],
-        'img': ['src']
+        'abbr': ['title'],
+        'acronym': ['title'],
     }
