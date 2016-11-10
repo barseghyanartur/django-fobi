@@ -84,6 +84,30 @@ fobi.migrations.0010_formwizardhandler module
     :undoc-members:
     :show-inheritance:
 
+fobi.migrations.0011_formentry_title module
+-------------------------------------------
+
+.. automodule:: fobi.migrations.0011_formentry_title
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+fobi.migrations.0012_auto_20161109_1550 module
+----------------------------------------------
+
+.. automodule:: fobi.migrations.0012_auto_20161109_1550
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+fobi.migrations.0013_formwizardentry_show_all_navigation_buttons module
+-----------------------------------------------------------------------
+
+.. automodule:: fobi.migrations.0013_formwizardentry_show_all_navigation_buttons
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------
