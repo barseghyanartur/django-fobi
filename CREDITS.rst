@@ -32,3 +32,6 @@ Thanks to the following people for their contributions:
 - `Michal Dabski
   <https://github.com/barseghyanartur/django-fobi/commits/master?author=mick88>`_
   for minor fixes.
+- `Marcos Amorim
+   <https://github.com/barseghyanartur/django-fobi/commits/master?author=marcosamorim>`_
+   for number of validation improvements.

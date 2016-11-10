@@ -15,6 +15,12 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.9.17
+------
+yyyy-mm-dd (not released yet)
+
+- Value validations for Integer and Text Fields.
+
 0.9.16
 ------
 2016-11-10
