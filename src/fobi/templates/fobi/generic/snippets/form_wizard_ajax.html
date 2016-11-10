@@ -19,7 +19,7 @@
               {% block form_wizard_first_button_wrapper %}<button type="submit" name="wizard_goto_step" value="{{ wizard.steps.first }}" class="{% block form_wizard_first_button_html_class %}{% endblock %}">{% block form_wizard_first_button_text %}{% endblock %}</button>{% endblock form_wizard_first_button_wrapper %}
               {% block form_wizard_previous_button_wrapper %}<button type="submit" name="wizard_goto_step" value="{{ wizard.steps.prev }}" class="{% block form_wizard_previous_button_html_class %}{% endblock %}">{% block form_wizard_previous_button_text %}{% endblock %}</button>{% endblock form_wizard_previous_button_wrapper %}
             {% endif %}
-            {% block form_wizard_next_button_wrapper %}<button type="submit" name="submit" class="{% block form_primary_button_html_class %}{% endblock %}">{% block form_primary_button_text %}{% endblock %}</button>{% endblock form_wizard_next_button_wrapper %}
+            {% block form_wizard_next_button_wrapper %}<button type="submit" name="submit" class="{% block form_primary_button_html_class %}{% endblock %}">{% block form_wizard_primary_button_text %}{% endblock %}</button>{% endblock form_wizard_next_button_wrapper %}
           {% endblock form_buttons %}
         </div>
       </div>
