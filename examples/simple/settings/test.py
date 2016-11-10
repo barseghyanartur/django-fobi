@@ -95,3 +95,5 @@ elif versions.DJANGO_1_10:
         pass
 
 LOGGING = {}
+
+DEBUG_TOOLBAR = False
