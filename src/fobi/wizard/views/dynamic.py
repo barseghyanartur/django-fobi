@@ -107,8 +107,13 @@ class StepsHelper(object):
 
     @property
     def index(self):
-        """Return the index for the current step."""
+        """Return the index for the current step (0 based)."""
         return self._wizard.get_step_index()
+
+    @property
+    def index1(self):
+        """Return the index for the current step (1 based)."""
+        return self.index + 1
 
     @property
     def step0(self):
@@ -119,6 +124,10 @@ class StepsHelper(object):
     def step1(self):
         """Step 1."""
         return int(self.index) + 1
+
+    def is_last_step(self):
+        """Check if last step."""
+        return self.index1 == self.count
 
 
 # class DynamicTemplateView(TemplateView):

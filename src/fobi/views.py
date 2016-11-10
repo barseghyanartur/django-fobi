@@ -1414,7 +1414,7 @@ class FormWizardView(DynamicSessionWizardView):
             'fobi_theme': self.fobi_theme,
             'fobi_form_title': form_entry.title,
             'fobi_form_wizard_title': self.form_wizard_entry.title,
-            'steps_range': range(1, self.steps.count+1)
+            'steps_range': range(1, self.steps.count+1),
         })
 
         return context_data

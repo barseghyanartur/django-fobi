@@ -16,7 +16,7 @@
 
 {% block form_wizard_first_button_text %}{% trans "First" %}{% endblock %}
 
-{% block form_primary_button_text %}{% trans "Next" %}{% endblock %}
+{% block form_primary_button_text %}{% if wizard.steps.is_last_step %}{% trans "Submit" %}{% else %}{% trans "Next" %}{% endif %}{% endblock %}
 
 {% block form_wizard_previous_button_text %}{% trans "Previous" %}{% endblock %}
 
