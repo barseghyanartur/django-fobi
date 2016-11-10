@@ -1535,8 +1535,9 @@ class FormElementPlugin(BasePlugin):
                 logger.debug(str(err))
         return {}
 
-    def _submit_plugin_form_data(self, form_entry, request, form,
-                                 form_element_entries=None, **kwargs):
+    # def _submit_plugin_form_data(self, form_entry, request, form,
+    #                              form_element_entries=None, **kwargs):
+    def _submit_plugin_form_data(self, form_entry, request, form):
         """Submit plugin form data (internal method).
 
         Do not override this method. Use ``submit_plugin_form_data``,
@@ -1555,8 +1556,8 @@ class FormElementPlugin(BasePlugin):
                 form_entry=form_entry,
                 request=request,
                 form=form,
-                form_element_entries=None,
-                **kwargs
+                # form_element_entries=None,
+                # **kwargs
             )
         else:
             try:
@@ -1564,14 +1565,15 @@ class FormElementPlugin(BasePlugin):
                     form_entry=form_entry,
                     request=request,
                     form=form,
-                    form_element_entries=None,
-                    **kwargs
+                    # form_element_entries=None,
+                    # **kwargs
                 )
             except Exception as e:
                 logger.debug(str(e))
 
-    def submit_plugin_form_data(self, form_entry, request, form,
-                                form_element_entries=None, **kwargs):
+    # def submit_plugin_form_data(self, form_entry, request, form,
+    #                             form_element_entries=None, **kwargs):
+    def submit_plugin_form_data(self, form_entry, request, form):
         """Submit plugin form data.
 
         Called on form submission (when user actually
@@ -2418,8 +2420,9 @@ def validate_form_element_plugin_uid(plugin_uid):
     return validate_plugin_uid(form_element_plugin_registry, plugin_uid)
 
 
-def submit_plugin_form_data(form_entry, request, form,
-                            form_element_entries=None, **kwargs):
+# def submit_plugin_form_data(form_entry, request, form,
+#                             form_element_entries=None, **kwargs):
+def submit_plugin_form_data(form_entry, request, form):
     """Submit plugin form data for all plugins.
 
     :param fobi.models.FormEntry form_entry: Instance of
@@ -2427,17 +2430,19 @@ def submit_plugin_form_data(form_entry, request, form,
     :param django.http.HttpRequest request:
     :param django.forms.Form form:
     """
-    if not form_element_entries:
-        form_element_entries = form_entry.formelemententry_set.all()
-    for form_element_entry in form_element_entries:
+    # if not form_element_entries:
+    #     form_element_entries = form_entry.formelemententry_set.all()
+    # for form_element_entry in form_element_entries:
+
+    for form_element_entry in form_entry.formelemententry_set.all():
         # Get the plugin.
         form_element_plugin = form_element_entry.get_plugin(request=request)
         updated_form = form_element_plugin._submit_plugin_form_data(
             form_entry=form_entry,
             request=request,
             form=form,
-            form_element_entries=form_element_entries,
-            **kwargs
+            # form_element_entries=form_element_entries,
+            # **kwargs
         )
         if updated_form:
             form = updated_form
