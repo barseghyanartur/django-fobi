@@ -86,6 +86,7 @@ THEME_FOOTER_TEXT = '&copy; django-fobi example site 2014'
 # **************************************************************
 
 DEFAULT_MAX_LENGTH = 255
+DEFAULT_MIN_LENGTH = 1
 
 FORM_HANDLER_PLUGINS_EXECUTION_ORDER = (
     'http_repost',

@@ -1,8 +1,9 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from django.core.validators import MinValueValidator
 
 from fobi.base import BaseFormFieldPluginForm, get_theme
-from fobi.settings import DEFAULT_MAX_LENGTH
+from fobi.settings import DEFAULT_MAX_LENGTH, DEFAULT_MIN_LENGTH
 from fobi.widgets import NumberInput
 
 __title__ = 'fobi.contrib.plugins.form_elements.fields.hidden.forms'
@@ -21,7 +22,7 @@ class HiddenInputForm(forms.Form, BaseFormFieldPluginForm):
         ("label", ""),
         ("name", ""),
         ("initial", ""),
-        ("max_length", "255"),
+        ("max_length", str(DEFAULT_MAX_LENGTH)),
         ("required", False)
     ]
 
@@ -49,8 +50,10 @@ class HiddenInputForm(forms.Form, BaseFormFieldPluginForm):
     max_length = forms.IntegerField(
         label=_("Max length"),
         required=True,
-        widget=NumberInput(attrs={'class': theme.form_element_html_class}),
-        initial=DEFAULT_MAX_LENGTH
+        widget=NumberInput(attrs={'class': theme.form_element_html_class,
+                                  'min': str(DEFAULT_MIN_LENGTH)}),
+        initial=DEFAULT_MAX_LENGTH,
+        validators=[MinValueValidator(DEFAULT_MIN_LENGTH)]
     )
     required = forms.BooleanField(
         label=_("Required"),
@@ -59,3 +62,17 @@ class HiddenInputForm(forms.Form, BaseFormFieldPluginForm):
             attrs={'class': theme.form_element_checkbox_html_class}
         )
     )
+
+    def clean(self):
+        super(HiddenInputForm, self).clean()
+
+        max_length = self.cleaned_data.get('max_length', DEFAULT_MAX_LENGTH)
+
+        if self.cleaned_data['initial']:
+            len_initial = len(self.cleaned_data['initial'])
+            if len_initial > max_length:
+                self.add_error(
+                    'initial',
+                    _("Ensure this value has at most {0} characters "
+                      "(it has {1}).".format(max_length, len_initial))
+                )
