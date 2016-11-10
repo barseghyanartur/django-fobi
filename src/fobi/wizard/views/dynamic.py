@@ -125,6 +125,7 @@ class StepsHelper(object):
         """Step 1."""
         return int(self.index) + 1
 
+    @property
     def is_last_step(self):
         """Check if last step."""
         return self.index1 == self.count
