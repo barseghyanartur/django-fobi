@@ -105,6 +105,11 @@ STATICFILES_FINDERS = (
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '97818c*w97Zi8a-m^1coRRrmurMI6+q5_kyn*)s@(*_Pk6q423'
 
+try:
+    from .local_settings import DEBUG_TEMPLATE
+except Exception as err:
+    DEBUG_TEMPLATE = False
+
 if DJANGO_GTE_1_10:
     TEMPLATES = [
         {
@@ -130,7 +135,7 @@ if DJANGO_GTE_1_10:
                     'django.template.loaders.eggs.Loader',
                     'admin_tools.template_loaders.Loader',
                 ],
-                'debug': DEBUG,
+                'debug': DEBUG_TEMPLATE,
             }
         },
     ]
@@ -159,12 +164,12 @@ elif DJANGO_GTE_1_8:
                     'django.template.loaders.eggs.Loader',
                     'admin_tools.template_loaders.Loader',
                 ],
-                'debug': DEBUG,
+                'debug': DEBUG_TEMPLATE,
             }
         },
     ]
 else:
-    TEMPLATE_DEBUG = DEBUG
+    TEMPLATE_DEBUG = DEBUG_TEMPLATE
 
     # List of callables that know how to import templates from various sources.
     TEMPLATE_LOADERS = [

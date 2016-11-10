@@ -93,3 +93,5 @@ elif versions.DJANGO_1_10:
             if 'admin_tools.dashboard' in INSTALLED_APPS else None
     except Exception as e:
         pass
+
+LOGGING = {}

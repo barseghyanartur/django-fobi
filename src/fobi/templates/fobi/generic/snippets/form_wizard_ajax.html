@@ -1,6 +1,7 @@
     {% block form_page_header_wrapper %}
     <div class="{% block form_page_header_html_class %}{% endblock %}">
       {% block form_page_title_wrapper %}<h1>{% block form_page_title %}{% endblock %}</h1>{% endblock form_page_title_wrapper %}
+      {% block form_page_sub_title_wrapper %}{% endblock form_page_sub_title_wrapper %}
     </div>
     {% endblock form_page_header_wrapper %}
 
@@ -14,7 +15,11 @@
       <div class="{% block form_button_outer_wrapper_html_class %}{% endblock %}">
         <div class="{% block form_button_wrapper_html_class %}{% endblock %}">
           {% block form_buttons %}
-          <button type="submit" class="{% block form_primary_button_html_class %}{% endblock %}">{% block form_primary_button_text %}{% endblock %}</button>
+            {% if form_wizard_entry.show_all_navigation_buttons %}
+              {% block form_wizard_first_button_wrapper %}<button type="submit" name="wizard_goto_step" value="{{ wizard.steps.first }}" class="{% block form_wizard_first_button_html_class %}{% endblock %}">{% block form_wizard_first_button_text %}{% endblock %}</button>{% endblock form_wizard_first_button_wrapper %}
+              {% block form_wizard_previous_button_wrapper %}<button type="submit" name="wizard_goto_step" value="{{ wizard.steps.prev }}" class="{% block form_wizard_previous_button_html_class %}{% endblock %}">{% block form_wizard_previous_button_text %}{% endblock %}</button>{% endblock form_wizard_previous_button_wrapper %}
+            {% endif %}
+            {% block form_wizard_next_button_wrapper %}<button type="submit" name="submit" class="{% block form_primary_button_html_class %}{% endblock %}">{% block form_primary_button_text %}{% endblock %}</button>{% endblock form_wizard_next_button_wrapper %}
           {% endblock form_buttons %}
         </div>
       </div>

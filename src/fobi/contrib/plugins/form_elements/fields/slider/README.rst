@@ -29,23 +29,23 @@ Installation
 4. Ranges are specified within the given min/max values. The default values
    are:
 
-   .. code-block:: text
+.. code-block:: text
 
-       - INITIAL: 50
-       - INITIAL_MAX_VALUE: 100
-       - INITIAL_MIN_VALUE: 0
-       - MIN_VALUE: 0
-       - MAX_VALUE: 100
-       - STEP: 1
+   - INITIAL: 50
+   - INITIAL_MAX_VALUE: 100
+   - INITIAL_MIN_VALUE: 0
+   - MIN_VALUE: 0
+   - MAX_VALUE: 100
+   - STEP: 1
 
    However, you can override each of them in the settings of your project by
    prefixing correspondent names with `FOBI_FORM_ELEMENT_SLIDER_`:
 
-   .. code-block:: text
+.. code-block:: text
 
-       - FOBI_FORM_ELEMENT_SLIDER_INITIAL
-       - FOBI_FORM_ELEMENT_SLIDER_INITIAL_MAX_VALUE
-       - FOBI_FORM_ELEMENT_SLIDER_INITIAL_MIN_VALUE
-       - FOBI_FORM_ELEMENT_SLIDER_MIN_VALUE
-       - FOBI_FORM_ELEMENT_SLIDER_MAX_VALUE
-       - FOBI_FORM_ELEMENT_SLIDER_STEP
+   - FOBI_FORM_ELEMENT_SLIDER_INITIAL
+   - FOBI_FORM_ELEMENT_SLIDER_INITIAL_MAX_VALUE
+   - FOBI_FORM_ELEMENT_SLIDER_INITIAL_MIN_VALUE
+   - FOBI_FORM_ELEMENT_SLIDER_MIN_VALUE
+   - FOBI_FORM_ELEMENT_SLIDER_MAX_VALUE
+   - FOBI_FORM_ELEMENT_SLIDER_STEP

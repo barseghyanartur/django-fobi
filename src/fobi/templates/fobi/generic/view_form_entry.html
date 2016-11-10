@@ -2,7 +2,7 @@
 
 {% load i18n %}
 
-{% block page-title %}{% trans "View form" %}{% endblock page-title %}
+{% block page-title %}{% if form_entry.title %}{{ form_entry.title }}{% else %}{% trans "View form" %}{% endif %}{% endblock page-title %}
 
 {% block navbar-menu-content %}
 <li><a href="{% url 'fobi.edit_form_entry' form_entry.pk %}">{% trans "Edit" %}</a></li>

@@ -2,7 +2,7 @@
 
 {% load i18n %}
 
-{% block page-title %}{% trans "View form wizard" %}{% endblock page-title %}
+{% block page-title %}{% if fobi_form_wizard_title %}{{ fobi_form_wizard_title }}{% else %}{% trans "View form wizard" %}{% endif %}{% endblock page-title %}
 
 {% block dashboard-menu-item %}
 <a class="navbar-brand" href="{% url 'fobi.form_wizards_dashboard' %}">{{ fobi_theme.project_name }}</a>

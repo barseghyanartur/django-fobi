@@ -1407,14 +1407,22 @@ class FormWizardView(DynamicSessionWizardView):
         context_data = super(FormWizardView, self).get_context_data(
             form=form, **kwargs
         )
-
+        form_entry = self.get_form_entry_for_step(self.steps.step0)
         context_data.update({
             'form_wizard_entry': self.form_wizard_entry,
             'form_wizard_mode': True,
             'fobi_theme': self.fobi_theme,
+            'fobi_form_title': form_entry.title,
+            'fobi_form_wizard_title': self.form_wizard_entry.title,
+            'steps_range': range(self.steps.step1, self.steps.count+1)
         })
 
         return context_data
+
+    def get_form_entry_for_step(self, step):
+        """Get form entry title for step."""
+        form_slug = self.form_list[self.steps.step0][0]
+        return self.form_entry_mapping[form_slug]
 
     def get_initial_wizard_data(self, request, *args, **kwargs):
         """Get initial wizard data."""
@@ -1511,8 +1519,12 @@ class FormWizardView(DynamicSessionWizardView):
             # Get current form entry
             form_entry = self.form_entry_mapping[self.steps.current]
             # Fire plugin processors
-            form = submit_plugin_form_data(form_entry=form_entry,
-                                           request=self.request, form=form)
+            form = submit_plugin_form_data(
+                form_entry=form_entry,
+                request=self.request,
+                form=form,
+                # **{'': ''} # TODO
+            )
             # Form wizards make use of form.data instead of form.cleaned_data.
             # Therefore, we update the form.data with values from
             # form.cleaned_data.
@@ -1582,7 +1594,8 @@ class FormWizardView(DynamicSessionWizardView):
             form_obj = submit_plugin_form_data(
                 form_entry=form_entry,
                 request=self.request,
-                form=form_obj
+                form=form_obj,
+                # **{'': ''} # TODO
             )
 
             final_forms[form_key] = form_obj
@@ -2123,8 +2136,11 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
             )
 
             # Fire plugin processors
-            form = submit_plugin_form_data(form_entry=form_entry,
-                                           request=request, form=form)
+            form = submit_plugin_form_data(
+                form_entry=form_entry,
+                request=request,
+                form=form
+            )
 
             # Fire form valid callbacks
             form = fire_form_callbacks(form_entry=form_entry,
@@ -2194,6 +2210,7 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
         'form': form,
         'form_entry': form_entry,
         'fobi_theme': theme,
+        'fobi_form_title': form_entry.title,
     }
 
     if not template_name:

@@ -29,7 +29,7 @@ Installation
 
 4. By default, the submitted form value of `select_multiple`
    elements is label (human readable representation of the value chosen).
-   However, that part of the bahaviour has been made configurable. You can
+   However, that part of the behaviour has been made configurable. You can
    choose between the following options:
 
    Consider the following list of (value, label) choices (the first element in

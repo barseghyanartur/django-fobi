@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.9.16
+------
+2016-11-10
+
+- Introduced form titles (shown in view templates).
+- Improved navigation of the form wizards.
+
 0.9.15
 ------
 2016-11-07
