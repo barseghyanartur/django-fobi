@@ -1989,16 +1989,22 @@ Testing
 =======
 Project is covered by test (functional- and browser-tests).
 
-To test type:
+To test with all supported Python/Django versions type:
 
-.. code:: sh
+.. code-block:: sh
 
     tox
+
+To test just your working environment type:
+
+.. code-block:: sh
+
+    ./runtests.py
 
 It's assumed that you have all the requirements installed. If not, first
 install the test requirements:
 
-.. code:: sh
+.. code-block:: sh
 
     pip install -r examples/requirements/common_test_requirements.txt
 
@@ -2018,7 +2024,7 @@ Set up Firefox 47
 2. Specify the full path to your Firefox in ``FIREFOX_BIN_PATH``
    setting. Example:
 
-   .. code:: python
+   .. code-block:: python
 
        FIREFOX_BIN_PATH = '/usr/lib/firefox47/firefox'
 
