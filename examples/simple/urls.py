@@ -8,6 +8,8 @@ from django.views.generic import TemplateView
 
 from fobi.settings import DEFAULT_THEME
 
+from nine import versions
+
 admin.autodiscover()
 
 # Mapping.
@@ -29,7 +31,7 @@ if DEFAULT_THEME in ('simple', 'djangocms_admin_style_theme'):
 
 urlpatterns = []
 
-urlpatterns += i18n_patterns(
+url_patterns_args = [
     # DB Store plugin URLs
     # namespace='fobi'
     url(r'^fobi/plugins/form-handlers/db-store/',
@@ -59,7 +61,12 @@ urlpatterns += i18n_patterns(
 
     # django-fobi public forms contrib app:
     # url(r'^', include('fobi.contrib.apps.public_forms.urls')),
-)
+]
+
+if versions.DJANGO_LTE_1_7:
+    urlpatterns += i18n_patterns('', *url_patterns_args)
+else:
+    urlpatterns += i18n_patterns(*url_patterns_args)
 
 # Serving media and static in debug/developer mode.
 if settings.DEBUG:
@@ -72,17 +79,24 @@ if settings.DEBUG:
 if 'feincms' in settings.INSTALLED_APPS:
     from page.models import Page
     Page
-    urlpatterns += i18n_patterns(
+    url_patterns_args = [
         url(r'^pages/', include('feincms.urls')),
-
-    )
+    ]
+    if versions.DJANGO_LTE_1_7:
+        urlpatterns += i18n_patterns('', *url_patterns_args)
+    else:
+        urlpatterns += i18n_patterns(*url_patterns_args)
 
 # Conditionally including DjangoCMS URls in case if
 # DjangoCMS in installed apps.
 if 'cms' in settings.INSTALLED_APPS:
-    urlpatterns += i18n_patterns(
+    url_patterns_args = [
         url(r'^cms-pages/', include('cms.urls')),
-    )
+    ]
+    if versions.DJANGO_LTE_1_7:
+        urlpatterns += i18n_patterns('', *url_patterns_args)
+    else:
+        urlpatterns += i18n_patterns(*url_patterns_args)
 
 # Conditionally including Captcha URls in case if
 # Captcha in installed apps.

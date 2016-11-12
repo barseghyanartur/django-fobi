@@ -17,9 +17,14 @@ are used for versioning (schema follows below):
 
 0.9.17
 ------
-yyyy-mm-dd (not released yet)
+2016-11-13
+
+Announcing dropping support of Python 2.6 and Django 1.7. As of 0.9.17
+everything is still backwards compatible with Django 1.7, but in future
+versions it will be wiped out.
 
 - Value validations for Integer and Text Fields.
+- Hide previous button in form wizard template for bootstrap3 on first step.
 
 0.9.16
 ------
@@ -44,9 +49,9 @@ yyyy-mm-dd (not released yet)
 ------
 2016-11-05
 
-Officially announcing dropping support for Django 1.5 and 1.6. At the
-moment everything is still backwards compatible with versions 1.5 and 1.6,
-but in future versions compatibility with those versions would be wiped out.
+Announcing dropping support of Django 1.5 and 1.6. As of 0.9.17 everything is
+still backwards compatible with versions 1.5 and 1.6, but in future versions
+compatibility with these versions will be wiped out.
 
 - Fix backwards compatibility of `slider` and `range_select` plugins with
   Django versions 1.5 and 1.6.
