@@ -10,8 +10,21 @@ handling the submitted form data).
 
 Prerequisites
 =============
-- Django 1.5, 1.6, 1.7, 1.8, 1.9, 1.10
-- Python >= 2.6.8, >= 2.7, >= 3.3
+Current
+-------
+- Django 1.8, 1.9, 1.10
+- Python >= 2.7, >= 3.3
+
+Past
+----
+- Dropping support of Django 1.5, 1.6 has been announced in version
+  0.9.13. Dropping support of Django 1.7 has been announced in version 0.9.17.
+  As of 0.9.17 everything is still backwards compatible with versions 1.5, 1.6
+  and 1.7, but in future versions compatibility with these versions will be
+  wiped out.
+- Dropping support of Python 2.6 has been announced in version 0.9.17.
+  As of 0.9.17 everything is still backwards compatible with Python 2.6, but
+  in future versions compatibility with it will be wiped out.
 
 Key concepts
 ============
@@ -1783,56 +1796,58 @@ Note, that you should not provide the `fobi_dynamic_values.` as a prefix.
 Currently, the following variables are available in the
 `fobi.context_processors.dynamic_values` context processor:
 
-- request: Stripped HttpRequest object.
+.. code-block:: text
 
-    - request.path: A string representing the full path to the requested page,
-      not including the scheme or domain.
+    - request: Stripped HttpRequest object.
 
-    - request.get_full_path(): Returns the path, plus an appended query string,
-      if applicable.
+        - request.path: A string representing the full path to the requested page,
+          not including the scheme or domain.
 
-    - request.is_secure():  Returns True if the request is secure; that is, if
-      it was made with HTTPS.
+        - request.get_full_path(): Returns the path, plus an appended query string,
+          if applicable.
 
-    - request.is_ajax(): Returns True if the request was made via an
-      XMLHttpRequest, by checking the HTTP_X_REQUESTED_WITH header for the
-      string 'XMLHttpRequest'.
+        - request.is_secure():  Returns True if the request is secure; that is, if
+          it was made with HTTPS.
 
-    - request.META: A stripped down standard Python dictionary containing the
-      available HTTP headers.
+        - request.is_ajax(): Returns True if the request was made via an
+          XMLHttpRequest, by checking the HTTP_X_REQUESTED_WITH header for the
+          string 'XMLHttpRequest'.
 
-        - HTTP_ACCEPT_ENCODING: Acceptable encodings for the response.
+        - request.META: A stripped down standard Python dictionary containing the
+          available HTTP headers.
 
-        - HTTP_ACCEPT_LANGUAGE: Acceptable languages for the response.
+            - HTTP_ACCEPT_ENCODING: Acceptable encodings for the response.
 
-        - HTTP_HOST: The HTTP Host header sent by the client.
+            - HTTP_ACCEPT_LANGUAGE: Acceptable languages for the response.
 
-        - HTTP_REFERER: The referring page, if any.
+            - HTTP_HOST: The HTTP Host header sent by the client.
 
-        - HTTP_USER_AGENT: The client’s user-agent string.
+            - HTTP_REFERER: The referring page, if any.
 
-        - QUERY_STRING: The query string, as a single (unparsed) string.
+            - HTTP_USER_AGENT: The client’s user-agent string.
 
-        - REMOTE_ADDR: The IP address of the client.
+            - QUERY_STRING: The query string, as a single (unparsed) string.
 
-    - request.user: Authenticated user.
+            - REMOTE_ADDR: The IP address of the client.
 
-        - request.user.email:
+        - request.user: Authenticated user.
 
-        - request.user.get_username(): Returns the username for the user. Since
-          the User model can be swapped out, you should use this method
-          instead of referencing the username attribute directly.
+            - request.user.email:
 
-        - request.user.get_full_name(): Returns the first_name plus the
-          last_name, with a space in between.
+            - request.user.get_username(): Returns the username for the user. Since
+              the User model can be swapped out, you should use this method
+              instead of referencing the username attribute directly.
 
-        - request.user.get_short_name(): Returns the first_name.
+            - request.user.get_full_name(): Returns the first_name plus the
+              last_name, with a space in between.
 
-        - request.user.is_anonymous():
+            - request.user.get_short_name(): Returns the first_name.
 
-- now: datetime.datetime.now()
+            - request.user.is_anonymous():
 
-- today: datetime.date.today()
+    - now: datetime.datetime.now()
+
+    - today: datetime.date.today()
 
 Submitted form element plugins values
 =====================================
@@ -1989,16 +2004,22 @@ Testing
 =======
 Project is covered by test (functional- and browser-tests).
 
-To test type:
+To test with all supported Python/Django versions type:
 
-.. code:: sh
+.. code-block:: sh
 
     tox
+
+To test just your working environment type:
+
+.. code-block:: sh
+
+    ./runtests.py
 
 It's assumed that you have all the requirements installed. If not, first
 install the test requirements:
 
-.. code:: sh
+.. code-block:: sh
 
     pip install -r examples/requirements/common_test_requirements.txt
 
@@ -2018,7 +2039,7 @@ Set up Firefox 47
 2. Specify the full path to your Firefox in ``FIREFOX_BIN_PATH``
    setting. Example:
 
-   .. code:: python
+   .. code-block:: python
 
        FIREFOX_BIN_PATH = '/usr/lib/firefox47/firefox'
 
