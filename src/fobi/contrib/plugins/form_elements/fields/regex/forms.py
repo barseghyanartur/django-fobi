@@ -100,6 +100,7 @@ class RegexInputForm(forms.Form, BaseFormFieldPluginForm):
     )
 
     def clean(self):
+        """Validation."""
         super(RegexInputForm, self).clean()
 
         max_length = self.cleaned_data.get('max_length', DEFAULT_MAX_LENGTH)

@@ -15,6 +15,33 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.10
+----
+2016-11-16
+
+Note, that this release contains minor backwards incompatible changes, that may
+break your code. Two additional arguments have been added to the 
+`submit_plugin_form_data` method of the form element plugins. If you have 
+written custom form element plugins - update your code.
+
+Note, that this release contain minor backwards incompatible changes, that
+may break your existing code (your data is left intact). If you have written
+custom form element plugins you should update your code!
+
+- Added `form_entry_elements` and `kwargs` to the `submit_plugin_form_data`
+  method of the form element plugins. Make sure to update your custom 
+  plugins if you have written any.
+- Added tests for mailchimp integration plugin.
+- Moving all plugins to base submodules of the correspondent sub 
+  packages.
+- Add missing whitespace toe the `help_text` of the `title` field of
+  `FormEntry` and `FormWizardEntry` models.
+- Disable GoogleAnalytics while testing (guess what - this change speeds up 
+  selenium tests twice).
+- Docs updated.
+- Helper scripts updated.
+- Multiple pep8 fixes.
+
 0.9.17
 ------
 2016-11-13

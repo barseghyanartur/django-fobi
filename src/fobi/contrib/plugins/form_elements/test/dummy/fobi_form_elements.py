@@ -1,47 +1,14 @@
-from uuid import uuid4
+from __future__ import absolute_import
 
-from django.utils.translation import ugettext, ugettext_lazy as _
+from fobi.base import form_element_plugin_registry
 
-from nonefield.fields import NoneField
-
-from fobi.base import FormElementPlugin, form_element_plugin_registry
-from fobi.helpers import safe_text
-
-from . import UID
+from .base import DummyPlugin
 
 __title__ = 'fobi.contrib.plugins.form_elements.test.dummy.fobi_form_elements'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('DummyPlugin',)
-
-
-class DummyPlugin(FormElementPlugin):
-    """Dummy plugin."""
-
-    uid = UID
-    name = _("Dummy")
-    group = _("Testing")
-
-    def post_processor(self):
-        """Post process data.
-
-        Always the same.
-        """
-        self.data.name = "{0}_{1}".format(self.uid, uuid4())
-
-    def get_form_field_instances(self, request=None, form_entry=None,
-                                 form_element_entries=None, **kwargs):
-        """Get form field instances."""
-        field_kwargs = {
-            'initial': "<p>{0}</p>".format(
-                safe_text(ugettext("Dummy content"))
-            ),
-            'required': False,
-            'label': '',
-        }
-
-        return[(self.data.name, NoneField, field_kwargs)]
 
 
 form_element_plugin_registry.register(DummyPlugin)

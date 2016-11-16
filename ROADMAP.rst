@@ -1,6 +1,6 @@
 Roadmap of upcoming releases
 ============================
-0.10
+0.11
 ----
 yyyy-mm-ddd (upcoming).
 

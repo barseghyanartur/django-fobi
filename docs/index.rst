@@ -102,7 +102,7 @@ Roadmap
 =======
 Some of the upcoming/in-development features/improvements are:
 
-- Integration with `django-rest-framework` (in version 0.10).
+- Integration with `django-rest-framework` (in version 0.11).
 
 See the `TODOS <https://raw.githubusercontent.com/barseghyanartur/django-fobi/master/TODOS.rst>`_
 for the full list of planned-, pending- in-development- or to-be-implemented
@@ -429,12 +429,16 @@ following arguments:
 - `request` (django.http.HttpRequest): The Django HTTP request.
 - `form` (django.forms.Form): Form object (a valid one, which contains 
   the ``cleaned_data`` attribute).
+- `form_element_entries` (fobi.models.FormElementEntry): Form element entries
+  for the `form_entry` given.
+- **kwargs: Additional arguments.
   
 Example (taken from fobi.contrib.plugins.form_elements.fields.file):
 
 .. code-block:: python
 
-    def submit_plugin_form_data(self, form_entry, request, form):
+    def submit_plugin_form_data(self, form_entry, request, form,
+                                form_element_entries=None, **kwargs):
         """Submit plugin form data."""
         # Get the file path
         file_path = form.cleaned_data.get(self.data.name, None)

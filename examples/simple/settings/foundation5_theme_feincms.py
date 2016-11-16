@@ -2,11 +2,11 @@ from .base import *
 
 INSTALLED_APPS = list(INSTALLED_APPS)
 INSTALLED_APPS += [
-    'feincms', # FeinCMS
+    'feincms',  # FeinCMS
 
-    'fobi.contrib.apps.feincms_integration', # Fobi FeinCMS app
+    'fobi.contrib.apps.feincms_integration',  # Fobi FeinCMS app
 
-    'page', # Example
+    'page',  # Example
 ]
 
 FEINCMS_RICHTEXT_INIT_CONTEXT = {

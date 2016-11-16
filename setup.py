@@ -4,7 +4,7 @@ import sys
 from distutils.version import LooseVersion
 from setuptools import setup, find_packages
 
-version = '0.9.17'
+version = '0.10'
 
 # ***************************************************************************
 # ************************** Django version *********************************

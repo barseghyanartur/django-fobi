@@ -1445,6 +1445,7 @@ class FormWizardView(DynamicSessionWizardView):
         ]
         form_list = []
         form_entry_mapping = {}
+        form_element_entry_mapping = {}
         wizard_form_element_entries = []
         for creation_counter, form_entry in enumerate(form_entries):
             # Using frozen queryset to minimize query usage
@@ -1463,6 +1464,7 @@ class FormWizardView(DynamicSessionWizardView):
                 (form_entry.slug, form_cls)
             )
             form_entry_mapping[form_entry.slug] = form_entry
+            form_element_entry_mapping[form_entry.slug] = form_element_entries
 
         if 0 == len(form_list):
             raise Http404(
@@ -1478,6 +1480,7 @@ class FormWizardView(DynamicSessionWizardView):
             'form_wizard_entry': form_wizard_entry,
             'wizard_form_element_entries': wizard_form_element_entries,
             'form_entry_mapping': form_entry_mapping,
+            'form_element_entry_mapping': form_element_entry_mapping,
             'fobi_theme': theme,
         }
 
@@ -1518,12 +1521,16 @@ class FormWizardView(DynamicSessionWizardView):
         if form.is_valid():
             # Get current form entry
             form_entry = self.form_entry_mapping[self.steps.current]
+            # Get form elements for the current form entry
+            form_element_entries = \
+                self.form_element_entry_mapping[self.steps.current]
             # Fire plugin processors
             form = submit_plugin_form_data(
                 form_entry=form_entry,
                 request=self.request,
                 form=form,
-                # **{'': ''} # TODO
+                form_element_entries=form_element_entries,
+                **{'form_wizard_entry': self.form_wizard_entry}
             )
             # Form wizards make use of form.data instead of form.cleaned_data.
             # Therefore, we update the form.data with values from
@@ -1590,12 +1597,18 @@ class FormWizardView(DynamicSessionWizardView):
                                                         **kwargs)
 
             # Fire plugin processors
+            # Get current form entry
             form_entry = self.form_entry_mapping[form_key]
+            # Get form elements for the current form entry
+            form_element_entries = \
+                self.form_element_entry_mapping[self.steps.current]
+
             form_obj = submit_plugin_form_data(
                 form_entry=form_entry,
                 request=self.request,
                 form=form_obj,
-                # **{'': ''} # TODO
+                form_element_entries=form_element_entries,
+                **{'form_wizard_entry': self.form_wizard_entry}
             )
 
             final_forms[form_key] = form_obj

@@ -45,6 +45,8 @@ Regarding the form wizards
 - Add selenium tests for form wizards.
 - Make `foundation5` and `django-admin-theme` themes to reflect the latest
   GUI changes (form wizards).
+- Make sure captcha plugins are usable with form wizards (at the moment they
+  are being invalidated on the last step).
 
 Roadmap
 -------

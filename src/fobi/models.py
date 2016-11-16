@@ -257,7 +257,7 @@ class FormWizardEntry(models.Model):
     user = models.ForeignKey(AUTH_USER_MODEL, verbose_name=_("User"))
     name = models.CharField(_("Name"), max_length=255)
     title = models.CharField(_("Title"), max_length=255, null=True,
-                             blank=True, help_text=_("Shown in templates if"
+                             blank=True, help_text=_("Shown in templates if "
                                                      "available."))
     slug = AutoSlugField(populate_from='name', verbose_name=_("Slug"),
                          unique=True)
@@ -338,7 +338,7 @@ class FormEntry(models.Model):
     user = models.ForeignKey(AUTH_USER_MODEL, verbose_name=_("User"))
     name = models.CharField(_("Name"), max_length=255)
     title = models.CharField(_("Title"), max_length=255, null=True,
-                             blank=True, help_text=_("Shown in templates if"
+                             blank=True, help_text=_("Shown in templates if "
                                                      "available."))
     slug = AutoSlugField(
         populate_from='name', verbose_name=_("Slug"), unique=True

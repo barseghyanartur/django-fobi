@@ -3,9 +3,12 @@ import unittest
 from django.test import TestCase
 
 from fobi.dynamic import assemble_form_class
-from fobi.tests.base import print_info
-from fobi.tests.helpers import (
-    setup_fobi, get_or_create_admin_user, create_form_with_entries
+
+from .base import print_info
+from .helpers import (
+    setup_fobi,
+    get_or_create_admin_user,
+    create_form_with_entries
 )
 
 __title__ = 'fobi.tests.test_dynamic_forms'

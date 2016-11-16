@@ -80,6 +80,7 @@ class TextInputForm(forms.Form, BaseFormFieldPluginForm):
     )
 
     def clean(self):
+        """Validation."""
         super(TextInputForm, self).clean()
 
         max_length = self.cleaned_data.get('max_length', DEFAULT_MAX_LENGTH)

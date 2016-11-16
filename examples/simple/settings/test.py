@@ -1,18 +1,18 @@
 # Use in `tox`.
+from nine import versions
 
 from .base import *
 
+TESTING = True
+
 INSTALLED_APPS = list(INSTALLED_APPS)
-
-from nine import versions
-
 
 if versions.DJANGO_1_5:
 
     try:
         INSTALLED_APPS.append(
             'south') if 'south' not in INSTALLED_APPS else None
-    except Exception as e:
+    except Exception as err:
         pass
 
 elif versions.DJANGO_1_6:
@@ -20,7 +20,7 @@ elif versions.DJANGO_1_6:
     try:
         INSTALLED_APPS.append(
             'south') if 'south' not in INSTALLED_APPS else None
-    except Exception as e:
+    except Exception as err:
         pass
 
 
@@ -30,7 +30,7 @@ elif versions.DJANGO_1_7:
         INSTALLED_APPS.remove('south') if 'south' in INSTALLED_APPS else None
         INSTALLED_APPS.remove(
             'tinymce') if 'tinymce' in INSTALLED_APPS else None
-    except Exception as e:
+    except Exception as err:
         pass
 
 elif versions.DJANGO_1_8:
@@ -39,7 +39,7 @@ elif versions.DJANGO_1_8:
         INSTALLED_APPS.remove('south') if 'south' in INSTALLED_APPS else None
         INSTALLED_APPS.remove(
             'tinymce') if 'tinymce' in INSTALLED_APPS else None
-    except Exception as e:
+    except Exception as err:
         pass
 
     try:
@@ -49,7 +49,7 @@ elif versions.DJANGO_1_8:
             if 'admin_tools.menu' in INSTALLED_APPS else None
         INSTALLED_APPS.remove('admin_tools.dashboard') \
             if 'admin_tools.dashboard' in INSTALLED_APPS else None
-    except Exception as e:
+    except Exception as err:
         pass
 
 elif versions.DJANGO_1_9:
@@ -58,9 +58,7 @@ elif versions.DJANGO_1_9:
         INSTALLED_APPS.remove('south') if 'south' in INSTALLED_APPS else None
         INSTALLED_APPS.remove(
             'tinymce') if 'tinymce' in INSTALLED_APPS else None
-        INSTALLED_APPS.remove(
-            'localeurl') if 'localeurl' in INSTALLED_APPS else None
-    except Exception as e:
+    except Exception as err:
         pass
 
     try:
@@ -70,7 +68,7 @@ elif versions.DJANGO_1_9:
             if 'admin_tools.menu' in INSTALLED_APPS else None
         INSTALLED_APPS.remove('admin_tools.dashboard') \
             if 'admin_tools.dashboard' in INSTALLED_APPS else None
-    except Exception as e:
+    except Exception as err:
         pass
 
 elif versions.DJANGO_1_10:
@@ -79,9 +77,7 @@ elif versions.DJANGO_1_10:
         INSTALLED_APPS.remove('south') if 'south' in INSTALLED_APPS else None
         INSTALLED_APPS.remove(
             'tinymce') if 'tinymce' in INSTALLED_APPS else None
-        INSTALLED_APPS.remove(
-            'localeurl') if 'localeurl' in INSTALLED_APPS else None
-    except Exception as e:
+    except Exception as err:
         pass
 
     try:
@@ -91,7 +87,7 @@ elif versions.DJANGO_1_10:
             if 'admin_tools.menu' in INSTALLED_APPS else None
         INSTALLED_APPS.remove('admin_tools.dashboard') \
             if 'admin_tools.dashboard' in INSTALLED_APPS else None
-    except Exception as e:
+    except Exception as err:
         pass
 
 LOGGING = {}

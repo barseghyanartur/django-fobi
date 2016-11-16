@@ -13,7 +13,7 @@ from fobi.constants import (
 
 logger = logging.getLogger('fobi')
 
-__all__= (
+__all__ = (
     'SaveAsFooItem',
     'DummyInvalidCallback',
 )
