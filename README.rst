@@ -431,7 +431,7 @@ following arguments:
   the ``cleaned_data`` attribute).
 - `form_element_entries` (fobi.models.FormElementEntry): Form element entries
   for the `form_entry` given.
-- **kwargs: Additional arguments.
+- (**)kwargs : Additional arguments.
   
 Example (taken from fobi.contrib.plugins.form_elements.fields.file):
 
