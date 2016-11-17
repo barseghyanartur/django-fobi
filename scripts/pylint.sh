@@ -1,0 +1,1 @@
+pylint src/fobi/

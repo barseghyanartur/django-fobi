@@ -1,0 +1,3 @@
+[MASTER]
+ignore=migrations,south_migrations
+
