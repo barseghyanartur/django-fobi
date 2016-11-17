@@ -1573,6 +1573,18 @@ class FormWizardView(DynamicSessionWizardView):
                 return self.render_next_step(form)
         return self.render(form)
 
+    def get_ignorable_field_names(self, form_element_entries):
+        """Get ignorable field names."""
+        ignorable_field_names = []
+        for form_element_entry in form_element_entries:
+            plugin = form_element_entry.get_plugin()
+            # If plugin doesn't have a value, we don't need to have it
+            # on the last step (otherwise validation issues may arise, as
+            # it happens with captcha/re-captcha).
+            if not plugin.has_value:
+                ignorable_field_names.append(plugin.data.name)
+        return ignorable_field_names
+
     def render_done(self, form, **kwargs):
         """Render done.
 
@@ -1591,6 +1603,17 @@ class FormWizardView(DynamicSessionWizardView):
                 files=self.storage.get_step_files(form_key)
             )
 
+            # Get form elements for the current form entry
+            form_element_entries = \
+                self.form_element_entry_mapping[form_key]
+
+            ignorable_field_names = self.get_ignorable_field_names(
+                form_element_entries
+            )
+
+            for ignorable_field_name in ignorable_field_names:
+                form_obj.fields.pop(ignorable_field_name)
+
             if not form_obj.is_valid():
                 return self.render_revalidation_failure(form_key,
                                                         form_obj,
@@ -1599,9 +1622,6 @@ class FormWizardView(DynamicSessionWizardView):
             # Fire plugin processors
             # Get current form entry
             form_entry = self.form_entry_mapping[form_key]
-            # Get form elements for the current form entry
-            form_element_entries = \
-                self.form_element_entry_mapping[self.steps.current]
 
             form_obj = submit_plugin_form_data(
                 form_entry=form_entry,

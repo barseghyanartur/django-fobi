@@ -15,6 +15,12 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.10.1
+------
+2016-11-17
+
+- Fixed captcha and re-captcha issues in form wizards.
+
 0.10
 ----
 2016-11-16

@@ -5,6 +5,14 @@ A `CAPTCHA <http://en.wikipedia.org/wiki/CAPTCHA>`_ form field plugin. Makes
 use of the `django-simple-captcha
 <http://readthedocs.org/docs/django-simple-captcha>`_.
 
+Prerequisites
+=============
+You will need `libfreetype6`, otherwise `django-captcha` won't work.
+
+.. code-block:: sh
+
+    sudo apt-get install libfreetype6-dev
+
 Installation
 ============
 Install `django-simple-captcha`
