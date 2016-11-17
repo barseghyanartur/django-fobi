@@ -431,7 +431,7 @@ following arguments:
   the ``cleaned_data`` attribute).
 - `form_element_entries` (fobi.models.FormElementEntry): Form element entries
   for the `form_entry` given.
-- **kwargs: Additional arguments.
+- (**)kwargs : Additional arguments.
   
 Example (taken from fobi.contrib.plugins.form_elements.fields.file):
 
@@ -1502,16 +1502,6 @@ README.rst file in directory of each plugin for details.
 - `Mail
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/mail/>`__:
   Send the form data by email.
-
-Limitations
------------
-- At the moment, if you have used `django-simple-captcha` or
-  `django-recaptcha` plugins in one of the forms of the wizard, the wizard
-  becomes invalid at the end and sends you back to the form which used
-  captcha (see the issue `here
-  <https://github.com/mbi/django-simple-captcha/issues/6>`__ and `here
-  <https://github.com/praekelt/django-recaptcha/issues/115>`__). Therefore,
-  you're not recommended to use captcha solutions in wizard forms (yet).
 
 Permissions
 ===========

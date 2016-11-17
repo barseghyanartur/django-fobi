@@ -68,12 +68,6 @@ invalid", make sure to have defined (and filled in properly) the
 See the `following <https://github.com/praekelt/django-recaptcha/issues/32>`_
 thread for more information.
 
-In form wizards
----------------
-At the moment, captcha fields do not work in form wizards, as they are
-invalidated on the last step, which breaks the cycle. Therefore, it's not
-recommended to use captcha plugins in form wizards.
-
 Usage
 =====
 Note, that unlike most of the other form element plugins, default

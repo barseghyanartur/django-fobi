@@ -74,12 +74,6 @@ packages. That limitation is likely to be solved in future in the
 ``django-recaptcha`` package. Until then, you should choose either one or
 another, but not both on the same time.
 
-In form wizards
----------------
-At the moment, captcha fields do not work in form wizards, as they are
-invalidated on the last step, which breaks the cycle. Therefore, it's not
-recommended to use captcha plugins in form wizards.
-
 Usage
 =====
 Note, that unlike most of the other form element plugins, default
