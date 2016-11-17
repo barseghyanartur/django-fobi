@@ -787,6 +787,11 @@ class BaseFormFieldPluginForm(BasePluginForm):
 
         return True
 
+    if not DJANGO_GTE_1_7:
+        def add_error(self, field, error):
+            """Backwards compatibility hack."""
+            raise forms.ValidationError(error, 'invalid')
+
 # *****************************************************************************
 # *****************************************************************************
 # ******************************** Plugins ************************************
@@ -1055,15 +1060,13 @@ class BasePlugin(object):
         plugin_form = self.get_form()
         if plugin_form:
             try:
-                plugin_form = self.get_form()
-                if plugin_form:
-                    kwargs = {
-                        'data': data,
-                        'files': files,
-                    }
-                    if initial_data:
-                        kwargs.update({'initial': initial_data})
-                    return plugin_form(**kwargs)
+                kwargs = {
+                    'data': data,
+                    'files': files,
+                }
+                if initial_data:
+                    kwargs.update({'initial': initial_data})
+                return plugin_form(**kwargs)
             except Exception as e:
                 if DEBUG:
                     logger.debug(e)
@@ -1532,7 +1535,8 @@ class FormElementPlugin(BasePlugin):
                 logger.debug(str(err))
         return {}
 
-    def _submit_plugin_form_data(self, form_entry, request, form):
+    def _submit_plugin_form_data(self, form_entry, request, form,
+                                 form_element_entries=None, **kwargs):
         """Submit plugin form data (internal method).
 
         Do not override this method. Use ``submit_plugin_form_data``,
@@ -1545,20 +1549,30 @@ class FormElementPlugin(BasePlugin):
             ``fobi.models.FormEntry``.
         :param django.http.HttpRequest request:
         :param django.forms.Form form:
+        :param iterable form_element_entries:
         """
         if DEBUG:
             return self.submit_plugin_form_data(
-                form_entry=form_entry, request=request, form=form
+                form_entry=form_entry,
+                request=request,
+                form=form,
+                form_element_entries=form_element_entries,
+                **kwargs
             )
         else:
             try:
                 return self.submit_plugin_form_data(
-                    form_entry=form_entry, request=request, form=form
+                    form_entry=form_entry,
+                    request=request,
+                    form=form,
+                    form_element_entries=form_element_entries,
+                    **kwargs
                 )
             except Exception as e:
                 logger.debug(str(e))
 
-    def submit_plugin_form_data(self, form_entry, request, form):
+    def submit_plugin_form_data(self, form_entry, request, form,
+                                form_element_entries=None, **kwargs):
         """Submit plugin form data.
 
         Called on form submission (when user actually
@@ -1568,6 +1582,7 @@ class FormElementPlugin(BasePlugin):
             ``fobi.models.FormEntry``.
         :param django.http.HttpRequest request:
         :param django.forms.Form form:
+        :param iterable form_element_entries:
         """
 
 
@@ -1610,24 +1625,30 @@ class FormHandlerPlugin(BasePlugin):
         if not form_element_entries:
             form_element_entries = form_entry.formelemententry_set.all()[:]
 
-        try:
+        if FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS:
             response = self.run(form_entry, request, form,
                                 form_element_entries)
             if response:
                 return response
             else:
                 return (True, None)
-        except Exception as err:
-            if FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS:
-                raise err.__class__("Exception: {0}. {1}"
-                                    "".format(str(err),
-                                              traceback.format_exc()))
-            logger.error(
-                "Error in class {0}. Details: "
-                "{1}. Full trace: {2}".format(self.__class__.__name__,
-                                              str(err), traceback.format_exc())
-            )
-            return (False, err)
+        else:
+            try:
+                response = self.run(form_entry, request, form,
+                                    form_element_entries)
+                if response:
+                    return response
+                else:
+                    return (True, None)
+            except Exception as err:
+                logger.error(
+                    "Error in class {0}. Details: "
+                    "{1}. Full trace: {2}".format(
+                        self.__class__.__name__,
+                        str(err), traceback.format_exc()
+                    )
+                )
+                return (False, err)
 
     def run(self, form_entry, request, form, form_element_entries=None):
         """Run.
@@ -2399,19 +2420,27 @@ def validate_form_element_plugin_uid(plugin_uid):
     return validate_plugin_uid(form_element_plugin_registry, plugin_uid)
 
 
-def submit_plugin_form_data(form_entry, request, form):
+def submit_plugin_form_data(form_entry, request, form,
+                            form_element_entries=None, **kwargs):
     """Submit plugin form data for all plugins.
 
     :param fobi.models.FormEntry form_entry: Instance of
         ``fobi.models.FormEntry``.
     :param django.http.HttpRequest request:
     :param django.forms.Form form:
+    :param iterable form_element_entries:
     """
-    for form_element_entry in form_entry.formelemententry_set.all():
+    if not form_element_entries:
+        form_element_entries = form_entry.formelemententry_set.all()
+    for form_element_entry in form_element_entries:
         # Get the plugin.
         form_element_plugin = form_element_entry.get_plugin(request=request)
         updated_form = form_element_plugin._submit_plugin_form_data(
-            form_entry=form_entry, request=request, form=form
+            form_entry=form_entry,
+            request=request,
+            form=form,
+            form_element_entries=form_element_entries,
+            **kwargs
         )
         if updated_form:
             form = updated_form

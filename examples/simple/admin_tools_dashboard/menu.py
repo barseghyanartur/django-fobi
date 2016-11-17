@@ -27,39 +27,50 @@ class CustomMenu(Menu):
         ]
 
         # Foo
-        self.children.append(items.ModelList(_('Foo'),
-            models=conf.foo_apps
-        ))
+        self.children.append(
+            items.ModelList(
+                _('Foo'),
+                models=conf.foo_apps
+            )
+        )
 
         # Fobi
-        self.children.append(items.MenuItem(
-            _('Fobi'),
-            children=[
-                items.ModelList(_('Plugins'), models=conf.fobi_plugins),
-                items.ModelList(_('Forms'), models=conf.fobi_forms),
-                items.ModelList(_('Data'), models=conf.fobi_data),
-            ]
-        ))
+        self.children.append(
+            items.MenuItem(
+                _('Fobi'),
+                children=[
+                    items.ModelList(_('Plugins'), models=conf.fobi_plugins),
+                    items.ModelList(_('Forms'), models=conf.fobi_forms),
+                    items.ModelList(_('Data'), models=conf.fobi_data),
+                ]
+            )
+        )
 
         if 'feincms' in settings.INSTALLED_APPS:
             # FeinCMS pages integration
-            self.children.append(items.AppList(
-                _('FeinCMS Pages'),
-                models=conf.feincms_pages
-            ))
+            self.children.append(
+                items.AppList(
+                    _('FeinCMS Pages'),
+                    models=conf.feincms_pages
+                )
+            )
 
         if 'cms' in settings.INSTALLED_APPS:
             # DjangoCMS pages integration
-            self.children.append(items.AppList(
-                _('DjangoCMS Pages'),
-                models=conf.djangocms_pages
-            ))
+            self.children.append(
+                items.AppList(
+                    _('DjangoCMS Pages'),
+                    models=conf.djangocms_pages
+                )
+            )
 
         # append an app list module for "Administration"
-        self.children.append(items.AppList(
-            _('Administration'),
-            models=['django.contrib.*',]
-        ))
+        self.children.append(
+            items.AppList(
+                _('Administration'),
+                models=['django.contrib.*']
+            )
+        )
 
     def init_with_context(self, context):
         """Use this method if you need to access the request context."""

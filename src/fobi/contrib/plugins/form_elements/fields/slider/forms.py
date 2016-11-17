@@ -2,6 +2,7 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import BaseFormFieldPluginForm, get_theme
+from fobi.helpers import get_select_field_choices
 from fobi.widgets import NumberInput
 
 from .constants import (
@@ -17,7 +18,14 @@ from .constants import (
     SLIDER_SHOW_ENDPOINTS_AS_TICKS
 )
 
-from .settings import INITIAL, MAX_VALUE, MIN_VALUE, STEP
+from .settings import (
+    INITIAL,
+    INITIAL_MAX_VALUE,
+    INITIAL_MIN_VALUE,
+    MAX_VALUE,
+    MIN_VALUE,
+    STEP
+)
 
 __title__ = 'fobi.contrib.plugins.form_elements.fields.slider.forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -35,8 +43,8 @@ class SliderInputForm(forms.Form, BaseFormFieldPluginForm):
         ("label", ""),
         ("name", ""),
         ("initial", INITIAL),
-        ("min_value", MIN_VALUE),
-        ("max_value", MAX_VALUE),
+        ("min_value", INITIAL_MIN_VALUE),
+        ("max_value", INITIAL_MAX_VALUE),
         ("step", STEP),
         ("tooltip", SLIDER_DEFAULT_TOOLTIP),
         ("handle", SLIDER_DEFAULT_HANDLE),
@@ -44,7 +52,7 @@ class SliderInputForm(forms.Form, BaseFormFieldPluginForm):
         ("show_endpoints_as", SLIDER_DEFAULT_SHOW_ENDPOINTS_AS),
         ("label_start", ""),
         ("label_end", ""),
-        # ("custom_ticks", ""),
+        ("custom_ticks", ""),
         ("help_text", ""),
         ("required", False)
     ]
@@ -74,6 +82,7 @@ class SliderInputForm(forms.Form, BaseFormFieldPluginForm):
     min_value = forms.IntegerField(
         label=_("Min value"),
         required=True,
+        initial=INITIAL_MIN_VALUE,
         widget=NumberInput(attrs={'class': theme.form_element_html_class}),
         min_value=MIN_VALUE,
         max_value=MAX_VALUE
@@ -81,6 +90,7 @@ class SliderInputForm(forms.Form, BaseFormFieldPluginForm):
     max_value = forms.IntegerField(
         label=_("Max value"),
         required=True,
+        initial=INITIAL_MAX_VALUE,
         widget=NumberInput(attrs={'class': theme.form_element_html_class}),
         min_value=MIN_VALUE,
         max_value=MAX_VALUE
@@ -140,27 +150,27 @@ class SliderInputForm(forms.Form, BaseFormFieldPluginForm):
             attrs={'class': theme.form_element_html_class}
         )
     )
-    # custom_ticks = forms.CharField(
-    #     label=_("Custom ticks"),
-    #     required=False,
-    #     help_text=_("Enter single values/pairs per line. Example:<code><br/>"
-    #                 "&nbsp;&nbsp;&nbsp;&nbsp;1<br/>"
-    #                 "&nbsp;&nbsp;&nbsp;&nbsp;2<br/>"
-    #                 "&nbsp;&nbsp;&nbsp;&nbsp;3, Alpha<br/>"
-    #                 "&nbsp;&nbsp;&nbsp;&nbsp;4, Beta<br/>"
-    #                 "</code><br/>"
-    #                 "It finally transforms into the following HTML "
-    #                 "code:<code><br/>"
-    #                 '&nbsp;&nbsp;&nbsp;&nbsp;'
-    #                 'data-slider-ticks="[1, 2, 3, 4]"<br/>'
-    #                 '&nbsp;&nbsp;&nbsp;&nbsp;'
-    #                 "data-slider-ticks-labels='"
-    #                 '["1", "2", "Alpha", "Beta"]'
-    #                 "'</code>"),
-    #     widget=forms.widgets.Textarea(
-    #         attrs={'class': theme.form_element_html_class}
-    #     )
-    # )
+    custom_ticks = forms.CharField(
+        label=_("Custom ticks"),
+        required=False,
+        help_text=_("Enter single values/pairs per line. Example:<code><br/>"
+                    "&nbsp;&nbsp;&nbsp;&nbsp;1<br/>"
+                    "&nbsp;&nbsp;&nbsp;&nbsp;2<br/>"
+                    "&nbsp;&nbsp;&nbsp;&nbsp;3, Alpha<br/>"
+                    "&nbsp;&nbsp;&nbsp;&nbsp;4, Beta<br/>"
+                    "</code><br/>"
+                    "It finally transforms into the following HTML "
+                    "code:<code><br/>"
+                    '&nbsp;&nbsp;&nbsp;&nbsp;'
+                    'data-slider-ticks="[1, 2, 3, 4]"<br/>'
+                    '&nbsp;&nbsp;&nbsp;&nbsp;'
+                    "data-slider-ticks-labels='"
+                    '["1", "2", "Alpha", "Beta"]'
+                    "'</code>"),
+        widget=forms.widgets.Textarea(
+            attrs={'class': theme.form_element_html_class}
+        )
+    )
     help_text = forms.CharField(
         label=_("Help text"),
         required=False,
@@ -186,6 +196,7 @@ class SliderInputForm(forms.Form, BaseFormFieldPluginForm):
         step = self.cleaned_data['step']
         show_endpoints_as = self.cleaned_data['show_endpoints_as']
         handle = self.cleaned_data['handle']
+        custom_ticks = self.cleaned_data['custom_ticks']
 
         if max_value < min_value:
             self.add_error(
@@ -222,3 +233,17 @@ class SliderInputForm(forms.Form, BaseFormFieldPluginForm):
                 _("You are not allowed to use Triangle or Custom handles "
                   "with ticks enabled.")
             )
+
+        if custom_ticks:
+            ticks = get_select_field_choices(
+                custom_ticks,
+                key_type=int,
+                value_type=str,
+                fail_silently=False
+            )
+            if ticks is None:
+                self.add_error(
+                    'custom_ticks',
+                    _("Invalid format. First value should be an integer, "
+                      "second value should be a string.")
+                )

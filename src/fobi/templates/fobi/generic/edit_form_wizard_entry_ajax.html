@@ -192,17 +192,15 @@
             </div>
             <div class="panel panel-default">
               <div class="panel-body">
-                {% comment %}
                 <div>
-                  <h3>{% trans "Export your form as JSON" %}</h3>
+                  <h3>{% trans "Export your form wizard as JSON" %}</h3>
                   <p>{% trans "Export your form into JSON format and import it again any time!" %}</p>
                   <p>
-                    <a class="btn btn-primary" href="{% url 'fobi.export_form_entry' form_entry.pk %}" role="button">
-                      <span class="glyphicon glyphicon-export"></span> {% trans "Export form" %}
+                    <a class="btn btn-primary" href="{% url 'fobi.export_form_wizard_entry' form_wizard_entry.pk %}" role="button">
+                      <span class="glyphicon glyphicon-export"></span> {% trans "Export form wizard" %}
                     </a>
                   </p>
                 </div>
-                {% endcomment %}
                 <div>
                   <h3>{% trans "Delete your form wizard" %}</h3>
                   <p>{% trans "Once deleted, can't be undone!" %}</p>

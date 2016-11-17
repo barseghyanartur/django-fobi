@@ -8,6 +8,7 @@
 .zip
 /.coverage
 /dev.db
+/.cache/
 
 MANIFEST.in~
 MIND_BUCKET.rst
@@ -31,9 +32,11 @@ README_PARTS.rst
 /src/django_fobi.egg-info
 /src/fobi/contrib/plugins/form_elements/fields/hidden_model_object/
 /src/fobi/contrib/plugins/form_importers/mailchimp_importer/bucket.py
+/src/fobi/contrib/apps/wagtail_integration_/
 
 /scripts/install_django_1_7_wagtail.sh
 /scripts/reinstall_django_1_7_wagtail.sh
+/scripts/copy_lund_files.sh
 
 /examples/db/
 /examples/tmp/
@@ -41,6 +44,7 @@ README_PARTS.rst
 /examples/media/fobi_plugins/content_image/
 /examples/media/fobi_plugins/file/
 /examples/media/cache/
+/examples/simple/lund_urls.py
 /examples/simple/lund/
 /examples/simple/settings/local_settings.py
 /examples/simple/settings/local_settings_foundation5.py

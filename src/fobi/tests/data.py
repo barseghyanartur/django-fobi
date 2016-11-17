@@ -3,70 +3,72 @@ import datetime
 
 from django.utils.text import force_text
 
-# from fobi.contrib.plugins.form_elements.content.content_image.fobi_form_elements \
-#     import ContentImagePlugin
-# from fobi.contrib.plugins.form_elements.content.content_text.fobi_form_elements \
-#     import ContentTextPlugin
-# from fobi.contrib.plugins.form_elements.content.content_video.fobi_form_elements \
-#     import ContentVideoPlugin
+# from fobi.contrib.plugins.form_elements.content \
+#          .content_image.fobi_form_elements import ContentImagePlugin
+# from fobi.contrib.plugins.form_elements.content \
+#          .content_text.fobi_form_elements import ContentTextPlugin
+# from fobi.contrib.plugins.form_elements.content \
+#          .content_video.fobi_form_elements import ContentVideoPlugin
 
-from fobi.contrib.plugins.form_elements.fields.boolean.fobi_form_elements \
-    import BooleanSelectPlugin
-# from fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple.fobi_form_elements \
-#     import CheckboxSelectMultipleInputPlugin
-from fobi.contrib.plugins.form_elements.fields.date.fobi_form_elements \
-    import DateInputPlugin
-# from fobi.contrib.plugins.form_elements.fields.date_drop_down.fobi_form_elements \
-#     import DateDropDownInputPlugin
-from fobi.contrib.plugins.form_elements.fields.datetime.fobi_form_elements \
-    import DateTimeInputPlugin
-from fobi.contrib.plugins.form_elements.fields.decimal.fobi_form_elements \
-    import DecimalInputPlugin
-from fobi.contrib.plugins.form_elements.fields.email.fobi_form_elements \
-    import EmailInputPlugin
-# from fobi.contrib.plugins.form_elements.fields.file.fobi_form_elements \
-#     import FileInputPlugin
-from fobi.contrib.plugins.form_elements.fields.float.fobi_form_elements \
-    import FloatInputPlugin
-# from fobi.contrib.plugins.form_elements.fields.hidden.fobi_form_elements \
-#     import HiddenInputPlugin
-# from fobi.contrib.plugins.form_elements.fields.hidden_model_object.fobi_form_elements \
-#     import HiddenModelObjectInputPlugin
-from fobi.contrib.plugins.form_elements.fields.integer.fobi_form_elements \
-    import IntegerInputPlugin
-from fobi.contrib.plugins.form_elements.fields.ip_address.fobi_form_elements \
-    import IPAddressInputPlugin
-from fobi.contrib.plugins.form_elements.fields.null_boolean.fobi_form_elements \
-    import NullBooleanSelectPlugin
-from fobi.contrib.plugins.form_elements.fields.select.fobi_form_elements \
-    import SelectInputPlugin
-from fobi.contrib.plugins.form_elements.fields.select_model_object.fobi_form_elements \
-    import SelectModelObjectInputPlugin
-from fobi.contrib.plugins.form_elements.fields.select_multiple.fobi_form_elements \
-    import SelectMultipleInputPlugin
-from fobi.contrib.plugins.form_elements.fields.slug.fobi_form_elements \
-    import SlugInputPlugin
-from fobi.contrib.plugins.form_elements.fields.text.fobi_form_elements \
-    import TextInputPlugin
-from fobi.contrib.plugins.form_elements.fields.textarea.fobi_form_elements \
-    import TextareaPlugin
-from fobi.contrib.plugins.form_elements.fields.url.fobi_form_elements \
-    import URLInputPlugin
+from fobi.contrib.plugins.form_elements.fields \
+         .boolean.fobi_form_elements import BooleanSelectPlugin
+# from fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple \
+#          .fobi_form_elements import CheckboxSelectMultipleInputPlugin
+from fobi.contrib.plugins.form_elements.fields \
+         .date.fobi_form_elements import DateInputPlugin
+# from fobi.contrib.plugins.form_elements.fields \
+#          .date_drop_down.fobi_form_elements import DateDropDownInputPlugin
+from fobi.contrib.plugins.form_elements.fields \
+         .datetime.fobi_form_elements import DateTimeInputPlugin
+from fobi.contrib.plugins.form_elements.fields \
+         .decimal.fobi_form_elements import DecimalInputPlugin
+from fobi.contrib.plugins.form_elements.fields \
+         .email.fobi_form_elements import EmailInputPlugin
+# from fobi.contrib.plugins.form_elements.fields \
+#          .file.fobi_form_elements import FileInputPlugin
+from fobi.contrib.plugins.form_elements.fields \
+         .float.fobi_form_elements import FloatInputPlugin
+# from fobi.contrib.plugins.form_elements.fields \
+#          .hidden.fobi_form_elements import HiddenInputPlugin
+# from fobi.contrib.plugins.form_elements.fields.hidden_model_object \
+#          .fobi_form_elements import HiddenModelObjectInputPlugin
+from fobi.contrib.plugins.form_elements.fields \
+         .integer.fobi_form_elements import IntegerInputPlugin
+from fobi.contrib.plugins.form_elements.fields \
+         .ip_address.fobi_form_elements import IPAddressInputPlugin
+from fobi.contrib.plugins.form_elements.fields \
+         .null_boolean.fobi_form_elements import NullBooleanSelectPlugin
+from fobi.contrib.plugins.form_elements.fields \
+         .select.fobi_form_elements import SelectInputPlugin
+from fobi.contrib.plugins.form_elements.fields.select_model_object \
+         .fobi_form_elements import SelectModelObjectInputPlugin
+from fobi.contrib.plugins.form_elements.fields \
+         .select_multiple.fobi_form_elements import SelectMultipleInputPlugin
+from fobi.contrib.plugins.form_elements.fields.slug \
+         .fobi_form_elements import SlugInputPlugin
+from fobi.contrib.plugins.form_elements.fields \
+         .text.fobi_form_elements import TextInputPlugin
+from fobi.contrib.plugins.form_elements.fields \
+         .textarea.fobi_form_elements import TextareaPlugin
+from fobi.contrib.plugins.form_elements.fields \
+         .url.fobi_form_elements import URLInputPlugin
 
-from fobi.contrib.plugins.form_handlers.db_store.fobi_form_handlers \
-    import DBStoreHandlerPlugin
-from fobi.contrib.plugins.form_handlers.mail.fobi_form_handlers \
-    import MailHandlerPlugin
-from fobi.contrib.plugins.form_handlers.http_repost.fobi_form_handlers \
-    import HTTPRepostHandlerPlugin
+from fobi.contrib.plugins.form_handlers \
+         .db_store.fobi_form_handlers import DBStoreHandlerPlugin
+from fobi.contrib.plugins.form_handlers \
+         .mail.fobi_form_handlers import MailHandlerPlugin
+from fobi.contrib.plugins.form_handlers \
+         .http_repost.fobi_form_handlers import HTTPRepostHandlerPlugin
 
 __title__ = 'fobi.tests.data'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'TEST_FORM_ELEMENT_PLUGIN_DATA', 'TEST_FORM_FIELD_DATA',
+    'TEST_FORM_ELEMENT_PLUGIN_DATA',
+    'TEST_FORM_FIELD_DATA',
     'TEST_FORM_HANDLER_PLUGIN_DATA',
+    'TEST_MAILCHIMP_IMPORTER_FORM_DATA'
 )
 
 TEST_FORM_ELEMENT_PLUGIN_DATA = {
@@ -84,14 +86,14 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
     #     'required': False,
     # },
 
-    # Add a "Date" input form elelement
+    # Add a "Date" input form element
     force_text(DateInputPlugin.name): {
         'label': "Test date input",
         'help_text': "Lorem ipsum select multiple input",
         'required': False,
     },
 
-    # Add a "DateTime" input form elelement
+    # Add a "DateTime" input form element
     force_text(DateTimeInputPlugin.name): {
         'label': "Test datetime input",
         'help_text': "Lorem ipsum select multiple input",
@@ -113,7 +115,7 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
     },
 
     # TODO: Add file test.
-    # Add a "File" (file) form elelement
+    # Add a "File" (file) form element
     # force_text(FileInputPlugin.name): {
     #     'label': "Test file input",
     #     #'name': "test_file_input",
@@ -129,7 +131,7 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
     },
 
     # TODO: Find out why selenium fails here!
-    # Add a "Hidden" (boolean) form elelement
+    # Add a "Hidden" (boolean) form element
     # force_text(HiddenInputPlugin.name): {
     #     'label': "Test hidden input",
     #     #'name': "test_hidden_input",
@@ -137,70 +139,70 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
     #     'required': True,
     #     },
 
-    # Add a "Integer" (text input) form elelement
+    # Add a "Integer" (text input) form element
     force_text(IntegerInputPlugin.name): {
         'label': "Test integer",
         'help_text': "Lorem ipsum text input",
         'required': True,
     },
 
-    # Add a "IP address" (text input) form elelement
+    # Add a "IP address" (text input) form element
     force_text(IPAddressInputPlugin.name): {
         'label': "Test IP address",
         'help_text': "Lorem ipsum text input",
         'required': True,
     },
 
-    # Add a "null boolean" form elelement
+    # Add a "null boolean" form element
     force_text(NullBooleanSelectPlugin.name): {
         'label': "Test null boolean",
         'help_text': "Lorem ipsum text input",
         'required': True,
     },
 
-    # Add a "Select Input" (select input) form elelement
+    # Add a "Select Input" (select input) form element
     force_text(SelectInputPlugin.name): {
         'label': "Test select",
         'help_text': "Lorem ipsum text input",
         'required': False,
     },
 
-    # Add a "Select model object" (select input) form elelement
+    # Add a "Select model object" (select input) form element
     force_text(SelectModelObjectInputPlugin.name): {
         'label': "Test select model object",
         'help_text': "Lorem ipsum select model object input",
         'required': False,
     },
 
-    # Add a "Select multiple" (select multiple input) form elelement
+    # Add a "Select multiple" (select multiple input) form element
     force_text(SelectMultipleInputPlugin.name): {
         'label': "Test select multiple input",
         'help_text': "Lorem ipsum select multiple input",
         'required': False,
     },
 
-    # Add a "Select multiple" (select multiple input) form elelement
+    # Add a "Select multiple" (select multiple input) form element
     force_text(SlugInputPlugin.name): {
         'label': "Test slug input",
         'help_text': "Lorem ipsum select multiple input",
         'required': False,
     },
 
-    # Add a "Text" (text input) form elelement
+    # Add a "Text" (text input) form element
     force_text(TextInputPlugin.name): {
         'label': "Test text",
         'help_text': "Lorem ipsum text input",
         'required': True,
     },
 
-    # Add a "Textarea" (text area) form elelement
+    # Add a "Textarea" (text area) form element
     force_text(TextareaPlugin.name): {
         'label': "Test text area",
         'help_text': "Lorem ipsum text area",
         'required': True,
     },
 
-    # Add a "URL input" form elelement
+    # Add a "URL input" form element
     force_text(URLInputPlugin.name): {
         'label': "Test URL input",
         'help_text': "Lorem ipsum text area",
@@ -246,3 +248,210 @@ TEST_FORM_HANDLER_PLUGIN_DATA = {
         'endpoint_url': 'http://dev.example.com'
     }
 }
+
+
+TEST_MAILCHIMP_IMPORTER_FORM_DATA = [
+    {
+        u'default': u'',
+        u'field_type': u'email',
+        u'helptext': u'',
+        u'id': 0,
+        u'name': u'Email Address',
+        u'order': u'1',
+        u'public': True,
+        u'req': True,
+        u'show': True,
+        u'size': u'25',
+        u'tag': u'EMAIL'
+    },
+    {
+        u'default': u'',
+        u'field_type': u'text',
+        u'helptext': u'',
+        u'id': 1,
+        u'name': u'First Name',
+        u'order': u'2',
+        u'public': True,
+        u'req': False,
+        u'show': True,
+        u'size': u'25',
+        u'tag': u'FNAME'
+    },
+    {
+        u'default': u'',
+        u'field_type': u'text',
+        u'helptext': u'',
+        u'id': 2,
+        u'name': u'Last Name',
+        u'order': u'3',
+        u'public': True,
+        u'req': False,
+        u'show': True,
+        u'size': u'25',
+        u'tag': u'LNAME'
+    },
+    {
+        u'default': u'',
+        u'field_type': u'text',
+        u'helptext': u'',
+        u'id': 3,
+        u'name': u'Organisation',
+        u'order': u'4',
+        u'public': True,
+        u'req': False,
+        u'show': True,
+        u'size': u'25',
+        u'tag': u'ORG'
+    },
+    {
+        u'default': u'Type Text Default Value',
+        u'field_type': u'text',
+        u'helptext': u'Type Text Help Text',
+        u'id': 4,
+        u'name': u'type_text',
+        u'order': u'5',
+        u'public': True,
+        u'req': True,
+        u'show': True,
+        u'size': u'25',
+        u'tag': u'TYPE_TEXT'
+    },
+    {
+        u'default': u'1',
+        u'field_type': u'number',
+        u'helptext': u'Type Number Help Text',
+        u'id': 5,
+        u'name': u'type_number',
+        u'order': u'6',
+        u'public': True,
+        u'req': False,
+        u'show': True,
+        u'size': u'25',
+        u'tag': u'TYPE_NUMBE'
+    },
+    {
+        u'choices': [u'First Choice', u'Second Choice', u'Third Choice'],
+        u'default': u'Second Choice',
+        u'field_type': u'radio',
+        u'helptext': u'Type Radio Buttons Help Text',
+        u'id': 6,
+        u'name': u'type_radio_buttons',
+        u'order': u'7',
+        u'public': True,
+        u'req': True,
+        u'show': True,
+        u'size': u'25',
+        u'tag': u'TYPE_RADIO'
+    },
+    {
+        u'choices': [u'First Choice', u'Second Choice', u'Third Choice'],
+        u'default': u'Third Choice',
+        u'field_type': u'dropdown',
+        u'helptext': u'Drop Down Help Text',
+        u'id': 7,
+        u'name': u'type_drop_down',
+        u'order': u'9',
+        u'public': True,
+        u'req': True,
+        u'show': True,
+        u'size': u'25',
+        u'tag': u'TYPE_DROPD'
+    },
+    {
+        u'dateformat': u'MM/DD/YYYY',
+        u'default': u'',
+        u'field_type': u'date',
+        u'helptext': u'Type Date Help Text',
+        u'id': 8,
+        u'name': u'type_date',
+        u'order': u'10',
+        u'public': True,
+        u'req': True,
+        u'show': True,
+        u'size': u'25',
+        u'tag': u'TYPE_DATE'
+    },
+    {
+        u'dateformat': u'MM/DD',
+        u'default': u'',
+        u'field_type': u'birthday',
+        u'helptext': u'Type Birthday Help Text',
+        u'id': 9,
+        u'name': u'type_birthday',
+        u'order': u'11',
+        u'public': True,
+        u'req': True,
+        u'show': True,
+        u'size': u'25',
+        u'tag': u'TYPE_BIRTH'
+    },
+    {
+        u'default': u'',
+        u'defaultcountry': u'109',
+        u'defaultcountry_cc': u'NL',
+        u'defaultcountry_name': u'Netherlands',
+        u'field_type': u'address',
+        u'helptext': u'Type Address Help Text',
+        u'id': 10,
+        u'name': u'type_address',
+        u'order': u'12',
+        u'public': True,
+        u'req': False,
+        u'show': True,
+        u'size': u'25',
+        u'tag': u'TYPE_ADDRE'
+    },
+    {
+        u'default': u'',
+        u'field_type': u'zip',
+        u'helptext': u'Type Zip Code Help Text',
+        u'id': 11,
+        u'name': u'type_zip_code',
+        u'order': u'13',
+        u'public': True,
+        u'req': False,
+        u'show': True,
+        u'size': u'25',
+        u'tag': u'TYPE_ZIP_C'
+    },
+    {
+        u'default': u'',
+        u'field_type': u'phone',
+        u'helptext': u'Type Phone Help Text',
+        u'id': 12,
+        u'name': u'type_phone',
+        u'order': u'14',
+        u'phoneformat': u'none',
+        u'public': True,
+        u'req': False,
+        u'show': True,
+        u'size': u'25',
+        u'tag': u'TYPE_PHONE'
+    },
+    {
+        u'default': u'',
+        u'field_type': u'url',
+        u'helptext': u'Type Website Help Text',
+        u'id': 13,
+        u'name': u'type_website',
+        u'order': u'15',
+        u'public': True,
+        u'req': True,
+        u'show': True,
+        u'size': u'25',
+        u'tag': u'TYPE_WEBSI'
+    },
+    {
+        u'default': u'',
+        u'field_type': u'imageurl',
+        u'helptext': u'Type Image Help Text',
+        u'id': 14,
+        u'name': u'type_image',
+        u'order': u'16',
+        u'public': True,
+        u'req': False,
+        u'show': True,
+        u'size': u'25',
+        u'tag': u'TYPE_IMAGE'
+    }
+]

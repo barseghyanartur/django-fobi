@@ -53,6 +53,7 @@ from .forms import (
     FormEntryForm,
     FormElementEntryFormSet,
     ImportFormEntryForm,
+    ImportFormWizardEntryForm,
     FormWizardEntryForm,
     FormWizardFormEntry,
     FormWizardFormEntryFormSet,
@@ -79,7 +80,9 @@ from .utils import (
     get_user_form_wizard_handler_plugins,
     get_user_form_handler_plugin_uids,
     get_user_form_wizard_handler_plugin_uids,
-    get_wizard_files_upload_dir
+    get_wizard_files_upload_dir,
+    perform_form_entry_import,
+    prepare_form_entry_export_data
 )
 from .wizard import DynamicSessionWizardView, DynamicCookieWizardView
 
@@ -121,6 +124,7 @@ __all__ = (
     'form_wizards_dashboard',
     'FormWizardView',
     'import_form_entry',
+    'import_form_wizard_entry',
     'view_form_entry',
 )
 
@@ -665,7 +669,7 @@ def add_form_element_entry(request,
         form = form_element_plugin.get_initialised_create_form_or_404(
             data=request.POST,
             files=request.FILES
-            )
+        )
         form.validate_plugin_data(form_elements, request=request)
         if form.is_valid():
             # Saving the plugin form data.
@@ -1403,14 +1407,22 @@ class FormWizardView(DynamicSessionWizardView):
         context_data = super(FormWizardView, self).get_context_data(
             form=form, **kwargs
         )
-
+        form_entry = self.get_form_entry_for_step(self.steps.step0)
         context_data.update({
             'form_wizard_entry': self.form_wizard_entry,
             'form_wizard_mode': True,
             'fobi_theme': self.fobi_theme,
+            'fobi_form_title': form_entry.title,
+            'fobi_form_wizard_title': self.form_wizard_entry.title,
+            'steps_range': range(1, self.steps.count+1),
         })
 
         return context_data
+
+    def get_form_entry_for_step(self, step):
+        """Get form entry title for step."""
+        form_slug = self.form_list[self.steps.step0][0]
+        return self.form_entry_mapping[form_slug]
 
     def get_initial_wizard_data(self, request, *args, **kwargs):
         """Get initial wizard data."""
@@ -1433,6 +1445,7 @@ class FormWizardView(DynamicSessionWizardView):
         ]
         form_list = []
         form_entry_mapping = {}
+        form_element_entry_mapping = {}
         wizard_form_element_entries = []
         for creation_counter, form_entry in enumerate(form_entries):
             # Using frozen queryset to minimize query usage
@@ -1451,6 +1464,7 @@ class FormWizardView(DynamicSessionWizardView):
                 (form_entry.slug, form_cls)
             )
             form_entry_mapping[form_entry.slug] = form_entry
+            form_element_entry_mapping[form_entry.slug] = form_element_entries
 
         if 0 == len(form_list):
             raise Http404(
@@ -1466,6 +1480,7 @@ class FormWizardView(DynamicSessionWizardView):
             'form_wizard_entry': form_wizard_entry,
             'wizard_form_element_entries': wizard_form_element_entries,
             'form_entry_mapping': form_entry_mapping,
+            'form_element_entry_mapping': form_element_entry_mapping,
             'fobi_theme': theme,
         }
 
@@ -1506,9 +1521,17 @@ class FormWizardView(DynamicSessionWizardView):
         if form.is_valid():
             # Get current form entry
             form_entry = self.form_entry_mapping[self.steps.current]
+            # Get form elements for the current form entry
+            form_element_entries = \
+                self.form_element_entry_mapping[self.steps.current]
             # Fire plugin processors
-            form = submit_plugin_form_data(form_entry=form_entry,
-                                           request=self.request, form=form)
+            form = submit_plugin_form_data(
+                form_entry=form_entry,
+                request=self.request,
+                form=form,
+                form_element_entries=form_element_entries,
+                **{'form_wizard_entry': self.form_wizard_entry}
+            )
             # Form wizards make use of form.data instead of form.cleaned_data.
             # Therefore, we update the form.data with values from
             # form.cleaned_data.
@@ -1550,6 +1573,18 @@ class FormWizardView(DynamicSessionWizardView):
                 return self.render_next_step(form)
         return self.render(form)
 
+    def get_ignorable_field_names(self, form_element_entries):
+        """Get ignorable field names."""
+        ignorable_field_names = []
+        for form_element_entry in form_element_entries:
+            plugin = form_element_entry.get_plugin()
+            # If plugin doesn't have a value, we don't need to have it
+            # on the last step (otherwise validation issues may arise, as
+            # it happens with captcha/re-captcha).
+            if not plugin.has_value:
+                ignorable_field_names.append(plugin.data.name)
+        return ignorable_field_names
+
     def render_done(self, form, **kwargs):
         """Render done.
 
@@ -1568,17 +1603,32 @@ class FormWizardView(DynamicSessionWizardView):
                 files=self.storage.get_step_files(form_key)
             )
 
+            # Get form elements for the current form entry
+            form_element_entries = \
+                self.form_element_entry_mapping[form_key]
+
+            ignorable_field_names = self.get_ignorable_field_names(
+                form_element_entries
+            )
+
+            for ignorable_field_name in ignorable_field_names:
+                form_obj.fields.pop(ignorable_field_name)
+
             if not form_obj.is_valid():
                 return self.render_revalidation_failure(form_key,
                                                         form_obj,
                                                         **kwargs)
 
             # Fire plugin processors
+            # Get current form entry
             form_entry = self.form_entry_mapping[form_key]
+
             form_obj = submit_plugin_form_data(
                 form_entry=form_entry,
                 request=self.request,
-                form=form_obj
+                form=form_obj,
+                form_element_entries=form_element_entries,
+                **{'form_wizard_entry': self.form_wizard_entry}
             )
 
             final_forms[form_key] = form_obj
@@ -2119,8 +2169,11 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
             )
 
             # Fire plugin processors
-            form = submit_plugin_form_data(form_entry=form_entry,
-                                           request=request, form=form)
+            form = submit_plugin_form_data(
+                form_entry=form_entry,
+                request=request,
+                form=form
+            )
 
             # Fire form valid callbacks
             form = fire_form_callbacks(form_entry=form_entry,
@@ -2190,6 +2243,7 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
         'form': form,
         'form_entry': form_entry,
         'fobi_theme': theme,
+        'fobi_form_title': form_entry.title,
     }
 
     if not template_name:
@@ -2271,38 +2325,40 @@ def export_form_entry(request, form_entry_id, template_name=None):
     except ObjectDoesNotExist as err:
         raise Http404(ugettext("Form entry not found."))
 
-    data = {
-        'name': form_entry.name,
-        'slug': form_entry.slug,
-        'is_public': False,
-        'is_cloneable': False,
-        # 'position': form_entry.position,
-        'success_page_title': form_entry.success_page_title,
-        'success_page_message': form_entry.success_page_message,
-        'action': form_entry.action,
-        'form_elements': [],
-        'form_handlers': [],
-    }
+    data = prepare_form_entry_export_data(form_entry)
 
-    form_element_entries = form_entry.formelemententry_set.all()[:]
-    form_handler_entries = form_entry.formhandlerentry_set.all()[:]
-
-    for form_element_entry in form_element_entries:
-        data['form_elements'].append(
-            {
-                'plugin_uid': form_element_entry.plugin_uid,
-                'position': form_element_entry.position,
-                'plugin_data': form_element_entry.plugin_data,
-            }
-        )
-
-    for form_handler_entry in form_handler_entries:
-        data['form_handlers'].append(
-            {
-                'plugin_uid': form_handler_entry.plugin_uid,
-                'plugin_data': form_handler_entry.plugin_data,
-            }
-        )
+    # data = {
+    #     'name': form_entry.name,
+    #     'slug': form_entry.slug,
+    #     'is_public': False,
+    #     'is_cloneable': False,
+    #     # 'position': form_entry.position,
+    #     'success_page_title': form_entry.success_page_title,
+    #     'success_page_message': form_entry.success_page_message,
+    #     'action': form_entry.action,
+    #     'form_elements': [],
+    #     'form_handlers': [],
+    # }
+    #
+    # form_element_entries = form_entry.formelemententry_set.all()[:]
+    # form_handler_entries = form_entry.formhandlerentry_set.all()[:]
+    #
+    # for form_element_entry in form_element_entries:
+    #     data['form_elements'].append(
+    #         {
+    #             'plugin_uid': form_element_entry.plugin_uid,
+    #             'position': form_element_entry.position,
+    #             'plugin_data': form_element_entry.plugin_data,
+    #         }
+    #     )
+    #
+    # for form_handler_entry in form_handler_entries:
+    #     data['form_handlers'].append(
+    #         {
+    #             'plugin_uid': form_handler_entry.plugin_uid,
+    #             'plugin_data': form_handler_entry.plugin_data,
+    #         }
+    #     )
 
     data_exporter = JSONDataExporter(json.dumps(data), form_entry.slug)
 
@@ -2340,76 +2396,77 @@ def import_form_entry(request, template_name=None):
             # we need to make sure it doesn't have strange fields in.
             # Furthermore, we will use the `form_element_data` and
             # `form_handler_data` for filling the missing plugin data.
-            form_elements_data = form_data.pop('form_elements', [])
-            form_handlers_data = form_data.pop('form_handlers', [])
-
-            form_data_keys_whitelist = (
-                'name',
-                'slug',
-                'is_public',
-                'is_cloneable',
-                # 'position',
-                'success_page_title',
-                'success_page_message',
-                'action',
-            )
-
-            # In this way we keep possible trash out.
-            for key in form_data.keys():
-                if key not in form_data_keys_whitelist:
-                    form_data.pop(key)
-
-            # User information we always recreate!
-            form_data['user'] = request.user
-
-            form_entry = FormEntry(**form_data)
-
-            form_entry.name += ugettext(" (imported on {0})").format(
-                datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            )
-            form_entry.save()
-
-            # One by one, importing form element plugins.
-            for form_element_data in form_elements_data:
-                if form_element_plugin_registry._registry.get(
-                        form_element_data.get('plugin_uid', None), None):
-                    form_element = FormElementEntry(**form_element_data)
-                    form_element.form_entry = form_entry
-                    form_element.save()
-                else:
-                    if form_element_data.get('plugin_uid', None):
-                        messages.warning(
-                            request,
-                            _('Plugin {0} is missing in the system.'
-                              '').format(form_element_data.get('plugin_uid'))
-                        )
-                    else:
-                        messages.warning(
-                            request,
-                            _('Some essential plugin data missing in the JSON '
-                              'import.')
-                        )
-
-            # One by one, importing form handler plugins.
-            for form_handler_data in form_handlers_data:
-                if form_handler_plugin_registry._registry.get(
-                        form_handler_data.get('plugin_uid', None), None):
-                    form_handler = FormHandlerEntry(**form_handler_data)
-                    form_handler.form_entry = form_entry
-                    form_handler.save()
-                else:
-                    if form_handler.get('plugin_uid', None):
-                        messages.warning(
-                            request,
-                            _('Plugin {0} is missing in the system.'
-                              '').format(form_handler.get('plugin_uid'))
-                        )
-                    else:
-                        messages.warning(
-                            request,
-                            _('Some essential data missing in the JSON '
-                              'import.')
-                        )
+            form_entry = perform_form_entry_import(request, form_data)
+            # form_elements_data = form_data.pop('form_elements', [])
+            # form_handlers_data = form_data.pop('form_handlers', [])
+            #
+            # form_data_keys_whitelist = (
+            #     'name',
+            #     'slug',
+            #     'is_public',
+            #     'is_cloneable',
+            #     # 'position',
+            #     'success_page_title',
+            #     'success_page_message',
+            #     'action',
+            # )
+            #
+            # # In this way we keep possible trash out.
+            # for key in form_data.keys():
+            #     if key not in form_data_keys_whitelist:
+            #         form_data.pop(key)
+            #
+            # # User information we always recreate!
+            # form_data['user'] = request.user
+            #
+            # form_entry = FormEntry(**form_data)
+            #
+            # form_entry.name += ugettext(" (imported on {0})").format(
+            #     datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            # )
+            # form_entry.save()
+            #
+            # # One by one, importing form element plugins.
+            # for form_element_data in form_elements_data:
+            #     if form_element_plugin_registry._registry.get(
+            #             form_element_data.get('plugin_uid', None), None):
+            #         form_element = FormElementEntry(**form_element_data)
+            #         form_element.form_entry = form_entry
+            #         form_element.save()
+            #     else:
+            #         if form_element_data.get('plugin_uid', None):
+            #             messages.warning(
+            #                 request,
+            #                 _('Plugin {0} is missing in the system.'
+            #                   '').format(form_element_data.get('plugin_uid'))
+            #             )
+            #         else:
+            #             messages.warning(
+            #                 request,
+            #                 _('Some essential plugin data missing in the '
+            #                   'JSON import.')
+            #             )
+            #
+            # # One by one, importing form handler plugins.
+            # for form_handler_data in form_handlers_data:
+            #     if form_handler_plugin_registry._registry.get(
+            #             form_handler_data.get('plugin_uid', None), None):
+            #         form_handler = FormHandlerEntry(**form_handler_data)
+            #         form_handler.form_entry = form_entry
+            #         form_handler.save()
+            #     else:
+            #         if form_handler.get('plugin_uid', None):
+            #             messages.warning(
+            #                 request,
+            #                 _('Plugin {0} is missing in the system.'
+            #                   '').format(form_handler.get('plugin_uid'))
+            #             )
+            #         else:
+            #             messages.warning(
+            #                 request,
+            #                 _('Some essential data missing in the JSON '
+            #                   'import.')
+            #             )
 
             messages.info(
                 request,
@@ -2449,6 +2506,211 @@ def import_form_entry(request, template_name=None):
         return render_to_response(
             template_name, context, context_instance=RequestContext(request)
         )
+
+# *****************************************************************************
+# *****************************************************************************
+# ************************* Export form wizard entry **************************
+# *****************************************************************************
+# *****************************************************************************
+
+
+@login_required
+@permissions_required(satisfy=SATISFY_ALL,
+                      perms=create_form_wizard_entry_permissions)
+def export_form_wizard_entry(request,
+                             form_wizard_entry_id,
+                             template_name=None):
+    """Export form entry to JSON.
+
+    :param django.http.HttpRequest request:
+    :param int form_wizard_entry_id:
+    :param string template_name:
+    :return django.http.HttpResponse:
+    """
+    try:
+        form_wizard_entry = FormWizardEntry._default_manager \
+            .get(pk=form_wizard_entry_id, user__pk=request.user.pk)
+
+    except ObjectDoesNotExist as err:
+        raise Http404(ugettext("Form wizard entry not found."))
+
+    data = {
+        'name': form_wizard_entry.name,
+        'slug': form_wizard_entry.slug,
+        'is_public': False,
+        'is_cloneable': False,
+        'success_page_title': form_wizard_entry.success_page_title,
+        'success_page_message': form_wizard_entry.success_page_message,
+        'form_wizard_forms': [],
+        'form_wizard_handlers': [],
+    }
+
+    form_wizard_form_entries = \
+        form_wizard_entry.formwizardformentry_set.all()[:]
+    form_wizard_handler_entries = \
+        form_wizard_entry.formwizardhandlerentry_set.all()[:]
+
+    for wizard_form_entry in form_wizard_form_entries:
+        data['form_wizard_forms'].append(
+            prepare_form_entry_export_data(wizard_form_entry.form_entry)
+        )
+
+    for wizard_handler_entry in form_wizard_handler_entries:
+        data['form_wizard_handlers'].append(
+            {
+                'plugin_uid': wizard_handler_entry.plugin_uid,
+                'plugin_data': wizard_handler_entry.plugin_data,
+            }
+        )
+
+    data_exporter = JSONDataExporter(json.dumps(data), form_wizard_entry.slug)
+
+    return data_exporter.export()
+
+
+# *****************************************************************************
+# *****************************************************************************
+# **************************** Import form entry ******************************
+# *****************************************************************************
+# *****************************************************************************
+
+
+@login_required
+@permissions_required(satisfy=SATISFY_ALL,
+                      perms=create_form_wizard_entry_permissions)
+def import_form_wizard_entry(request, template_name=None):
+    """Import form wizard entry.
+
+    :param django.http.HttpRequest request:
+    :param string template_name:
+    :return django.http.HttpResponse:
+    """
+    if 'POST' == request.method:
+        form = ImportFormWizardEntryForm(request.POST, request.FILES)
+
+        if form.is_valid():
+            # Reading the contents of the file into JSON
+            json_file = form.cleaned_data['file']
+            file_contents = json_file.read()
+
+            # This is the form data which we are going to use when recreating
+            # the form.
+            form_wizard_data = json.loads(file_contents)
+
+            # Since we just feed all the data to the `FormEntry` class,
+            # we need to make sure it doesn't have strange fields in.
+            # Furthermore, we will use the `form_element_data` and
+            # `form_handler_data` for filling the missing plugin data.
+            form_wizard_forms_data = form_wizard_data.pop(
+                'form_wizard_forms', []
+            )
+            form_wizard_handlers_data = form_wizard_data.pop(
+                'form_wizard_handlers', []
+            )
+
+            form_wizard_data_keys_whitelist = (
+                'name',
+                'slug',
+                'is_public',
+                'is_cloneable',
+                'success_page_title',
+                'success_page_message',
+                'action',
+            )
+
+            # In this way we keep possible trash out.
+            for key in form_wizard_data.keys():
+                if key not in form_wizard_data_keys_whitelist:
+                    form_wizard_data.pop(key)
+
+            # User information we always recreate!
+            form_wizard_data['user'] = request.user
+
+            form_wizard_entry = FormWizardEntry(**form_wizard_data)
+
+            form_wizard_entry.name += ugettext(" (imported on {0})").format(
+                datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+            )
+            form_wizard_entry.save()
+
+            # One by one, importing form element plugins.
+            for counter, form_entry_data \
+                    in enumerate(form_wizard_forms_data):
+                form_entry = perform_form_entry_import(
+                    request,
+                    form_entry_data
+                )
+                FormWizardFormEntry.objects.create(
+                    form_wizard_entry=form_wizard_entry,
+                    form_entry=form_entry,
+                    position=counter
+                )
+            # One by one, importing form handler plugins.
+            for form_wizard_handler_data in form_wizard_handlers_data:
+                if form_wizard_handler_plugin_registry.registry.get(
+                        form_wizard_handler_data.get('plugin_uid', None),
+                        None
+                ):
+                    form_wizard_handler = FormWizardHandlerEntry(
+                        **form_wizard_handler_data
+                    )
+                    form_wizard_handler.form_wizard_entry = form_wizard_entry
+                    form_wizard_handler.save()
+                else:
+                    if form_wizard_handler_data.get('plugin_uid', None):
+                        messages.warning(
+                            request,
+                            _('Plugin {0} is missing in the system.').format(
+                                form_wizard_handler_data.get('plugin_uid')
+                            )
+                        )
+                    else:
+                        messages.warning(
+                            request,
+                            _('Some essential data missing in the JSON '
+                              'import.')
+                        )
+
+            messages.info(
+                request,
+                _('The form wizard was imported successfully.')
+            )
+            return redirect(
+                'fobi.edit_form_wizard_entry',
+                form_wizard_entry_id=form_wizard_entry.pk
+            )
+    else:
+        form = ImportFormWizardEntryForm()
+
+    # When importing entries from saved JSON we shouldn't just save
+    # them into database and consider it done, since there might be cases
+    # if a certain plugin doesn't exist in the system, which will lead
+    # to broken form entries. Instead, we should check every single
+    # form-element or form-handler plugin for existence. If not doesn't exist
+    # in the system, we might: (1) roll entire transaction back or (2) ignore
+    # broken entries. The `ImportFormEntryForm` form has two fields to
+    # additional fields which serve the purpose:
+    # `ignore_broken_form_element_entries` and
+    # `ignore_broken_form_handler_entries`. When set to True, when a broken
+    # form element/handler plugin has been discovered, the import would
+    # continue, having the broken form element/handler entries not imported.
+
+    context = {
+        'form': form,
+        # 'form_entry': form_entry
+    }
+
+    if not template_name:
+        theme = get_theme(request=request, as_instance=True)
+        template_name = theme.import_form_entry_template
+
+    if versions.DJANGO_GTE_1_10:
+        return render(request, template_name, context)
+    else:
+        return render_to_response(
+            template_name, context, context_instance=RequestContext(request)
+        )
+
 
 # *****************************************************************************
 # *****************************************************************************

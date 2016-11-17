@@ -19,7 +19,7 @@ class Genre(MPTTModel):
         """MPTT meta."""
 
         # level_attr = 'mptt_level'
-        order_insertion_by=['name']
+        order_insertion_by = ['name']
 
     def __str__(self):
         return self.name

@@ -19,7 +19,8 @@ LOGGING = {
     },
     'formatters': {
         'verbose': {
-            'format': '\n%(levelname)s %(asctime)s [%(pathname)s:%(lineno)s] %(message)s'
+            'format': '\n%(levelname)s %(asctime)s [%(pathname)s:%(lineno)s] '
+                      '%(message)s'
         },
         'simple': {
             'format': '\n%(levelname)s %(message)s'
@@ -37,32 +38,32 @@ LOGGING = {
             'formatter': 'verbose'
         },
         'all_log': {
-            'level':'ERROR',
-            'class':'logging.handlers.RotatingFileHandler',
+            'level': 'ERROR',
+            'class': 'logging.handlers.RotatingFileHandler',
             'filename': PROJECT_DIR("../../logs/all.log"),
             'maxBytes': 1048576,
             'backupCount': 99,
             'formatter': 'verbose',
         },
         'django_log': {
-            'level':'ERROR',
-            'class':'logging.handlers.RotatingFileHandler',
+            'level': 'ERROR',
+            'class': 'logging.handlers.RotatingFileHandler',
             'filename': PROJECT_DIR("../../logs/django.log"),
             'maxBytes': 1048576,
             'backupCount': 99,
             'formatter': 'verbose',
         },
         'django_request_log': {
-            'level':'ERROR',
-            'class':'logging.handlers.RotatingFileHandler',
+            'level': 'ERROR',
+            'class': 'logging.handlers.RotatingFileHandler',
             'filename': PROJECT_DIR("../../logs/django_request.log"),
             'maxBytes': 1048576,
             'backupCount': 99,
             'formatter': 'verbose',
         },
         'fobi_log': {
-            'level':'ERROR',
-            'class':'logging.handlers.RotatingFileHandler',
+            'level': 'ERROR',
+            'class': 'logging.handlers.RotatingFileHandler',
             'filename': PROJECT_DIR("../../logs/fobi.log"),
             'maxBytes': 1048576,
             'backupCount': 99,

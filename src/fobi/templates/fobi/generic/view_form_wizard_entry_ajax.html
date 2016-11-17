@@ -6,7 +6,7 @@
 {% if fobi_form_title %}{{ fobi_form_title }}{% else %}{% trans "View form" %}{% endif %}
 {% endblock form_page_title %}
 
-{% block form_primary_button_text %}{% if fobi_form_submit_button_text %}{{ fobi_form_submit_button_text }}{% else %}{% trans "Submit" %}{% endif %}{% endblock %}
+{% block form_primary_button_text %}{% if fobi_form_submit_button_text %}{{ fobi_form_submit_button_text }}{% else %}{% trans "Next" %}{% endif %}{% endblock %}
 {% block form_buttons %}
     {{ block.super }}
 {% endblock form_buttons %}

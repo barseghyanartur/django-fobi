@@ -15,9 +15,9 @@ See the original `installation instructions
 
 1. Install the ``djangocms-admin-style`` package.
 
-.. code-block:: none
+.. code-block:: sh
 
-    $ pip install djangocms-admin-style
+    pip install djangocms-admin-style
 
 2. Add 'djangocms_admin_style' to your INSTALLED_APPS just before
    'django.contrib.admin'.

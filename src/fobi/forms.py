@@ -53,6 +53,7 @@ __all__ = (
     'FormWizardFormEntryFormSet',
     'FormWizardHandlerEntryForm',
     'ImportFormEntryForm',
+    'ImportFormWizardEntryForm',
 )
 
 # *****************************************************************************
@@ -69,7 +70,7 @@ class FormEntryForm(forms.ModelForm):
         """Meta class."""
 
         model = FormEntry
-        fields = ('name', 'is_public', 'success_page_title',
+        fields = ('name', 'title', 'is_public', 'success_page_title',
                   'success_page_message', 'action',)  # 'is_cloneable',
 
     def __init__(self, *args, **kwargs):
@@ -85,6 +86,10 @@ class FormEntryForm(forms.ModelForm):
         theme = get_theme(request=None, as_instance=True)
 
         self.fields['name'].widget = forms.widgets.TextInput(
+            attrs={'class': theme.form_element_html_class}
+        )
+
+        self.fields['title'].widget = forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
         )
 
@@ -314,8 +319,8 @@ class FormWizardEntryForm(forms.ModelForm):
         """Meta class."""
 
         model = FormWizardEntry
-        fields = ('name', 'is_public', 'success_page_title',
-                  'success_page_message',)
+        fields = ('name', 'title', 'is_public', 'success_page_title',
+                  'success_page_message', 'show_all_navigation_buttons',)
         # 'wizard_type'
         # 'action',
         # 'is_cloneable',
@@ -335,6 +340,15 @@ class FormWizardEntryForm(forms.ModelForm):
         self.fields['name'].widget = forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
         )
+
+        self.fields['title'].widget = forms.widgets.TextInput(
+            attrs={'class': theme.form_element_html_class}
+        )
+
+        self.fields['show_all_navigation_buttons'].widget = \
+            forms.widgets.CheckboxInput(
+                attrs={'data-customforms': 'disabled'}
+            )
 
         self.fields['success_page_title'].widget = forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
@@ -512,3 +526,14 @@ class ImportFormEntryForm(forms.Form):
     # ignore_broken_form_handler_entries = forms.BooleanField(
     #     required=False,
     #     label=_("Ignore broken form handler entries"))
+
+
+# *****************************************************************************
+# *****************************************************************************
+# ************************** Import form wizard entry *************************
+# *****************************************************************************
+# *****************************************************************************
+
+
+class ImportFormWizardEntryForm(ImportFormEntryForm):
+    """Import form entry wizard form."""

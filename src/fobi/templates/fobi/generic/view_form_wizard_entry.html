@@ -2,12 +2,21 @@
 
 {% load i18n %}
 
-{% block page-title %}{% trans "View form wizard" %}{% endblock page-title %}
+{% block page-title %}{% if fobi_form_wizard_title %}{{ fobi_form_wizard_title }}{% else %}{% trans "View form wizard" %}{% endif %}{% endblock page-title %}
+
+{% block dashboard-menu-item %}
+<a class="navbar-brand" href="{% url 'fobi.form_wizards_dashboard' %}">{{ fobi_theme.project_name }}</a>
+{% endblock dashboard-menu-item %}
 
 {% block navbar-menu-content %}
 <li><a href="{% url 'fobi.edit_form_wizard_entry' form_wizard_entry.pk %}">{% trans "Edit" %}</a></li>
 <li class="active"><a href="{% url 'fobi.view_form_wizard_entry' form_wizard_entry.slug %}">{% trans "View" %}</a></li>
 {% endblock navbar-menu-content %}
+
+{% block navbar-menu-right-content %}
+            <li><a href="{% url 'fobi.dashboard' %}">{% trans "Forms" %}</a></li>
+            <li class="active"><a href="{% url 'fobi.form_wizards_dashboard' %}">{% trans "Wizards" %}</a></li>
+{% endblock navbar-menu-right-content %}
 
 {% block content %}
     {% include fobi_theme.view_form_wizard_entry_ajax_template %}

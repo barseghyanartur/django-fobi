@@ -4,37 +4,37 @@ from django.core.exceptions import ObjectDoesNotExist
 from django.core.management import call_command
 
 from fobi.models import FormEntry, FormElementEntry, FormHandlerEntry
-from \
-    fobi.contrib.plugins.form_elements.content.content_text.fobi_form_elements \
-    import ContentTextPlugin
-from \
-    fobi.contrib.plugins.form_elements.content.content_image.fobi_form_elements \
-    import ContentImagePlugin
+from fobi.contrib.plugins.form_elements.content \
+         .content_text.fobi_form_elements import ContentTextPlugin
+from fobi.contrib.plugins.form_elements.content \
+         .content_image.fobi_form_elements import ContentImagePlugin
 
-from fobi.contrib.plugins.form_elements.fields.boolean.fobi_form_elements \
-    import BooleanSelectPlugin
-from fobi.contrib.plugins.form_elements.fields.email.fobi_form_elements \
-    import EmailInputPlugin
-from fobi.contrib.plugins.form_elements.fields.hidden.fobi_form_elements \
-    import HiddenInputPlugin
-from fobi.contrib.plugins.form_elements.fields.integer.fobi_form_elements \
-    import IntegerInputPlugin
-from fobi.contrib.plugins.form_elements.fields.text.fobi_form_elements \
-    import TextInputPlugin
-from fobi.contrib.plugins.form_elements.fields.textarea.fobi_form_elements \
-    import TextareaPlugin
+from fobi.contrib.plugins.form_elements.fields \
+         .boolean.fobi_form_elements import BooleanSelectPlugin
+from fobi.contrib.plugins.form_elements.fields \
+         .email.fobi_form_elements import EmailInputPlugin
+from fobi.contrib.plugins.form_elements.fields \
+         .hidden.fobi_form_elements import HiddenInputPlugin
+from fobi.contrib.plugins.form_elements.fields \
+         .integer.fobi_form_elements import IntegerInputPlugin
+from fobi.contrib.plugins.form_elements.fields \
+         .text.fobi_form_elements import TextInputPlugin
+from fobi.contrib.plugins.form_elements.fields \
+         .textarea.fobi_form_elements import TextareaPlugin
 
-from fobi.contrib.plugins.form_handlers.db_store.fobi_form_handlers \
-    import DBStoreHandlerPlugin
-from fobi.contrib.plugins.form_handlers.mail.fobi_form_handlers \
-    import MailHandlerPlugin
+from fobi.contrib.plugins.form_handlers \
+         .db_store.fobi_form_handlers import DBStoreHandlerPlugin
+from fobi.contrib.plugins.form_handlers \
+         .mail.fobi_form_handlers import MailHandlerPlugin
 
-from fobi.tests.base import (
+from .base import (
     is_fobi_setup_completed, mark_fobi_setup_as_completed
 )
-from fobi.tests.constants import (
-    FOBI_TEST_USER_USERNAME, FOBI_TEST_USER_PASSWORD,
-    TEST_FORM_NAME, TEST_FORM_SLUG
+from .constants import (
+    FOBI_TEST_USER_USERNAME,
+    FOBI_TEST_USER_PASSWORD,
+    TEST_FORM_NAME,
+    TEST_FORM_SLUG
 )
 
 __title__ = 'fobi.tests.helpers'
@@ -42,8 +42,10 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'get_or_create_admin_user', 'get_or_create_admin_user',
-    'create_form_with_entries', 'db_clean_up',
+    'get_or_create_admin_user',
+    'get_or_create_admin_user',
+    'create_form_with_entries',
+    'db_clean_up',
 )
 
 # ****************************************************************************
@@ -126,9 +128,9 @@ def create_form_with_entries(user=None, create_entries_if_form_exist=True):
         )
         form_entry.save()
 
-    # *************************************************************************
-    # ******************************** Form elements **************************
-    # *************************************************************************
+    # ************************************************************************
+    # ******************************** Form elements *************************
+    # ************************************************************************
     position = 1
     # Text input
     form_element_entry = FormElementEntry(
@@ -225,8 +227,8 @@ def create_form_with_entries(user=None, create_entries_if_form_exist=True):
                     '{"text": "Suspendisse potenti. Etiam in nunc sodales, '
                     'congue lectus ut, suscipit massa. In commodo fringilla '
                     'orci, in varius eros gravida a! Aliquam erat volutpat. '
-                    'Donec sodales orci nec massa aliquam bibendum. Aenean sed '
-                    'condimentum velit. Mauris luctus bibendum nulla vel '
+                    'Donec sodales orci nec massa aliquam bibendum. Aenean '
+                    'sed condimentum velit. Mauris luctus bibendum nulla vel '
                     'tempus. Integer tempor condimentum ligula sed feugiat. '
                     'Aenean scelerisque ultricies vulputate. Donec semper '
                     'lorem rhoncus sem cras amet."}',
@@ -235,9 +237,9 @@ def create_form_with_entries(user=None, create_entries_if_form_exist=True):
     form_element_entry.save()
     position += 1
 
-    # *************************************************************************
-    # ******************************** Form handlers **************************
-    # *************************************************************************
+    # ************************************************************************
+    # ******************************** Form handlers *************************
+    # ************************************************************************
 
     # DB save
     form_handler_entry = FormHandlerEntry(

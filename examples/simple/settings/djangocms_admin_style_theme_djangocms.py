@@ -1,20 +1,22 @@
+from nine.versions import DJANGO_GTE_1_8
+
 from .base import *
 
 INSTALLED_APPS = list(INSTALLED_APPS)
 INSTALLED_APPS.remove('django.contrib.admin')
 INSTALLED_APPS += [
-    'cms', # DjangoCMS
+    'cms',  # DjangoCMS
     'mptt',
     'menus',
     'sekizai',
-    #'djangocms_admin_style',
+    # 'djangocms_admin_style',
 
     # Some plugins
     'djangocms_picture',
     'djangocms_snippet',
     'treebeard',
 
-    'fobi.contrib.apps.djangocms_integration', # Fobi DjangoCMS app
+    'fobi.contrib.apps.djangocms_integration',  # Fobi DjangoCMS app
 
     # Django-CMS admin style
     'djangocms_admin_style',
@@ -34,15 +36,14 @@ except Exception as e:
 
 MIDDLEWARE_CLASSES = list(MIDDLEWARE_CLASSES)
 MIDDLEWARE_CLASSES += [
-    #'django.middleware.cache.UpdateCacheMiddleware',
+    # 'django.middleware.cache.UpdateCacheMiddleware',
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.user.CurrentUserMiddleware',
     'cms.middleware.toolbar.ToolbarMiddleware',
     'cms.middleware.language.LanguageCookieMiddleware',
-    #'django.middleware.cache.FetchFromCacheMiddleware',
+    # 'django.middleware.cache.FetchFromCacheMiddleware',
 ]
 
-from nine.versions import DJANGO_GTE_1_8
 if DJANGO_GTE_1_8:
     TEMPLATES[0]['OPTIONS']['context_processors'] += [
         'cms.context_processors.cms_settings',
@@ -57,9 +58,9 @@ else:
         'cms.context_processors.cms_settings',
     ]
 
-#FOBI_DEFAULT_THEME = 'bootstrap3'
-#FOBI_DEFAULT_THEME = 'foundation5'
-#FOBI_DEFAULT_THEME = 'simple'
+# FOBI_DEFAULT_THEME = 'bootstrap3'
+# FOBI_DEFAULT_THEME = 'foundation5'
+# FOBI_DEFAULT_THEME = 'simple'
 FOBI_DEFAULT_THEME = 'djangocms_admin_style_theme'
 
 CMS_TEMPLATES = (

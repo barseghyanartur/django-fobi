@@ -10,8 +10,21 @@ handling the submitted form data).
 
 Prerequisites
 =============
-- Django 1.5, 1.6, 1.7, 1.8, 1.9, 1.10
-- Python >= 2.6.8, >= 2.7, >= 3.3
+Current
+-------
+- Django 1.8, 1.9, 1.10
+- Python >= 2.7, >= 3.3
+
+Past
+----
+- Dropping support of Django 1.5, 1.6 has been announced in version
+  0.9.13. Dropping support of Django 1.7 has been announced in version 0.9.17.
+  As of 0.9.17 everything is still backwards compatible with versions 1.5, 1.6
+  and 1.7, but in future versions compatibility with these versions will be
+  wiped out.
+- Dropping support of Python 2.6 has been announced in version 0.9.17.
+  As of 0.9.17 everything is still backwards compatible with Python 2.6, but
+  in future versions compatibility with it will be wiped out.
 
 Key concepts
 ============
@@ -89,7 +102,7 @@ Roadmap
 =======
 Some of the upcoming/in-development features/improvements are:
 
-- Integration with `django-rest-framework` (in version 0.10).
+- Integration with `django-rest-framework` (in version 0.11).
 
 See the `TODOS <https://raw.githubusercontent.com/barseghyanartur/django-fobi/master/TODOS.rst>`_
 for the full list of planned-, pending- in-development- or to-be-implemented
@@ -416,12 +429,16 @@ following arguments:
 - `request` (django.http.HttpRequest): The Django HTTP request.
 - `form` (django.forms.Form): Form object (a valid one, which contains 
   the ``cleaned_data`` attribute).
+- `form_element_entries` (fobi.models.FormElementEntry): Form element entries
+  for the `form_entry` given.
+- (**)kwargs : Additional arguments.
   
 Example (taken from fobi.contrib.plugins.form_elements.fields.file):
 
 .. code-block:: python
 
-    def submit_plugin_form_data(self, form_entry, request, form):
+    def submit_plugin_form_data(self, form_entry, request, form,
+                                form_element_entries=None, **kwargs):
         """Submit plugin form data."""
         # Get the file path
         file_path = form.cleaned_data.get(self.data.name, None)
@@ -1486,16 +1503,6 @@ README.rst file in directory of each plugin for details.
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/mail/>`__:
   Send the form data by email.
 
-Limitations
------------
-- At the moment, if you have used `django-simple-captcha` or
-  `django-recaptcha` plugins in one of the forms of the wizard, the wizard
-  becomes invalid at the end and sends you back to the form which used
-  captcha (see the issue `here
-  <https://github.com/mbi/django-simple-captcha/issues/6>`__ and `here
-  <https://github.com/praekelt/django-recaptcha/issues/115>`__). Therefore,
-  you're not recommended to use captcha solutions in wizard forms (yet).
-
 Permissions
 ===========
 Plugin system allows administrators to specify the access rights to every
@@ -1783,56 +1790,58 @@ Note, that you should not provide the `fobi_dynamic_values.` as a prefix.
 Currently, the following variables are available in the
 `fobi.context_processors.dynamic_values` context processor:
 
-- request: Stripped HttpRequest object.
+.. code-block:: text
 
-    - request.path: A string representing the full path to the requested page,
-      not including the scheme or domain.
+    - request: Stripped HttpRequest object.
 
-    - request.get_full_path(): Returns the path, plus an appended query string,
-      if applicable.
+        - request.path: A string representing the full path to the requested page,
+          not including the scheme or domain.
 
-    - request.is_secure():  Returns True if the request is secure; that is, if
-      it was made with HTTPS.
+        - request.get_full_path(): Returns the path, plus an appended query string,
+          if applicable.
 
-    - request.is_ajax(): Returns True if the request was made via an
-      XMLHttpRequest, by checking the HTTP_X_REQUESTED_WITH header for the
-      string 'XMLHttpRequest'.
+        - request.is_secure():  Returns True if the request is secure; that is, if
+          it was made with HTTPS.
 
-    - request.META: A stripped down standard Python dictionary containing the
-      available HTTP headers.
+        - request.is_ajax(): Returns True if the request was made via an
+          XMLHttpRequest, by checking the HTTP_X_REQUESTED_WITH header for the
+          string 'XMLHttpRequest'.
 
-        - HTTP_ACCEPT_ENCODING: Acceptable encodings for the response.
+        - request.META: A stripped down standard Python dictionary containing the
+          available HTTP headers.
 
-        - HTTP_ACCEPT_LANGUAGE: Acceptable languages for the response.
+            - HTTP_ACCEPT_ENCODING: Acceptable encodings for the response.
 
-        - HTTP_HOST: The HTTP Host header sent by the client.
+            - HTTP_ACCEPT_LANGUAGE: Acceptable languages for the response.
 
-        - HTTP_REFERER: The referring page, if any.
+            - HTTP_HOST: The HTTP Host header sent by the client.
 
-        - HTTP_USER_AGENT: The client’s user-agent string.
+            - HTTP_REFERER: The referring page, if any.
 
-        - QUERY_STRING: The query string, as a single (unparsed) string.
+            - HTTP_USER_AGENT: The client’s user-agent string.
 
-        - REMOTE_ADDR: The IP address of the client.
+            - QUERY_STRING: The query string, as a single (unparsed) string.
 
-    - request.user: Authenticated user.
+            - REMOTE_ADDR: The IP address of the client.
 
-        - request.user.email:
+        - request.user: Authenticated user.
 
-        - request.user.get_username(): Returns the username for the user. Since
-          the User model can be swapped out, you should use this method
-          instead of referencing the username attribute directly.
+            - request.user.email:
 
-        - request.user.get_full_name(): Returns the first_name plus the
-          last_name, with a space in between.
+            - request.user.get_username(): Returns the username for the user. Since
+              the User model can be swapped out, you should use this method
+              instead of referencing the username attribute directly.
 
-        - request.user.get_short_name(): Returns the first_name.
+            - request.user.get_full_name(): Returns the first_name plus the
+              last_name, with a space in between.
 
-        - request.user.is_anonymous():
+            - request.user.get_short_name(): Returns the first_name.
 
-- now: datetime.datetime.now()
+            - request.user.is_anonymous():
 
-- today: datetime.date.today()
+    - now: datetime.datetime.now()
+
+    - today: datetime.date.today()
 
 Submitted form element plugins values
 =====================================
@@ -1984,6 +1993,51 @@ element- and form handler- plugins.
 - FOBI_FAIL_ON_MISSING_FORM_HANDLER_PLUGINS: If you want no error to be
   shown in case of missing form element handlers, set this to False in
   your settings module. Default value is True.
+
+Testing
+=======
+Project is covered by test (functional- and browser-tests).
+
+To test with all supported Python/Django versions type:
+
+.. code-block:: sh
+
+    tox
+
+To test just your working environment type:
+
+.. code-block:: sh
+
+    ./runtests.py
+
+It's assumed that you have all the requirements installed. If not, first
+install the test requirements:
+
+.. code-block:: sh
+
+    pip install -r examples/requirements/common_test_requirements.txt
+
+Selenium
+--------
+Latest versions of Firefox are often not supported by Selenium. Current
+version of the Selenium for Python (2.53.6) works fine with Firefox 47.
+Thus, instead of using system Firefox you could better use a custom one.
+
+Set up Firefox 47
+~~~~~~~~~~~~~~~~~
+1. Download Firefox 47 from
+   `this
+   <https://ftp.mozilla.org/pub/firefox/releases/47.0.1/linux-x86_64/en-GB/firefox-47.0.1.tar.bz2>`__
+   location and unzip it into ``/usr/lib/firefox47/``
+
+2. Specify the full path to your Firefox in ``FIREFOX_BIN_PATH``
+   setting. Example:
+
+   .. code-block:: python
+
+       FIREFOX_BIN_PATH = '/usr/lib/firefox47/firefox'
+
+After that your Selenium tests would work.
 
 Troubleshooting
 ===============

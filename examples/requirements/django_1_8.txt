@@ -11,3 +11,4 @@ django-formtools
 django-registration-redux>=1.4
 #easy-thumbnails==2.3
 #vishap>=0.1.5
+sqlparse==0.1.9

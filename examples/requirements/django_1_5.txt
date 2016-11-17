@@ -11,3 +11,4 @@ django-localeurl>=2.0.2
 django-registration-redux==1.2
 #easy-thumbnails==2.3
 #vishap>=0.1.5
+sqlparse==0.1.9

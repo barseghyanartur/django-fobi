@@ -38,6 +38,7 @@ __all__ = (
     'CUSTOM_THEME_DATA',
     'THEME_FOOTER_TEXT',
 
+    'DEFAULT_MIN_LENGTH',
     'DEFAULT_MAX_LENGTH',
     'FORM_HANDLER_PLUGINS_EXECUTION_ORDER',
     'FORM_WIZARD_HANDLER_PLUGINS_EXECUTION_ORDER',
@@ -101,6 +102,7 @@ THEME_FOOTER_TEXT = get_setting('THEME_FOOTER_TEXT')
 # **************************************************************
 # **************************************************************
 
+DEFAULT_MIN_LENGTH = get_setting('DEFAULT_MIN_LENGTH')
 DEFAULT_MAX_LENGTH = get_setting('DEFAULT_MAX_LENGTH')
 
 FORM_HANDLER_PLUGINS_EXECUTION_ORDER = \

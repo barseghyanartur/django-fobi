@@ -40,7 +40,8 @@ class SelectModelObjectInputPlugin(FormFieldPlugin):
 
         return [(self.data.name, ModelChoiceField, field_kwargs)]
 
-    def submit_plugin_form_data(self, form_entry, request, form):
+    def submit_plugin_form_data(self, form_entry, request, form,
+                                form_element_entries=None, **kwargs):
         """Submit plugin form data/process.
 
         :param fobi.models.FormEntry form_entry: Instance of

@@ -34,7 +34,7 @@ Regarding the form wizards
 + Ideally, it would be great to support data-slider-handle="square" (or
   "round", "triangle") options of the bootstrap-slider plugin. See the first
   issue in "Uncategorised".
-- Rethink the new navigation of forms and form wizards.
++ Rethink the new navigation of forms and form wizards.
 - Add support for form wizard conditions.
 + Fixed broken dependencies for docs.
 - Add FeinCMS integration app for form wizards.
@@ -45,6 +45,8 @@ Regarding the form wizards
 - Add selenium tests for form wizards.
 - Make `foundation5` and `django-admin-theme` themes to reflect the latest
   GUI changes (form wizards).
+- Make sure captcha plugins are usable with form wizards (at the moment they
+  are being invalidated on the last step).
 
 Roadmap
 -------
@@ -54,6 +56,11 @@ Roadmap
 
 Uncategorised
 -------------
+- Implement the clone form functionality.
+- Implement the clone form wizard functionality.
+- Rethink templating of the integration packages (feincms_integration, 
+  djangocms_integration, mezzanine_integration), as now they are a bit
+  of a mess. Document integration properly, if not yet done.
 - Add tests for import/export of forms.
 - Add tests for export of plugin data (db_store).
 - In the form element plugins, when handling submit_form_data, somehow
@@ -103,9 +110,9 @@ Uncategorised
   validation method there, which accepts the request, the form and the
   form_entry object for validation. Also, in the BaseFormFieldPlugin, there
   should be `name`, `required`, `help_text`, `label` fields to be present (
-  scheck other fields of Django formfield). In formfield plugins, subclass
+  check other fields of Django formfield). In formfield plugins, subclass
   from BaseFormFieldPlugin, instead of the BaseFormElementPlugin.
-+ In the view, validate the form fields (if they are sublcass of
++ In the view, validate the form fields (if they are subclass of
   BaseFormFieldPlugin).
 + Actually, if plugin doesn't have a form, save it immediately. Do not wait
   for POST.
@@ -305,7 +312,7 @@ Uncategorised
 + Check if it's safe to use the initial dynamic values.
 + In the updated GUI (bootstrap3), if form names are too long, the layout
   doesn't look nice anymore.
-- Somehow, the drag and drop of the form elements got broken. Fix ASAP.
++ Somehow, the drag and drop of the form elements got broken. Fix ASAP.
 - Since tests have been made quite general, create them for all contrib
   form elements and handlers (not yet for things like CAPTCHA).
 - Translate German and Russian URLs.
@@ -313,9 +320,7 @@ Uncategorised
   admin) as much generic so that change between versions doesn't cause
   styling issues.
 - Make sure the existing "simple" theme works very well (in looks) in
-  Django 1.6.
-- Make sure the existing "simple" theme works very well (in looks) in
-  Django 1.7.
+  Django 1.8, 1.9 and 1.10.
 - Nicer styling for the radio button (Foundation 5 theme).
 - Nicer styling for the radio button (Simple theme).
 - Make it possible to provide an alternative rendering of the form field
@@ -327,7 +332,7 @@ Uncategorised
   part).
 - Split the ``FOBI_RESTRICT_PLUGIN_ACCESS`` into two: one for form elements
   and one for form handlers.
-- Improve the "simple" theme for Django 1.6 and Django 1.7 (tiny bits of
+- Improve the "simple" theme for Django 1.8, 1.9 and 1.10 (tiny bits of
   styling).
 - Edit form test.
 - Edit form element tests.
@@ -343,7 +348,7 @@ Uncategorised
   with the latest versions of the packages.
 - Add support for `imageurl` and `birthday` fields of MailChimp (they are
   ignored at the moment).
-- Fix layout issue on step 2 of the MailChimp import (step 2 of the wizard).
++ Fix layout issue on step 2 of the MailChimp import (step 2 of the wizard).
 - Properly document the form importers API.
 - django-rest-framework integration.
 
@@ -397,7 +402,7 @@ Should haves
   re-created form from saved JSON sa well.
 - Add `django-treebeard` field as an alternative (vs MPTT fields).
 - Make sure that all views are 100% AJAX ready.
-- Wagtail integration.
+- Wagtail integration (in progress since October 2016).
 - Document the changes.
 - Find out why subclassing the ``select_model_object`` plugin didn't work.
 - Rename the ``simple`` theme into ``django_admin_style_theme``.
@@ -451,7 +456,7 @@ Could haves
   least the FeinCMS).
 - Make sure that the form view return can be overridden?
 - Add datetime range and date range fields.
-- Configure defaults values of each plugin in projects' settings module.
++ Configure defaults values of each plugin in projects' settings module.
 - TinyMCE form element cosmetic plugin.
 - In the cosmetic image plugin, render the sized image.
 - Add Armenian translation.
@@ -467,7 +472,7 @@ Could haves
 Would haves
 ===========
 - Conditional inputs.
-- Form wizards (combine forms with each other, having one at a step, finally -
++ Form wizards (combine forms with each other, having one at a step, finally -
   send it all as one).
 - Perhaps, completely re-write the base template for the foundation 5 theme?
 - Make it possible to design a form based on existing models.

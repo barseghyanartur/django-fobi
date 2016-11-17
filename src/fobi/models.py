@@ -256,6 +256,9 @@ class FormWizardEntry(models.Model):
 
     user = models.ForeignKey(AUTH_USER_MODEL, verbose_name=_("User"))
     name = models.CharField(_("Name"), max_length=255)
+    title = models.CharField(_("Title"), max_length=255, null=True,
+                             blank=True, help_text=_("Shown in templates if "
+                                                     "available."))
     slug = AutoSlugField(populate_from='name', verbose_name=_("Slug"),
                          unique=True)
     is_public = models.BooleanField(
@@ -275,6 +278,10 @@ class FormWizardEntry(models.Model):
         _("Success page body"), null=True, blank=True,
         help_text=_("Custom message text to display after valid form is "
                     "submitted")
+    )
+    show_all_navigation_buttons = models.BooleanField(
+        _("Show all navigation buttons?"), default=False,
+        help_text=_("Show all navigation buttons.")
     )
     # action = models.CharField(
     #     _("Action"), max_length=255, null=True, blank=True,
@@ -308,7 +315,8 @@ class FormWizardEntry(models.Model):
 
         :return string:
         """
-        return reverse('fobi.form_wizard', kwargs={'slug': self.slug})
+        return reverse('fobi.view_form_wizard_entry',
+                       kwargs={'slug': self.slug})
 
 
 @python_2_unicode_compatible
@@ -318,20 +326,20 @@ class FormEntry(models.Model):
     :Properties:
 
         - `user` (django.contrib.auth.models.User: User owning the plugin.
-        - `wizard` (str): Form wizard to which the form entry belongs to.
         - `name` (str): Form name.
+        - `title` (str): Form title - used in templates.
         - `slug` (str): Form slug.
         - `description` (str): Form description.
         - `is_public` (bool): If set to True, is visible to public.
         - `is_cloneable` (bool): If set to True, is cloneable.
         - `position` (int): Ordering position in the wizard.
     """
-    # form_wizard_entry = models.ForeignKey(
-    #     FormWizardEntry, verbose_name=_("Form wizard"), null=True, blank=True
-    # )
 
     user = models.ForeignKey(AUTH_USER_MODEL, verbose_name=_("User"))
     name = models.CharField(_("Name"), max_length=255)
+    title = models.CharField(_("Title"), max_length=255, null=True,
+                             blank=True, help_text=_("Shown in templates if "
+                                                     "available."))
     slug = AutoSlugField(
         populate_from='name', verbose_name=_("Slug"), unique=True
     )
@@ -383,9 +391,10 @@ class FormEntry(models.Model):
 
         :return string:
         """
-        return reverse('fobi.form_entry', kwargs={'slug': self.slug})
+        return reverse('fobi.view_form_entry', kwargs={'slug': self.slug})
 
 
+@python_2_unicode_compatible
 class FormWizardFormEntry(models.Model):
     """Form wizard form entry.
 
@@ -408,6 +417,9 @@ class FormWizardFormEntry(models.Model):
         verbose_name_plural = _("Form wizard form entries")
         ordering = ['position']
         unique_together = (('form_wizard_entry', 'form_entry'),)
+
+    def __str__(self):
+        return "{0} - {1}".format(self.form_wizard_entry, self.form_entry)
 
 
 @python_2_unicode_compatible

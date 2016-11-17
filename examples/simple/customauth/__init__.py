@@ -1,1 +1,1 @@
-from customauth.models import MyUser
+from .models import MyUser

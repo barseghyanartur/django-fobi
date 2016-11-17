@@ -1,7 +1,11 @@
 import requests
 
 from requests.exceptions import (
-    ConnectionError, ConnectTimeout, ReadTimeout, SSLError, ProxyError,
+    ConnectionError,
+    ConnectTimeout,
+    ReadTimeout,
+    SSLError,
+    ProxyError,
     RetryError
 )
 

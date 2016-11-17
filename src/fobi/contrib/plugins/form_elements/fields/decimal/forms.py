@@ -91,3 +91,32 @@ class DecimalInputForm(forms.Form, BaseFormFieldPluginForm):
             attrs={'class': theme.form_element_html_class}
         )
     )
+
+    def clean(self):
+        """Validating the values."""
+        super(DecimalInputForm, self).clean()
+
+        max_value = self.cleaned_data['max_value']
+        min_value = self.cleaned_data['min_value']
+        initial = self.cleaned_data['initial']
+
+        if (
+            max_value is not None and min_value is not None and
+            max_value < min_value
+        ):
+            self.add_error(
+                'max_value',
+                _("`max_value` should be > than `min_value`.")
+            )
+
+        if max_value is not None and initial and max_value < initial:
+            self.add_error(
+                'initial',
+                _("`max_value` should be >= than `initial`.")
+            )
+
+        if min_value is not None and initial and min_value > initial:
+            self.add_error(
+                'min_value',
+                _("`initial` should be >= than `min_value`.")
+            )

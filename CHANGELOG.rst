@@ -15,6 +15,123 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.10.1
+------
+2016-11-17
+
+- Fixed captcha and re-captcha issues in form wizards.
+
+0.10
+----
+2016-11-16
+
+Note, that this release contains minor backwards incompatible changes, that may
+break your code. Two additional arguments have been added to the 
+`submit_plugin_form_data` method of the form element plugins. If you have 
+written custom form element plugins - update your code.
+
+Note, that this release contain minor backwards incompatible changes, that
+may break your existing code (your data is left intact). If you have written
+custom form element plugins you should update your code!
+
+- Added `form_entry_elements` and `kwargs` to the `submit_plugin_form_data`
+  method of the form element plugins. Make sure to update your custom 
+  plugins if you have written any.
+- Added tests for mailchimp integration plugin.
+- Moving all plugins to base submodules of the correspondent sub 
+  packages.
+- Add missing whitespace toe the `help_text` of the `title` field of
+  `FormEntry` and `FormWizardEntry` models.
+- Disable GoogleAnalytics while testing (guess what - this change speeds up 
+  selenium tests twice).
+- Docs updated.
+- Helper scripts updated.
+- Multiple pep8 fixes.
+
+0.9.17
+------
+2016-11-13
+
+Announcing dropping support of Python 2.6 and Django 1.7. As of 0.9.17
+everything is still backwards compatible with Django 1.7, but in future
+versions it will be wiped out.
+
+- Value validations for Integer and Text Fields.
+- Hide previous button in form wizard template for bootstrap3 on first step.
+
+0.9.16
+------
+2016-11-10
+
+- Introduced form titles (shown in view templates).
+- Improved navigation of the form wizards.
+
+0.9.15
+------
+2016-11-07
+
+- Minor fixes.
+
+0.9.14
+------
+2016-11-07
+
+- Minor fixes.
+
+0.9.13
+------
+2016-11-05
+
+Announcing dropping support of Django 1.5 and 1.6. As of 0.9.17 everything is
+still backwards compatible with versions 1.5 and 1.6, but in future versions
+compatibility with these versions will be wiped out.
+
+- Fix backwards compatibility of `slider` and `range_select` plugins with
+  Django versions 1.5 and 1.6.
+
+0.9.12
+------
+2016-11-02
+
+- Better debugging.
+- Upgrade example FeinCMS integration to work with 1.12.
+
+0.9.11
+------
+2016-11-01
+
+- Fixes.
+
+0.9.10
+------
+2016-11-01
+
+- Fixed issue with custom labels in the `slider` plugin.
+- Made `slider` plugin compatible with Django <= 1.6.
+- Fixes `get_absolute_url` methods on `FormEntry` and `FormWizardEntry`
+  models. #48
+
+0.9.9
+-----
+2016-10-31
+
+- Make it possible to add custom ticks to the `slider` plugin.
+
+0.9.8
+-----
+2016-10-27
+
+- Support multiple sliders in one form.
+
+0.9.7
+-----
+2016-10-27
+
+- Improvements in the generic integration processor. #47
+- Improved form wizard interface and navigation.
+- Fixed a broken test.
+- Added import/export functionality for form wizards.
+
 0.9.6
 -----
 2016-10-25

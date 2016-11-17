@@ -2,19 +2,23 @@
 # ************ Foo **************
 # *******************************
 foo_apps = [
-    'foo.models.*', 'bar.models.*',
+    'foo.models.*',
+    'bar.models.*',
 ]
 
 # *******************************
 # ************ Fobi *************
 # *******************************
 fobi_plugins = [
-    'fobi.models.FormElement', 'fobi.models.FormHandler'
+    'fobi.models.FormElement',
+    'fobi.models.FormHandler'
 ]
 
 fobi_forms = [
-    'fobi.models.FormWizardEntry', 'fobi.models.FormEntry',
-    'fobi.models.FormElementEntry', 'fobi.models.FormFieldsetEntry',
+    'fobi.models.FormWizardEntry',
+    'fobi.models.FormEntry',
+    'fobi.models.FormElementEntry',
+    'fobi.models.FormFieldsetEntry',
     'fobi.models.FormHandlerEntry',
 ]
 
@@ -33,5 +37,7 @@ djangocms_pages = [
 # *******************************
 # ************ Django ***********
 # *******************************
-django_contrib_apps = ['django.contrib.*',]
+django_contrib_apps = [
+    'django.contrib.*',
+]
 other_apps = foo_apps

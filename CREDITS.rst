@@ -23,3 +23,15 @@ Thanks to the following people for their contributions:
 - `Mario Taddei
   <https://github.com/barseghyanartur/django-fobi/commits/master?author=mariuccio>`_
   for his initiative to make `Select multiple with max` plugin.
+- `Andy Babic
+  <https://github.com/barseghyanartur/django-fobi/commits/master?author=ababic>`_
+  for improvements in the generic integration processor.
+- `Heldroe
+  <https://github.com/barseghyanartur/django-fobi/commits/master?author=Heldroe>`_
+  for minor fixes.
+- `Michal Dabski
+  <https://github.com/barseghyanartur/django-fobi/commits/master?author=mick88>`_
+  for minor fixes.
+- `Marcos Amorim
+  <https://github.com/barseghyanartur/django-fobi/commits/master?author=marcosamorim>`_
+  for number of validation improvements.

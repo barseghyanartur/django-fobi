@@ -209,12 +209,16 @@ class IntegrationProcessor(object):
         theme = get_theme(request=request, as_instance=True)
         theme.collect_plugin_media(form_element_entries)
 
+        form_title = instance.form_title \
+            if instance.form_title \
+            else instance.form_entry.title
+
         context = self.get_context_data(
             request=request,
             instance=instance,
             form=form,
             fobi_theme=theme,
-            fobi_form_title=instance.form_title,
+            fobi_form_title=form_title,
             fobi_hide_form_title=instance.hide_form_title,
             fobi_form_submit_button_text=instance.form_submit_button_text
         )

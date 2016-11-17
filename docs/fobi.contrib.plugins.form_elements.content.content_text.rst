@@ -12,6 +12,22 @@ fobi.contrib.plugins.form_elements.content.content_text.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.content.content_text.conf module
+-------------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.content.content_text.conf
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+fobi.contrib.plugins.form_elements.content.content_text.defaults module
+-----------------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.content.content_text.defaults
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.content.content_text.fobi_form_elements module
 ---------------------------------------------------------------------------------
 
@@ -24,6 +40,14 @@ fobi.contrib.plugins.form_elements.content.content_text.forms module
 --------------------------------------------------------------------
 
 .. automodule:: fobi.contrib.plugins.form_elements.content.content_text.forms
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+fobi.contrib.plugins.form_elements.content.content_text.settings module
+-----------------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.content.content_text.settings
     :members:
     :undoc-members:
     :show-inheritance:

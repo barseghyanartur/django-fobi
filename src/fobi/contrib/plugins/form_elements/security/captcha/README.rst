@@ -5,6 +5,14 @@ A `CAPTCHA <http://en.wikipedia.org/wiki/CAPTCHA>`_ form field plugin. Makes
 use of the `django-simple-captcha
 <http://readthedocs.org/docs/django-simple-captcha>`_.
 
+Prerequisites
+=============
+You will need `libfreetype6`, otherwise `django-captcha` won't work.
+
+.. code-block:: sh
+
+    sudo apt-get install libfreetype6-dev
+
 Installation
 ============
 Install `django-simple-captcha`
@@ -14,9 +22,9 @@ Taken from django-simple-captcha `installation instructions
 
 1. Download ``django-simple-captcha`` using pip by running:
 
-.. code-block:: none
+.. code-block:: sh
 
-    $ pip install django-simple-captcha
+    pip install django-simple-captcha
 
 2. Add ``captcha`` to the ``INSTALLED_APPS`` in your ``settings.py``.
 
@@ -47,9 +55,9 @@ Install `fobi` Captcha plugin
 
 2. In the terminal type:
 
-.. code-block:: none
+.. code-block:: sh
 
-    $ ./manage.py fobi_sync_plugins
+    ./manage.py fobi_sync_plugins
 
 3. Assign appropriate permissions to the target users/groups to be using
    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
@@ -65,12 +73,6 @@ to app name collision of the ``django-simple-captcha`` and ``django-recaptcha``
 packages. That limitation is likely to be solved in future in the
 ``django-recaptcha`` package. Until then, you should choose either one or
 another, but not both on the same time.
-
-In form wizards
----------------
-At the moment, captcha fields do not work in form wizards, as they are
-invalidated on the last step, which breaks the cycle. Therefore, it's not
-recommended to use captcha plugins in form wizards.
 
 Usage
 =====

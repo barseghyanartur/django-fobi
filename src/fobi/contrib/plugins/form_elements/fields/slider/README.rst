@@ -19,9 +19,9 @@ Installation
 
 2. In the terminal type:
 
-.. code-block:: none
+.. code-block:: sh
 
-    $ ./manage.py fobi_sync_plugins
+    ./manage.py fobi_sync_plugins
 
 3. Assign appropriate permissions to the target users/groups to be using
    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
@@ -29,15 +29,23 @@ Installation
 4. Ranges are specified within the given min/max values. The default values
    are:
 
-    - INITIAL: 50
-    - MIN_VALUE: 0
-    - MAX_VALUE: 100
-    - STEP: 1
+.. code-block:: text
+
+   - INITIAL: 50
+   - INITIAL_MAX_VALUE: 100
+   - INITIAL_MIN_VALUE: 0
+   - MIN_VALUE: 0
+   - MAX_VALUE: 100
+   - STEP: 1
 
    However, you can override each of them in the settings of your project by
    prefixing correspondent names with `FOBI_FORM_ELEMENT_SLIDER_`:
 
-    - FOBI_FORM_ELEMENT_SLIDER_INITIAL
-    - FOBI_FORM_ELEMENT_SLIDER_MIN_VALUE
-    - FOBI_FORM_ELEMENT_SLIDER_MAX_VALUE
-    - FOBI_FORM_ELEMENT_SLIDER_STEP
+.. code-block:: text
+
+   - FOBI_FORM_ELEMENT_SLIDER_INITIAL
+   - FOBI_FORM_ELEMENT_SLIDER_INITIAL_MAX_VALUE
+   - FOBI_FORM_ELEMENT_SLIDER_INITIAL_MIN_VALUE
+   - FOBI_FORM_ELEMENT_SLIDER_MIN_VALUE
+   - FOBI_FORM_ELEMENT_SLIDER_MAX_VALUE
+   - FOBI_FORM_ELEMENT_SLIDER_STEP

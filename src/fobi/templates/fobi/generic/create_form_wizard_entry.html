@@ -7,6 +7,15 @@
 {% block navbar-menu-content %}
 {% endblock navbar-menu-content %}
 
+{% block navbar-menu-right-content %}
+            <li><a href="{% url 'fobi.dashboard' %}">{% trans "Forms" %}</a></li>
+            <li class="active"><a href="{% url 'fobi.form_wizards_dashboard' %}">{% trans "Wizards" %}</a></li>
+{% endblock navbar-menu-right-content %}
+
+{% block dashboard-menu-item %}
+<a class="navbar-brand" href="{% url 'fobi.form_wizards_dashboard' %}">{{ fobi_theme.project_name }}</a>
+{% endblock dashboard-menu-item %}
+
 {% block content %}
     {% include fobi_theme.create_form_wizard_entry_ajax_template %}
 {% endblock content %}

@@ -3,14 +3,17 @@ import unittest
 from django.test import TestCase, RequestFactory
 
 from fobi.base import (
-    get_registered_form_element_plugins, get_registered_form_handler_plugins,
-    get_registered_themes, get_registered_form_callbacks
+    get_registered_form_element_plugins,
+    get_registered_form_handler_plugins,
+    get_registered_themes,
+    get_registered_form_callbacks
 )
 from fobi.models import FormEntry
 from fobi.forms import FormEntryForm
-from fobi.tests.constants import TEST_FORM_NAME, TEST_FORM_SLUG
-from fobi.tests.base import print_info
-from fobi.tests.helpers import setup_fobi, get_or_create_admin_user
+
+from .base import print_info
+from .constants import TEST_FORM_NAME, TEST_FORM_SLUG
+from .helpers import setup_fobi, get_or_create_admin_user
 
 __title__ = 'fobi.tests.test_core'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'

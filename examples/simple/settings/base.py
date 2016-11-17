@@ -4,8 +4,18 @@ from nine.versions import (
     DJANGO_GTE_1_7, DJANGO_GTE_1_8, DJANGO_LTE_1_7, DJANGO_GTE_1_9,
     DJANGO_GTE_1_10
 )
-PROJECT_DIR = lambda base : os.path.abspath(os.path.join(os.path.dirname(__file__), base).replace('\\','/'))
-gettext = lambda s: s
+
+
+def project_dir(base):
+    return os.path.abspath(
+        os.path.join(os.path.dirname(__file__), base).replace('\\', '/')
+    )
+
+PROJECT_DIR = project_dir
+
+
+def gettext(s):
+    return s
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -22,13 +32,18 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': PROJECT_DIR('../../db/example.db'), # Or path to database file if using sqlite3.
+        # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.sqlite3',
+        # Or path to database file if using sqlite3.
+        'NAME': PROJECT_DIR('../../db/example.db'),
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
-        'HOST': '', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '', # Set to empty string for default.
+        # Empty for localhost through domain sockets or '127.0.0.1' for
+        # localhost through TCP.
+        'HOST': '',
+        # Set to empty string for default.
+        'PORT': '',
     }
 }
 
@@ -47,7 +62,7 @@ TIME_ZONE = 'America/Chicago'
 LANGUAGE_CODE = 'en'
 
 LANGUAGES = (
-    ('en', gettext("English")), # Main language!
+    ('en', gettext("English")),  # Main language!
     ('hy', gettext("Armenian")),
     ('nl', gettext("Dutch")),
     ('ru', gettext("Russian")),
@@ -67,7 +82,8 @@ USE_L10N = True
 # If you set this to False, Django will not use timezone-aware datetimes.
 USE_TZ = True
 
-# Absolute filesystem path to the directory that will hold user-uploaded files.
+# Absolute filesystem path to the directory that will hold user-uploaded
+# files.
 # Example: "/var/www/example.com/media/"
 MEDIA_ROOT = PROJECT_DIR(os.path.join('..', '..', 'media'))
 
@@ -105,12 +121,17 @@ STATICFILES_FINDERS = (
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = '97818c*w97Zi8a-m^1coRRrmurMI6+q5_kyn*)s@(*_Pk6q423'
 
+try:
+    from .local_settings import DEBUG_TEMPLATE
+except Exception as err:
+    DEBUG_TEMPLATE = False
+
 if DJANGO_GTE_1_10:
     TEMPLATES = [
         {
             'BACKEND': 'django.template.backends.django.DjangoTemplates',
             # 'APP_DIRS': True,
-            'DIRS': [PROJECT_DIR(os.path.join('..', 'templates')),],
+            'DIRS': [PROJECT_DIR(os.path.join('..', 'templates'))],
             'OPTIONS': {
                 'context_processors': [
                     "django.template.context_processors.debug",
@@ -123,6 +144,7 @@ if DJANGO_GTE_1_10:
                     "django.contrib.messages.context_processors.messages",
                     "fobi.context_processors.theme",  # Important!
                     "fobi.context_processors.dynamic_values",  # Optional
+                    "context_processors.testing",  # Testing
                 ],
                 'loaders': [
                     'django.template.loaders.filesystem.Loader',
@@ -130,7 +152,7 @@ if DJANGO_GTE_1_10:
                     'django.template.loaders.eggs.Loader',
                     'admin_tools.template_loaders.Loader',
                 ],
-                'debug': DEBUG,
+                'debug': DEBUG_TEMPLATE,
             }
         },
     ]
@@ -139,7 +161,7 @@ elif DJANGO_GTE_1_8:
         {
             'BACKEND': 'django.template.backends.django.DjangoTemplates',
             # 'APP_DIRS': True,
-            'DIRS': [PROJECT_DIR(os.path.join('..', 'templates')),],
+            'DIRS': [PROJECT_DIR(os.path.join('..', 'templates'))],
             'OPTIONS': {
                 'context_processors': [
                     "django.contrib.auth.context_processors.auth",
@@ -150,8 +172,9 @@ elif DJANGO_GTE_1_8:
                     "django.template.context_processors.tz",
                     "django.contrib.messages.context_processors.messages",
                     "django.template.context_processors.request",
-                    "fobi.context_processors.theme", # Important!
-                    "fobi.context_processors.dynamic_values", # Optional
+                    "fobi.context_processors.theme",  # Important!
+                    "fobi.context_processors.dynamic_values",  # Optional
+                    "context_processors.testing",  # Testing
                 ],
                 'loaders': [
                     'django.template.loaders.filesystem.Loader',
@@ -159,14 +182,15 @@ elif DJANGO_GTE_1_8:
                     'django.template.loaders.eggs.Loader',
                     'admin_tools.template_loaders.Loader',
                 ],
-                'debug': DEBUG,
+                'debug': DEBUG_TEMPLATE,
             }
         },
     ]
 else:
-    TEMPLATE_DEBUG = DEBUG
+    TEMPLATE_DEBUG = DEBUG_TEMPLATE
 
-    # List of callables that know how to import templates from various sources.
+    # List of callables that know how to import templates from various
+    # sources.
     TEMPLATE_LOADERS = [
         'django.template.loaders.filesystem.Loader',
         'django.template.loaders.app_directories.Loader',
@@ -185,12 +209,14 @@ else:
         "django.core.context_processors.tz",
         "django.contrib.messages.context_processors.messages",
         "django.core.context_processors.request",
-        "fobi.context_processors.theme", # Important!
-        "fobi.context_processors.dynamic_values", # Optional
+        "fobi.context_processors.theme",  # Important!
+        "fobi.context_processors.dynamic_values",  # Optional
+        "context_processors.testing",  # Testing
     )
 
     TEMPLATE_DIRS = (
-        # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
+        # Put strings here, like "/home/html/django_templates" or
+        # "C:/www/django/templates".
         # Always use forward slashes, even on Windows.
         # Don't forget to use absolute paths, not relative paths.
         PROJECT_DIR(os.path.join('..', 'templates')),
@@ -198,7 +224,6 @@ else:
 
 MIDDLEWARE_CLASSES = [
     'django.contrib.sessions.middleware.SessionMiddleware',
-    # 'localeurl.middleware.LocaleURLMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -206,9 +231,6 @@ MIDDLEWARE_CLASSES = [
     # Uncomment the next line for simple clickjacking protection:
     # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
-# if DJANGO_GTE_1_8:
-#    MIDDLEWARE_CLASSES.remove('localeurl.middleware.LocaleURLMiddleware')
 
 ROOT_URLCONF = 'urls'
 
@@ -240,7 +262,6 @@ INSTALLED_APPS = [
     # 'tinymce',  # TinyMCE
     'easy_thumbnails',  # Thumbnailer
     'registration',  # Auth views and registration app
-    # 'localeurl',  # Locale URL
 
     # ***********************************************************************
     # ***********************************************************************
@@ -334,17 +355,23 @@ INSTALLED_APPS = [
     # ***********************************************************************
     'fobi.contrib.themes.bootstrap3',  # Bootstrap 3 theme
     # DateTime widget
-    'fobi.contrib.themes.bootstrap3.widgets.form_elements.datetime_bootstrap3_widget',
-    'fobi.contrib.themes.bootstrap3.widgets.form_elements.date_bootstrap3_widget',
+    'fobi.contrib.themes.bootstrap3.widgets.form_elements.'
+    'datetime_bootstrap3_widget',
+
+    'fobi.contrib.themes.bootstrap3.widgets.form_elements.'
+    'date_bootstrap3_widget',
 
     # SliderPercentage widget
-    'fobi.contrib.themes.bootstrap3.widgets.form_elements.slider_bootstrap3_widget',
+    'fobi.contrib.themes.bootstrap3.widgets.form_elements.'
+    'slider_bootstrap3_widget',
 
     # ***********************************************************************
     # ************************ Foundation 5 theme ***************************
     # ***********************************************************************
     'fobi.contrib.themes.foundation5',  # Foundation 5 theme
-    'fobi.contrib.themes.foundation5.widgets.form_handlers.db_store_foundation5_widget',
+
+    'fobi.contrib.themes.foundation5.widgets.form_handlers.'
+    'db_store_foundation5_widget',
 
     # ***********************************************************************
     # **************************** Simple theme *****************************
@@ -369,9 +396,6 @@ INSTALLED_APPS = [
 if DJANGO_LTE_1_7:
     INSTALLED_APPS.append('south')
 
-# if DJANGO_GTE_1_8:
-#     INSTALLED_APPS.remove('localeurl')
-
 # LOGIN_URL = '/accounts/login/'
 # LOGIN_REDIRECT_URL = '/fobi/' # Important for passing the selenium tests
 
@@ -379,23 +403,12 @@ if DJANGO_LTE_1_7:
 LOGIN_URL = '/en/accounts/login/'
 LOGIN_REDIRECT_URL = '/en/fobi/'  # Important for passing the selenium tests
 
-#LOGIN_URL = '/accounts/login/'
-#LOGIN_ERROR_URL = '/accounts/login/'
-#LOGOUT_URL = '/accounts/logout/'
+# LOGIN_URL = '/accounts/login/'
+# LOGIN_ERROR_URL = '/accounts/login/'
+# LOGOUT_URL = '/accounts/logout/'
 
-# if not DJANGO_GTE_1_8:
-#     # Tell localeurl to use sessions for language store.
-#     LOCALEURL_USE_SESSION = True
-#
-#     # localeurl locale independent paths (language code won't be appended)
-#     LOCALE_INDEPENDENT_PATHS = (
-#         r'^/sitemap.*\.xml$', # Global regex for all XML sitemaps
-#         r'^/admin/',
-#         #r'^/dashboard/',
-#     )
-
-PACKAGE_NAME_FILEBROWSER = "filebrowser_safe" # Just for tests
-PACKAGE_NAME_GRAPPELLI = "grappelli_safe" # Just for tests
+PACKAGE_NAME_FILEBROWSER = "filebrowser_safe"  # Just for tests
+PACKAGE_NAME_GRAPPELLI = "grappelli_safe"  # Just for tests
 
 MIGRATION_MODULES = {
    'fobi': 'migrations',
@@ -426,8 +439,10 @@ FOBI_CUSTOM_THEME_DATA = {
             ],
             'success_page_template_choices': [
                 (
-                    'fobi/bootstrap3_extras/embed_form_entry_submitted_ajax.html',
-                    gettext("Custom bootstrap3 embed form entry submitted template")
+                    'fobi/bootstrap3_extras/embed_form_entry_'
+                    'submitted_ajax.html',
+                    gettext("Custom bootstrap3 embed form entry submitted "
+                            "template")
                 ),
             ],
         },
@@ -440,8 +455,10 @@ FOBI_CUSTOM_THEME_DATA = {
             ],
             'success_page_template_choices': [
                 (
-                    'fobi/bootstrap3_extras/embed_form_entry_submitted_ajax.html',
-                    gettext("Custom bootstrap3 embed form entry submitted template")
+                    'fobi/bootstrap3_extras/embed_form_entry_submitted_'
+                    'ajax.html',
+                    gettext("Custom bootstrap3 embed form entry submitted "
+                            "template")
                 ),
             ],
         },
@@ -462,8 +479,10 @@ FOBI_CUSTOM_THEME_DATA = {
             ],
             'success_page_template_choices': [
                 (
-                    'fobi/foundation5_extras/embed_form_entry_submitted_ajax.html',
-                    gettext("Custom foundation5 embed form entry submitted template")
+                    'fobi/foundation5_extras/embed_form_entry_submitted_'
+                    'ajax.html',
+                    gettext("Custom foundation5 embed form entry submitted "
+                            "template")
                 ),
             ],
         },
@@ -476,8 +495,10 @@ FOBI_CUSTOM_THEME_DATA = {
             ],
             'success_page_template_choices': [
                 (
-                    'fobi/foundation5_extras/embed_form_entry_submitted_ajax.html',
-                    gettext("Custom foundation5 embed form entry submitted template")
+                    'fobi/foundation5_extras/embed_form_entry_submitted_'
+                    'ajax.html',
+                    gettext("Custom foundation5 embed form entry submitted "
+                            "template")
                 ),
             ],
         },
@@ -500,7 +521,8 @@ FOBI_THEME_FOOTER_TEXT = gettext('&copy; django-fobi example site 2014-2015')
 
 # django-admin-tools custom dashboard
 ADMIN_TOOLS_INDEX_DASHBOARD = 'admin_tools_dashboard.CustomIndexDashboard'
-ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'admin_tools_dashboard.CustomAppIndexDashboard'
+ADMIN_TOOLS_APP_INDEX_DASHBOARD = \
+    'admin_tools_dashboard.CustomAppIndexDashboard'
 ADMIN_TOOLS_MENU = 'admin_tools_dashboard.menu.CustomMenu'
 
 SOUTH_MIGRATION_MODULES = {
@@ -532,7 +554,8 @@ LOGGING = {
     },
     'formatters': {
         'verbose': {
-            'format': '\n%(levelname)s %(asctime)s [%(pathname)s:%(lineno)s] %(message)s'
+            'format': '\n%(levelname)s %(asctime)s [%(pathname)s:%(lineno)s] '
+                      '%(message)s'
         },
         'simple': {
             'format': '\n%(levelname)s %(message)s'
@@ -550,32 +573,32 @@ LOGGING = {
             'formatter': 'verbose'
         },
         'all_log': {
-            'level':'DEBUG',
-            'class':'logging.handlers.RotatingFileHandler',
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
             'filename': PROJECT_DIR("../../logs/all.log"),
             'maxBytes': 1048576,
             'backupCount': 99,
             'formatter': 'verbose',
         },
         'django_log': {
-            'level':'DEBUG',
-            'class':'logging.handlers.RotatingFileHandler',
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
             'filename': PROJECT_DIR("../../logs/django.log"),
             'maxBytes': 1048576,
             'backupCount': 99,
             'formatter': 'verbose',
         },
         'django_request_log': {
-            'level':'DEBUG',
-            'class':'logging.handlers.RotatingFileHandler',
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
             'filename': PROJECT_DIR("../../logs/django_request.log"),
             'maxBytes': 1048576,
             'backupCount': 99,
             'formatter': 'verbose',
         },
         'fobi_log': {
-            'level':'DEBUG',
-            'class':'logging.handlers.RotatingFileHandler',
+            'level': 'DEBUG',
+            'class': 'logging.handlers.RotatingFileHandler',
             'filename': PROJECT_DIR("../../logs/fobi.log"),
             'maxBytes': 1048576,
             'backupCount': 99,
@@ -630,6 +653,9 @@ if DJANGO_GTE_1_7 or DJANGO_GTE_1_8:
 # For Selenium tests
 FIREFOX_BIN_PATH = ''
 
+# Testing mode
+TESTING = False
+
 # Do not put any settings below this line
 try:
     from .local_settings import *
@@ -660,7 +686,7 @@ if DEBUG:
     try:
         # Make sure the django-template-debug is installed. You can then
         # in templates use it as follows:
-        # 
+        #
         # {% load debug_tags %}
         # {% set_trace %}
         import template_debug
