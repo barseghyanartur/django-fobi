@@ -1,9 +1,20 @@
 import os
-PROJECT_DIR = lambda base : os.path.abspath(os.path.join(os.path.dirname(__file__), base).replace('\\','/'))
+
+
+def gettext(s):
+    return s
+
+
+def project_dir(base):
+    return os.path.abspath(
+        os.path.join(os.path.dirname(__file__), base).replace('\\', '/')
+    )
+
+
+PROJECT_DIR = project_dir
 
 DEBUG = True
 DEBUG_TOOLBAR = not True
-TEMPLATE_DEBUG = not True
 
 DEBUG_TEMPLATE = True
 
@@ -15,19 +26,24 @@ os.environ.setdefault(
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3', # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'NAME': PROJECT_DIR('../../db/example.db'), # Or path to database file if using sqlite3.
+        # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.sqlite3',
+        # Or path to database file if using sqlite3.
+        'NAME': PROJECT_DIR('../../db/example.db'),
 
         # The following settings are not used with sqlite3:
         'USER': '',
         'PASSWORD': '',
-        'HOST': '', # Empty for localhost through domain sockets or '127.0.0.1' for localhost through TCP.
-        'PORT': '', # Set to empty string for default.
+        # Empty for localhost through domain sockets or '127.0.0.1' for
+        # localhost through TCP.
+        'HOST': '',
+        # Set to empty string for default.
+        'PORT': '',
     }
 }
 
 INTERNAL_IPS = ('127.0.0.1',)
-ALLOWED_HOSTS = ['*',]
+ALLOWED_HOSTS = ['*']
 
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = PROJECT_DIR('../../tmp')
@@ -36,7 +52,19 @@ DEFAULT_FROM_EMAIL = '<no-reply@dev.django-fobi.mail.example.com>'
 
 FOBI_DEBUG = True
 FOBI_RESTRICT_PLUGIN_ACCESS = False
-#FOBI_DEFAULT_THEME = 'foundation5'
+# FOBI_DEFAULT_THEME = 'foundation5'
 
 WAIT_BETWEEN_TEST_STEPS = 0
 FOBI_WAIT_AT_TEST_END = 0
+
+MAILCHIMP_API_KEY = 'your-mailchimp-api-key'
+
+RECAPTCHA_PUBLIC_KEY = 'your-recaptcha-public-key'
+RECAPTCHA_PRIVATE_KEY = 'your-recaptcha-private-key'
+
+FIREFOX_BIN_PATH = '/usr/lib/firefox47/firefox'
+
+os.environ.setdefault(
+    'FOBI_SOURCE_PATH',
+    '/home/user/repose/django-fobi/src'
+)

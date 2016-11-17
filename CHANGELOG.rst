@@ -30,10 +30,6 @@ break your code. Two additional arguments have been added to the
 `submit_plugin_form_data` method of the form element plugins. If you have 
 written custom form element plugins - update your code.
 
-Note, that this release contain minor backwards incompatible changes, that
-may break your existing code (your data is left intact). If you have written
-custom form element plugins you should update your code!
-
 - Added `form_entry_elements` and `kwargs` to the `submit_plugin_form_data`
   method of the form element plugins. Make sure to update your custom 
   plugins if you have written any.
