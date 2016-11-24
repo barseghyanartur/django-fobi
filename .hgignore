@@ -31,8 +31,10 @@ syntax: regexp
 ^examples/mezzanine_example/static/media/fobi_plugins/
 ^examples/mezzanine_example/static/
 ^examples/quickstart/local_settings\.py
-^examples/wagtail_example/static/
-^examples/wagtail_example/dev\.db
+^examples/wagtaildemo/static/
+^examples/wagtaildemo/dev\.db
+^examples/wagtail_example_/static/
+^examples/wagtail_example_/dev\.db
 ^news-images/
 ^builddocs/
 ^builddocs\.zip

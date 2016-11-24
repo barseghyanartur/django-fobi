@@ -50,9 +50,12 @@ README_PARTS.rst
 /examples/simple/settings/local_settings_foundation5.py
 /examples/simple/settings/bootstrap3_theme_django_1_9_lund.py
 /examples/simple/runserver/bootstrap3-theme-django-1-9-lund.sh
+/examples/simple/settings/bootstrap3_theme_django_1_10_lund.py
+/examples/simple/runserver/bootstrap3-theme-django-1-10-lund.sh
 /examples/quickstart/local_settings.py
 /examples/quick_start/db.sqlite3
 /examples/quickstart/
 /examples/static/
 /examples/requirements/wagtail.txt
-/examples/wagtail_example/
+/examples/wagtaildemo/
+/examples/wagtail_example_/

@@ -1612,7 +1612,8 @@ class FormWizardView(DynamicSessionWizardView):
             )
 
             for ignorable_field_name in ignorable_field_names:
-                form_obj.fields.pop(ignorable_field_name)
+                if ignorable_field_name in form_obj.fields:
+                    form_obj.fields.pop(ignorable_field_name)
 
             if not form_obj.is_valid():
                 return self.render_revalidation_failure(form_key,

@@ -6,12 +6,12 @@ A ``django-fobi`` integration with FeinCMS.
 Installation
 ============
 Versions
------------------------------------------------
+--------
 See the `requirements file
 <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements_feincms.txt>`_.
 
 your_project/settings.py
------------------------------------------------
+------------------------
 See the `example settings file
 <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/settings_bootstrap3_theme_feincms.py>`_.
 
