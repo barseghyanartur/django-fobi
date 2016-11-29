@@ -410,11 +410,11 @@ LOGIN_REDIRECT_URL = '/en/fobi/'  # Important for passing the selenium tests
 PACKAGE_NAME_FILEBROWSER = "filebrowser_safe"  # Just for tests
 PACKAGE_NAME_GRAPPELLI = "grappelli_safe"  # Just for tests
 
-MIGRATION_MODULES = {
-   'fobi': 'migrations',
-   'db_store': 'fobi.contrib.plugins.form_handlers.db_store.migrations'
-}
-SOUTH_MIGRATION_MODULES = 'south_migrations'
+# MIGRATION_MODULES = {
+#    'fobi': 'migrations',
+#    'db_store': 'fobi.contrib.plugins.form_handlers.db_store.migrations'
+# }
+# SOUTH_MIGRATION_MODULES = 'south_migrations'
 
 # **************************************************************
 # ************************ Fobi settings ***********************
@@ -652,6 +652,7 @@ if DJANGO_GTE_1_7 or DJANGO_GTE_1_8:
 
 # For Selenium tests
 FIREFOX_BIN_PATH = ''
+PHANTOM_JS_EXECUTABLE_PATH = None
 
 # Testing mode
 TESTING = False

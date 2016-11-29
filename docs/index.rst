@@ -2019,9 +2019,16 @@ install the test requirements:
 
 Selenium
 --------
+For browser tests you may choose between Firefox and PhantomJS. PhantomJS is
+faster, Firefox tests tell you more. Both cases require some effort and both
+have disadvantages regarding the installation (although once you have them
+installed they work perfect).
+
 Latest versions of Firefox are often not supported by Selenium. Current
 version of the Selenium for Python (2.53.6) works fine with Firefox 47.
 Thus, instead of using system Firefox you could better use a custom one.
+
+For PhantomJS you need to have NodeJS installed.
 
 Set up Firefox 47
 ~~~~~~~~~~~~~~~~~
@@ -2038,6 +2045,28 @@ Set up Firefox 47
        FIREFOX_BIN_PATH = '/usr/lib/firefox47/firefox'
 
 After that your Selenium tests would work.
+
+Setup PhantomJS
+~~~~~~~~~~~~~~~
+You could also run tests in headless mode (faster). For that you will need
+PhantomJS.
+
+1. Install PhantomJS and dependencies.
+
+    .. code-block:: sh
+
+        curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh
+        sudo bash nodesource_setup.sh
+        sudo apt-get install nodejs
+        sudo apt-get install build-essential
+        sudo apt-get install build-essential libssl-dev
+        sudo npm -g install phantomjs-prebuilt
+
+2. Specify the ``PHANTOM_JS_EXECUTABLE_PATH`` setting. Example:
+
+    .. code-block:: sh
+
+        PHANTOM_JS_EXECUTABLE_PATH = ""
 
 Troubleshooting
 ===============

@@ -1,6 +1,7 @@
 *.py[cod]
 .hgignore~
 .gitignore~
+ghostdriver.log
 .hg/
 .hgtags
 .tox/

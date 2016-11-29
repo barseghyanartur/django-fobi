@@ -17,3 +17,5 @@ django-registration-redux>=1.4
 # Selenium shall always be upgraded
 #selenium
 #tox
+rst2pdf
+reportlab==3.3.0
