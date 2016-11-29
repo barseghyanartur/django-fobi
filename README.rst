@@ -2053,20 +2053,20 @@ PhantomJS.
 
 1. Install PhantomJS and dependencies.
 
-    .. code-block:: sh
+   .. code-block:: sh
 
-        curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh
-        sudo bash nodesource_setup.sh
-        sudo apt-get install nodejs
-        sudo apt-get install build-essential
-        sudo apt-get install build-essential libssl-dev
-        sudo npm -g install phantomjs-prebuilt
+       curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh
+       sudo bash nodesource_setup.sh
+       sudo apt-get install nodejs
+       sudo apt-get install build-essential
+       sudo apt-get install build-essential libssl-dev
+       sudo npm -g install phantomjs-prebuilt
 
 2. Specify the ``PHANTOM_JS_EXECUTABLE_PATH`` setting. Example:
 
-    .. code-block:: sh
+   .. code-block:: python
 
-        PHANTOM_JS_EXECUTABLE_PATH = ""
+       PHANTOM_JS_EXECUTABLE_PATH = ""
 
 Troubleshooting
 ===============
