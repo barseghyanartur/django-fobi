@@ -78,7 +78,7 @@ class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         # cls.selenium = WebDriver()
         firefox_bin_path = getattr(settings, 'FIREFOX_BIN_PATH', None)
         phantom_js_executable_path = getattr(
-            settings, 'PHANTOM_JS_EXECUTABLE_PATH', False
+            settings, 'PHANTOM_JS_EXECUTABLE_PATH', None
         )
         if phantom_js_executable_path is not None:
             if phantom_js_executable_path:
