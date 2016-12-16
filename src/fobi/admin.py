@@ -434,17 +434,19 @@ class BasePluginModelAdmin(admin.ModelAdmin):
 
     def _get_bulk_change_form_class(self):
         """Get change form class for bulk actions."""
-        raise NotImplemented("You should implement "
-                             "`get_bulk_change_form_class`")
+        raise NotImplementedError(
+            "You should implement `get_bulk_change_form_class`"
+        )
 
     def _get_model(self):
         """Get model."""
-        raise NotImplemented("You should implement `_get_model`")
+        raise NotImplementedError("You should implement `_get_model`")
 
     def _get_changelist_named_url(self):
         """Get changelist named URL."""
-        raise NotImplemented("You should implement "
-                             "`_get_changelist_named_url`")
+        raise NotImplementedError(
+            "You should implement `_get_changelist_named_url`"
+        )
 
     @staff_member_required_m
     def bulk_change_plugins(self, request):

@@ -99,7 +99,7 @@ class AbstractPluginModel(models.Model):
 
     def get_registered_plugins(self):
         """Get registered plugins."""
-        raise NotImplemented(
+        raise NotImplementedError(
             "You should implement ``get_registered_plugins`` method!"
         )
 
@@ -471,17 +471,21 @@ class BaseAbstractPluginEntry(models.Model):
     def entry_user(self):
         """Get user from the parent container."""
 
-        raise NotImplemented("You should implement ``entry_user``"
-                             " property!")
+        raise NotImplementedError(
+            "You should implement ``entry_user`` property!"
+        )
 
     def get_registered_plugins(self):
         """Get registered plugins."""
-        raise NotImplemented("You should implement ``get_registered_plugins``"
-                             " method!")
+        raise NotImplementedError(
+            "You should implement ``get_registered_plugins`` method!"
+        )
 
     def get_registry(self):
         """Get registry."""
-        raise NotImplemented("You should implement ``get_registry`` method!")
+        raise NotImplementedError(
+            "You should implement ``get_registry`` method!"
+        )
 
     def plugin_uid_code(self):
         """Plugin uid code.

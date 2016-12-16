@@ -10,6 +10,8 @@ ghostdriver.log
 /.coverage
 /dev.db
 /.cache/
+/htmlcov/
+*.py,cover
 
 MANIFEST.in~
 MIND_BUCKET.rst

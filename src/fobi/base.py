@@ -1663,7 +1663,7 @@ class FormHandlerPlugin(BasePlugin):
             ``fobi.models.FormElementEntry`` objects.
         :return mixed: May be a tuple (bool, mixed) or None
         """
-        raise NotImplemented(
+        raise NotImplementedError(
             "You should implement ``run`` method in your {0} "
             "subclass.".format(self.__class__.__name__)
         )
@@ -1760,7 +1760,7 @@ class FormWizardHandlerPlugin(BasePlugin):
             ``fobi.models.FormElementEntry`` objects.
         :return mixed: May be a tuple (bool, mixed) or None
         """
-        raise NotImplemented(
+        raise NotImplementedError(
             "You should implement ``run`` method in your {0} "
             "subclass.".format(self.__class__.__name__)
         )
@@ -1819,7 +1819,7 @@ class FormCallback(object):
         :param django.http.HttpRequest request:
         :param django.forms.Form form:
         """
-        raise NotImplemented(
+        raise NotImplementedError(
             "You should implement ``callback`` method in your {0} "
             "subclass.".format(self.__class__.__name__)
         )

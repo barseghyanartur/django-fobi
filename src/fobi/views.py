@@ -1762,10 +1762,10 @@ def add_form_wizard_form_entry(request,
             request,
             _('The form entry "{0}" could not be added to the wizard "{1}" '
               'due to the following error "{2}".').format(
-                form_entry.name,
-                form_wizard_entry.name,
-                str(err)
-            )
+                  form_entry.name,
+                  form_wizard_entry.name,
+                  str(err)
+              )
         )
         return redirect(
             "{0}?active_tab=tab-form-elements".format(
@@ -1800,9 +1800,9 @@ def add_form_wizard_form_entry(request,
         request,
         _('The form entry "{0}" was added '
           'successfully to the wizard "{1}".').format(
-            form_entry.name,
-            form_wizard_entry.name
-        )
+              form_entry.name,
+              form_wizard_entry.name
+          )
     )
     return redirect(
         "{0}?active_tab=tab-form-elements".format(

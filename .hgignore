@@ -8,6 +8,8 @@ syntax: regexp
 \.cache/
 \.coverage$
 \.travis\.yml~
+^htmlcov/
+\.py,cover
 
 ^MANIFEST\.in~
 ^tmp/

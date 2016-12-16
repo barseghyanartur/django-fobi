@@ -291,7 +291,7 @@ class DynamicWizardView(TemplateView):
         You are supposed to return a dict with the dynamic properties,
         such as `form_list` or `template_name`.
         """
-        raise NotImplemented(
+        raise NotImplementedError(
             "You should implement `get_initial_wizard_data` method in your "
             "subclass."
         )
