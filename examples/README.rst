@@ -1,71 +1,85 @@
-============================================
+=================================
 Example project for `django-fobi`
-============================================
-Follow instructions below to install the example project. Commands below are written for Ubuntu/Debian,
-but may work on other Linux distributions as well.
+=================================
+Follow instructions below to install the example project. Commands below are
+written for Ubuntu/Debian, but may work on other Linux distributions as well.
 
-- Create a new- or switch to existing- virtual environement.
+(1) Create a new- or switch to existing- virtual environment.
 
-    $ virtualenv fobi
+    .. code-block:: sh
 
-    $ source fobi/bin/activate
+        virtualenv fobi
 
-- Download the latest stable version of django-fobi.
+        source fobi/bin/activate
 
-    $ wget https://github.com/barseghyanartur/django-fobi/archive/stable.tar.gz
+(2) Download the latest stable version of django-fobi.
 
-- Unpack it somewhere.
+    .. code-block:: sh
 
-    $ tar -xvf stable.tar.gz
+        wget https://github.com/barseghyanartur/django-fobi/archive/stable.tar.gz
 
-- Go to the unpacked directory.
+(3) Unpack it somewhere.
 
-    $ cd django-fobi-stable
+    .. code-block:: sh
 
-- Install Django, requirements and finally django-fobi.
+        tar -xvf stable.tar.gz
 
-    $ pip install Django
+(4) Go to the unpacked directory.
 
-    $ pip install -r example/requirements.txt
+    .. code-block:: sh
 
-    $ pip install -e git+https://github.com/barseghyanartur/django-fobi@stable#egg=django-fobi
+        cd django-fobi-stable
 
-- Create some directories.
+(5) Install Django, requirements and finally django-fobi.
 
-    $ mkdir -p examples/media/static/ examples/static/ examples/db/ examples/logs
+    .. code-block:: sh
 
-- Copy local_settings.example
+        pip install Django
 
-    $ cp examples/simple/local_settings.example examples/simple/local_settings.py
+        pip install -r examples/requirements.txt
 
-- Run the commands to sync database, install test data and run the server.
+        pip install https://github.com/barseghyanartur/django-fobi/archive/stable.tar.gz
 
-    $ python examples/example/manage.py syncdb --noinput --traceback -v 3
+(6) Create some directories.
 
-    $ python examples/example/manage.py migrate --noinput
+    .. code-block:: sh
 
-    $ python examples/example/manage.py collectstatic --noinput --traceback -v 3
+        mkdir -p examples/media/static/ examples/static/ examples/db/ examples/logs
 
-    $ python examples/example/manage.py fobi_create_test_data --traceback -v 3
+(7) Copy local_settings.example
 
-    $ python example/example/manage.py runserver 0.0.0.0:8001 --traceback -v 3
+    .. code-block:: sh
 
-- Open your browser and test the app.
+        cp examples/simple/settings/local_settings.example examples/simple/settings/local_settings.py
 
-Fobi interface:
+(8) Run the commands to sync database, install test data and run the server.
 
-- URL: http://127.0.0.1:8001/forms/builder/
-- Admin username: test_admin
-- Admin password: test
+    .. code-block:: sh
 
-Django admin interface:
+        python examples/example/manage.py migrate --noinput
 
-- URL: http://127.0.0.1:8001/admin/
-- Admin username: test_admin
-- Admin password: test
+        python examples/example/manage.py collectstatic --noinput --traceback -v 3
+
+        python examples/example/manage.py fobi_create_test_data --traceback -v 3
+
+        python example/example/manage.py runserver 0.0.0.0:8001 --traceback -v 3
+
+(9) Open your browser and test the app.
+
+    Fobi interface:
+
+    - URL: http://127.0.0.1:8001/
+    - Admin username: test_admin
+    - Admin password: test
+
+    Django admin interface:
+
+    - URL: http://127.0.0.1:8001/admin/
+    - Admin username: test_admin
+    - Admin password: test
 
 Various setups
-============================================
+==============
 There are number of setups included (names are self-explanatory):
 
 - Bootstrap3 theme + Captcha (runserver-bootstrap3-theme-captcha) :8000
@@ -73,10 +87,7 @@ There are number of setups included (names are self-explanatory):
 - Bootstrap3 theme + Django 1.7 (runserver-bootstrap3-theme-django17) :8000
 - Bootstrap3 theme + FeinCMS integration (runserver-bootstrap3-theme-feincms-integration) :8000
 - Bootstrap3 theme (runserver-bootstrap3-theme) :8000
-
 - Foundation 5 theme + FeinCMS integration (runserver-foundation5-theme-feincms-integration) :8001
 - Foundation 5 theme :8001
-
 - Override of the simple theme (runserver-override-simple-theme) :8003
-
 - Simple theme (runserver-simple-theme) :8002

@@ -182,7 +182,7 @@ Or latest stable version from GitHub:
 
 .. code-block:: sh
 
-    pip install -e git+https://github.com/barseghyanartur/django-fobi@stable#egg=django-fobi
+    pip install https://github.com/barseghyanartur/django-fobi/archive/stable.tar.gz
 
 Or latest stable version from BitBucket:
 
