@@ -85,7 +85,7 @@ class AbstractPluginModel(models.Model):
                                    blank=True)
     groups = models.ManyToManyField(Group, verbose_name=_("Group"), blank=True)
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
         abstract = True
 
@@ -172,7 +172,7 @@ class FormElement(AbstractPluginModel):
     )
     # objects = FormFieldPluginModelManager()
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
         abstract = False
         verbose_name = _("Form element plugin")
@@ -202,7 +202,7 @@ class FormHandler(AbstractPluginModel):
     )
     # objects = FormHandlerPluginModelManager()
 
-    class Meta:
+    class Meta(object):
         """Class meta."""
         abstract = False
         verbose_name = _("Form handler plugin")
@@ -233,7 +233,7 @@ class FormWizardHandler(AbstractPluginModel):
 
     # objects = FormHandlerPluginModelManager()
 
-    class Meta:
+    class Meta(object):
         """Class meta."""
         abstract = False
         verbose_name = _("Form wizard handler plugin")
@@ -298,7 +298,7 @@ class FormWizardEntry(models.Model):
     updated = models.DateTimeField(_("Updated"), null=True, blank=True,
                                    auto_now=True)
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         verbose_name = _("Form wizard entry")
@@ -374,7 +374,7 @@ class FormEntry(models.Model):
     updated = models.DateTimeField(_("Updated"), null=True, blank=True,
                                    auto_now=True)
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         verbose_name = _("Form entry")
@@ -409,7 +409,7 @@ class FormWizardFormEntry(models.Model):
     position = models.PositiveIntegerField(_("Position"), null=True,
                                            blank=True)
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         abstract = False
@@ -434,7 +434,7 @@ class FormFieldsetEntry(models.Model):
         help_text=_("Makes your form fieldset repeatable.")
     )
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         verbose_name = _("Form fieldset entry")
@@ -457,7 +457,7 @@ class BaseAbstractPluginEntry(models.Model):
     plugin_data = models.TextField(verbose_name=_("Plugin data"), null=True,
                                    blank=True)
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         abstract = True
@@ -549,7 +549,7 @@ class AbstractPluginEntry(BaseAbstractPluginEntry):
 
     form_entry = models.ForeignKey(FormEntry, verbose_name=_("Form"))
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         abstract = True
@@ -591,7 +591,7 @@ class FormElementEntry(AbstractPluginEntry):
     position = models.PositiveIntegerField(_("Position"), null=True,
                                            blank=True)
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         abstract = False
@@ -624,7 +624,7 @@ class FormHandlerEntry(AbstractPluginEntry):
         # choices=get_registered_form_handler_plugins()
     )
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         abstract = False
@@ -654,7 +654,7 @@ class AbstractFormWizardPluginEntry(BaseAbstractPluginEntry):
     form_wizard_entry = models.ForeignKey(FormWizardEntry,
                                           verbose_name=_("Form wizard"))
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         abstract = True
@@ -681,7 +681,7 @@ class FormWizardHandlerEntry(AbstractFormWizardPluginEntry):
         # choices=get_registered_form_handler_plugins()
     )
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         abstract = False

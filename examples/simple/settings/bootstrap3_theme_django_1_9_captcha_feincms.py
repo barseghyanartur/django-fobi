@@ -19,8 +19,7 @@ try:
         'captcha',
         'fobi.contrib.plugins.form_elements.security.captcha',
     ]
-except Exception as e:
-    import ipdb; ipdb.set_trace()
+except Exception as err:
     pass
 
 

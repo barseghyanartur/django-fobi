@@ -182,13 +182,13 @@ Or latest stable version from GitHub:
 
 .. code-block:: sh
 
-    pip install -e git+https://github.com/barseghyanartur/django-fobi@stable#egg=django-fobi
+    pip install https://github.com/barseghyanartur/django-fobi/archive/stable.tar.gz
 
 Or latest stable version from BitBucket:
 
 .. code-block:: sh
 
-    pip install -e hg+https://bitbucket.org/barseghyanartur/django-fobi@stable#egg=django-fobi
+    pip install https://bitbucket.org/barseghyanartur/django-fobi/get/stable.tar.gz
 
 (2) Add `fobi` to ``INSTALLED_APPS`` of the your projects' Django settings.
     Furthermore, all themes and plugins to be used, shall be added to the

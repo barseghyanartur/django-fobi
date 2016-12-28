@@ -66,7 +66,7 @@ __all__ = (
 class FormEntryForm(forms.ModelForm):
     """Form for ``fobi.models.FormEntry`` model."""
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         model = FormEntry
@@ -157,7 +157,7 @@ class FormEntryForm(forms.ModelForm):
 class FormFieldsetEntryForm(forms.ModelForm):
     """Form for ``fobi.models.FormFieldsetEntry`` model."""
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         model = FormFieldsetEntry
@@ -179,7 +179,7 @@ class FormElementForm(forms.ModelForm):
     #     choices=get_registered_form_element_plugins()
     # )
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         model = FormElement
@@ -193,7 +193,7 @@ class FormElementEntryForm(forms.ModelForm):
         choices=get_registered_form_element_plugins()
     )
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         model = FormElementEntry
@@ -206,7 +206,7 @@ class _FormElementEntryForm(forms.ModelForm):
     To be used with `FormElementEntryFormSet` only.
     """
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         model = FormElementEntry
@@ -228,7 +228,7 @@ class FormHandlerForm(forms.ModelForm):
     #     choices=get_registered_form_handler_plugins()
     # )
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         model = FormHandler
@@ -242,7 +242,7 @@ class FormHandlerEntryForm(forms.ModelForm):
         choices=get_registered_form_handler_plugins()
     )
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         model = FormHandlerEntry
@@ -261,7 +261,7 @@ class FormWizardFormEntryForm(forms.ModelForm):
 
     """
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         model = FormWizardFormEntry
@@ -283,7 +283,7 @@ class _FormWizardFormEntryForm(forms.ModelForm):
         intact.
     """
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         model = FormWizardFormEntry
@@ -315,7 +315,7 @@ FormWizardFormEntryFormSet = modelformset_factory(
 class FormWizardEntryForm(forms.ModelForm):
     """Form for ``fobi.models.FormWizardEntry`` model."""
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         model = FormWizardEntry
@@ -422,7 +422,7 @@ class FormWizardHandlerEntryForm(forms.ModelForm):
         choices=get_registered_form_handler_plugins()
     )
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         model = FormWizardHandlerEntry
@@ -466,7 +466,7 @@ class BaseBulkChangePluginsForm(forms.ModelForm):
                     "otherwise - appended.")
     )
 
-    class Media:
+    class Media(object):
         """Media class."""
 
         css = {
@@ -483,7 +483,7 @@ class BaseBulkChangePluginsForm(forms.ModelForm):
 class BulkChangeFormElementPluginsForm(BaseBulkChangePluginsForm):
     """Bulk change form element plugins form."""
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         model = FormElement
@@ -493,7 +493,7 @@ class BulkChangeFormElementPluginsForm(BaseBulkChangePluginsForm):
 class BulkChangeFormHandlerPluginsForm(BaseBulkChangePluginsForm):
     """Bulk change form handler plugins form."""
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         model = FormHandler
@@ -503,7 +503,7 @@ class BulkChangeFormHandlerPluginsForm(BaseBulkChangePluginsForm):
 class BulkChangeFormWizardHandlerPluginsForm(BaseBulkChangePluginsForm):
     """Bulk change form wizard handler plugins form."""
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         model = FormWizardHandler

@@ -281,6 +281,13 @@ if not install_requires:
 
 tests_require = [
     'selenium',
+    # 'factory_boy',
+    # 'fake-factory',
+    # 'Pillow',
+    # 'pytest',
+    # 'pytest-django',
+    # 'pytest-cov',
+    # 'tox',
 ]
 
 try:

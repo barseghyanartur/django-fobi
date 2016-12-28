@@ -93,9 +93,9 @@ logger = logging.getLogger(__name__)
 # *****************************************************************************
 
 
-def do_slugify(s):
+def do_slugify(val):
     """Slugify."""
-    return slugify(s.lower()).lower()
+    return slugify(val.lower()).lower()
 
 
 def safe_text(text):
@@ -149,11 +149,11 @@ def clean_dict(source, keys=[], values=[]):
     :param iterable values:
     :return dict:
     """
-    d = {}
+    dict_data = {}
     for key, value in source.items():
         if (key not in keys) and (value not in values):
-            d[key] = value
-    return d
+            dict_data[key] = value
+    return dict_data
 
 
 def combine_dicts(headers, data):
@@ -351,9 +351,11 @@ def get_registered_models(ignore=[]):
     #             content_type.app_label, content_type.model
     #         )
     #         if content_type_id not in ignore:
-    #             registered_models.append((content_type_id, content_type.name))
-    # except DatabaseError as e:
-    #     logger.debug(str(e))
+    #             registered_models.append(
+    #                 (content_type_id, content_type.name)
+    #             )
+    # except DatabaseError as err:
+    #     logger.debug(str(err))
 
     return registered_models
 

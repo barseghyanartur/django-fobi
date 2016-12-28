@@ -81,11 +81,11 @@ def sync_plugins():
     """
     ensure_autodiscover()
 
-    def base_sync_plugins(get_plugin_uids_func, PluginModel):
+    def base_sync_plugins(get_plugin_uids_func, plugin_model_cls):
         """Base sync plugins.
 
         :param callable get_plugin_uids_func:
-        :param fobi.models.AbstractPluginModel PluginModel: Subclass of
+        :param fobi.models.AbstractPluginModel plugin_model_cls: Subclass of
             ``fobi.models.AbstractPluginModel``.
         """
         # If not in restricted mode, the quit.
@@ -97,8 +97,10 @@ def sync_plugins():
 
         registered_plugins = set(get_plugin_uids_func())
 
-        synced_plugins = set([p.plugin_uid for p in
-                              PluginModel._default_manager.only('plugin_uid')])
+        synced_plugins = set(
+            [p.plugin_uid for p in
+             plugin_model_cls._default_manager.only('plugin_uid')]
+        )
 
         non_synced_plugins = registered_plugins - synced_plugins
 
@@ -108,9 +110,9 @@ def sync_plugins():
         buf = []
 
         for plugin_uid in non_synced_plugins:
-            buf.append(PluginModel(plugin_uid=plugin_uid))
+            buf.append(plugin_model_cls(plugin_uid=plugin_uid))
 
-        PluginModel._default_manager.bulk_create(buf)
+        plugin_model_cls._default_manager.bulk_create(buf)
 
     base_sync_plugins(get_registered_form_element_plugin_uids, FormElement)
     base_sync_plugins(get_registered_form_handler_plugin_uids, FormHandler)
@@ -124,19 +126,19 @@ def sync_plugins():
 # ****************************************************************************
 
 
-def get_allowed_plugin_uids(PluginModel, user):
+def get_allowed_plugin_uids(plugin_model_cls, user):
     """Get allowed plugins uids for user given.
 
-    :param fobi.models.AbstractPluginModel PluginModel: Subclass of
+    :param fobi.models.AbstractPluginModel plugin_model_cls: Subclass of
         ``fobi.models.AbstractPluginModel``.
     :param django.contrib.auth.models.User user:
     :return list:
     """
     try:
-        queryset_groups = PluginModel._default_manager.filter(
+        queryset_groups = plugin_model_cls._default_manager.filter(
             groups__in=user.groups.all()
         ).distinct()
-        queryset_users = PluginModel._default_manager.filter(
+        queryset_users = plugin_model_cls._default_manager.filter(
             users=user
         ).distinct()
         queryset = queryset_groups | queryset_users
@@ -541,7 +543,7 @@ def append_edit_and_delete_links_to_field(form_element_plugin,
     :return dict:
     """
     theme = get_theme(as_instance=True)
-    PluginForm = form_element_plugin.get_form()
+    plugin_form_cls = form_element_plugin.get_form()
     counter = extra.get('counter')
     edit_url = reverse(
         'fobi.edit_form_element_entry',
@@ -551,9 +553,9 @@ def append_edit_and_delete_links_to_field(form_element_plugin,
     edit_option_html = theme.edit_form_entry_edit_option_html().format(
         edit_url=edit_url,
         edit_text=safe_text(ugettext("Edit")),
-        )
+    )
     help_text_extra = theme.edit_form_entry_help_text_extra().format(
-        edit_option_html=edit_option_html if PluginForm else '',
+        edit_option_html=edit_option_html if plugin_form_cls else '',
         delete_url=reverse(
             'fobi.delete_form_element_entry',
             kwargs={'form_element_entry_id': form_element_entry.pk}
@@ -568,18 +570,18 @@ def append_edit_and_delete_links_to_field(form_element_plugin,
     except:
         help_text = ''
 
-    d = {
+    data_dict = {
         'help_text': "{0} {1}".format(help_text, help_text_extra),
     }
 
     label = safe_text(getattr(form_element_plugin.data, 'label', ''))
-    d.update(
+    data_dict.update(
         {'label': "{0} ({1})".format(label,
                                      safe_text(form_element_plugin.name))}
     )
 
     # if 'hidden' == form_element_plugin.uid:
-    #    d.update(
+    #    data_dict.update(
     #        {
     #            'widget': TextInput(
     #                attrs={'class': theme.form_element_html_class}
@@ -587,7 +589,7 @@ def append_edit_and_delete_links_to_field(form_element_plugin,
     #        }
     #    )
     if widget_cls:
-        d.update(
+        data_dict.update(
             {
                 'widget': widget_cls(
                     attrs={'class': theme.form_element_html_class}
@@ -595,7 +597,7 @@ def append_edit_and_delete_links_to_field(form_element_plugin,
             }
         )
     elif form_element_plugin.is_hidden:
-        d.update(
+        data_dict.update(
             {
                 'widget': TextInput(
                     attrs={'class': theme.form_element_html_class}
@@ -603,7 +605,7 @@ def append_edit_and_delete_links_to_field(form_element_plugin,
             }
         )
 
-    return d
+    return data_dict
 
 
 def update_plugin_data_for_entries(entries=None,
@@ -757,14 +759,15 @@ def perform_form_entry_import(request, form_data):
             if form_element_data.get('plugin_uid', None):
                 messages.warning(
                     request,
-                    _('Plugin {0} is missing in the system.'
-                      '').format(form_element_data.get('plugin_uid'))
+                    ugettext('Plugin {0} is missing in the system.').format(
+                        form_element_data.get('plugin_uid')
+                    )
                 )
             else:
                 messages.warning(
                     request,
-                    _('Some essential plugin data missing in the JSON '
-                      'import.')
+                    ugettext('Some essential plugin data missing in the JSON '
+                             'import.')
                 )
 
     # One by one, importing form handler plugins.
@@ -778,14 +781,15 @@ def perform_form_entry_import(request, form_data):
             if form_handler_data.get('plugin_uid', None):
                 messages.warning(
                     request,
-                    _('Plugin {0} is missing in the system.'
-                      '').format(form_handler_data.get('plugin_uid'))
+                    ugettext('Plugin {0} is missing in the system.').format(
+                        form_handler_data.get('plugin_uid')
+                    )
                 )
             else:
                 messages.warning(
                     request,
-                    _('Some essential data missing in the JSON '
-                      'import.')
+                    ugettext('Some essential data missing in the JSON '
+                             'import.')
                 )
 
     return form_entry

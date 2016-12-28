@@ -1,3 +1,7 @@
+"""
+Base module. All `uids` are supposed to be pythonic function names (see
+PEP http://www.python.org/dev/peps/pep-0008/#function-names).
+"""
 import copy
 import logging
 import re
@@ -60,11 +64,6 @@ if DJANGO_GTE_1_7:
     from django.forms.utils import ErrorList
 else:
     from django.forms.util import ErrorList
-
-"""
-All `uids` are supposed to be pythonic function names (see
-PEP http://www.python.org/dev/peps/pep-0008/#function-names).
-"""
 
 __title__ = 'fobi.base'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -922,8 +921,9 @@ class BasePlugin(object):
             return ' '.join(html_class)
         except Exception as err:
             logger.debug(
-                "Error in class {0}. Details: "
-                "{1}".format(self.__class__.__name__, str(err))
+                "Error in class %s. Details: %s",
+                self.__class__.__name__,
+                str(err)
             )
 
     def process(self, plugin_data=None, fetch_related_data=False):
@@ -951,8 +951,9 @@ class BasePlugin(object):
                         )
                 except Exception as err:
                     logger.debug(
-                        "Error in class {0}. Details: "
-                        "{1}".format(self.__class__.__name__, str(err))
+                        "Error in class %s. Details: %s",
+                        self.__class__.__name__,
+                        str(err)
                     )
 
             # Calling the post processor.
@@ -961,8 +962,9 @@ class BasePlugin(object):
             return self
         except Exception as err:
             logger.debug(
-                "Error in class {0}. Details: "
-                "{1}".format(self.__class__.__name__, str(err))
+                "Error in class %s. Details: %s",
+                self.__class__.__name__,
+                str(err)
             )
 
     def load_plugin_data(self, plugin_data):
@@ -990,7 +992,7 @@ class BasePlugin(object):
                     field,
                     self.plugin_data.get(field, default_value)
                 )
-            except Exception as e:
+            except Exception as err:
                 setattr(self.data, field, default_value)
 
     def process_plugin_data(self, fetch_related_data=False):
@@ -1014,10 +1016,11 @@ class BasePlugin(object):
                 form_data.update(
                     {field: self.plugin_data.get(field, default_value)}
                     )
-            except Exception as e:
+            except Exception as err:
                 logger.debug(
-                    "Error in class {0}. Details: "
-                    "{1}".format(self.__class__.__name__, str(e))
+                    "Error in class %s. Details: %s",
+                    self.__class__.__name__,
+                    str(err)
                 )
         return form_data
 
@@ -1067,10 +1070,10 @@ class BasePlugin(object):
                 if initial_data:
                     kwargs.update({'initial': initial_data})
                 return plugin_form(**kwargs)
-            except Exception as e:
+            except Exception as err:
                 if DEBUG:
-                    logger.debug(e)
-                raise Http404(e)
+                    logger.debug(err)
+                raise Http404(err)
 
     def get_initialised_create_form_or_404(self, data=None, files=None):
         """Get initialized create form or page 404.
@@ -1091,10 +1094,10 @@ class BasePlugin(object):
                     files=files,
                     initial_data=initial_data
                 )
-            except Exception as e:
+            except Exception as err:
                 if DEBUG:
-                    logger.debug(e)
-                raise Http404(e)
+                    logger.debug(err)
+                raise Http404(err)
 
     def get_initialised_edit_form(self, data=None, files=None,
                                   auto_id='id_%s', prefix=None, initial=None,
@@ -1158,7 +1161,7 @@ class BasePlugin(object):
         :return mixed: Subclass of `fobi.base.BasePluginWidget` or instance
             of subclassed `fobi.base.BasePluginWidget` object.
         """
-        raise NotImplemented
+        raise NotImplementedError
 
     def render(self, request=None):
         """Renders the plugin HTML.
@@ -1174,7 +1177,7 @@ class BasePlugin(object):
             render = widget.render(request=request)
             return render or ''
         elif DEBUG:
-            logger.debug("No widget defined for {0}.".format(self.uid))
+            logger.debug("No widget defined for %s.", self.uid)
 
     def _update_plugin_data(self, entry):
         """Update plugin data (internal method).
@@ -1402,7 +1405,7 @@ class FormElementPlugin(BasePlugin):
                     form_element_entries=form_element_entries,
                     **kwargs
                 )
-            except AttributeError as e:
+            except AttributeError as err:
                 return []
 
         processed_field_instances = []
@@ -1568,8 +1571,8 @@ class FormElementPlugin(BasePlugin):
                     form_element_entries=form_element_entries,
                     **kwargs
                 )
-            except Exception as e:
-                logger.debug(str(e))
+            except Exception as err:
+                logger.debug(str(err))
 
     def submit_plugin_form_data(self, form_entry, request, form,
                                 form_element_entries=None, **kwargs):
@@ -1642,11 +1645,10 @@ class FormHandlerPlugin(BasePlugin):
                     return (True, None)
             except Exception as err:
                 logger.error(
-                    "Error in class {0}. Details: "
-                    "{1}. Full trace: {2}".format(
-                        self.__class__.__name__,
-                        str(err), traceback.format_exc()
-                    )
+                    "Error in class %s. Details: %s. Full trace: %s",
+                    self.__class__.__name__,
+                    str(err),
+                    traceback.format_exc()
                 )
                 return (False, err)
 
@@ -1736,13 +1738,16 @@ class FormWizardHandlerPlugin(BasePlugin):
                 return (True, None)
         except Exception as err:
             if FAIL_ON_ERRORS_IN_FORM_WIZARD_HANDLER_PLUGINS:
-                raise err.__class__("Exception: {0}. {1}"
-                                    "".format(str(err),
-                                              traceback.format_exc()))
+                raise err.__class__(
+                    "Exception: %s. %s",
+                    str(err),
+                    traceback.format_exc()
+                )
             logger.error(
-                "Error in class {0}. Details: "
-                "{1}. Full trace: {2}".format(self.__class__.__name__,
-                                              str(err), traceback.format_exc())
+                "Error in class %s. Details: %s. Full trace: %s",
+                self.__class__.__name__,
+                str(err),
+                traceback.format_exc()
             )
             return (False, err)
 
@@ -1761,8 +1766,8 @@ class FormWizardHandlerPlugin(BasePlugin):
         :return mixed: May be a tuple (bool, mixed) or None
         """
         raise NotImplementedError(
-            "You should implement ``run`` method in your {0} "
-            "subclass.".format(self.__class__.__name__)
+            "You should implement ``run`` method in your %s subclass.",
+            self.__class__.__name__
         )
 
     def custom_actions(self, form_wizard_entry, request=None):
