@@ -4,7 +4,7 @@ import sys
 from distutils.version import LooseVersion
 from setuptools import setup, find_packages
 
-version = '0.10.3'
+version = '0.10.4'
 
 # ***************************************************************************
 # ************************** Django version *********************************
@@ -310,10 +310,10 @@ setup(
                  "customisable, modular, user- and developer- friendly."),
     long_description="{0}{1}".format(readme, screenshots),
     classifiers=[
-        "Programming Language :: Python :: 2.6",
+        # "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.3",
+        # "Programming Language :: Python :: 3.3",
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Environment :: Web Environment",

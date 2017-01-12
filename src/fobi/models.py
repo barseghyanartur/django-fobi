@@ -123,7 +123,7 @@ class AbstractPluginModel(models.Model):
 
         Mainly used in admin.
         """
-        return self.__unicode__()
+        return self.__str__()
     plugin_uid_admin.allow_tags = True
     plugin_uid_admin.short_description = _('Plugin')
 
@@ -391,7 +391,10 @@ class FormEntry(models.Model):
 
         :return string:
         """
-        return reverse('fobi.view_form_entry', kwargs={'slug': self.slug})
+        return reverse(
+            'fobi.view_form_entry',
+            kwargs={'form_entry_slug': self.slug}
+        )
 
 
 @python_2_unicode_compatible
