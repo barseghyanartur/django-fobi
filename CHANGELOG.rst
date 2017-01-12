@@ -20,6 +20,9 @@ are used for versioning (schema follows below):
 2017-01-11
 
 - Minor fixes in Django admin.
+- Various pep8 fixes.
+- Fixes additions and improvements in/of docs.
+- Add options to test with PhantomJS instead of Firefox.
 
 0.10.3
 ------
