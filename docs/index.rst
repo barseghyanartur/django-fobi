@@ -13,7 +13,7 @@ Prerequisites
 Present
 -------
 - Django 1.8, 1.9, 1.10
-- Python >= 2.7, >= 3.4
+- Python >= 2.7, >= 3.4, PyPy
 
 Past
 ----
@@ -104,6 +104,8 @@ Roadmap
 Some of the upcoming/in-development features/improvements are:
 
 - Integration with `django-rest-framework` (in version 0.11).
+- Bootstrap 4 and Foundation 6 support (in version 0.12).
+- Wagtail integration (in version 0.13).
 
 See the `TODOS <https://raw.githubusercontent.com/barseghyanartur/django-fobi/master/TODOS.rst>`_
 for the full list of planned-, pending- in-development- or to-be-implemented
@@ -485,6 +487,7 @@ Form for for ``SampleTextareaPlugin`` form element plugin.
 
     class SampleTextareaForm(forms.Form, BasePluginForm):
         """Sample textarea form."""
+
         plugin_data_fields = [
             ("name", ""),
             ("label", ""),
@@ -492,10 +495,10 @@ Form for for ``SampleTextareaPlugin`` form element plugin.
             ("required", False)
         ]
 
-    name = forms.CharField(label="Name", required=True)
-    label = forms.CharField(label="Label", required=True)
-    initial = forms.CharField(label="Initial", required=False)
-    required = forms.BooleanField(label="Required", required=False)
+        name = forms.CharField(label="Name", required=True)
+        label = forms.CharField(label="Label", required=True)
+        initial = forms.CharField(label="Initial", required=False)
+        required = forms.BooleanField(label="Required", required=False)
 
 Note that although it's not being checked in the code, but for form 
 field plugins the following fields should be present in the plugin
@@ -557,8 +560,12 @@ Define the theme specific plugin.
         """Sample textarea plugin widget."""
 
         theme_uid = 'bootstrap3' # Theme for which the widget is loaded
-        media_js = ['sample_layout/js/fobi.plugins.form_elements.sample_textarea.js',]
-        media_css = ['sample_layout/css/fobi.plugins.form_elements.sample_textarea.css',]
+        media_js = [
+            'sample_layout/js/fobi.plugins.form_elements.sample_textarea.js',
+        ]
+        media_css = [
+            'sample_layout/css/fobi.plugins.form_elements.sample_textarea.css',
+        ]
 
 Register the widget.
 
@@ -624,8 +631,8 @@ the following structure.
 
     path/to/sample_mail/
     ├── __init__.py
-    ├── fobi_form_handlers.py # Where plugins are defined and registered
-    └── forms.py # Plugin configuration form
+    ├── fobi_form_handlers.py  # Where plugins are defined and registered
+    └── forms.py  # Plugin configuration form
 
 Form handler plugins should be registered in "fobi_form_handlers.py" file.
 Each plugin module should be put into the ``INSTALLED_APPS`` of your Django
@@ -955,7 +962,6 @@ Defining the form for Sample importer plugin.
                 choices = [(l['id'], l['name']) for l in lists['data']]
                 self.fields['list_id'].choices = choices
 
-
 path/to/sample_importer/views.py
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 The wizard views.
@@ -964,7 +970,7 @@ Required imports.
 
 .. code-block:: python
 
-    from sample_service_api import sample_api # Just an imaginary API client
+    from sample_service_api import sample_api  # Just an imaginary API client
 
     from django.shortcuts import redirect
     from django.core.urlresolvers import reverse
@@ -1036,7 +1042,6 @@ Defining the wizard view for Sample importer plugin.
             )
 
             return redirect("{0}".format(redirect_url))
-
 
 Form importer plugin final steps
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -2005,6 +2010,12 @@ To test with all supported Python/Django versions type:
 
     tox
 
+To test against specific environment, type:
+
+.. code-block:: sh
+
+    tox -e pypy-django18
+
 To test just your working environment type:
 
 .. code-block:: sh
@@ -2018,8 +2029,8 @@ install the test requirements:
 
     pip install -r examples/requirements/common_test_requirements.txt
 
-Selenium
---------
+Browser tests
+-------------
 For browser tests you may choose between Firefox and PhantomJS. PhantomJS is
 faster, Firefox tests tell you more. Both cases require some effort and both
 have disadvantages regarding the installation (although once you have them
@@ -2045,6 +2056,8 @@ Set up Firefox 47
 
        FIREFOX_BIN_PATH = '/usr/lib/firefox47/firefox'
 
+   If you set ``FIREFOX_BIN_PATH`` to None, system Firefox would be used.
+
 After that your Selenium tests would work.
 
 Setup PhantomJS
@@ -2068,6 +2081,9 @@ PhantomJS.
 
        PHANTOM_JS_EXECUTABLE_PATH = ""
 
+   If you want to use Firefox for testing, set
+   ``PHANTOM_JS_EXECUTABLE_PATH`` to None.
+
 Troubleshooting
 ===============
 If you get a ``FormElementPluginDoesNotExist`` or a
@@ -2080,7 +2096,7 @@ GPL 2.0/LGPL 2.1
 
 Support
 =======
-For any issues contact me at the e-mail given in the `Author` section.
+For any issues contact me at the e-mail given in the `Author`_ section.
 
 Author
 ======
