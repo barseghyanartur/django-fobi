@@ -11,7 +11,7 @@ See the `requirements file
 <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/mezzanine_example/requirements.txt>`_.
 
 your_project/settings.py
------------------------------------------------
+------------------------
 See the `example settings file
 <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/mezzanine_example/settings.py>`_.
 

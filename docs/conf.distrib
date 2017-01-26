@@ -312,6 +312,7 @@ if not settings.configured:
 
 # Add any Sphinx extension module names here, as strings. They can be extensions
 # coming with Sphinx (named 'sphinx.ext.*') or your custom ones.
+# extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode', 'rst2pdf.pdfbuilder']
 extensions = ['sphinx.ext.autodoc', 'sphinx.ext.viewcode']
 
 # Add any paths that contain templates here, relative to this directory.
@@ -571,3 +572,8 @@ epub_copyright = u'2014, Artur Barseghyan <artur.barseghyan@gmail.com>'
 
 # Allow duplicate toc entries.
 #epub_tocdup = True
+
+# -- Options for PDF output ---------------------------------------------------
+
+# pdf_documents = [('index', u'django-fobi Documentation', u'django-fobi',
+#                   u'Artur Barseghyan <artur.barseghyan@gmail.com>')]

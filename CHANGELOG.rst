@@ -15,6 +15,27 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.10.4
+------
+2017-01-11
+
+- Minor fixes in Django admin.
+- Various pep8 fixes.
+- Fixes additions and improvements in/of docs.
+- Add options to test with PhantomJS instead of Firefox.
+
+0.10.3
+------
+2016-11-24
+
+- Minor fixes.
+
+0.10.2
+------
+2016-11-24
+
+- Minor fixes.
+
 0.10.1
 ------
 2016-11-17

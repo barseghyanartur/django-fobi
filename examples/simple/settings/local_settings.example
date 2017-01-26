@@ -63,6 +63,7 @@ RECAPTCHA_PUBLIC_KEY = 'your-recaptcha-public-key'
 RECAPTCHA_PRIVATE_KEY = 'your-recaptcha-private-key'
 
 FIREFOX_BIN_PATH = '/usr/lib/firefox47/firefox'
+PHANTOM_JS_EXECUTABLE_PATH = ''
 
 os.environ.setdefault(
     'FOBI_SOURCE_PATH',

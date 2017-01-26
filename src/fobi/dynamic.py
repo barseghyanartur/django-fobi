@@ -1,7 +1,7 @@
 from six import with_metaclass
 
 from django.core.urlresolvers import reverse
-from django.forms.forms import BaseForm  # , get_declared_fields
+from django.forms.forms import BaseForm
 from django.forms.widgets import media_property
 from django.http import HttpResponseRedirect
 

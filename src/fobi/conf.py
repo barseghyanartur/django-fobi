@@ -1,6 +1,6 @@
 from django.conf import settings
 
-from fobi import defaults
+from . import defaults
 
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
@@ -20,9 +20,11 @@ def get_setting(setting, override=None):
         None.
     :return: Setting value.
     """
-    if override is not None:
-        return override
-    if hasattr(settings, 'FOBI_{0}'.format(setting)):
-        return getattr(settings, 'FOBI_{0}'.format(setting))
+    attr_name = 'FOBI_{0}'.format(setting)
+    if hasattr(settings, attr_name):
+        return getattr(settings, attr_name)
     else:
-        return getattr(defaults, setting)
+        if hasattr(defaults, setting):
+            return getattr(defaults, setting)
+        else:
+            return override

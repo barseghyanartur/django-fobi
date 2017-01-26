@@ -100,10 +100,15 @@ if 'cms' in settings.INSTALLED_APPS:
 
 # Conditionally including Captcha URls in case if
 # Captcha in installed apps.
-try:
-    from captcha.fields import ReCaptchaField
-except ImportError as e:
-    if 'captcha' in settings.INSTALLED_APPS:
-        urlpatterns += [
-            url(r'^captcha/', include('captcha.urls')),
-        ]
+if getattr(settings, 'ENABLE_CAPTCHA', False):
+    try:
+        from captcha.fields import ReCaptchaField
+    except ImportError:
+        try:
+            from captcha.fields import CaptchaField
+            if 'captcha' in settings.INSTALLED_APPS:
+                urlpatterns += [
+                    url(r'^captcha/', include('captcha.urls')),
+                ]
+        except ImportError:
+            pass

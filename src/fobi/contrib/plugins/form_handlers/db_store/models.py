@@ -38,7 +38,7 @@ class AbstractSavedFormDataEntry(models.Model):
     saved_data = models.TextField(_("Plugin data"), null=True, blank=True)
     created = models.DateTimeField(_("Date created"), auto_now_add=True)
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         abstract = True
@@ -75,7 +75,7 @@ class SavedFormDataEntry(AbstractSavedFormDataEntry):
     form_entry = models.ForeignKey('fobi.FormEntry', verbose_name=_("Form"),
                                    null=True, blank=True)
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         abstract = False
@@ -95,8 +95,9 @@ class SavedFormWizardDataEntry(AbstractSavedFormDataEntry):
         'fobi.FormWizardEntry', verbose_name=_("Form"), null=True, blank=True
     )
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
+
         abstract = False
         verbose_name = _("Saved form wizard data entry")
         verbose_name_plural = _("Saved form wizard data entries")

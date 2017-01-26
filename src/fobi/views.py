@@ -4,9 +4,9 @@ Views.
 import datetime
 import logging
 
-import simplejson as json
-
 from collections import OrderedDict
+
+import simplejson as json
 
 from six import string_types
 
@@ -44,7 +44,7 @@ from .constants import (
     CALLBACK_FORM_INVALID
 )
 from .decorators import permissions_required, SATISFY_ALL, SATISFY_ANY
-from .dynamic import assemble_form_class, assemble_form_wizard_class
+from .dynamic import assemble_form_class
 from .form_importers import (
     ensure_autodiscover as ensure_importers_autodiscover,
     form_importer_plugin_registry, get_form_impoter_plugin_urls
@@ -55,16 +55,15 @@ from .forms import (
     ImportFormEntryForm,
     ImportFormWizardEntryForm,
     FormWizardEntryForm,
-    FormWizardFormEntry,
+    # FormWizardFormEntry,
     FormWizardFormEntryFormSet,
-    FormWizardFormEntryForm
+    # FormWizardFormEntryForm
 )
 from .helpers import JSONDataExporter
 from .models import (
     FormEntry,
     FormElementEntry,
     FormHandlerEntry,
-    FormWizardHandlerEntry,
     FormWizardEntry,
     FormWizardFormEntry,
     FormWizardHandlerEntry
@@ -139,7 +138,7 @@ logger = logging.getLogger(__name__)
 
 def _delete_plugin_entry(request,
                          entry_id,
-                         EntryModel,
+                         entry_model_cls,
                          get_user_plugin_uids_func,
                          message,
                          html_anchor):
@@ -147,19 +146,23 @@ def _delete_plugin_entry(request,
 
     :param django.http.HttpRequest request:
     :param int entry_id:
-    :param fobi.models.AbstractPluginEntry EntryModel: Subclass of
+    :param fobi.models.AbstractPluginEntry entry_model_cls: Subclass of
         ``fobi.models.AbstractPluginEntry``.
     :param callable get_user_plugin_uids_func:
     :param str message:
     :return django.http.HttpResponse:
     """
     try:
-        obj = EntryModel._default_manager \
-                        .select_related('form_entry') \
-                        .get(pk=entry_id, form_entry__user__pk=request.user.pk)
+        obj = entry_model_cls._default_manager \
+                             .select_related('form_entry') \
+                             .get(pk=entry_id,
+                                  form_entry__user__pk=request.user.pk)
     except ObjectDoesNotExist as err:
-        raise Http404(_("{0} not found."
-                        "").format(EntryModel._meta.verbose_name))
+        raise Http404(
+            ugettext("{0} not found.").format(
+                entry_model_cls._meta.verbose_name
+            )
+        )
 
     form_entry = obj.form_entry
     plugin = obj.get_plugin(request=request)
@@ -179,7 +182,7 @@ def _delete_plugin_entry(request,
 
 def _delete_wizard_plugin_entry(request,
                                 entry_id,
-                                EntryModel,
+                                entry_model_cls,
                                 get_user_plugin_uids_func,
                                 message,
                                 html_anchor):
@@ -187,19 +190,22 @@ def _delete_wizard_plugin_entry(request,
 
     :param django.http.HttpRequest request:
     :param int entry_id:
-    :param fobi.models.AbstractPluginEntry EntryModel: Subclass of
+    :param fobi.models.AbstractPluginEntry entry_model_cls: Subclass of
         ``fobi.models.AbstractPluginEntry``.
     :param str message:
     :return django.http.HttpResponse:
     """
     try:
-        obj = EntryModel._default_manager \
-                        .select_related('form_wizard_entry') \
-                        .get(pk=entry_id,
-                             form_wizard_entry__user__pk=request.user.pk)
+        obj = entry_model_cls._default_manager \
+                             .select_related('form_wizard_entry') \
+                             .get(pk=entry_id,
+                                  form_wizard_entry__user__pk=request.user.pk)
     except ObjectDoesNotExist as err:
-        raise Http404(_("{0} not found."
-                        "").format(EntryModel._meta.verbose_name))
+        raise Http404(
+            ugettext("{0} not found.").format(
+                entry_model_cls._meta.verbose_name
+            )
+        )
 
     form_wizard_entry_id = obj.form_wizard_entry_id
 
@@ -355,8 +361,9 @@ def create_form_entry(request, theme=None, template_name=None):
                 form_entry.save()
                 messages.info(
                     request,
-                    _('Form {0} was created '
-                      'successfully.').format(form_entry.name)
+                    ugettext('Form {0} was created successfully.').format(
+                        form_entry.name
+                    )
                 )
                 return redirect(
                     'fobi.edit_form_entry', form_entry_id=form_entry.pk
@@ -364,8 +371,8 @@ def create_form_entry(request, theme=None, template_name=None):
             except IntegrityError as err:
                 messages.info(
                     request,
-                    _('Errors occurred while saving '
-                      'the form: {0}.').format(str(err))
+                    ugettext('Errors occurred while saving '
+                             'the form: {0}.').format(str(err))
                 )
 
     else:
@@ -474,8 +481,9 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
                 obj.save()
                 messages.info(
                     request,
-                    _('Form {0} was edited '
-                      'successfully.').format(form_entry.name)
+                    ugettext('Form {0} was edited successfully.').format(
+                        form_entry.name
+                    )
                 )
                 return redirect(
                     reverse('fobi.edit_form_entry',
@@ -484,8 +492,8 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
             except IntegrityError as err:
                 messages.info(
                     request,
-                    _('Errors occurred while saving '
-                      'the form: {0}.').format(str(err))
+                    ugettext('Errors occurred while saving '
+                             'the form: {0}.').format(str(err))
                 )
     else:
         # The form entry form (does not contain form elements)
@@ -522,14 +530,14 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
     )
 
     # Assembling the form for preview
-    FormClass = assemble_form_class(
+    form_cls = assemble_form_class(
         form_entry,
         origin='edit_form_entry',
         origin_kwargs_update_func=append_edit_and_delete_links_to_field,
         request=request
     )
 
-    assembled_form = FormClass()
+    assembled_form = form_cls()
 
     # In debug mode, try to identify possible problems.
     if DEBUG:
@@ -600,7 +608,7 @@ def delete_form_entry(request, form_entry_id, template_name=None):
 
     messages.info(
         request,
-        _('The form "{0}" was deleted successfully.').format(obj.name)
+        ugettext('The form "{0}" was deleted successfully.').format(obj.name)
     )
 
     return redirect('fobi.dashboard')
@@ -643,13 +651,13 @@ def add_form_element_entry(request,
         raise Http404(ugettext("Plugin does not exist or you are not allowed "
                                "to use this plugin!"))
 
-    FormElementPlugin = form_element_plugin_registry.get(
+    form_element_plugin_cls = form_element_plugin_registry.get(
         form_element_plugin_uid
     )
-    form_element_plugin = FormElementPlugin(user=request.user)
+    form_element_plugin = form_element_plugin_cls(user=request.user)
     form_element_plugin.request = request
 
-    FormElementPluginForm = form_element_plugin.get_form()
+    form_element_plugin_form_cls = form_element_plugin.get_form()
     form = None
 
     obj = FormElementEntry()
@@ -660,7 +668,7 @@ def add_form_element_entry(request,
     save_object = False
 
     # If plugin doesn't have a form
-    if not FormElementPluginForm:
+    if not form_element_plugin_form_cls:
         save_object = True
 
     # If POST
@@ -703,8 +711,8 @@ def add_form_element_entry(request,
 
         messages.info(
             request,
-            _('The form element plugin "{0}" was added '
-              'successfully.').format(form_element_plugin.name)
+            ugettext('The form element plugin "{0}" was added '
+                     'successfully.').format(form_element_plugin.name)
         )
         return redirect(
             "{0}?active_tab=tab-form-elements".format(
@@ -774,8 +782,8 @@ def edit_form_element_entry(request,
     if not FormElementPluginForm:
         messages.info(
             request,
-            _('The form element plugin "{0}" '
-              'is not configurable!').format(form_element_plugin.name)
+            ugettext('The form element plugin "{0}" '
+                     'is not configurable!').format(form_element_plugin.name)
         )
         return redirect('fobi.edit_form_entry', form_entry_id=form_entry.pk)
 
@@ -805,8 +813,8 @@ def edit_form_element_entry(request,
 
             messages.info(
                 request,
-                _('The form element plugin "{0}" was edited '
-                  'successfully.').format(form_element_plugin.name)
+                ugettext('The form element plugin "{0}" was edited '
+                         'successfully.').format(form_element_plugin.name)
             )
 
             return redirect('fobi.edit_form_entry',
@@ -858,9 +866,11 @@ def delete_form_element_entry(request, form_element_entry_id):
     return _delete_plugin_entry(
         request=request,
         entry_id=form_element_entry_id,
-        EntryModel=FormElementEntry,
+        entry_model_cls=FormElementEntry,
         get_user_plugin_uids_func=get_user_form_field_plugin_uids,
-        message=_('The form element plugin "{0}" was deleted successfully.'),
+        message=ugettext(
+            'The form element plugin "{0}" was deleted successfully.'
+        ),
         html_anchor='?active_tab=tab-form-elements'
     )
 
@@ -898,26 +908,28 @@ def add_form_handler_entry(request,
         raise Http404(ugettext("Plugin does not exist or you are not allowed "
                                "to use this plugin!"))
 
-    FormHandlerPlugin = form_handler_plugin_registry.get(
+    form_handler_plugin_cls = form_handler_plugin_registry.get(
         form_handler_plugin_uid
     )
 
     # Check if we deal with form handler plugin that is only allowed to be
     # used once. In that case, check if it has been used already in the current
     # form entry.
-    if not FormHandlerPlugin.allow_multiple:
+    if not form_handler_plugin_cls.allow_multiple:
         times_used = FormHandlerEntry._default_manager \
             .filter(form_entry__id=form_entry_id,
-                    plugin_uid=FormHandlerPlugin.uid) \
+                    plugin_uid=form_handler_plugin_cls.uid) \
             .count()
         if times_used > 0:
-            raise Http404(ugettext("The {0} plugin can be used only once in a "
-                                   "form.").format(FormHandlerPlugin.name))
+            raise Http404(
+                ugettext("The {0} plugin can be used only once in a "
+                         "form.").format(form_handler_plugin_cls.name)
+            )
 
-    form_handler_plugin = FormHandlerPlugin(user=request.user)
+    form_handler_plugin = form_handler_plugin_cls(user=request.user)
     form_handler_plugin.request = request
 
-    FormHandlerPluginForm = form_handler_plugin.get_form()
+    form_handler_plugin_form_cls = form_handler_plugin.get_form()
     form = None
 
     obj = FormHandlerEntry()
@@ -927,7 +939,7 @@ def add_form_handler_entry(request,
 
     save_object = False
 
-    if not FormHandlerPluginForm:
+    if not form_handler_plugin_form_cls:
         save_object = True
 
     elif 'POST' == request.method:
@@ -953,8 +965,8 @@ def add_form_handler_entry(request,
 
         messages.info(
             request,
-            _('The form handler plugin "{0}" was added '
-              'successfully.').format(form_handler_plugin.name)
+            ugettext('The form handler plugin "{0}" was added '
+                     'successfully.').format(form_handler_plugin.name)
         )
         return redirect(
             "{0}?active_tab=tab-form-handlers".format(
@@ -1025,8 +1037,8 @@ def edit_form_handler_entry(request,
     if not FormHandlerPluginForm:
         messages.info(
             request,
-            _('The form handler plugin "{0}" is not '
-              'configurable!').format(form_handler_plugin.name)
+            ugettext('The form handler plugin "{0}" is not '
+                     'configurable!').format(form_handler_plugin.name)
         )
         return redirect('fobi.edit_form_entry', form_entry_id=form_entry.pk)
 
@@ -1048,8 +1060,8 @@ def edit_form_handler_entry(request,
 
             messages.info(
                 request,
-                _('The form handler plugin "{0}" was edited '
-                  'successfully.').format(form_handler_plugin.name)
+                ugettext('The form handler plugin "{0}" was edited '
+                         'successfully.').format(form_handler_plugin.name)
             )
 
             return redirect('fobi.edit_form_entry',
@@ -1098,9 +1110,11 @@ def delete_form_handler_entry(request, form_handler_entry_id):
     return _delete_plugin_entry(
         request=request,
         entry_id=form_handler_entry_id,
-        EntryModel=FormHandlerEntry,
+        entry_model_cls=FormHandlerEntry,
         get_user_plugin_uids_func=get_user_form_handler_plugin_uids,
-        message=_('The form handler plugin "{0}" was deleted successfully.'),
+        message=ugettext(
+            'The form handler plugin "{0}" was deleted successfully.'
+        ),
         html_anchor='?active_tab=tab-form-handlers'
     )
 
@@ -1143,8 +1157,8 @@ def create_form_wizard_entry(request, theme=None, template_name=None):
                 form_wizard_entry.save()
                 messages.info(
                     request,
-                    _('Form wizard {0} was created '
-                      'successfully.').format(form_wizard_entry.name)
+                    ugettext('Form wizard {0} was created '
+                             'successfully.').format(form_wizard_entry.name)
                 )
                 return redirect(
                     'fobi.edit_form_wizard_entry',
@@ -1153,8 +1167,8 @@ def create_form_wizard_entry(request, theme=None, template_name=None):
             except IntegrityError as err:
                 messages.info(
                     request,
-                    _('Errors occurred while saving '
-                      'the form wizard: {0}.').format(str(err))
+                    ugettext('Errors occurred while saving '
+                             'the form wizard: {0}.').format(str(err))
                 )
 
     else:
@@ -1239,7 +1253,7 @@ def edit_form_wizard_entry(request, form_wizard_entry_id, theme=None,
                     form_wizard_form_entry_formset.save()
                     messages.info(
                         request,
-                        _("Forms ordering edited successfully.")
+                        ugettext("Forms ordering edited successfully.")
                     )
                     return redirect(
                         reverse(
@@ -1252,8 +1266,8 @@ def edit_form_wizard_entry(request, form_wizard_entry_id, theme=None,
             except MultiValueDictKeyError as err:
                 messages.error(
                     request,
-                    _("Errors occurred while trying to change the "
-                      "forms ordering!")
+                    ugettext("Errors occurred while trying to change the "
+                             "forms ordering!")
                 )
                 return redirect(
                     reverse(
@@ -1274,8 +1288,8 @@ def edit_form_wizard_entry(request, form_wizard_entry_id, theme=None,
                 obj.save()
                 messages.info(
                     request,
-                    _('Form wizard {0} was edited '
-                      'successfully.').format(form_wizard_entry.name)
+                    ugettext('Form wizard {0} was edited '
+                             'successfully.').format(form_wizard_entry.name)
                 )
                 return redirect(
                     reverse(
@@ -1286,8 +1300,8 @@ def edit_form_wizard_entry(request, form_wizard_entry_id, theme=None,
             except IntegrityError as err:
                 messages.info(
                     request,
-                    _('Errors occurred while saving '
-                      'the form wizard: {0}.').format(str(err))
+                    ugettext('Errors occurred while saving '
+                             'the form wizard: {0}.').format(str(err))
                 )
     else:
         # The form  wizard entry form (does not contain form elements)
@@ -1385,7 +1399,9 @@ def delete_form_wizard_entry(request, form_wizard_entry_id,
 
     messages.info(
         request,
-        _('The form wizard "{0}" was deleted successfully.').format(obj.name)
+        ugettext('The form wizard "{0}" was deleted successfully.').format(
+            obj.name
+        )
     )
 
     return redirect('fobi.form_wizards_dashboard')
@@ -1612,7 +1628,8 @@ class FormWizardView(DynamicSessionWizardView):
             )
 
             for ignorable_field_name in ignorable_field_names:
-                form_obj.fields.pop(ignorable_field_name)
+                if ignorable_field_name in form_obj.fields:
+                    form_obj.fields.pop(ignorable_field_name)
 
             if not form_obj.is_valid():
                 return self.render_revalidation_failure(form_key,
@@ -1759,12 +1776,10 @@ def add_form_wizard_form_entry(request,
     except IntegrityError as err:
         messages.error(
             request,
-            _('The form entry "{0}" could not be added to the wizard "{1}" '
-              'due to the following error "{2}".').format(
-                form_entry.name,
-                form_wizard_entry.name,
-                str(err)
-            )
+            ugettext(
+                'The form entry "{0}" could not be added to the '
+                'wizard "{1}" due to the following error "{2}".'
+            ).format(form_entry.name, form_wizard_entry.name, str(err))
         )
         return redirect(
             "{0}?active_tab=tab-form-elements".format(
@@ -1797,11 +1812,9 @@ def add_form_wizard_form_entry(request,
 
     messages.info(
         request,
-        _('The form entry "{0}" was added '
-          'successfully to the wizard "{1}".').format(
-            form_entry.name,
-            form_wizard_entry.name
-        )
+        ugettext(
+            'The form entry "{0}" was added successfully to the wizard "{1}".'
+        ).format(form_entry.name, form_wizard_entry.name)
     )
     return redirect(
         "{0}?active_tab=tab-form-elements".format(
@@ -1835,17 +1848,20 @@ def delete_form_wizard_form_entry(request, form_wizard_form_entry_id):
                 .get(pk=form_wizard_form_entry_id,
                      form_wizard_entry__user__pk=request.user.pk)
     except ObjectDoesNotExist as err:
-        raise Http404(_("{0} not found."
-                        "").format(FormWizardFormEntry._meta.verbose_name))
+        raise Http404(
+            ugettext("{0} not found.").format(
+                FormWizardFormEntry._meta.verbose_name
+            )
+        )
 
     form_wizard_entry_id = obj.form_wizard_entry_id
     obj.delete()
 
     messages.info(
         request,
-        'The form wizard form entry "{0}" was deleted successfully.'.format(
-            obj.form_wizard_entry.name
-        )
+        ugettext(
+            'The form wizard form entry "{0}" was deleted successfully.'
+        ).format(obj.form_wizard_entry.name)
     )
 
     redirect_url = reverse(
@@ -1900,28 +1916,30 @@ def add_form_wizard_handler_entry(request,
         raise Http404(ugettext("Plugin does not exist or you are not allowed "
                                "to use this plugin!"))
 
-    FormWizardHandlerPlugin = form_wizard_handler_plugin_registry.get(
+    form_wizard_handler_plugin_cls = form_wizard_handler_plugin_registry.get(
         form_wizard_handler_plugin_uid
     )
 
     # Check if we deal with form handler plugin that is only allowed to be
     # used once. In that case, check if it has been used already in the current
     # form entry.
-    if not FormWizardHandlerPlugin.allow_multiple:
+    if not form_wizard_handler_plugin_cls.allow_multiple:
         times_used = FormWizardHandlerEntry._default_manager \
             .filter(form_wizard_entry__id=form_wizard_entry_id,
-                    plugin_uid=FormWizardHandlerPlugin.uid) \
+                    plugin_uid=form_wizard_handler_plugin_cls.uid) \
             .count()
         if times_used > 0:
             raise Http404(
                 ugettext("The {0} plugin can be used only once in a "
-                         "form.").format(FormWizardHandlerPlugin.name)
+                         "form.").format(form_wizard_handler_plugin_cls.name)
             )
 
-    form_wizard_handler_plugin = FormWizardHandlerPlugin(user=request.user)
+    form_wizard_handler_plugin = form_wizard_handler_plugin_cls(
+        user=request.user
+    )
     form_wizard_handler_plugin.request = request
 
-    FormWizardHandlerPluginForm = form_wizard_handler_plugin.get_form()
+    form_wizard_handler_plugin_form_cls = form_wizard_handler_plugin.get_form()
     form = None
 
     obj = FormWizardHandlerEntry()
@@ -1931,7 +1949,7 @@ def add_form_wizard_handler_entry(request,
 
     save_object = False
 
-    if not FormWizardHandlerPluginForm:
+    if not form_wizard_handler_plugin_form_cls:
         save_object = True
 
     elif 'POST' == request.method:
@@ -1957,8 +1975,10 @@ def add_form_wizard_handler_entry(request,
 
         messages.info(
             request,
-            _('The form wizard handler plugin "{0}" was added '
-              'successfully.').format(form_wizard_handler_plugin.name)
+            ugettext(
+                'The form wizard handler plugin "{0}" was added '
+                'successfully.'
+            ).format(form_wizard_handler_plugin.name)
         )
         return redirect(
             "{0}?active_tab=tab-form-handlers".format(
@@ -2006,7 +2026,7 @@ def edit_form_wizard_handler_entry(request,
     """Edit form handler entry.
 
     :param django.http.HttpRequest request:
-    :param int form_handler_entry_id:
+    :param int form_wizard_handler_entry_id:
     :param fobi.base.BaseTheme theme: Theme instance.
     :param string template_name:
     :return django.http.HttpResponse:
@@ -2023,14 +2043,16 @@ def edit_form_wizard_handler_entry(request,
     form_wizard_handler_plugin = obj.get_plugin(request=request)
     form_wizard_handler_plugin.request = request
 
-    FormWizardHandlerPluginForm = form_wizard_handler_plugin.get_form()
+    form_wizard_handler_plugin_form_cls = form_wizard_handler_plugin.get_form()
     form = None
 
-    if not FormWizardHandlerPluginForm:
+    if not form_wizard_handler_plugin_form_cls:
         messages.info(
             request,
-            _('The form wizard handler plugin "{0}" is not '
-              'configurable!').format(form_wizard_handler_plugin.name)
+            ugettext(
+                'The form wizard handler plugin "{0}" is not '
+                'configurable!'
+            ).format(form_wizard_handler_plugin.name)
         )
         return redirect(
             'fobi.edit_form_wizard_entry',
@@ -2055,8 +2077,10 @@ def edit_form_wizard_handler_entry(request,
 
             messages.info(
                 request,
-                _('The form wizard handler plugin "{0}" was edited '
-                  'successfully.').format(form_wizard_handler_plugin.name)
+                ugettext(
+                    'The form wizard handler plugin "{0}" was edited '
+                    'successfully.'
+                ).format(form_wizard_handler_plugin.name)
             )
 
             return redirect('fobi.edit_form_wizard_entry',
@@ -2105,10 +2129,11 @@ def delete_form_wizard_handler_entry(request, form_wizard_handler_entry_id):
     return _delete_wizard_plugin_entry(
         request=request,
         entry_id=form_wizard_handler_entry_id,
-        EntryModel=FormWizardHandlerEntry,
+        entry_model_cls=FormWizardHandlerEntry,
         get_user_plugin_uids_func=get_user_form_wizard_handler_plugin_uids,
-        message=_(
-            'The form wizard handler plugin "{0}" was deleted successfully.'),
+        message=ugettext(
+            'The form wizard handler plugin "{0}" was deleted successfully.'
+        ),
         html_anchor='?active_tab=tab-form-handlers'
     )
 
@@ -2145,14 +2170,14 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
 
     # This is where the most of the magic happens. Our form is being built
     # dynamically.
-    FormClass = assemble_form_class(
+    form_cls = assemble_form_class(
         form_entry,
         form_element_entries=form_element_entries,
         request=request
     )
 
     if 'POST' == request.method:
-        form = FormClass(request.POST, request.FILES)
+        form = form_cls(request.POST, request.FILES)
 
         # Fire pre form validation callbacks
         fire_form_callbacks(form_entry=form_entry, request=request, form=form,
@@ -2193,8 +2218,7 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
                 for handler_error in handler_errors:
                     messages.warning(
                         request,
-                        _("Error occurred: {0}."
-                          "").format(handler_error)
+                        ugettext("Error occurred: {0}.").format(handler_error)
                     )
 
             # Fire post handler callbacks
@@ -2207,8 +2231,9 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
 
             messages.info(
                 request,
-                _("Form {0} was submitted successfully."
-                  "").format(form_entry.name)
+                ugettext("Form {0} was submitted successfully.").format(
+                    form_entry.name
+                )
             )
             return redirect(
                 reverse('fobi.form_entry_submitted', args=[form_entry.slug])
@@ -2225,7 +2250,7 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
         kwargs = {}
         if GET_PARAM_INITIAL_DATA in request.GET:
             kwargs = {'initial': request.GET}
-        form = FormClass(**kwargs)
+        form = form_cls(**kwargs)
 
     # In debug mode, try to identify possible problems.
     if DEBUG:
@@ -2660,7 +2685,9 @@ def import_form_wizard_entry(request, template_name=None):
                     if form_wizard_handler_data.get('plugin_uid', None):
                         messages.warning(
                             request,
-                            _('Plugin {0} is missing in the system.').format(
+                            ugettext(
+                                'Plugin {0} is missing in the system.'
+                            ).format(
                                 form_wizard_handler_data.get('plugin_uid')
                             )
                         )
@@ -2736,7 +2763,9 @@ def form_importer(request,
     form_importer_cls = form_importer_plugin_registry._registry.get(
         form_importer_plugin_uid
     )
-    form_importer = form_importer_cls(form_entry_cls=FormEntry,
-                                      form_element_entry_cls=FormElementEntry)
+    _form_importer = form_importer_cls(
+        form_entry_cls=FormEntry,
+        form_element_entry_cls=FormElementEntry
+    )
 
-    return form_importer.get_wizard(request, *args, **kwargs)
+    return _form_importer.get_wizard(request, *args, **kwargs)

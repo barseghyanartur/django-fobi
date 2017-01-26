@@ -11,7 +11,7 @@ versions as well.
 Installation
 ============
 Versions
------------------------------------------------
+--------
 See the requirements files:
 
 - `DjangoCMS 2.4.3 requirements

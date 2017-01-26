@@ -38,6 +38,12 @@ from fobi.constants import (
 )
 from fobi.exceptions import ImproperlyConfigured
 
+if DJANGO_GTE_1_7:
+    import django.apps
+
+else:
+    from django.db import models
+
 __title__ = 'fobi.helpers'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2016 Artur Barseghyan'
@@ -87,9 +93,9 @@ logger = logging.getLogger(__name__)
 # *****************************************************************************
 
 
-def do_slugify(s):
+def do_slugify(val):
     """Slugify."""
-    return slugify(s.lower()).lower()
+    return slugify(val.lower()).lower()
 
 
 def safe_text(text):
@@ -143,11 +149,11 @@ def clean_dict(source, keys=[], values=[]):
     :param iterable values:
     :return dict:
     """
-    d = {}
+    dict_data = {}
     for key, value in source.items():
         if (key not in keys) and (value not in values):
-            d[key] = value
-    return d
+            dict_data[key] = value
+    return dict_data
 
 
 def combine_dicts(headers, data):
@@ -322,19 +328,34 @@ def get_registered_models(ignore=[]):
         be in ``app_label.model`` format (example ``auth.User``).
     :return list:
     """
-    registered_models = []
-    try:
-        content_types = ContentType._default_manager.all()
+    if DJANGO_GTE_1_7:
+        get_models = django.apps.apps.get_models
+    else:
+        def get_models():
+            """Get models."""
+            return models.get_models(include_auto_created=True)
 
-        for content_type in content_types:
-            # model = content_type.model_class()
-            content_type_id = "{0}.{1}".format(
-                content_type.app_label, content_type.model
-            )
-            if content_type_id not in ignore:
-                registered_models.append((content_type_id, content_type.name))
-    except DatabaseError as e:
-        logger.debug(str(e))
+    registered_models = [("{0}.{1}".format(_m._meta.app_label,
+                                           _m._meta.model_name),
+                          _m._meta.object_name)
+                         for _m
+                         in get_models()]
+
+    # registered_models = []
+    # try:
+    #     content_types = ContentType._default_manager.all()
+    #
+    #     for content_type in content_types:
+    #         # model = content_type.model_class()
+    #         content_type_id = "{0}.{1}".format(
+    #             content_type.app_label, content_type.model
+    #         )
+    #         if content_type_id not in ignore:
+    #             registered_models.append(
+    #                 (content_type_id, content_type.name)
+    #             )
+    # except DatabaseError as err:
+    #     logger.debug(str(err))
 
     return registered_models
 

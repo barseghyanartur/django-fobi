@@ -1,8 +1,8 @@
 import datetime
 
-from fobi.base import get_theme
-from fobi.form_importers import get_form_impoter_plugin_urls
-from fobi.helpers import StrippedRequest
+from .base import get_theme
+from .form_importers import get_form_impoter_plugin_urls
+from .helpers import StrippedRequest
 
 __title__ = 'fobi.context_processors'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'

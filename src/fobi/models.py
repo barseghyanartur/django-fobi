@@ -85,7 +85,7 @@ class AbstractPluginModel(models.Model):
                                    blank=True)
     groups = models.ManyToManyField(Group, verbose_name=_("Group"), blank=True)
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
         abstract = True
 
@@ -99,7 +99,7 @@ class AbstractPluginModel(models.Model):
 
     def get_registered_plugins(self):
         """Get registered plugins."""
-        raise NotImplemented(
+        raise NotImplementedError(
             "You should implement ``get_registered_plugins`` method!"
         )
 
@@ -123,7 +123,7 @@ class AbstractPluginModel(models.Model):
 
         Mainly used in admin.
         """
-        return self.__unicode__()
+        return self.__str__()
     plugin_uid_admin.allow_tags = True
     plugin_uid_admin.short_description = _('Plugin')
 
@@ -172,7 +172,7 @@ class FormElement(AbstractPluginModel):
     )
     # objects = FormFieldPluginModelManager()
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
         abstract = False
         verbose_name = _("Form element plugin")
@@ -202,7 +202,7 @@ class FormHandler(AbstractPluginModel):
     )
     # objects = FormHandlerPluginModelManager()
 
-    class Meta:
+    class Meta(object):
         """Class meta."""
         abstract = False
         verbose_name = _("Form handler plugin")
@@ -233,7 +233,7 @@ class FormWizardHandler(AbstractPluginModel):
 
     # objects = FormHandlerPluginModelManager()
 
-    class Meta:
+    class Meta(object):
         """Class meta."""
         abstract = False
         verbose_name = _("Form wizard handler plugin")
@@ -298,7 +298,7 @@ class FormWizardEntry(models.Model):
     updated = models.DateTimeField(_("Updated"), null=True, blank=True,
                                    auto_now=True)
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         verbose_name = _("Form wizard entry")
@@ -374,7 +374,7 @@ class FormEntry(models.Model):
     updated = models.DateTimeField(_("Updated"), null=True, blank=True,
                                    auto_now=True)
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         verbose_name = _("Form entry")
@@ -391,7 +391,10 @@ class FormEntry(models.Model):
 
         :return string:
         """
-        return reverse('fobi.view_form_entry', kwargs={'slug': self.slug})
+        return reverse(
+            'fobi.view_form_entry',
+            kwargs={'form_entry_slug': self.slug}
+        )
 
 
 @python_2_unicode_compatible
@@ -409,7 +412,7 @@ class FormWizardFormEntry(models.Model):
     position = models.PositiveIntegerField(_("Position"), null=True,
                                            blank=True)
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         abstract = False
@@ -434,7 +437,7 @@ class FormFieldsetEntry(models.Model):
         help_text=_("Makes your form fieldset repeatable.")
     )
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         verbose_name = _("Form fieldset entry")
@@ -457,7 +460,7 @@ class BaseAbstractPluginEntry(models.Model):
     plugin_data = models.TextField(verbose_name=_("Plugin data"), null=True,
                                    blank=True)
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         abstract = True
@@ -471,17 +474,21 @@ class BaseAbstractPluginEntry(models.Model):
     def entry_user(self):
         """Get user from the parent container."""
 
-        raise NotImplemented("You should implement ``entry_user``"
-                             " property!")
+        raise NotImplementedError(
+            "You should implement ``entry_user`` property!"
+        )
 
     def get_registered_plugins(self):
         """Get registered plugins."""
-        raise NotImplemented("You should implement ``get_registered_plugins``"
-                             " method!")
+        raise NotImplementedError(
+            "You should implement ``get_registered_plugins`` method!"
+        )
 
     def get_registry(self):
         """Get registry."""
-        raise NotImplemented("You should implement ``get_registry`` method!")
+        raise NotImplementedError(
+            "You should implement ``get_registry`` method!"
+        )
 
     def plugin_uid_code(self):
         """Plugin uid code.
@@ -545,7 +552,7 @@ class AbstractPluginEntry(BaseAbstractPluginEntry):
 
     form_entry = models.ForeignKey(FormEntry, verbose_name=_("Form"))
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         abstract = True
@@ -587,7 +594,7 @@ class FormElementEntry(AbstractPluginEntry):
     position = models.PositiveIntegerField(_("Position"), null=True,
                                            blank=True)
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         abstract = False
@@ -620,7 +627,7 @@ class FormHandlerEntry(AbstractPluginEntry):
         # choices=get_registered_form_handler_plugins()
     )
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         abstract = False
@@ -650,7 +657,7 @@ class AbstractFormWizardPluginEntry(BaseAbstractPluginEntry):
     form_wizard_entry = models.ForeignKey(FormWizardEntry,
                                           verbose_name=_("Form wizard"))
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         abstract = True
@@ -677,7 +684,7 @@ class FormWizardHandlerEntry(AbstractFormWizardPluginEntry):
         # choices=get_registered_form_handler_plugins()
     )
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         abstract = False

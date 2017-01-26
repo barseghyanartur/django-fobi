@@ -17,7 +17,6 @@ __all__ = (
     'permissions_required',
     'all_permissions_required',
     'any_permission_required',
-    'edit_dashboard_permission_required',
 )
 
 

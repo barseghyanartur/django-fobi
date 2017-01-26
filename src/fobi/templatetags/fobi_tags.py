@@ -254,7 +254,7 @@ def render_auth_link(context):
             auth_url = settings.LOGOUT_URL
             auth_icon_class = 'icon-signout'
             auth_link_text = _('Log out')
-        except Exception as e:
+        except Exception as err:
             auth_url = ''
             auth_icon_class = ''
             auth_link_text = ''
@@ -263,7 +263,7 @@ def render_auth_link(context):
             auth_url = settings.LOGIN_URL
             auth_icon_class = 'icon-signin'
             auth_link_text = _('Log in')
-        except Exception as e:
+        except Exception as err:
             auth_url = ''
             auth_icon_class = ''
             auth_link_text = ''
@@ -419,8 +419,8 @@ class FormFieldType(object):
         By default all of them are false. Provide only property
         names that should be set to True.
         """
-        for property in properties:
-            setattr(self, property, True)
+        for prop in properties:
+            setattr(self, prop, True)
 
 
 class GetFormFieldTypeNode(Node):

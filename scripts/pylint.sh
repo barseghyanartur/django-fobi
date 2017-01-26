@@ -1,1 +1,2 @@
+reset
 pylint src/fobi/

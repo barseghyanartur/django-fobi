@@ -150,7 +150,7 @@ form_importer_plugin_registry = FormImporterPluginRegistry()
 
 def ensure_autodiscover():
     """Ensure that form importer plugins are auto-discovered."""
-    if not (form_importer_plugin_registry._registry):
+    if not form_importer_plugin_registry._registry:
         autodiscover()
 
 

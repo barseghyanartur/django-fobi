@@ -10,10 +10,10 @@ handling the submitted form data).
 
 Prerequisites
 =============
-Current
+Present
 -------
 - Django 1.8, 1.9, 1.10
-- Python >= 2.7, >= 3.3
+- Python >= 2.7, >= 3.4
 
 Past
 ----
@@ -25,6 +25,7 @@ Past
 - Dropping support of Python 2.6 has been announced in version 0.9.17.
   As of 0.9.17 everything is still backwards compatible with Python 2.6, but
   in future versions compatibility with it will be wiped out.
+- Since version 0.10.4 support for Python 3.3 has been dropped.
 
 Key concepts
 ============
@@ -182,13 +183,13 @@ Or latest stable version from GitHub:
 
 .. code-block:: sh
 
-    pip install -e git+https://github.com/barseghyanartur/django-fobi@stable#egg=django-fobi
+    pip install https://github.com/barseghyanartur/django-fobi/archive/stable.tar.gz
 
 Or latest stable version from BitBucket:
 
 .. code-block:: sh
 
-    pip install -e hg+https://bitbucket.org/barseghyanartur/django-fobi@stable#egg=django-fobi
+    pip install https://bitbucket.org/barseghyanartur/django-fobi/get/stable.tar.gz
 
 (2) Add `fobi` to ``INSTALLED_APPS`` of the your projects' Django settings.
     Furthermore, all themes and plugins to be used, shall be added to the
@@ -2019,9 +2020,16 @@ install the test requirements:
 
 Selenium
 --------
+For browser tests you may choose between Firefox and PhantomJS. PhantomJS is
+faster, Firefox tests tell you more. Both cases require some effort and both
+have disadvantages regarding the installation (although once you have them
+installed they work perfect).
+
 Latest versions of Firefox are often not supported by Selenium. Current
 version of the Selenium for Python (2.53.6) works fine with Firefox 47.
 Thus, instead of using system Firefox you could better use a custom one.
+
+For PhantomJS you need to have NodeJS installed.
 
 Set up Firefox 47
 ~~~~~~~~~~~~~~~~~
@@ -2038,6 +2046,27 @@ Set up Firefox 47
        FIREFOX_BIN_PATH = '/usr/lib/firefox47/firefox'
 
 After that your Selenium tests would work.
+
+Setup PhantomJS
+~~~~~~~~~~~~~~~
+You could also run tests in headless mode (faster). For that you will need
+PhantomJS.
+
+1. Install PhantomJS and dependencies.
+
+   .. code-block:: sh
+
+       curl -sL https://deb.nodesource.com/setup_6.x -o nodesource_setup.sh
+       sudo bash nodesource_setup.sh
+       sudo apt-get install nodejs
+       sudo apt-get install build-essential libssl-dev
+       sudo npm -g install phantomjs-prebuilt
+
+2. Specify the ``PHANTOM_JS_EXECUTABLE_PATH`` setting. Example:
+
+   .. code-block:: python
+
+       PHANTOM_JS_EXECUTABLE_PATH = ""
 
 Troubleshooting
 ===============
