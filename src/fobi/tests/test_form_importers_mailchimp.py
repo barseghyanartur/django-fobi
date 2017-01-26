@@ -13,7 +13,7 @@ from .helpers import setup_fobi, get_or_create_admin_user
 
 __title__ = 'fobi.tests.test_form_importers_mailchimp'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2016 Artur Barseghyan'
+__copyright__ = '2014-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('FormImpotersMailchimpTest',)
 
