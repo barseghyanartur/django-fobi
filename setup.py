@@ -7,6 +7,14 @@ from setuptools import setup, find_packages
 version = '0.10.4'
 
 # ***************************************************************************
+# ************************** Python version *********************************
+# ***************************************************************************
+PY2 = sys.version_info[0] == 2
+PY3 = sys.version_info[0] == 3
+LTE_PY26 = PY2 and (7 > sys.version_info[1])
+PYPY = hasattr(sys, 'pypy_translation_info')
+
+# ***************************************************************************
 # ************************** Django version *********************************
 # ***************************************************************************
 DJANGO_INSTALLED = False
@@ -216,20 +224,21 @@ if DJANGO_INSTALLED:
             # 'django-formtools>=1.0',
             'django-nine>=0.1.10',
             'django-nonefield>=0.1',
-            'ordereddict>=1.1',
+            # 'ordereddict>=1.1',
             'Pillow>=2.0.0',
             'requests>=1.0.0',
             'six>=1.9',
             'Unidecode>=0.04.1',
             'vishap>=0.1.5,<2.0',
         ]
+
     elif DJANGO_1_8:
         install_requires = [
             'django-autoslug==1.7.1',
             'django-formtools>=1.0',
             'django-nine>=0.1.10',
             'django-nonefield>=0.1',
-            'ordereddict>=1.1',
+            # 'ordereddict>=1.1',
             'Pillow>=2.0.0',
             'requests>=1.0.0',
             'six>=1.9',
@@ -242,7 +251,7 @@ if DJANGO_INSTALLED:
             'django-formtools>=1.0',
             'django-nine>=0.1.10',
             'django-nonefield>=0.1',
-            'ordereddict>=1.1',
+            # 'ordereddict>=1.1',
             'Pillow>=2.0.0',
             'requests>=1.0.0',
             'six>=1.9',
@@ -255,7 +264,7 @@ if DJANGO_INSTALLED:
             'django-formtools>=1.0',
             'django-nine>=0.1.10',
             'django-nonefield>=0.1',
-            'ordereddict>=1.1',
+            # 'ordereddict>=1.1',
             'Pillow>=2.0.0',
             'requests>=1.0.0',
             'six>=1.9',
@@ -269,7 +278,7 @@ if not install_requires:
         'django-formtools>=1.0',
         'django-nine>=0.1.10',
         'django-nonefield>=0.1',
-        'ordereddict>=1.1',
+        # 'ordereddict>=1.1',
         'Pillow>=2.0.0',
         'requests>=1.0.0',
         'six>=1.9',
@@ -290,18 +299,13 @@ tests_require = [
     # 'tox',
 ]
 
-try:
-    PY2 = sys.version_info[0] == 2
-    LTE_PY26 = PY2 and (7 > sys.version_info[1])
-    PY3 = sys.version_info[0] == 3
-    if PY3:
-        install_requires.append('simplejson>=3.0.0')  # When using Python 3
-        install_requires.append('easy-thumbnails>=2.3')
-    else:
-        install_requires.append('simplejson>=2.1.0')  # When using Python 2.*
-        install_requires.append('easy-thumbnails>=1.4')
-except Exception as err:
-    pass
+if PY3:
+    install_requires.append('simplejson>=3.0.0')  # When using Python 3
+    install_requires.append('easy-thumbnails>=2.3')
+else:
+    install_requires.append('simplejson>=2.1.0')  # When using Python 2.*
+    install_requires.append('easy-thumbnails>=1.4')
+    install_requires.append('ordereddict>=1.1')
 
 setup(
     name='django-fobi',
@@ -316,6 +320,7 @@ setup(
         # "Programming Language :: Python :: 3.3",
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
         "Environment :: Web Environment",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
         "License :: OSI Approved :: GNU Lesser General Public License v2 or "
