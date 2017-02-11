@@ -12,8 +12,15 @@ Prerequisites
 =============
 Present
 -------
-- Django 1.8, 1.9, 1.10
-- Python >= 2.7, >= 3.4, PyPy
+- Django 1.8, 1.9, 1.10 and 1.11.
+- Python 2.7, 3.4, 3.5, 3.6 and PyPy.
+
+Note, that Django 1.11 is not yet proclaimed to be flawlessly supported. The
+core and contrib packages have been tested against the alpha Django 1.11a1
+PyPI release. All tests have successfully passed, although it's yet too early
+to claim that Django 1.11 is fully supported. Certain dependencies
+(``django-formtools`` and ``easy-thumbnails``) have been installed from source
+(since versions supporting Django 1.11 are not yet released on PyPI.)
 
 Past
 ----

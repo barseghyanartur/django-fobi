@@ -214,6 +214,8 @@ for locale_dir in locale_dirs:
                      for f
                      in os.listdir(locale_dir)]
 
+dependency_links = []
+
 install_requires = []
 # If certain version of Django is already installed, choose version agnostic
 # dependencies.
@@ -271,6 +273,24 @@ if DJANGO_INSTALLED:
             'Unidecode>=0.04.1',
             'vishap>=0.1.5,<2.0',
         ]
+    elif DJANGO_1_11:
+        install_requires = [
+            'django-autoslug==1.9.3',
+            'django-formtools',
+            'django-nine>=0.1.10',
+            'django-nonefield>=0.1',
+            # 'ordereddict>=1.1',
+            'Pillow>=2.0.0',
+            'requests>=1.0.0',
+            'six>=1.9',
+            'Unidecode>=0.04.1',
+            'vishap>=0.1.5,<2.0',
+        ]
+        dependency_links.append(
+            'https://github.com/django/django-formtools/archive/master.tar.gz'
+            '#egg=django-formtools'
+        )
+
 # Fall back to the latest dependencies
 if not install_requires:
     install_requires = [
@@ -301,11 +321,27 @@ tests_require = [
 
 if PY3:
     install_requires.append('simplejson>=3.0.0')  # When using Python 3
-    install_requires.append('easy-thumbnails>=2.3')
+    if not DJANGO_1_11:
+        install_requires.append('easy-thumbnails>=2.3')
+    else:
+        install_requires.append('easy-thumbnails')
+        dependency_links.append(
+            'https://github.com/SmileyChris/easy-thumbnails/archive/'
+            'master.tar.gz'
+            '#egg=easy-thumbnails'
+        )
 else:
     install_requires.append('simplejson>=2.1.0')  # When using Python 2.*
-    install_requires.append('easy-thumbnails>=1.4')
     install_requires.append('ordereddict>=1.1')
+    if not DJANGO_1_11:
+        install_requires.append('easy-thumbnails>=1.4')
+    else:
+        install_requires.append('easy-thumbnails')
+        dependency_links.append(
+            'https://github.com/SmileyChris/easy-thumbnails/archive/'
+            'master.tar.gz'
+            '#egg=easy-thumbnails'
+        )
 
 setup(
     name='django-fobi',
@@ -340,6 +376,7 @@ setup(
     license='GPL 2.0/LGPL 2.1',
     install_requires=install_requires,
     tests_require=tests_require,
+    dependency_links=dependency_links,
     package_data={
         'fobi': templates + static_files + locale_files
     },
