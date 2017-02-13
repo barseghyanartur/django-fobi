@@ -167,6 +167,11 @@ class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         """Click on any element."""
         self.selenium.execute_script("$(arguments[0]).click();", element)
 
+    def _aggressive_click(self, element):
+        """Aggressive click."""
+        link = element.get_attribute('href')
+        self.selenium.get(link)
+
     def _go_to_dashboard(self, wait=WAIT_FOR):
         """Go to dashboard."""
         # Authenticate user.
@@ -403,8 +408,9 @@ class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
             .find_element_by_partial_link_text(
                 'Delete'
             )
-        delete_form_element_link.click()
+        # delete_form_element_link.click()
         # self._click(delete_form_element_link)
+        self._aggressive_click(delete_form_element_link)
 
         logger.debug(form_element_name)
 
