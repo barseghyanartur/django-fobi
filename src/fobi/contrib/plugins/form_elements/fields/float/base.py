@@ -34,18 +34,23 @@ class FloatInputPlugin(FormFieldPlugin):
             'type': 'number',
             'placeholder': self.data.placeholder,
         }
+
         field_kwargs = {
             'label': self.data.label,
             'help_text': self.data.help_text,
             'initial': self.data.initial,
             'required': self.data.required,
         }
+
         if self.data.max_value:
-            field_kwargs['max_value'] = self.data.max_value
-            widget_attrs['max'] = self.data.max_value
+            data_max_value = float(data.max_value)
+            field_kwargs['max_value'] = data_max_value
+            widget_attrs['max'] = data_max_value
+
         if self.data.min_value:
-            field_kwargs['min_value'] = self.data.min_value
-            widget_attrs['min'] = self.data.min_value
+            data_min_value = float(self.data.min_value)
+            field_kwargs['min_value'] = data_min_value
+            widget_attrs['min'] = data_min_value
 
         field_kwargs['widget'] = NumberInput(attrs=widget_attrs)
 

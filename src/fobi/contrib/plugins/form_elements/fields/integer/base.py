@@ -41,11 +41,13 @@ class IntegerInputPlugin(FormFieldPlugin):
             'required': self.data.required,
         }
         if self.data.max_value:
-            field_kwargs['max_value'] = self.data.max_value
-            widget_attrs['max'] = self.data.max_value
+            data_max_value = int(self.data.max_value)
+            field_kwargs['max_value'] = data_max_value
+            widget_attrs['max'] = data_max_value
         if self.data.min_value:
-            field_kwargs['min_value'] = self.data.min_value
-            widget_attrs['min'] = self.data.min_value
+            data_min_value = int(self.data.min_value)
+            field_kwargs['min_value'] = data_min_value
+            widget_attrs['min'] = data_min_value
 
         field_kwargs['widget'] = NumberInput(attrs=widget_attrs)
 
