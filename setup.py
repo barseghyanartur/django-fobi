@@ -77,7 +77,6 @@ except Exception as err:
 
 try:
     readme = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
-    readme = readme.replace('.. code-block:: none', '.. code-block::')
     screenshots = open(
         os.path.join(os.path.dirname(__file__), 'SCREENSHOTS.rst')
     ).read()
@@ -85,10 +84,6 @@ try:
         '.. image:: _static',
         '.. figure:: https://github.com/barseghyanartur/django-fobi/raw/'
         'master/docs/_static'
-    )
-    screenshots = screenshots.replace(
-        '.. code-block:: none',
-        '.. code-block::'
     )
 except:
     readme = ''
@@ -346,8 +341,8 @@ else:
 setup(
     name='django-fobi',
     version=version,
-    description=("Form generator/builder application for Django done right: "
-                 "customisable, modular, user- and developer- friendly."),
+    description="Form generator/builder application for Django done right: "
+                "customisable, modular, user- and developer- friendly.",
     long_description="{0}{1}".format(readme, screenshots),
     classifiers=[
         # "Programming Language :: Python :: 2.6",

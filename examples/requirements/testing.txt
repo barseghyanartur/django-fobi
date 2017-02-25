@@ -1,0 +1,3 @@
+-r django_1_10.txt
+-r test.txt
+-r style_checkers.txt
