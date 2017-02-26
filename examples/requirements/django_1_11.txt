@@ -1,0 +1,15 @@
+-r common.txt
+-r test.txt
+-r style_checkers.txt
+
+Django==1.11b1
+django-admin-tools>=0.8.0
+django-debug-toolbar==1.5
+django-registration-redux>=1.4
+sqlparse==0.2.2
+
+# easy-thumbnails, compatible with Django 1.11
+https://github.com/django/django-formtools/archive/master.tar.gz
+
+# django-formtools, compatible with Django 1.11
+https://github.com/SmileyChris/easy-thumbnails/archive/master.tar.gz

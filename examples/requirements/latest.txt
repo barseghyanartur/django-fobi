@@ -1,4 +1,4 @@
--r common_python2.txt
+-r common.txt
 
 Django
 django-admin-tools>=0.7.1

@@ -1,11 +1,10 @@
--r common_python2.txt
+-r common.txt
 
 Django>=1.9,<1.10
 django-admin-tools>=0.7.1
 django-autoslug==1.9.3
 django-debug-toolbar==0.11
 django-formtools==1.0
-#django-localeurl==2.0.2
 django-nine>=0.1.10
 django-nonefield>=0.1
 django-registration-redux>=1.4

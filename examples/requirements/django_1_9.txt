@@ -1,4 +1,6 @@
--r common_python2.txt
+-r common.txt
+-r test.txt
+-r style_checkers.txt
 
 Django>=1.9,<1.10
 django-admin-tools>=0.7.1

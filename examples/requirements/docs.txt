@@ -1,21 +1,6 @@
--r common_python2.txt
+-r common.txt
+-r django_1_10.txt
 
-Django==1.10.1
 django-fobi
-#Jinja2
-#MarkupSafe
-#MySQL-python
-#mailchimp
-#Sphinx
-django-admin-tools>=0.8.0
-django-debug-toolbar>=1.5
-django-registration-redux>=1.4
-#docutils
-#ipdb
-#ipython
-#ordereddict>=1.1
-# Selenium shall always be upgraded
-#selenium
-#tox
 rst2pdf
 reportlab==3.3.0

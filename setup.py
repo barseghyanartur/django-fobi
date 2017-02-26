@@ -4,7 +4,15 @@ import sys
 from distutils.version import LooseVersion
 from setuptools import setup, find_packages
 
-version = '0.10.4'
+version = '0.10.6'
+
+# ***************************************************************************
+# ************************** Python version *********************************
+# ***************************************************************************
+PY2 = sys.version_info[0] == 2
+PY3 = sys.version_info[0] == 3
+LTE_PY26 = PY2 and (7 > sys.version_info[1])
+PYPY = hasattr(sys, 'pypy_translation_info')
 
 # ***************************************************************************
 # ************************** Django version *********************************
@@ -69,7 +77,6 @@ except Exception as err:
 
 try:
     readme = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
-    readme = readme.replace('.. code-block:: none', '.. code-block::')
     screenshots = open(
         os.path.join(os.path.dirname(__file__), 'SCREENSHOTS.rst')
     ).read()
@@ -77,10 +84,6 @@ try:
         '.. image:: _static',
         '.. figure:: https://github.com/barseghyanartur/django-fobi/raw/'
         'master/docs/_static'
-    )
-    screenshots = screenshots.replace(
-        '.. code-block:: none',
-        '.. code-block::'
     )
 except:
     readme = ''
@@ -206,6 +209,8 @@ for locale_dir in locale_dirs:
                      for f
                      in os.listdir(locale_dir)]
 
+dependency_links = []
+
 install_requires = []
 # If certain version of Django is already installed, choose version agnostic
 # dependencies.
@@ -216,20 +221,21 @@ if DJANGO_INSTALLED:
             # 'django-formtools>=1.0',
             'django-nine>=0.1.10',
             'django-nonefield>=0.1',
-            'ordereddict>=1.1',
+            # 'ordereddict>=1.1',
             'Pillow>=2.0.0',
             'requests>=1.0.0',
             'six>=1.9',
             'Unidecode>=0.04.1',
             'vishap>=0.1.5,<2.0',
         ]
+
     elif DJANGO_1_8:
         install_requires = [
             'django-autoslug==1.7.1',
             'django-formtools>=1.0',
             'django-nine>=0.1.10',
             'django-nonefield>=0.1',
-            'ordereddict>=1.1',
+            # 'ordereddict>=1.1',
             'Pillow>=2.0.0',
             'requests>=1.0.0',
             'six>=1.9',
@@ -242,7 +248,7 @@ if DJANGO_INSTALLED:
             'django-formtools>=1.0',
             'django-nine>=0.1.10',
             'django-nonefield>=0.1',
-            'ordereddict>=1.1',
+            # 'ordereddict>=1.1',
             'Pillow>=2.0.0',
             'requests>=1.0.0',
             'six>=1.9',
@@ -255,13 +261,31 @@ if DJANGO_INSTALLED:
             'django-formtools>=1.0',
             'django-nine>=0.1.10',
             'django-nonefield>=0.1',
-            'ordereddict>=1.1',
+            # 'ordereddict>=1.1',
             'Pillow>=2.0.0',
             'requests>=1.0.0',
             'six>=1.9',
             'Unidecode>=0.04.1',
             'vishap>=0.1.5,<2.0',
         ]
+    elif DJANGO_1_11:
+        install_requires = [
+            'django-autoslug==1.9.3',
+            'django-formtools',
+            'django-nine>=0.1.10',
+            'django-nonefield>=0.1',
+            # 'ordereddict>=1.1',
+            'Pillow>=2.0.0',
+            'requests>=1.0.0',
+            'six>=1.9',
+            'Unidecode>=0.04.1',
+            'vishap>=0.1.5,<2.0',
+        ]
+        dependency_links.append(
+            'https://github.com/django/django-formtools/archive/master.tar.gz'
+            '#egg=django-formtools'
+        )
+
 # Fall back to the latest dependencies
 if not install_requires:
     install_requires = [
@@ -269,7 +293,7 @@ if not install_requires:
         'django-formtools>=1.0',
         'django-nine>=0.1.10',
         'django-nonefield>=0.1',
-        'ordereddict>=1.1',
+        # 'ordereddict>=1.1',
         'Pillow>=2.0.0',
         'requests>=1.0.0',
         'six>=1.9',
@@ -290,24 +314,35 @@ tests_require = [
     # 'tox',
 ]
 
-try:
-    PY2 = sys.version_info[0] == 2
-    LTE_PY26 = PY2 and (7 > sys.version_info[1])
-    PY3 = sys.version_info[0] == 3
-    if PY3:
-        install_requires.append('simplejson>=3.0.0')  # When using Python 3
+if PY3:
+    install_requires.append('simplejson>=3.0.0')  # When using Python 3
+    if not DJANGO_1_11:
         install_requires.append('easy-thumbnails>=2.3')
     else:
-        install_requires.append('simplejson>=2.1.0')  # When using Python 2.*
+        install_requires.append('easy-thumbnails')
+        dependency_links.append(
+            'https://github.com/SmileyChris/easy-thumbnails/archive/'
+            'master.tar.gz'
+            '#egg=easy-thumbnails'
+        )
+else:
+    install_requires.append('simplejson>=2.1.0')  # When using Python 2.*
+    install_requires.append('ordereddict>=1.1')
+    if not DJANGO_1_11:
         install_requires.append('easy-thumbnails>=1.4')
-except Exception as err:
-    pass
+    else:
+        install_requires.append('easy-thumbnails')
+        dependency_links.append(
+            'https://github.com/SmileyChris/easy-thumbnails/archive/'
+            'master.tar.gz'
+            '#egg=easy-thumbnails'
+        )
 
 setup(
     name='django-fobi',
     version=version,
-    description=("Form generator/builder application for Django done right: "
-                 "customisable, modular, user- and developer- friendly."),
+    description="Form generator/builder application for Django done right: "
+                "customisable, modular, user- and developer- friendly.",
     long_description="{0}{1}".format(readme, screenshots),
     classifiers=[
         # "Programming Language :: Python :: 2.6",
@@ -316,6 +351,7 @@ setup(
         # "Programming Language :: Python :: 3.3",
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
+        "Programming Language :: Python :: 3.6",
         "Environment :: Web Environment",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
         "License :: OSI Approved :: GNU Lesser General Public License v2 or "
@@ -335,6 +371,7 @@ setup(
     license='GPL 2.0/LGPL 2.1',
     install_requires=install_requires,
     tests_require=tests_require,
+    dependency_links=dependency_links,
     package_data={
         'fobi': templates + static_files + locale_files
     },

@@ -1,5 +1,7 @@
 from __future__ import absolute_import
 
+import decimal
+
 from django.forms.fields import DecimalField
 from django.utils.translation import ugettext_lazy as _
 
@@ -41,19 +43,24 @@ class DecimalInputPlugin(FormFieldPlugin):
             'initial': self.data.initial,
             'required': self.data.required,
         }
+
         if self.data.max_value:
-            field_kwargs['max_value'] = self.data.max_value
-            widget_attrs['max'] = self.data.max_value
+            data_max_value = decimal.Decimal(self.data.max_value)
+            field_kwargs['max_value'] = data_max_value
+            widget_attrs['max'] = data_max_value
+
         if self.data.min_value:
-            field_kwargs['min_value'] = self.data.min_value
-            widget_attrs['min'] = self.data.min_value
+            data_min_value = decimal.Decimal(self.data.min_value)
+            field_kwargs['min_value'] = data_min_value
+            widget_attrs['min'] = data_min_value
 
         if self.data.max_digits:
-            field_kwargs['max_digits'] = self.data.max_digits
-            widget_attrs['max'] = self.data.max_value
+            data_max_digits = int(self.data.max_digits)
+            field_kwargs['max_digits'] = data_max_digits
+
         if self.data.decimal_places:
-            field_kwargs['decimal_places'] = self.data.decimal_places
-            widget_attrs['min'] = self.data.min_value
+            data_decimal_places = int(self.data.decimal_places)
+            field_kwargs['decimal_places'] = data_decimal_places
 
         field_kwargs['widget'] = NumberInput(attrs=widget_attrs)
 

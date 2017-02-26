@@ -1,3 +1,7 @@
+import os
+import signal
+import subprocess
+
 from django.conf import settings
 from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
@@ -46,6 +50,7 @@ __all__ = (
     'get_or_create_admin_user',
     'create_form_with_entries',
     'db_clean_up',
+    'phantom_js_clean_up',
 )
 
 # ****************************************************************************
@@ -272,3 +277,17 @@ def db_clean_up():
     """
     FormElementEntry._default_manager.all().delete()
     FormHandlerEntry._default_manager.all().delete()
+
+
+def phantom_js_clean_up():
+    """Clean up Phantom JS.
+
+    Kills all phantomjs instances, disregard of their origin.
+    """
+    processes = subprocess.Popen(['ps', '-A'], stdout=subprocess.PIPE)
+    out, err = processes.communicate()
+
+    for line in out.splitlines():
+        if 'phantomjs' in line:
+            pid = int(line.split(None, 1)[0])
+            os.kill(pid, signal.SIGKILL)
