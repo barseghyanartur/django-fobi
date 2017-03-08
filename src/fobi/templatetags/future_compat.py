@@ -12,15 +12,15 @@ try:
 except ImportError:
     import warnings
 
-    from django.template.base import Node, TemplateSyntaxError
     from django.template import Library
-    from django.utils.timezone import template_localtime
-    from django.utils.formats import localize
+    from django.template.base import Node, TemplateSyntaxError
     from django.utils.encoding import force_text
+    from django.utils.formats import localize
     from django.utils.html import escape
     from django.utils.safestring import mark_safe, EscapeData, SafeData
+    from django.utils.timezone import template_localtime
 
-    register = Library()
+    REGISTER = Library()
 
     def render_value_in_context(value, context):
         """Render value in context.
@@ -56,7 +56,7 @@ except ImportError:
                     return render_value_in_context(value, context)
             return ''
 
-    @register.tag
+    @REGISTER.tag
     def firstof(parser, token, escape=False):
         """Outputs the first variable passed that is not False.
 

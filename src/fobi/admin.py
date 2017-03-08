@@ -6,8 +6,8 @@ from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import redirect
 from django.template import RequestContext
 from django.utils.decorators import method_decorator
-from django.utils.translation import ugettext_lazy as _
 from django.utils.html import strip_tags
+from django.utils.translation import ugettext_lazy as _
 
 from nine import versions
 
@@ -22,13 +22,13 @@ from .forms import (
 )
 from .models import (
     FormElement,
-    FormHandler,
-    FormWizardHandler,
-    FormEntry,
     FormElementEntry,
+    FormEntry,
+    FormHandler,
     FormHandlerEntry,
     FormWizardEntry,
     FormWizardFormEntry,
+    FormWizardHandler,
     FormWizardHandlerEntry
 )
 
@@ -43,27 +43,22 @@ __copyright__ = '2014-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'base_bulk_change_plugins',
+    'BasePluginModelAdmin',
     'bulk_change_form_element_plugins',
     'bulk_change_form_handler_plugins',
     'bulk_change_form_wizard_handler_plugins',
-
-    'FormElementEntryInlineAdmin',
-    'FormHandlerEntryInlineAdmin',
-    'FormWizardFormEntryInlineAdmin',
-
-    'FormWizardHandlerEntryInlineAdmin',
-    'FormEntryAdmin',
-    'FormWizardEntryAdmin',
-    'FormFieldsetEntryAdmin',
-
-    'FormElementEntryAdmin',
-    'FormHandlerEntryAdmin',
-
-    'BasePluginModelAdmin',
-
     'FormElementAdmin',
+    'FormElementEntryAdmin',
+    'FormElementEntryInlineAdmin',
+    'FormEntryAdmin',
+    'FormFieldsetEntryAdmin',
     'FormHandlerAdmin',
+    'FormHandlerEntryAdmin',
+    'FormHandlerEntryInlineAdmin',
+    'FormWizardEntryAdmin',
+    'FormWizardFormEntryInlineAdmin',
     'FormWizardHandlerAdmin',
+    'FormWizardHandlerEntryInlineAdmin',
 )
 
 staff_member_required_m = method_decorator(staff_member_required)
@@ -206,7 +201,7 @@ class FormEntryAdmin(admin.ModelAdmin):
     )
     inlines = [FormElementEntryInlineAdmin, FormHandlerEntryInlineAdmin]
 
-    class Meta:
+    class Meta(object):
         """Meta."""
 
         app_label = _('Fobi')
@@ -271,7 +266,7 @@ class FormWizardEntryAdmin(admin.ModelAdmin):
     inlines = [FormWizardFormEntryInlineAdmin,
                FormWizardHandlerEntryInlineAdmin]
 
-    class Meta:
+    class Meta(object):
         """Meta."""
 
         app_label = _('Fobi')
@@ -297,7 +292,9 @@ class FormFieldsetEntryAdmin(admin.ModelAdmin):
         }),
     )
 
-    class Meta:
+    class Meta(object):
+        """Meta."""
+
         app_label = _('Fobi')
 
 
@@ -324,8 +321,9 @@ class FormElementEntryAdmin(admin.ModelAdmin):
         }),
     )
 
-    class Meta:
+    class Meta(object):
         """Meta."""
+
         app_label = _('Fobi')
 
     def __queryset(self, request):
@@ -364,8 +362,9 @@ class FormHandlerEntryAdmin(admin.ModelAdmin):
         }),
     )
 
-    class Meta:
+    class Meta(object):
         """Meta."""
+
         app_label = _('Form handler entry')
 
     def __queryset(self, request):
@@ -406,8 +405,9 @@ class BasePluginModelAdmin(admin.ModelAdmin):
     )
     filter_horizontal = ('users', 'groups',)
 
-    class Meta:
+    class Meta(object):
         """Meta."""
+
         app_label = _('Fobi')
 
     def has_add_permission(self, request):
