@@ -20,7 +20,7 @@ except ImportError:
     from django.utils.safestring import mark_safe, EscapeData, SafeData
     from django.utils.timezone import template_localtime
 
-    REGISTER = Library()
+    register = Library()
 
     def render_value_in_context(value, context):
         """Render value in context.
@@ -56,7 +56,7 @@ except ImportError:
                     return render_value_in_context(value, context)
             return ''
 
-    @REGISTER.tag
+    @register.tag
     def firstof(parser, token, escape=False):
         """Outputs the first variable passed that is not False.
 
