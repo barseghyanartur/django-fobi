@@ -5,8 +5,8 @@ from django.utils.translation import ugettext_lazy as _
 
 from nine.versions import DJANGO_GTE_1_7
 
-from fobi.base import get_theme
-from fobi.settings import DISPLAY_AUTH_LINK
+from ..base import get_theme
+from ..settings import DISPLAY_AUTH_LINK
 
 if DJANGO_GTE_1_7:
     from django.forms.utils import ErrorDict
@@ -18,9 +18,9 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'get_fobi_plugin',
     'get_fobi_form_handler_plugin_custom_actions',
     'get_fobi_form_wizard_handler_plugin_custom_actions',
+    'get_fobi_plugin',
     'get_form_field_type',
     'get_form_hidden_fields_errors',
     'has_edit_form_entry_permissions',
@@ -28,9 +28,9 @@ __all__ = (
     'render_fobi_forms_list',
 )
 
-theme = get_theme(request=None, as_instance=True)
+THEME = get_theme(request=None, as_instance=True)
 
-register = Library()
+REGISTER = Library()
 
 # *****************************************************************************
 # *****************************************************************************
@@ -63,7 +63,7 @@ class GetFobiPluginNode(Node):
         return ''
 
 
-@register.tag
+@REGISTER.tag
 def get_fobi_plugin(parser, token):
     """Get the plugin.
 
@@ -126,7 +126,7 @@ class GetFobiFormHandlerPluginCustomActionsNode(Node):
         return ''
 
 
-@register.tag
+@REGISTER.tag
 def get_fobi_form_handler_plugin_custom_actions(parser, token):
     """Get the form handler plugin custom actions.
 
@@ -192,7 +192,7 @@ class GetFobiFormWizardHandlerPluginCustomActionsNode(Node):
         return ''
 
 
-@register.tag
+@REGISTER.tag
 def get_fobi_form_wizard_handler_plugin_custom_actions(parser, token):
     """Get the form wizard handler plugin custom actions.
 
@@ -254,7 +254,7 @@ def render_auth_link(context):
             auth_url = settings.LOGOUT_URL
             auth_icon_class = 'icon-signout'
             auth_link_text = _('Log out')
-        except Exception as err:
+        except Exception:
             auth_url = ''
             auth_icon_class = ''
             auth_link_text = ''
@@ -263,7 +263,7 @@ def render_auth_link(context):
             auth_url = settings.LOGIN_URL
             auth_icon_class = 'icon-signin'
             auth_link_text = _('Log in')
-        except Exception as err:
+        except Exception:
             auth_url = ''
             auth_icon_class = ''
             auth_link_text = ''
@@ -275,12 +275,12 @@ def render_auth_link(context):
     }
 
 
-register.inclusion_tag(
+REGISTER.inclusion_tag(
     'fobi/snippets/render_auth_link.html', takes_context=True
 )(render_auth_link)
 
 
-@register.inclusion_tag(theme.forms_list_template, takes_context=True)
+@REGISTER.inclusion_tag(THEME.forms_list_template, takes_context=True)
 def render_fobi_forms_list(context, queryset, *args, **kwargs):
     """Render the list of fobi forms.
 
@@ -338,11 +338,16 @@ class HasEditFormEntryPermissionsNode(Node):
                 return False
 
         perms_required = [
-            'fobi.add_formentry', 'fobi.change_formentry',
+            'fobi.add_formentry',
+            'fobi.change_formentry',
             'fobi.delete_formentry',
-            'fobi.add_formelemententry', 'fobi.change_formelemententry',
+
+            'fobi.add_formelemententry',
+            'fobi.change_formelemententry',
             'fobi.delete_formelemententry',
-            'fobi.add_formhandlerentry', 'fobi.change_formhandlerentry',
+
+            'fobi.add_formhandlerentry',
+            'fobi.change_formhandlerentry',
             'fobi.delete_formhandlerentry',
         ]
 
@@ -361,7 +366,7 @@ class HasEditFormEntryPermissionsNode(Node):
             return False
 
 
-@register.tag
+@REGISTER.tag
 def has_edit_form_entry_permissions(parser, token):
     """Checks the permissions
 
@@ -451,7 +456,7 @@ class GetFormFieldTypeNode(Node):
         return ''
 
 
-@register.tag
+@REGISTER.tag
 def get_form_field_type(parser, token):
     """Get form field type.
 
@@ -510,7 +515,7 @@ class GetFormHiddenFieldsErrorsNode(Node):
         return ''
 
 
-@register.tag
+@REGISTER.tag
 def get_form_hidden_fields_errors(parser, token):
     """Get form hidden fields errors.
 
