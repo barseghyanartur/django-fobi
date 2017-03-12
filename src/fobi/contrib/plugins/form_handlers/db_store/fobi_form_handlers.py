@@ -2,8 +2,9 @@ import datetime
 
 import simplejson as json
 
-from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
+
+from nine.versions import DJANGO_GTE_1_10
 
 from fobi.base import (
     # General
@@ -23,6 +24,11 @@ from fobi.base import (
 from fobi.helpers import get_form_element_entries_for_form_wizard_entry
 from . import UID
 from .models import SavedFormDataEntry, SavedFormWizardDataEntry
+
+if DJANGO_GTE_1_10:
+    from django.urls import reverse
+else:
+    from django.core.urlresolvers import reverse
 
 __title__ = 'fobi.contrib.plugins.form_handlers.db_store.fobi_form_handlers'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'

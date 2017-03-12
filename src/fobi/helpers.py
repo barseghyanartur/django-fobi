@@ -3,46 +3,49 @@ Helpers module. This module can be safely imported from any fobi (sub)module,
 since it never imports from any of the fobi (sub)modules (except for the
 `fobi.constants` and `fobi.exceptions` modules).
 """
-import os
 import glob
 import logging
-import uuid
+import os
 import shutil
-
-from six import text_type, PY3
-
-import simplejson as json
-
-from django.conf import settings
-from django.core.urlresolvers import reverse
-from django.core.files.base import File
-from django.contrib.contenttypes.models import ContentType
-from django.db.utils import DatabaseError
-from django.utils.encoding import force_text
-from django.utils.html import format_html_join
-from django import forms
-from django.utils.translation import ugettext_lazy as _
-from django.contrib.auth.models import AnonymousUser
-from django.test.client import RequestFactory
-from django.http import HttpResponse
+import uuid
 
 from autoslug.settings import slugify
 
-from nine.user import User
-from nine.versions import DJANGO_GTE_1_7
+from django import forms
+from django.conf import settings
+from django.contrib.auth.models import AnonymousUser
+from django.contrib.contenttypes.models import ContentType
+from django.core.files.base import File
+from django.db.utils import DatabaseError
+from django.http import HttpResponse
+from django.test.client import RequestFactory
+from django.utils.encoding import force_text
+from django.utils.html import format_html_join
+from django.utils.translation import ugettext_lazy as _
 
-from fobi.constants import (
-    SUBMIT_VALUE_AS_VAL,
+from nine.user import User
+from nine.versions import DJANGO_GTE_1_7, DJANGO_GTE_1_10
+
+import simplejson as json
+
+from six import text_type, PY3
+
+from .constants import (
+    SUBMIT_VALUE_AS_MIX,
     SUBMIT_VALUE_AS_REPR,
-    SUBMIT_VALUE_AS_MIX
+    SUBMIT_VALUE_AS_VAL,
 )
-from fobi.exceptions import ImproperlyConfigured
+from .exceptions import ImproperlyConfigured
 
 if DJANGO_GTE_1_7:
     import django.apps
-
 else:
     from django.db import models
+
+if DJANGO_GTE_1_10:
+    from django.urls import reverse
+else:
+    from django.core.urlresolvers import reverse
 
 __title__ = 'fobi.helpers'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'

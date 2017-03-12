@@ -87,7 +87,9 @@ from .wizard import DynamicSessionWizardView, DynamicCookieWizardView
 
 if versions.DJANGO_GTE_1_10:
     from django.shortcuts import render
+    from django.urls import reverse
 else:
+    from django.core.urlresolvers import reverse
     from django.shortcuts import render_to_response
 
 if versions.DJANGO_GTE_1_8:

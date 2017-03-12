@@ -4,7 +4,6 @@ import re
 
 from django import forms
 from django.shortcuts import redirect
-from django.core.urlresolvers import reverse
 from django.forms import formsets, ValidationError
 from django.views.generic import TemplateView
 from django.utils.decorators import classonlymethod
@@ -23,6 +22,11 @@ else:
         NoFileStorageConfigured
     )
     from django.contrib.formtools.wizard.forms import ManagementForm
+
+if versions.DJANGO_GTE_1_10:
+    from django.urls import reverse
+else:
+    from django.core.urlresolvers import reverse
 
 logger = logging.getLogger(__name__)
 

@@ -11,11 +11,12 @@ from selenium.webdriver.support.wait import WebDriverWait
 from selenium.common.exceptions import WebDriverException
 
 from django.core.management import call_command
-from django.core.urlresolvers import reverse
 from django.test import LiveServerTestCase
 from django.conf import settings
 
 from fobi.models import FormEntry
+
+from nine.versions import DJANGO_GTE_1_10
 
 from . import constants
 from .base import print_info, skip
@@ -31,6 +32,10 @@ from .helpers import (
     phantom_js_clean_up
 )
 
+if DJANGO_GTE_1_10:
+    from django.urls import reverse
+else:
+    from django.core.urlresolvers import reverse
 
 __title__ = 'fobi.tests.test_browser_build_dynamic_forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
