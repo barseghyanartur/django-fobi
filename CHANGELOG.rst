@@ -19,7 +19,7 @@ are used for versioning (schema follows below):
 ------
 2017-03-13
 
-- Several deprecation fixes.
+- Several Django deprecation/moves fixes for better future compatibility.
 
 0.10.6
 ------
