@@ -78,7 +78,7 @@ except Exception as err:
 try:
     readme = open(os.path.join(os.path.dirname(__file__), 'README.rst')).read()
     screenshots = open(
-        os.path.join(os.path.dirname(__file__), 'SCREENSHOTS.rst')
+        os.path.join(os.path.dirname(__file__), 'docs/screenshots.rst.distrib')
     ).read()
     screenshots = screenshots.replace(
         '.. image:: _static',
