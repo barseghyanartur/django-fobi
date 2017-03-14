@@ -2082,6 +2082,12 @@ Set up headless Firefox
 
         ./scripts/runtests.sh
 
+   Or run tox tests using headless Firefox.
+
+   .. code-block:: sh
+
+        ./scripts/tox.sh
+
 Setup PhantomJS
 ~~~~~~~~~~~~~~~
 You could also run tests in headless mode (faster). For that you will need

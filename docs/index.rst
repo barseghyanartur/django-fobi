@@ -2038,10 +2038,11 @@ install the test requirements:
 
 Browser tests
 -------------
-For browser tests you may choose between Firefox and PhantomJS. PhantomJS is
-faster, Firefox tests tell you more. Both cases require some effort and both
-have disadvantages regarding the installation (although once you have them
-installed they work perfect).
+For browser tests you may choose between Firefox, headless Firefox and
+PhantomJS. PhantomJS is faster, headless Firefox is fast as well, but
+normal Firefox tests tell you more (as you see what exactly happens on the
+screen). Both cases require some effort and both have disadvantages regarding
+the installation (although once you have them installed they work perfect).
 
 Latest versions of Firefox are often not supported by Selenium. Current
 version of the Selenium for Python (2.53.6) works fine with Firefox 47.
@@ -2066,6 +2067,26 @@ Set up Firefox 47
    If you set ``FIREFOX_BIN_PATH`` to None, system Firefox would be used.
 
 After that your Selenium tests would work.
+
+Set up headless Firefox
+~~~~~~~~~~~~~~~~~~~~~~~
+1. Install ``xvfb`` package which is used to start Firefox in headless mode.
+
+   .. code-block:: sh
+
+        sudo apt-get install xvfb
+
+2. Run the tests using headless Firefox.
+
+   .. code-block:: sh
+
+        ./scripts/runtests.sh
+
+   Or run tox tests using headless Firefox.
+
+   .. code-block:: sh
+
+        ./scripts/tox.sh
 
 Setup PhantomJS
 ~~~~~~~~~~~~~~~
