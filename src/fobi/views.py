@@ -1483,7 +1483,7 @@ class FormWizardView(DynamicSessionWizardView):
             form_entry_mapping[form_entry.slug] = form_entry
             form_element_entry_mapping[form_entry.slug] = form_element_entries
 
-        if 0 == len(form_list):
+        if len(form_list) == 0:
             raise Http404(
                 ugettext("Form wizard entry does not contain any forms.")
             )

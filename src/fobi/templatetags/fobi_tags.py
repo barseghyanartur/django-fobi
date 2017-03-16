@@ -83,8 +83,8 @@ def get_fobi_plugin(parser, token):
     """
     bits = token.contents.split()
 
-    if 4 == len(bits):
-        if 'as' != bits[-2]:
+    if len(bits) == 4:
+        if bits[-2] != 'as':
             raise TemplateSyntaxError(
                 "Invalid syntax for {0}. Incorrect number of "
                 "arguments.".format(
@@ -145,8 +145,8 @@ def get_fobi_form_handler_plugin_custom_actions(parser, token):
     """
     bits = token.contents.split()
 
-    if 5 == len(bits):
-        if 'as' != bits[-2]:
+    if len(bits) == 5:
+        if bits[-2] != 'as':
             raise TemplateSyntaxError(
                 "Invalid syntax for {0}. Incorrect number of "
                 "arguments.".format(
@@ -212,8 +212,8 @@ def get_fobi_form_wizard_handler_plugin_custom_actions(parser, token):
     """
     bits = token.contents.split()
 
-    if 5 == len(bits):
-        if 'as' != bits[-2]:
+    if len(bits) == 5:
+        if bits[-2] != 'as':
             raise TemplateSyntaxError(
                 "Invalid syntax for {0}. Incorrect number of "
                 "arguments.".format(
@@ -473,8 +473,8 @@ def get_form_field_type(parser, token):
     """
     bits = token.contents.split()
 
-    if 4 == len(bits):
-        if 'as' != bits[-2]:
+    if len(bits) == 4:
+        if bits[-2] != 'as':
             raise TemplateSyntaxError(
                 "Invalid syntax for {0}. Incorrect number of "
                 "arguments.".format(
@@ -530,8 +530,8 @@ def get_form_hidden_fields_errors(parser, token):
     """
     bits = token.contents.split()
 
-    if 4 == len(bits):
-        if 'as' != bits[-2]:
+    if len(bits) == 4:
+        if bits[-2] != 'as':
             raise TemplateSyntaxError(
                 "Invalid syntax for {0}. Incorrect number of "
                 "arguments.".format(

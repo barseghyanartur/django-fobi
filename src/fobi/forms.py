@@ -6,13 +6,13 @@ from django import forms
 from django.forms.models import modelformset_factory
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from nonefield.fields import NoneField
+# from nonefield.fields import NoneField
 
 from .base import (
     get_registered_form_element_plugins,
     get_registered_form_handler_plugins,
-    get_registered_form_wizard_handler_plugins,
-    get_theme
+    # get_registered_form_wizard_handler_plugins,
+    get_theme,
 )
 from .constants import ACTION_CHOICES
 from .exceptions import ImproperlyConfigured
