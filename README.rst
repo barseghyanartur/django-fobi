@@ -2066,7 +2066,8 @@ Set up Firefox 47
 
        FIREFOX_BIN_PATH = '/usr/lib/firefox47/firefox'
 
-   If you set ``FIREFOX_BIN_PATH`` to None, system Firefox would be used.
+   If you set to use system Firefox, remove or comment-out the
+   ``FIREFOX_BIN_PATH`` setting.
 
 After that your Selenium tests would work.
 
@@ -2111,14 +2112,14 @@ PhantomJS.
 
        PHANTOM_JS_EXECUTABLE_PATH = ""
 
-   If you want to use Firefox for testing, set
-   ``PHANTOM_JS_EXECUTABLE_PATH`` to None.
+   If you want to use Firefox for testing, remove or comment-out the
+   ``PHANTOM_JS_EXECUTABLE_PATH`` setting.
 
 Troubleshooting
 ===============
 If you get a ``FormElementPluginDoesNotExist`` or a
 ``FormHandlerPluginDoesNotExist`` exception, make sure you have listed your
-plugin in the `settings` module of your project.
+plugin in the ``settings`` module of your project.
 
 License
 =======
