@@ -14,9 +14,9 @@ from autoslug.settings import slugify
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser
-from django.contrib.contenttypes.models import ContentType
+# from django.contrib.contenttypes.models import ContentType
 from django.core.files.base import File
-from django.db.utils import DatabaseError
+# from django.db.utils import DatabaseError
 from django.http import HttpResponse
 from django.test.client import RequestFactory
 from django.utils.encoding import force_text
@@ -876,7 +876,7 @@ def get_wizard_form_field_value_from_request(request,
             return value
 
         # Then try POST
-        if 'POST' == request.method:
+        if request.method == 'POST':
             value = get_wizard_form_field_value_from_post(
                 request,
                 wizard_view_name,
@@ -887,7 +887,7 @@ def get_wizard_form_field_value_from_request(request,
 
     else:
         # First try POST
-        if 'POST' == request.method:
+        if request.method == 'POST':
             value = get_wizard_form_field_value_from_post(
                 request,
                 wizard_view_name,

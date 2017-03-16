@@ -1,4 +1,4 @@
-from fobi.base import get_theme
+from ..base import get_theme
 
 __title__ = 'fobi.integration.helpers'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
