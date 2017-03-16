@@ -15,7 +15,6 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.storage import FileSystemStorage
-from django.core.urlresolvers import reverse
 from django.forms import ValidationError
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import redirect
@@ -87,7 +86,9 @@ from .wizard import DynamicSessionWizardView, DynamicCookieWizardView
 
 if versions.DJANGO_GTE_1_10:
     from django.shortcuts import render
+    from django.urls import reverse
 else:
+    from django.core.urlresolvers import reverse
     from django.shortcuts import render_to_response
 
 if versions.DJANGO_GTE_1_8:
@@ -352,7 +353,7 @@ def create_form_entry(request, theme=None, template_name=None):
     :param str template_name:
     :return django.http.HttpResponse:
     """
-    if 'POST' == request.method:
+    if request.method == 'POST':
         form = FormEntryForm(request.POST, request.FILES, request=request)
         if form.is_valid():
             form_entry = form.save(commit=False)
@@ -429,7 +430,7 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
     except ObjectDoesNotExist as err:
         raise Http404(ugettext("Form entry not found."))
 
-    if 'POST' == request.method:
+    if request.method == 'POST':
         # The form entry form (does not contain form elements)
         form = FormEntryForm(request.POST, request.FILES, instance=form_entry,
                              request=request)
@@ -672,7 +673,7 @@ def add_form_element_entry(request,
         save_object = True
 
     # If POST
-    elif 'POST' == request.method:
+    elif request.method == 'POST':
         # If element has a form
         form = form_element_plugin.get_initialised_create_form_or_404(
             data=request.POST,
@@ -759,7 +760,7 @@ def edit_form_element_entry(request,
 
     :param django.http.HttpRequest request:
     :param int form_element_entry_id:
-    :param fobi.base.BaseTheme: Theme instance.
+    :param fobi.base.BaseTheme theme: Theme instance.
     :param string template_name:
     :return django.http.HttpResponse:
     """
@@ -787,7 +788,7 @@ def edit_form_element_entry(request,
         )
         return redirect('fobi.edit_form_entry', form_entry_id=form_entry.pk)
 
-    elif 'POST' == request.method:
+    elif request.method == 'POST':
         form = form_element_plugin.get_initialised_edit_form_or_404(
             data=request.POST,
             files=request.FILES
@@ -942,7 +943,7 @@ def add_form_handler_entry(request,
     if not form_handler_plugin_form_cls:
         save_object = True
 
-    elif 'POST' == request.method:
+    elif request.method == 'POST':
         form = form_handler_plugin.get_initialised_create_form_or_404(
             data=request.POST,
             files=request.FILES
@@ -1042,7 +1043,7 @@ def edit_form_handler_entry(request,
         )
         return redirect('fobi.edit_form_entry', form_entry_id=form_entry.pk)
 
-    elif 'POST' == request.method:
+    elif request.method == 'POST':
         form = form_handler_plugin.get_initialised_edit_form_or_404(
             data=request.POST,
             files=request.FILES
@@ -1146,7 +1147,7 @@ def create_form_wizard_entry(request, theme=None, template_name=None):
     :param str template_name:
     :return django.http.HttpResponse:
     """
-    if 'POST' == request.method:
+    if request.method == 'POST':
         form = FormWizardEntryForm(request.POST,
                                    request.FILES,
                                    request=request)
@@ -1231,7 +1232,7 @@ def edit_form_wizard_entry(request, form_wizard_entry_id, theme=None,
     except ObjectDoesNotExist as err:
         raise Http404(ugettext("Form wizard entry not found."))
 
-    if 'POST' == request.method:
+    if request.method == 'POST':
         # The form entry form (does not contain form elements)
         form = FormWizardEntryForm(request.POST, request.FILES,
                                    instance=form_wizard_entry,
@@ -1952,7 +1953,7 @@ def add_form_wizard_handler_entry(request,
     if not form_wizard_handler_plugin_form_cls:
         save_object = True
 
-    elif 'POST' == request.method:
+    elif request.method == 'POST':
         form = form_wizard_handler_plugin.get_initialised_create_form_or_404(
             data=request.POST,
             files=request.FILES
@@ -2059,7 +2060,7 @@ def edit_form_wizard_handler_entry(request,
             form_wizard_entry_id=form_wizard_entry.pk
         )
 
-    elif 'POST' == request.method:
+    elif request.method == 'POST':
         form = form_wizard_handler_plugin.get_initialised_edit_form_or_404(
             data=request.POST,
             files=request.FILES
@@ -2176,7 +2177,7 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
         request=request
     )
 
-    if 'POST' == request.method:
+    if request.method == 'POST':
         form = form_cls(request.POST, request.FILES)
 
         # Fire pre form validation callbacks
@@ -2405,7 +2406,7 @@ def import_form_entry(request, template_name=None):
     :param string template_name:
     :return django.http.HttpResponse:
     """
-    if 'POST' == request.method:
+    if request.method == 'POST':
         form = ImportFormEntryForm(request.POST, request.FILES)
 
         if form.is_valid():
@@ -2610,7 +2611,7 @@ def import_form_wizard_entry(request, template_name=None):
     :param string template_name:
     :return django.http.HttpResponse:
     """
-    if 'POST' == request.method:
+    if request.method == 'POST':
         form = ImportFormWizardEntryForm(request.POST, request.FILES)
 
         if form.is_valid():

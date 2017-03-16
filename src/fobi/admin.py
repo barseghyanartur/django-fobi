@@ -81,7 +81,7 @@ def base_bulk_change_plugins(PluginForm, named_url, modeladmin, request,
     post = dict(request.POST)
     if selected:
         post['selected_plugins'] = ','.join(selected)
-    if 'POST' == request.method:
+    if request.method == 'POST':
         form = PluginForm(
             data=post,
             files=request.FILES,
@@ -455,7 +455,7 @@ class BasePluginModelAdmin(admin.ModelAdmin):
         This is where the data is actually processed.
         """
         changelist_named_url = self._get_changelist_named_url()
-        if 'POST' == request.method:
+        if request.method == 'POST':
             form_cls = self._get_bulk_change_form_class()
             form = form_cls(
                 data=request.POST,

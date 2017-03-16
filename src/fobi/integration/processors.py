@@ -5,18 +5,22 @@ from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 
-from fobi.base import (
-    fire_form_callbacks, run_form_handlers,
-    submit_plugin_form_data, get_theme
+from ..base import (
+    fire_form_callbacks,
+    get_theme,
+    run_form_handlers,
+    submit_plugin_form_data,
 )
-from fobi.constants import (
-    CALLBACK_BEFORE_FORM_VALIDATION, CALLBACK_FORM_INVALID,
-    CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA, CALLBACK_FORM_VALID,
-    CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS
+from ..constants import (
+    CALLBACK_BEFORE_FORM_VALIDATION,
+    CALLBACK_FORM_INVALID,
+    CALLBACK_FORM_VALID,
+    CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS,
+    CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA,
 )
-from fobi.dynamic import assemble_form_class
-from fobi.exceptions import ImproperlyConfigured
-from fobi.settings import GET_PARAM_INITIAL_DATA
+from ..dynamic import assemble_form_class
+from ..exceptions import ImproperlyConfigured
+from ..settings import GET_PARAM_INITIAL_DATA
 
 __title__ = 'fobi.integration.processors'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -70,6 +74,7 @@ class IntegrationProcessor(object):
                 )
 
     def get_context_data(self, request, instance, **kwargs):
+        """Get context data."""
         context = {
             'form_entry': instance.form_entry,
         }
@@ -77,12 +82,15 @@ class IntegrationProcessor(object):
         return context
 
     def get_form_template_name(self, request, instance):
+        """Get form template name."""
         return instance.form_template_name or None
 
     def get_success_page_template_name(self, request, instance):
+        """Get succes page template name."""
         return instance.success_page_template_name or None
 
     def get_login_required_template_name(self, request, instance):
+        """Get login required template name."""
         return self.login_required_template_name or None
 
     def _process_form(self, request, instance, **kwargs):
@@ -121,7 +129,7 @@ class IntegrationProcessor(object):
             request=request
         )
 
-        if 'POST' == request.method:
+        if request.method == 'POST':
             form = FormClass(request.POST, request.FILES)
 
             # Fire pre form validation callbacks
@@ -133,8 +141,7 @@ class IntegrationProcessor(object):
             )
 
             if form.is_valid():
-                # Fire form valid callbacks, before handling sufrom
-                # django.http import HttpResponseRedirectbmitted plugin
+                # Fire form valid callbacks, before handling submitted plugin
                 # form data
                 form = fire_form_callbacks(
                     form_entry=instance.form_entry,

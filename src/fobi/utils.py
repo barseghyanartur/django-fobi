@@ -3,17 +3,18 @@ Another helper module. This module can NOT be safely imported from any fobi
 (sub)module - thus should be imported carefully.
 """
 import datetime
-import os
 import logging
-
-from six import PY3
+import os
 
 from django.conf import settings
 from django.contrib import messages
-from django.core.urlresolvers import reverse
 from django.forms.widgets import TextInput
 from django.utils.encoding import force_text
 from django.utils.translation import ugettext, ugettext_lazy as _
+
+from nine.versions import DJANGO_GTE_1_10
+
+from six import PY3
 
 from .base import (
     form_element_plugin_registry,
@@ -41,6 +42,11 @@ from .models import (
     FormWizardHandler
 )
 from .settings import RESTRICT_PLUGIN_ACCESS, DEBUG, WIZARD_FILES_UPLOAD_DIR
+
+if DJANGO_GTE_1_10:
+    from django.urls import reverse
+else:
+    from django.core.urlresolvers import reverse
 
 __title__ = 'fobi.utils'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'

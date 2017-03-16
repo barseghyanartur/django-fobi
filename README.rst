@@ -302,8 +302,9 @@ Add the following line to urlpatterns of your `urls` module.
     url(r'^fobi/', include('fobi.urls.edit')),
 
 Note, that some plugins require additional URL includes. For instance, if you
-listed the `fobi.contrib.plugins.form_handlers.db_store` form handler plugin
-in the ``INSTALLED_APPS``, you should mention the following in `urls` module.
+listed the ``fobi.contrib.plugins.form_handlers.db_store`` form handler plugin
+in the ``INSTALLED_APPS``, you should mention the following in ``urls``
+module.
 
 .. code-block:: python
 
@@ -344,8 +345,8 @@ There are several properties, each textarea should have. They are:
 - `required` (bool): Flag, which tells us whether the field is required or
   optional.
 
-Let's name that plugin `sample_textarea`. The plugin directory should then have
-the following structure.
+Let's name that plugin ``sample_textarea``. The plugin directory should then
+have the following structure.
 
 .. code-block:: sh
 
@@ -368,7 +369,7 @@ Define and register the form element plugin
 -------------------------------------------
 Step by step review of a how to create and register a plugin and plugin
 widgets. Note, that `django-fobi` auto-discovers your plugins if you place
-them into a file named `fobi_form_elements.py` of any Django app listed in
+them into a file named ``fobi_form_elements.py`` of any Django app listed in
 ``INSTALLED_APPS`` of your Django projects' settings module.
 
 path/to/sample_textarea/fobi_form_elements.py
@@ -475,11 +476,11 @@ path/to/sample_textarea/forms.py
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Why to have another file for defining forms? Just to keep the code clean and
 less messy, although you could perfectly define all your plugin forms in the
-module `fobi_form_elements.py`, it's recommended to keep it separate.
+module ``fobi_form_elements.py``, it's recommended to keep it separate.
 
-Take into consideration, that `forms.py` is not an auto-discovered file pattern.
-All your form element plugins should be registered in modules named
-`fobi_form_elements.py`.
+Take into consideration, that ``forms.py`` is not an auto-discovered file
+pattern. All your form element plugins should be registered in modules named
+``fobi_form_elements.py``.
 
 Required imports.
 
@@ -631,7 +632,7 @@ Do check the source code as example.
 
 Define and register the form handler plugin
 -------------------------------------------
-Let's name that plugin `sample_mail`. The plugin directory should then have
+Let's name that plugin ``sample_mail``. The plugin directory should then have
 the following structure.
 
 .. code-block:: text
@@ -704,11 +705,11 @@ plugin is configurable, it should have a form.
 
 Why to have another file for defining forms? Just to keep the code clean and
 less messy, although you could perfectly define all your plugin forms in the
-module `fobi_form_handlers.py`, it's recommended to keep it separate.
+module ``fobi_form_handlers.py``, it's recommended to keep it separate.
 
-Take into consideration, that `forms.py` is not an auto-discovered file pattern.
-All your form handler plugins should be registered in modules named
-`fobi_form_handlers.py`.
+Take into consideration, that ``forms.py`` is not an auto-discovered file
+pattern. All your form handler plugins should be registered in modules named
+``fobi_form_handlers.py``.
 
 Required imports.
 
@@ -837,8 +838,8 @@ existing MailChimp forms into `django-fobi`.
 
 Define and register the form importer plugin
 --------------------------------------------
-Let's name that plugin `sample_importer`. The plugin directory should then have
-the following structure.
+Let's name that plugin ``sample_importer``. The plugin directory should then
+have the following structure.
 
 .. code-block:: text
 
@@ -938,7 +939,7 @@ Required imports.
 
     from django import forms
     from django.utils.translation import ugettext_lazy as _
-    from sample_service_api import sample_api # Just an imaginary API client
+    from sample_service_api import sample_api  # Just an imaginary API client
 
 Defining the form for Sample importer plugin.
 
@@ -988,7 +989,8 @@ Required imports.
     from formtools.wizard.views import SessionWizardView
 
     from path.to.sample_importer.forms import (
-        SampleImporterStep1Form, SampleImporterStep2Form
+        SampleImporterStep1Form,
+        SampleImporterStep2Form,
     )
 
 Defining the wizard view for Sample importer plugin.
@@ -1076,9 +1078,8 @@ Creating a form callback
 Form callbacks are additional hooks, that are executed on various stages of
 the form submission.
 
-Let's place the callback in the `foo` module. The plugin directory should then
-have the following
-structure.
+Let's place the callback in the ``foo`` module. The plugin directory should
+then have the following structure.
 
 .. code-block:: text
 
@@ -1162,7 +1163,7 @@ themes:
 - "Foundation 5" theme
 - "Simple" theme in (with editing interface in style of the Django admin)
 - "DjangoCMS admin style" theme (which is another simple theme with editing
-  interface in style of `djangocms-admin-style`)
+  interface in style of ``djangocms-admin-style``)
 
 Obviously, there are two sorts of views when it comes to editing and viewing
 the form.
@@ -1192,7 +1193,7 @@ the "Simple" theme is the best start, since it looks just like django-admin.
 Create a new theme
 ------------------
 
-Let's place the theme in the `sample_theme` module. The theme directory 
+Let's place the theme in the ``sample_theme`` module. The theme directory
 should then have the following structure.
 
 .. code-block:: text
@@ -1292,7 +1293,7 @@ Registering the ``SampleTheme`` plugin.
 
 Sometimes you would want to attach additional properties to the theme
 in order to use them later in templates (remember, current theme object
-is always available in templates under name `fobi_theme`).
+is always available in templates under name ``fobi_theme``).
 
 For such cases you would need to define a variable in your project's settings
 module, called ``FOBI_CUSTOM_THEME_DATA``. See the following code as example:
@@ -1742,7 +1743,7 @@ The following HTML5 fields are supported in corresponding bundled plugins:
 - placeholder
 - type
 
-With the `fobi.contrib.plugins.form_elements.fields.input` support for
+With the ``fobi.contrib.plugins.form_elements.fields.input`` support for
 HTML5 fields is extended to the following fields:
 
 - autocomplete
@@ -1769,7 +1770,7 @@ Dynamic initial values
 It's possible to provide a dynamic initial value for any of the text elements.
 In order to do that, you should use the build-in context processor or make
 your own one. The only requirement is that you should store all values that
-should be exposes in the form as a dict for `fobi_dynamic_values` dictionary
+should be exposes in the form as a dict for ``fobi_dynamic_values`` dictionary
 key. Beware, that passing the original request object might be unsafe in
 many ways. Currently, a stripped down version of the request object is being
 passed as a context variable.
@@ -1793,7 +1794,8 @@ passed as a context variable.
             }
         }
 
-In your GUI, you should be refering to the initial values in the following way:
+In your GUI, you should be referring to the initial values in the following
+way:
 
 .. code-block:: html
 
@@ -1807,21 +1809,21 @@ Currently, the following variables are available in the
 
     - request: Stripped HttpRequest object.
 
-        - request.path: A string representing the full path to the requested page,
-          not including the scheme or domain.
+        - request.path: A string representing the full path to the requested
+          page, not including the scheme or domain.
 
-        - request.get_full_path(): Returns the path, plus an appended query string,
-          if applicable.
+        - request.get_full_path(): Returns the path, plus an appended query
+          string, if applicable.
 
-        - request.is_secure():  Returns True if the request is secure; that is, if
-          it was made with HTTPS.
+        - request.is_secure():  Returns True if the request is secure; that
+          is, if it was made with HTTPS.
 
         - request.is_ajax(): Returns True if the request was made via an
           XMLHttpRequest, by checking the HTTP_X_REQUESTED_WITH header for the
           string 'XMLHttpRequest'.
 
-        - request.META: A stripped down standard Python dictionary containing the
-          available HTTP headers.
+        - request.META: A stripped down standard Python dictionary containing
+          the available HTTP headers.
 
             - HTTP_ACCEPT_ENCODING: Acceptable encodings for the response.
 
@@ -1833,7 +1835,7 @@ Currently, the following variables are available in the
 
             - HTTP_USER_AGENT: The client’s user-agent string.
 
-            - QUERY_STRING: The query string, as a single (unparsed) string.
+            - QUERY_STRING: The query string, as a single (un-parsed) string.
 
             - REMOTE_ADDR: The IP address of the client.
 
@@ -1841,9 +1843,9 @@ Currently, the following variables are available in the
 
             - request.user.email:
 
-            - request.user.get_username(): Returns the username for the user. Since
-              the User model can be swapped out, you should use this method
-              instead of referencing the username attribute directly.
+            - request.user.get_username(): Returns the username for the user.
+              Since the User model can be swapped out, you should use this
+              method instead of referencing the username attribute directly.
 
             - request.user.get_full_name(): Returns the first_name plus the
               last_name, with a space in between.
@@ -2038,10 +2040,11 @@ install the test requirements:
 
 Browser tests
 -------------
-For browser tests you may choose between Firefox and PhantomJS. PhantomJS is
-faster, Firefox tests tell you more. Both cases require some effort and both
-have disadvantages regarding the installation (although once you have them
-installed they work perfect).
+For browser tests you may choose between Firefox, headless Firefox and
+PhantomJS. PhantomJS is faster, headless Firefox is fast as well, but
+normal Firefox tests tell you more (as you see what exactly happens on the
+screen). Both cases require some effort and both have disadvantages regarding
+the installation (although once you have them installed they work perfect).
 
 Latest versions of Firefox are often not supported by Selenium. Current
 version of the Selenium for Python (2.53.6) works fine with Firefox 47.
@@ -2063,9 +2066,30 @@ Set up Firefox 47
 
        FIREFOX_BIN_PATH = '/usr/lib/firefox47/firefox'
 
-   If you set ``FIREFOX_BIN_PATH`` to None, system Firefox would be used.
+   If you set to use system Firefox, remove or comment-out the
+   ``FIREFOX_BIN_PATH`` setting.
 
 After that your Selenium tests would work.
+
+Set up headless Firefox
+~~~~~~~~~~~~~~~~~~~~~~~
+1. Install ``xvfb`` package which is used to start Firefox in headless mode.
+
+   .. code-block:: sh
+
+        sudo apt-get install xvfb
+
+2. Run the tests using headless Firefox.
+
+   .. code-block:: sh
+
+        ./scripts/runtests.sh
+
+   Or run tox tests using headless Firefox.
+
+   .. code-block:: sh
+
+        ./scripts/tox.sh
 
 Setup PhantomJS
 ~~~~~~~~~~~~~~~
@@ -2088,14 +2112,14 @@ PhantomJS.
 
        PHANTOM_JS_EXECUTABLE_PATH = ""
 
-   If you want to use Firefox for testing, set
-   ``PHANTOM_JS_EXECUTABLE_PATH`` to None.
+   If you want to use Firefox for testing, remove or comment-out the
+   ``PHANTOM_JS_EXECUTABLE_PATH`` setting.
 
 Troubleshooting
 ===============
 If you get a ``FormElementPluginDoesNotExist`` or a
 ``FormHandlerPluginDoesNotExist`` exception, make sure you have listed your
-plugin in the `settings` module of your project.
+plugin in the ``settings`` module of your project.
 
 License
 =======

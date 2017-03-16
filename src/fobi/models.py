@@ -2,13 +2,14 @@ from __future__ import absolute_import
 
 import logging
 
+from autoslug import AutoSlugField
+
 from django.conf import settings
 from django.contrib.auth.models import Group
-from django.core.urlresolvers import reverse
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from autoslug import AutoSlugField
+from nine.versions import DJANGO_GTE_1_10
 
 from six import python_2_unicode_compatible
 
@@ -18,9 +19,14 @@ from .base import (
     form_wizard_handler_plugin_registry,
     get_registered_form_element_plugins,
     get_registered_form_handler_plugins,
-    get_registered_form_wizard_handler_plugins
+    get_registered_form_wizard_handler_plugins,
 )
 from .constants import WIZARD_TYPES, DEFAULT_WIZARD_TYPE
+
+if DJANGO_GTE_1_10:
+    from django.urls import reverse
+else:
+    from django.core.urlresolvers import reverse
 
 __title__ = 'fobi.models'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'

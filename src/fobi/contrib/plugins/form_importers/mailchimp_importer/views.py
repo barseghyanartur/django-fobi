@@ -1,15 +1,21 @@
 import logging
 
-import mailchimp
-
 from django.contrib import messages
-from django.core.urlresolvers import reverse
 from django.shortcuts import redirect
 from django.utils.translation import ugettext_lazy as _
 
+import mailchimp
+
 from fobi.wizard import SessionWizardView
 
+from nine.versions import DJANGO_GTE_1_10
+
 from .forms import MailchimpAPIKeyForm, MailchimpListIDForm
+
+if DJANGO_GTE_1_10:
+    from django.urls import reverse
+else:
+    from django.core.urlresolvers import reverse
 
 __title__ = 'fobi.contrib.plugins.form_importers.mailchimp_importer.views'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'

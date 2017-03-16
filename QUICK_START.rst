@@ -16,14 +16,14 @@ Installation and configuration
 ------------------------------
 Install the package in your environment.
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-.. code-block:: none
+.. code-block:: sh
 
     pip install django-fobi
 
 INSTALLED_APPS
 ^^^^^^^^^^^^^^
 Add ``fobi`` core and the plugins to the ``INSTALLED_APPS`` of the your
-`settings` module.
+``settings`` module.
 
 1. The core.
 
@@ -47,7 +47,7 @@ Add ``fobi`` core and the plugins to the ``INSTALLED_APPS`` of the your
    <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/recaptcha/>`_
    would require additional packages to be installed. If so, make sure to have
    installed and configured those dependencies prior adding the dependant
-   add-ons to the `settings` module.
+   add-ons to the ``settings`` module.
 
 .. code-block:: python
 
@@ -82,7 +82,7 @@ Add ``fobi`` core and the plugins to the ``INSTALLED_APPS`` of the your
 
 .. code-block:: python
 
-    'easy_thumbnails', # Required by `content_image` plugin
+    'easy_thumbnails',  # Required by `content_image` plugin
     'fobi.contrib.plugins.form_elements.content.content_image',
     'fobi.contrib.plugins.form_elements.content.content_text',
     'fobi.contrib.plugins.form_elements.content.content_video',
@@ -145,7 +145,7 @@ Putting all together, you would have something like this.
         'fobi.contrib.plugins.form_elements.fields.url',
 
         # Form element plugins
-        'easy_thumbnails', # Required by `content_image` plugin
+        'easy_thumbnails',  # Required by ``content_image`` plugin
         'fobi.contrib.plugins.form_elements.content.content_image',
         'fobi.contrib.plugins.form_elements.content.content_text',
         'fobi.contrib.plugins.form_elements.content.content_video',
@@ -162,21 +162,21 @@ TEMPLATE_CONTEXT_PROCESSORS
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Add ``django.core.context_processors.request`` and
 ``fobi.context_processors.theme`` to ``TEMPLATE_CONTEXT_PROCESSORS`` of
-your `settings` module.
+your ``settings`` module.
 
 .. code-block:: python
 
     TEMPLATE_CONTEXT_PROCESSORS = (
         # ...
         "django.core.context_processors.request",
-        "fobi.context_processors.theme", # Obligatory
-        "fobi.context_processors.dynamic_values", # Optional
+        "fobi.context_processors.theme",  # Obligatory
+        "fobi.context_processors.dynamic_values",  # Optional
         # ...
     )
 
 urlpatterns
 ^^^^^^^^^^^
-Add the following line to ``urlpatterns`` of your `urls` module.
+Add the following line to ``urlpatterns`` of your ``urls`` module.
 
 .. code-block:: python
 
@@ -201,21 +201,21 @@ Update the database
 1. First you should be syncing/migrating the database. Depending on your
    Django version and migration app, this step may vary. Typically as follows:
 
-.. code-block:: none
+.. code-block:: sh
 
-    $ ./manage.py syncdb
-    $ ./manage.py migrate --fake-initial
+    ./manage.py syncdb
+    ./manage.py migrate --fake-initial
 
 2. Sync installed ``fobi`` plugins. Go to terminal and type the following
    command.
 
-.. code-block:: none
+.. code-block:: sh
 
-    $ ./manage.py fobi_sync_plugins
+    ./manage.py fobi_sync_plugins
 
 Specify the active theme
 ^^^^^^^^^^^^^^^^^^^^^^^^
-Specify the default theme in your `settings` module.
+Specify the default theme in your ``settings`` module.
 
 .. code-block:: python
 

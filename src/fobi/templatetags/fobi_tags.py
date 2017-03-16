@@ -30,7 +30,7 @@ __all__ = (
 
 THEME = get_theme(request=None, as_instance=True)
 
-REGISTER = Library()
+register = Library()
 
 # *****************************************************************************
 # *****************************************************************************
@@ -63,7 +63,7 @@ class GetFobiPluginNode(Node):
         return ''
 
 
-@REGISTER.tag
+@register.tag
 def get_fobi_plugin(parser, token):
     """Get the plugin.
 
@@ -126,7 +126,7 @@ class GetFobiFormHandlerPluginCustomActionsNode(Node):
         return ''
 
 
-@REGISTER.tag
+@register.tag
 def get_fobi_form_handler_plugin_custom_actions(parser, token):
     """Get the form handler plugin custom actions.
 
@@ -192,7 +192,7 @@ class GetFobiFormWizardHandlerPluginCustomActionsNode(Node):
         return ''
 
 
-@REGISTER.tag
+@register.tag
 def get_fobi_form_wizard_handler_plugin_custom_actions(parser, token):
     """Get the form wizard handler plugin custom actions.
 
@@ -275,12 +275,12 @@ def render_auth_link(context):
     }
 
 
-REGISTER.inclusion_tag(
+register.inclusion_tag(
     'fobi/snippets/render_auth_link.html', takes_context=True
 )(render_auth_link)
 
 
-@REGISTER.inclusion_tag(THEME.forms_list_template, takes_context=True)
+@register.inclusion_tag(THEME.forms_list_template, takes_context=True)
 def render_fobi_forms_list(context, queryset, *args, **kwargs):
     """Render the list of fobi forms.
 
@@ -366,7 +366,7 @@ class HasEditFormEntryPermissionsNode(Node):
             return False
 
 
-@REGISTER.tag
+@register.tag
 def has_edit_form_entry_permissions(parser, token):
     """Checks the permissions
 
@@ -456,7 +456,7 @@ class GetFormFieldTypeNode(Node):
         return ''
 
 
-@REGISTER.tag
+@register.tag
 def get_form_field_type(parser, token):
     """Get form field type.
 
@@ -515,7 +515,7 @@ class GetFormHiddenFieldsErrorsNode(Node):
         return ''
 
 
-@REGISTER.tag
+@register.tag
 def get_form_hidden_fields_errors(parser, token):
     """Get form hidden fields errors.
 
