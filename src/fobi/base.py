@@ -1808,11 +1808,12 @@ class FormCallback(object):
         """
         try:
             return self.callback(form_entry, request, form)
-        except Exception as e:
+        except Exception as err:
             logger.debug(
-                "Error in class {0}. Details: "
-                "{1}".format(self.__class__.__name__, str(e))
-                )
+                "Error in class %s. Details: %s",
+                self.__class__.__name__,
+                str(err)
+            )
 
     def callback(self, form_entry, request, form):
         """Callback.
@@ -2179,8 +2180,9 @@ class BasePluginWidgetRegistry(object):
         item = self._registry.get(uid, default)
         if not item:
             logger.debug(
-                "Can't find plugin widget with uid `{0}` in `{1}` "
-                "registry".format(uid, self.__class__)
+                "Can't find plugin widget with uid `%s` in `%s` registry",
+                uid,
+                self.__class__
             )
         return item
 
@@ -3014,7 +3016,7 @@ def collect_plugin_media(form_element_entries, request=None):
             media_css += getattr(widget_cls, 'media_css', [])
         else:
             logger.debug(
-                "No widget for form element entry "
-                "{0}".format(form_element_entry.__dict__)
+                "No widget for form element entry %s",
+                form_element_entry.__dict__
             )
     return {'js': media_js, 'css': media_css}

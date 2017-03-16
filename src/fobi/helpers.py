@@ -26,7 +26,7 @@ from django.utils.translation import ugettext_lazy as _
 from nine.user import User
 from nine.versions import DJANGO_GTE_1_7, DJANGO_GTE_1_10
 
-import simplejson as json
+# import simplejson as json
 
 from six import text_type, PY3
 
@@ -272,11 +272,11 @@ def delete_file(image_file):
 
         # Delete the sized version of it.
         files = glob.glob("{0}*".format(file_path))
-        for f in files:
+        for __f in files:
             try:
-                os.remove(f)
-            except Exception as e:
-                logger.debug(str(e))
+                os.remove(__f)
+            except Exception as err:
+                logger.debug(str(err))
 
         # If all goes well...
         return True
@@ -301,12 +301,12 @@ def clone_file(upload_dir, source_filename, relative_path=True):
         if relative_path:
             destination_filename = destination_filename.replace(
                 settings.MEDIA_ROOT, ''
-                )
+            )
             if destination_filename.startswith('/'):
                 destination_filename = destination_filename[1:]
         return destination_filename
-    except Exception as e:
-        logger.debug(str(e))
+    except Exception as err:
+        logger.debug(str(err))
 
 
 def extract_file_path(name):
@@ -530,9 +530,9 @@ def validate_initial_for_multiple_choices(plugin_form,
             choice = choice.strip()
             if choice not in available_choices:
                 raise forms.ValidationError(
-                   _("Invalid value for initial: {0}. Should be any "
-                     "of the following: {1}"
-                     "".format(choice, ','.join(available_choices)))
+                    _("Invalid value for initial: {0}. Should be any "
+                      "of the following: {1}"
+                      "".format(choice, ','.join(available_choices)))
                 )
 
     return plugin_form.cleaned_data[field_name_initial]

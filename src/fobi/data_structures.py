@@ -65,11 +65,11 @@ class SortableDict(dict):
     def __reversed__(self):
         return reversed(self.key_order)
 
-    def pop(self, k, *args):
+    def pop(self, key, *args):
         """Pop."""
-        result = super(SortableDict, self).pop(k, *args)
+        result = super(SortableDict, self).pop(key, *args)
         try:
-            self.key_order.remove(k)
+            self.key_order.remove(key)
         except ValueError:
             # Key wasn't in the dictionary in the first place. No problem.
             pass
@@ -105,18 +105,18 @@ class SortableDict(dict):
         itervalues = _itervalues
 
         def items(self):
-            return [(k, self[k]) for k in self.key_order]
+            return [(key, self[key]) for key in self.key_order]
 
         def keys(self):
             return self.key_order[:]
 
         def values(self):
-            return [self[k] for k in self.key_order]
+            return [self[key] for key in self.key_order]
 
     def update(self, dict_):
         """Update."""
-        for k, v in six.iteritems(dict_):
-            self[k] = v
+        for key, val in six.iteritems(dict_):
+            self[key] = val
 
     def setdefault(self, key, default):
         """Set default."""
@@ -134,9 +134,9 @@ class SortableDict(dict):
     def insert(self, index, key, value):
         """Inserts the key, value pair before the item with the given index."""
         if key in self.key_order:
-            n = self.key_order.index(key)
-            del self.key_order[n]
-            if n < index:
+            num = self.key_order.index(key)
+            del self.key_order[num]
+            if num < index:
                 index -= 1
         self.key_order.insert(index, key)
         super(SortableDict, self).__setitem__(key, value)
@@ -152,8 +152,8 @@ class SortableDict(dict):
         Replaces the normal dict.__repr__ with a version that returns the keys
         in their sorted order.
         """
-        return '{%s}' % ', '.join(['%r: %r' % (k, v)
-                                   for k, v in six.iteritems(self)])
+        return '{%s}' % ', '.join(['%r: %r' % (key, val)
+                                   for key, val in six.iteritems(self)])
 
     def clear(self):
         """Clear."""
@@ -182,7 +182,8 @@ class SortableDict(dict):
             return True
         elif not fail_silently:
             raise ValueError(
-                "Target key ``{0}`` does not exist.".format(target_key))
+                "Target key ``{0}`` does not exist.".format(target_key)
+            )
         else:
             return False
 
