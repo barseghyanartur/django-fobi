@@ -15,6 +15,16 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.10.8
+------
+yyyy-mm-dd (not yet released)
+
+- Documentation fixes.
+- PEP8 code fixes.
+- Minor setup fixes related to moved screen-shots file.
+- Added helper scripts to test with Firefox in headless mode. Describe
+  testing with Firefox in headless mode in documentation.
+
 0.10.7
 ------
 2017-03-13
