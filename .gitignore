@@ -12,7 +12,7 @@ ghostdriver.log
 /.cache/
 /htmlcov/
 *.py,cover
-.idea/
+/.idea/
 
 MANIFEST.in~
 MIND_BUCKET.rst
