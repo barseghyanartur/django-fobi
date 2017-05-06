@@ -459,7 +459,7 @@ def assemble_serializer_class(form_entry,
             """Update method."""
             # It's critical to assign the validated data to the instance,
             # however we SHOULD NOT save it, since it will obviously make
-            # things break. All of this is done to fool the rest_framework
+            # things break. All of this is done to trick the rest_framework
             # to make a profit of all the nice things that it provides
             # with lowest cost possible.
             for key, value in validated_data.items():

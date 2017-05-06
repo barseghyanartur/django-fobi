@@ -67,7 +67,7 @@ class FobiFormEntryViewSet(
 
         # Setting all the fields, one by one like they were attributes of
         # the object (while they are obviously NOT). It's all done just to
-        # fool the rest_framework and make a profit of all the nice things
+        # trick the rest_framework and make a profit of all the nice things
         # it provides with as little efforts as possible. However, we NEVER
         # save the object.
         for field_name, field_instance in declared_fields.items():
