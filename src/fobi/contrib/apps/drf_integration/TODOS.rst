@@ -28,7 +28,8 @@ Must haves
 
 Should haves
 ------------
-- Find why HiddenInput tests fail.
++ Find why HiddenInput tests fail (in terms of Django REST framework it's
+  a read-only field).
 - Add custom field instance callback for handling data of the custom field
   instances. Do it this way and not the other way, since things get
   complicated when we start to deal with wizards.

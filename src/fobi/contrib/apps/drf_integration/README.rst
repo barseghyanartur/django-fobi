@@ -23,7 +23,7 @@ The following fields are suppored.
 - email
 - file
 - float
-- hidden
+- hidden (in terms of the Django REST framework - a read-only field)
 - input (some sort of a copy of `text` plugin)
 - integer
 - ip_address
