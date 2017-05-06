@@ -2,11 +2,11 @@ import simplejson as json
 
 from six import python_2_unicode_compatible, string_types
 
-from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
 from django.db import models
+from django.utils.translation import ugettext_lazy as _
 
-from fobi.helpers import two_dicts_to_string
+from .....helpers import two_dicts_to_string
 
 __title__ = 'fobi.contrib.plugins.form_handlers.db_store.models'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'

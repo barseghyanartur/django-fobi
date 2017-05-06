@@ -1,4 +1,3 @@
-==============================================
 fobi.contrib.plugins.form_elements.fields.time
 ==============================================
 A ``Fobi`` DateTime form field plugin. Makes use of the
@@ -6,7 +5,7 @@ A ``Fobi`` DateTime form field plugin. Makes use of the
 ``django.forms.widgets.TextInput``.
 
 Installation
-============
+------------
 1. Add ``fobi.contrib.plugins.form_elements.fields.time`` to the
    ``INSTALLED_APPS`` in your ``settings.py``.
 

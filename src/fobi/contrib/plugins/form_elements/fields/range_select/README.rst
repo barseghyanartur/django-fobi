@@ -1,11 +1,10 @@
-======================================================
 fobi.contrib.plugins.form_elements.fields.range_select
 ======================================================
 A ``Fobi`` RangeSelect form field plugin. Makes use of the
 ``django.forms.fields.ChoiceField`` and ``django.forms.widgets.Select``.
 
 Installation
-============
+------------
 1. Add ``fobi.contrib.plugins.form_elements.fields.range_select`` to the
    ``INSTALLED_APPS`` in your ``settings.py``.
 

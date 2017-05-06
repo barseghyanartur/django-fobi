@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from fobi.base import BasePluginForm, get_theme
+from .....base import BasePluginForm, get_theme
 
 __title__ = 'fobi.contrib.plugins.form_handlers.http_repost.forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'

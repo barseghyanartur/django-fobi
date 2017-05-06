@@ -17,8 +17,11 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'handle_uploaded_file', 'get_crop_filter', 'delete_file',
-    'ensure_unique_filename', 'clone_file'
+    'clone_file',
+    'delete_file',
+    'ensure_unique_filename',
+    'get_crop_filter',
+    'handle_uploaded_file',
 )
 
 logger = logging.getLogger(__file__)

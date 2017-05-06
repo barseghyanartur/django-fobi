@@ -33,6 +33,13 @@ class SelectMultipleWithMaxInputPlugin(FormFieldPlugin):
     group = _("Fields")
     form = SelectMultipleWithMaxInputForm
 
+    def get_choices(self):
+        """Get choices.
+
+        Might be used in integration plugins.
+        """
+        return get_select_field_choices(self.data.choices)
+
     def get_form_field_instances(self, request=None, form_entry=None,
                                  form_element_entries=None, **kwargs):
         """Get form field instances."""
@@ -53,6 +60,46 @@ class SelectMultipleWithMaxInputPlugin(FormFieldPlugin):
             field_kwargs['max_choices'] = self.data.max_choices
 
         return [(self.data.name, MultipleChoiceWithMaxField, field_kwargs)]
+
+    def prepare_plugin_form_data(self, cleaned_data):
+        """Prepare plugin form data.
+
+        Might be used in integration plugins.
+        """
+        # In case if we should submit value as is, we don't return anything.
+        # In other cases, we proceed further.
+        if SUBMIT_VALUE_AS != SUBMIT_VALUE_AS_VAL:
+            # Get the object
+            values = cleaned_data.get(self.data.name, None)
+
+            # Get choices
+            choices = dict(self.get_choices())
+
+            # Returned value
+            ret_values = []
+
+            for value in values:
+                # Handle the submitted form value
+
+                if value in choices:
+                    label = safe_text(choices.get(value))
+
+                    # Should be returned as repr
+                    if SUBMIT_VALUE_AS == SUBMIT_VALUE_AS_REPR:
+                        value = label
+                    # Should be returned as mix
+                    else:
+                        value = "{0} ({1})".format(label, value)
+
+                    ret_values.append(value)
+
+            # Overwrite ``cleaned_data`` of the ``form`` with object
+            # qualifier.
+            cleaned_data[self.data.name] = ret_values
+
+            # It's critically important to return the ``form`` with updated
+            # ``cleaned_data``
+            return cleaned_data
 
     def submit_plugin_form_data(self, form_entry, request, form,
                                 form_element_entries=None, **kwargs):

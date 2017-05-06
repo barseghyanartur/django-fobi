@@ -1,11 +1,10 @@
-===============================================
 fobi.contrib.plugins.form_elements.fields.radio
 ===============================================
 A ``Fobi`` Radio form field plugin. Makes use of the
 ``django.forms.fields.ChoiceField`` and ``django.forms.widgets.RadioSelect``.
 
 Installation
-============
+------------
 1. Add ``fobi.contrib.plugins.form_elements.fields.radio`` to the
    ``INSTALLED_APPS`` in your ``settings.py``.
 
@@ -53,7 +52,7 @@ Installation
    values: "val", "repr" or "mix" to get the desired behaviour.
 
 Usage
-=====
+-----
 You should be entering a single choice per line. Choice might
 consist of just a single value or value/label pair.
 

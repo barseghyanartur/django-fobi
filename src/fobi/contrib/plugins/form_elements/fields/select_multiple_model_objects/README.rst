@@ -1,4 +1,3 @@
-=======================================================================
 fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects
 =======================================================================
 A ``Fobi`` Select Multiple Model Objects form field plugin. Makes use of the
@@ -6,7 +5,7 @@ A ``Fobi`` Select Multiple Model Objects form field plugin. Makes use of the
 ``django.forms.widgets.SelectMultiple``.
 
 Installation
-============
+------------
 1. Add
    ``fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects`` 
    to the ``INSTALLED_APPS`` in your ``settings.py``.

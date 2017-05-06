@@ -1,11 +1,10 @@
-=============================================================
 fobi.contrib.plugins.form_elements.fields.select_model_object
 =============================================================
 A ``Fobi`` Select Model Object form field plugin. Makes use of the
 ``django.forms.models.ModelChoiceField`` and ``django.forms.widgets.Select``.
 
 Installation
-============
+------------
 1. Add ``fobi.contrib.plugins.form_elements.fields.select_model_object`` to the
    ``INSTALLED_APPS`` in your ``settings.py``.
 

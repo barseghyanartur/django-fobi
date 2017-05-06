@@ -101,6 +101,13 @@ if 'cms' in settings.INSTALLED_APPS:
     else:
         urlpatterns += i18n_patterns(*url_patterns_args)
 
+# Conditionally including django-rest-framework integration app
+if 'fobi.contrib.apps.drf_integration' in settings.INSTALLED_APPS:
+    from fobi.contrib.apps.drf_integration.urls import fobi_router
+    urlpatterns += [
+        url(r'^api/', include(fobi_router.urls))
+    ]
+
 # Conditionally including Captcha URls in case if
 # Captcha in installed apps.
 if getattr(settings, 'ENABLE_CAPTCHA', False):

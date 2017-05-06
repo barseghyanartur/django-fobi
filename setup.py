@@ -4,7 +4,7 @@ import sys
 from distutils.version import LooseVersion
 from setuptools import setup, find_packages
 
-version = '0.10.7'
+version = '0.11'
 
 # ***************************************************************************
 # ************************** Python version *********************************
@@ -305,6 +305,7 @@ if not install_requires:
 
 tests_require = [
     'selenium',
+    'Faker',
     # 'factory_boy',
     # 'fake-factory',
     # 'Pillow',
@@ -319,24 +320,24 @@ if PY3:
     if not DJANGO_1_11:
         install_requires.append('easy-thumbnails>=2.3')
     else:
-        install_requires.append('easy-thumbnails')
-        dependency_links.append(
-            'https://github.com/SmileyChris/easy-thumbnails/archive/'
-            'master.tar.gz'
-            '#egg=easy-thumbnails'
-        )
+        install_requires.append('easy-thumbnails>=2.4.1')
+        # dependency_links.append(
+        #     'https://github.com/SmileyChris/easy-thumbnails/archive/'
+        #     'master.tar.gz'
+        #     '#egg=easy-thumbnails'
+        # )
 else:
     install_requires.append('simplejson>=2.1.0')  # When using Python 2.*
     install_requires.append('ordereddict>=1.1')
     if not DJANGO_1_11:
         install_requires.append('easy-thumbnails>=1.4')
     else:
-        install_requires.append('easy-thumbnails')
-        dependency_links.append(
-            'https://github.com/SmileyChris/easy-thumbnails/archive/'
-            'master.tar.gz'
-            '#egg=easy-thumbnails'
-        )
+        install_requires.append('easy-thumbnails>=2.4.1')
+        # dependency_links.append(
+        #     'https://github.com/SmileyChris/easy-thumbnails/archive/'
+        #     'master.tar.gz'
+        #     '#egg=easy-thumbnails'
+        # )
 
 setup(
     name='django-fobi',

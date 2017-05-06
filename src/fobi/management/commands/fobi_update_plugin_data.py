@@ -5,6 +5,7 @@ from fobi.models import (
     FormHandlerEntry,
     FormWizardHandlerEntry
 )
+
 from fobi.utils import update_plugin_data_for_entries
 
 

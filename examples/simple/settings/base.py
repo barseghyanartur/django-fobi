@@ -387,6 +387,53 @@ INSTALLED_APPS = [
 
     # ***********************************************************************
     # ***********************************************************************
+    # ********************* Custom field instance plugins *******************
+    # ***********************************************************************
+    # ***********************************************************************
+
+    # ***********************************************************************
+    # ************************** DRF integration ****************************
+    # ***********************************************************************
+    'rest_framework',
+    'fobi.contrib.apps.drf_integration',
+    # 'fobi.contrib.apps.drf_integration.form_elements.content.content_image',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.boolean',
+    'fobi.contrib.apps.drf_integration.form_elements.fields'
+    '.checkbox_select_multiple',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.date',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.datetime',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.decimal',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.email',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.file',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.float',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.hidden',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.input',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.integer',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.ip_address',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.null_boolean',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.password',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.radio',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.range_select',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.regex',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.select',
+    # 'fobi.contrib.apps.drf_integration.form_elements.fields'
+    # '.select_model_object',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.select_multiple',
+    'fobi.contrib.apps.drf_integration.form_elements.fields'
+    '.select_multiple_with_max',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.slider',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.slug',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.text',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.textarea',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.time',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.url',
+
+    'fobi.contrib.apps.drf_integration.form_handlers.db_store',
+    'fobi.contrib.apps.drf_integration.form_handlers.mail',
+    'fobi.contrib.apps.drf_integration.form_handlers.http_repost',
+
+    # ***********************************************************************
+    # ***********************************************************************
     # ***********************************************************************
 
     # Other project specific apps

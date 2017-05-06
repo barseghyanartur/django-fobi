@@ -1,10 +1,9 @@
-========================================================
 fobi.contrib.plugins.form_elements.content.content_image
 ========================================================
 A ``Fobi`` Image form element plugin.
 
 Installation
-============
+------------
 1. Add ``fobi.contrib.plugins.form_elements.content.content_image`` to the
    ``INSTALLED_APPS`` in your ``settings.py``.
 

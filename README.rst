@@ -16,11 +16,11 @@ Present
 - Python 2.7, 3.4, 3.5, 3.6 and PyPy.
 
 Note, that Django 1.11 is not yet proclaimed to be flawlessly supported. The
-core and contrib packages have been tested against the alpha Django 1.11a1
-PyPI release. All tests have successfully passed, although it's yet too early
+core and contrib packages have been tested against the Django 1.11.
+All tests have successfully passed, although it's yet too early
 to claim that Django 1.11 is fully supported. Certain dependencies
-(``django-formtools`` and ``easy-thumbnails``) have been installed from source
-(since versions supporting Django 1.11 are not yet released on PyPI.)
+(``django-formtools``) have been installed from source (since versions
+supporting Django 1.11 are not yet released on PyPI.)
 
 Past
 ----
@@ -78,7 +78,7 @@ Main features and highlights
   form elements (for adding a piece of text, image or a embed video)
   alongside standard form elements.
 - Data handling in plugins (form handlers). Save the data, mail it to some
-  address or repost it to some other endpoint. See the
+  address or re-post it to some other endpoint. See the
   `Bundled form handler plugins`_ for more information.
 - Developer-friendly API, which allows to edit existing or build new form 
   fields and handlers without touching the core.
@@ -88,6 +88,8 @@ Main features and highlights
   and "DjangoCMS admin style" theme (which is another simple theme with editing
   interface in style of `djangocms-admin-style
   <https://github.com/divio/djangocms-admin-style>`_).
+- Implemented integration with `Django REST framework
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/drf_integration>`_
 - Implemented `integration with FeinCMS
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/feincms_integration>`_
   (in a form of a FeinCMS page widget).
@@ -110,11 +112,11 @@ Roadmap
 =======
 Some of the upcoming/in-development features/improvements are:
 
-- Integration with `django-rest-framework` (in version 0.11).
-- Bootstrap 4 and Foundation 6 support (in version 0.12).
-- Wagtail integration (in version 0.13).
+- Wagtail integration (in version 0.12).
+- Bootstrap 4 and Foundation 6 support (in version 0.13).
 
-See the `TODOS <https://raw.githubusercontent.com/barseghyanartur/django-fobi/master/TODOS.rst>`_
+See the `TODOS
+<https://raw.githubusercontent.com/barseghyanartur/django-fobi/master/TODOS.rst>`_
 for the full list of planned-, pending- in-development- or to-be-implemented
 features.
 
@@ -1516,6 +1518,91 @@ README.rst file in directory of each plugin for details.
 - `Mail
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/mail/>`__:
   Send the form data by email.
+
+Integration with third-party apps and frameworks
+================================================
+`django-fobi` has been successfully integrated into a number of diverse
+third-party apps and frameworks, such as: Django REST framework, Django CMS,
+FeinCMS and Mezzanine.
+
+Certainly, integration into CMS is one case, integration into REST framework -
+totally another. In REST frameworks we no longer have forms as such. Context
+is very different. Handling of form data should obviously happen in a
+different way. Assembling of the form class isn't enough (in case of Django
+REST framework we assemble the serializer class).
+
+In order to handle such level of integration, two additional sort of plugins
+have been introduced:
+
+- IntegrationFormElementPlugin
+- IntegrationFormHandlerPlugin
+
+These plugins are in charge of representation of the form elements in a
+proper way for the package to be integrated and handling the submitted form
+data.
+
+Sample `IntegrationFormElementPlugin`
+-------------------------------------
+Sample is taken from `here
+<https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/drf_integration/form_elements/fields/email/>`_.
+
+base.py
+~~~~~~~
+.. code-block:: python
+
+    from django.utils.translation import ugettext_lazy as _
+
+    from rest_framework.fields import EmailField
+
+    from fobi.base import IntegrationFormFieldPlugin
+    from fobi.contrib.apps.drf_integration import UID as INTEGRATE_WITH_UID
+    from fobi.contrib.apps.drf_integration.base import (
+        DRFIntegrationFormElementPluginProcessor,
+        DRFSubmitPluginFormDataMixin,
+    )
+    from fobi.contrib.apps.drf_integration.form_elements.fields.email import UID
+
+
+    class EmailInputPlugin(IntegrationFormFieldPlugin,
+                           DRFSubmitPluginFormDataMixin):
+        """EmailField plugin."""
+
+        uid = UID
+        integrate_with = INTEGRATE_WITH_UID
+        name = _("Decimal")
+        group = _("Fields")
+
+        def get_custom_field_instances(self,
+                                       form_element_plugin,
+                                       request=None,
+                                       form_entry=None,
+                                       form_element_entries=None,
+                                       **kwargs):
+            """Get form field instances."""
+            field_kwargs = {
+                'required': form_element_plugin.data.required,
+                'initial': form_element_plugin.data.initial,
+                'label': form_element_plugin.data.label,
+                'help_text': form_element_plugin.data.help_text,
+                'max_length': form_element_plugin.data.max_length,
+            }
+            return [
+                DRFIntegrationFormElementPluginProcessor(
+                    field_class=EmailField,
+                    field_kwargs=field_kwargs
+                )
+            ]
+
+fobi_integration_form_elements.py
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Register the plugin. Note the name pattern `fobi_integration_form_elements`.
+
+.. code-block:: python
+
+    from fobi.base import integration_form_element_plugin_registry
+    from .base import EmailInputPlugin
+
+    integration_form_element_plugin_registry.register(EmailInputPlugin)
 
 Permissions
 ===========

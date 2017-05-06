@@ -4,7 +4,7 @@ Release history and notes
 <http://en.wikipedia.org/wiki/Software_versioning#Sequence-based_identifiers>`_
 are used for versioning (schema follows below):
 
-.. code-block:: none
+.. code-block:: text
 
     major.minor[.revision]
 
@@ -15,15 +15,22 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
-0.10.8
-------
+0.11
+----
 yyyy-mm-dd (not yet released)
 
+- Django REST framework integration.
 - Documentation fixes.
 - PEP8 code fixes.
 - Minor setup fixes related to moved screen-shots file.
 - Added helper scripts to test with Firefox in headless mode. Describe
   testing with Firefox in headless mode in documentation.
+- Validate the `decimal` field plugin - quantize the decimal value to the
+  configured precision.
+- Minor fixes (`float` field plugin).
+- Minor improvements in complex form element plugins (`select`, `file`) and
+  form handler plugins (`db_store`, `mail`, `http_respost`) in order to
+  simplify integration plugins and reduce code duplication.
 
 0.10.7
 ------

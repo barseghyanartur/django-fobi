@@ -1,27 +1,30 @@
 =======
 Roadmap
 =======
-Upcoming releases.
+Upcoming releases road-map.
 
 0.11
 ----
 yyyy-mm-dd (upcoming).
 
-This release contains minor backwards incompatible changes, related to the
-change of the name of the "simple" theme into "django_admin_style" theme.
-
-- django-rest-framework integration.
-- The "simple" theme has been renamed to "django_admin_style".
+- Django REST framework integration.
 
 0.12
+----
+yyyy-mm-dd (future).
+
+- Wagtail integration.
+
+0.13
 ----
 yyyy-mm-dd (future).
 
 - Bootstrap 4 support.
 - Foundation 6 support.
 
-0.13
+0.14
 ----
-yyyy-mm-dd (future).
+This release contains minor backwards incompatible changes, related to the
+change of the name of the "simple" theme into "django_admin_style" theme.
 
-- Wagtail integration.
+- The "simple" theme has been renamed to "django_admin_style".

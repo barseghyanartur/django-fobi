@@ -8,8 +8,8 @@ from django.http import HttpResponse
 
 from nine.versions import DJANGO_GTE_1_7
 
-from fobi.exceptions import ImproperlyConfigured
-from fobi.helpers import safe_text
+from .....exceptions import ImproperlyConfigured
+from .....helpers import safe_text
 
 from .settings import CSV_DELIMITER, CSV_QUOTECHAR
 

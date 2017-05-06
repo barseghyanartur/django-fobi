@@ -48,6 +48,14 @@ Regarding the form wizards
 - Make sure captcha plugins are usable with form wizards (at the moment they
   are being invalidated on the last step).
 
+Regarding the djangorestframework integration
+---------------------------------------------
+- Submit form functionality.
+- Advanced plugins, such as file plugin or image plugin.
+- Basic foreign key relation plugins (ForeignKey, ManyToMany, OneToMany).
+- Advanced foreign key relation plugins (MPTT).
+- Think of handling the wizards.
+
 Roadmap
 -------
 - django-rest-framework integration.
@@ -56,6 +64,8 @@ Roadmap
 
 Uncategorised
 -------------
+- Implement a set of django-treebeard plugins (as an alternative to MPTT).
+- Implement external image plugin.
 - Implement the clone form functionality.
 - Implement the clone form wizard functionality.
 - Rethink templating of the integration packages (feincms_integration, 

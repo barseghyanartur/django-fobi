@@ -4,19 +4,21 @@ __copyright__ = '2014-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'BaseException',
-    'ImproperlyConfigured',
-    'InvalidRegistryItemType',
     'DoesNotExist',
-    'ThemeDoesNotExist',
-    'PluginDoesNotExist',
-    'FormElementPluginDoesNotExist',
-    'FormHandlerPluginDoesNotExist',
-    'FormWizardHandlerPluginDoesNotExist',
-    'NoDefaultThemeSet',
-    'FormPluginError',
-    'FormElementPluginError',
-    'FormHandlerPluginError',
     'FormCallbackError',
+    'FormElementPluginDoesNotExist',
+    'FormElementPluginError',
+    'FormHandlerPluginDoesNotExist',
+    'FormHandlerPluginError',
+    'FormPluginError',
+    'FormWizardHandlerPluginDoesNotExist',
+    'ImproperlyConfigured',
+    'IntegrationFormElementPluginDoesNotExist',
+    'IntegrationFormHandlerPluginDoesNotExist',
+    'InvalidRegistryItemType',
+    'NoDefaultThemeSet',
+    'PluginDoesNotExist',
+    'ThemeDoesNotExist',
 )
 
 
@@ -57,6 +59,14 @@ class FormElementPluginDoesNotExist(PluginDoesNotExist):
 
 class FormHandlerPluginDoesNotExist(PluginDoesNotExist):
     """Raised when no form handler plugin with given uid can be found."""
+
+
+class IntegrationFormElementPluginDoesNotExist(PluginDoesNotExist):
+    """If integration form element plugin with given uid can't be found."""
+
+
+class IntegrationFormHandlerPluginDoesNotExist(PluginDoesNotExist):
+    """If integration form handler plugin with given uid can't be found."""
 
 
 class FormWizardHandlerPluginDoesNotExist(PluginDoesNotExist):

@@ -1,13 +1,12 @@
-==================================================================
 fobi.contrib.plugins.form_elements.fields.select_mptt_model_object
 ==================================================================
 A ``Fobi`` Select MPTT Model Object form field plugin. Makes use of the
 ``mptt.fields.TreeNodeChoiceField`` and ``django.forms.widgets.Select``.
 
 Installation
-============
+------------
 Install `django-mptt`
----------------------
+~~~~~~~~~~~~~~~~~~~~~
 Taken from django-mptt `Getting started
 <http://django-mptt.github.io/django-mptt/tutorial.html#getting-started>`_.
 
@@ -20,7 +19,7 @@ Taken from django-mptt `Getting started
 2. Add ``mptt`` to the ``INSTALLED_APPS`` in your ``settings.py``.
 
 Install `select_mptt_model_object` plugin
------------------------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 1. Add ``mptt`` and
    ``fobi.contrib.plugins.form_elements.fields.select_mptt_model_object``
    to the ``INSTALLED_APPS`` in your ``settings.py``.
