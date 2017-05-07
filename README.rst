@@ -1551,7 +1551,7 @@ is available in the sub-package.
 Sample `IntegrationFormElementPlugin`
 -------------------------------------
 Sample is taken from `here
-<https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/drf_integration/form_elements/fields/email/>`_.
+<https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/drf_integration/form_elements/fields/email/>`__.
 
 base.py
 ~~~~~~~
@@ -1618,7 +1618,7 @@ Don't forget to list your plugin in the ``INSTALLED_APPS`` afterwards.
 Sample `IntegrationFormHandlerPlugin`
 -------------------------------------
 Sample is taken from `here
-<https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/drf_integration/form_handlers/db_store/>`_.
+<https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/drf_integration/form_handlers/db_store/>`__.
 
 base.py
 ~~~~~~~
