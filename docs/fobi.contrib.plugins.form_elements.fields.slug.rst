@@ -12,6 +12,14 @@ fobi.contrib.plugins.form_elements.fields.slug.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.fields.slug.base module
+----------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.slug.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.slug.fobi_form_elements module
 ------------------------------------------------------------------------
 

@@ -12,6 +12,14 @@ fobi.contrib.plugins.form_elements.fields.textarea.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.fields.textarea.base module
+--------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.textarea.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.textarea.fobi_form_elements module
 ----------------------------------------------------------------------------
 

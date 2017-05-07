@@ -12,6 +12,14 @@ fobi.contrib.plugins.form_elements.fields.null_boolean.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.fields.null_boolean.base module
+------------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.null_boolean.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.null_boolean.fobi_form_elements module
 --------------------------------------------------------------------------------
 

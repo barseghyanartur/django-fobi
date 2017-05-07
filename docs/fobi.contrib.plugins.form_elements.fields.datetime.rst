@@ -12,6 +12,14 @@ fobi.contrib.plugins.form_elements.fields.datetime.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.fields.datetime.base module
+--------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.datetime.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.datetime.fobi_form_elements module
 ----------------------------------------------------------------------------
 

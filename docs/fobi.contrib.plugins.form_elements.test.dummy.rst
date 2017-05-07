@@ -12,6 +12,14 @@ fobi.contrib.plugins.form_elements.test.dummy.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.test.dummy.base module
+---------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.test.dummy.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.test.dummy.fobi_form_elements module
 -----------------------------------------------------------------------
 

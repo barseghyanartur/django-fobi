@@ -12,6 +12,14 @@ fobi.contrib.plugins.form_elements.fields.float.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.fields.float.base module
+-----------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.float.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.float.fobi_form_elements module
 -------------------------------------------------------------------------
 

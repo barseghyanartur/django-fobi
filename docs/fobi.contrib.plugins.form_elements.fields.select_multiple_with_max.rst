@@ -12,6 +12,14 @@ fobi.contrib.plugins.form_elements.fields.select_multiple_with_max.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.fields.select_multiple_with_max.base module
+------------------------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.select_multiple_with_max.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.select_multiple_with_max.conf module
 ------------------------------------------------------------------------------
 

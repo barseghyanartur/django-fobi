@@ -28,6 +28,14 @@ fobi.contrib.plugins.form_handlers.db_store.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_handlers.db_store.base module
+-------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_handlers.db_store.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_handlers.db_store.conf module
 -------------------------------------------------------
 

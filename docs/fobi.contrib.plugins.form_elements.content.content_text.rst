@@ -12,6 +12,14 @@ fobi.contrib.plugins.form_elements.content.content_text.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.content.content_text.base module
+-------------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.content.content_text.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.content.content_text.conf module
 -------------------------------------------------------------------
 

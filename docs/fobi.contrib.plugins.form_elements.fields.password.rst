@@ -12,6 +12,14 @@ fobi.contrib.plugins.form_elements.fields.password.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.fields.password.base module
+--------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.password.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.password.fobi_form_elements module
 ----------------------------------------------------------------------------
 

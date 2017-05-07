@@ -12,6 +12,14 @@ fobi.contrib.plugins.form_elements.security.recaptcha.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.security.recaptcha.base module
+-----------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.security.recaptcha.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.security.recaptcha.fobi_form_elements module
 -------------------------------------------------------------------------------
 

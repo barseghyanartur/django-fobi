@@ -12,6 +12,14 @@ fobi.contrib.plugins.form_elements.fields.integer.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.fields.integer.base module
+-------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.integer.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.integer.fobi_form_elements module
 ---------------------------------------------------------------------------
 

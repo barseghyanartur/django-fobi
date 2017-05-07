@@ -12,6 +12,14 @@ fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple.base module
+------------------------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple.conf module
 ------------------------------------------------------------------------------
 

@@ -12,6 +12,14 @@ fobi.contrib.plugins.form_elements.fields.slider.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.fields.slider.base module
+------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.slider.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.slider.conf module
 ------------------------------------------------------------
 

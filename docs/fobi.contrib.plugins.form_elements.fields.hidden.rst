@@ -12,6 +12,14 @@ fobi.contrib.plugins.form_elements.fields.hidden.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.fields.hidden.base module
+------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.hidden.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.hidden.fobi_form_elements module
 --------------------------------------------------------------------------
 
