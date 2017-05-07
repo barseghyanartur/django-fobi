@@ -10,6 +10,13 @@ For instance, DRF integration `slider` plugin is just an exact copy of the
 `range_select` plugin, created in order to provide exactly the same form
 fields generated in the API.
 
+Live demo
+---------
+Live demo is available on Heroku.
+
+- `The core <https://django-fobi.herokuapp.com/>`_
+- `Django REST framework integration <https://django-fobi.herokuapp.com/api/>`_
+
 Supported fields
 ----------------
 The following fields are supported.

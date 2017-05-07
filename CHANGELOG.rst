@@ -24,7 +24,8 @@ for all the love and support she gave me through years. If you are a company
 looking for (female) developers in Groningen area (the Netherlands),  do not
 hesitate to `contact her <mailto:anahit.gardishyan@gmail.com>`_.
 
-- Django REST framework integration.
+- Django REST framework integration. Check the Heroku demo `here
+  <https://django-fobi.herokuapp.com/api/>`_.
 - Documentation fixes.
 - PEP8 code fixes.
 - Minor setup fixes related to moved screen-shots file.

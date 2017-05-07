@@ -135,6 +135,8 @@ Demo
 Live demo
 ---------
 See the `live demo app <https://django-fobi.herokuapp.com/>`_ on Heroku.
+Additionally, see the `Django REST framework integration demo
+<https://django-fobi.herokuapp.com/api/>`_.
 
 Credentials:
 
@@ -143,12 +145,12 @@ Credentials:
 
 Run demo locally
 ----------------
-In order to be able to quickly evaluate the `django-fobi`, a demo app (with a
+In order to be able to quickly evaluate the ``django-fobi``, a demo app (with a
 quick installer) has been created (works on Ubuntu/Debian, may work on other
 Linux systems as well, although not guaranteed). Follow the instructions below
 for having the demo running within a minute.
 
-Grab the latest `django_fobi_example_app_installer.sh`:
+Grab the latest ``django_fobi_example_app_installer.sh``:
 
 .. code-block:: sh
 
@@ -1551,7 +1553,7 @@ is available in the sub-package.
 Sample `IntegrationFormElementPlugin`
 -------------------------------------
 Sample is taken from `here
-<https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/drf_integration/form_elements/fields/email/>`_.
+<https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/drf_integration/form_elements/fields/email/>`__.
 
 base.py
 ~~~~~~~
@@ -1618,7 +1620,7 @@ Don't forget to list your plugin in the ``INSTALLED_APPS`` afterwards.
 Sample `IntegrationFormHandlerPlugin`
 -------------------------------------
 Sample is taken from `here
-<https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/drf_integration/form_handlers/db_store/>`_.
+<https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/drf_integration/form_handlers/db_store/>`__.
 
 base.py
 ~~~~~~~
