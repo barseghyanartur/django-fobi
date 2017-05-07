@@ -21,10 +21,9 @@ Must haves
 + Finish existing core fields (without relation- and presentational- fields
   yet).
 + Add `mail` and `http_repost` DRF handler plugins.
-- Add/finish documentation.
-- Add permission checks in the DRF view. If form is not public and user
-  isn't author of the form, he shouldn't be able to view it.
-- In DRF listing view, if user isn't authenticated, show only public forms.
++ Add/finish documentation.
++ In DRF listing view, if user isn't authenticated, show only public forms.
+- Fix Python3 issues with ``slider`` and ``range`` select plugins.
 
 Should haves
 ------------

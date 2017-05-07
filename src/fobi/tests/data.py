@@ -71,8 +71,10 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'TEST_DYNAMIC_FORMS_DEFINITION_DATA',
     'TEST_DYNAMIC_FORMS_DEFINITION_DATA_DRF',
+    # 'TEST_DYNAMIC_FORMS_DEFINITION_DATA_DRF_NEGATIVE',
     'TEST_DYNAMIC_FORMS_OPTIONS_RESPONSE',
     'TEST_DYNAMIC_FORMS_PUT_DATA',
+    'TEST_DYNAMIC_FORMS_PUT_DATA_ALL',
     'TEST_FORM_ELEMENT_PLUGIN_DATA',
     'TEST_FORM_FIELD_DATA',
     'TEST_FORM_HANDLER_PLUGIN_DATA',
@@ -581,17 +583,29 @@ TEST_DYNAMIC_FORMS_DEFINITION_DATA_DRF.pop('ignore_01')
 TEST_DYNAMIC_FORMS_DEFINITION_DATA_DRF.pop('ignore_02')
 TEST_DYNAMIC_FORMS_DEFINITION_DATA_DRF.pop('special_fields')
 
+# TEST_DYNAMIC_FORMS_DEFINITION_DATA_DRF_NEGATIVE = copy.copy(
+#     TEST_DYNAMIC_FORMS_DEFINITION_DATA
+# )
+#
+# for __key, __value
+#         in TEST_DYNAMIC_FORMS_DEFINITION_DATA_DRF_NEGATIVE.items():
+#     if __key not in ('special_fields',):
+#         TEST_DYNAMIC_FORMS_DEFINITION_DATA_DRF_NEGATIVE.pop(__key)
+
 FAKER = Faker()
 
-TEST_DYNAMIC_FORMS_PUT_DATA = {
+TEST_DYNAMIC_FORMS_PUT_DATA_ALL = {
     'username': FAKER.user_name(),
     'email': FAKER.email(),
     'age': FAKER.pyint(),
     'drivers_license': FAKER.pybool(),
-    # 'special_fields': FAKER.pystr(),
+    'special_fields': FAKER.pystr(),
     'number_of_children': FAKER.pyint(),
     'bio': FAKER.text(),
 }
+
+TEST_DYNAMIC_FORMS_PUT_DATA = copy.copy(TEST_DYNAMIC_FORMS_PUT_DATA_ALL)
+TEST_DYNAMIC_FORMS_PUT_DATA.pop('special_fields')
 
 TEST_DYNAMIC_FORMS_OPTIONS_RESPONSE = OrderedDict([
     (u'username', OrderedDict([(u'type', u'string'),

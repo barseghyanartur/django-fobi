@@ -53,6 +53,9 @@ Key concepts
   forms (unlike form handlers, that are executed only if assigned).
 - Each plugin (form element or form handler) or a callback - is a Django
   micro-app.
+- In addition for form element and form handler plugins, integration form
+  element and integration form handler plugins are implemented for integration
+  with diverse third-party apps and frameworks (such as Django REST framework).
 
 Note, that `django-fobi` does not require django-admin and administrative
 rights/permissions to access the UI, although almost seamless integration with
@@ -89,7 +92,7 @@ Main features and highlights
   interface in style of `djangocms-admin-style
   <https://github.com/divio/djangocms-admin-style>`_).
 - Implemented integration with `Django REST framework
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/drf_integration>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/drf_integration>`_.
 - Implemented `integration with FeinCMS
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/feincms_integration>`_
   (in a form of a FeinCMS page widget).
@@ -1541,6 +1544,10 @@ These plugins are in charge of representation of the form elements in a
 proper way for the package to be integrated and handling the submitted form
 data.
 
+`Additional documentation
+<https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/drf_integration/>`_
+is available in the sub-package.
+
 Sample `IntegrationFormElementPlugin`
 -------------------------------------
 Sample is taken from `here
@@ -1548,6 +1555,8 @@ Sample is taken from `here
 
 base.py
 ~~~~~~~
+Define the form element plugin.
+
 .. code-block:: python
 
     from django.utils.translation import ugettext_lazy as _
@@ -1603,6 +1612,113 @@ Register the plugin. Note the name pattern `fobi_integration_form_elements`.
     from .base import EmailInputPlugin
 
     integration_form_element_plugin_registry.register(EmailInputPlugin)
+
+Don't forget to list your plugin in the ``INSTALLED_APPS`` afterwards.
+
+Sample `IntegrationFormHandlerPlugin`
+-------------------------------------
+Sample is taken from `here
+<https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/drf_integration/form_handlers/db_store/>`_.
+
+base.py
+~~~~~~~
+Define the form handler plugin.
+
+.. code-block:: python
+
+    import logging
+    from mimetypes import guess_type
+    import os
+
+    from django.conf import settings
+    from django.utils.translation import ugettext_lazy as _
+
+    from fobi.base import IntegrationFormHandlerPlugin
+    from fobi.helpers import extract_file_path
+
+    from fobi.contrib.apps.drf_integration import UID as INTEGRATE_WITH_UID
+    from fobi.contrib.apps.drf_integration.base import get_processed_serializer_data
+
+    from . import UID
+
+
+    class MailHandlerPlugin(IntegrationFormHandlerPlugin):
+        """Mail handler form handler plugin.
+
+        Can be used only once per form.
+        """
+
+        uid = UID
+        name = _("Mail")
+        integrate_with = INTEGRATE_WITH_UID
+
+        def run(self,
+                form_handler_plugin,
+                form_entry,
+                request,
+                form_element_entries=None,
+                **kwargs):
+            """Run."""
+            base_url = form_handler_plugin.get_base_url(request)
+
+            serializer = kwargs['serializer']
+
+            # Clean up the values, leave our content fields and empty values.
+            field_name_to_label_map, cleaned_data = get_processed_serializer_data(
+                serializer,
+                form_element_entries
+            )
+
+            rendered_data = form_handler_plugin.get_rendered_data(
+                serializer.validated_data,
+                field_name_to_label_map,
+                base_url
+            )
+
+            files = self._prepare_files(request, serializer)
+
+            form_handler_plugin.send_email(rendered_data, files)
+
+        def _prepare_files(self, request, serializer):
+            """Prepares the files for being attached to the mail message."""
+            files = {}
+
+            def process_path(file_path, imf):
+                """Processes the file path and the file."""
+                if file_path:
+                    file_path = file_path.replace(
+                        settings.MEDIA_URL,
+                        os.path.join(settings.MEDIA_ROOT, '')
+                    )
+                    mime_type = guess_type(imf.name)
+                    files[field_name] = (
+                        imf.name,
+                        ''.join([c for c in imf.chunks()]),
+                        mime_type[0] if mime_type else ''
+                    )
+
+            for field_name, imf in request.FILES.items():
+                try:
+                    file_path = serializer.validated_data.get(field_name, '')
+                    process_path(file_path, imf)
+                except Exception as err:
+                    file_path = extract_file_path(imf.name)
+                    process_path(file_path, imf)
+
+            return files
+
+fobi_integration_form_handlers.py
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Register the plugin. Note the name pattern `fobi_integration_form_handlers`.
+
+.. code-block:: python
+
+    from fobi.base import integration_form_handler_plugin_registry
+    from .base import MailHandlerPlugin
+
+    integration_form_handler_plugin_registry.register(MailHandlerPlugin)
+
+Don't forget to list your plugin in the ``INSTALLED_APPS`` afterwards.
 
 Permissions
 ===========

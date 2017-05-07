@@ -17,7 +17,7 @@ are used for versioning (schema follows below):
 
 0.11
 ----
-yyyy-mm-dd (not yet released)
+2017-05-xx (not yet released)
 
 - Django REST framework integration.
 - Documentation fixes.
@@ -25,12 +25,13 @@ yyyy-mm-dd (not yet released)
 - Minor setup fixes related to moved screen-shots file.
 - Added helper scripts to test with Firefox in headless mode. Describe
   testing with Firefox in headless mode in documentation.
-- Validate the `decimal` field plugin - quantize the decimal value to the
+- Validate the ``decimal`` field plugin - quantize the decimal value to the
   configured precision.
-- Minor fixes (`float` field plugin).
-- Minor improvements in complex form element plugins (`select`, `file`) and
-  form handler plugins (`db_store`, `mail`, `http_respost`) in order to
+- Minor fixes (``float`` field plugin).
+- Minor improvements in complex form element plugins (``select``, ``file``) and
+  form handler plugins (``db_store``, ``mail``, ``http_respost``) in order to
   simplify integration plugins and reduce code duplication.
+- Minor Python3 fixes in ``range_select`` and ``slider`` plugins.
 
 0.10.7
 ------

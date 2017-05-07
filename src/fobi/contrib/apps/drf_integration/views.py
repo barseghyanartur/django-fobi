@@ -48,13 +48,24 @@ class FobiFormEntryViewSet(
     # In all other cases, we need to show serializer of the model (which is
     # simply one field - model slug).
 
-    queryset = FormEntry.objects.all()
+    queryset = FormEntry.objects.filter(is_public=True).select_related('user')
     permission_classes = [permissions.AllowAny]
     lookup_field = 'slug'
     lookup_url_kwarg = 'slug'
 
     def has_value(self):
         return None if self.action == 'metadata' else True
+
+    def get_queryset(self):
+        """Get queryset.
+
+        We show all forms to authenticated users and show only public forms
+        to non-authenticated users.
+        """
+        kwargs = {}
+        if not self.request.user.is_authenticated():
+            kwargs.update({'is_public': True})
+        return FormEntry.objects.select_related('user').filter(**kwargs)
 
     def get_object(self):
         """Override get_object to get things done."""

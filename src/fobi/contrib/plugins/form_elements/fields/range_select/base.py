@@ -56,21 +56,22 @@ class RangeSelectInputPlugin(FormFieldPlugin):
 
         Might be used in integration plugins.
         """
-        return self.data.initial if self.data.initial else INITIAL
+        return int(self.data.initial) if self.data.initial else INITIAL
 
     def get_choices(self):
         """Get choices.
 
         Might be used in integration plugins.
         """
-        max_value = self.data.max_value \
+        max_value = int(self.data.max_value) \
             if self.data.max_value \
             else INITIAL_MAX_VALUE
-        min_value = self.data.min_value \
+        min_value = int(self.data.min_value) \
             if self.data.min_value \
             else INITIAL_MIN_VALUE
-        step = self.data.step if self.data.step else STEP
+        step = int(self.data.step) if self.data.step else STEP
 
-        _choices = range(min_value, max_value + 1, step)
-        choices = zip(_choices, _choices)
+        _choices = [__r for __r in range(min_value, max_value + 1, step)]
+        choices = [(__k, __v) for __k, __v in zip(_choices, _choices)]
+
         return choices

@@ -394,8 +394,10 @@ INSTALLED_APPS = [
     # ***********************************************************************
     # ************************** DRF integration ****************************
     # ***********************************************************************
-    'rest_framework',
-    'fobi.contrib.apps.drf_integration',
+    'rest_framework',  # Django REST framework
+    'fobi.contrib.apps.drf_integration',  # DRF integration app
+
+    # Form elements
     # 'fobi.contrib.apps.drf_integration.form_elements.content.content_image',
     'fobi.contrib.apps.drf_integration.form_elements.fields.boolean',
     'fobi.contrib.apps.drf_integration.form_elements.fields'
@@ -428,6 +430,7 @@ INSTALLED_APPS = [
     'fobi.contrib.apps.drf_integration.form_elements.fields.time',
     'fobi.contrib.apps.drf_integration.form_elements.fields.url',
 
+    # Form handlers
     'fobi.contrib.apps.drf_integration.form_handlers.db_store',
     'fobi.contrib.apps.drf_integration.form_handlers.mail',
     'fobi.contrib.apps.drf_integration.form_handlers.http_repost',

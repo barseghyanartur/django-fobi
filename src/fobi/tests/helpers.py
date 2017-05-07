@@ -109,7 +109,10 @@ def setup_fobi(collectstatic=False, fobi_sync_plugins=False):
 
 def create_form_with_entries(user=None,
                              create_entries_if_form_exist=True,
-                             data={}):
+                             data={},
+                             is_public=False,
+                             name=TEST_FORM_NAME,
+                             slug=TEST_FORM_SLUG):
     """Create test form with entries.
 
     Fills the form with pre-defined plugins.
@@ -126,14 +129,15 @@ def create_form_with_entries(user=None,
         user = get_or_create_admin_user()
 
     try:
-        form_entry = FormEntry._default_manager.get(slug=TEST_FORM_SLUG)
+        form_entry = FormEntry._default_manager.get(slug=slug)
         if not create_entries_if_form_exist:
             return None
     except Exception as err:
         form_entry = FormEntry(
-            name=TEST_FORM_NAME,
-            slug=TEST_FORM_SLUG,
-            user=user
+            name=name,
+            slug=slug,
+            user=user,
+            is_public=is_public,
         )
         form_entry.save()
 
