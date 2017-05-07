@@ -78,9 +78,11 @@ class FormEntryForm(forms.ModelForm):
         self.request = kwargs.pop('request', None)
         if self.request is None:
             raise ImproperlyConfigured(
-                ugettext("The {0} form requires a "
-                         "request argument.".format(self.__class__.__name__))
+                ugettext(
+                    "The {0} form requires a "
+                    "request argument.".format(self.__class__.__name__)
                 )
+            )
 
         super(FormEntryForm, self).__init__(*args, **kwargs)
         theme = get_theme(request=None, as_instance=True)
@@ -330,9 +332,11 @@ class FormWizardEntryForm(forms.ModelForm):
         self.request = kwargs.pop('request', None)
         if self.request is None:
             raise ImproperlyConfigured(
-                ugettext("The {0} form requires a "
-                         "request argument.".format(self.__class__.__name__))
+                ugettext(
+                    "The {0} form requires a "
+                    "request argument.".format(self.__class__.__name__)
                 )
+            )
 
         super(FormWizardEntryForm, self).__init__(*args, **kwargs)
         theme = get_theme(request=None, as_instance=True)

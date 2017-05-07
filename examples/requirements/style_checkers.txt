@@ -1,5 +1,7 @@
 # Style checkers
 pydocstyle
+pylint
+pyflakes
 flake8
 isort
 pre-commit

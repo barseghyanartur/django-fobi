@@ -5,6 +5,8 @@ import os
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
+from six import PY3
+
 from ......base import IntegrationFormHandlerPlugin
 from ......helpers import extract_file_path
 
@@ -57,9 +59,15 @@ class HTTPRepostHandlerPlugin(IntegrationFormHandlerPlugin):
                     os.path.join(settings.MEDIA_ROOT, '')
                 )
                 mime_type = guess_type(imf.name)
+
+                if PY3:
+                    imf_chunks = b''.join([c for c in imf.chunks()])
+                else:
+                    imf_chunks = ''.join([c for c in imf.chunks()])
+
                 files[field_name] = (
                     imf.name,
-                    ''.join([c for c in imf.chunks()]),
+                    imf_chunks,
                     mime_type[0] if mime_type else ''
                 )
 

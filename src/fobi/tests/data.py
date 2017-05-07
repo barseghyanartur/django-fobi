@@ -474,7 +474,7 @@ TEST_DYNAMIC_FORMS_DEFINITION_DATA = OrderedDict([
             '{'
             '"name": "username", '
             '"required": true, '
-            '"max_length": "200", '
+            '"max_length": 200, '
             '"label": "Username"'
             '}'
         )
@@ -497,7 +497,7 @@ TEST_DYNAMIC_FORMS_DEFINITION_DATA = OrderedDict([
             '{'
             '"name": "age", '
             '"required": true, '
-            '"max_value": "200", '
+            '"max_value": 200, '
             '"label": "Age"'
             '}'
         )
@@ -612,12 +612,12 @@ TEST_DYNAMIC_FORMS_OPTIONS_RESPONSE = OrderedDict([
                                (u'required', True),
                                (u'read_only', False),
                                (u'label', u'Username'),
-                               (u'max_length', u'200')])),
+                               (u'max_length', 200)])),
     (u'email', OrderedDict([(u'type', u'email'),
                             (u'required', True),
                             (u'read_only', False),
                             (u'label', u'E-mail'),
-                            (u'max_length', u'255')])),
+                            (u'max_length', 255)])),
     (u'age', OrderedDict([(u'type', u'integer'),
                           (u'required', True),
                           (u'read_only', False),

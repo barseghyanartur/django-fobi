@@ -4,7 +4,9 @@ from django.forms.fields import ChoiceField
 from django.forms.widgets import Select
 from django.utils.translation import ugettext_lazy as _
 
-from fobi.base import FormFieldPlugin, get_theme
+from six import PY3
+
+from ......base import FormFieldPlugin, get_theme
 
 from . import UID
 from .forms import RangeSelectInputForm
@@ -71,7 +73,11 @@ class RangeSelectInputPlugin(FormFieldPlugin):
             else INITIAL_MIN_VALUE
         step = int(self.data.step) if self.data.step else STEP
 
-        _choices = [__r for __r in range(min_value, max_value + 1, step)]
-        choices = [(__k, __v) for __k, __v in zip(_choices, _choices)]
+        if PY3:
+            _choices = [__r for __r in range(min_value, max_value + 1, step)]
+            choices = [(__k, __v) for __k, __v in zip(_choices, _choices)]
+        else:
+            _choices = range(min_value, max_value + 1, step)
+            choices = zip(_choices, _choices)
 
         return choices

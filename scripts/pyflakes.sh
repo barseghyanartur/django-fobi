@@ -1,0 +1,2 @@
+reset
+pyflakes src/fobi/

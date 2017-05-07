@@ -23,7 +23,8 @@ Must haves
 + Add `mail` and `http_repost` DRF handler plugins.
 + Add/finish documentation.
 + In DRF listing view, if user isn't authenticated, show only public forms.
-- Fix Python3 issues with ``slider`` and ``range`` select plugins.
++ Fix Python3 issues with ``slider`` and ``range`` select plugins.
++ Fixed Python3 issues with max_length for text fields.
 
 Should haves
 ------------

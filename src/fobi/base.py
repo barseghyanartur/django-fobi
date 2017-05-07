@@ -9,7 +9,10 @@ import traceback
 import uuid
 
 
-from collections import OrderedDict, defaultdict
+from collections import (
+    defaultdict,
+    # OrderedDict,
+)
 
 import simplejson as json
 
@@ -543,14 +546,14 @@ class BaseTheme(object):
         :return str:
         """
         return """
-            <li><a href="{edit_url}">
-              <span class="{edit_option_class}"></span> {edit_text}</a>
-            </li>
-            """.format(
-                edit_url="{edit_url}",
-                edit_option_class=cls.form_edit_form_entry_option_class,
-                edit_text="{edit_text}",
-            )
+        <li><a href="{edit_url}">
+          <span class="{edit_option_class}"></span> {edit_text}</a>
+        </li>
+        """.format(
+            edit_url="{edit_url}",
+            edit_option_class=cls.form_edit_form_entry_option_class,
+            edit_text="{edit_text}",
+        )
 
     @classmethod
     def edit_form_entry_help_text_extra(cls):
@@ -561,28 +564,28 @@ class BaseTheme(object):
         :return str:
         """
         return """
-            <ul class="{container_class}">
-              {edit_option_html}
-              <li><a href="{delete_url}">
-                <span class="{delete_option_class}"></span> {delete_text}</a>
-              </li>
-            </ul>
-            <input type="hidden" value="{form_element_position}"
-                   name="form-{counter}-position"
-                   id="id_form-{counter}-position"
-                   class="form-element-position">
-            <input type="hidden" value="{form_element_pk}"
-                   name="form-{counter}-id" id="id_form-{counter}-id">
-            """.format(
-                container_class=cls.form_list_container_class,
-                edit_option_html="{edit_option_html}",
-                delete_url="{delete_url}",
-                delete_option_class=cls.form_delete_form_entry_option_class,
-                delete_text="{delete_text}",
-                form_element_position="{form_element_position}",
-                counter="{counter}",
-                form_element_pk="{form_element_pk}",
-            )
+        <ul class="{container_class}">
+          {edit_option_html}
+          <li><a href="{delete_url}">
+            <span class="{delete_option_class}"></span> {delete_text}</a>
+          </li>
+        </ul>
+        <input type="hidden" value="{form_element_position}"
+               name="form-{counter}-position"
+               id="id_form-{counter}-position"
+               class="form-element-position">
+        <input type="hidden" value="{form_element_pk}"
+               name="form-{counter}-id" id="id_form-{counter}-id">
+        """.format(
+            container_class=cls.form_list_container_class,
+            edit_option_html="{edit_option_html}",
+            delete_url="{delete_url}",
+            delete_option_class=cls.form_delete_form_entry_option_class,
+            delete_text="{delete_text}",
+            form_element_position="{form_element_position}",
+            counter="{counter}",
+            form_element_pk="{form_element_pk}",
+        )
 
     def get_view_template_name(self, request=None, origin=None):
         """Get view template name.
@@ -1044,7 +1047,7 @@ class BasePlugin(object):
             try:
                 form_data.update(
                     {field: self.plugin_data.get(field, default_value)}
-                    )
+                )
             except Exception as err:
                 logger.debug(
                     "Error in class %s. Details: %s",
@@ -2477,7 +2480,7 @@ class FormCallbackRegistry(object):
             raise InvalidRegistryItemType(
                 "Invalid item type `{0}` for registry "
                 "`{1}`".format(cls, self.__class__)
-                )
+            )
 
         # uid = self.uidfy(cls)
         # If item has not been forced yet, add/replace its' value in the
@@ -2528,7 +2531,7 @@ class BasePluginWidgetRegistry(object):
             raise InvalidRegistryItemType(
                 "Invalid item type `{0}` for registry "
                 "`{1}`".format(cls, self.__class__)
-                )
+            )
 
         uid = BasePluginWidgetRegistry.namify(cls.theme_uid, cls.plugin_uid)
 
@@ -2557,7 +2560,7 @@ class BasePluginWidgetRegistry(object):
             raise InvalidRegistryItemType(
                 "Invalid item type `{0}` for registry "
                 "`{1}`".format(cls, self.__class__)
-                )
+            )
 
         uid = BasePluginWidgetRegistry.namify(cls.theme_uid, cls.plugin_uid)
 
@@ -3082,6 +3085,10 @@ def get_ordered_form_handler_plugins():
     return form_handler_plugins
 
 
+# For backwards compatibility, if someone had ever used this.
+get_ordered_form_handlers = get_ordered_form_handler_plugins
+
+
 def run_form_handlers(form_entry, request, form, form_element_entries=None):
     """Run form handlers.
 
@@ -3190,6 +3197,10 @@ def get_ordered_form_wizard_handler_plugins():
             form_wizard_handler_plugins[uid] = []
 
     return form_wizard_handler_plugins
+
+
+# For backwards compatibility, if someone had ever used this.
+get_ordered_form_wizard_handlers = get_ordered_form_wizard_handler_plugins
 
 
 def run_form_wizard_handlers(form_wizard_entry, request, form_list,

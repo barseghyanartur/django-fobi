@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 
-from six import text_type
+from six import text_type, PY3
 
 from django.forms.fields import ChoiceField
 
@@ -79,8 +79,12 @@ class SliderInputPlugin(FormFieldPlugin):
             else INITIAL_MIN_VALUE
         step = int(self.data.step) if self.data.step else STEP
 
-        _choices = [__r for __r in range(min_value, max_value + 1, step)]
-        choices = [(__k, __v) for __k, __v in zip(_choices, _choices)]
+        if PY3:
+            _choices = [__r for __r in range(min_value, max_value + 1, step)]
+            choices = [(__k, __v) for __k, __v in zip(_choices, _choices)]
+        else:
+            _choices = range(min_value, max_value + 1, step)
+            choices = zip(_choices, _choices)
 
         return choices
 

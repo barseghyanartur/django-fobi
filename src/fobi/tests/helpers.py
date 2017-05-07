@@ -122,6 +122,9 @@ def create_form_with_entries(user=None,
         are being created even if form already exists (a database
         record).
     :param dict data:
+    :param bool is_public:
+    :param str name:
+    :param str slug:
     :return fobi.models.FormEntry: Instance of ``fobi.models.FormEntry``
         with a number of form elements and handlers filled in.
     """
@@ -154,115 +157,6 @@ def create_form_with_entries(user=None,
         )
         form_element_entry.save()
         position += 1
-
-    # # ************************************************************************
-    # # ******************************** Form elements *************************
-    # # ************************************************************************
-    # position = 1
-    # # Text input
-    # form_element_entry = FormElementEntry(
-    #     form_entry=form_entry,
-    #     plugin_uid=TextInputPlugin.uid,
-    #     plugin_data='{"name": "username", "required": true, '
-    #                 '"max_length": "200", "label": "Username"}',
-    #     position=position
-    # )
-    # form_element_entry.save()
-    # position += 1
-    #
-    # # Email
-    # form_element_entry = FormElementEntry(
-    #     form_entry=form_entry,
-    #     plugin_uid=EmailInputPlugin.uid,
-    #     plugin_data='{"name": "email", "required": true, "label": "E-mail"}',
-    #     position=position
-    # )
-    # form_element_entry.save()
-    # position += 1
-    #
-    # # Integer
-    # form_element_entry = FormElementEntry(
-    #     form_entry=form_entry,
-    #     plugin_uid=IntegerInputPlugin.uid,
-    #     plugin_data='{"name": "age", "required": true, '
-    #                 '"max_value": "200", "label": "Age"}',
-    #     position=position
-    # )
-    # form_element_entry.save()
-    # position += 1
-    #
-    # # Boolean select
-    # form_element_entry = FormElementEntry(
-    #     form_entry=form_entry,
-    #     plugin_uid=BooleanSelectPlugin.uid,
-    #     plugin_data='{"name": "drivers_license", "required": false, '
-    #                 '"label": "Drivers license?"}',
-    #     position=position
-    # )
-    # form_element_entry.save()
-    # position += 1
-    #
-    # # Hidden
-    # form_element_entry = FormElementEntry(
-    #     form_entry=form_entry,
-    #     plugin_uid=HiddenInputPlugin.uid,
-    #     plugin_data='{"name": "special_fields", "required": false, '
-    #                 '"label": "Special fields"}',
-    #     position=position
-    # )
-    # form_element_entry.save()
-    # position += 1
-    #
-    # # Content image
-    # form_element_entry = FormElementEntry(
-    #     form_entry=form_entry,
-    #     plugin_uid=ContentImagePlugin.uid,
-    #     plugin_data='{"fit_method": "center", '
-    #                 '"file": "fobi_plugins/content_plugin_images/04.jpg", '
-    #                 '"alt": "Cute girl"}',
-    #     position=position
-    # )
-    # form_element_entry.save()
-    # position += 1
-    #
-    # # Integer
-    # form_element_entry = FormElementEntry(
-    #     form_entry=form_entry,
-    #     plugin_uid=IntegerInputPlugin.uid,
-    #     plugin_data='{"name": "number_of_children", "required": false, '
-    #                 '"label": "Number of children"}',
-    #     position=position
-    # )
-    # form_element_entry.save()
-    # position += 1
-    #
-    # # Textarea
-    # form_element_entry = FormElementEntry(
-    #     form_entry=form_entry,
-    #     plugin_uid=TextareaPlugin.uid,
-    #     plugin_data='{"name": "bio", "required": true, "label": "Biography"}',
-    #     position=position
-    # )
-    # form_element_entry.save()
-    # position += 1
-    #
-    # # Content text
-    # form_element_entry = FormElementEntry(
-    #     form_entry=form_entry,
-    #     plugin_uid=ContentTextPlugin.uid,
-    #     plugin_data=''
-    #                 '{"text": "Suspendisse potenti. Etiam in nunc sodales, '
-    #                 'congue lectus ut, suscipit massa. In commodo fringilla '
-    #                 'orci, in varius eros gravida a! Aliquam erat volutpat. '
-    #                 'Donec sodales orci nec massa aliquam bibendum. Aenean '
-    #                 'sed condimentum velit. Mauris luctus bibendum nulla vel '
-    #                 'tempus. Integer tempor condimentum ligula sed feugiat. '
-    #                 'Aenean scelerisque ultricies vulputate. Donec semper '
-    #                 'lorem rhoncus sem cras amet."}',
-    #     position=9
-    # )
-    # form_element_entry.save()
-    # position += 1
 
     # ************************************************************************
     # ******************************** Form handlers *************************

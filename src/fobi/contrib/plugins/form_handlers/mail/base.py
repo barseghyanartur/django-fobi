@@ -4,7 +4,7 @@ import datetime
 from mimetypes import guess_type
 import os
 
-from six import string_types
+from six import string_types, PY3
 
 from django.conf import settings
 from django.template.loader import render_to_string
@@ -160,9 +160,13 @@ class MailHandlerPlugin(FormHandlerPlugin):
                     os.path.join(settings.MEDIA_ROOT, '')
                 )
                 mime_type = guess_type(imf.name)
+                if PY3:
+                    imf_chunks = b''.join([c for c in imf.chunks()])
+                else:
+                    imf_chunks = ''.join([c for c in imf.chunks()])
                 files[field_name] = (
                     imf.name,
-                    ''.join([c for c in imf.chunks()]),
+                    imf_chunks,
                     mime_type[0] if mime_type else ''
                 )
 
@@ -296,9 +300,14 @@ class MailWizardHandlerPlugin(FormWizardHandlerPlugin):
                     os.path.join(settings.MEDIA_ROOT, '')
                 )
                 mime_type = guess_type(imf.name)
+                if PY3:
+                    imf_chunks = b''.join([c for c in imf.chunks()])
+                else:
+                    imf_chunks = ''.join([c for c in imf.chunks()])
+
                 files[field_name] = (
                     imf.name,
-                    ''.join([c for c in imf.chunks()]),
+                    imf_chunks,
                     mime_type[0] if mime_type else ''
                 )
 

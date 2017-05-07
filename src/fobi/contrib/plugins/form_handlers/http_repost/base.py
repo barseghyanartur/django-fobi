@@ -7,6 +7,8 @@ from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 
+from six import PY3
+
 from .....base import (
     form_handler_plugin_registry,
     form_wizard_handler_plugin_registry,

@@ -243,3 +243,9 @@ command:
 .. code-block:: sh
 
     ./runtests.py src/fobi/tests/test_drf_integration.py
+
+or use plain Django tests:
+
+.. code-block:: sh
+
+    ./manage.py test fobi.tests.test_drf_integration --settings=settings.test

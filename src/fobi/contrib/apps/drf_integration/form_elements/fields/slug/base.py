@@ -40,6 +40,10 @@ class SlugInputPlugin(IntegrationFormFieldPlugin,
             'label': form_element_plugin.data.label,
             'help_text': form_element_plugin.data.help_text,
         }
+        if form_element_plugin.data.max_length:
+            field_kwargs.update(
+                {'max_length': int(form_element_plugin.data.max_length)}
+            )
         return [
             DRFIntegrationFormElementPluginProcessor(
                 field_class=SlugField,

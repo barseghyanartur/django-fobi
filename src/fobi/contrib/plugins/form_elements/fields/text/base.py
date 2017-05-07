@@ -42,6 +42,6 @@ class TextInputPlugin(FormFieldPlugin):
             'widget': TextInput(attrs=widget_attrs),
         }
         if self.data.max_length:
-            field_kwargs['max_length'] = self.data.max_length
+            field_kwargs['max_length'] = int(self.data.max_length)
 
         return [(self.data.name, CharField, field_kwargs)]

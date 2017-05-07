@@ -39,8 +39,11 @@ class IPAddressInputPlugin(IntegrationFormFieldPlugin,
             'initial': form_element_plugin.data.initial,
             'label': form_element_plugin.data.label,
             'help_text': form_element_plugin.data.help_text,
-            'max_length': form_element_plugin.data.max_length,
         }
+        if form_element_plugin.data.max_length:
+            field_kwargs.update(
+                {'max_length': int(form_element_plugin.data.max_length)}
+            )
         return [
             DRFIntegrationFormElementPluginProcessor(
                 field_class=IPAddressField,

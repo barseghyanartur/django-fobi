@@ -3,12 +3,6 @@ Roadmap
 =======
 Upcoming releases road-map.
 
-0.11
-----
-yyyy-mm-dd (upcoming).
-
-- Django REST framework integration.
-
 0.12
 ----
 yyyy-mm-dd (future).

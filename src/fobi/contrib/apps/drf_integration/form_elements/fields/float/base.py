@@ -36,10 +36,12 @@ class FloatInputPlugin(IntegrationFormFieldPlugin,
         """Get form field instances."""
         field_kwargs = {
             'required': form_element_plugin.data.required,
-            'initial': form_element_plugin.data.initial,
             'label': form_element_plugin.data.label,
             'help_text': form_element_plugin.data.help_text,
         }
+        if form_element_plugin.data.initial:
+            field_kwargs['initial'] = float(form_element_plugin.data.initial)
+
         if form_element_plugin.data.max_value:
             data_max_value = float(form_element_plugin.data.max_value)
             field_kwargs['max_value'] = data_max_value

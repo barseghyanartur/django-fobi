@@ -1,6 +1,6 @@
 import unittest
 
-from django.contrib.auth import get_user_model
+# from django.contrib.auth import get_user_model
 from django.test import TestCase
 
 from fobi.contrib.plugins.form_importers \

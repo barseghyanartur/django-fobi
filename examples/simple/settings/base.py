@@ -398,7 +398,6 @@ INSTALLED_APPS = [
     'fobi.contrib.apps.drf_integration',  # DRF integration app
 
     # Form elements
-    # 'fobi.contrib.apps.drf_integration.form_elements.content.content_image',
     'fobi.contrib.apps.drf_integration.form_elements.fields.boolean',
     'fobi.contrib.apps.drf_integration.form_elements.fields'
     '.checkbox_select_multiple',
@@ -418,8 +417,6 @@ INSTALLED_APPS = [
     'fobi.contrib.apps.drf_integration.form_elements.fields.range_select',
     'fobi.contrib.apps.drf_integration.form_elements.fields.regex',
     'fobi.contrib.apps.drf_integration.form_elements.fields.select',
-    # 'fobi.contrib.apps.drf_integration.form_elements.fields'
-    # '.select_model_object',
     'fobi.contrib.apps.drf_integration.form_elements.fields.select_multiple',
     'fobi.contrib.apps.drf_integration.form_elements.fields'
     '.select_multiple_with_max',
