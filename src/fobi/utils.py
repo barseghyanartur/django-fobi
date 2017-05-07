@@ -10,25 +10,28 @@ from django.conf import settings
 from django.contrib import messages
 from django.forms.widgets import TextInput
 from django.utils.encoding import force_text
-from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.translation import (
+    ugettext,
+    # ugettext_lazy as _,
+)
 
 from nine.versions import DJANGO_GTE_1_10
 
 from six import PY3
 
 from .base import (
+    ensure_autodiscover,
     form_element_plugin_registry,
     form_handler_plugin_registry,
     form_wizard_handler_plugin_registry,
     get_registered_form_element_plugin_uids,
     get_registered_form_element_plugins,
-    ensure_autodiscover,
-    get_registered_form_handler_plugin_uids,
-    get_registered_form_wizard_handler_plugin_uids,
-    get_theme,
-    get_registered_form_handler_plugins,
-    get_registered_form_wizard_handler_plugins,
     get_registered_form_element_plugins_grouped,
+    get_registered_form_handler_plugin_uids,
+    get_registered_form_handler_plugins,
+    get_registered_form_wizard_handler_plugin_uids,
+    get_registered_form_wizard_handler_plugins,
+    get_theme,
 
 )
 from .dynamic import assemble_form_class
@@ -356,14 +359,19 @@ def get_user_form_element_plugins_grouped(user):
     )
 
 
-def get_user_form_field_plugin_uids(user):
-    """Get user form field plugin uids."""
+def get_user_form_element_plugin_uids(user):
+    """Get user form element plugin uids."""
     return get_user_plugin_uids(
         get_allowed_form_element_plugin_uids,
         get_registered_form_element_plugin_uids,
         form_element_plugin_registry,
         user
     )
+
+
+# For backwards compatibility, if someone had ever used it.
+get_user_form_field_plugin_uids = get_user_form_element_plugin_uids
+
 
 # ****************************************************************************
 # ****************************************************************************
@@ -573,7 +581,7 @@ def append_edit_and_delete_links_to_field(form_element_plugin,
     )
     try:
         help_text = safe_text(form_element_plugin.data.help_text)
-    except:
+    except Exception:
         help_text = ''
 
     data_dict = {

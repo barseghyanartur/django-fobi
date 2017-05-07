@@ -1,12 +1,16 @@
+import copy
+from collections import OrderedDict
 import datetime
 # from decimal import Decimal
 
 from django.utils.text import force_text
 
-# from fobi.contrib.plugins.form_elements.content \
-#          .content_image.fobi_form_elements import ContentImagePlugin
-# from fobi.contrib.plugins.form_elements.content \
-#          .content_text.fobi_form_elements import ContentTextPlugin
+from faker import Faker
+
+from fobi.contrib.plugins.form_elements.content \
+         .content_image.fobi_form_elements import ContentImagePlugin
+from fobi.contrib.plugins.form_elements.content \
+         .content_text.fobi_form_elements import ContentTextPlugin
 # from fobi.contrib.plugins.form_elements.content \
 #          .content_video.fobi_form_elements import ContentVideoPlugin
 
@@ -28,8 +32,8 @@ from fobi.contrib.plugins.form_elements.fields \
 #          .file.fobi_form_elements import FileInputPlugin
 from fobi.contrib.plugins.form_elements.fields \
          .float.fobi_form_elements import FloatInputPlugin
-# from fobi.contrib.plugins.form_elements.fields \
-#          .hidden.fobi_form_elements import HiddenInputPlugin
+from fobi.contrib.plugins.form_elements.fields \
+         .hidden.fobi_form_elements import HiddenInputPlugin
 # from fobi.contrib.plugins.form_elements.fields.hidden_model_object \
 #          .fobi_form_elements import HiddenModelObjectInputPlugin
 from fobi.contrib.plugins.form_elements.fields \
@@ -65,10 +69,16 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
+    'TEST_DYNAMIC_FORMS_DEFINITION_DATA',
+    'TEST_DYNAMIC_FORMS_DEFINITION_DATA_DRF',
+    # 'TEST_DYNAMIC_FORMS_DEFINITION_DATA_DRF_NEGATIVE',
+    'TEST_DYNAMIC_FORMS_OPTIONS_RESPONSE',
+    'TEST_DYNAMIC_FORMS_PUT_DATA',
+    'TEST_DYNAMIC_FORMS_PUT_DATA_ALL',
     'TEST_FORM_ELEMENT_PLUGIN_DATA',
     'TEST_FORM_FIELD_DATA',
     'TEST_FORM_HANDLER_PLUGIN_DATA',
-    'TEST_MAILCHIMP_IMPORTER_FORM_DATA'
+    'TEST_MAILCHIMP_IMPORTER_FORM_DATA',
 )
 
 TEST_FORM_ELEMENT_PLUGIN_DATA = {
@@ -455,3 +465,177 @@ TEST_MAILCHIMP_IMPORTER_FORM_DATA = [
         u'tag': u'TYPE_IMAGE'
     }
 ]
+
+TEST_DYNAMIC_FORMS_DEFINITION_DATA = OrderedDict([
+    (
+        'username',
+        (
+            TextInputPlugin.uid,
+            '{'
+            '"name": "username", '
+            '"required": true, '
+            '"max_length": 200, '
+            '"label": "Username"'
+            '}'
+        )
+    ),
+    (
+        'email',
+        (
+            EmailInputPlugin.uid,
+            '{'
+            '"name": "email", '
+            '"required": true, '
+            '"label": "E-mail"'
+            '}'
+        )
+    ),
+    (
+        'age',
+        (
+            IntegerInputPlugin.uid,
+            '{'
+            '"name": "age", '
+            '"required": true, '
+            '"max_value": 200, '
+            '"label": "Age"'
+            '}'
+        )
+    ),
+    (
+        'drivers_license',
+        (
+            BooleanSelectPlugin.uid,
+            '{'
+            '"name": "drivers_license", '
+            '"required": false, '
+            '"label": "Drivers license?"'
+            '}'
+        )
+    ),
+    (
+        'special_fields',
+        (
+            HiddenInputPlugin.uid,
+            '{'
+            '"name": "special_fields", '
+            '"required": false, '
+            '"label": "Special fields"'
+            '}'
+        )
+    ),
+    (
+        'ignore_01',
+        (
+            ContentImagePlugin.uid, '{'
+            '"fit_method": "center", '
+            '"file": "fobi_plugins/content_plugin_images/'
+            '04.jpg", '
+            '"alt": "Cute girl"'
+            '}'
+        )
+    ),
+    (
+        'number_of_children',
+        (
+            IntegerInputPlugin.uid,
+            '{'
+            '"name": "number_of_children", '
+            '"required": false, '
+            '"label": "Number of children"'
+            '}'
+        )
+    ),
+    (
+        'bio',
+        (
+            TextareaPlugin.uid,
+            '{'
+            '"name": "bio", '
+            '"required": true, '
+            '"label": "Biography"'
+            '}'
+        )
+    ),
+    (
+        'ignore_02',
+        (
+            ContentTextPlugin.uid,
+            '{'
+            '"text": "Suspendisse potenti. Etiam in nunc '
+            'sodales, congue lectus ut, suscipit massa. In '
+            'commodo fringilla orci, in varius eros gravida '
+            'a! Aliquam erat volutpat. Donec sodales orci nec '
+            'massa aliquam bibendum. Aenean sed condimentum '
+            'velit. Mauris luctus bibendum nulla vel tempus. '
+            'Integer tempor condimentum ligula sed feugiat. '
+            'Aenean scelerisque ultricies vulputate. Donec '
+            'semper lorem rhoncus sem cras amet."'
+            '}'
+        )
+    )
+])
+
+TEST_DYNAMIC_FORMS_DEFINITION_DATA_DRF = copy.copy(
+    TEST_DYNAMIC_FORMS_DEFINITION_DATA
+)
+TEST_DYNAMIC_FORMS_DEFINITION_DATA_DRF.pop('ignore_01')
+TEST_DYNAMIC_FORMS_DEFINITION_DATA_DRF.pop('ignore_02')
+TEST_DYNAMIC_FORMS_DEFINITION_DATA_DRF.pop('special_fields')
+
+# TEST_DYNAMIC_FORMS_DEFINITION_DATA_DRF_NEGATIVE = copy.copy(
+#     TEST_DYNAMIC_FORMS_DEFINITION_DATA
+# )
+#
+# for __key, __value
+#         in TEST_DYNAMIC_FORMS_DEFINITION_DATA_DRF_NEGATIVE.items():
+#     if __key not in ('special_fields',):
+#         TEST_DYNAMIC_FORMS_DEFINITION_DATA_DRF_NEGATIVE.pop(__key)
+
+FAKER = Faker()
+
+TEST_DYNAMIC_FORMS_PUT_DATA_ALL = {
+    'username': FAKER.user_name(),
+    'email': FAKER.email(),
+    'age': FAKER.pyint(),
+    'drivers_license': FAKER.pybool(),
+    'special_fields': FAKER.pystr(),
+    'number_of_children': FAKER.pyint(),
+    'bio': FAKER.text(),
+}
+
+TEST_DYNAMIC_FORMS_PUT_DATA = copy.copy(TEST_DYNAMIC_FORMS_PUT_DATA_ALL)
+TEST_DYNAMIC_FORMS_PUT_DATA.pop('special_fields')
+
+TEST_DYNAMIC_FORMS_OPTIONS_RESPONSE = OrderedDict([
+    (u'username', OrderedDict([(u'type', u'string'),
+                               (u'required', True),
+                               (u'read_only', False),
+                               (u'label', u'Username'),
+                               (u'max_length', 200)])),
+    (u'email', OrderedDict([(u'type', u'email'),
+                            (u'required', True),
+                            (u'read_only', False),
+                            (u'label', u'E-mail'),
+                            (u'max_length', 255)])),
+    (u'age', OrderedDict([(u'type', u'integer'),
+                          (u'required', True),
+                          (u'read_only', False),
+                          (u'label', u'Age')])),
+    (u'drivers_license', OrderedDict([(u'type', u'boolean'),
+                                      (u'required', False),
+                                      (u'read_only', False),
+                                      (u'label', u'Drivers license?')])),
+    # (u'special_fields', OrderedDict([(u'type', u'field'),
+    #                                  (u'required', False),
+    #                                  (u'read_only', False),
+    #                                  (u'label', u'Special fields')])),
+    (u'number_of_children', OrderedDict([(u'type', u'integer'),
+                                         (u'required', False),
+                                         (u'read_only', False),
+                                         (u'label', u'Number of children')])),
+    (u'bio', OrderedDict([(u'type', u'string'),
+                          (u'required', True),
+                          (u'read_only', False),
+                          (u'label', u'Biography')]))
+])

@@ -22,6 +22,13 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('FobiCoreTest',)
 
 
+__title__ = 'fobi.tests.test_core'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2014-2016 Artur Barseghyan'
+__license__ = 'GPL 2.0/LGPL 2.1'
+__all__ = ('FobiCoreTest',)
+
+
 class FobiCoreTest(TestCase):
     """Tests of django-fobi core functionality."""
 

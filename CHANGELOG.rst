@@ -4,7 +4,7 @@ Release history and notes
 <http://en.wikipedia.org/wiki/Software_versioning#Sequence-based_identifiers>`_
 are used for versioning (schema follows below):
 
-.. code-block:: none
+.. code-block:: text
 
     major.minor[.revision]
 
@@ -15,15 +15,30 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
-0.10.8
-------
-yyyy-mm-dd (not yet released)
+0.11
+----
+2017-05-07
 
+This release is dedicated to my beloved `wife <https://github.com/anagardi>`_
+for all the love and support she gave me through years. If you are a company
+looking for (female) developers in Groningen area (the Netherlands),  do not
+hesitate to `contact her <mailto:anahit.gardishyan@gmail.com>`_.
+
+- Django REST framework integration. Check the Heroku demo `here
+  <https://django-fobi.herokuapp.com/api/>`_.
 - Documentation fixes.
 - PEP8 code fixes.
 - Minor setup fixes related to moved screen-shots file.
 - Added helper scripts to test with Firefox in headless mode. Describe
   testing with Firefox in headless mode in documentation.
+- Validate the ``decimal`` field plugin - quantize the decimal value to the
+  configured precision.
+- Minor fixes in the ``float`` field plugin.
+- Minor improvements in complex form element plugins (``select``, ``file``) and
+  form handler plugins (``db_store``, ``mail``, ``http_respost``) in order to
+  simplify integration plugins and reduce code duplication.
+- Minor Python3 fixes in ``range_select`` and ``slider`` form element plugins.
+- Minor Python3 fixes in ``http_repost`` and ``mail`` form handler plugins.
 
 0.10.7
 ------

@@ -6,9 +6,9 @@ from django.utils.translation import ugettext_lazy as _
 
 import mailchimp
 
-from fobi.wizard import SessionWizardView
-
 from nine.versions import DJANGO_GTE_1_10
+
+from .....wizard import SessionWizardView
 
 from .forms import MailchimpAPIKeyForm, MailchimpListIDForm
 

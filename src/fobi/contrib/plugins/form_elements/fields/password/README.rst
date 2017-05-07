@@ -1,11 +1,10 @@
-==================================================
 fobi.contrib.plugins.form_elements.fields.password
 ==================================================
 A ``Fobi`` Password form field plugin. Makes use of the
 ``django.forms.fields.CharField`` and ``django.forms.widgets.PasswordInput``.
 
 Installation
-============
+------------
 1. Add ``fobi.contrib.plugins.form_elements.fields.password`` to the
    ``INSTALLED_APPS`` in your ``settings.py``.
 

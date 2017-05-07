@@ -35,8 +35,10 @@ Regarding the form wizards
   "round", "triangle") options of the bootstrap-slider plugin. See the first
   issue in "Uncategorised".
 + Rethink the new navigation of forms and form wizards.
-- Add support for form wizard conditions.
 + Fixed broken dependencies for docs.
++ Make sure captcha plugins are usable with form wizards (at the moment they
+  are being invalidated on the last step).
+- Add support for form wizard conditions.
 - Add FeinCMS integration app for form wizards.
 - Add Django-CMS integration app for form wizards.
 - Add Mezzanine integration app for form wizards.
@@ -45,17 +47,26 @@ Regarding the form wizards
 - Add selenium tests for form wizards.
 - Make `foundation5` and `django-admin-theme` themes to reflect the latest
   GUI changes (form wizards).
-- Make sure captcha plugins are usable with form wizards (at the moment they
-  are being invalidated on the last step).
+
+Regarding the djangorestframework integration
+---------------------------------------------
++ Submit form functionality.
++ Advanced plugins, such as file plugin.
+- Add image plugin.
+- Basic foreign key relation plugins (ForeignKey, ManyToMany, OneToMany).
+- Advanced foreign key relation plugins (MPTT).
+- Think of handling the wizards.
 
 Roadmap
 -------
-- django-rest-framework integration.
++ django-rest-framework integration.
 - Reusable React app to communicate with django-rest-framework integration
   app.
 
 Uncategorised
 -------------
+- Implement a set of django-treebeard plugins (as an alternative to MPTT).
+- Implement external image plugin.
 - Implement the clone form functionality.
 - Implement the clone form wizard functionality.
 - Rethink templating of the integration packages (feincms_integration, 

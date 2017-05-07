@@ -400,7 +400,7 @@ def admin_change_url(app_label, module_name, object_id, extra_path='',
             return u'<a href="{0}">{1}</a>'.format(url, url_title)
         else:
             return url
-    except:
+    except Exception:
         return None
 
 # *****************************************************************************
@@ -522,8 +522,10 @@ def validate_initial_for_multiple_choices(plugin_form,
     :return str:
     """
     available_choices = dict(
-        get_select_field_choices(plugin_form.cleaned_data[field_name_choices])
-        ).keys()
+        get_select_field_choices(
+            plugin_form.cleaned_data[field_name_choices]
+        )
+    ).keys()
 
     if plugin_form.cleaned_data[field_name_initial]:
         for choice in plugin_form.cleaned_data[field_name_initial].split(','):

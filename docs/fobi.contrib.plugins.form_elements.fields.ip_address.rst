@@ -12,6 +12,14 @@ fobi.contrib.plugins.form_elements.fields.ip_address.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.fields.ip_address.base module
+----------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.ip_address.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.ip_address.fobi_form_elements module
 ------------------------------------------------------------------------------
 

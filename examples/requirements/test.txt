@@ -1,6 +1,7 @@
 factory_boy==2.7.0
 fake-factory==0.7.2
-pytest==3.0.2
-pytest-django==2.9.1
+Faker==0.7.11
 pytest-cov==2.2.1
+pytest-django==2.9.1
+pytest==3.0.2
 tox==2.1.1

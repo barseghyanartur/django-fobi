@@ -12,6 +12,14 @@ fobi.contrib.plugins.form_elements.fields.date_drop_down.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.fields.date_drop_down.base module
+--------------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.date_drop_down.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.date_drop_down.fobi_form_elements module
 ----------------------------------------------------------------------------------
 

@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from fobi.base import FormFieldPlugin, get_theme
 from fobi.constants import (
     SUBMIT_VALUE_AS_VAL,
-    SUBMIT_VALUE_AS_REPR
+    SUBMIT_VALUE_AS_REPR,
 )
 from fobi.helpers import get_select_field_choices, safe_text
 
@@ -35,7 +35,7 @@ class SelectInputPlugin(FormFieldPlugin):
     def get_form_field_instances(self, request=None, form_entry=None,
                                  form_element_entries=None, **kwargs):
         """Get form field instances."""
-        choices = get_select_field_choices(self.data.choices)
+        choices = self.get_choices()
 
         field_kwargs = {
             'label': self.data.label,
@@ -47,6 +47,13 @@ class SelectInputPlugin(FormFieldPlugin):
         }
 
         return [(self.data.name, ChoiceField, field_kwargs)]
+
+    def get_choices(self):
+        """Get choices.
+
+        Might be used in integration plugins.
+        """
+        return get_select_field_choices(self.data.choices)
 
     def submit_plugin_form_data(self, form_entry, request, form,
                                 form_element_entries=None, **kwargs):
@@ -64,7 +71,7 @@ class SelectInputPlugin(FormFieldPlugin):
             value = form.cleaned_data.get(self.data.name, None)
 
             # Get choices
-            choices = dict(get_select_field_choices(self.data.choices))
+            choices = dict(self.get_choices())
 
             if value in choices:
                 # Handle the submitted form value

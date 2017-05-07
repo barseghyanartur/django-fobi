@@ -12,6 +12,14 @@ fobi.contrib.plugins.form_elements.security.honeypot.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.security.honeypot.base module
+----------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.security.honeypot.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.security.honeypot.conf module
 ----------------------------------------------------------------
 

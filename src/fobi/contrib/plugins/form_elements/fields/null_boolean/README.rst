@@ -1,4 +1,3 @@
-======================================================
 fobi.contrib.plugins.form_elements.fields.null_boolean
 ======================================================
 A ``Fobi`` NullBoolean form field plugin. Makes use of the
@@ -6,7 +5,7 @@ A ``Fobi`` NullBoolean form field plugin. Makes use of the
 ``django.forms.widgets.NullBooleanSelect``.
 
 Installation
-============
+------------
 1. Add ``fobi.contrib.plugins.form_elements.fields.null_boolean`` to the
    ``INSTALLED_APPS`` in your ``settings.py``.
 

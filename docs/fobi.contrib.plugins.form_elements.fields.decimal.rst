@@ -12,6 +12,14 @@ fobi.contrib.plugins.form_elements.fields.decimal.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.fields.decimal.base module
+-------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.decimal.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.decimal.fobi_form_elements module
 ---------------------------------------------------------------------------
 

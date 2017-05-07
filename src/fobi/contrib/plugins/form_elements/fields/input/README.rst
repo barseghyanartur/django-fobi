@@ -1,4 +1,3 @@
-===============================================
 fobi.contrib.plugins.form_elements.fields.input
 ===============================================
 A generic input form field plugin. Makes use of the
@@ -24,7 +23,7 @@ See `w3schools.com <http://www.w3schools.com/tags/tag_input.asp>`_ for further
 explanations.
 
 Installation
-============
+------------
 1. Add ``fobi.contrib.plugins.form_elements.fields.input`` to the
    ``INSTALLED_APPS`` in your ``settings.py``.
 

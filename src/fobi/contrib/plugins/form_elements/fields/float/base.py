@@ -43,7 +43,7 @@ class FloatInputPlugin(FormFieldPlugin):
         }
 
         if self.data.max_value:
-            data_max_value = float(data.max_value)
+            data_max_value = float(self.data.max_value)
             field_kwargs['max_value'] = data_max_value
             widget_attrs['max'] = data_max_value
 

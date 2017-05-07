@@ -1,4 +1,3 @@
-==================================================================
 fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple
 ==================================================================
 A ``Fobi`` Select Multiple form field plugin. Makes use of the
@@ -6,7 +5,7 @@ A ``Fobi`` Select Multiple form field plugin. Makes use of the
 ``django.forms.widgets.CheckboxSelectMultiple``.
 
 Installation
-============
+------------
 1. Add ``fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple`` 
    to the ``INSTALLED_APPS`` in your ``settings.py``.
 
@@ -52,7 +51,7 @@ Installation
    the following values: "val", "repr" or "mix" to get the desired behaviour.
 
 Usage
-=====
+-----
 You should be entering a single choice per line. Choice might
 consist of just a single value or value/label pair.
 

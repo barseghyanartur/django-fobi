@@ -12,6 +12,14 @@ fobi.contrib.plugins.form_handlers.http_repost.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_handlers.http_repost.base module
+----------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_handlers.http_repost.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_handlers.http_repost.fobi_form_handlers module
 ------------------------------------------------------------------------
 

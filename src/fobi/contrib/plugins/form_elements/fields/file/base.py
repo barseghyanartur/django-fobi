@@ -44,8 +44,29 @@ class FileInputPlugin(FormFieldPlugin):
 
         return [(self.data.name, FileField, field_kwargs)]
 
-    def submit_plugin_form_data(self, form_entry, request, form,
-                                form_element_entries=None, **kwargs):
+    def prepare_plugin_form_data(self, cleaned_data):
+        # Get the file path
+        file_path = cleaned_data.get(self.data.name, None)
+        if file_path:
+            # Handle the upload
+            saved_file = handle_uploaded_file(FILES_UPLOAD_DIR, file_path)
+            # Overwrite ``cleaned_data`` of the ``form`` with path to moved
+            # file.
+            file_relative_url = saved_file.replace(os.path.sep, '/')
+            cleaned_data[self.data.name] = "{0}{1}".format(
+                settings.MEDIA_URL,
+                file_relative_url
+            )
+            # It's critically important to return the ``form`` with updated
+            # ``cleaned_data``
+            return cleaned_data
+
+    def submit_plugin_form_data(self,
+                                form_entry,
+                                request,
+                                form,
+                                form_element_entries=None,
+                                **kwargs):
         """Submit plugin form data/process file upload.
 
         Handling the posted data for file plugin when form is submitted.
@@ -57,17 +78,23 @@ class FileInputPlugin(FormFieldPlugin):
         :param django.forms.Form form:
         """
         # Get the file path
-        file_path = form.cleaned_data.get(self.data.name, None)
-        if file_path:
-            # Handle the upload
-            saved_file = handle_uploaded_file(FILES_UPLOAD_DIR, file_path)
-            # Overwrite ``cleaned_data`` of the ``form`` with path to moved
-            # file.
-            file_relative_url = saved_file.replace(os.path.sep, '/')
-            form.cleaned_data[self.data.name] = "{0}{1}".format(
-                settings.MEDIA_URL,
-                file_relative_url
-            )
+        cleaned_data = self.prepare_plugin_form_data(form.cleaned_data)
+
+        if cleaned_data:
+            form.cleaned_data = cleaned_data
+
+        # # Get the file path
+        # file_path = form.cleaned_data.get(self.data.name, None)
+        # if file_path:
+        #     # Handle the upload
+        #     saved_file = handle_uploaded_file(FILES_UPLOAD_DIR, file_path)
+        #     # Overwrite ``cleaned_data`` of the ``form`` with path to moved
+        #     # file.
+        #     file_relative_url = saved_file.replace(os.path.sep, '/')
+        #     form.cleaned_data[self.data.name] = "{0}{1}".format(
+        #         settings.MEDIA_URL,
+        #         file_relative_url
+        #     )
 
         # It's critically important to return the ``form`` with updated
         # ``cleaned_data``

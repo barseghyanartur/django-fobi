@@ -1,11 +1,10 @@
-==================================================================
 fobi.contrib.plugins.form_elements.fields.select_multiple_with_max
 ==================================================================
 A ``Fobi`` Select Multiple form field plugin with max choices. Makes use of
 the ``django.forms.widgets.SelectMultiple``.
 
 Installation
-============
+------------
 1. Add ``fobi.contrib.plugins.form_elements.fields.select_multiple_with_max``
    to the ``INSTALLED_APPS`` in your ``settings.py``.
 
@@ -53,7 +52,7 @@ Installation
    following values: "val", "repr" or "mix" to get the desired behaviour.
 
 Usage
-=====
+-----
 You should be entering a single choice per line. Choice might
 consist of just a single value or value/label pair. If you enter an integer in
 the 'max_choices' field, the user can choose only <max_choices> or less choices.

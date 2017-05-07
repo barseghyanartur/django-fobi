@@ -52,6 +52,14 @@ fobi.tests.test_core module
     :undoc-members:
     :show-inheritance:
 
+fobi.tests.test_drf_integration module
+--------------------------------------
+
+.. automodule:: fobi.tests.test_drf_integration
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.tests.test_dynamic_forms module
 ------------------------------------
 

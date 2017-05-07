@@ -16,11 +16,11 @@ Present
 - Python 2.7, 3.4, 3.5, 3.6 and PyPy.
 
 Note, that Django 1.11 is not yet proclaimed to be flawlessly supported. The
-core and contrib packages have been tested against the alpha Django 1.11a1
-PyPI release. All tests have successfully passed, although it's yet too early
+core and contrib packages have been tested against the Django 1.11.
+All tests have successfully passed, although it's yet too early
 to claim that Django 1.11 is fully supported. Certain dependencies
-(``django-formtools`` and ``easy-thumbnails``) have been installed from source
-(since versions supporting Django 1.11 are not yet released on PyPI.)
+(``django-formtools``) have been installed from source (since versions
+supporting Django 1.11 are not yet released on PyPI.)
 
 Past
 ----
@@ -53,6 +53,9 @@ Key concepts
   forms (unlike form handlers, that are executed only if assigned).
 - Each plugin (form element or form handler) or a callback - is a Django
   micro-app.
+- In addition for form element and form handler plugins, integration form
+  element and integration form handler plugins are implemented for integration
+  with diverse third-party apps and frameworks (such as Django REST framework).
 
 Note, that `django-fobi` does not require django-admin and administrative
 rights/permissions to access the UI, although almost seamless integration with
@@ -78,7 +81,7 @@ Main features and highlights
   form elements (for adding a piece of text, image or a embed video)
   alongside standard form elements.
 - Data handling in plugins (form handlers). Save the data, mail it to some
-  address or repost it to some other endpoint. See the
+  address or re-post it to some other endpoint. See the
   `Bundled form handler plugins`_ for more information.
 - Developer-friendly API, which allows to edit existing or build new form 
   fields and handlers without touching the core.
@@ -88,6 +91,8 @@ Main features and highlights
   and "DjangoCMS admin style" theme (which is another simple theme with editing
   interface in style of `djangocms-admin-style
   <https://github.com/divio/djangocms-admin-style>`_).
+- Implemented integration with `Django REST framework
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/drf_integration>`_.
 - Implemented `integration with FeinCMS
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/feincms_integration>`_
   (in a form of a FeinCMS page widget).
@@ -110,11 +115,11 @@ Roadmap
 =======
 Some of the upcoming/in-development features/improvements are:
 
-- Integration with `django-rest-framework` (in version 0.11).
-- Bootstrap 4 and Foundation 6 support (in version 0.12).
-- Wagtail integration (in version 0.13).
+- Wagtail integration (in version 0.12).
+- Bootstrap 4 and Foundation 6 support (in version 0.13).
 
-See the `TODOS <https://raw.githubusercontent.com/barseghyanartur/django-fobi/master/TODOS.rst>`_
+See the `TODOS
+<https://raw.githubusercontent.com/barseghyanartur/django-fobi/master/TODOS.rst>`_
 for the full list of planned-, pending- in-development- or to-be-implemented
 features.
 
@@ -130,6 +135,8 @@ Demo
 Live demo
 ---------
 See the `live demo app <https://django-fobi.herokuapp.com/>`_ on Heroku.
+Additionally, see the `Django REST framework integration demo
+<https://django-fobi.herokuapp.com/api/>`_.
 
 Credentials:
 
@@ -138,12 +145,12 @@ Credentials:
 
 Run demo locally
 ----------------
-In order to be able to quickly evaluate the `django-fobi`, a demo app (with a
+In order to be able to quickly evaluate the ``django-fobi``, a demo app (with a
 quick installer) has been created (works on Ubuntu/Debian, may work on other
 Linux systems as well, although not guaranteed). Follow the instructions below
 for having the demo running within a minute.
 
-Grab the latest `django_fobi_example_app_installer.sh`:
+Grab the latest ``django_fobi_example_app_installer.sh``:
 
 .. code-block:: sh
 
@@ -1516,6 +1523,204 @@ README.rst file in directory of each plugin for details.
 - `Mail
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/mail/>`__:
   Send the form data by email.
+
+Integration with third-party apps and frameworks
+================================================
+`django-fobi` has been successfully integrated into a number of diverse
+third-party apps and frameworks, such as: Django REST framework, Django CMS,
+FeinCMS and Mezzanine.
+
+Certainly, integration into CMS is one case, integration into REST framework -
+totally another. In REST frameworks we no longer have forms as such. Context
+is very different. Handling of form data should obviously happen in a
+different way. Assembling of the form class isn't enough (in case of Django
+REST framework we assemble the serializer class).
+
+In order to handle such level of integration, two additional sort of plugins
+have been introduced:
+
+- IntegrationFormElementPlugin
+- IntegrationFormHandlerPlugin
+
+These plugins are in charge of representation of the form elements in a
+proper way for the package to be integrated and handling the submitted form
+data.
+
+`Additional documentation
+<https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/drf_integration/>`_
+is available in the sub-package.
+
+Sample `IntegrationFormElementPlugin`
+-------------------------------------
+Sample is taken from `here
+<https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/drf_integration/form_elements/fields/email/>`__.
+
+base.py
+~~~~~~~
+Define the form element plugin.
+
+.. code-block:: python
+
+    from django.utils.translation import ugettext_lazy as _
+
+    from rest_framework.fields import EmailField
+
+    from fobi.base import IntegrationFormFieldPlugin
+    from fobi.contrib.apps.drf_integration import UID as INTEGRATE_WITH_UID
+    from fobi.contrib.apps.drf_integration.base import (
+        DRFIntegrationFormElementPluginProcessor,
+        DRFSubmitPluginFormDataMixin,
+    )
+    from fobi.contrib.apps.drf_integration.form_elements.fields.email import UID
+
+
+    class EmailInputPlugin(IntegrationFormFieldPlugin,
+                           DRFSubmitPluginFormDataMixin):
+        """EmailField plugin."""
+
+        uid = UID
+        integrate_with = INTEGRATE_WITH_UID
+        name = _("Decimal")
+        group = _("Fields")
+
+        def get_custom_field_instances(self,
+                                       form_element_plugin,
+                                       request=None,
+                                       form_entry=None,
+                                       form_element_entries=None,
+                                       **kwargs):
+            """Get form field instances."""
+            field_kwargs = {
+                'required': form_element_plugin.data.required,
+                'initial': form_element_plugin.data.initial,
+                'label': form_element_plugin.data.label,
+                'help_text': form_element_plugin.data.help_text,
+                'max_length': form_element_plugin.data.max_length,
+            }
+            return [
+                DRFIntegrationFormElementPluginProcessor(
+                    field_class=EmailField,
+                    field_kwargs=field_kwargs
+                )
+            ]
+
+fobi_integration_form_elements.py
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Register the plugin. Note the name pattern `fobi_integration_form_elements`.
+
+.. code-block:: python
+
+    from fobi.base import integration_form_element_plugin_registry
+    from .base import EmailInputPlugin
+
+    integration_form_element_plugin_registry.register(EmailInputPlugin)
+
+Don't forget to list your plugin in the ``INSTALLED_APPS`` afterwards.
+
+Sample `IntegrationFormHandlerPlugin`
+-------------------------------------
+Sample is taken from `here
+<https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/drf_integration/form_handlers/db_store/>`__.
+
+base.py
+~~~~~~~
+Define the form handler plugin.
+
+.. code-block:: python
+
+    import logging
+    from mimetypes import guess_type
+    import os
+
+    from django.conf import settings
+    from django.utils.translation import ugettext_lazy as _
+
+    from fobi.base import IntegrationFormHandlerPlugin
+    from fobi.helpers import extract_file_path
+
+    from fobi.contrib.apps.drf_integration import UID as INTEGRATE_WITH_UID
+    from fobi.contrib.apps.drf_integration.base import get_processed_serializer_data
+
+    from . import UID
+
+
+    class MailHandlerPlugin(IntegrationFormHandlerPlugin):
+        """Mail handler form handler plugin.
+
+        Can be used only once per form.
+        """
+
+        uid = UID
+        name = _("Mail")
+        integrate_with = INTEGRATE_WITH_UID
+
+        def run(self,
+                form_handler_plugin,
+                form_entry,
+                request,
+                form_element_entries=None,
+                **kwargs):
+            """Run."""
+            base_url = form_handler_plugin.get_base_url(request)
+
+            serializer = kwargs['serializer']
+
+            # Clean up the values, leave our content fields and empty values.
+            field_name_to_label_map, cleaned_data = get_processed_serializer_data(
+                serializer,
+                form_element_entries
+            )
+
+            rendered_data = form_handler_plugin.get_rendered_data(
+                serializer.validated_data,
+                field_name_to_label_map,
+                base_url
+            )
+
+            files = self._prepare_files(request, serializer)
+
+            form_handler_plugin.send_email(rendered_data, files)
+
+        def _prepare_files(self, request, serializer):
+            """Prepares the files for being attached to the mail message."""
+            files = {}
+
+            def process_path(file_path, imf):
+                """Processes the file path and the file."""
+                if file_path:
+                    file_path = file_path.replace(
+                        settings.MEDIA_URL,
+                        os.path.join(settings.MEDIA_ROOT, '')
+                    )
+                    mime_type = guess_type(imf.name)
+                    files[field_name] = (
+                        imf.name,
+                        ''.join([c for c in imf.chunks()]),
+                        mime_type[0] if mime_type else ''
+                    )
+
+            for field_name, imf in request.FILES.items():
+                try:
+                    file_path = serializer.validated_data.get(field_name, '')
+                    process_path(file_path, imf)
+                except Exception as err:
+                    file_path = extract_file_path(imf.name)
+                    process_path(file_path, imf)
+
+            return files
+
+fobi_integration_form_handlers.py
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Register the plugin. Note the name pattern `fobi_integration_form_handlers`.
+
+.. code-block:: python
+
+    from fobi.base import integration_form_handler_plugin_registry
+    from .base import MailHandlerPlugin
+
+    integration_form_handler_plugin_registry.register(MailHandlerPlugin)
+
+Don't forget to list your plugin in the ``INSTALLED_APPS`` afterwards.
 
 Permissions
 ===========

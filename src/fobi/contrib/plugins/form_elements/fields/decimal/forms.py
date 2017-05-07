@@ -1,5 +1,7 @@
 from __future__ import absolute_import
 
+import decimal
+
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
@@ -98,6 +100,8 @@ class DecimalInputForm(forms.Form, BaseFormFieldPluginForm):
 
         max_value = self.cleaned_data['max_value']
         min_value = self.cleaned_data['min_value']
+        decimal_places = self.cleaned_data['decimal_places']
+        max_digits = self.cleaned_data['max_digits']
         initial = self.cleaned_data['initial']
 
         if (
@@ -120,3 +124,24 @@ class DecimalInputForm(forms.Form, BaseFormFieldPluginForm):
                 'min_value',
                 _("`initial` should be >= than `min_value`.")
             )
+
+        try:
+            self.quantize(initial, decimal_places, max_digits)
+        except decimal.InvalidOperation as err:
+            self.add_error(
+                'max_digits',
+                _("Quantize result has too many digits for current context")
+            )
+
+    def quantize(self, value, decimal_places, max_digits):
+        """Quantize the decimal value to the configured precision."""
+        if decimal_places is None:
+            return value
+
+        context = decimal.getcontext().copy()
+        if max_digits is not None:
+            context.prec = max_digits
+        return value.quantize(
+            decimal.Decimal('.1') ** decimal_places,
+            context=context
+        )

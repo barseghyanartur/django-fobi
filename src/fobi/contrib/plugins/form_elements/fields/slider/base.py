@@ -1,6 +1,6 @@
 from __future__ import absolute_import
 
-from six import text_type
+from six import text_type, PY3
 
 from django.forms.fields import ChoiceField
 
@@ -59,17 +59,46 @@ class SliderInputPlugin(FormFieldPlugin):
     form = SliderInputForm
     html_classes = ['slider']
 
+    def get_initial(self):
+        """Get initial value.
+
+        Might be used in integration plugins.
+        """
+        return int(self.data.initial) if self.data.initial else INITIAL
+
+    def get_choices(self):
+        """Get choices.
+
+        Might be used in integration plugins.
+        """
+        max_value = int(self.data.max_value) \
+            if self.data.max_value \
+            else INITIAL_MAX_VALUE
+        min_value = int(self.data.min_value) \
+            if self.data.min_value \
+            else INITIAL_MIN_VALUE
+        step = int(self.data.step) if self.data.step else STEP
+
+        if PY3:
+            _choices = [__r for __r in range(min_value, max_value + 1, step)]
+            choices = [(__k, __v) for __k, __v in zip(_choices, _choices)]
+        else:
+            _choices = range(min_value, max_value + 1, step)
+            choices = zip(_choices, _choices)
+
+        return choices
+
     def get_form_field_instances(self, request=None, form_entry=None,
                                  form_element_entries=None, **kwargs):
         """Get form field instances."""
-        initial = self.data.initial if self.data.initial else INITIAL
-        max_value = self.data.max_value \
+        initial = self.get_initial()
+        max_value = int(self.data.max_value) \
             if self.data.max_value \
             else INITIAL_MAX_VALUE
-        min_value = self.data.min_value \
+        min_value = int(self.data.min_value) \
             if self.data.min_value \
             else INITIAL_MIN_VALUE
-        step = self.data.step if self.data.step else STEP
+        step = int(self.data.step) if self.data.step else STEP
         tooltip = self.data.tooltip \
             if self.data.tooltip \
             else SLIDER_DEFAULT_TOOLTIP
@@ -83,8 +112,7 @@ class SliderInputPlugin(FormFieldPlugin):
             if self.data.custom_ticks \
             else []
 
-        _choices = range(min_value, max_value+1, step)
-        choices = zip(_choices, _choices)
+        choices = self.get_choices()
 
         # slider_html_class = "slider-no-background" \
         #     if self.data.disable_slider_background \

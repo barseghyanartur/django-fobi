@@ -56,9 +56,8 @@ class ContentImagePlugin(FormElementPlugin):
         )
         return self.get_cloned_plugin_data(update={'file': cloned_image})
 
-    def get_form_field_instances(self, request=None, form_entry=None,
-                                 form_element_entries=None, **kwargs):
-        """Get form field instances."""
+    def get_rendered_image(self):
+        """Get rendered image."""
         width, height = self.data.size.split('x')
         crop = get_crop_filter(self.data.fit_method)
 
@@ -76,9 +75,13 @@ class ContentImagePlugin(FormElementPlugin):
             'thumb_size': thumb_size
         }
         rendered_image = render_to_string('content_image/render.html', context)
+        return rendered_image
 
+    def get_form_field_instances(self, request=None, form_entry=None,
+                                 form_element_entries=None, **kwargs):
+        """Get form field instances."""
         field_kwargs = {
-            'initial': rendered_image,
+            'initial': self.get_rendered_image(),
             'required': False,
             'label': '',
         }

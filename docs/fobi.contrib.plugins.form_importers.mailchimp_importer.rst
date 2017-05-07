@@ -12,6 +12,14 @@ fobi.contrib.plugins.form_importers.mailchimp_importer.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_importers.mailchimp_importer.base module
+------------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_importers.mailchimp_importer.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_importers.mailchimp_importer.fobi_form_importers module
 ---------------------------------------------------------------------------------
 

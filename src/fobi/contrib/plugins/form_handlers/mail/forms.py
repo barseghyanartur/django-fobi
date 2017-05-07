@@ -3,7 +3,7 @@ from __future__ import absolute_import
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from fobi.base import BasePluginForm, get_theme
+from .....base import BasePluginForm, get_theme
 
 from .fields import MultiEmailField
 from .widgets import MultiEmailWidget

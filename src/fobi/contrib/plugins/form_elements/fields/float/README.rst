@@ -1,4 +1,3 @@
-===============================================
 fobi.contrib.plugins.form_elements.fields.float
 ===============================================
 A ``Fobi`` Integer form field plugin. Makes use of the
@@ -7,7 +6,7 @@ A ``Fobi`` Integer form field plugin. Makes use of the
 versions).
 
 Installation
-============
+------------
 1. Add ``fobi.contrib.plugins.form_elements.fields.float`` to the
    ``INSTALLED_APPS`` in your ``settings.py``.
 

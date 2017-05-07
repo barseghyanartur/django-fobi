@@ -12,7 +12,8 @@ ghostdriver.log
 /.cache/
 /htmlcov/
 *.py,cover
-.idea/
+/.idea/
+codebin.py
 
 MANIFEST.in~
 MIND_BUCKET.rst
@@ -35,6 +36,7 @@ README_PARTS.rst
 
 /src/django_fobi.egg-info
 /src/fobi/contrib/plugins/form_elements/fields/hidden_model_object/
+/src/fobi/contrib/apps/drf_integration/form_elements/content/
 /src/fobi/contrib/plugins/form_importers/mailchimp_importer/bucket.py
 /src/fobi/contrib/apps/wagtail_integration_/
 

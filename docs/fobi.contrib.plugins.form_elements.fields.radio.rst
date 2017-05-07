@@ -12,6 +12,14 @@ fobi.contrib.plugins.form_elements.fields.radio.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.fields.radio.base module
+-----------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.radio.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.radio.conf module
 -----------------------------------------------------------
 

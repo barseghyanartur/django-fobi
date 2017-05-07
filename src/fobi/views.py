@@ -8,7 +8,7 @@ from collections import OrderedDict
 
 import simplejson as json
 
-from six import string_types
+# from six import string_types
 
 from django.db import models, IntegrityError
 from django.contrib import messages
@@ -82,7 +82,10 @@ from .utils import (
     perform_form_entry_import,
     prepare_form_entry_export_data
 )
-from .wizard import DynamicSessionWizardView, DynamicCookieWizardView
+from .wizard import (
+    # DynamicCookieWizardView,
+    DynamicSessionWizardView,
+)
 
 if versions.DJANGO_GTE_1_10:
     from django.shortcuts import render
@@ -279,6 +282,7 @@ def dashboard(request, theme=None, template_name=None):
             template_name, context, context_instance=RequestContext(request)
         )
 
+
 # *****************************************************************************
 # ****************************** Form wizards *********************************
 # *****************************************************************************
@@ -325,6 +329,7 @@ def form_wizards_dashboard(request, theme=None, template_name=None):
         return render_to_response(
             template_name, context, context_instance=RequestContext(request)
         )
+
 
 # *****************************************************************************
 # *****************************************************************************
@@ -397,6 +402,7 @@ def create_form_entry(request, theme=None, template_name=None):
         return render_to_response(
             template_name, context, context_instance=RequestContext(request)
         )
+
 
 # **************************************************************************
 # ******************************* Edit form entry **************************
@@ -487,14 +493,17 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
                     )
                 )
                 return redirect(
-                    reverse('fobi.edit_form_entry',
-                            kwargs={'form_entry_id': form_entry_id})
+                    reverse(
+                        'fobi.edit_form_entry',
+                        kwargs={'form_entry_id': form_entry_id}
                     )
+                )
             except IntegrityError as err:
                 messages.info(
                     request,
-                    ugettext('Errors occurred while saving '
-                             'the form: {0}.').format(str(err))
+                    ugettext(
+                        'Errors occurred while saving the form: {0}.'
+                    ).format(str(err))
                 )
     else:
         # The form entry form (does not contain form elements)
@@ -577,6 +586,7 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
         return render_to_response(
             template_name, context, context_instance=RequestContext(request)
         )
+
 
 # *****************************************************************************
 # ********************************* Delete form entry *************************
@@ -1119,6 +1129,7 @@ def delete_form_handler_entry(request, form_handler_entry_id):
         html_anchor='?active_tab=tab-form-handlers'
     )
 
+
 # *****************************************************************************
 # *****************************************************************************
 # ****************************** Form wizard **********************************
@@ -1193,6 +1204,7 @@ def create_form_wizard_entry(request, theme=None, template_name=None):
         return render_to_response(
             template_name, context, context_instance=RequestContext(request)
         )
+
 
 # **************************************************************************
 # *************************** Edit form wizard entry ***********************
@@ -1367,6 +1379,7 @@ def edit_form_wizard_entry(request, form_wizard_entry_id, theme=None,
             template_name, context, context_instance=RequestContext(request)
         )
 
+
 # *****************************************************************************
 # **************************** Delete form wizard entry ***********************
 # *****************************************************************************
@@ -1431,7 +1444,7 @@ class FormWizardView(DynamicSessionWizardView):
             'fobi_theme': self.fobi_theme,
             'fobi_form_title': form_entry.title,
             'fobi_form_wizard_title': self.form_wizard_entry.title,
-            'steps_range': range(1, self.steps.count+1),
+            'steps_range': range(1, self.steps.count + 1),
         })
 
         return context_data
@@ -1561,8 +1574,10 @@ class FormWizardView(DynamicSessionWizardView):
                     field_key
                 )
                 # Do not overwrite field data. Only empty or missing values.
-                if not (wizard_form_key in form.data
-                        and form.data[wizard_form_key]):
+                if not (
+                    wizard_form_key in form.data
+                    and form.data[wizard_form_key]
+                ):
                     form.data[wizard_form_key] = field_value
 
                 # This is dirty hack to make wizard validate empty multiple
@@ -1844,10 +1859,10 @@ def delete_form_wizard_form_entry(request, form_wizard_form_entry_id):
     """
     try:
         obj = FormWizardFormEntry \
-                ._default_manager \
-                .select_related('form_wizard_entry') \
-                .get(pk=form_wizard_form_entry_id,
-                     form_wizard_entry__user__pk=request.user.pk)
+            .objects \
+            .select_related('form_wizard_entry') \
+            .get(pk=form_wizard_form_entry_id,
+                 form_wizard_entry__user__pk=request.user.pk)
     except ObjectDoesNotExist as err:
         raise Http404(
             ugettext("{0} not found.").format(

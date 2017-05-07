@@ -5,10 +5,11 @@ from django.test import TestCase
 from fobi.dynamic import assemble_form_class
 
 from .base import print_info
+from .data import TEST_DYNAMIC_FORMS_DEFINITION_DATA
 from .helpers import (
-    setup_fobi,
+    create_form_with_entries,
     get_or_create_admin_user,
-    create_form_with_entries
+    setup_fobi,
 )
 
 __title__ = 'fobi.tests.test_dynamic_forms'
@@ -24,8 +25,11 @@ class FobiDynamicFormsTest(TestCase):
     def setUp(self):
         """Set up."""
         setup_fobi(fobi_sync_plugins=True)
-        user = get_or_create_admin_user()
-        create_form_with_entries(user)
+        self.user = get_or_create_admin_user()
+        self.form_entry = create_form_with_entries(
+            self.user,
+            data=TEST_DYNAMIC_FORMS_DEFINITION_DATA
+        )
 
     @print_info
     def test_01_assemble_form_class_and_render_form(self):
@@ -33,13 +37,15 @@ class FobiDynamicFormsTest(TestCase):
         flow = []
 
         # Getting entry with created plugins
-        form_entry = create_form_with_entries()
-        flow.append(form_entry)
+        # form_entry = create_form_with_entries(
+        #     data=TEST_DYNAMIC_FORMS_DEFINITION_DATA
+        # )
+        flow.append(self.form_entry)
 
-        FormClass = assemble_form_class(form_entry)
-        flow.append(FormClass)
+        form_class = assemble_form_class(self.form_entry)
+        flow.append(form_class)
 
-        form = FormClass()
+        form = form_class()
         flow.append(form)
 
         rendered_form = form.as_p()

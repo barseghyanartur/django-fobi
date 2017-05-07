@@ -12,6 +12,14 @@ fobi.contrib.plugins.form_elements.content.content_image.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.content.content_image.base module
+--------------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.content.content_image.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.content.content_image.conf module
 --------------------------------------------------------------------
 

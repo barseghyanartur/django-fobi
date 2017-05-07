@@ -1,10 +1,9 @@
-========================================================
 fobi.contrib.plugins.form_elements.content.content_video
 ========================================================
 A ``Fobi`` Video form element plugin.
 
 Installation
-============
+------------
 1. Add ``fobi.contrib.plugins.form_elements.content.content_video`` to the
    ``INSTALLED_APPS`` in your ``settings.py``.
 

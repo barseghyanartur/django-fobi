@@ -1,4 +1,4 @@
-from fobi.base import FormHandlerPluginWidget
+from .....base import FormHandlerPluginWidget
 
 from . import UID
 

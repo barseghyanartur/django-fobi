@@ -8,10 +8,11 @@ import re
 import traceback
 import uuid
 
-try:
-    from collections import OrderedDict
-except ImportError as err:
-    from ordereddict import OrderedDict
+
+from collections import (
+    defaultdict,
+    # OrderedDict,
+)
 
 import simplejson as json
 
@@ -30,30 +31,34 @@ from .data_structures import SortableDict
 from .discover import autodiscover
 from .exceptions import (
     DoesNotExist,
-    InvalidRegistryItemType,
     FormElementPluginDoesNotExist,
     FormHandlerPluginDoesNotExist,
     FormWizardHandlerPluginDoesNotExist,
-    ThemeDoesNotExist
+    IntegrationFormElementPluginDoesNotExist,
+    IntegrationFormHandlerPluginDoesNotExist,
+    InvalidRegistryItemType,
+    ThemeDoesNotExist,
 )
 from .helpers import (
     clean_dict,
-    get_ignorable_form_values,
     get_form_element_entries_for_form_wizard_entry,
+    get_ignorable_form_values,
     map_field_name_to_label,
     safe_text,
+    StrippedRequest,
     uniquify_sequence,
-    StrippedRequest
 )
 from .settings import (
     CUSTOM_THEME_DATA,
-    DEFAULT_THEME,
     DEBUG,
+    DEFAULT_THEME,
+    FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS,
+    FAIL_ON_ERRORS_IN_FORM_WIZARD_HANDLER_PLUGINS,
     FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS,
     FAIL_ON_MISSING_FORM_HANDLER_PLUGINS,
     FAIL_ON_MISSING_FORM_WIZARD_HANDLER_PLUGINS,
-    FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS,
-    FAIL_ON_ERRORS_IN_FORM_WIZARD_HANDLER_PLUGINS,
+    FAIL_ON_MISSING_INTEGRATION_FORM_ELEMENT_PLUGINS,
+    FAIL_ON_MISSING_INTEGRATION_FORM_HANDLER_PLUGINS,
     FORM_HANDLER_PLUGINS_EXECUTION_ORDER,
     FORM_WIZARD_HANDLER_PLUGINS_EXECUTION_ORDER,
     THEME_FOOTER_TEXT,
@@ -121,16 +126,34 @@ __all__ = (
     'get_registered_form_handler_plugins',
     'get_registered_form_wizard_handler_plugin_uids',
     'get_registered_form_wizard_handler_plugins',
+    'get_registered_integration_form_element_plugin_uids',
+    'get_registered_integration_form_element_plugins',
+    'get_registered_integration_form_element_plugins_grouped',
+    'get_registered_integration_form_handler_plugin_uids',
+    'get_registered_integration_form_handler_plugins',
+    'get_registered_integration_form_handler_plugins_grouped',
     'get_registered_plugin_uids',
     'get_registered_plugins',
     'get_registered_theme_uids',
     'get_registered_themes',
+    'integration_form_element_plugin_registry',
+    'integration_form_handler_plugin_registry',
+    'IntegrationFormElementPlugin',
+    'IntegrationFormElementPluginDataStorage',
+    'IntegrationFormElementPluginProcessor',
+    'IntegrationFormElementPluginRegistry',
+    'IntegrationFormFieldPlugin',
+    'IntegrationFormHandlerPlugin',
+    'IntegrationFormHandlerPluginDataStorage',
+    'IntegrationFormHandlerPluginRegistry',
     'run_form_handlers',
     'run_form_wizard_handlers',
     'theme_registry',
     'validate_form_element_plugin_uid',
     'validate_form_handler_plugin_uid',
     'validate_form_wizard_handler_plugin_uid',
+    'validate_integration_form_element_plugin_uid',
+    'validate_integration_form_handler_plugin_uid',
     'validate_theme_uid',
 )
 
@@ -523,14 +546,14 @@ class BaseTheme(object):
         :return str:
         """
         return """
-            <li><a href="{edit_url}">
-              <span class="{edit_option_class}"></span> {edit_text}</a>
-            </li>
-            """.format(
-                edit_url="{edit_url}",
-                edit_option_class=cls.form_edit_form_entry_option_class,
-                edit_text="{edit_text}",
-            )
+        <li><a href="{edit_url}">
+          <span class="{edit_option_class}"></span> {edit_text}</a>
+        </li>
+        """.format(
+            edit_url="{edit_url}",
+            edit_option_class=cls.form_edit_form_entry_option_class,
+            edit_text="{edit_text}",
+        )
 
     @classmethod
     def edit_form_entry_help_text_extra(cls):
@@ -541,28 +564,28 @@ class BaseTheme(object):
         :return str:
         """
         return """
-            <ul class="{container_class}">
-              {edit_option_html}
-              <li><a href="{delete_url}">
-                <span class="{delete_option_class}"></span> {delete_text}</a>
-              </li>
-            </ul>
-            <input type="hidden" value="{form_element_position}"
-                   name="form-{counter}-position"
-                   id="id_form-{counter}-position"
-                   class="form-element-position">
-            <input type="hidden" value="{form_element_pk}"
-                   name="form-{counter}-id" id="id_form-{counter}-id">
-            """.format(
-                container_class=cls.form_list_container_class,
-                edit_option_html="{edit_option_html}",
-                delete_url="{delete_url}",
-                delete_option_class=cls.form_delete_form_entry_option_class,
-                delete_text="{delete_text}",
-                form_element_position="{form_element_position}",
-                counter="{counter}",
-                form_element_pk="{form_element_pk}",
-            )
+        <ul class="{container_class}">
+          {edit_option_html}
+          <li><a href="{delete_url}">
+            <span class="{delete_option_class}"></span> {delete_text}</a>
+          </li>
+        </ul>
+        <input type="hidden" value="{form_element_position}"
+               name="form-{counter}-position"
+               id="id_form-{counter}-position"
+               class="form-element-position">
+        <input type="hidden" value="{form_element_pk}"
+               name="form-{counter}-id" id="id_form-{counter}-id">
+        """.format(
+            container_class=cls.form_list_container_class,
+            edit_option_html="{edit_option_html}",
+            delete_url="{delete_url}",
+            delete_option_class=cls.form_delete_form_entry_option_class,
+            delete_text="{delete_text}",
+            form_element_position="{form_element_position}",
+            counter="{counter}",
+            form_element_pk="{form_element_pk}",
+        )
 
     def get_view_template_name(self, request=None, origin=None):
         """Get view template name.
@@ -649,6 +672,7 @@ class BaseTheme(object):
         return '{0} {1}'.format(
             self.primary_html_class, ' '.join(self.html_classes)
         )
+
 
 # *****************************************************************************
 # *****************************************************************************
@@ -820,6 +844,14 @@ class FormElementPluginWidgetDataStorage(BaseDataStorage):
 
 class FormHandlerPluginWidgetDataStorage(BaseDataStorage):
     """Storage for `FormHandlerPluginWidget` data."""
+
+
+class IntegrationFormElementPluginDataStorage(BaseDataStorage):
+    """Storage for `IntegrationFormElementPlugin`."""
+
+
+class IntegrationFormHandlerPluginDataStorage(BaseDataStorage):
+        """Storage for `IntegrationFormHandlerPlugin`."""
 
 
 class FormWizardHandlerPluginWidgetDataStorage(BaseDataStorage):
@@ -1015,7 +1047,7 @@ class BasePlugin(object):
             try:
                 form_data.update(
                     {field: self.plugin_data.get(field, default_value)}
-                    )
+                )
             except Exception as err:
                 logger.debug(
                     "Error in class %s. Details: %s",
@@ -1383,7 +1415,7 @@ class FormElementPlugin(BasePlugin):
         # For the moment, this piece of code has to be present here.
         return_func_results = self.get_origin_return_func_results(
             return_func, form_element_entry, origin
-            )
+        )
         if return_func_results:
             return return_func_results
 
@@ -1495,6 +1527,115 @@ class FormElementPlugin(BasePlugin):
         >>> [CharField(max_length=100), IntegerField(), TextField()]
         """
         return []
+
+    def get_custom_field_instances(self,
+                                   integrate_with,
+                                   request=None,
+                                   form_entry=None,
+                                   form_element_entries=None,
+                                   has_value=None,
+                                   **kwargs):
+        """Get custom field instances.
+
+        :param str integrate_with:
+        :param django.http.HttpRequest request:
+        :param form_entry:
+        :param form_element_entries:
+        :param bool has_value: If not None, used for filtering out.
+        :return list:
+        """
+        cls = integration_form_element_plugin_registry.get(
+            integrate_with, self.uid
+        )
+
+        if cls:
+
+            if has_value is not None:
+                if cls.has_value != has_value:
+                    return []
+
+            plugin = cls()
+            return plugin.get_custom_field_instances(
+                form_element_plugin=self,
+                request=request,
+                form_entry=form_entry,
+                form_element_entries=form_element_entries,
+                **kwargs
+            )
+        return []
+
+    def _get_custom_field_instances(self,
+                                    integrate_with,
+                                    form_element_entry=None,
+                                    origin=None,
+                                    kwargs_update_func=None,
+                                    return_func=None,
+                                    extra={},
+                                    request=None,
+                                    form_entry=None,
+                                    form_element_entries=None,
+                                    has_value=None,
+                                    **kwargs):
+
+        """Gets the instances of form fields, that plugin contains.
+
+        Used internally. Do not override this method.
+
+        :param str integrate_with:s
+        :param fobi.models.FormElementEntry form_element_entry: Instance.
+        :param string origin:
+        :param callable kwargs_update_func:
+        :param callable return_func:
+        :return list: List of Django form field instances.
+        """
+        # For the moment, this piece of code has to be present here.
+        return_func_results = self.get_origin_return_func_results(
+            return_func, form_element_entry, origin
+        )
+        if return_func_results:
+            return return_func_results
+
+        # Get form field instances (as defined by ``get_form_field_instances``
+        # methods in plugins). In DEBUG mode raise an exception if something
+        # goes wrong. Otherwise - skip the element.
+        if DEBUG:
+            custom_field_instances = self.get_custom_field_instances(
+                integrate_with=integrate_with,
+                request=request,
+                form_entry=form_entry,
+                form_element_entries=form_element_entries,
+                has_value=has_value,
+                **kwargs
+            )
+        else:
+            try:
+                custom_field_instances = self.get_custom_field_instances(
+                    request=request,
+                    form_entry=form_entry,
+                    form_element_entries=form_element_entries,
+                    has_value=has_value,
+                    **kwargs
+                )
+            except AttributeError as err:
+                return []
+
+        # This is the flexible part. We delegate implementation to the
+        # plugin.
+        processed_custom_field_instances = []
+        # Actually, ``custom_field_instance`` isn't a good name, since
+        # here we actually deal with sub-classed
+        # ``CustomFormFieldInstanceProcessor`` instances.
+        for custom_field_instance in custom_field_instances:
+            processed_custom_field_instances.append(
+                custom_field_instance.process_custom_form_field_instance(
+                    form_element_entry=form_element_entry,
+                    form_entry=form_entry,
+                    request=request,
+                    form_element_plugin=self
+                )
+            )
+
+        return processed_custom_field_instances
 
     def get_origin_return_func_results(self, return_func, form_element_entry,
                                        origin):
@@ -1670,6 +1811,62 @@ class FormHandlerPlugin(BasePlugin):
             "subclass.".format(self.__class__.__name__)
         )
 
+    def run_integration_handler(self,
+                                integrate_with,
+                                form_entry,
+                                request,
+                                form_element_entries=None,
+                                **kwargs):
+        """Run integration handler."""
+        cls = integration_form_handler_plugin_registry.get(
+            integrate_with,
+            self.uid
+        )
+        if cls:
+            plugin = cls()
+            response = plugin.run(
+                form_handler_plugin=self,
+                form_entry=form_entry,
+                request=request,
+                form_element_entries=form_element_entries,
+                **kwargs
+            )
+            if response:
+                return response
+            else:
+                return (True, None)
+        return (
+            False,
+            _("No integration handler for plugin {} found.").format(self.uid)
+        )
+
+    def _run_integration_handler(self,
+                                 integrate_with,
+                                 form_entry,
+                                 request,
+                                 form_element_entries=None,
+                                 **kwargs):
+        """Run integration handlers."""
+        if DEBUG:
+            return self.run_integration_handler(
+                integrate_with=integrate_with,
+                form_entry=form_entry,
+                request=request,
+                form_element_entries=form_element_entries,
+                **kwargs
+            )
+        else:
+            try:
+                return self.run_integration_handler(
+                    integrate_with=integrate_with,
+                    form_entry=form_entry,
+                    request=request,
+                    form_element_entries=form_element_entries,
+                    **kwargs
+                )
+            except Exception as err:
+                return (False, err)
+
     def custom_actions(self, form_entry, request=None):
         """Custom actions.
 
@@ -1792,6 +1989,77 @@ class FormWizardHandlerPlugin(BasePlugin):
         return self.custom_actions(form_wizard_entry, request)
 
 
+class IntegrationFormElementPluginProcessor(object):
+    """Custom form field instance processor.
+
+    Supposed to have implemented a single method called
+    ``process_custom_form_field_instance``.
+    """
+
+    def __init__(self, *args, **kwargs):
+        """Constructor."""
+        self.args = args
+        self.kwargs = kwargs
+
+    def process_custom_form_field_instance(self,
+                                           form_element_entry,
+                                           form_entry,
+                                           request,
+                                           form_element_plugin):
+        """You should implement this method in your implementation."""
+        raise NotImplementedError("You should implement this method!")
+
+
+class BaseIntegrationFormElementPlugin(BasePlugin):
+    """Base custom field instance plugin."""
+
+    storage = IntegrationFormElementPluginDataStorage
+    integrate_with = None
+    has_value = False
+    is_hidden = False
+
+    def __init__(self, user=None):
+        """Constructor."""
+        super(BaseIntegrationFormElementPlugin, self).__init__(user=user)
+        assert self.integrate_with
+
+
+class IntegrationFormElementPlugin(BasePlugin):
+    """Base custom field instance plugin for integration."""
+
+    storage = IntegrationFormElementPluginDataStorage
+    has_value = False
+    is_hidden = False
+
+
+class IntegrationFormFieldPlugin(IntegrationFormElementPlugin):
+    """Integration form field plugin for custom field instances."""
+
+    has_value = True
+
+
+class BaseIntegrationFormHandlerPlugin(BasePlugin):
+    """Base integration form handler plugin."""
+
+    storage = IntegrationFormHandlerPluginDataStorage
+    integrate_with = None
+    has_value = False
+    is_hidden = False
+
+    def __init__(self, user=None):
+        """Constructor."""
+        super(BaseIntegrationFormHandlerPlugin, self).__init__(user=user)
+        assert self.integrate_with
+
+
+class IntegrationFormHandlerPlugin(BasePlugin):
+    """Base integration form handler plugin for integration."""
+
+    storage = IntegrationFormHandlerPluginDataStorage
+    has_value = True
+    is_hidden = False
+
+
 class FormCallback(object):
     """Base form callback."""
 
@@ -1829,6 +2097,32 @@ class FormCallback(object):
             "You should implement ``callback`` method in your {0} "
             "subclass.".format(self.__class__.__name__)
         )
+
+    # def custom_field_instances_callback(self, integrate_with, form_entry,
+    #                                     request, **kwargs):
+    #     """Custom field instances callback.
+    #
+    #     :param str integrate_with:
+    #     :param fobi.models.FormEntry form_entry: Instance of
+    #         ``fobi.models.FormEntry``.
+    #     :param django.http.HttpRequest request:
+    #     :param kwargs:
+    #     """
+    #     try:
+    #         custom_callback = self.get_custom_field_instance_callback(
+    #             integrate_with=integrate_with
+    #         )
+    #         return custom_callback.callback(
+    #             form_entry=form_entry,
+    #             request=request,
+    #             **kwargs
+    #         )
+    #     except Exception as err:
+    #         logger.debug(
+    #             "Error in class %s. Details: %s",
+    #             self.__class__.__name__,
+    #             str(err)
+    #         )
 
 
 class ClassProperty(property):
@@ -1962,7 +2256,7 @@ class BaseRegistry(object):
             raise InvalidRegistryItemType(
                 "Invalid item type `{0}` for registry "
                 "`{1}`".format(cls, self.__class__)
-                )
+            )
 
         # If item has not been forced yet, add/replace its' value in the
         # registry.
@@ -1989,7 +2283,7 @@ class BaseRegistry(object):
             raise InvalidRegistryItemType(
                 "Invalid item type `{0}` for registry "
                 "`{1}`".format(cls, self.__class__)
-                )
+            )
 
         # Only non-forced items are allowed to be unregistered.
         if cls.uid in self._registry and cls.uid not in self._forced:
@@ -2036,6 +2330,112 @@ class FormHandlerPluginRegistry(BaseRegistry):
     plugin_not_found_exception_cls = FormHandlerPluginDoesNotExist
 
 
+class BaseIntegrationPluginRegistry(object):
+    """Base integration plugin registry."""
+
+    plugin_not_found_error_message = "Can't find plugin with uid `{0}` in " \
+                                     "`{1}` registry."
+
+    def __init__(self):
+        super(BaseIntegrationPluginRegistry, self).__init__()
+        self._registry = defaultdict(dict)
+        self._forced = defaultdict(dict)
+
+    @property
+    def registry(self):
+        """Shortcut to self._registry."""
+        return self._registry
+
+    def items(self):
+        """Shortcut to self._registry.items()."""
+        return self._registry.items()
+
+    def register(self, cls, force=False):
+        """Registers the plugin in the registry.
+
+        :param mixed cls:
+        :param bool force:
+        """
+        if not issubclass(cls, self.type):
+            raise InvalidRegistryItemType(
+                "Invalid item type `{0}` for registry "
+                "`{1}`".format(cls, self.__class__)
+            )
+
+        # If item has not been forced yet, add/replace its' value in the
+        # registry.
+        if force:
+
+            if cls.uid not in self._forced:
+                self._registry[cls.integrate_with][cls.uid] = cls
+                self._forced[cls.integrate_with].append(cls.uid)
+                return True
+            else:
+                return False
+
+        else:
+
+            if cls.uid in self._registry[cls.integrate_with]:
+                return False
+            else:
+                self._registry[cls.integrate_with][cls.uid] = cls
+                return True
+
+    def unregister(self, cls):
+        """Un-register."""
+        if not issubclass(cls, self.type):
+            raise InvalidRegistryItemType(
+                "Invalid item type `{0}` for registry "
+                "`{1}`".format(cls, self.__class__)
+            )
+
+        # Only non-forced items are allowed to be unregistered.
+        if cls.uid in self._registry[cls.integrate_with] \
+                and cls.uid not in self._forced[cls.integrate_with]:
+            self._registry[cls.integrate_with].pop(cls.uid)
+            return True
+        else:
+            return False
+
+    def get(self, integrate_with, uid, default=None):
+        """Get the given entry from the registry.
+
+        :param str integrate_with:
+        :param str uid:
+        :param mixed default:
+        :return mixed.
+        """
+        item = self._registry[integrate_with].get(uid, default)
+
+        if not item:
+            err_msg = self.plugin_not_found_error_message.format(
+                uid, self.__class__
+            )
+            if self.fail_on_missing_plugin:
+                logger.error(err_msg)
+                raise self.plugin_not_found_exception_cls(err_msg)
+            else:
+                logger.debug(err_msg)
+
+        return item
+
+
+class IntegrationFormElementPluginRegistry(BaseIntegrationPluginRegistry):
+    """Integration form element plugin registry."""
+    type = (IntegrationFormElementPlugin,)
+    fail_on_missing_plugin = FAIL_ON_MISSING_INTEGRATION_FORM_ELEMENT_PLUGINS
+    plugin_not_found_exception_cls = IntegrationFormElementPluginDoesNotExist
+
+
+class IntegrationFormHandlerPluginRegistry(BaseIntegrationPluginRegistry):
+    """Integration form handler plugin registry."""
+    type = (IntegrationFormHandlerPlugin,)
+    # TODO
+    fail_on_missing_plugin = FAIL_ON_MISSING_INTEGRATION_FORM_HANDLER_PLUGINS
+    # TODO
+    plugin_not_found_exception_cls = IntegrationFormHandlerPluginDoesNotExist
+
+
 class FormWizardHandlerPluginRegistry(BaseRegistry):
     """Form wizard handler plugins registry."""
 
@@ -2080,7 +2480,7 @@ class FormCallbackRegistry(object):
             raise InvalidRegistryItemType(
                 "Invalid item type `{0}` for registry "
                 "`{1}`".format(cls, self.__class__)
-                )
+            )
 
         # uid = self.uidfy(cls)
         # If item has not been forced yet, add/replace its' value in the
@@ -2131,7 +2531,7 @@ class BasePluginWidgetRegistry(object):
             raise InvalidRegistryItemType(
                 "Invalid item type `{0}` for registry "
                 "`{1}`".format(cls, self.__class__)
-                )
+            )
 
         uid = BasePluginWidgetRegistry.namify(cls.theme_uid, cls.plugin_uid)
 
@@ -2160,7 +2560,7 @@ class BasePluginWidgetRegistry(object):
             raise InvalidRegistryItemType(
                 "Invalid item type `{0}` for registry "
                 "`{1}`".format(cls, self.__class__)
-                )
+            )
 
         uid = BasePluginWidgetRegistry.namify(cls.theme_uid, cls.plugin_uid)
 
@@ -2210,6 +2610,16 @@ form_element_plugin_registry = FormElementPluginRegistry()
 
 # Register action plugins by calling form_action_plugin_registry.register()
 form_handler_plugin_registry = FormHandlerPluginRegistry()
+
+# Register integration form element plugins by calling
+# integration_form_element_plugin_registry.register()
+integration_form_element_plugin_registry = \
+    IntegrationFormElementPluginRegistry()
+
+# Register integration form handler plugins by calling
+# integration_form_handler_plugin_registry.register()
+integration_form_handler_plugin_registry = \
+    IntegrationFormHandlerPluginRegistry()
 
 # Register action plugins by calling form_action_plugin_registry.register()
 form_wizard_handler_plugin_registry = FormWizardHandlerPluginRegistry()
@@ -2387,7 +2797,7 @@ def get_registered_form_element_plugins():
     """Get registered form element plugins.
 
     Gets a list of registered plugins in a form if tuple (plugin name, plugin
-    description). If not yet autodiscovered, autodiscovers them.
+    description). If not yet auto-discovered, auto-discovers them.
 
     :return list:
     """
@@ -2453,6 +2863,48 @@ def submit_plugin_form_data(form_entry, request, form,
             form = updated_form
 
     return form
+
+
+# def submit_custom_instances_plugin_form_data(integrate_with,
+#                                              form_entry,
+#                                              request,
+#                                              form_element_entries=None,
+#                                              **kwargs):
+#     """
+#     Find all the plugins and their custom field instances. Then one by one
+#     run the ``submit_plugin_form_data`` method on each of them.
+#
+#     # TODO
+#     Submit plugin form data for all plugins.
+#
+#     :param str integrate_with:
+#     :param fobi.models.FormEntry form_entry: Instance of
+#         ``fobi.models.FormEntry``.
+#     :param django.http.HttpRequest request:
+#     :param iterable form_element_entries:
+#     """
+#     if not form_element_entries:
+#         form_element_entries = form_entry.formelemententry_set.all()
+#     for form_element_entry in form_element_entries:
+#         # Get the plugin.
+#         form_element_plugin = form_element_entry.get_plugin(request=request)
+#         custom_plugin_cls = custom_field_instance_plugin_registry.get(
+#             integrate_with, form_element_plugin.uid
+#         )
+#         if custom_plugin_cls:
+#             custom_plugin = custom_plugin_cls()
+#
+#         updated_form = form_element_plugin._submit_plugin_form_data(
+#             form_entry=form_entry,
+#             request=request,
+#             form=form,
+#             form_element_entries=form_element_entries,
+#             **kwargs
+#         )
+#         if updated_form:
+#             form = updated_form
+#
+#     return form
 
 
 def get_ignorable_form_fields(form_element_entries):
@@ -2633,6 +3085,10 @@ def get_ordered_form_handler_plugins():
     return form_handler_plugins
 
 
+# For backwards compatibility, if someone had ever used this.
+get_ordered_form_handlers = get_ordered_form_handler_plugins
+
+
 def run_form_handlers(form_entry, request, form, form_element_entries=None):
     """Run form handlers.
 
@@ -2741,6 +3197,10 @@ def get_ordered_form_wizard_handler_plugins():
             form_wizard_handler_plugins[uid] = []
 
     return form_wizard_handler_plugins
+
+
+# For backwards compatibility, if someone had ever used this.
+get_ordered_form_wizard_handlers = get_ordered_form_wizard_handler_plugins
 
 
 def run_form_wizard_handlers(form_wizard_entry, request, form_list,
@@ -2985,6 +3445,115 @@ def get_form_wizard_handler_plugin_widget(plugin_uid, request=None,
         request=request,
         as_instance=as_instance,
         theme=theme
+    )
+
+
+# *****************************************************************************
+# ****************** Integration form element plugin specific *****************
+# *****************************************************************************
+
+
+def get_registered_integration_form_element_plugins():
+    """Get registered custom field instance plugins.
+
+    Gets a list of registered plugins in a form if tuple (plugin name, plugin
+    description). If not yet auto-discovered, auto-discovers them.
+
+    :return list:
+    """
+    return get_registered_plugins(integration_form_element_plugin_registry)
+
+
+def get_registered_integration_form_element_plugins_grouped():
+    """Get registered custom field instance plugins grouped.
+
+    Gets a list of registered plugins in a form if tuple (plugin name, plugin
+    description). If not yet auto-discovered, auto-discovers them.
+
+    :return dict:
+    """
+    return get_registered_plugins_grouped(
+        integration_form_element_plugin_registry
+    )
+
+
+def get_registered_integration_form_element_plugin_uids(flattern=True):
+    """Get registered custom field instance plugin uids.
+
+    Gets a list of registered plugins in a form if tuple (plugin name, plugin
+    description). If not yet auto-discovered, auto-discovers them.
+
+    :return list:
+    """
+    return get_registered_plugin_uids(
+        integration_form_element_plugin_registry, flattern=flattern
+    )
+
+
+def validate_integration_form_element_plugin_uid(plugin_uid):
+    """Validate the custom field instance plugin uid.
+
+    :param string plugin_uid:
+    :return bool:
+    """
+    return validate_plugin_uid(
+        integration_form_element_plugin_registry,
+        plugin_uid
+    )
+
+
+# *****************************************************************************
+# ****************** Integration form handler plugin specific *****************
+# *****************************************************************************
+
+
+def get_registered_integration_form_handler_plugins():
+    """Get registered integration form handler plugins.
+
+    Gets a list of registered plugins in a form if tuple (plugin name, plugin
+    description). If not yet auto-discovered, auto-discovers them.
+
+    :return list:
+    """
+    return get_registered_plugins(integration_form_handler_plugin_registry)
+
+
+def get_registered_integration_form_handler_plugins_grouped():
+    """Get registered integration form handler plugins grouped.
+
+    Gets a list of registered plugins in a form if tuple (plugin name, plugin
+    description). If not yet auto-discovered, auto-discovers them.
+
+    :return dict:
+    """
+    return get_registered_plugins_grouped(
+        integration_form_handler_plugin_registry
+    )
+
+
+def get_registered_integration_form_handler_plugin_uids(flattern=True):
+    """Get registered integration form handler plugin uids.
+
+    Gets a list of registered plugins in a form if tuple (plugin name, plugin
+    description). If not yet auto-discovered, auto-discovers them.
+
+    :return list:
+    """
+    return get_registered_plugin_uids(
+        integration_form_handler_plugin_registry,
+        flattern=flattern
+    )
+
+
+def validate_integration_form_handler_plugin_uid(plugin_uid):
+    """Validate the integration form handler plugin uid.
+
+    :param string plugin_uid:
+    :return bool:
+    """
+    return validate_plugin_uid(
+        integration_form_handler_plugin_registry,
+        plugin_uid
     )
 
 # *****************************************************************************

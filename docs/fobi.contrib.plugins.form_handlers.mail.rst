@@ -12,6 +12,14 @@ fobi.contrib.plugins.form_handlers.mail.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_handlers.mail.base module
+---------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_handlers.mail.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_handlers.mail.conf module
 ---------------------------------------------------
 

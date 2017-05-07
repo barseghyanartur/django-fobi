@@ -12,6 +12,14 @@ fobi.contrib.plugins.form_elements.fields.select_model_object.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.fields.select_model_object.base module
+-------------------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.select_model_object.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.select_model_object.conf module
 -------------------------------------------------------------------------
 

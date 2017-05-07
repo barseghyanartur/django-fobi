@@ -572,3 +572,8 @@ epub_copyright = u'2014, Artur Barseghyan <artur.barseghyan@gmail.com>'
 
 # Allow duplicate toc entries.
 #epub_tocdup = True
+
+# -- Options for PDF output ---------------------------------------------------
+
+# pdf_documents = [('index', u'django-fobi Documentation', u'django-fobi',
+#                   u'Artur Barseghyan <artur.barseghyan@gmail.com>')]

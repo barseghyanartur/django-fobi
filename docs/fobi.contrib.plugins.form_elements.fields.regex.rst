@@ -12,6 +12,14 @@ fobi.contrib.plugins.form_elements.fields.regex.apps module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_elements.fields.regex.base module
+-----------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_elements.fields.regex.base
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_elements.fields.regex.fobi_form_elements module
 -------------------------------------------------------------------------
 
