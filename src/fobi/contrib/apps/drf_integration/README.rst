@@ -24,18 +24,17 @@ The following fields are supported.
 - boolean
 - checkbox_select_multiple
 - date
-- *date_drop_down
 - datetime
 - decimal
 - email
 - file
 - float
 - hidden (in terms of the Django REST framework - a read-only field)
-- input (some sort of a copy of `text` plugin)
+- input (some sort of a copy of ``text`` plugin)
 - integer
 - ip_address
 - null_boolean
-- password (some sort of a copy of `text` plugin)
+- password (some sort of a copy of ``text`` plugin)
 - radio
 - range_select
 - regex
@@ -45,7 +44,7 @@ The following fields are supported.
 - slider (just a copy of range_select, for compatibility with main package)
 - slug
 - text
-- textarea (some sort of a copy of `text` plugin)
+- textarea (some sort of a copy of ``text`` plugin)
 - time
 - url
 
@@ -54,6 +53,7 @@ Not (yet) supported fields
 The following fields are not supported. Those marked with asterisk are planned
 to be supported in the upcoming releases.
 
+- date_drop_down
 - content_image
 - content_text
 - content_video
