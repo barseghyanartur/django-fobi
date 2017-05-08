@@ -25,7 +25,7 @@ Must haves
 + In DRF listing view, if user isn't authenticated, show only public forms.
 + Fix Python3 issues with ``slider`` and ``range`` select plugins.
 + Fixed Python3 issues with max_length for text fields.
-- In decimal plugin, if any of the values are None, don't try to cast them
++ In decimal plugin, if any of the values are None, don't try to cast them
   into Decimal.
 - Add ``date_drop_down`` plugin.
 

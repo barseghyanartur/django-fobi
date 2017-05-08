@@ -2,13 +2,11 @@ fobi.contrib.apps.drf_integration
 =================================
 A ``django-fobi`` integration with ``Django REST framework``.
 
-Due to limits of the API interface, certain fields are not available
-yet (presentational fields).
+Supported actions are:
 
-Some of the plugins may seam to have zero-added-value and in fact they are.
-For instance, DRF integration `slider` plugin is just an exact copy of the
-`range_select` plugin, created in order to provide exactly the same form
-fields generated in the API.
+- `LIST`_: List all the forms.
+- `OPTIONS`_: Describe the given form.
+- `PUT`_: Submit form data.
 
 Live demo
 ---------
@@ -65,9 +63,16 @@ to be supported in the upcoming releases.
 Implementation details
 ----------------------
 Each ``django-fobi`` plugin has its' own representative integration plugin
-within ``fobi.contrib.aps.drf_integration`` package. You should mention all
-the plugins you want to use explicitly in the project settings. Thus, if you
-have used (included in the ``INSTALLED_APPS``) the core plugins:
+within ``fobi.contrib.aps.drf_integration`` package.
+
+Some of the plugins may seam to have zero-added-value and in fact they are.
+For instance, DRF integration ``slider`` plugin is just an exact copy of the
+``range_select`` plugin, created in order to provide exactly the same form
+fields generated in the API.
+
+You should mention all the plugins you want to use explicitly in the
+project settings. Thus, if you have used (included in the ``INSTALLED_APPS``)
+the core plugins:
 
 - fobi.contrib.plugins.form_elements.fields.boolean
 - fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple
@@ -256,3 +261,8 @@ or use plain Django tests:
 .. code-block:: sh
 
     ./manage.py test fobi.tests.test_drf_integration --settings=settings.test
+
+Limitations
+-----------
+Due to limits of the API interface, certain fields are not available
+yet (presentational fields).
