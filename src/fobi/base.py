@@ -146,6 +146,9 @@ __all__ = (
     'IntegrationFormHandlerPlugin',
     'IntegrationFormHandlerPluginDataStorage',
     'IntegrationFormHandlerPluginRegistry',
+    'IntegrationFormCallbackRegistry',
+    'IntegrationFormCallback',
+    'integration_form_callback_registry',
     'run_form_handlers',
     'run_form_wizard_handlers',
     'theme_registry',
@@ -2060,7 +2063,7 @@ class IntegrationFormHandlerPlugin(BasePlugin):
     is_hidden = False
 
 
-class FormCallback(object):
+class BaseFormCallback(object):
     """Base form callback."""
 
     stage = None
@@ -2068,6 +2071,10 @@ class FormCallback(object):
     def __init__(self):
         """Constructor."""
         assert self.stage in CALLBACK_STAGES
+
+
+class FormCallback(BaseFormCallback):
+    """Form callback."""
 
     def _callback(self, form_entry, request, form):
         """Callback (internal method).
@@ -2098,31 +2105,45 @@ class FormCallback(object):
             "subclass.".format(self.__class__.__name__)
         )
 
-    # def custom_field_instances_callback(self, integrate_with, form_entry,
-    #                                     request, **kwargs):
-    #     """Custom field instances callback.
-    #
-    #     :param str integrate_with:
-    #     :param fobi.models.FormEntry form_entry: Instance of
-    #         ``fobi.models.FormEntry``.
-    #     :param django.http.HttpRequest request:
-    #     :param kwargs:
-    #     """
-    #     try:
-    #         custom_callback = self.get_custom_field_instance_callback(
-    #             integrate_with=integrate_with
-    #         )
-    #         return custom_callback.callback(
-    #             form_entry=form_entry,
-    #             request=request,
-    #             **kwargs
-    #         )
-    #     except Exception as err:
-    #         logger.debug(
-    #             "Error in class %s. Details: %s",
-    #             self.__class__.__name__,
-    #             str(err)
-    #         )
+
+class IntegrationFormCallback(object):
+    """Integration form callback."""
+
+    integrate_with = None
+
+    def __init__(self):
+        """Constructor."""
+        assert self.stage in CALLBACK_STAGES
+        assert self.integrate_with is not None
+
+    def _callback(self, form_entry, request, **kwargs):
+        """Callback (internal method).
+
+        Calling the ``callback`` method in a safe way.
+        """
+        try:
+            return self.callback(form_entry, request, **kwargs)
+        except Exception as err:
+            logger.debug(
+                "Error in class %s. Details: %s",
+                self.__class__.__name__,
+                str(err)
+            )
+
+    def callback(self, form_entry, request, **kwargs):
+        """Callback.
+
+        Custom callback code should be implemented here.
+
+        :param fobi.models.FormEntry form_entry: Instance of
+            ``fobi.models.FormEntry``.
+        :param django.http.HttpRequest request:
+        :param django.forms.Form form:
+        """
+        raise NotImplementedError(
+            "You should implement ``callback`` method in your {0} "
+            "subclass.".format(self.__class__.__name__)
+        )
 
 
 class ClassProperty(property):
@@ -2507,6 +2528,61 @@ class FormCallbackRegistry(object):
             return callbacks
 
 
+class IntegrationFormCallbackRegistry(object):
+    """Registry of callbacks for integration plugins.
+
+    Holds callbacks for stages listed in the
+    ``fobi.constants.CALLBACK_STAGES``.
+    """
+
+    def __init__(self):
+        """Constructor."""
+        self._registry = defaultdict(lambda: defaultdict(list))
+
+    @property
+    def registry(self):
+        return self._registry
+
+    def uidfy(self, cls):
+        """Makes a UID string from the class given.
+
+        :param mixed cls:
+        :return string:
+        """
+        return "{0}.{1}".format(cls.__module__, cls.__name__)
+
+    def register(self, cls):
+        """Registers the plugin in the registry.
+
+        :param mixed cls:
+        """
+        if not issubclass(cls, IntegrationFormCallback):
+            raise InvalidRegistryItemType(
+                "Invalid item type `{0}` for registry "
+                "`{1}`".format(cls, self.__class__)
+            )
+        if cls in self._registry[cls.integrate_with][cls.stage]:
+            return False
+        else:
+            self._registry[cls.integrate_with][cls.stage].append(cls)
+            return True
+
+    def get_callbacks(self, integrate_with, stage=None):
+        """Get callbacks for the stage given.
+
+        :param str integrate_with:
+        :param string stage:
+        :return list:
+        """
+        if stage:
+            return self._registry[integrate_with].get(stage, [])
+        else:
+            callbacks = []
+            for stage_callbacks in self._registry[integrate_with].values():
+                callbacks += stage_callbacks
+            return callbacks
+
+
 class BasePluginWidgetRegistry(object):
     """Registry of plugins widgets (renderers)."""
     type = None
@@ -2629,6 +2705,9 @@ theme_registry = ThemeRegistry()
 
 # Register action plugins by calling form_action_plugin_registry.register()
 form_callback_registry = FormCallbackRegistry()
+
+# Register action plugins by calling form_action_plugin_registry.register()
+integration_form_callback_registry = IntegrationFormCallbackRegistry()
 
 # Register plugin widgets by calling
 # form_element_plugin_widget_registry.register()

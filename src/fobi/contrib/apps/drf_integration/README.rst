@@ -247,6 +247,51 @@ PUT
 
     {DATA}
 
+Callbacks
+---------
+Callbacks work just the same way the core callbacks work.
+
+fobi_form_callbacks.py
+~~~~~~~~~~~~~~~~~~~~~~
+.. code-block:: python
+
+    from fobi.base import (
+        integration_form_callback_registry,
+        IntegrationFormCallback,
+    )
+
+    from fobi.constants import (
+        CALLBACK_BEFORE_FORM_VALIDATION,
+        CALLBACK_FORM_INVALID,
+        CALLBACK_FORM_VALID,
+        CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS,
+        CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA,
+    )
+
+    from fobi.contrib.apps.drf_integration import UID as INTEGRATE_WITH
+
+
+    class DRFSaveAsFooItem(IntegrationFormCallback):
+        """Save the form as a foo item, if certain conditions are met."""
+
+        stage = CALLBACK_FORM_VALID
+        integrate_with = INTEGRATE_WITH
+
+        def callback(self, form_entry, request, **kwargs):
+            """Custom callback login comes here."""
+            logger.debug("Great! Your form is valid!")
+
+
+    class DRFDummyInvalidCallback(IntegrationFormCallback):
+        """Saves the form as a foo item, if certain conditions are met."""
+
+        stage = CALLBACK_FORM_INVALID
+        integrate_with = INTEGRATE_WITH
+
+        def callback(self, form_entry, request, **kwargs):
+            """Custom callback login comes here."""
+            logger.debug("Damn! You've made a mistake, boy!")
+
 Testing
 -------
 To test Django REST framework integration package only, run the following
