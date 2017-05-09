@@ -40,17 +40,20 @@ class DecimalInputPlugin(FormFieldPlugin):
         field_kwargs = {
             'label': self.data.label,
             'help_text': self.data.help_text,
-            'initial': self.data.initial,
             'required': self.data.required,
         }
 
+        if self.data.initial:
+            data_initial = decimal.Decimal(str(self.data.initial))
+            field_kwargs.update({'initial': data_initial})
+
         if self.data.max_value:
-            data_max_value = decimal.Decimal(self.data.max_value)
+            data_max_value = decimal.Decimal(str(self.data.max_value))
             field_kwargs['max_value'] = data_max_value
             widget_attrs['max'] = data_max_value
 
         if self.data.min_value:
-            data_min_value = decimal.Decimal(self.data.min_value)
+            data_min_value = decimal.Decimal(str(self.data.min_value))
             field_kwargs['min_value'] = data_min_value
             widget_attrs['min'] = data_min_value
 

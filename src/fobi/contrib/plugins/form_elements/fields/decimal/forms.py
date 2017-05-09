@@ -135,7 +135,7 @@ class DecimalInputForm(forms.Form, BaseFormFieldPluginForm):
 
     def quantize(self, value, decimal_places, max_digits):
         """Quantize the decimal value to the configured precision."""
-        if decimal_places is None:
+        if decimal_places is None or value is None:
             return value
 
         context = decimal.getcontext().copy()

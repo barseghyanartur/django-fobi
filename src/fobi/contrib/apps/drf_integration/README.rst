@@ -2,13 +2,11 @@ fobi.contrib.apps.drf_integration
 =================================
 A ``django-fobi`` integration with ``Django REST framework``.
 
-Due to limits of the API interface, certain fields are not available
-yet (presentational fields).
+Supported actions are:
 
-Some of the plugins may seam to have zero-added-value and in fact they are.
-For instance, DRF integration `slider` plugin is just an exact copy of the
-`range_select` plugin, created in order to provide exactly the same form
-fields generated in the API.
+- `LIST`_: List all the forms.
+- `OPTIONS`_: Describe the given form.
+- `PUT`_: Submit form data.
 
 Live demo
 ---------
@@ -24,18 +22,17 @@ The following fields are supported.
 - boolean
 - checkbox_select_multiple
 - date
-- *date_drop_down
 - datetime
 - decimal
 - email
 - file
 - float
 - hidden (in terms of the Django REST framework - a read-only field)
-- input (some sort of a copy of `text` plugin)
+- input (some sort of a copy of ``text`` plugin)
 - integer
 - ip_address
 - null_boolean
-- password (some sort of a copy of `text` plugin)
+- password (some sort of a copy of ``text`` plugin)
 - radio
 - range_select
 - regex
@@ -45,7 +42,7 @@ The following fields are supported.
 - slider (just a copy of range_select, for compatibility with main package)
 - slug
 - text
-- textarea (some sort of a copy of `text` plugin)
+- textarea (some sort of a copy of ``text`` plugin)
 - time
 - url
 
@@ -54,6 +51,7 @@ Not (yet) supported fields
 The following fields are not supported. Those marked with asterisk are planned
 to be supported in the upcoming releases.
 
+- date_drop_down
 - content_image
 - content_text
 - content_video
@@ -65,9 +63,16 @@ to be supported in the upcoming releases.
 Implementation details
 ----------------------
 Each ``django-fobi`` plugin has its' own representative integration plugin
-within ``fobi.contrib.aps.drf_integration`` package. You should mention all
-the plugins you want to use explicitly in the project settings. Thus, if you
-have used (included in the ``INSTALLED_APPS``) the core plugins:
+within ``fobi.contrib.aps.drf_integration`` package.
+
+Some of the plugins may seam to have zero-added-value and in fact they are.
+For instance, DRF integration ``slider`` plugin is just an exact copy of the
+``range_select`` plugin, created in order to provide exactly the same form
+fields generated in the API.
+
+You should mention all the plugins you want to use explicitly in the
+project settings. Thus, if you have used (included in the ``INSTALLED_APPS``)
+the core plugins:
 
 - fobi.contrib.plugins.form_elements.fields.boolean
 - fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple
@@ -256,3 +261,8 @@ or use plain Django tests:
 .. code-block:: sh
 
     ./manage.py test fobi.tests.test_drf_integration --settings=settings.test
+
+Limitations
+-----------
+Due to limits of the API interface, certain fields are not available
+yet (presentational fields).

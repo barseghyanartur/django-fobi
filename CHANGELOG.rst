@@ -17,6 +17,13 @@ are used for versioning (schema follows below):
 
 0.11
 ----
+2017-05-08
+
+- Minor fixes in ``decimal`` plugin.
+- Minor documentation improvements.
+
+0.11
+----
 2017-05-07
 
 This release is dedicated to my beloved `wife <https://github.com/anagardi>`_
