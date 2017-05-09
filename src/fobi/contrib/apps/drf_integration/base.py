@@ -232,17 +232,17 @@ def submit_plugin_form_data(form_entry,
         )
         if custom_plugin_cls:
             custom_plugin = custom_plugin_cls()
-        updated_serializer = \
-            custom_plugin._submit_plugin_form_data(
-                form_element_plugin=form_element_plugin,
-                form_entry=form_entry,
-                request=request,
-                serializer=serializer,
-                form_element_entries=form_element_entries,
-                **kwargs
-            )
-        if updated_serializer:
-            serializer = updated_serializer
+            updated_serializer = \
+                custom_plugin._submit_plugin_form_data(
+                    form_element_plugin=form_element_plugin,
+                    form_entry=form_entry,
+                    request=request,
+                    serializer=serializer,
+                    form_element_entries=form_element_entries,
+                    **kwargs
+                )
+            if updated_serializer:
+                serializer = updated_serializer
 
     return serializer
 
