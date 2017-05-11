@@ -22,19 +22,21 @@ __all__ = (
 class FobiMetaData(SimpleMetadata):
     """Meta data for better representation of the form elements."""
 
-    __mapping = copy.copy(SimpleMetadata.label_lookup.mapping)\
-
+    __mapping = copy.copy(SimpleMetadata.label_lookup.mapping)
     __mapping.update(
         {
             MultipleChoiceWithMaxField: 'multiple choice',
+            ContentImageField: 'content',
             ContentTextField: 'content',
+            ContentVideoField: 'content',
         }
     )
 
     label_lookup = ClassLookupDict(__mapping)
 
     def get_field_info(self, field):
-        """
+        """Get field info.
+
         Given an instance of a serializer field, return a dictionary
         of metadata about it.
         """
@@ -57,4 +59,5 @@ class FobiMetaData(SimpleMetadata):
                 field_info['contenttype'] = 'video'
                 field_info['content'] = field.initial
                 field_info['raw'] = field.raw_data
+
         return field_info
