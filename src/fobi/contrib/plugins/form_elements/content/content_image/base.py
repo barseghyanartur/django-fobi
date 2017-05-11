@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 
+from collections import OrderedDict
 from uuid import uuid4
 
 from django.conf import settings
@@ -55,6 +56,20 @@ class ContentImagePlugin(FormElementPlugin):
             IMAGES_UPLOAD_DIR, self.data.file, relative_path=True
         )
         return self.get_cloned_plugin_data(update={'file': cloned_image})
+
+    def get_raw_data(self):
+        """Get raw data.
+
+        Might be used in integration plugins.
+        """
+        return OrderedDict(
+            (
+                ('file', "{}{}".format(settings.MEDIA_URL, self.data.file)),
+                ('alt', self.data.alt),
+                ('fit_method', self.data.fit_method),
+                ('size', self.data.size),
+            )
+        )
 
     def get_rendered_image(self):
         """Get rendered image."""

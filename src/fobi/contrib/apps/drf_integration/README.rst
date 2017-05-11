@@ -19,6 +19,14 @@ Supported fields
 ----------------
 The following fields are supported.
 
+Content
+~~~~~~~
+- content_image
+- content_text
+- content_video
+
+Fields
+~~~~~~
 - boolean
 - checkbox_select_multiple
 - date
@@ -52,9 +60,6 @@ The following fields are not supported. Those marked with asterisk are planned
 to be supported in the upcoming releases.
 
 - date_drop_down
-- content_image
-- content_text
-- content_video
 - select_model_object
 - select_mptt_model_object
 - select_multiple_model_objects
@@ -309,5 +314,4 @@ or use plain Django tests:
 
 Limitations
 -----------
-Due to limits of the API interface, certain fields are not available
-yet (presentational fields).
+Certain fields are not available yet (relational fields).

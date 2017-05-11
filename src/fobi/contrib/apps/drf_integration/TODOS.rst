@@ -27,14 +27,16 @@ Must haves
 + Fixed Python3 issues with max_length for text fields.
 + In decimal plugin, if any of the values are None, don't try to cast them
   into Decimal.
-- Add ``date_drop_down`` plugin.
++ Fix this https://github.com/barseghyanartur/django-fobi/blob/master/src/fobi/contrib/apps/drf_integration/views.py#L151
+  It should not be form = ... but serializer = ...
 
 Should haves
 ------------
 + Find why HiddenInput tests fail (in terms of Django REST framework it's
   a read-only field).
-- Add Integration form callbacks for handling data of the integration plugins.
-- Add more fields (relation- and presentational- fields).
++ Add Integration form callbacks for handling data of the integration plugins.
+- Add ``date_drop_down`` plugin.
+- Add more fields (relation fields).
 - Think of what to do with presentational fields (perhaps just display?)
 - Somehow, the ``file`` plugin data, when submitted, isn't shown properly in
   the posted data (by DRF), although is posted 100% correctly.
@@ -47,4 +49,4 @@ Could haves
 
 Would haves
 -----------
-- Remove codebin.py at the end.
++ Remove codebin.py at the end.

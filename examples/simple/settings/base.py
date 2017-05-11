@@ -397,7 +397,7 @@ INSTALLED_APPS = [
     'rest_framework',  # Django REST framework
     'fobi.contrib.apps.drf_integration',  # DRF integration app
 
-    # Form elements
+    # Form fields
     'fobi.contrib.apps.drf_integration.form_elements.fields.boolean',
     'fobi.contrib.apps.drf_integration.form_elements.fields'
     '.checkbox_select_multiple',
@@ -426,6 +426,11 @@ INSTALLED_APPS = [
     'fobi.contrib.apps.drf_integration.form_elements.fields.textarea',
     'fobi.contrib.apps.drf_integration.form_elements.fields.time',
     'fobi.contrib.apps.drf_integration.form_elements.fields.url',
+
+    # Presentational elements
+    'fobi.contrib.apps.drf_integration.form_elements.content.content_image',
+    'fobi.contrib.apps.drf_integration.form_elements.content.content_text',
+    'fobi.contrib.apps.drf_integration.form_elements.content.content_video',
 
     # Form handlers
     'fobi.contrib.apps.drf_integration.form_handlers.db_store',

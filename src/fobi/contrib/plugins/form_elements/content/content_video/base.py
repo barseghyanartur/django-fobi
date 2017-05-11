@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 
+from collections import OrderedDict
 from uuid import uuid4
 
 from django.utils.translation import ugettext_lazy as _
@@ -35,14 +36,33 @@ class ContentVideoPlugin(FormElementPlugin):
         """
         self.data.name = "{0}_{1}".format(self.uid, uuid4())
 
+    def get_raw_data(self):
+        """Get raw data.
+
+        Might be used in integration plugins.
+        """
+        return OrderedDict(
+            (
+                ('title', self.data.title),
+                ('url', self.data.url),
+                ('size', self.data.size),
+            )
+        )
+
+    def get_rendered_video(self):
+        """Get rendered video.
+
+        Might be used in integration plugins.
+        """
+        width, height = self.data.size.split('x')
+        return render_video(self.data.url, width, height)
+
     def get_form_field_instances(self, request=None, form_entry=None,
                                  form_element_entries=None, **kwargs):
         """Get form field instances."""
-        width, height = self.data.size.split('x')
-
         field_kwargs = {
             'initial': '<div class="video-wrapper">{0}</div>'.format(
-                render_video(self.data.url, width, height)
+                self.get_rendered_video()
             ),
             'required': False,
             'label': '',

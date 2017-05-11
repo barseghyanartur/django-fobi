@@ -22,6 +22,7 @@ from .base import (
     submit_plugin_form_data,
 )
 from .dynamic import get_declared_fields
+from .metadata import FobiMetaData
 from .serializers import FormEntrySerializer
 from .utils import get_serializer_class
 
@@ -52,6 +53,7 @@ class FobiFormEntryViewSet(
     permission_classes = [permissions.AllowAny]
     lookup_field = 'slug'
     lookup_url_kwarg = 'slug'
+    metadata_class = FobiMetaData
 
     def has_value(self):
         return None if self.action == 'metadata' else True
@@ -148,7 +150,7 @@ class FobiFormEntryViewSet(
         form_element_entries = form_entry.formelemententry_set.all()
 
         # Fire form valid before submit plugin data
-        form = fire_form_callbacks(
+        serializer = fire_form_callbacks(
             form_entry=form_entry,
             request=request,
             serializer=serializer,
@@ -162,8 +164,8 @@ class FobiFormEntryViewSet(
             serializer=serializer
         )
 
-        # # Fire form valid callbacks
-        form = fire_form_callbacks(
+        # Fire form valid callbacks
+        serializer = fire_form_callbacks(
             form_entry=form_entry,
             request=request,
             serializer=serializer,

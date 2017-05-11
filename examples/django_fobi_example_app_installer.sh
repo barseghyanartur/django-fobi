@@ -12,8 +12,8 @@ mkdir ../static/
 mkdir ../db/
 mkdir ../logs/
 mkdir ../tmp/
-cp local_settings.example local_settings.py
-./manage.py syncdb --noinput --traceback -v 3
+cp settings/local_settings.example settings/local_settings.py
+#./manage.py syncdb --noinput --traceback -v 3
 ./manage.py migrate --noinput
 ./manage.py collectstatic --noinput --traceback -v 3
 ./manage.py fobi_create_test_data --traceback -v 3
