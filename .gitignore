@@ -36,7 +36,6 @@ README_PARTS.rst
 
 /src/django_fobi.egg-info
 /src/fobi/contrib/plugins/form_elements/fields/hidden_model_object/
-/src/fobi/contrib/apps/drf_integration/form_elements/content/
 /src/fobi/contrib/plugins/form_importers/mailchimp_importer/bucket.py
 /src/fobi/contrib/apps/wagtail_integration_/
 
@@ -52,6 +51,7 @@ README_PARTS.rst
 /examples/media/cache/
 /examples/simple/lund_urls.py
 /examples/simple/lund/
+/examples/saved_forms_in_json_format/all/
 /examples/simple/settings/local_settings.py
 /examples/simple/settings/local_settings_foundation5.py
 /examples/simple/settings/bootstrap3_theme_django_1_9_lund.py

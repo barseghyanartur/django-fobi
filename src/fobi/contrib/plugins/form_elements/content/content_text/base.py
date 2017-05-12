@@ -1,7 +1,9 @@
 from __future__ import absolute_import
 
+from collections import OrderedDict
 from uuid import uuid4
 
+from django.template.loader import render_to_string
 from django.utils.encoding import smart_str
 from django.utils.translation import ugettext_lazy as _
 
@@ -33,6 +35,26 @@ class ContentTextPlugin(FormElementPlugin):
         Always the same.
         """
         self.data.name = "{0}_{1}".format(self.uid, uuid4())
+
+    def get_raw_data(self):
+        """Get raw data.
+
+        Might be used in integration plugins.
+        """
+        return OrderedDict(
+            (
+                ('text', self.data.text),
+            )
+        )
+
+    def get_rendered_text(self):
+        """Get rendered image."""
+
+        context = {
+            'plugin': self,
+        }
+        rendered_text = render_to_string('content_image/render.html', context)
+        return rendered_text
 
     def get_form_field_instances(self, request=None, form_entry=None,
                                  form_element_entries=None, **kwargs):

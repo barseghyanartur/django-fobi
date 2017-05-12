@@ -17,11 +17,12 @@ from ....constants import (
 from ....models import FormEntry
 
 from .base import (
-    # fire_form_callbacks,
+    fire_form_callbacks,
     run_form_handlers,
     submit_plugin_form_data,
 )
 from .dynamic import get_declared_fields
+from .metadata import FobiMetaData
 from .serializers import FormEntrySerializer
 from .utils import get_serializer_class
 
@@ -52,6 +53,7 @@ class FobiFormEntryViewSet(
     permission_classes = [permissions.AllowAny]
     lookup_field = 'slug'
     lookup_url_kwarg = 'slug'
+    metadata_class = FobiMetaData
 
     def has_value(self):
         return None if self.action == 'metadata' else True
@@ -147,13 +149,13 @@ class FobiFormEntryViewSet(
         # Try to fetch only once.
         form_element_entries = form_entry.formelemententry_set.all()
 
-        # # Fire form valid before submit plugin data
-        # form = fire_form_callbacks(
-        #     form_entry=form_entry,
-        #     request=request,
-        #     form=form,
-        #     stage=CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA
-        # )
+        # Fire form valid before submit plugin data
+        serializer = fire_form_callbacks(
+            form_entry=form_entry,
+            request=request,
+            serializer=serializer,
+            stage=CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA
+        )
 
         # Fire plugin processors
         serializer = submit_plugin_form_data(
@@ -162,10 +164,13 @@ class FobiFormEntryViewSet(
             serializer=serializer
         )
 
-        # # Fire form valid callbacks
-        # form = fire_form_callbacks(form_entry=form_entry,
-        #                            request=request, form=form,
-        #                            stage=CALLBACK_FORM_VALID)
+        # Fire form valid callbacks
+        serializer = fire_form_callbacks(
+            form_entry=form_entry,
+            request=request,
+            serializer=serializer,
+            stage=CALLBACK_FORM_VALID
+        )
 
         # Run all handlers
         handler_responses, handler_errors = run_form_handlers(
@@ -187,9 +192,9 @@ class FobiFormEntryViewSet(
                 )
 
         # Fire post handler callbacks
-        # fire_form_callbacks(
-        #     form_entry=form_entry,
-        #     request=request,
-        #     form=form,
-        #     stage=CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS
-        # )
+        fire_form_callbacks(
+            form_entry=form_entry,
+            request=request,
+            serializer=serializer,
+            stage=CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS
+        )

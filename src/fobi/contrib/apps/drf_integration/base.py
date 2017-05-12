@@ -2,12 +2,12 @@ import copy
 import logging
 
 from ....base import (
-    IntegrationFormElementPluginProcessor,
-    # form_callback_registry,
-    get_ignorable_form_fields,
     clean_dict,
+    get_ignorable_form_fields,
     get_ordered_form_handler_plugins,
+    integration_form_callback_registry,
     integration_form_element_plugin_registry,
+    IntegrationFormElementPluginProcessor,
 )
 from ....helpers import get_ignorable_form_values
 
@@ -131,27 +131,29 @@ class DRFSubmitPluginFormDataMixin(object):
         """
 
 
-# def fire_form_callbacks(form_entry, request, serializer, stage=None):
-#     """Fire form callbacks.
-#
-#     :param fobi.models.FormEntry form_entry:
-#     :param django.http.HttpRequest request:
-#     :param rest_framework.serializers.Serializer serializer:
-#     :param string stage:
-#     :return rest_framework.serializers.Serializer serializer:
-#     """
-#     callbacks = form_callback_registry.get_callbacks(stage=stage)
-#     for CallbackClass in callbacks:
-#         callback = CallbackClass()
-#         updated_serializer = callback.custom_field_instances_callback(
-#             integrate_with=UID,
-#             form_entry=form_entry,
-#             request=request,
-#             serializer=serializer,
-#         )
-#         if updated_serializer:
-#             serializer = updated_serializer
-#     return serializer
+def fire_form_callbacks(form_entry, request, serializer, stage=None):
+    """Fire DRF integration form callbacks.
+
+    :param fobi.models.FormEntry form_entry:
+    :param django.http.HttpRequest request:
+    :param rest_framework.serializers.Serializer serializer:
+    :param string stage:
+    :return rest_framework.serializers.Serializer serializer:
+    """
+    callbacks = integration_form_callback_registry.get_callbacks(
+        integrate_with=UID,
+        stage=stage
+    )
+    for callback_cls in callbacks:
+        callback = callback_cls()
+        updated_serializer = callback.callback(
+            form_entry=form_entry,
+            request=request,
+            serializer=serializer
+        )
+        if updated_serializer:
+            serializer = updated_serializer
+    return serializer
 
 
 def run_form_handlers(form_entry,
@@ -232,17 +234,17 @@ def submit_plugin_form_data(form_entry,
         )
         if custom_plugin_cls:
             custom_plugin = custom_plugin_cls()
-        updated_serializer = \
-            custom_plugin._submit_plugin_form_data(
-                form_element_plugin=form_element_plugin,
-                form_entry=form_entry,
-                request=request,
-                serializer=serializer,
-                form_element_entries=form_element_entries,
-                **kwargs
-            )
-        if updated_serializer:
-            serializer = updated_serializer
+            updated_serializer = \
+                custom_plugin._submit_plugin_form_data(
+                    form_element_plugin=form_element_plugin,
+                    form_entry=form_entry,
+                    request=request,
+                    serializer=serializer,
+                    form_element_entries=form_element_entries,
+                    **kwargs
+                )
+            if updated_serializer:
+                serializer = updated_serializer
 
     return serializer
 

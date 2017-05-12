@@ -15,8 +15,30 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
-0.11
-----
+0.11.4
+------
+2017-05-12
+
+- Minor fixes in integration callbacks of the ``drf_integration`` sub-package.
+- Added support for ``content_image``, ``content_text`` and ``content_video``
+  plugins.
+- Fixes in installable demo.
+
+0.11.3
+------
+2017-05-10
+
+- Concept of integration callbacks introduced and implemented for the
+  ``drf_integration`` sub-package.
+
+0.11.2
+------
+2017-05-09
+
+- Minor fixes in ``drf_integration`` app.
+
+0.11.1
+------
 2017-05-08
 
 - Minor fixes in ``decimal`` plugin.

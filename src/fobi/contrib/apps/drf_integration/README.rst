@@ -19,6 +19,14 @@ Supported fields
 ----------------
 The following fields are supported.
 
+Content (presentational form elements)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+- content_image
+- content_text
+- content_video
+
+Fields
+~~~~~~
 - boolean
 - checkbox_select_multiple
 - date
@@ -52,9 +60,6 @@ The following fields are not supported. Those marked with asterisk are planned
 to be supported in the upcoming releases.
 
 - date_drop_down
-- content_image
-- content_text
-- content_video
 - select_model_object
 - select_mptt_model_object
 - select_multiple_model_objects
@@ -100,6 +105,9 @@ the core plugins:
 - fobi.contrib.plugins.form_elements.fields.textarea
 - fobi.contrib.plugins.form_elements.fields.time
 - fobi.contrib.plugins.form_elements.fields.url
+- fobi.contrib.plugins.form_elements.content.content_image
+- fobi.contrib.plugins.form_elements.content.content_text
+- fobi.contrib.plugins.form_elements.content.content_video
 - fobi.contrib.plugins.form_handlers.db_store
 - fobi.contrib.plugins.form_handlers.http_repost
 - fobi.contrib.plugins.form_handlers.mail
@@ -133,6 +141,9 @@ in the ``INSTALLED_APPS`` as well:
 - fobi.contrib.apps.drf_integration.form_elements.fields.textarea
 - fobi.contrib.apps.drf_integration.form_elements.fields.time
 - fobi.contrib.apps.drf_integration.form_elements.fields.url
+- fobi.contrib.apps.drf_integration.form_elements.content.content_image
+- fobi.contrib.apps.drf_integration.form_elements.content.content_text
+- fobi.contrib.apps.drf_integration.form_elements.content.content_video
 - fobi.contrib.apps.drf_integration.form_handlers.db_store
 - fobi.contrib.apps.drf_integration.form_handlers.http_repost
 - fobi.contrib.apps.drf_integration.form_handlers.mail
@@ -165,7 +176,7 @@ See the `example settings file
         'rest_framework',  # Django REST framework
         'fobi.contrib.apps.drf_integration',  # DRF integration app
 
-        # DRF integration form element plugins
+        # DRF integration form element plugins - fields
         'fobi.contrib.apps.drf_integration.form_elements.fields.boolean',
         'fobi.contrib.apps.drf_integration.form_elements.fields.checkbox_select_multiple',
         'fobi.contrib.apps.drf_integration.form_elements.fields.date',
@@ -192,6 +203,11 @@ See the `example settings file
         'fobi.contrib.apps.drf_integration.form_elements.fields.textarea',
         'fobi.contrib.apps.drf_integration.form_elements.fields.time',
         'fobi.contrib.apps.drf_integration.form_elements.fields.url',
+
+        # DRF integration form element plugins - presentational
+        'fobi.contrib.apps.drf_integration.form_elements.content.content_image',
+        'fobi.contrib.apps.drf_integration.form_elements.content.content_text',
+        'fobi.contrib.apps.drf_integration.form_elements.content.content_video',
 
         # DRF integration form handler plugins
         'fobi.contrib.apps.drf_integration.form_handlers.db_store',
@@ -247,6 +263,51 @@ PUT
 
     {DATA}
 
+Callbacks
+---------
+Callbacks work just the same way the core callbacks work.
+
+fobi_form_callbacks.py
+~~~~~~~~~~~~~~~~~~~~~~
+.. code-block:: python
+
+    from fobi.base import (
+        integration_form_callback_registry,
+        IntegrationFormCallback,
+    )
+
+    from fobi.constants import (
+        CALLBACK_BEFORE_FORM_VALIDATION,
+        CALLBACK_FORM_INVALID,
+        CALLBACK_FORM_VALID,
+        CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS,
+        CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA,
+    )
+
+    from fobi.contrib.apps.drf_integration import UID as INTEGRATE_WITH
+
+
+    class DRFSaveAsFooItem(IntegrationFormCallback):
+        """Save the form as a foo item, if certain conditions are met."""
+
+        stage = CALLBACK_FORM_VALID
+        integrate_with = INTEGRATE_WITH
+
+        def callback(self, form_entry, request, **kwargs):
+            """Custom callback login comes here."""
+            logger.debug("Great! Your form is valid!")
+
+
+    class DRFDummyInvalidCallback(IntegrationFormCallback):
+        """Saves the form as a foo item, if certain conditions are met."""
+
+        stage = CALLBACK_FORM_INVALID
+        integrate_with = INTEGRATE_WITH
+
+        def callback(self, form_entry, request, **kwargs):
+            """Custom callback login comes here."""
+            logger.debug("Damn! You've made a mistake, boy!")
+
 Testing
 -------
 To test Django REST framework integration package only, run the following
@@ -264,5 +325,4 @@ or use plain Django tests:
 
 Limitations
 -----------
-Due to limits of the API interface, certain fields are not available
-yet (presentational fields).
+Certain fields are not available yet (relational fields).
