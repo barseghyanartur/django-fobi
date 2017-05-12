@@ -19,8 +19,8 @@ Supported fields
 ----------------
 The following fields are supported.
 
-Content
-~~~~~~~
+Content (presentational form elements)
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 - content_image
 - content_text
 - content_video
@@ -105,6 +105,9 @@ the core plugins:
 - fobi.contrib.plugins.form_elements.fields.textarea
 - fobi.contrib.plugins.form_elements.fields.time
 - fobi.contrib.plugins.form_elements.fields.url
+- fobi.contrib.plugins.form_elements.content.content_image
+- fobi.contrib.plugins.form_elements.content.content_text
+- fobi.contrib.plugins.form_elements.content.content_video
 - fobi.contrib.plugins.form_handlers.db_store
 - fobi.contrib.plugins.form_handlers.http_repost
 - fobi.contrib.plugins.form_handlers.mail
@@ -138,6 +141,9 @@ in the ``INSTALLED_APPS`` as well:
 - fobi.contrib.apps.drf_integration.form_elements.fields.textarea
 - fobi.contrib.apps.drf_integration.form_elements.fields.time
 - fobi.contrib.apps.drf_integration.form_elements.fields.url
+- fobi.contrib.apps.drf_integration.form_elements.content.content_image
+- fobi.contrib.apps.drf_integration.form_elements.content.content_text
+- fobi.contrib.apps.drf_integration.form_elements.content.content_video
 - fobi.contrib.apps.drf_integration.form_handlers.db_store
 - fobi.contrib.apps.drf_integration.form_handlers.http_repost
 - fobi.contrib.apps.drf_integration.form_handlers.mail
@@ -170,7 +176,7 @@ See the `example settings file
         'rest_framework',  # Django REST framework
         'fobi.contrib.apps.drf_integration',  # DRF integration app
 
-        # DRF integration form element plugins
+        # DRF integration form element plugins - fields
         'fobi.contrib.apps.drf_integration.form_elements.fields.boolean',
         'fobi.contrib.apps.drf_integration.form_elements.fields.checkbox_select_multiple',
         'fobi.contrib.apps.drf_integration.form_elements.fields.date',
@@ -197,6 +203,11 @@ See the `example settings file
         'fobi.contrib.apps.drf_integration.form_elements.fields.textarea',
         'fobi.contrib.apps.drf_integration.form_elements.fields.time',
         'fobi.contrib.apps.drf_integration.form_elements.fields.url',
+
+        # DRF integration form element plugins - presentational
+        'fobi.contrib.apps.drf_integration.form_elements.content.content_image',
+        'fobi.contrib.apps.drf_integration.form_elements.content.content_text',
+        'fobi.contrib.apps.drf_integration.form_elements.content.content_video',
 
         # DRF integration form handler plugins
         'fobi.contrib.apps.drf_integration.form_handlers.db_store',
