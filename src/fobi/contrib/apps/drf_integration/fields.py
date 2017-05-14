@@ -6,8 +6,10 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
 from rest_framework.fields import (
+    ChoiceField,
     Field,
     empty,
+    # ModelField,
     MultipleChoiceField,
 )
 
@@ -19,9 +21,20 @@ __all__ = (
     'ContentImageField',
     'ContentTextField',
     'ContentVideoField',
+    'ModelChoiceField',
+    'ModelMultipleChoiceField',
     'MultipleChoiceWithMaxField',
     'NoneField',
 )
+
+# *****************************************************************************
+# *****************************************************************************
+# ************************** Additional DRF fields ****************************
+# *****************************************************************************
+# *****************************************************************************
+
+# *****************************************************************************
+# *************************** Traditional fields ******************************
 
 
 class MultipleChoiceWithMaxField(MultipleChoiceField):
@@ -47,6 +60,47 @@ class MultipleChoiceWithMaxField(MultipleChoiceField):
             MultipleChoiceWithMaxField,
             self
         ).to_internal_value(data)
+
+
+class ModelChoiceFieldMixin(object):
+    """Model choice field mixin."""
+
+    def get_choices(self):
+        """Get choices."""
+        choices = []
+        if self.model_attr:
+            for _choice in self.queryset:
+                choices.append((_choice.pk, getattr(_choice, self.model_attr)))
+        else:
+            for _choice in self.queryset:
+                choices.append((_choice.pk, six.text_type(_choice)))
+        return choices
+
+
+class ModelChoiceField(ChoiceField, ModelChoiceFieldMixin):
+    """Model choice field."""
+
+    def __init__(self, *args, **kwargs):
+        self.queryset = kwargs.pop('queryset', None)
+        self.model_attr = kwargs.pop('model_attr', None)
+        choices = self.get_choices()
+        kwargs.update({'choices': choices})
+        super(ModelChoiceField, self).__init__(*args, **kwargs)
+
+
+class ModelMultipleChoiceField(MultipleChoiceField, ModelChoiceFieldMixin):
+    """Model choice field."""
+
+    def __init__(self, *args, **kwargs):
+        self.queryset = kwargs.pop('queryset', None)
+        self.model_attr = kwargs.pop('model_attr', None)
+        choices = self.get_choices()
+        kwargs.update({'choices': choices})
+        super(ModelMultipleChoiceField, self).__init__(*args, **kwargs)
+
+# *****************************************************************************
+# ************************* Presentational fields *****************************
+# *****************************************************************************
 
 
 class NoneField(Field):

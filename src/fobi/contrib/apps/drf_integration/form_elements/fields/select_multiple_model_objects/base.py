@@ -8,25 +8,25 @@ from ....base import (
     DRFIntegrationFormElementPluginProcessor,
     DRFSubmitPluginFormDataMixin,
 )
-from ....fields import ModelChoiceField
+from ....fields import ModelMultipleChoiceField
 
 from . import UID
 
 __title__ = 'fobi.contrib.apps.drf_integration.form_elements.fields.' \
-            'select_model_object.base'
+            'select_multiple_model_objects.base'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('SelectModelObjectInputPlugin',)
+__all__ = ('SelectMultipleModelObjectsInputPlugin',)
 
 
-class SelectModelObjectInputPlugin(IntegrationFormFieldPlugin,
-                                   DRFSubmitPluginFormDataMixin):
-    """ChoiceField plugin."""
+class SelectMultipleModelObjectsInputPlugin(IntegrationFormFieldPlugin,
+                                            DRFSubmitPluginFormDataMixin):
+    """ModelMultipleChoiceField plugin."""
 
     uid = UID
     integrate_with = INTEGRATE_WITH_UID
-    name = _("Select model object")
+    name = _("Select multiple model objects")
     group = _("Fields")
 
     def get_custom_field_instances(self,
@@ -47,7 +47,7 @@ class SelectModelObjectInputPlugin(IntegrationFormFieldPlugin,
         }
         return [
             DRFIntegrationFormElementPluginProcessor(
-                field_class=ModelChoiceField,
+                field_class=ModelMultipleChoiceField,
                 field_kwargs=field_kwargs
             )
         ]

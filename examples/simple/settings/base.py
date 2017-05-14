@@ -402,6 +402,7 @@ INSTALLED_APPS = [
     'fobi.contrib.apps.drf_integration.form_elements.fields'
     '.checkbox_select_multiple',
     'fobi.contrib.apps.drf_integration.form_elements.fields.date',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.date_drop_down',
     'fobi.contrib.apps.drf_integration.form_elements.fields.datetime',
     'fobi.contrib.apps.drf_integration.form_elements.fields.decimal',
     'fobi.contrib.apps.drf_integration.form_elements.fields.email',
@@ -417,7 +418,11 @@ INSTALLED_APPS = [
     'fobi.contrib.apps.drf_integration.form_elements.fields.range_select',
     'fobi.contrib.apps.drf_integration.form_elements.fields.regex',
     'fobi.contrib.apps.drf_integration.form_elements.fields.select',
+    # 'fobi.contrib.apps.drf_integration.form_elements.fields'
+    # '.select_model_object',
     'fobi.contrib.apps.drf_integration.form_elements.fields.select_multiple',
+    # 'fobi.contrib.apps.drf_integration.form_elements.fields'
+    # '.select_multiple_model_objects',
     'fobi.contrib.apps.drf_integration.form_elements.fields'
     '.select_multiple_with_max',
     'fobi.contrib.apps.drf_integration.form_elements.fields.slider',

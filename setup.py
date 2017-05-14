@@ -317,7 +317,7 @@ tests_require = [
 
 if PY3:
     install_requires.append('simplejson>=3.0.0')  # When using Python 3
-    if not DJANGO_1_11:
+    if DJANGO_INSTALLED and not DJANGO_1_11:
         install_requires.append('easy-thumbnails>=2.3')
     else:
         install_requires.append('easy-thumbnails>=2.4.1')
@@ -329,7 +329,7 @@ if PY3:
 else:
     install_requires.append('simplejson>=2.1.0')  # When using Python 2.*
     install_requires.append('ordereddict>=1.1')
-    if not DJANGO_1_11:
+    if DJANGO_INSTALLED and not DJANGO_1_11:
         install_requires.append('easy-thumbnails>=1.4')
     else:
         install_requires.append('easy-thumbnails>=2.4.1')

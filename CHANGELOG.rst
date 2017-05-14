@@ -15,6 +15,14 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.11.5
+------
+2017-05-13
+
+- Added ``date_drop_down`` to ``drf_integration`` app.
+- Fixed dependencies issue.
+- Added dedicated requirements for specific Django versions.
+
 0.11.4
 ------
 2017-05-12

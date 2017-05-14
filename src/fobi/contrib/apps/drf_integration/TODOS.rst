@@ -29,15 +29,17 @@ Must haves
   into Decimal.
 + Fix this https://github.com/barseghyanartur/django-fobi/blob/master/src/fobi/contrib/apps/drf_integration/views.py#L151
   It should not be form = ... but serializer = ...
+- Improve documentation.
 
 Should haves
 ------------
 + Find why HiddenInput tests fail (in terms of Django REST framework it's
   a read-only field).
 + Add Integration form callbacks for handling data of the integration plugins.
-- Add ``date_drop_down`` plugin.
-- Add more fields (relation fields).
-- Think of what to do with presentational fields (perhaps just display?)
++ Add ``date_drop_down`` plugin.
+- Add more fields (relation fields: at least ``select_model_object`` and
+  ``select_multiple_model_objects``).
++ Think of what to do with presentational fields (perhaps just display?)
 - Somehow, the ``file`` plugin data, when submitted, isn't shown properly in
   the posted data (by DRF), although is posted 100% correctly.
 - In the API form view, use memoize technique or cache the value somehow to

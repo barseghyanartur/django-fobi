@@ -47,12 +47,20 @@ class SelectMultipleModelObjectsInputPlugin(FormFieldPlugin):
     group = _("Fields")
     form = SelectMultipleModelObjectsInputForm
 
-    def get_form_field_instances(self, request=None, form_entry=None,
-                                 form_element_entries=None, **kwargs):
-        """Get form field instances."""
+    def get_queryset(self):
+        """Get queryset.
+
+        Might be used in integration packages.
+        """
         app_label, model_name = get_app_label_and_model_name(self.data.model)
         model = get_model(app_label, model_name)
         queryset = model._default_manager.all()
+        return queryset
+
+    def get_form_field_instances(self, request=None, form_entry=None,
+                                 form_element_entries=None, **kwargs):
+        """Get form field instances."""
+        queryset = self.get_queryset()
 
         field_kwargs = {
             'label': self.data.label,
