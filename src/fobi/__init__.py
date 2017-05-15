@@ -1,6 +1,6 @@
 __title__ = 'django-fobi'
-__version__ = '0.11.5'
-__build__ = 0x000080
+__version__ = '0.11.6'
+__build__ = 0x000081
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
