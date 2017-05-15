@@ -1,16 +1,16 @@
 fobi.contrib.apps.mezzanine_integration
-=======================================
+---------------------------------------
 A ``django-fobi`` integration with Mezzanine.
 
 Installation
-------------
+~~~~~~~~~~~~
 Versions
-~~~~~~~~
+########
 See the `requirements file
 <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/mezzanine_example/requirements.txt>`_.
 
 your_project/settings.py
-~~~~~~~~~~~~~~~~~~~~~~~~
+########################
 See the `example settings file
 <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/mezzanine_example/settings.py>`_.
 
@@ -24,9 +24,9 @@ See the `example settings file
     ]
 
 Information for developers
---------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 Template rendering
-~~~~~~~~~~~~~~~~~~
+##################
 The form embed into Mezzanine page is rendered with use of two theme templates:
 
 - ``view_embed_form_entry_ajax_template``: Used for rendering the form.
@@ -34,7 +34,7 @@ The form embed into Mezzanine page is rendered with use of two theme templates:
   sent event.
 
 Using custom templates for rendering the form
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+#############################################
 In the widget, you can specify a template which you want to be used for
 rendering the form or the form-sent event.
 
@@ -95,9 +95,9 @@ example below.
     }
 
 Usage
------
+~~~~~
 The ``fobi`` page model
-~~~~~~~~~~~~~~~~~~~~~~~
+#######################
 The ``fobi.contrib.apps.mezzanine_integration.models.FobiFormPage`` consists
 of the following fields:
 
@@ -113,16 +113,13 @@ of the following fields:
 - Success page text: Overrides the form-sent text.
 
 Steps described
-~~~~~~~~~~~~~~~
+###############
 1. If you use the mezzanine `example
    <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/mezzanine_example/>`_
    project, to start go to the http://localhost:8003/fobi/ URL and create a
    form.
-
 2. Then go to http://localhost:8003/admin/pages/page/ and add a new `Fobi form`
    page.
-
 3. Choose the form and optionally - override the form settings and then
    save the page.
-
 4. See the page in the front-end.
