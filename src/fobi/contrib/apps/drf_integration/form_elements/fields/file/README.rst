@@ -1,12 +1,11 @@
-===========================================================
 fobi.contrib.apps.drf_integration.form_elements.fields.file
-===========================================================
+###########################################################
 A ``django-fobi`` FileField plugin for integration with
 ``Django REST framework``. Makes use of the
 ``rest_framework.fields.FileField``.
 
 Installation
-============
+^^^^^^^^^^^^
 1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.file`` to
    the ``INSTALLED_APPS`` in your ``settings.py``.
 

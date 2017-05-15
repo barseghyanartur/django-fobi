@@ -1,12 +1,11 @@
-=================================================================
 fobi.contrib.apps.drf_integration.form_elements.fields.ip_address
-=================================================================
+#################################################################
 A ``django-fobi`` IPAddressField plugin for integration with
 ``Django REST framework``. Makes use of the
 ``rest_framework.fields.IPAddressField``.
 
 Installation
-============
+^^^^^^^^^^^^
 1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.ip_address`` to
    the ``INSTALLED_APPS`` in your ``settings.py``.
 

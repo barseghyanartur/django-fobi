@@ -1,12 +1,11 @@
-============================================================
 fobi.contrib.apps.drf_integration.form_elements.fields.regex
-============================================================
+############################################################
 A ``django-fobi`` RegexField plugin for integration with
 ``Django REST framework``. Makes use of the
 ``rest_framework.fields.RegexField``.
 
 Installation
-============
+^^^^^^^^^^^^
 1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.regex`` to
    the ``INSTALLED_APPS`` in your ``settings.py``.
 

@@ -30,6 +30,7 @@ Must haves
 + Fix this https://github.com/barseghyanartur/django-fobi/blob/master/src/fobi/contrib/apps/drf_integration/views.py#L151
   It should not be form = ... but serializer = ...
 - Improve documentation.
+- Add more meta options for special fields, such as ``slider``.
 
 Should haves
 ------------

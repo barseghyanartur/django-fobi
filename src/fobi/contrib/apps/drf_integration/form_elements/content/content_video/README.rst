@@ -1,12 +1,11 @@
-====================================================================
 fobi.contrib.apps.drf_integration.form_elements.fields.content_video
-====================================================================
+####################################################################
 A ``django-fobi`` ContentVideo plugin for integration with
 ``Django REST framework``. Makes use of the
 ``fobi.contrib.apps.drf_integration.fields.ContentVideo``.
 
 Installation
-============
+^^^^^^^^^^^^
 1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.content_video``
    to the ``INSTALLED_APPS`` in your ``settings.py``.
 
@@ -28,7 +27,7 @@ Installation
    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 Usage
-=====
+^^^^^
 Unlike standard fields, ``ContentVideo`` field is purely presentational.
 You're not supposed to make write actions on it (it won't work). Neither
 will it be displayed in the browsable API (list/retrieve actions). However,

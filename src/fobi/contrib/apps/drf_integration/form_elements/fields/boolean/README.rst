@@ -1,12 +1,11 @@
-==============================================================
 fobi.contrib.apps.drf_integration.form_elements.fields.boolean
-==============================================================
+##############################################################
 A ``django-fobi`` BooleanField plugin for integration with
 ``Django REST framework``. Makes use of the
 ``rest_framework.fields.BooleanField``.
 
 Installation
-============
+^^^^^^^^^^^^
 1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.boolean`` to
    the ``INSTALLED_APPS`` in your ``settings.py``.
 

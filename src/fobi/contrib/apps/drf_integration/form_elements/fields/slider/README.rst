@@ -1,12 +1,11 @@
-=============================================================
 fobi.contrib.apps.drf_integration.form_elements.fields.slider
-=============================================================
+#############################################################
 A ``django-fobi`` ChoiceField plugin for integration with
 ``Django REST framework``. Makes use of the
 ``rest_framework.fields.ChoiceField``.
 
 Installation
-============
+^^^^^^^^^^^^
 1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.slider``
    to the ``INSTALLED_APPS`` in your ``settings.py``.
 

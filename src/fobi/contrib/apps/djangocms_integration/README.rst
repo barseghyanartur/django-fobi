@@ -1,16 +1,16 @@
 fobi.contrib.apps.djangocms_integration
-=======================================
+---------------------------------------
 A ``django-fobi`` integration with DjangoCMS.
 
 Prerequisites
--------------
-Has been tested with DjangoCMS 2.4.3 and 3.0.6 only. Might work on earlier
-versions as well.
+~~~~~~~~~~~~~
+Has been tested with DjangoCMS 2.4.3 and 3.0.6 only. Might work on earlier (or
+later) versions as well.
 
 Installation
-------------
+~~~~~~~~~~~~
 Versions
-~~~~~~~~
+########
 See the requirements files:
 
 - `DjangoCMS 2.4.3 requirements
@@ -19,7 +19,7 @@ See the requirements files:
   <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements_djangocms.txt>`_.
 
 your_project/settings.py
-~~~~~~~~~~~~~~~~~~~~~~~~
+########################
 See the example settings files:
 
 - `DjangoCMS 2.4.3 settings
@@ -37,9 +37,9 @@ See the example settings files:
     ]
 
 Information for developers
---------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 Templates for DjangoCMS
-~~~~~~~~~~~~~~~~~~~~~~~
+#######################
 Django-CMS templates are quite specific and in some aspects are not 100%
 compatible with built-in themes (due to the fact that DjangoCMS intensively 
 makes use of ``django-sekizai`` which isn't used in the generic templates).
@@ -62,7 +62,7 @@ copy of the desired bundled template). See how I did it for all bundled themes
   <https://github.com/barseghyanartur/django-fobi/tree/stable/examples/simple/templates/cms_page/simple>`_
 
 Template rendering
-~~~~~~~~~~~~~~~~~~
+##################
 The embed DjangoCMS widget is rendered with use of two theme templates:
 
 - ``view_embed_form_entry_ajax_template``: Used for rendering the form.
@@ -70,7 +70,7 @@ The embed DjangoCMS widget is rendered with use of two theme templates:
   sent event.
 
 Using custom templates for rendering the widget
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+###############################################
 In the widget, you can specify a template which you want to be used for
 rendering the form or the form-sent event.
 
@@ -131,7 +131,7 @@ example below.
     }
 
 Usage
------
+~~~~~
 The ``fobi.contrib.apps.djangocms_integration.models.FobiFormWidget`` consists
 of the following fields:
 

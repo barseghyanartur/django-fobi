@@ -1,12 +1,11 @@
-========================================================
 fobi.contrib.apps.drf_integration.form_handlers.db_store
-========================================================
+########################################################
 A ``django-fobi`` Mail form handler plugin for integration
 with ``Django REST framework``. Saves submitted form data into the
 ``SavedFormDataEntry`` model.
 
 Installation
-============
+^^^^^^^^^^^^
 1. Add ``fobi.contrib.apps.drf_integration.form_handlers.db_store`` to the
    ``INSTALLED_APPS`` in your ``settings.py``.
 

@@ -1,12 +1,11 @@
-===============================================================
 fobi.contrib.apps.drf_integration.form_elements.fields.datetime
-===============================================================
+###############################################################
 A ``django-fobi`` DateField plugin for integration with
 ``Django REST framework``. Makes use of the
 ``rest_framework.fields.DateTimeField``.
 
 Installation
-============
+^^^^^^^^^^^^
 1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.datetime`` to
    the ``INSTALLED_APPS`` in your ``settings.py``.
 

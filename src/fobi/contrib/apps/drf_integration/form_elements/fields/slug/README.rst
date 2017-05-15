@@ -1,12 +1,11 @@
-===========================================================
 fobi.contrib.apps.drf_integration.form_elements.fields.slug
-===========================================================
+###########################################################
 A ``django-fobi`` SlugField plugin for integration with
 ``Django REST framework``. Makes use of the
 ``rest_framework.fields.SlugField``.
 
 Installation
-============
+^^^^^^^^^^^^
 1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.slug`` to
    the ``INSTALLED_APPS`` in your ``settings.py``.
 

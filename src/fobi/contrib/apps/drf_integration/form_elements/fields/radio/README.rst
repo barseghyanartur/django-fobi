@@ -1,12 +1,11 @@
-============================================================
 fobi.contrib.apps.drf_integration.form_elements.fields.radio
-============================================================
+############################################################
 A ``django-fobi`` CharField plugin for integration with
 ``Django REST framework``. Makes use of the
 ``rest_framework.fields.ChoiceField``.
 
 Installation
-============
+^^^^^^^^^^^^
 1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.radio`` to
    the ``INSTALLED_APPS`` in your ``settings.py``.
 
