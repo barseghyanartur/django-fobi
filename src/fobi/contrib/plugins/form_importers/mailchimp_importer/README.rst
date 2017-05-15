@@ -1,6 +1,5 @@
-==================
 mailchimp_importer
-==================
+------------------
 A ``django-fobi`` integration with MailChimp.
 
 This plugin makes it possible to import a form from a MailChimp list. A typical
@@ -16,7 +15,7 @@ For additional information on MailChimp import see the following `article
 <http://kb.mailchimp.com/lists/managing-subscribers/manage-list-and-signup-form-fields>`_.
 
 Prerequisites
-=============
+~~~~~~~~~~~~~
 Python wrapper for the Mailchimp:
 
 .. code-block:: sh
@@ -31,9 +30,9 @@ package as well:
    pip install django-formtools
 
 Installation
-============
+~~~~~~~~~~~~
 your_project/settings.py
-------------------------
+########################
 .. code-block:: python
 
     INSTALLED_APPS = list(INSTALLED_APPS)
@@ -42,7 +41,7 @@ your_project/settings.py
     ]
 
 How it works
-============
+~~~~~~~~~~~~
 Assuming that you have configured the `mailchimp_importer` plugin properly and
 have the Django running locally on port 8000, accessing the following URL would
 bring you to the MailChimp form import wizard.
@@ -55,7 +54,7 @@ information. The key isn't stored/saved/remembered. Next time you want to
 import a form from the same account, you would have to provide it again.
 
 Development status
-==================
+~~~~~~~~~~~~~~~~~~
 This part of code is alpha, which means it experimental and needs improvements.
 
 See the `TODOS <https://raw.githubusercontent.com/barseghyanartur/django-fobi/master/TODOS.rst>`_
