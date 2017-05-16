@@ -69,7 +69,7 @@ class FobiFormPage(Page, RichText):
         help_text=_("Overrides the default success page text.")
     )
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         app_label = 'fobi'

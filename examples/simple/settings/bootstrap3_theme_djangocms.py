@@ -1,27 +1,58 @@
+from cms import __version__
+from nine.versions import DJANGO_GTE_1_8
 from .base import *
+
+CMS_VERSION = [int(__v) for __v in __version__.split('.')]
 
 INSTALLED_APPS = list(INSTALLED_APPS)
 INSTALLED_APPS += [
     'cms',  # DjangoCMS
-    'mptt',
     'menus',
     'sekizai',
     # 'djangocms_admin_style',
 
     # Some plugins
-    'djangocms_picture',
-    'djangocms_snippet',
+    # 'djangocms_picture',
+    # 'djangocms_snippet',
 
     'fobi.contrib.apps.djangocms_integration',  # Fobi DjangoCMS app
 
     # 'djangocms_page',  # Example
 ]
 
+DJANGO_CMS_CONTEXT_PROCESSORS = []
+MIGRATION_MODULES = {}
+
+if CMS_VERSION[0] <= 2 or (CMS_VERSION[0] == 3 and CMS_VERSION[1] == 0):
+    INSTALLED_APPS.append('mptt')
+    DJANGO_CMS_CONTEXT_PROCESSORS = [
+        'cms.context_processors.media',
+        'sekizai.context_processors.sekizai',
+        'cms.context_processors.cms_settings',
+        'nine.context_processors.versions',
+        'cms_addons.context_processors.cms_version',
+    ]
+    MIGRATION_MODULES = {
+        'cms': 'cms.migrations_django',
+        'menus': 'menus.migrations_django',
+    }
+
+else:
+    INSTALLED_APPS.append('treebeard')
+    INSTALLED_APPS.append('cms_addons')
+    DJANGO_CMS_CONTEXT_PROCESSORS = [
+        'cms.context_processors.cms_settings',
+        'sekizai.context_processors.sekizai',
+        'cms.context_processors.cms_settings',
+        'nine.context_processors.versions',
+        'cms_addons.context_processors.cms_version',
+    ]
+    MIGRATION_MODULES = {
+        'cms': 'cms.migrations',
+        'menus': 'menus.migrations',
+    }
+
 try:
-    # INSTALLED_APPS.remove('admin_tools') \
-    #    if 'admin_tools' in INSTALLED_APPS else None
-    # INSTALLED_APPS.remove('admin_tools.menu') \
-    #    if 'admin_tools.menu' in INSTALLED_APPS else None
     INSTALLED_APPS.remove('admin_tools.dashboard') \
         if 'admin_tools.dashboard' in INSTALLED_APPS else None
 except Exception as err:
@@ -37,12 +68,12 @@ MIDDLEWARE_CLASSES += [
     # 'django.middleware.cache.FetchFromCacheMiddleware',
 ]
 
-TEMPLATE_CONTEXT_PROCESSORS = list(TEMPLATE_CONTEXT_PROCESSORS)
-TEMPLATE_CONTEXT_PROCESSORS += [
-    'cms.context_processors.media',
-    'sekizai.context_processors.sekizai',
-    'cms.context_processors.cms_settings',
-]
+if DJANGO_GTE_1_8:
+    TEMPLATES[0]['OPTIONS']['context_processors'] += \
+        DJANGO_CMS_CONTEXT_PROCESSORS
+else:
+    TEMPLATE_CONTEXT_PROCESSORS = list(TEMPLATE_CONTEXT_PROCESSORS)
+    TEMPLATE_CONTEXT_PROCESSORS += DJANGO_CMS_CONTEXT_PROCESSORS
 
 FOBI_DEFAULT_THEME = 'bootstrap3'
 # FOBI_DEFAULT_THEME = 'foundation5'
@@ -55,13 +86,4 @@ CMS_TEMPLATES = (
      'General template without sidebar for {0}'.format(FOBI_DEFAULT_THEME)),
 )
 
-MIGRATION_MODULES = {
-    'cms': 'cms.migrations_django',
-    'menus': 'menus.migrations_django',
-}
-
 LANGUAGE_CODE = 'en'
-
-# FEINCMS_RICHTEXT_INIT_CONTEXT = {
-#    'TINYMCE_JS_URL': STATIC_URL + 'tiny_mce/tiny_mce.js',
-# }

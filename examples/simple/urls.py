@@ -101,7 +101,7 @@ if 'cms' in settings.INSTALLED_APPS:
     else:
         urlpatterns += i18n_patterns(*url_patterns_args)
 
-# Conditionally including django-rest-framework integration app
+# Conditionally including Django REST framework integration app
 if 'fobi.contrib.apps.drf_integration' in settings.INSTALLED_APPS:
     from fobi.contrib.apps.drf_integration.urls import fobi_router
     urlpatterns += [

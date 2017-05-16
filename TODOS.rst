@@ -65,6 +65,8 @@ Roadmap
 
 Uncategorised
 -------------
+- Update Mezzanine, DjangoCMS and FeinCMS integation to work with Django 1.8,
+  1.9, 1.10 and 1.11.
 - Implement a set of django-treebeard plugins (as an alternative to MPTT).
 - Implement external image plugin.
 - Implement the clone form functionality.

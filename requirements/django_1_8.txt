@@ -1,6 +1,6 @@
 django-autoslug==1.7.1
 django-formtools>=1.0
-django-nine>=0.1.10
+django-nine>=0.1.13
 django-nonefield>=0.1
 easy-thumbnails>=2.3
 Pillow>=2.0.0

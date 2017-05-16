@@ -1,4 +1,4 @@
-{% load static future_compat i18n cms_tags sekizai_tags menu_tags placeholder_tags %}<!DOCTYPE html>
+{% load static future_compat i18n cms_tags sekizai_tags menu_tags %}{#% load placeholder_tags %#}<!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}{% block html-attributes %}{% endblock html-attributes %}>
 <head>
 <title>{% block page-title %}{% endblock page-title %} | {% block site-title %}{% trans "DjangoCMS Simple example" %}{% endblock site-title %}</title>

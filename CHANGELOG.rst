@@ -15,6 +15,15 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.11.7
+------
+2017-05-16
+
+- Fixed in ``fobi.integration`` package related to Django 1.10 and higher.
+- FeinCMS integration updated (only migrations added) to work with
+  FeinCMS 1.13.2.
+- DjangoCMS integration updated to work with DjangoCMS 3.4.3.
+
 0.11.6
 ------
 2017-05-15

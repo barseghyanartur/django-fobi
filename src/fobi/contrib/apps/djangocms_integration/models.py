@@ -5,6 +5,7 @@ from cms.models import CMSPlugin
 
 from six import python_2_unicode_compatible
 
+from .cms_version import CMS_VERSION_GT_3_0
 from .helpers import (
     get_form_template_choices, get_success_page_template_choices
 )
@@ -66,10 +67,12 @@ class FobiFormWidget(CMSPlugin):
 
     search_fields = ('form_entry__name',)
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
+
         app_label = 'cms'
-        # db_table = 'djangocms_integration_fobiformwidget'
+        if CMS_VERSION_GT_3_0:
+            db_table = 'djangocms_integration_fobiformwidget'
 
     def __str__(self):
         return self.form_entry.name

@@ -4,7 +4,7 @@ import sys
 from distutils.version import LooseVersion
 from setuptools import setup, find_packages
 
-version = '0.11.6'
+version = '0.11.7'
 
 # ***************************************************************************
 # ************************** Python version *********************************
@@ -219,7 +219,7 @@ if DJANGO_INSTALLED:
         install_requires = [
             'django-autoslug==1.7.1',
             # 'django-formtools>=1.0',
-            'django-nine>=0.1.10',
+            'django-nine>=0.1.13',
             'django-nonefield>=0.1',
             # 'ordereddict>=1.1',
             'Pillow>=2.0.0',
@@ -233,7 +233,7 @@ if DJANGO_INSTALLED:
         install_requires = [
             'django-autoslug==1.7.1',
             'django-formtools>=1.0',
-            'django-nine>=0.1.10',
+            'django-nine>=0.1.13',
             'django-nonefield>=0.1',
             # 'ordereddict>=1.1',
             'Pillow>=2.0.0',
@@ -246,7 +246,7 @@ if DJANGO_INSTALLED:
         install_requires = [
             'django-autoslug==1.9.3',
             'django-formtools>=1.0',
-            'django-nine>=0.1.10',
+            'django-nine>=0.1.13',
             'django-nonefield>=0.1',
             # 'ordereddict>=1.1',
             'Pillow>=2.0.0',
@@ -259,7 +259,7 @@ if DJANGO_INSTALLED:
         install_requires = [
             'django-autoslug==1.9.3',
             'django-formtools>=1.0',
-            'django-nine>=0.1.10',
+            'django-nine>=0.1.13',
             'django-nonefield>=0.1',
             # 'ordereddict>=1.1',
             'Pillow>=2.0.0',
@@ -272,7 +272,7 @@ if DJANGO_INSTALLED:
         install_requires = [
             'django-autoslug==1.9.3',
             'django-formtools',
-            'django-nine>=0.1.10',
+            'django-nine>=0.1.13',
             'django-nonefield>=0.1',
             # 'ordereddict>=1.1',
             'Pillow>=2.0.0',
@@ -291,7 +291,7 @@ if not install_requires:
     install_requires = [
         'django-autoslug>=1.9.3',
         'django-formtools>=1.0',
-        'django-nine>=0.1.10',
+        'django-nine>=0.1.13',
         'django-nonefield>=0.1',
         # 'ordereddict>=1.1',
         'Pillow>=2.0.0',
