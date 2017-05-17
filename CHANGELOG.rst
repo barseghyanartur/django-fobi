@@ -15,6 +15,14 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.11.8
+------
+2017-05-17
+
+- ContentImageURL plugin added.
+- Minor Python3 fixes in ``db_store`` plugin (related to export of forms to
+  ``xls`` format).
+
 0.11.7
 ------
 2017-05-16

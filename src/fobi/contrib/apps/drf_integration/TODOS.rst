@@ -31,6 +31,7 @@ Must haves
   It should not be form = ... but serializer = ...
 - Improve documentation.
 - Add more meta options for special fields, such as ``slider``.
+- Move DRF NoneField to the ``django-nonefield`` package (contrib).
 
 Should haves
 ------------

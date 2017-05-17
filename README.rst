@@ -266,6 +266,7 @@ Or latest stable version from BitBucket:
         'fobi.contrib.plugins.form_elements.test.dummy',
         'easy_thumbnails', # Required by `content_image` plugin
         'fobi.contrib.plugins.form_elements.content.content_image',
+        'fobi.contrib.plugins.form_elements.content.content_image_url',
         'fobi.contrib.plugins.form_elements.content.content_text',
         'fobi.contrib.plugins.form_elements.content.content_video',
 
@@ -1856,6 +1857,9 @@ complete and content rich.
 - `Content image
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_image/>`_:
   Insert an image.
+- `Content image URL
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_image_url/>`_:
+  Insert an image URL.
 - `Content text
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_text/>`_:
   Add text.

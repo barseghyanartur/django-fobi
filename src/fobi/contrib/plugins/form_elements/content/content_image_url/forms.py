@@ -2,40 +2,41 @@ from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import BasePluginForm, get_theme
-from fobi.helpers import handle_uploaded_file
+# from fobi.widgets import NumberInput
 
 from .settings import (
     FIT_METHODS_CHOICES,
     DEFAULT_FIT_METHOD,
     DEFAULT_SIZE,
     SIZES,
-    IMAGES_UPLOAD_DIR,
 )
 
-__title__ = 'fobi.contrib.plugins.form_elements.content.content_image.forms'
+__title__ = 'fobi.contrib.plugins.form_elements.content.content_image_url.' \
+            'forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('ContentImageForm',)
+__all__ = ('ContentImageURLForm',)
 
 theme = get_theme(request=None, as_instance=True)
 
 
-class ContentImageForm(forms.Form, BasePluginForm):
-    """Form for ``ContentImagePlugin``."""
+class ContentImageURLForm(forms.Form, BasePluginForm):
+    """Form for ``ContentImageURLPlugin``."""
 
     plugin_data_fields = [
-        ("file", ""),
+        ("url", ""),
         ("alt", ""),
         ("fit_method", DEFAULT_FIT_METHOD),
         ("size", DEFAULT_SIZE),
     ]
 
-    file = forms.ImageField(
-        label=_("Image"),
+    url = forms.URLField(
+        label=_("URL"),
         required=True,
-        widget=forms.widgets.ClearableFileInput()
-        # attrs={'class': theme.form_element_html_class}
+        widget=forms.widgets.URLInput(
+            attrs={'class': theme.form_element_html_class}
+        )
     )
     alt = forms.CharField(
         label=_("Alt text"),
@@ -53,6 +54,20 @@ class ContentImageForm(forms.Form, BasePluginForm):
             attrs={'class': theme.form_element_html_class}
         )
     )
+    # width = forms.IntegerField(
+    #     label=_("Width"),
+    #     required=False,
+    #     widget=NumberInput(
+    #         attrs={'class': theme.form_element_html_class}
+    #     )
+    # )
+    # height = forms.IntegerField(
+    #     label=_("Height"),
+    #     required=False,
+    #     widget=NumberInput(
+    #         attrs={'class': theme.form_element_html_class}
+    #     )
+    # )
     size = forms.ChoiceField(
         label=_("Size"),
         required=False,
@@ -62,10 +77,3 @@ class ContentImageForm(forms.Form, BasePluginForm):
             attrs={'class': theme.form_element_html_class}
         )
     )
-
-    def save_plugin_data(self, request=None):
-        """Saving the plugin data and moving the file."""
-        file_path = self.cleaned_data.get('file', None)
-        if file_path:
-            saved_image = handle_uploaded_file(IMAGES_UPLOAD_DIR, file_path)
-            self.cleaned_data['file'] = saved_image

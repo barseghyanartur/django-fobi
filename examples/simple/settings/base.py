@@ -325,6 +325,7 @@ INSTALLED_APPS = [
     # ************************* Content elements ****************************
     # ***********************************************************************
     'fobi.contrib.plugins.form_elements.content.content_image',
+    'fobi.contrib.plugins.form_elements.content.content_image_url',
     'fobi.contrib.plugins.form_elements.content.content_text',
     'fobi.contrib.plugins.form_elements.content.content_video',
 
@@ -434,6 +435,7 @@ INSTALLED_APPS = [
 
     # Presentational elements
     'fobi.contrib.apps.drf_integration.form_elements.content.content_image',
+    'fobi.contrib.apps.drf_integration.form_elements.content.content_image_url',
     'fobi.contrib.apps.drf_integration.form_elements.content.content_text',
     'fobi.contrib.apps.drf_integration.form_elements.content.content_video',
 

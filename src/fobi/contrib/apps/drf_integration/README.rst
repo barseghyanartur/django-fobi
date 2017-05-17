@@ -28,6 +28,7 @@ they will be listed in the options action call. All content fields are of type
 "content".
 
 - content_image
+- content_image_url
 - content_text
 - content_video
 
@@ -113,6 +114,7 @@ the core plugins:
 - fobi.contrib.plugins.form_elements.fields.time
 - fobi.contrib.plugins.form_elements.fields.url
 - fobi.contrib.plugins.form_elements.content.content_image
+- fobi.contrib.plugins.form_elements.content.content_image_url
 - fobi.contrib.plugins.form_elements.content.content_text
 - fobi.contrib.plugins.form_elements.content.content_video
 - fobi.contrib.plugins.form_handlers.db_store
@@ -150,6 +152,7 @@ in the ``INSTALLED_APPS`` as well:
 - fobi.contrib.apps.drf_integration.form_elements.fields.time
 - fobi.contrib.apps.drf_integration.form_elements.fields.url
 - fobi.contrib.apps.drf_integration.form_elements.content.content_image
+- fobi.contrib.apps.drf_integration.form_elements.content.content_image_url
 - fobi.contrib.apps.drf_integration.form_elements.content.content_text
 - fobi.contrib.apps.drf_integration.form_elements.content.content_video
 - fobi.contrib.apps.drf_integration.form_handlers.db_store
@@ -214,6 +217,7 @@ See the `example settings file
 
         # DRF integration form element plugins - presentational
         'fobi.contrib.apps.drf_integration.form_elements.content.content_image',
+        'fobi.contrib.apps.drf_integration.form_elements.content.content_image_url',
         'fobi.contrib.apps.drf_integration.form_elements.content.content_text',
         'fobi.contrib.apps.drf_integration.form_elements.content.content_video',
 

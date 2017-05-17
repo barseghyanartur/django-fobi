@@ -43,6 +43,7 @@ recursive-include src/fobi/contrib/apps/djangocms_integration/templates *
 recursive-include src/fobi/contrib/apps/mezzanine_integration/templates *
 
 recursive-include src/fobi/contrib/plugins/form_elements/content/content_image/templates *
+recursive-include src/fobi/contrib/plugins/form_elements/content/content_image_url/templates *
 
 recursive-include src/fobi/contrib/plugins/form_handlers/db_store/templates *
 recursive-include src/fobi/contrib/plugins/form_handlers/mail/templates *

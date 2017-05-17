@@ -4,7 +4,7 @@ import sys
 from distutils.version import LooseVersion
 from setuptools import setup, find_packages
 
-version = '0.11.7'
+version = '0.11.8'
 
 # ***************************************************************************
 # ************************** Python version *********************************
@@ -125,6 +125,10 @@ template_dirs = [
     # Content image
     "src/fobi/contrib/plugins/form_elements/content/content_image/"
     "templates/content_image",
+
+    # Content image URL
+    "src/fobi/contrib/plugins/form_elements/content/content_image_url/"
+    "templates/content_image_url",
 
     # DB Store
     "src/fobi/contrib/plugins/form_handlers/db_store/templates/db_store",
