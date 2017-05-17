@@ -57,6 +57,14 @@ Regarding the djangorestframework integration
 - Advanced foreign key relation plugins (MPTT).
 - Think of handling the wizards.
 
+Regarding heroku demo
+---------------------
+- See if we can use `django-storages
+  <https://github.com/jschneier/django-storages>`_ for saving the files,
+  because Heroku removes uploaded media. A dedicated drop-box storage would
+  do.
+- Find out what SMTP server could be used for sending emails from Heroku demo.
+
 Roadmap
 -------
 + django-rest-framework integration.
@@ -65,6 +73,7 @@ Roadmap
 
 Uncategorised
 -------------
+- Update translations.
 - Update Mezzanine, DjangoCMS and FeinCMS integation to work with Django 1.8,
   1.9, 1.10 and 1.11.
 - Implement a set of django-treebeard plugins (as an alternative to MPTT).
