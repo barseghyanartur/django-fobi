@@ -1,3 +1,5 @@
+from __future__ import unicode_literals
+
 import csv
 
 import simplejson as json
@@ -102,7 +104,7 @@ class DataExporter(object):
         data_values = data_headers.values()
 
         for cell, value in enumerate(data_values):
-            ws.write(row, cell, unicode(value), xlwt.easyxf('font: bold on'))
+            ws.write(row, cell, value, xlwt.easyxf('font: bold on'))
             ws.col(cell).width = 256 * 20  # about 20 chars wide
             cell += 1
         row += 1
@@ -110,7 +112,7 @@ class DataExporter(object):
         for obj in self.queryset:
             data = json.loads(obj.saved_data)
             for cell, key in enumerate(data_keys):
-                ws.write(row, cell, unicode(data.get(key, '')))
+                ws.write(row, cell, data.get(key, ''))
                 cell += 1
 
             row += 1
