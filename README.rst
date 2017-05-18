@@ -270,7 +270,7 @@ Or latest stable version from BitBucket:
         'fobi.contrib.plugins.form_elements.content.content_text',
         'fobi.contrib.plugins.form_elements.content.content_video',
 
-        # `django-fobo` form handlers
+        # `django-fobi` form handlers
         'fobi.contrib.plugins.form_handlers.db_store',
         'fobi.contrib.plugins.form_handlers.http_repost',
         'fobi.contrib.plugins.form_handlers.mail',
