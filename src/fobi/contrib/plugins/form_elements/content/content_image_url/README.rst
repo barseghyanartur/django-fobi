@@ -11,7 +11,6 @@ Installation
 
         INSTALLED_APPS = (
             # ...
-            'easy_thumbnails',
             'fobi.contrib.plugins.form_elements.content.content_image_url',
             # ...
         )
@@ -26,7 +25,7 @@ Installation
     the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 (4) Additionally, for the fine tuning, see the
-    ``fobi.contrib.plugins.form_elements.content.content_image.defaults``
+    ``fobi.contrib.plugins.form_elements.content.content_image_url.defaults``
     module. If necessary, override the settings by prepending
-    ``FOBI_PLUGIN_CONTENT_IMAGE_`` to the desired variable name from the
+    ``FOBI_PLUGIN_CONTENT_IMAGE_URL_`` to the desired variable name from the
     above mentioned ``defaults`` module.

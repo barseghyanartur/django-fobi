@@ -161,8 +161,8 @@ written custom form element plugins - update your code.
 - Added tests for mailchimp integration plugin.
 - Moving all plugins to base submodules of the correspondent sub 
   packages.
-- Add missing whitespace toe the `help_text` of the `title` field of
-  `FormEntry` and `FormWizardEntry` models.
+- Add missing whitespace to the ``help_text`` of the ``title`` field of
+  ``FormEntry`` and ``FormWizardEntry`` models.
 - Disable GoogleAnalytics while testing (guess what - this change speeds up 
   selenium tests twice).
 - Docs updated.
