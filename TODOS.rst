@@ -47,9 +47,15 @@ Regarding the form wizards
 - Add selenium tests for form wizards.
 - Make `foundation5` and `django-admin-theme` themes to reflect the latest
   GUI changes (form wizards).
++ Fix bug with wizards https://django-fobi.herokuapp.com/en/fobi/wizard-view/test-wiz/
+  When having a date-drop-down plugin on a page, on submit you get
+  TypeError at /en/fobi/wizard-view/test-wiz/
+  datetime.date(2001, 1, 1) is not JSON serializable
+  Surprisingly, with date or datetime plugins we don't get such errors.
+  In a normal form view, also not. It's something specific to form-wizards.
 
-Regarding the djangorestframework integration
----------------------------------------------
+Regarding the Django REST framework integration
+-----------------------------------------------
 + Submit form functionality.
 + Advanced plugins, such as file plugin.
 - Add image plugin.
@@ -57,7 +63,7 @@ Regarding the djangorestframework integration
 - Advanced foreign key relation plugins (MPTT).
 - Think of handling the wizards.
 
-Regarding heroku demo
+Regarding Heroku demo
 ---------------------
 - See if we can use `django-storages
   <https://github.com/jschneier/django-storages>`_ for saving the files,
@@ -74,7 +80,7 @@ Roadmap
 Uncategorised
 -------------
 - Update translations.
-- Update Mezzanine, DjangoCMS and FeinCMS integation to work with Django 1.8,
+- Update Mezzanine, DjangoCMS and FeinCMS integration to work with Django 1.8,
   1.9, 1.10 and 1.11.
 - Implement a set of django-treebeard plugins (as an alternative to MPTT).
 - Implement external image plugin.

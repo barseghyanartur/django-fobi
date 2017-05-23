@@ -15,6 +15,14 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.11.9
+------
+2017-05-24
+
+- Mezzanine integration updated to work with Mezzanine 4.2.3.
+- Fixes in date-drop-down plugin when using form wizards.
+
+
 0.11.8
 ------
 2017-05-17

@@ -1,8 +1,11 @@
 # Django settings for example project.
 import os
 from nine.versions import (
-    DJANGO_GTE_1_7, DJANGO_GTE_1_8, DJANGO_LTE_1_7, DJANGO_GTE_1_9,
-    DJANGO_GTE_1_10
+    DJANGO_GTE_1_10,
+    DJANGO_GTE_1_7,
+    DJANGO_GTE_1_8,
+    DJANGO_GTE_1_9,
+    DJANGO_LTE_1_7,
 )
 
 
