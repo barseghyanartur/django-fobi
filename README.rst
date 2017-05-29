@@ -18,9 +18,7 @@ Present
 Note, that Django 1.11 is not yet proclaimed to be flawlessly supported. The
 core and contrib packages have been tested against the Django 1.11.
 All tests have successfully passed, although it's yet too early
-to claim that Django 1.11 is fully supported. Certain dependencies
-(``django-formtools``) have been installed from source (since versions
-supporting Django 1.11 are not yet released on PyPI.)
+to claim that Django 1.11 is fully supported.
 
 Past
 ----

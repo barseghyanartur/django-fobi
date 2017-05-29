@@ -18,9 +18,7 @@ Present
 Note, that Django 1.11 is not yet proclaimed to be flawlessly supported. The
 core and contrib packages have been tested against the Django 1.11.
 All tests have successfully passed, although it's yet too early
-to claim that Django 1.11 is fully supported. Certain dependencies
-(``django-formtools``) have been installed from source (since versions
-supporting Django 1.11 are not yet released on PyPI.)
+to claim that Django 1.11 is fully supported.
 
 Past
 ----
@@ -270,7 +268,7 @@ Or latest stable version from BitBucket:
         'fobi.contrib.plugins.form_elements.content.content_text',
         'fobi.contrib.plugins.form_elements.content.content_video',
 
-        # `django-fobo` form handlers
+        # `django-fobi` form handlers
         'fobi.contrib.plugins.form_handlers.db_store',
         'fobi.contrib.plugins.form_handlers.http_repost',
         'fobi.contrib.plugins.form_handlers.mail',
