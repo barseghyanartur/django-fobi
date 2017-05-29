@@ -2,6 +2,9 @@ TODOS
 =====
 Based on MoSCoW principle.
 
+* Features/issues marked with plus (+) are implemented/solved.
+* Features/issues marked with minus (-) are yet to be implemented.
+
 Must haves
 ----------
 + Correct OPTIONS call.

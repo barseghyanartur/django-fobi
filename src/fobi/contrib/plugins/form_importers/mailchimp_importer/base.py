@@ -38,9 +38,7 @@ class MailChimpImporter(BaseFormImporter):
         'address': fields.text.UID,
         'zip': fields.text.UID,
         'phone': fields.text.UID,
-
-        # Unsure of what to do
-        # 'imageurl': '???',
+        'imageurl': fields.url.UID,
 
         # Not implemented yet
         # 'birthday': '???',

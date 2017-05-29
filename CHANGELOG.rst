@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.11.11
+-------
+2017-05-29
+
+- Minor fixes in ``content_text`` ``drf_integration`` plugin.
+- Added ``imageurl`` support to the ``mailchimp_impoter`` plugin.
+
 0.11.10
 -------
 2017-05-26
@@ -28,12 +35,11 @@ are used for versioning (schema follows below):
 - Mezzanine integration updated to work with Mezzanine 4.2.3.
 - Fixes in date-drop-down plugin when using form wizards.
 
-
 0.11.8
 ------
 2017-05-17
 
-- ContentImageURL plugin added.
+- ``ContentImageURL`` plugin added.
 - Minor Python3 fixes in ``db_store`` plugin (related to export of forms to
   ``xls`` format).
 
