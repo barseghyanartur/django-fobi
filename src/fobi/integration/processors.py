@@ -5,6 +5,8 @@ from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 
+from nine.versions import DJANGO_GTE_1_8
+
 from ..base import (
     fire_form_callbacks,
     get_theme,
@@ -119,18 +121,18 @@ class IntegrationProcessor(object):
                     request, instance, **kwargs
                 )
 
-        form_element_entries = instance.form_entry.formelemententry_set.all()[
-            :]
+        form_element_entries = instance.form_entry.formelemententry_set.all(
+        )[:]
         # This is where the most of the magic happens. Our form is being built
         # dynamically.
-        FormClass = assemble_form_class(
+        form_cls = assemble_form_class(
             instance.form_entry,
             form_element_entries=form_element_entries,
             request=request
         )
 
         if request.method == 'POST':
-            form = FormClass(request.POST, request.FILES)
+            form = form_cls(request.POST, request.FILES)
 
             # Fire pre form validation callbacks
             fire_form_callbacks(
@@ -211,7 +213,7 @@ class IntegrationProcessor(object):
             kwargs = {}
             if GET_PARAM_INITIAL_DATA in request.GET:
                 kwargs = {'initial': request.GET}
-            form = FormClass(**kwargs)
+            form = form_cls(**kwargs)
 
         theme = get_theme(request=request, as_instance=True)
         theme.collect_plugin_media(form_element_entries)
@@ -233,9 +235,21 @@ class IntegrationProcessor(object):
         if not template_name:
             template_name = theme.view_embed_form_entry_ajax_template
 
-        self.rendered_output = render_to_string(
-            template_name, context, context_instance=RequestContext(request)
-        )
+        render_kwargs = {}
+        if DJANGO_GTE_1_8:
+            render_kwargs = {
+                'template_name': template_name,
+                'context': context,
+                'request': request,
+            }
+        else:
+            render_kwargs = {
+                'template_name': template_name,
+                'dictionary': context,
+                'context_instance': RequestContext(request),
+            }
+
+        self.rendered_output = render_to_string(**render_kwargs)
 
     def _show_login_required_page(self, request, instance, **kwargs):
         """Displays text with login required.
@@ -251,9 +265,21 @@ class IntegrationProcessor(object):
         template_name = self.get_login_required_template_name(request,
                                                               instance)
 
-        return render_to_string(
-            template_name, context, context_instance=RequestContext(request)
-        )
+        render_kwargs = {}
+        if DJANGO_GTE_1_8:
+            render_kwargs = {
+                'template_name': template_name,
+                'context': context,
+                'request': request,
+            }
+        else:
+            render_kwargs = {
+                'template_name': template_name,
+                'dictionary': context,
+                'context_instance': RequestContext(request),
+            }
+
+        return render_to_string(**render_kwargs)
 
     def _show_thanks_page(self, request, instance, **kwargs):
         """Render the thanks page after successful form submission.
@@ -278,9 +304,21 @@ class IntegrationProcessor(object):
         if not template_name:
             template_name = theme.embed_form_entry_submitted_ajax_template
 
-        self.rendered_output = render_to_string(
-            template_name, context, context_instance=RequestContext(request)
-        )
+        render_kwargs = {}
+        if DJANGO_GTE_1_8:
+            render_kwargs = {
+                'template_name': template_name,
+                'context': context,
+                'request': request,
+            }
+        else:
+            render_kwargs = {
+                'template_name': template_name,
+                'dictionary': context,
+                'context_instance': RequestContext(request),
+            }
+
+        self.rendered_output = render_to_string(**render_kwargs)
 
     def _process(self, request, instance, **kwargs):
         """This is where most of the form handling happens.

@@ -1,8 +1,11 @@
 # Django settings for example project.
 import os
 from nine.versions import (
-    DJANGO_GTE_1_7, DJANGO_GTE_1_8, DJANGO_LTE_1_7, DJANGO_GTE_1_9,
-    DJANGO_GTE_1_10
+    DJANGO_GTE_1_10,
+    DJANGO_GTE_1_7,
+    DJANGO_GTE_1_8,
+    DJANGO_GTE_1_9,
+    DJANGO_LTE_1_7,
 )
 
 
@@ -325,6 +328,7 @@ INSTALLED_APPS = [
     # ************************* Content elements ****************************
     # ***********************************************************************
     'fobi.contrib.plugins.form_elements.content.content_image',
+    'fobi.contrib.plugins.form_elements.content.content_image_url',
     'fobi.contrib.plugins.form_elements.content.content_text',
     'fobi.contrib.plugins.form_elements.content.content_video',
 
@@ -402,6 +406,7 @@ INSTALLED_APPS = [
     'fobi.contrib.apps.drf_integration.form_elements.fields'
     '.checkbox_select_multiple',
     'fobi.contrib.apps.drf_integration.form_elements.fields.date',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.date_drop_down',
     'fobi.contrib.apps.drf_integration.form_elements.fields.datetime',
     'fobi.contrib.apps.drf_integration.form_elements.fields.decimal',
     'fobi.contrib.apps.drf_integration.form_elements.fields.email',
@@ -417,7 +422,11 @@ INSTALLED_APPS = [
     'fobi.contrib.apps.drf_integration.form_elements.fields.range_select',
     'fobi.contrib.apps.drf_integration.form_elements.fields.regex',
     'fobi.contrib.apps.drf_integration.form_elements.fields.select',
+    # 'fobi.contrib.apps.drf_integration.form_elements.fields'
+    # '.select_model_object',
     'fobi.contrib.apps.drf_integration.form_elements.fields.select_multiple',
+    # 'fobi.contrib.apps.drf_integration.form_elements.fields'
+    # '.select_multiple_model_objects',
     'fobi.contrib.apps.drf_integration.form_elements.fields'
     '.select_multiple_with_max',
     'fobi.contrib.apps.drf_integration.form_elements.fields.slider',
@@ -429,6 +438,7 @@ INSTALLED_APPS = [
 
     # Presentational elements
     'fobi.contrib.apps.drf_integration.form_elements.content.content_image',
+    'fobi.contrib.apps.drf_integration.form_elements.content.content_image_url',
     'fobi.contrib.apps.drf_integration.form_elements.content.content_text',
     'fobi.contrib.apps.drf_integration.form_elements.content.content_video',
 

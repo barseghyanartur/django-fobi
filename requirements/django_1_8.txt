@@ -1,0 +1,10 @@
+django-autoslug==1.7.1
+django-formtools>=1.0
+django-nine>=0.1.13
+django-nonefield>=0.1
+easy-thumbnails>=2.3
+Pillow>=2.0.0
+requests>=1.0.0
+six>=1.9
+Unidecode>=0.04.1
+vishap>=0.1.5,<2.0

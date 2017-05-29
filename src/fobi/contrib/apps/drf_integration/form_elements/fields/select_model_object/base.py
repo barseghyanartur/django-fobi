@@ -2,14 +2,13 @@ import copy
 
 from django.utils.translation import ugettext_lazy as _
 
-from rest_framework.fields import ChoiceField
-
 from .......base import IntegrationFormFieldPlugin
 from .... import UID as INTEGRATE_WITH_UID
 from ....base import (
     DRFIntegrationFormElementPluginProcessor,
     DRFSubmitPluginFormDataMixin,
 )
+from ....fields import ModelChoiceField
 
 from . import UID
 
@@ -46,12 +45,9 @@ class SelectModelObjectInputPlugin(IntegrationFormFieldPlugin,
             'help_text': form_element_plugin.data.help_text,
             'queryset': queryset,
         }
-        # TODO: this does not work yet. It's either needed to make a dedicated
-        # ModelChoiceField for Django REST framework, or transform the
-        # queryset into to easily handle the data. Leave for now.
         return [
             DRFIntegrationFormElementPluginProcessor(
-                field_class=ChoiceField,
+                field_class=ModelChoiceField,
                 field_kwargs=field_kwargs
             )
         ]

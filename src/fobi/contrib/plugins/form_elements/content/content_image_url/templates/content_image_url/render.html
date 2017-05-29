@@ -1,0 +1,8 @@
+{% load i18n %}
+            <p>
+                {% if plugin.data.url %}
+                    <img src="{{ plugin.data.url }}" alt="{{ plugin.data.alt }}"{% if thumb_size.0 %} width="{{ thumb_size.0 }}"{% endif %}{% if thumb_size.1 %} height="{{ thumb_size.1 }}" {% endif %}/>
+                {% else %}
+                    {% trans "No image provided!" %}
+                {% endif %}
+            </p>

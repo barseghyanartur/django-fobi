@@ -1,13 +1,14 @@
 from six import python_2_unicode_compatible
 
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext, ugettext_lazy as _
 
 from mezzanine.core.models import RichText
 from mezzanine.pages.models import Page
 
 from .helpers import (
-    get_form_template_choices, get_success_page_template_choices
+    get_form_template_choices,
+    get_success_page_template_choices,
 )
 
 __title__ = 'fobi.contrib.apps.mezzanine_integration.models'
@@ -69,7 +70,7 @@ class FobiFormPage(Page, RichText):
         help_text=_("Overrides the default success page text.")
     )
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
 
         app_label = 'fobi'
@@ -78,4 +79,4 @@ class FobiFormPage(Page, RichText):
         # db_table = 'fobi_fobiformpage'
 
     def __str__(self):
-        return _('Fobi form')
+        return ugettext('Fobi form')

@@ -91,7 +91,7 @@ Main features and highlights
   and "DjangoCMS admin style" theme (which is another simple theme with editing
   interface in style of `djangocms-admin-style
   <https://github.com/divio/djangocms-admin-style>`_).
-- Implemented integration with `Django REST framework
+- Implemented `integration with Django REST framework
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/drf_integration>`_.
 - Implemented `integration with FeinCMS
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/feincms_integration>`_
@@ -266,10 +266,11 @@ Or latest stable version from BitBucket:
         'fobi.contrib.plugins.form_elements.test.dummy',
         'easy_thumbnails', # Required by `content_image` plugin
         'fobi.contrib.plugins.form_elements.content.content_image',
+        'fobi.contrib.plugins.form_elements.content.content_image_url',
         'fobi.contrib.plugins.form_elements.content.content_text',
         'fobi.contrib.plugins.form_elements.content.content_video',
 
-        # `django-fobo` form handlers
+        # `django-fobi` form handlers
         'fobi.contrib.plugins.form_handlers.db_store',
         'fobi.contrib.plugins.form_handlers.http_repost',
         'fobi.contrib.plugins.form_handlers.mail',
@@ -1856,6 +1857,9 @@ complete and content rich.
 - `Content image
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_image/>`_:
   Insert an image.
+- `Content image URL
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_image_url/>`_:
+  Insert an image URL.
 - `Content text
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_text/>`_:
   Add text.

@@ -5,8 +5,11 @@ from fobi.base import BasePluginForm, get_theme
 from fobi.helpers import handle_uploaded_file
 
 from .settings import (
-    FIT_METHODS_CHOICES, DEFAULT_FIT_METHOD, DEFAULT_SIZE, SIZES,
-    IMAGES_UPLOAD_DIR
+    FIT_METHODS_CHOICES,
+    DEFAULT_FIT_METHOD,
+    DEFAULT_SIZE,
+    SIZES,
+    IMAGES_UPLOAD_DIR,
 )
 
 __title__ = 'fobi.contrib.plugins.form_elements.content.content_image.forms'

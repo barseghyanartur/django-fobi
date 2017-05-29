@@ -1,12 +1,11 @@
-==============================================================
 fobi.contrib.apps.drf_integration.form_elements.fields.decimal
-==============================================================
+##############################################################
 A ``django-fobi`` DecimalField plugin for integration with
 ``Django REST framework``. Makes use of the
 ``rest_framework.fields.DecimalField``.
 
 Installation
-============
+^^^^^^^^^^^^
 1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.decimal`` to
    the ``INSTALLED_APPS`` in your ``settings.py``.
 

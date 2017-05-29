@@ -1,4 +1,21 @@
 from __future__ import absolute_import, unicode_literals
+import os
+from nine.versions import (
+    DJANGO_GTE_1_10,
+    DJANGO_GTE_1_7,
+    DJANGO_GTE_1_8,
+    DJANGO_GTE_1_9,
+    DJANGO_LTE_1_7,
+)
+
+# Full filesystem path to the project.
+PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
+
+# Name of the directory for the project.
+PROJECT_DIRNAME = PROJECT_ROOT.split(os.sep)[-1]
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
 gettext = lambda s: s
 
@@ -139,12 +156,117 @@ USE_I18N = False
 #   * Receive x-headers
 INTERNAL_IPS = ("127.0.0.1",)
 
-# List of callables that know how to import templates from various sources.
-TEMPLATE_LOADERS = (
-    "django.template.loaders.filesystem.Loader",
-    "django.template.loaders.app_directories.Loader",
-    'django.template.loaders.eggs.Loader',
-)
+try:
+    from .local_settings import DEBUG_TEMPLATE
+except Exception as err:
+    DEBUG_TEMPLATE = False
+
+########################################################
+
+
+if DJANGO_GTE_1_10:
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            # 'APP_DIRS': True,
+            'DIRS': [os.path.join(PROJECT_ROOT, "templates")],
+            'OPTIONS': {
+                'context_processors': [
+                    "django.template.context_processors.debug",
+                    'django.template.context_processors.request',
+                    "django.contrib.auth.context_processors.auth",
+                    # "django.template.context_processors.i18n",
+                    # "django.template.context_processors.media",
+                    # "django.template.context_processors.static",
+                    "django.template.context_processors.tz",
+                    "django.contrib.messages.context_processors.messages",
+
+                    "mezzanine.conf.context_processors.settings",
+                    "mezzanine.pages.context_processors.page",
+
+                    "fobi.context_processors.theme",  # Important!
+                    "fobi.context_processors.dynamic_values",  # Optional
+                    # "context_processors.testing",  # Testing
+                ],
+                'loaders': [
+                    "django.template.loaders.filesystem.Loader",
+                    "django.template.loaders.app_directories.Loader",
+                    'django.template.loaders.eggs.Loader',
+                ],
+                'debug': DEBUG_TEMPLATE,
+            }
+        },
+    ]
+elif DJANGO_GTE_1_8:
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            # 'APP_DIRS': True,
+            'DIRS': [os.path.join(PROJECT_ROOT, "templates")],
+            'OPTIONS': {
+                'context_processors': [
+                    "django.contrib.auth.context_processors.auth",
+                    "django.template.context_processors.debug",
+                    "django.template.context_processors.i18n",
+                    "django.template.context_processors.media",
+                    "django.template.context_processors.static",
+                    "django.template.context_processors.tz",
+                    "django.contrib.messages.context_processors.messages",
+                    "django.template.context_processors.request",
+
+                    "mezzanine.conf.context_processors.settings",
+                    "mezzanine.pages.context_processors.page",
+
+                    "fobi.context_processors.theme",  # Important!
+                    "fobi.context_processors.dynamic_values",  # Optional
+                    # "context_processors.testing",  # Testing
+                ],
+                'loaders': [
+                    "django.template.loaders.filesystem.Loader",
+                    "django.template.loaders.app_directories.Loader",
+                    'django.template.loaders.eggs.Loader',
+                ],
+                'debug': DEBUG_TEMPLATE,
+            }
+        },
+    ]
+else:
+    TEMPLATE_DEBUG = DEBUG_TEMPLATE
+
+    # List of callables that know how to import templates from various
+    # sources.
+    TEMPLATE_LOADERS = [
+        "django.template.loaders.filesystem.Loader",
+        "django.template.loaders.app_directories.Loader",
+        'django.template.loaders.eggs.Loader',
+
+    ]
+    if DJANGO_GTE_1_7:
+        TEMPLATE_LOADERS.append('admin_tools.template_loaders.Loader')
+
+    TEMPLATE_CONTEXT_PROCESSORS = (
+        "django.contrib.auth.context_processors.auth",
+        "django.core.context_processors.debug",
+        "django.core.context_processors.i18n",
+        "django.core.context_processors.media",
+        "django.core.context_processors.static",
+        "django.core.context_processors.tz",
+        "django.contrib.messages.context_processors.messages",
+        "django.core.context_processors.request",
+        "fobi.context_processors.theme",  # Important!
+        "fobi.context_processors.dynamic_values",  # Optional
+        # "context_processors.testing",  # Testing
+
+        "mezzanine.conf.context_processors.settings",
+        "mezzanine.pages.context_processors.page",
+    )
+
+    TEMPLATE_DIRS = (
+        os.path.join(PROJECT_ROOT, "templates"),
+    )
+
+########################################################
+
 
 AUTHENTICATION_BACKENDS = ("mezzanine.core.auth_backends.MezzanineBackend",)
 
@@ -153,7 +275,7 @@ AUTHENTICATION_BACKENDS = ("mezzanine.core.auth_backends.MezzanineBackend",)
 STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
-#    'django.contrib.staticfiles.finders.DefaultStorageFinder',
+    # 'django.contrib.staticfiles.finders.DefaultStorageFinder',
 )
 
 # The numeric mode to set newly-uploaded files to. The value should be
@@ -187,14 +309,6 @@ DATABASES = {
 # PATHS #
 #########
 
-import os
-
-# Full filesystem path to the project.
-PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
-
-# Name of the directory for the project.
-PROJECT_DIRNAME = PROJECT_ROOT.split(os.sep)[-1]
-
 # Every cache key will get prefixed with this value - here we set it to
 # the name of the directory the project is in to try and use something
 # project specific.
@@ -222,13 +336,6 @@ MEDIA_ROOT = os.path.join(PROJECT_ROOT, *MEDIA_URL.strip("/").split("/"))
 # Package/module name to import the root urlpatterns from for the project.
 ROOT_URLCONF = "%s.urls" % PROJECT_DIRNAME
 
-# Put strings here, like "/home/html/django_templates"
-# or "C:/www/django/templates".
-# Always use forward slashes, even on Windows.
-# Don't forget to use absolute paths, not relative paths.
-TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, "templates"),)
-
-
 ################
 # APPLICATIONS #
 ################
@@ -251,15 +358,13 @@ INSTALLED_APPS = (
     "mezzanine.pages",
     "mezzanine.galleries",
     "mezzanine.twitter",
-    #"mezzanine.accounts",
-    #"mezzanine.mobile",
+    # "mezzanine.accounts",
+    # "mezzanine.mobile",
     
     # Third party apps used in the project
-    'south', # Database migration app
-    #'tinymce', # TinyMCE
-    'easy_thumbnails', # Thumbnailer
-    #'registration', # Auth views and registration app
-    #'localeurl', # Locale URL
+    'tinymce',  # TinyMCE
+    'easy_thumbnails',  # Thumbnailer
+    # 'registration', # Auth views and registration app
 
     # ***********************************************************************
     # ***********************************************************************
@@ -277,18 +382,18 @@ INSTALLED_APPS = (
     # ***********************************************************************
     # ************************ Bootstrap 3 theme ****************************
     # ***********************************************************************
-    'fobi.contrib.themes.bootstrap3', # Bootstrap 3 theme
+    'fobi.contrib.themes.bootstrap3',  # Bootstrap 3 theme
 
     # ***********************************************************************
     # ************************ Foundation 5 theme ***************************
     # ***********************************************************************
-    'fobi.contrib.themes.foundation5', # Foundation 5 theme
+    'fobi.contrib.themes.foundation5',  # Foundation 5 theme
     'fobi.contrib.themes.foundation5.widgets.form_handlers.db_store_foundation5_widget',
 
     # ***********************************************************************
     # **************************** Simple theme *****************************
     # ***********************************************************************
-    'fobi.contrib.themes.simple', # Simple theme
+    'fobi.contrib.themes.simple',  # Simple theme
 
     # ***********************************************************************
     # ***********************************************************************
@@ -314,7 +419,7 @@ INSTALLED_APPS = (
     'fobi.contrib.plugins.form_elements.fields.select',
     'fobi.contrib.plugins.form_elements.fields.select_model_object',
     'fobi.contrib.plugins.form_elements.fields.select_multiple',
-    #'fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects',
+    # 'fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects',
     'fobi.contrib.plugins.form_elements.fields.text',
     'fobi.contrib.plugins.form_elements.fields.textarea',
     'fobi.contrib.plugins.form_elements.fields.url',
@@ -358,24 +463,6 @@ INSTALLED_APPS = (
     # ***********************************************************************
     # ***********************************************************************
     'foo',
-)
-
-# List of processors used by RequestContext to populate the context.
-# Each one should be a callable that takes the request object as its
-# only parameter and returns a dictionary to add to the context.
-TEMPLATE_CONTEXT_PROCESSORS = (
-    "django.contrib.auth.context_processors.auth",
-    "django.contrib.messages.context_processors.messages",
-    "django.core.context_processors.debug",
-    "django.core.context_processors.i18n",
-    "django.core.context_processors.static",
-    "django.core.context_processors.media",
-    "django.core.context_processors.request",
-    "django.core.context_processors.tz",
-    "mezzanine.conf.context_processors.settings",
-    "mezzanine.pages.context_processors.page",
-    
-    "fobi.context_processors.theme", # Important!
 )
 
 # List of middleware classes to use. Order is important; in the request phase,
@@ -466,9 +553,9 @@ OPTIONAL_APPS = (
 # defined per machine.
 try:
     from local_settings import *
-except ImportError as e:
-    if "local_settings" not in str(e):
-        raise e
+except ImportError as err:
+    if "local_settings" not in str(err):
+        raise err
 
 
 ####################

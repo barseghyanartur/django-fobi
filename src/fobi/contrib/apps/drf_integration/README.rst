@@ -1,5 +1,5 @@
 fobi.contrib.apps.drf_integration
-=================================
+---------------------------------
 A ``django-fobi`` integration with ``Django REST framework``.
 
 Supported actions are:
@@ -9,27 +9,35 @@ Supported actions are:
 - `PUT`_: Submit form data.
 
 Live demo
----------
+~~~~~~~~~
 Live demo is available on Heroku.
 
 - `The core <https://django-fobi.herokuapp.com/>`_
 - `Django REST framework integration <https://django-fobi.herokuapp.com/api/>`_
 
 Supported fields
-----------------
+~~~~~~~~~~~~~~~~
 The following fields are supported.
 
 Content (presentational form elements)
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+######################################
+Unlike standard fields, ``content`` fields are purely presentational.
+You're not supposed to make write actions on them (it won't work). Neither
+will they be displayed in the browsable API (list/retrieve actions). However,
+they will be listed in the options action call. All content fields are of type
+"content".
+
 - content_image
+- content_image_url
 - content_text
 - content_video
 
 Fields
-~~~~~~
+######
 - boolean
 - checkbox_select_multiple
 - date
+- date_drop_down
 - datetime
 - decimal
 - email
@@ -55,18 +63,17 @@ Fields
 - url
 
 Not (yet) supported fields
---------------------------
+~~~~~~~~~~~~~~~~~~~~~~~~~~
 The following fields are not supported. Those marked with asterisk are planned
 to be supported in the upcoming releases.
 
-- date_drop_down
 - select_model_object
 - select_mptt_model_object
 - select_multiple_model_objects
 - select_multiple_mptt_model_objects
 
 Implementation details
-----------------------
+~~~~~~~~~~~~~~~~~~~~~~
 Each ``django-fobi`` plugin has its' own representative integration plugin
 within ``fobi.contrib.aps.drf_integration`` package.
 
@@ -82,6 +89,7 @@ the core plugins:
 - fobi.contrib.plugins.form_elements.fields.boolean
 - fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple
 - fobi.contrib.plugins.form_elements.fields.date
+- fobi.contrib.plugins.form_elements.fields.date_drop_down
 - fobi.contrib.plugins.form_elements.fields.datetime
 - fobi.contrib.plugins.form_elements.fields.decimal
 - fobi.contrib.plugins.form_elements.fields.email
@@ -106,6 +114,7 @@ the core plugins:
 - fobi.contrib.plugins.form_elements.fields.time
 - fobi.contrib.plugins.form_elements.fields.url
 - fobi.contrib.plugins.form_elements.content.content_image
+- fobi.contrib.plugins.form_elements.content.content_image_url
 - fobi.contrib.plugins.form_elements.content.content_text
 - fobi.contrib.plugins.form_elements.content.content_video
 - fobi.contrib.plugins.form_handlers.db_store
@@ -118,6 +127,7 @@ in the ``INSTALLED_APPS`` as well:
 - fobi.contrib.apps.drf_integration.form_elements.fields.boolean
 - fobi.contrib.apps.drf_integration.form_elements.fields.checkbox_select_multiple
 - fobi.contrib.apps.drf_integration.form_elements.fields.date
+- fobi.contrib.apps.drf_integration.form_elements.fields.date_drop_down
 - fobi.contrib.apps.drf_integration.form_elements.fields.datetime
 - fobi.contrib.apps.drf_integration.form_elements.fields.decimal
 - fobi.contrib.apps.drf_integration.form_elements.fields.email
@@ -142,6 +152,7 @@ in the ``INSTALLED_APPS`` as well:
 - fobi.contrib.apps.drf_integration.form_elements.fields.time
 - fobi.contrib.apps.drf_integration.form_elements.fields.url
 - fobi.contrib.apps.drf_integration.form_elements.content.content_image
+- fobi.contrib.apps.drf_integration.form_elements.content.content_image_url
 - fobi.contrib.apps.drf_integration.form_elements.content.content_text
 - fobi.contrib.apps.drf_integration.form_elements.content.content_video
 - fobi.contrib.apps.drf_integration.form_handlers.db_store
@@ -149,9 +160,9 @@ in the ``INSTALLED_APPS`` as well:
 - fobi.contrib.apps.drf_integration.form_handlers.mail
 
 Installation
-------------
+~~~~~~~~~~~~
 Versions
-~~~~~~~~
+########
 Was made with ``djangorestframework`` 3.6.2. May work on earlier versions,
 although not guaranteed.
 
@@ -159,7 +170,7 @@ See the `requirements file
 <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements/djangorestframework.txt>`_.
 
 your_project/settings.py
-~~~~~~~~~~~~~~~~~~~~~~~~
+########################
 See the `example settings file
 <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/settings_bootstrap3_theme_drf_integration.py>`_.
 
@@ -206,6 +217,7 @@ See the `example settings file
 
         # DRF integration form element plugins - presentational
         'fobi.contrib.apps.drf_integration.form_elements.content.content_image',
+        'fobi.contrib.apps.drf_integration.form_elements.content.content_image_url',
         'fobi.contrib.apps.drf_integration.form_elements.content.content_text',
         'fobi.contrib.apps.drf_integration.form_elements.content.content_video',
 
@@ -217,7 +229,7 @@ See the `example settings file
     ]
 
 your_project/urls.py
-~~~~~~~~~~~~~~~~~~~~
+####################
 Add the following code to the main ``urls.py`` of your project:
 
 .. code-block:: python
@@ -230,14 +242,14 @@ Add the following code to the main ``urls.py`` of your project:
         ]
 
 Usage
------
+~~~~~
 If you have followed the steps above precisely, you would be able to access
 the API using ``http://localhost:8000/api/fobi-form-entry/``.
 
 Actions/methods supported:
 
 LIST
-~~~~
+####
 .. code-block:: text
 
     GET /api/fobi-form-entry/
@@ -247,7 +259,7 @@ public forms. Authenticated users would see their own forms in addition
 to the public forms.
 
 OPTIONS
-~~~~~~~
+#######
 .. code-block:: text
 
     OPTIONS /api/fobi-form-entry/{FORM_SLUG}/
@@ -256,7 +268,7 @@ Lists all field options for the selected form. Private forms would be only
 visible to authenticated users.
 
 PUT
-~~~
+###
 .. code-block:: text
 
     PUT /api/fobi-form-entry/{FORM_SLUG}/
@@ -264,11 +276,11 @@ PUT
     {DATA}
 
 Callbacks
----------
+~~~~~~~~~
 Callbacks work just the same way the core callbacks work.
 
 fobi_form_callbacks.py
-~~~~~~~~~~~~~~~~~~~~~~
+######################
 .. code-block:: python
 
     from fobi.base import (
@@ -309,7 +321,7 @@ fobi_form_callbacks.py
             logger.debug("Damn! You've made a mistake, boy!")
 
 Testing
--------
+~~~~~~~
 To test Django REST framework integration package only, run the following
 command:
 
@@ -324,5 +336,5 @@ or use plain Django tests:
     ./manage.py test fobi.tests.test_drf_integration --settings=settings.test
 
 Limitations
------------
+~~~~~~~~~~~
 Certain fields are not available yet (relational fields).

@@ -1523,6 +1523,11 @@ class FormWizardView(DynamicSessionWizardView):
         wasn't successful), the next step (if the current step was stored
         successful) or the done view (if no more steps are available)
         """
+        # Without this fix POST actions breaks on Django 1.11. Introduce
+        # a better fix if you can.
+        if versions.DJANGO_GTE_1_11:
+            self.request.POST._mutable = True
+
         # Look for a wizard_goto_step element in the posted data which
         # contains a valid step name. If one was found, render the requested
         # form. (This makes stepping back a lot easier).

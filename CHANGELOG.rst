@@ -15,6 +15,57 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.11.11
+-------
+2017-05-29
+
+- Minor fixes in ``content_text`` ``drf_integration`` plugin.
+- Added ``imageurl`` support to the ``mailchimp_impoter`` plugin.
+
+0.11.10
+-------
+2017-05-26
+
+- Minor fixes in form-wizards on Django 1.11.
+
+0.11.9
+------
+2017-05-24
+
+- Mezzanine integration updated to work with Mezzanine 4.2.3.
+- Fixes in date-drop-down plugin when using form wizards.
+
+0.11.8
+------
+2017-05-17
+
+- ``ContentImageURL`` plugin added.
+- Minor Python3 fixes in ``db_store`` plugin (related to export of forms to
+  ``xls`` format).
+
+0.11.7
+------
+2017-05-16
+
+- Fixed in ``fobi.integration`` package related to Django 1.10 and higher.
+- FeinCMS integration updated (only migrations added) to work with
+  FeinCMS 1.13.2.
+- DjangoCMS integration updated to work with DjangoCMS 3.4.3.
+
+0.11.6
+------
+2017-05-15
+
+- Minor fixes in ``drf_integration`` app, added GET/detail actions tests.
+
+0.11.5
+------
+2017-05-15
+
+- Added ``date_drop_down`` to ``drf_integration`` app.
+- Fixed dependencies issue.
+- Added dedicated requirements for specific Django versions.
+
 0.11.4
 ------
 2017-05-12
@@ -130,8 +181,8 @@ written custom form element plugins - update your code.
 - Added tests for mailchimp integration plugin.
 - Moving all plugins to base submodules of the correspondent sub 
   packages.
-- Add missing whitespace toe the `help_text` of the `title` field of
-  `FormEntry` and `FormWizardEntry` models.
+- Add missing whitespace to the ``help_text`` of the ``title`` field of
+  ``FormEntry`` and ``FormWizardEntry`` models.
 - Disable GoogleAnalytics while testing (guess what - this change speeds up 
   selenium tests twice).
 - Docs updated.

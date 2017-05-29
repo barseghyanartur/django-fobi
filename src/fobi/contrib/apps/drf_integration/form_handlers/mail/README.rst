@@ -1,12 +1,11 @@
-====================================================
 fobi.contrib.apps.drf_integration.form_handlers.mail
-====================================================
+####################################################
 A ``django-fobi`` Mail form handler plugin for integration
 with ``Django REST framework``. Submits the form data by email to the
 specified email address.
 
 Installation
-============
+^^^^^^^^^^^^
 1. Add ``fobi.contrib.apps.drf_integration.form_handlers.mail`` to the
    ``INSTALLED_APPS`` in your ``settings.py``.
 

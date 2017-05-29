@@ -139,3 +139,35 @@ class FobiDjangoRestFrameworkIntegrationTests(APITestCase):
         self.assertEqual(put_response.status_code, status.HTTP_200_OK)
         self.assertEqual(dict(put_response.data),
                          dict(TEST_DYNAMIC_FORMS_PUT_DATA))
+
+    def test_08_get_action_public_form(self):
+        """Test OPTIONS action call for public form."""
+        # Testing GET action call
+        get_response = self.client.get(self.url)
+        self.assertEqual(get_response.status_code, status.HTTP_200_OK)
+        self.assertIn('url', get_response.data)
+        self.assertIn('id', get_response.data)
+        self.assertIn('slug', get_response.data)
+        self.assertEqual(get_response.data['id'], self.form_entry.pk)
+        self.assertEqual(get_response.data['slug'], self.form_entry.slug)
+
+    def test_09_get_action_non_public_form_auth_user(self):
+        """Test GET action call for authorised user for non-public form."""
+        # Testing GET action call
+        self.client.login(username=FOBI_TEST_USER_USERNAME,
+                          password=FOBI_TEST_USER_PASSWORD)
+        get_response = self.client.get(self.non_public_url)
+        self.assertEqual(get_response.status_code, status.HTTP_200_OK)
+        self.assertIn('url', get_response.data)
+        self.assertIn('id', get_response.data)
+        self.assertIn('slug', get_response.data)
+        self.assertEqual(get_response.data['id'],
+                         self.non_public_form_entry.pk)
+        self.assertEqual(get_response.data['slug'],
+                         self.non_public_form_entry.slug)
+
+    def test_10_fail_get_action_non_public_form(self):
+        """Test GET action call fail test for non-public form."""
+        # Testing GET action call
+        get_response = self.client.get(self.non_public_url)
+        self.assertEqual(get_response.status_code, status.HTTP_404_NOT_FOUND)

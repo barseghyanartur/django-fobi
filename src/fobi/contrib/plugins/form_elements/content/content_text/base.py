@@ -49,11 +49,7 @@ class ContentTextPlugin(FormElementPlugin):
 
     def get_rendered_text(self):
         """Get rendered image."""
-
-        context = {
-            'plugin': self,
-        }
-        rendered_text = render_to_string('content_image/render.html', context)
+        rendered_text = "<p>{0}</p>".format(smart_str(self.data.text))
         return rendered_text
 
     def get_form_field_instances(self, request=None, form_entry=None,

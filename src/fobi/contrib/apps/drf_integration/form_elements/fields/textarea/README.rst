@@ -1,12 +1,11 @@
-===============================================================
 fobi.contrib.apps.drf_integration.form_elements.fields.textarea
-===============================================================
+###############################################################
 A ``django-fobi`` CharField plugin for integration with
 ``Django REST framework``. Makes use of the
 ``rest_framework.fields.CharField``.
 
 Installation
-============
+^^^^^^^^^^^^
 1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.textarea`` to
    the ``INSTALLED_APPS`` in your ``settings.py``.
 

@@ -14,6 +14,7 @@ ghostdriver.log
 *.py,cover
 /.idea/
 codebin.py
+examples/mezzanine_example/dev.db
 
 MANIFEST.in~
 MIND_BUCKET.rst

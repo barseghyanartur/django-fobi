@@ -42,8 +42,6 @@ class ContentTextPlugin(IntegrationFormElementPlugin,
 
         rendered_text = form_element_plugin.get_rendered_text()
 
-        LOGGER.debug(rendered_text)
-
         field_kwargs = {
             'initial': rendered_text,
             'default': rendered_text,

@@ -1,12 +1,11 @@
-==========================================================================
 fobi.contrib.apps.drf_integration.form_elements.fields.select_model_object
-==========================================================================
-A ``django-fobi`` ChoiceField plugin for integration with
+##########################################################################
+A ``django-fobi`` ModelChoiceField plugin for integration with
 ``Django REST framework``. Makes use of the
-``rest_framework.fields.ChoiceField``.
+``fobi.contrib.apps.drf_integration.fields.py.ModelChoiceField``.
 
 Installation
-============
+^^^^^^^^^^^^
 1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.select_model_object``
    to the ``INSTALLED_APPS`` in your ``settings.py``.
 

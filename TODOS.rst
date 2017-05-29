@@ -47,15 +47,31 @@ Regarding the form wizards
 - Add selenium tests for form wizards.
 - Make `foundation5` and `django-admin-theme` themes to reflect the latest
   GUI changes (form wizards).
++ Fix bug with wizards https://django-fobi.herokuapp.com/en/fobi/wizard-view/test-wiz/
+  When having a date-drop-down plugin on a page, on submit you get
+  TypeError at /en/fobi/wizard-view/test-wiz/
+  datetime.date(2001, 1, 1) is not JSON serializable
+  Surprisingly, with date or datetime plugins we don't get such errors.
+  In a normal form view, also not. It's something specific to form-wizards.
 
-Regarding the djangorestframework integration
----------------------------------------------
+Regarding the Django REST framework integration
+-----------------------------------------------
 + Submit form functionality.
 + Advanced plugins, such as file plugin.
++ Fix representation of the content_text plugin, as now "No image provided"
+  text is rendered instead of an text.
 - Add image plugin.
 - Basic foreign key relation plugins (ForeignKey, ManyToMany, OneToMany).
 - Advanced foreign key relation plugins (MPTT).
 - Think of handling the wizards.
+
+Regarding Heroku demo
+---------------------
+- See if we can use `django-storages
+  <https://github.com/jschneier/django-storages>`_ for saving the files,
+  because Heroku removes uploaded media. A dedicated drop-box storage would
+  do.
+- Find out what SMTP server could be used for sending emails from Heroku demo.
 
 Roadmap
 -------
@@ -65,8 +81,12 @@ Roadmap
 
 Uncategorised
 -------------
+- Think of moving the translation strings from in stored-in=database level to
+  lazily-translated level (so that in some plugins, for instance - in database
+  translations happen lazily). For mail plugin that should not be the case,
+  since it's sent instantly.
+- Update translations.
 - Implement a set of django-treebeard plugins (as an alternative to MPTT).
-- Implement external image plugin.
 - Implement the clone form functionality.
 - Implement the clone form wizard functionality.
 - Rethink templating of the integration packages (feincms_integration, 
@@ -81,11 +101,53 @@ Uncategorised
 - Possibly, make plugins (same as form field plugins) for the thanks page of
   the form wizard.
 - Solve the issue with session/post data when plugin on the next step wants
-  to access data from the previous (not there should be an intermediate step
+  to access data from the previous (now there should be an intermediate step
   for form data first to be written into the session).
 - Make sure form element plugin widgets allow more customisations than
   they do now. For instance, setting an additional class or additional data
   attributes should be made really easy. A must!
+- Translate German and Russian URLs.
+- See if it's possible to make the "simple" theme base template (for Django
+  admin) as much generic so that change between versions doesn't cause
+  styling issues.
+- Make sure the existing "simple" theme works very well (in looks) in
+  Django 1.8, 1.9 and 1.10.
+- Nicer styling for the radio button (Foundation 5 theme).
+- Nicer styling for the radio button (Simple theme).
+- Make it possible to provide an alternative rendering of the form field
+  in the correspondent form field plugin widget (in such a way, that it
+  falls back to the default rendering when no custom is available and
+  uses the custom rendering if available). This should be done on the
+  widget level, so that it's not necessary to update the theme in case of
+  customisations made for one or more form field plugins (the rendering
+  part).
+- Split the ``FOBI_RESTRICT_PLUGIN_ACCESS`` into two: one for form elements
+  and one for form handlers.
+- Improve the "simple" theme for Django 1.8, 1.9 and 1.10 (tiny bits of
+  styling).
+- Edit form test.
+- Edit form element tests.
+- Edit from handler tests.
+- Delete form tests.
+- List all settings overrides in docs
+  https://github.com/barseghyanartur/django-fobi#tuning
+- Move reusable parts (for example, the `get_form_field_type` and
+  `get_form_hidden_fields_errors` template tags into another template tag
+  library or product to reuse it in Django-dash as well. Move the permission
+  code from `decorators` into a separate package.
+- Update the `djangocms_admin_style` theme, since it stopped looking nice
+  with the latest versions of the packages.
+- Add support for `birthday` field of MailChimp (they are
+  ignored at the moment).
+- Since tests have been made quite general, create them for all contrib
+  form elements and handlers (not yet for things like CAPTCHA).
+- Properly document the form importers API.
++ Add support for `imageurl` field of MailChimp (they are
+  ignored at the moment).
++ django-rest-framework integration.
++ Update Mezzanine, DjangoCMS and FeinCMS integration to work with Django 1.8,
+  1.9, 1.10 and 1.11.
++ Implement external image plugin.
 + Finish the NoneField.
 + At the moment, NoneField is imported in the function scope. See if that works
   already to move
@@ -324,47 +386,43 @@ Uncategorised
 + In the updated GUI (bootstrap3), if form names are too long, the layout
   doesn't look nice anymore.
 + Somehow, the drag and drop of the form elements got broken. Fix ASAP.
-- Since tests have been made quite general, create them for all contrib
-  form elements and handlers (not yet for things like CAPTCHA).
-- Translate German and Russian URLs.
-- See if it's possible to make the "simple" theme base template (for Django
-  admin) as much generic so that change between versions doesn't cause
-  styling issues.
-- Make sure the existing "simple" theme works very well (in looks) in
-  Django 1.8, 1.9 and 1.10.
-- Nicer styling for the radio button (Foundation 5 theme).
-- Nicer styling for the radio button (Simple theme).
-- Make it possible to provide an alternative rendering of the form field
-  in the correspondent form field plugin widget (in such a way, that it
-  falls back to the default rendering when no custom is available and
-  uses the custom rendering if available). This should be done on the
-  widget level, so that it's not necessary to update the theme in case of
-  customisations made for one or more form field plugins (the rendering
-  part).
-- Split the ``FOBI_RESTRICT_PLUGIN_ACCESS`` into two: one for form elements
-  and one for form handlers.
-- Improve the "simple" theme for Django 1.8, 1.9 and 1.10 (tiny bits of
-  styling).
-- Edit form test.
-- Edit form element tests.
-- Edit from handler tests.
-- Delete form tests.
-- List all settings overrides in docs
-  https://github.com/barseghyanartur/django-fobi#tuning
-- Move reusable parts (for example, the `get_form_field_type` and
-  `get_form_hidden_fields_errors` template tags into another template tag
-  library or product to reuse it in Django-dash as well. Move the permission
-  code from `decorators` into a separate package.
-- Update the `djangocms_admin_style` theme, since it stopped looking nice
-  with the latest versions of the packages.
-- Add support for `imageurl` and `birthday` fields of MailChimp (they are
-  ignored at the moment).
 + Fix layout issue on step 2 of the MailChimp import (step 2 of the wizard).
-- Properly document the form importers API.
-- django-rest-framework integration.
 
 Should haves
 ============
+- Add `django-treebeard` field as an alternative (vs MPTT fields).
+- Make sure that all views are 100% AJAX ready.
+- Wagtail integration (in progress since October 2016).
+- Document the changes.
+- Find out why subclassing the ``select_model_object`` plugin didn't work.
+- Rename the ``simple`` theme into ``django_admin_style_theme``.
+- Make a real ``birthday`` field (with no year selection).
+- Fix the view saved form entries template (nicer look) for Foundation 5
+  theme.
+- Finish form importers concept and the MailChimp form importer plugin.
+- Make sure it's possible to assign CSS and JS files to the form handler
+  plugins.
+- In the widget for FeinCMS make sure to list the usernames along with
+  the form names.
+- Repeat for the form callbacks the same what's already done to prioritise 
+  the form handlers execution order.
+- Finish the template tag ``get_form_field_type`` which should get the
+  field type of the field given.
+- Think of a different URL strategy. Perhaps not a bad idea to have a 
+  username mentioned in the path, so that the forms are tracked by their
+  unique pair (username, slug). That would make the URLs more semantic (
+  "barseghyanartur/test-form-1" instead of "test-form-1-N").
+- Once the form ordering has been changed, show a message and warn if user 
+  is about to leave the page without saving the changes.
+- Make it possible to create fieldsets (implement as containers).
+- Make it possible (just checkbox) to set a fieldset as cloneable.
+- Think of adding hooks so that custom actions are possible without template
+  changes (for example, add a new import app for importing the forms from
+  MailChimp).
+- Think of making putting several actions (repair) into the management
+  interface (UI).
+- Make Django's CSRF validation optional.
+- Quiz mode (randomize the ordering of the form elements).
 + Add Django 1.7 support.
 + Add `max` attribute to the date and datetime fields. Also HTML5.
 + Add an example of how to extend the existing themes with additional
@@ -376,7 +434,7 @@ Should haves
 + Place a basic README.rst in each plugin.
 + As another prove of concept, write an integration app for Django-CMS.
 + Add data export features to ``db_store`` plugin.
-+ Make 3 base templates for the DjangoCMS integration app. Save things in 
++ Make 3 base templates for the DjangoCMS integration app. Save things in
   settings and make the template to be chosen depending on the fobi_theme (
   likely, move the declaration of the FOBI_THEME above the declaration of the
   Django-CMS templates).
@@ -411,48 +469,9 @@ Should haves
   setting initial doesn't seem to work.
 + Make it possible to export form to JSON format. It should be possible to
   re-created form from saved JSON sa well.
-- Add `django-treebeard` field as an alternative (vs MPTT fields).
-- Make sure that all views are 100% AJAX ready.
-- Wagtail integration (in progress since October 2016).
-- Document the changes.
-- Find out why subclassing the ``select_model_object`` plugin didn't work.
-- Rename the ``simple`` theme into ``django_admin_style_theme``.
-- Make a real ``birthday`` field (with no year selection).
-- Fix the view saved form entries template (nicer look) for Foundation 5
-  theme.
-- Finish form importers concept and the MailChimp form importer plugin.
-- Make sure it's possible to assign CSS and JS files to the form handler
-  plugins.
-- In the widget for FeinCMS make sure to list the usernames along with
-  the form names.
-- Repeat for the form callbacks the same what's already done to prioritise 
-  the form handlers execution order.
-- Finish the template tag ``get_form_field_type`` which should get the
-  field type of the field given.
-- Think of a different URL strategy. Perhaps not a bad idea to have a 
-  username mentioned in the path, so that the forms are tracked by their
-  unique pair (username, slug). That would make the URLs more semantic (
-  "barseghyanartur/test-form-1" instead of "test-form-1-N").
-- Once the form ordering has been changed, show a message and warn if user 
-  is about to leave the page without saving the changes.
-- Make it possible to create fieldsets (implement as containers).
-- Make it possible (just checkbox) to set a fieldset as cloneable.
-- Think of adding hooks so that custom actions are possible without template
-  changes (for example, add a new import app for importing the forms from
-  MailChimp).
-- Think of making putting several actions (repair) into the management
-  interface (UI).
-- Make Django's CSRF validation optional.
-- Quiz mode (randomize the ordering of the form elements).
 
 Could haves
 ===========
-+ Add Dutch translation.
-+ Add Russian translation.
-+ Add more HTML5 fields?
-+ Finish select multiple model objects plugin (issue with processing form data
-  on form submit).
-+ Make a django theme for jQuery UI.
 - Fix the ``input_format`` option in the date and datetime fields.
 - Think of making it possible to change (or even better - regenerate) the
   form slug (preferably - yes).
@@ -467,7 +486,6 @@ Could haves
   least the FeinCMS).
 - Make sure that the form view return can be overridden?
 - Add datetime range and date range fields.
-+ Configure defaults values of each plugin in projects' settings module.
 - TinyMCE form element cosmetic plugin.
 - In the cosmetic image plugin, render the sized image.
 - Add Armenian translation.
@@ -479,11 +497,18 @@ Could haves
 - Skeleton framework integration (theme).
 - Baseline framework integration (theme).
 - Amazium framework integration (theme).
++ Configure defaults values of each plugin in projects' settings module.
++ Add Dutch translation.
++ Add Russian translation.
++ Add more HTML5 fields?
++ Finish select multiple model objects plugin (issue with processing form data
+  on form submit).
++ Make a django theme for jQuery UI.
 
 Would haves
 ===========
 - Conditional inputs.
-+ Form wizards (combine forms with each other, having one at a step, finally -
-  send it all as one).
 - Perhaps, completely re-write the base template for the foundation 5 theme?
 - Make it possible to design a form based on existing models.
++ Form wizards (combine forms with each other, having one at a step, finally -
+  send it all as one).

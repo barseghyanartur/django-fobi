@@ -1613,6 +1613,7 @@ class FormElementPlugin(BasePlugin):
         else:
             try:
                 custom_field_instances = self.get_custom_field_instances(
+                    integrate_with=integrate_with,
                     request=request,
                     form_entry=form_entry,
                     form_element_entries=form_element_entries,
@@ -1837,7 +1838,7 @@ class FormHandlerPlugin(BasePlugin):
             if response:
                 return response
             else:
-                return (True, None)
+                return True, None
         return (
             False,
             _("No integration handler for plugin {} found.").format(self.uid)
@@ -1868,7 +1869,7 @@ class FormHandlerPlugin(BasePlugin):
                     **kwargs
                 )
             except Exception as err:
-                return (False, err)
+                return False, err
 
     def custom_actions(self, form_entry, request=None):
         """Custom actions.

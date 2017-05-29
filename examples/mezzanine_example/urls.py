@@ -25,7 +25,7 @@ fobi_theme_home_template_mapping = {
 fobi_home_template = fobi_theme_home_template_mapping.get(
     DEFAULT_THEME,
     'home/base.html'
-    )
+)
 
 FOBI_EDIT_URLS_PREFIX = ''
 if 'simple' == DEFAULT_THEME:
@@ -40,32 +40,31 @@ admin.autodiscover()
 # Add the urlpatterns for any custom Django applications here.
 # You can also change the ``home`` view to add your own functionality
 # to the project's homepage.
+urlpatterns = []
 
-urlpatterns = i18n_patterns([
-    # Change the admin prefix here to use an alternate URL for the
-    # admin interface, which would be marginally more secure.
-    ("^admin/", include(admin.site.urls)),
-])
+# urlpatterns += i18n_patterns([
+#     # Change the admin prefix here to use an alternate URL for the
+#     # admin interface, which would be marginally more secure.
+#     url("^admin/", include(admin.site.urls)),
+# ])
 
 # ***********
 # Fobi patterns
 # ***********
 
 urlpatterns += [
+    url("^admin/", include(admin.site.urls)),
+
     # DB Store plugin URLs
     url(r'^fobi/plugins/form-handlers/db-store/',
         include('fobi.contrib.plugins.form_handlers.db_store.urls')),
-        #, namespace='fobi'
 
     # django-fobi URLs:
-    url(r'^fobi/', include('fobi.urls.view')), #, namespace='fobi'
+    url(r'^fobi/', include('fobi.urls.view')),
     url(r'^{0}fobi/'.format(FOBI_EDIT_URLS_PREFIX), include('fobi.urls.edit')),
-        #, namespace='fobi'
 
-    url(r'^fobi-home/$', TemplateView.as_view(template_name=fobi_home_template)),
-
-    # django-fobi public forms contrib app:
-    #url(r'^', include('fobi.contrib.apps.public_forms.urls')),
+    url(r'^fobi-home/$',
+        TemplateView.as_view(template_name=fobi_home_template)),
 ]
 
 # ***********

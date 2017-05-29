@@ -1,12 +1,11 @@
-==============================================================
 fobi.contrib.apps.drf_integration.form_elements.fields.integer
-==============================================================
+##############################################################
 A ``django-fobi`` IntegerField plugin for integration with
 ``Django REST framework``. Makes use of the
 ``rest_framework.fields.IntegerField``.
 
 Installation
-============
+^^^^^^^^^^^^
 1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.integer`` to
    the ``INSTALLED_APPS`` in your ``settings.py``.
 
