@@ -20,7 +20,7 @@ Create a form
 View/edit form
 ~~~~~~~~~~~~~~
 Form elements
-+++++++++++++
+#############
 .. [1.3] Edit form - form elements tab active, no elements yet
 
 .. image:: _static/bootstrap3/03_edit_form_-_form_elements_tab_active_-_no_elements_yet.png
@@ -42,7 +42,7 @@ Form elements
     :scale: 80 %
 
 Form handlers
-+++++++++++++
+#############
 
 .. [1.7] Edit form - form handlers tab active, no handlers yet
 

@@ -7,6 +7,9 @@ Subpackages
 .. toctree::
 
     fobi.contrib.apps.drf_integration.form_elements.content.content_image
+    fobi.contrib.apps.drf_integration.form_elements.content.content_image_url
+    fobi.contrib.apps.drf_integration.form_elements.content.content_text
+    fobi.contrib.apps.drf_integration.form_elements.content.content_video
 
 Module contents
 ---------------

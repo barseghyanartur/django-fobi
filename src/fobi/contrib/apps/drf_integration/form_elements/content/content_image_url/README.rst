@@ -1,19 +1,19 @@
-fobi.contrib.apps.drf_integration.form_elements.fields.content_image_url
-########################################################################
+fobi.contrib.apps.drf_integration.form_elements.content.content_image_url
+#########################################################################
 A ``django-fobi`` ContentImageURL plugin for integration with
 ``Django REST framework``. Makes use of the
 ``fobi.contrib.apps.drf_integration.fields.ContentImage``.
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.content_image_url``
+1. Add ``fobi.contrib.apps.drf_integration.form_elements.content.content_image_url``
    to the ``INSTALLED_APPS`` in your ``settings.py``.
 
 .. code-block:: python
 
     INSTALLED_APPS = (
         # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.content_image_url',
+        'fobi.contrib.apps.drf_integration.form_elements.content.content_image_url',
         # ...
     )
 

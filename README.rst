@@ -2322,6 +2322,34 @@ PhantomJS.
    If you want to use Firefox for testing, remove or comment-out the
    ``PHANTOM_JS_EXECUTABLE_PATH`` setting.
 
+Writing documentation
+=====================
+Keep the following hierarchy.
+
+.. code-block:: text
+
+    =====
+    title
+    =====
+
+    header
+    ======
+
+    sub-header
+    ----------
+
+    sub-sub-header
+    ~~~~~~~~~~~~~~
+
+    sub-sub-sub-header
+    ##################
+
+    sub-sub-sub-sub-header
+    ^^^^^^^^^^^^^^^^^^^^^^
+
+    sub-sub-sub-sub-sub-header
+    ++++++++++++++++++++++++++
+
 Troubleshooting
 ===============
 If you get a ``FormElementPluginDoesNotExist`` or a

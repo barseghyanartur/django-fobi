@@ -108,6 +108,14 @@ fobi.migrations.0013_formwizardentry_show_all_navigation_buttons module
     :undoc-members:
     :show-inheritance:
 
+fobi.migrations.0014_auto_20170516_1413 module
+----------------------------------------------
+
+.. automodule:: fobi.migrations.0014_auto_20170516_1413
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

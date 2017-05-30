@@ -28,14 +28,6 @@ fobi.contrib.apps.drf_integration.base module
     :undoc-members:
     :show-inheritance:
 
-fobi.contrib.apps.drf_integration.codebin module
-------------------------------------------------
-
-.. automodule:: fobi.contrib.apps.drf_integration.codebin
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 fobi.contrib.apps.drf_integration.dynamic module
 ------------------------------------------------
 
@@ -56,6 +48,14 @@ fobi.contrib.apps.drf_integration.helpers module
 ------------------------------------------------
 
 .. automodule:: fobi.contrib.apps.drf_integration.helpers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+fobi.contrib.apps.drf_integration.metadata module
+-------------------------------------------------
+
+.. automodule:: fobi.contrib.apps.drf_integration.metadata
     :members:
     :undoc-members:
     :show-inheritance:
