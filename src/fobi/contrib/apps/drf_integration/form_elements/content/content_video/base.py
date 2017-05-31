@@ -40,6 +40,7 @@ class ContentVideoPlugin(IntegrationFormElementPlugin,
                                    **kwargs):
         """Get form field instances."""
         rendered_video = form_element_plugin.get_rendered_video()
+        raw_data = form_element_plugin.get_raw_data()
 
         field_kwargs = {
             'initial': rendered_video,
@@ -47,12 +48,19 @@ class ContentVideoPlugin(IntegrationFormElementPlugin,
             'required': False,
             'label': '',
             'read_only': True,
-            'raw_data': form_element_plugin.get_raw_data(),
+            'raw_data': raw_data,
+        }
+        field_metadata = {
+            'type': 'content',
+            'contenttype': 'video',
+            'content': rendered_video,
+            'raw_data': raw_data
         }
 
         return [
             DRFIntegrationFormElementPluginProcessor(
                 field_class=ContentVideoField,
-                field_kwargs=field_kwargs
+                field_kwargs=field_kwargs,
+                field_metadata=field_metadata
             )
         ]

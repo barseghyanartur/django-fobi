@@ -41,12 +41,17 @@ class RegexInputPlugin(IntegrationFormFieldPlugin,
             'help_text': form_element_plugin.data.help_text,
             'regex': form_element_plugin.data.regex,
         }
+        field_metadata = {
+            'placeholder': form_element_plugin.data.placeholder,
+            'regex': form_element_plugin.data.regex,
+        }
         if form_element_plugin.data.max_length:
             field_kwargs['max_length'] = form_element_plugin.data.max_length
 
         return [
             DRFIntegrationFormElementPluginProcessor(
                 field_class=RegexField,
-                field_kwargs=field_kwargs
+                field_kwargs=field_kwargs,
+                field_metadata=field_metadata
             )
         ]

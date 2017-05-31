@@ -39,6 +39,10 @@ class FloatInputPlugin(IntegrationFormFieldPlugin,
             'label': form_element_plugin.data.label,
             'help_text': form_element_plugin.data.help_text,
         }
+        field_metadata = {
+            'placeholder': form_element_plugin.data.placeholder
+        }
+
         if form_element_plugin.data.initial:
             field_kwargs['initial'] = float(form_element_plugin.data.initial)
 
@@ -53,6 +57,7 @@ class FloatInputPlugin(IntegrationFormFieldPlugin,
         return [
             DRFIntegrationFormElementPluginProcessor(
                 field_class=FloatField,
-                field_kwargs=field_kwargs
+                field_kwargs=field_kwargs,
+                field_metadata=field_metadata
             )
         ]

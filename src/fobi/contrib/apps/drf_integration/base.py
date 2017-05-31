@@ -36,7 +36,7 @@ LOGGER = logging.getLogger(__name__)
 class DRFIntegrationFormElementPluginProcessor(
     IntegrationFormElementPluginProcessor
 ):
-    """django-rest-framework field instance processor."""
+    """Django REST framework field instance processor."""
 
     def __init__(self, *args, **kwargs):
         super(DRFIntegrationFormElementPluginProcessor, self).__init__(
@@ -45,6 +45,7 @@ class DRFIntegrationFormElementPluginProcessor(
         )
         self.field_class = kwargs.get('field_class')
         self.field_kwargs = kwargs.get('field_kwargs', {})
+        self.field_metadata = kwargs.get('field_metadata', {})
         self.form_element_plugin = kwargs.get('form_element_plugin')
         self.data = self.form_element_plugin.data \
             if self.form_element_plugin \

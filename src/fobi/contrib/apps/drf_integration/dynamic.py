@@ -64,6 +64,7 @@ def get_declared_fields(form_entry,
                         has_value=None):
     """Get declared fields."""
     declared_fields = []
+    declared_fields_metadata = []
     if form_element_entries is None:
         form_element_entries = form_entry.formelemententry_set.all()
 
@@ -88,17 +89,30 @@ def get_declared_fields(form_entry,
                 )
             for plugin_custom_field_instance \
                     in plugin_custom_field_instances:
-                # print(plugin_custom_field_instance.field_kwargs)
-                declared_fields.append(
+
+                # The serializer field class
+                custom_field_class = plugin_custom_field_instance.field_class(
+                    **plugin_custom_field_instance.field_kwargs
+                )
+
+                # Since serializer fields do not accept **kwargs, we need
+                # to assign `declared_fields_metadata` in the same way as we
+                # do with `declared_fields`.
+                declared_fields_metadata.append(
                     (
                         plugin_custom_field_instance.data.name,
-                        plugin_custom_field_instance.field_class(
-                            **plugin_custom_field_instance.field_kwargs
-                        ),
+                        plugin_custom_field_instance.field_metadata
                     )
                 )
 
-    return OrderedDict(declared_fields)
+                declared_fields.append(
+                    (
+                        plugin_custom_field_instance.data.name,
+                        custom_field_class,
+                    )
+                )
+
+    return OrderedDict(declared_fields), OrderedDict(declared_fields_metadata)
 
 
 def assemble_serializer_class(form_entry,
@@ -108,7 +122,8 @@ def assemble_serializer_class(form_entry,
                               origin_return_func=None,
                               form_element_entries=None,
                               has_value=None,
-                              declared_fields=None):
+                              declared_fields=None,
+                              declared_fields_metadata=None):
     """Assemble a serializer class by given entry.
 
     :param form_entry:
@@ -164,7 +179,7 @@ def assemble_serializer_class(form_entry,
     # return DynamicSerializer
 
     if declared_fields is None:
-        declared_fields = get_declared_fields(
+        declared_fields, declared_fields_metadata = get_declared_fields(
             form_entry,
             origin=origin,
             origin_kwargs_update_func=origin_kwargs_update_func,
@@ -199,9 +214,22 @@ def assemble_serializer_class(form_entry,
 
             return OrderedDict(fields)
 
+        @classmethod
+        def _get_declared_fields_metadata(cls, bases, attrs):
+            """Similar to _get_declared_fields, but for metadata."""
+            fields = [
+                (field_name, obj) for field_name, obj
+                in declared_fields_metadata.items()
+                if field_name not in attrs
+            ]
+
+            return OrderedDict(fields)
+
         def __new__(cls, name, bases, attrs):
             """Modified version of the original __new__."""
             attrs['_declared_fields'] = cls._get_declared_fields(bases, attrs)
+            attrs['_declared_fields_metadata'] = \
+                cls._get_declared_fields_metadata(bases, attrs)
             return super(SerializerMetaclass, cls).__new__(cls,
                                                            name,
                                                            bases,
@@ -276,6 +304,19 @@ def assemble_serializer_class(form_entry,
             # on a serializer instance without affecting every other
             # serializer class.
             return copy.deepcopy(self._declared_fields)
+
+        def get_fields_metadata(self, field_name=None):
+            """
+            Returns a dictionary of {field_name: field_instance}.
+            """
+            # Every new serializer is created with a clone of the field
+            # instances. This allows users to dynamically modify the fields
+            # on a serializer instance without affecting every other
+            # serializer class.
+            fields_metadata = copy.deepcopy(self._declared_fields_metadata)
+            if field_name is not None:
+                return fields_metadata.get(field_name)
+            return fields_metadata
 
         def get_validators(self):
             """

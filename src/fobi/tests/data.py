@@ -475,7 +475,8 @@ TEST_DYNAMIC_FORMS_DEFINITION_DATA = OrderedDict([
             '"name": "username", '
             '"required": true, '
             '"max_length": 200, '
-            '"label": "Username"'
+            '"label": "Username", '
+            '"placeholder": "delusionalinsanity"'
             '}'
         )
     ),
@@ -597,7 +598,7 @@ FAKER = Faker()
 TEST_DYNAMIC_FORMS_PUT_DATA_ALL = {
     'username': FAKER.user_name(),
     'email': FAKER.email(),
-    'age': FAKER.pyint(),
+    'age': FAKER.random_int(min=0, max=200),
     'drivers_license': FAKER.pybool(),
     'special_fields': FAKER.pystr(),
     'number_of_children': FAKER.pyint(),
@@ -612,7 +613,8 @@ TEST_DYNAMIC_FORMS_OPTIONS_RESPONSE = OrderedDict([
                                (u'required', True),
                                (u'read_only', False),
                                (u'label', u'Username'),
-                               (u'max_length', 200)])),
+                               (u'max_length', 200),
+                               (u'placeholder', 'delusionalinsanity')])),
     (u'email', OrderedDict([(u'type', u'email'),
                             (u'required', True),
                             (u'read_only', False),
@@ -621,7 +623,8 @@ TEST_DYNAMIC_FORMS_OPTIONS_RESPONSE = OrderedDict([
     (u'age', OrderedDict([(u'type', u'integer'),
                           (u'required', True),
                           (u'read_only', False),
-                          (u'label', u'Age')])),
+                          (u'label', u'Age'),
+                          ('max_value', 200)])),
     (u'drivers_license', OrderedDict([(u'type', u'boolean'),
                                       (u'required', False),
                                       (u'read_only', False),

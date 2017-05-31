@@ -4,7 +4,7 @@ import sys
 from distutils.version import LooseVersion
 from setuptools import setup, find_packages
 
-version = '0.11.11'
+version = '0.11.12'
 
 # ***************************************************************************
 # ************************** Python version *********************************

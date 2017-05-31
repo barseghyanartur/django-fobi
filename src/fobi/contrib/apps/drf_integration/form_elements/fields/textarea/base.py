@@ -40,9 +40,13 @@ class TextareaPlugin(IntegrationFormFieldPlugin,
             'label': form_element_plugin.data.label,
             'help_text': form_element_plugin.data.help_text,
         }
+        field_metadata = {
+            'placeholder': form_element_plugin.data.placeholder
+        }
         return [
             DRFIntegrationFormElementPluginProcessor(
                 field_class=CharField,
-                field_kwargs=field_kwargs
+                field_kwargs=field_kwargs,
+                field_metadata=field_metadata
             )
         ]

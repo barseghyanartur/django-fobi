@@ -41,6 +41,7 @@ class ContentImageURLPlugin(IntegrationFormElementPlugin,
         """Get form field instances."""
 
         rendered_image = form_element_plugin.get_rendered_image()
+        raw_data = form_element_plugin.get_raw_data()
 
         field_kwargs = {
             'initial': rendered_image,
@@ -48,12 +49,19 @@ class ContentImageURLPlugin(IntegrationFormElementPlugin,
             'required': False,
             'label': '',
             'read_only': True,
-            'raw_data': form_element_plugin.get_raw_data(),
+            'raw_data': raw_data,
+        }
+        field_metadata = {
+            'type': 'content',
+            'contenttype': 'image',
+            'content': rendered_image,
+            'raw_data': raw_data
         }
 
         return [
             DRFIntegrationFormElementPluginProcessor(
                 field_class=ContentImageField,
-                field_kwargs=field_kwargs
+                field_kwargs=field_kwargs,
+                field_metadata=field_metadata
             )
         ]

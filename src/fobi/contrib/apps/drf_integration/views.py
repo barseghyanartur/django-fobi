@@ -76,7 +76,10 @@ class FobiFormEntryViewSet(
         # OK, calling this twice sucks, but fine for the time being.
         # In future we should try to get rid of additional queries
         # made double.
-        declared_fields = get_declared_fields(obj, has_value=self.has_value())
+        declared_fields, declared_fields_metadata = get_declared_fields(
+            obj,
+            has_value=self.has_value()
+        )
 
         # Setting all the fields, one by one like they were attributes of
         # the object (while they are obviously NOT). It's all done just to

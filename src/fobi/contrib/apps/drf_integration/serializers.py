@@ -1,4 +1,6 @@
 # from __future__ import unicode_literals
+from collections import OrderedDict
+
 from rest_framework import serializers
 from rest_framework.reverse import reverse
 
@@ -42,3 +44,9 @@ class FormEntrySerializer(serializers.ModelSerializer):
             args=[obj.slug],
             request=self.context['request']
         )
+
+    def get_fields_metadata(self, field_name=None):
+        """Just to make sure nothing breaks."""
+        if field_name is not None:
+            return {}
+        return OrderedDict([])
