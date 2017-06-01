@@ -1,10 +1,10 @@
 fobi.contrib.apps.drf_integration.form_handlers.http_repost
-###########################################################
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 A ``django-fobi`` HTTP repost form handler plugin for integration
 with ``Django REST framework``. Submits the form to another endpoint specified.
 
 Installation
-^^^^^^^^^^^^
+############
 1. Add ``fobi.contrib.apps.drf_integration.form_handlers.http_respost`` to the
    ``INSTALLED_APPS`` in your ``settings.py``.
 

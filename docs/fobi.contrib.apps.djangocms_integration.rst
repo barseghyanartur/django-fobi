@@ -20,6 +20,14 @@ fobi.contrib.apps.djangocms_integration.cms_plugins module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.apps.djangocms_integration.cms_version module
+----------------------------------------------------------
+
+.. automodule:: fobi.contrib.apps.djangocms_integration.cms_version
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.apps.djangocms_integration.conf module
 ---------------------------------------------------
 

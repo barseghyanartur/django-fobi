@@ -81,6 +81,9 @@ Roadmap
 
 Uncategorised
 -------------
+- Somehow PyPy started to fail under Django 1.10 and 1.11 (invocation error),
+  so it must be some package incompatibility/installation problems. Find out
+  why.
 - Think of moving the translation strings from in stored-in=database level to
   lazily-translated level (so that in some plugins, for instance - in database
   translations happen lazily). For mail plugin that should not be the case,

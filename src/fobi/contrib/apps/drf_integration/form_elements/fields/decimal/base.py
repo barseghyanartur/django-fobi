@@ -41,6 +41,9 @@ class DecimalInputPlugin(IntegrationFormFieldPlugin,
             'label': form_element_plugin.data.label,
             'help_text': form_element_plugin.data.help_text,
         }
+        field_metadata = {
+            'placeholder': form_element_plugin.data.placeholder
+        }
 
         if form_element_plugin.data.initial:
             data_initial = decimal.Decimal(
@@ -63,18 +66,23 @@ class DecimalInputPlugin(IntegrationFormFieldPlugin,
         if form_element_plugin.data.max_digits:
             data_max_digits = int(form_element_plugin.data.max_digits)
             field_kwargs.update({'max_digits': data_max_digits})
+            field_metadata.update({'max_digits': data_max_digits})
         else:
             field_kwargs.update({'max_digits': 10})
+            field_metadata.update({'max_digits': 10})
 
         if form_element_plugin.data.decimal_places:
             data_decimal_places = int(form_element_plugin.data.decimal_places)
             field_kwargs.update({'decimal_places': data_decimal_places})
+            field_metadata.update({'decimal_places': data_decimal_places})
         else:
             field_kwargs.update({'decimal_places': 5})
+            field_metadata.update({'decimal_places': 5})
 
         return [
             DRFIntegrationFormElementPluginProcessor(
                 field_class=DecimalField,
-                field_kwargs=field_kwargs
+                field_kwargs=field_kwargs,
+                field_metadata=field_metadata
             )
         ]

@@ -44,9 +44,15 @@ class EmailInputPlugin(IntegrationFormFieldPlugin,
             field_kwargs.update(
                 {'max_length': int(form_element_plugin.data.max_length)}
             )
+
+        field_metadata = {
+            'placeholder': form_element_plugin.data.placeholder
+        }
+
         return [
             DRFIntegrationFormElementPluginProcessor(
                 field_class=EmailField,
-                field_kwargs=field_kwargs
+                field_kwargs=field_kwargs,
+                field_metadata=field_metadata
             )
         ]

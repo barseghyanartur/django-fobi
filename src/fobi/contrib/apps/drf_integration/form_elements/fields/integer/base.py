@@ -39,14 +39,26 @@ class IntegerInputPlugin(IntegrationFormFieldPlugin,
             'label': form_element_plugin.data.label,
             'help_text': form_element_plugin.data.help_text,
         }
+
+        field_metadata = {
+            'placeholder': form_element_plugin.data.placeholder
+        }
         if form_element_plugin.data.initial:
             field_kwargs.update(
                 {'initial': int(form_element_plugin.data.initial)}
             )
+        if form_element_plugin.data.max_value:
+            data_max_value = int(form_element_plugin.data.max_value)
+            field_kwargs['max_value'] = data_max_value
+
+        if form_element_plugin.data.min_value:
+            data_min_value = int(form_element_plugin.data.min_value)
+            field_kwargs['min_value'] = data_min_value
 
         return [
             DRFIntegrationFormElementPluginProcessor(
                 field_class=IntegerField,
-                field_kwargs=field_kwargs
+                field_kwargs=field_kwargs,
+                field_metadata=field_metadata
             )
         ]

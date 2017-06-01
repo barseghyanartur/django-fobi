@@ -1,19 +1,19 @@
-fobi.contrib.apps.drf_integration.form_elements.fields.content_video
-####################################################################
+fobi.contrib.apps.drf_integration.form_elements.content.content_video
+#####################################################################
 A ``django-fobi`` ContentVideo plugin for integration with
 ``Django REST framework``. Makes use of the
 ``fobi.contrib.apps.drf_integration.fields.ContentVideo``.
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.content_video``
+1. Add ``fobi.contrib.apps.drf_integration.form_elements.content.content_video``
    to the ``INSTALLED_APPS`` in your ``settings.py``.
 
 .. code-block:: python
 
     INSTALLED_APPS = (
         # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.content_video',
+        'fobi.contrib.apps.drf_integration.form_elements.content.content_video',
         # ...
     )
 

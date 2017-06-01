@@ -41,23 +41,18 @@ class FobiMetaData(SimpleMetadata):
         of metadata about it.
         """
         field_info = super(FobiMetaData, self).get_field_info(field)
-        if isinstance(
-            field,
-            (ContentTextField, ContentImageField, ContentVideoField)
-        ):
-            field_info['type'] = 'content'
 
-            if isinstance(field, ContentTextField):
-                field_info['contenttype'] = 'text'
-                field_info['content'] = field.initial
-                field_info['raw'] = field.raw_data
-            elif isinstance(field, ContentImageField):
-                field_info['contenttype'] = 'image'
-                field_info['content'] = field.initial
-                field_info['raw'] = field.raw_data
-            else:
-                field_info['contenttype'] = 'video'
-                field_info['content'] = field.initial
-                field_info['raw'] = field.raw_data
+        for __key in ['initial', 'max_value', 'min_value']:
+            __val = getattr(field, __key, None)
+            if __val not in (None, ''):
+                field_info[__key] = __val
+
+        field_metadata = field.root.get_fields_metadata().get(
+            field.field_name, {}
+        )
+        if field_metadata:
+            for __k, __val in field_metadata.items():
+                if __val not in (None, ''):
+                    field_info[__k] = __val
 
         return field_info

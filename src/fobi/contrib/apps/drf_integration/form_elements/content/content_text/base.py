@@ -41,19 +41,26 @@ class ContentTextPlugin(IntegrationFormElementPlugin,
         """Get form field instances."""
 
         rendered_text = form_element_plugin.get_rendered_text()
-
+        raw_data = form_element_plugin.get_raw_data()
         field_kwargs = {
             'initial': rendered_text,
             'default': rendered_text,
             'required': False,
             'label': '',
             'read_only': True,
-            'raw_data': form_element_plugin.get_raw_data(),
+            'raw_data': raw_data,
+        }
+        field_metadata = {
+            'type': 'content',
+            'contenttype': 'text',
+            'content': rendered_text,
+            'raw_data': raw_data
         }
 
         return [
             DRFIntegrationFormElementPluginProcessor(
                 field_class=ContentTextField,
-                field_kwargs=field_kwargs
+                field_kwargs=field_kwargs,
+                field_metadata=field_metadata
             )
         ]

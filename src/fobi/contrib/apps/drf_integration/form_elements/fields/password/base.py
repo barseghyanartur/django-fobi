@@ -40,6 +40,9 @@ class PasswordInputPlugin(IntegrationFormFieldPlugin,
             'label': form_element_plugin.data.label,
             'help_text': form_element_plugin.data.help_text,
         }
+        field_metadata = {
+            'placeholder': form_element_plugin.data.placeholder
+        }
         if form_element_plugin.data.max_length:
             field_kwargs.update(
                 {'max_length': int(form_element_plugin.data.max_length)}
@@ -48,6 +51,7 @@ class PasswordInputPlugin(IntegrationFormFieldPlugin,
         return [
             DRFIntegrationFormElementPluginProcessor(
                 field_class=CharField,
-                field_kwargs=field_kwargs
+                field_kwargs=field_kwargs,
+                field_metadata=field_metadata
             )
         ]

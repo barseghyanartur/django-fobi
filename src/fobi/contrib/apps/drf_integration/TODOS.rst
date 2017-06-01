@@ -35,6 +35,11 @@ Must haves
 - Improve documentation.
 - Add more meta options for special fields, such as ``slider``.
 - Move DRF NoneField to the ``django-nonefield`` package (contrib).
+- Add PhoneNumberField plugin. Most of the work on
+  (serializer) has already been done in the
+  `django-phonenumber-field
+  <https://github.com/stefanfoulis/django-phonenumber-field>`_, so just make
+  use of it.
 
 Should haves
 ------------

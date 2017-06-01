@@ -11,6 +11,7 @@ ghostdriver.log
 /dev.db
 /.cache/
 /htmlcov/
+/third_party/
 *.py,cover
 /.idea/
 codebin.py

@@ -1,19 +1,19 @@
-fobi.contrib.apps.drf_integration.form_elements.fields.content_text
-###################################################################
+fobi.contrib.apps.drf_integration.form_elements.content.content_text
+####################################################################
 A ``django-fobi`` ContentText plugin for integration with
 ``Django REST framework``. Makes use of the
 ``fobi.contrib.apps.drf_integration.fields.ContentText``.
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.content_text``
+1. Add ``fobi.contrib.apps.drf_integration.form_elements.content.content_text``
    to the ``INSTALLED_APPS`` in your ``settings.py``.
 
 .. code-block:: python
 
     INSTALLED_APPS = (
         # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.content_text',
+        'fobi.contrib.apps.drf_integration.form_elements.content.content_text',
         # ...
     )
 

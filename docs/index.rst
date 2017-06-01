@@ -18,9 +18,7 @@ Present
 Note, that Django 1.11 is not yet proclaimed to be flawlessly supported. The
 core and contrib packages have been tested against the Django 1.11.
 All tests have successfully passed, although it's yet too early
-to claim that Django 1.11 is fully supported. Certain dependencies
-(``django-formtools``) have been installed from source (since versions
-supporting Django 1.11 are not yet released on PyPI.)
+to claim that Django 1.11 is fully supported.
 
 Past
 ----
@@ -270,7 +268,7 @@ Or latest stable version from BitBucket:
         'fobi.contrib.plugins.form_elements.content.content_text',
         'fobi.contrib.plugins.form_elements.content.content_video',
 
-        # `django-fobo` form handlers
+        # `django-fobi` form handlers
         'fobi.contrib.plugins.form_handlers.db_store',
         'fobi.contrib.plugins.form_handlers.http_repost',
         'fobi.contrib.plugins.form_handlers.mail',
@@ -2324,6 +2322,34 @@ PhantomJS.
    If you want to use Firefox for testing, remove or comment-out the
    ``PHANTOM_JS_EXECUTABLE_PATH`` setting.
 
+Writing documentation
+=====================
+Keep the following hierarchy.
+
+.. code-block:: text
+
+    =====
+    title
+    =====
+
+    header
+    ======
+
+    sub-header
+    ----------
+
+    sub-sub-header
+    ~~~~~~~~~~~~~~
+
+    sub-sub-sub-header
+    ##################
+
+    sub-sub-sub-sub-header
+    ^^^^^^^^^^^^^^^^^^^^^^
+
+    sub-sub-sub-sub-sub-header
+    ++++++++++++++++++++++++++
+
 Troubleshooting
 ===============
 If you get a ``FormElementPluginDoesNotExist`` or a
@@ -2363,7 +2389,7 @@ Create a form
 View/edit form
 ~~~~~~~~~~~~~~
 Form elements
-+++++++++++++
+#############
 .. [1.3] Edit form - form elements tab active, no elements yet
 
 .. image:: _static/bootstrap3/03_edit_form_-_form_elements_tab_active_-_no_elements_yet.png
@@ -2385,7 +2411,7 @@ Form elements
     :scale: 80 %
 
 Form handlers
-+++++++++++++
+#############
 
 .. [1.7] Edit form - form handlers tab active, no handlers yet
 
@@ -2485,6 +2511,8 @@ Contents:
 
    fobi
    quickstart
+   changelog
+   licenses
 
 Indices and tables
 ==================
