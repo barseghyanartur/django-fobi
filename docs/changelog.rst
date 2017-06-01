@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.11.12
+-------
+2017-05-31
+
+- Added a lot of field metadata to the OPTIONS call of ``drf_integration`` app.
+- Appended a lot of sub-module README files to the main documentation.
+
 0.11.11
 -------
 2017-05-29
