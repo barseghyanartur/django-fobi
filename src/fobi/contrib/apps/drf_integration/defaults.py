@@ -1,0 +1,1 @@
+OPTIONS_FORMAT = 'fobi.contrib.apps.drf_integration.metadata.FobiMetaData'

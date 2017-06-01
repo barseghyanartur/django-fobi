@@ -1,6 +1,7 @@
 # from __future__ import unicode_literals
 from django.contrib import messages
 from django.http import HttpRequest
+from django.utils.module_loading import import_string
 from django.utils.translation import ugettext
 
 from rest_framework import mixins, permissions
@@ -22,7 +23,7 @@ from .base import (
     submit_plugin_form_data,
 )
 from .dynamic import get_declared_fields
-from .metadata import FobiMetaData
+from .settings import OPTIONS_FORMAT
 from .serializers import FormEntrySerializer
 from .utils import get_serializer_class
 
@@ -53,7 +54,7 @@ class FobiFormEntryViewSet(
     permission_classes = [permissions.AllowAny]
     lookup_field = 'slug'
     lookup_url_kwarg = 'slug'
-    metadata_class = FobiMetaData
+    metadata_class = import_string(OPTIONS_FORMAT)
 
     def has_value(self):
         return None if self.action == 'metadata' else True
