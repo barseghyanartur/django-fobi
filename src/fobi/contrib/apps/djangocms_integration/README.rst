@@ -4,7 +4,7 @@ A ``django-fobi`` integration with DjangoCMS.
 
 Prerequisites
 ~~~~~~~~~~~~~
-Has been tested with DjangoCMS 2.4.3 and 3.0.6 only. Might work on earlier (or
+Tested with DjangoCMS 2.4.3, 3.0.6 and 3.4.3 only. Might work on earlier (or
 later) versions as well.
 
 Installation
@@ -14,24 +14,26 @@ Versions
 See the requirements files:
 
 - `DjangoCMS 2.4.3 requirements
-  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements_djangocms_2.txt>`_.
+  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements/djangocms_2.txt>`_.
 - `DjangoCMS 3.0.6 requirements
-  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements_djangocms.txt>`_.
+  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements/djangocms_3_0_6.txt>`_.
+- `DjangoCMS 3.4.3 requirements
+  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements/djangocms_3_4_3.txt>`_.
 
 your_project/settings.py
 ########################
 See the example settings files:
 
 - `DjangoCMS 2.4.3 settings
-  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/settings_bootstrap3_theme_djangocms_2.py>`_.
-- `DjangoCMS 3.0.6 settings
-  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/settings_bootstrap3_theme_djangocms.py>`_.
+  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/settings/bootstrap3_theme_djangocms_2.py>`_.
+- `DjangoCMS 3.0.6/3.4.3. settings
+  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/settings/bootstrap3_theme_djangocms.py>`_.
 
 .. code-block:: python
 
     INSTALLED_APPS = list(INSTALLED_APPS)
     INSTALLED_APPS += [
-        'cms',  # FeinCMS
+        'cms',  # DjangoCMS
 
         'fobi.contrib.apps.djangocms_integration',  # Fobi DjangoCMS app
     ]

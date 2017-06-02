@@ -15,6 +15,12 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.11.13
+-------
+2017-06-dd
+
+- Updated docs for DjangoCMS, FeinCMS and Mezzanine.
+
 0.11.12
 -------
 2017-05-31

@@ -2539,7 +2539,7 @@ A ``django-fobi`` integration with DjangoCMS.
 
 Prerequisites
 ~~~~~~~~~~~~~
-Has been tested with DjangoCMS 2.4.3 and 3.0.6 only. Might work on earlier (or
+Tested with DjangoCMS 2.4.3, 3.0.6 and 3.4.3 only. Might work on earlier (or
 later) versions as well.
 
 Installation
@@ -2549,24 +2549,26 @@ Versions
 See the requirements files:
 
 - `DjangoCMS 2.4.3 requirements
-  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements_djangocms_2.txt>`_.
+  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements/djangocms_2.txt>`_.
 - `DjangoCMS 3.0.6 requirements
-  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements_djangocms.txt>`_.
+  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements/djangocms_3_0_6.txt>`_.
+- `DjangoCMS 3.4.3 requirements
+  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements/djangocms_3_4_3.txt>`_.
 
 your_project/settings.py
 ########################
 See the example settings files:
 
 - `DjangoCMS 2.4.3 settings
-  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/settings_bootstrap3_theme_djangocms_2.py>`_.
-- `DjangoCMS 3.0.6 settings
-  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/settings_bootstrap3_theme_djangocms.py>`_.
+  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/settings/bootstrap3_theme_djangocms_2.py>`_.
+- `DjangoCMS 3.0.6/3.4.3. settings
+  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/settings/bootstrap3_theme_djangocms.py>`_.
 
 .. code-block:: python
 
     INSTALLED_APPS = list(INSTALLED_APPS)
     INSTALLED_APPS += [
-        'cms',  # FeinCMS
+        'cms',  # DjangoCMS
 
         'fobi.contrib.apps.djangocms_integration',  # Fobi DjangoCMS app
     ]
@@ -2948,8 +2950,221 @@ OPTIONS
 
     OPTIONS /api/fobi-form-entry/{FORM_SLUG}/
 
-Lists all field options for the selected form. Private forms would be only
-visible to authenticated users.
+Lists all field options for the selected form.
+
+See the `test DRF form
+<https://django-fobi.herokuapp.com/en/fobi/view/test-drf-form/>`_ and
+`same form in DRF integration app
+<https://django-fobi.herokuapp.com/api/fobi-form-entry/test-drf-form/>`_ with
+most of the fields that do have rich additional metadata.
+
+OPTIONS call produces the following response:
+
+.. code-block:: text
+
+    OPTIONS /api/fobi-form-entry/test-drf-form/
+    HTTP 200 OK
+    Allow: GET, PUT, PATCH, OPTIONS
+    Content-Type: application/json
+    Vary: Accept
+
+
+.. code-block:: python
+
+    {
+        "name": "Fobi Form Entry Instance",
+        "description": "FormEntry view set.",
+        "renders": [
+            "application/json",
+            "text/html"
+        ],
+        "parses": [
+            "application/json",
+            "application/x-www-form-urlencoded",
+            "multipart/form-data"
+        ],
+        "actions": {
+            "PUT": {
+                "test_integer": {
+                    "type": "integer",
+                    "required": false,
+                    "read_only": false,
+                    "label": "Test integer",
+                    "min_value": 1,
+                    "max_value": 20,
+                    "initial": 10
+                },
+                "test_email": {
+                    "type": "email",
+                    "required": true,
+                    "read_only": false,
+                    "label": "Test email",
+                    "help_text": "Donec mollis hendrerit risus. Phasellus a "
+                                 "est. Nam ipsum risus, rutrum vitae, "
+                                 "vestibulum eu, molestie vel, lacus. "
+                                 "Praesent nec nisl a purus blandit viverra. "
+                                 "Cras id dui.",
+                    "max_length": 255,
+                    "placeholder": "john@doe.com"
+                },
+                "test_text": {
+                    "type": "string",
+                    "required": false,
+                    "read_only": false,
+                    "label": "Test text",
+                    "help_text": "Sed lectus. Phasellus gravida semper "
+                                 "nisi. Curabitur at lacus ac velit ornare "
+                                 "lobortis. Mauris turpis nunc, blandit et, "
+                                 "volutpat molestie, porta ut, ligula. Lorem "
+                                 "ipsum dolor sit amet, consectetuer "
+                                 "adipiscing elit.",
+                    "max_length": 255,
+                    "placeholder": "Lorem ipsum dolor sit amet"
+                },
+                "test_url": {
+                    "type": "url",
+                    "required": false,
+                    "read_only": false,
+                    "label": "Test URL",
+                    "max_length": 255,
+                    "initial": "http://github.com"
+                },
+                "test_decimal_field": {
+                    "type": "decimal",
+                    "required": false,
+                    "read_only": false,
+                    "label": "Test decimal field",
+                    "min_value": 1.0,
+                    "max_value": 25.0,
+                    "initial": 10.0,
+                    "placeholder": "3.14",
+                    "max_digits": 5,
+                    "decimal_places": 2
+                },
+                "test_float_field": {
+                    "type": "float",
+                    "required": false,
+                    "read_only": false,
+                    "label": "Test float field",
+                    "min_value": 1.0,
+                    "max_value": 10.0,
+                    "initial": 3.14
+                },
+                "test_ip_address": {
+                    "type": "string",
+                    "required": false,
+                    "read_only": false,
+                    "label": "Test IP address",
+                    "max_length": 255,
+                    "placeholder": "127,0.0.1"
+                },
+                "test_password_field": {
+                    "type": "string",
+                    "required": false,
+                    "read_only": false,
+                    "label": "Test password field",
+                    "max_length": 255,
+                    "placeholder": "your-secret-password"
+                },
+                "test_regex_field": {
+                    "type": "regex",
+                    "required": false,
+                    "read_only": false,
+                    "label": "Test regex field",
+                    "max_length": 255,
+                    "regex": "^([a-zA-Z])+$"
+                },
+                "test_slug_field": {
+                    "type": "slug",
+                    "required": false,
+                    "read_only": false,
+                    "label": "Test slug field",
+                    "max_length": 255,
+                    "placeholder": "lorem-ipsum-dolor-sit-amet"
+                },
+                "test_textarea_field": {
+                    "type": "string",
+                    "required": false,
+                    "read_only": false,
+                    "label": "Test textarea field",
+                    "placeholder": "Pellentesque habitant morbi tristique."
+                },
+                "test_input_field": {
+                    "type": "string",
+                    "required": false,
+                    "read_only": true,
+                    "label": "Test input field",
+                    "max_length": 255,
+                    "autofocus": "autofocus",
+                    "autocomplete": "on",
+                    "disabled": "disabled"
+                },
+                "content_image_url_b0996b16-9f1c-430d-a6c7-0a722f4c2177": {
+                    "type": "content",
+                    "required": false,
+                    "read_only": true,
+                    "initial": "<p><img src=\"http://example.com/image.jpg\" alt=\"n.n.\" width=\"600\"/></p>",
+                    "contenttype": "image",
+                    "raw_data": {
+                        "url": "http://example.com/image.jpg",
+                        "alt": "n.n.",
+                        "fit_method": "fit_width",
+                        "size": "600x600"
+                    },
+                    "content": "<p><img src=\"http://example.com/image.jpg\" alt=\"n.n.\" width=\"600\"/></p>"
+                },
+                "content_text_de4d69b2-99e1-479d-8c61-1534dea7c981": {
+                    "type": "content",
+                    "required": false,
+                    "read_only": true,
+                    "initial": "<p>Pellentesque posuere. Quisque id mi. "
+                               "Duis arcu tortor, suscipit eget, imperdiet "
+                               "nec, imperdiet iaculis, ipsum. Phasellus a "
+                               "est. In turpis.</p>",
+                    "contenttype": "text",
+                    "raw_data": {
+                        "text": "Pellentesque posuere. Quisque id mi. Duis "
+                                "arcu tortor, suscipit eget, imperdiet nec, "
+                                "imperdiet iaculis, ipsum. Phasellus a est. "
+                                "In turpis."
+                    },
+                    "content": "<p>Pellentesque posuere. Quisque id mi. Duis "
+                               "arcu tortor, suscipit eget, imperdiet nec, "
+                               "imperdiet iaculis, ipsum. Phasellus a est. "
+                               "In turpis.</p>"
+                },
+                "content_video_f4799aca-9a0b-4f1a-8069-dda611858ef4": {
+                    "type": "content",
+                    "required": false,
+                    "read_only": true,
+                    "initial": "<iframe src=\"//www.youtube.com/embed/8GVIui0JK0M\" width=\"500\" height=\"400\" frameborder=\"0\" allowfullscreen></iframe>",
+                    "contenttype": "video",
+                    "raw_data": {
+                        "title": "Delusional Insanity - To far beyond...",
+                        "url": "https://www.youtube.com/watch?v=8GVIui0JK0M&t=1s",
+                        "size": "500x400"
+                    },
+                    "content": "<iframe src=\"//www.youtube.com/embed/8GVIui0JK0M\" width=\"500\" height=\"400\" frameborder=\"0\" allowfullscreen></iframe>"
+                }
+            }
+        }
+    }
+
+**Some insights:**
+
+Meta-data is passed to the ``DRFIntegrationFormElementPluginProcessor`` as
+``field_metadata`` argument, which is supposed to be a dict.
+
+- `Example 1: content_image plugin
+  <https://github.com/barseghyanartur/django-fobi/blob/master/src/fobi/contrib/apps/drf_integration/form_elements/content/content_image/base.py#L54>`_
+
+- `Example 2: decimal plugin
+  <https://github.com/barseghyanartur/django-fobi/blob/master/src/fobi/contrib/apps/drf_integration/form_elements/fields/decimal/base.py#L86>`_
+
+- `Example 3: text plugin
+  <https://github.com/barseghyanartur/django-fobi/blob/master/src/fobi/contrib/apps/drf_integration/form_elements/fields/text/base.py#L55>`_
+
+Private forms would be only visible to authenticated users.
 
 PUT
 ###
@@ -4194,17 +4409,28 @@ fobi.contrib.apps.feincms_integration
 -------------------------------------
 A ``django-fobi`` integration with FeinCMS.
 
+Prerequisites
+~~~~~~~~~~~~~
+Tested with FeinCMS 1.10, 1.12 and 1.13 only. Might work on earlier (or
+later) versions as well.
+
 Installation
 ~~~~~~~~~~~~
 Versions
 ########
-See the `requirements file
-<https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements_feincms.txt>`_.
+See the requirements files:
+
+- `FeinCMS 1.10 requirements
+  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements/feincms_1_10.txt>`_.
+- `FeinCMS 1.12 requirements
+  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements/feincms_1_12.txt>`_.
+- `FeinCMS 1.13 requirements
+  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements/feincms_1_13.txt>`_.
 
 your_project/settings.py
 ########################
 See the `example settings file
-<https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/settings_bootstrap3_theme_feincms.py>`_.
+<https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/settings/bootstrap3_theme_feincms.py>`_.
 
 .. code-block:: python
 
@@ -4359,12 +4585,19 @@ fobi.contrib.apps.mezzanine_integration
 ---------------------------------------
 A ``django-fobi`` integration with Mezzanine.
 
+Prerequisites
+~~~~~~~~~~~~~
+Tested with Mezzanine 3.1.10 and 4.2.3 only. Might work on earlier (or
+later) versions as well.
+
 Installation
 ~~~~~~~~~~~~
 Versions
 ########
-See the `requirements file
-<https://github.com/barseghyanartur/django-fobi/blob/stable/examples/mezzanine_example/requirements.txt>`_.
+See the requirements files:
+
+- `Mezzanine 4.2.3 requirements
+  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/mezzanine_example/requirements.txt>`_.
 
 your_project/settings.py
 ########################
