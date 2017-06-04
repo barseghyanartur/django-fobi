@@ -2356,6 +2356,13 @@ If you get a ``FormElementPluginDoesNotExist`` or a
 ``FormHandlerPluginDoesNotExist`` exception, make sure you have listed your
 plugin in the ``settings`` module of your project.
 
+Contributing
+============
+If you want to contribute to the library, but don't know where to start,
+do check the `open issues where help is appreciated
+<https://github.com/barseghyanartur/django-fobi/issues?q=is%3Aopen+is%3Aissue+label%3A%22help+appreciated%22>`_
+or ask the `Author`_ how you could help.
+
 License
 =======
 GPL 2.0/LGPL 2.1

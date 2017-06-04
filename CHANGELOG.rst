@@ -20,6 +20,8 @@ are used for versioning (schema follows below):
 2017-06-dd
 
 - Updated docs for DjangoCMS, FeinCMS and Mezzanine.
+- Updated outdated Dutch translations.
+- Improvements of the DRF integration app documentation.
 
 0.11.12
 -------
