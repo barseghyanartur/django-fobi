@@ -67,3 +67,8 @@ README_PARTS.rst
 /examples/requirements/wagtail.txt
 #/examples/wagtaildemo/
 /examples/wagtail_example_/
+/examples/wagtaildemo/.vagrant
+/examples/wagtaildemo/wagtaildemo/settings/local.py
+/examples/wagtaildemo/static
+/examples/wagtaildemo/media
+/examples/wagtaildemo/Vagrantfile.local

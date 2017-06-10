@@ -1,0 +1,18 @@
+# Creating a Vagrantfile.local file allows you to extend the Vagrant configuration
+# with options specific to this local machine.
+
+
+# The default setup is geared towards trying out the demo site, and building your
+# own Wagtail-powered sites based on it. If you wish to develop Wagtail itself,
+# you'll want to have an editable copy of the Wagtail code on your host machine,
+# and share this with the virtual machine to be used instead of the packaged
+# copy of Wagtail.
+# 
+# Clone https://github.com/torchbox/wagtail somewhere convenient, and replace
+# "../wagtail" below with the correct path:
+
+config.vm.share_folder "wagtail", "/home/vagrant/wagtail", "../wagtail"
+
+
+# You'll also need to tweak the Python path so that it picks up this instance of
+# Wagtail rather than the packaged one - see wagtaildemo/settings/local.py.example.

@@ -1,0 +1,19 @@
+{% extends "demo/base.html" %}
+
+{% load demo_tags %}
+
+{% block content %}
+    {% include "demo/includes/body.html" with body=self.body only %}
+
+    {% include "demo/includes/contact.html" with contact=self only %}
+
+    {%  if self.post_code %}
+    	
+    	{% get_googe_maps_key as google_maps_key %}
+
+    	<div class="page-header"><h3>Map</h3></div>
+
+		<img src="http://maps.googleapis.com/maps/api/staticmap?center={{ self.post_code }}&zoom=13&size=800x400&maptype=roadmap
+&sensor=false&markers=color:green|{{ self.post_code }}{% if google_maps_key %}&key={{ google_maps_key }}{% endif %}" />
+	{% endif %}
+{% endblock %}

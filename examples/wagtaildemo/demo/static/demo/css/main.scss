@@ -1,0 +1,71 @@
+/* fonts */
+body {
+	font-family: 'Open Sans', Helvetica, Arial, sans-serif;
+}
+
+/* Carousel styling */
+.bx-wrapper {
+	width: 100%;
+	margin-left: 0;
+}
+
+.bx-wrapper img {
+	width: 100%;
+	height: auto;
+}
+
+/* body image styles - classes supplied by rich text editor */
+.body-content {
+	width: 100%;
+	overflow: hidden;
+	clear: both;
+	img {
+		margin-bottom: 2%;
+		margin-top: 2%;
+	}
+
+	img.full-width {
+		width: 100%;
+	}
+
+	img.left {
+		width: 45%;
+		margin-right: 5%;
+		float: left;
+	}
+
+	img.right {
+		width: 45%;
+		margin-left: 5%;
+		float: right;
+	}
+
+	h2, h3, h4, h5 {
+		clear: both;
+	}
+}
+
+/* List styling - tweaks to include images */
+
+a.list-group-item {
+	clear: both;
+	width: 100%;
+	overflow: hidden;
+	.list-group-item-text {
+		margin-top: 1%;
+		img {
+			float: left;
+			margin-right: 2%;
+			margin-bottom: 1%;
+		}
+	}
+}
+
+/* Style pager */
+.col-sm-4.pages {
+        text-align: center;
+}
+
+.col-sm-4.next {
+        text-align: right;
+}

@@ -1,0 +1,7 @@
+{% load wagtailcore_tags %}
+
+{% if body %}
+    <div class="body-content">
+      {{ body|richtext }}
+    </div>
+{% endif %}

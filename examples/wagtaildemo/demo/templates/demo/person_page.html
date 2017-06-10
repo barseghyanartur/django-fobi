@@ -1,0 +1,22 @@
+{% extends "demo/base.html" %}
+{% load wagtailimages_tags %}
+
+{% block content %}
+    {% include "demo/includes/intro.html" with intro=self.intro only %}
+
+    {% if self.image %}
+        {# Person image - first store image as a variable in order to construct an image tag with a class applied #}
+        {% image self.image width-300 as photo %}
+        <img src="{{ photo.url }}" width="{{ photo.width }}" height="{{ photo.height }}" alt="{{ photo.alt }}" class="img-thumbnail" />
+    {% endif %}
+
+    {% if self.biography %}
+        <div class="page-header"><h3>Biography</h3></div>
+    {% endif %}
+
+    {% include "demo/includes/body.html" with body=self.biography only %}
+
+    {% include "demo/includes/contact.html" with contact=self only %}
+
+    {% include "demo/includes/related_links.html" with related_links=self.related_links.all only %}
+{% endblock %}

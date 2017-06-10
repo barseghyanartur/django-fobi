@@ -1,0 +1,10 @@
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text=auto
+
+# Force shell scripts to always have LF line endings, because Bash can't handle CRLF.
+# This deals with the case where the repo is checked out on a Windows machine and then
+# used under a Linux VM.
+*.sh text eol=lf
+bashrc text eol=lf
+etc-bash.bashrc eol=lf
+pg_hba.conf eol=lf

@@ -1,0 +1,20 @@
+{% load wagtailimages_tags wagtailembeds_tags %}
+
+{% if carousel_items %}
+    <ul class="bxslider">
+        {% for carousel_item in carousel_items %}
+            <li>
+                <a href="{{ carousel_item.link }}">
+                    {% if carousel_item.embed_url %}
+                        {# Embedded video - requires an embedly key to be stored in wagtaildemo/settings/local.py #}
+                        {{ carousel_item.embed_url|embed:1000 }}
+                    {% else %}
+                        {# Carousel image - first store image as a variable in order to construct an image tag with a title applied (title is used by bxslider js to construct the caption) #}
+                        {% image carousel_item.image width-1000 as carouselimagedata %}
+                        <img src="{{ carouselimagedata.url }}" width="{{ carouselimagedata.width }}" height="{{ carouselimagedata.height }}" alt="{{ carouselimagedata.alt }}" title="{{ carousel_item.caption }}" />
+                    {% endif %}
+                </a>
+            </li>
+        {% endfor %}
+    </ul>
+{% endif %}
