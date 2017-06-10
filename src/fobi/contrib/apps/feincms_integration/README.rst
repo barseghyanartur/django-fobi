@@ -2,17 +2,28 @@ fobi.contrib.apps.feincms_integration
 -------------------------------------
 A ``django-fobi`` integration with FeinCMS.
 
+Prerequisites
+~~~~~~~~~~~~~
+Tested with FeinCMS 1.10, 1.12 and 1.13 only. Might work on earlier (or
+later) versions as well.
+
 Installation
 ~~~~~~~~~~~~
 Versions
 ########
-See the `requirements file
-<https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements_feincms.txt>`_.
+See the requirements files:
+
+- `FeinCMS 1.10 requirements
+  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements/feincms_1_10.txt>`_.
+- `FeinCMS 1.12 requirements
+  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements/feincms_1_12.txt>`_.
+- `FeinCMS 1.13 requirements
+  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/requirements/feincms_1_13.txt>`_.
 
 your_project/settings.py
 ########################
 See the `example settings file
-<https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/settings_bootstrap3_theme_feincms.py>`_.
+<https://github.com/barseghyanartur/django-fobi/blob/stable/examples/simple/settings/bootstrap3_theme_feincms.py>`_.
 
 .. code-block:: python
 

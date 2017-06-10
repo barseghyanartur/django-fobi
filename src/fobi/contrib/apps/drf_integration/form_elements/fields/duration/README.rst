@@ -1,19 +1,19 @@
-fobi.contrib.apps.drf_integration.form_elements.fields.file
-###########################################################
-A ``django-fobi`` FileField plugin for integration with
+fobi.contrib.apps.drf_integration.form_elements.fields.duration
+###############################################################
+A ``django-fobi`` DurationField plugin for integration with
 ``Django REST framework``. Makes use of the
-``rest_framework.fields.FileField``.
+``rest_framework.fields.DurationField``.
 
 Installation
 ^^^^^^^^^^^^
-(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.file`` to
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.duration`` to
     the ``INSTALLED_APPS`` in your ``settings.py``.
 
     .. code-block:: python
 
         INSTALLED_APPS = (
             # ...
-            'fobi.contrib.apps.drf_integration.form_elements.fields.file',
+            'fobi.contrib.apps.drf_integration.form_elements.fields.duration',
             # ...
         )
 

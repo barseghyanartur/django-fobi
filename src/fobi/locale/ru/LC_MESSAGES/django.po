@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-09-01 22:34+0200\n"
+"POT-Creation-Date: 2017-06-02 14:20+0200\n"
 "PO-Revision-Date: 2015-09-01 22:46+0100\n"
 "Last-Translator: Artur Barseghyan <artur.barseghyan@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,722 +16,374 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
-#: admin.py:127
-#: admin.py:196
-#: admin.py:235
-#: models.py:316
-#: models.py:344
-#: contrib/apps/djangocms_integration/models.py:26
-#: contrib/apps/feincms_integration/widgets.py:29
-#: contrib/apps/mezzanine_integration/models.py:24
-#: contrib/apps/wagtail_integration/models.py:36
-#: contrib/plugins/form_handlers/db_store/models.py:30
+#: admin.py:182 admin.py:246 admin.py:319 admin.py:360
+#: contrib/apps/djangocms_integration/models.py:24
+#: contrib/apps/feincms_integration/widgets.py:33
+#: contrib/apps/mezzanine_integration/models.py:29
+#: contrib/apps/wagtail_integration_/models.py:36
+#: contrib/plugins/form_handlers/db_store/models.py:75
+#: contrib/plugins/form_handlers/db_store/models.py:95
 #: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:39
+#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_wizard_data_entries.html:39
 #: contrib/themes/foundation5/templates/foundation5/dashboard.html:29
+#: contrib/themes/foundation5/templates/foundation5/forms_list.html:6
 #: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/view_saved_form_data_entries.html:40
-#: templates/fobi/generic/dashboard.html:30
+#: models.py:438 models.py:559 templates/fobi/generic/dashboard.html:35
+#: templates/fobi/generic/forms_list.html:6
 msgid "Form"
 msgstr "Форма"
 
-#: admin.py:130
+#: admin.py:185 admin.py:249
+#: contrib/plugins/form_elements/fields/slider/constants.py:47
 msgid "Custom"
 msgstr "Дополнительно"
 
-#: admin.py:138
-#: models.py:78
-#: models.py:215
-#: models.py:263
-#: contrib/plugins/form_handlers/db_store/models.py:32
+#: admin.py:193 admin.py:257
+#: contrib/plugins/form_handlers/db_store/models.py:34 models.py:90
+#: models.py:263 models.py:344
 msgid "User"
 msgstr "Пользователь"
 
-#: admin.py:142
+#: admin.py:197 admin.py:261
 msgid "Additional"
 msgstr "Дополнительно"
 
-#: admin.py:150
-#: admin.py:174
-#: admin.py:202
-#: admin.py:281
+#: admin.py:207 admin.py:272 admin.py:298 admin.py:327 admin.py:411
 #: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/base_edit.html:84
 #: contrib/themes/simple/templates/simple/base_edit.html:76
 msgid "Fobi"
 msgstr ""
 
-#: admin.py:193
-#: admin.py:232
-#: models.py:120
+#: admin.py:316 admin.py:357 models.py:134
 msgid "Plugin"
 msgstr "Плагин"
 
-#: admin.py:241
-#: models.py:472
+#: admin.py:368 models.py:640
 msgid "Form handler entry"
 msgstr "Обработчик формы"
 
-#: admin.py:358
+#: admin.py:501
+#, python-brace-format
 msgid "{0} plugins were changed successfully."
 msgstr "{0} плагинов были изменены успешно."
 
-#: admin.py:364
+#: admin.py:508
 msgid "Form contains errors: {}"
 msgstr "Форма содержит ошибки: {}"
 
-#: admin.py:370
+#: admin.py:515
 msgid "POST required when changing in bulk!"
 msgstr "Для множественных изменений необходим POST!"
 
-#: base.py:117
+#: base.py:195
 msgid "Build your forms"
 msgstr "Разработчик форм"
 
-#: base.py:537
-#: models.py:216
-#: models.py:264
-#: models.py:318
-#: contrib/plugins/form_elements/fields/boolean/forms.py:32
-#: contrib/plugins/form_elements/fields/checkbox_select_multiple/forms.py:34
-#: contrib/plugins/form_elements/fields/date/forms.py:35
-#: contrib/plugins/form_elements/fields/date_drop_down/forms.py:42
-#: contrib/plugins/form_elements/fields/datetime/forms.py:35
-#: contrib/plugins/form_elements/fields/decimal/forms.py:40
-#: contrib/plugins/form_elements/fields/email/forms.py:37
-#: contrib/plugins/form_elements/fields/file/forms.py:34
-#: contrib/plugins/form_elements/fields/float/forms.py:36
-#: contrib/plugins/form_elements/fields/hidden/forms.py:33
-#: contrib/plugins/form_elements/fields/hidden_model_object/forms.py:36
+#: base.py:766 contrib/plugins/form_elements/fields/boolean/forms.py:34
+#: contrib/plugins/form_elements/fields/checkbox_select_multiple/forms.py:37
+#: contrib/plugins/form_elements/fields/date/forms.py:38
+#: contrib/plugins/form_elements/fields/date_drop_down/forms.py:47
+#: contrib/plugins/form_elements/fields/datetime/forms.py:37
+#: contrib/plugins/form_elements/fields/decimal/forms.py:44
+#: contrib/plugins/form_elements/fields/email/forms.py:41
+#: contrib/plugins/form_elements/fields/file/forms.py:38
+#: contrib/plugins/form_elements/fields/float/forms.py:38
+#: contrib/plugins/form_elements/fields/hidden/forms.py:37
+#: contrib/plugins/form_elements/fields/hidden_model_object/forms.py:39
 #: contrib/plugins/form_elements/fields/input/forms.py:60
-#: contrib/plugins/form_elements/fields/integer/forms.py:36
-#: contrib/plugins/form_elements/fields/ip_address/forms.py:38
-#: contrib/plugins/form_elements/fields/null_boolean/forms.py:32
-#: contrib/plugins/form_elements/fields/password/forms.py:35
-#: contrib/plugins/form_elements/fields/radio/forms.py:34
-#: contrib/plugins/form_elements/fields/regex/forms.py:38
-#: contrib/plugins/form_elements/fields/select/forms.py:34
-#: contrib/plugins/form_elements/fields/select_model_object/forms.py:36
-#: contrib/plugins/form_elements/fields/select_mptt_model_object/forms.py:36
-#: contrib/plugins/form_elements/fields/select_multiple/forms.py:34
-#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:36
-#: contrib/plugins/form_elements/fields/select_multiple_mptt_model_objects/forms.py:36
-#: contrib/plugins/form_elements/fields/slug/forms.py:35
-#: contrib/plugins/form_elements/fields/text/forms.py:35
-#: contrib/plugins/form_elements/fields/textarea/forms.py:33
-#: contrib/plugins/form_elements/fields/time/forms.py:35
-#: contrib/plugins/form_elements/fields/url/forms.py:35
-#: contrib/plugins/form_elements/security/captcha/forms.py:34
-#: contrib/plugins/form_elements/security/honeypot/forms.py:35
-#: contrib/plugins/form_elements/security/recaptcha/forms.py:35
-#: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/dashboard.html:46
-#: contrib/themes/simple/templates/simple/dashboard.html:45
+#: contrib/plugins/form_elements/fields/integer/forms.py:38
+#: contrib/plugins/form_elements/fields/ip_address/forms.py:41
+#: contrib/plugins/form_elements/fields/null_boolean/forms.py:34
+#: contrib/plugins/form_elements/fields/password/forms.py:39
+#: contrib/plugins/form_elements/fields/radio/forms.py:36
+#: contrib/plugins/form_elements/fields/range_select/forms.py:47
+#: contrib/plugins/form_elements/fields/regex/forms.py:42
+#: contrib/plugins/form_elements/fields/select/forms.py:36
+#: contrib/plugins/form_elements/fields/select_model_object/forms.py:39
+#: contrib/plugins/form_elements/fields/select_mptt_model_object/forms.py:39
+#: contrib/plugins/form_elements/fields/select_multiple/forms.py:36
+#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:39
+#: contrib/plugins/form_elements/fields/select_multiple_mptt_model_objects/forms.py:40
+#: contrib/plugins/form_elements/fields/select_multiple_with_max/forms.py:38
+#: contrib/plugins/form_elements/fields/slider/forms.py:68
+#: contrib/plugins/form_elements/fields/slug/forms.py:39
+#: contrib/plugins/form_elements/fields/text/forms.py:39
+#: contrib/plugins/form_elements/fields/textarea/forms.py:35
+#: contrib/plugins/form_elements/fields/time/forms.py:37
+#: contrib/plugins/form_elements/fields/url/forms.py:39
+#: contrib/plugins/form_elements/security/captcha/forms.py:37
+#: contrib/plugins/form_elements/security/honeypot/forms.py:38
+#: contrib/plugins/form_elements/security/recaptcha/forms.py:38
+#: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/dashboard.html:51
+#: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/forms_list.html:8
+#: contrib/themes/simple/templates/simple/dashboard.html:50
+#: contrib/themes/simple/templates/simple/forms_list.html:8 models.py:264
+#: models.py:345 models.py:440
 msgid "Name"
 msgstr "Название"
 
-#: base.py:542
-#: contrib/plugins/form_elements/fields/boolean/forms.py:27
-#: contrib/plugins/form_elements/fields/checkbox_select_multiple/forms.py:29
-#: contrib/plugins/form_elements/fields/date/forms.py:30
-#: contrib/plugins/form_elements/fields/date_drop_down/forms.py:37
+#: base.py:771 contrib/plugins/form_elements/fields/boolean/forms.py:27
+#: contrib/plugins/form_elements/fields/checkbox_select_multiple/forms.py:30
+#: contrib/plugins/form_elements/fields/date/forms.py:31
+#: contrib/plugins/form_elements/fields/date_drop_down/forms.py:40
 #: contrib/plugins/form_elements/fields/datetime/forms.py:30
-#: contrib/plugins/form_elements/fields/decimal/forms.py:35
-#: contrib/plugins/form_elements/fields/email/forms.py:32
-#: contrib/plugins/form_elements/fields/file/forms.py:29
+#: contrib/plugins/form_elements/fields/decimal/forms.py:37
+#: contrib/plugins/form_elements/fields/email/forms.py:34
+#: contrib/plugins/form_elements/fields/file/forms.py:31
 #: contrib/plugins/form_elements/fields/float/forms.py:31
-#: contrib/plugins/form_elements/fields/hidden/forms.py:28
-#: contrib/plugins/form_elements/fields/hidden_model_object/forms.py:31
-#: contrib/plugins/form_elements/fields/input/forms.py:55
+#: contrib/plugins/form_elements/fields/hidden/forms.py:30
+#: contrib/plugins/form_elements/fields/hidden_model_object/forms.py:32
+#: contrib/plugins/form_elements/fields/input/forms.py:53
 #: contrib/plugins/form_elements/fields/integer/forms.py:31
-#: contrib/plugins/form_elements/fields/ip_address/forms.py:33
+#: contrib/plugins/form_elements/fields/ip_address/forms.py:34
 #: contrib/plugins/form_elements/fields/null_boolean/forms.py:27
-#: contrib/plugins/form_elements/fields/password/forms.py:30
+#: contrib/plugins/form_elements/fields/password/forms.py:32
 #: contrib/plugins/form_elements/fields/radio/forms.py:29
-#: contrib/plugins/form_elements/fields/regex/forms.py:33
+#: contrib/plugins/form_elements/fields/range_select/forms.py:40
+#: contrib/plugins/form_elements/fields/regex/forms.py:35
 #: contrib/plugins/form_elements/fields/select/forms.py:29
-#: contrib/plugins/form_elements/fields/select_model_object/forms.py:31
-#: contrib/plugins/form_elements/fields/select_mptt_model_object/forms.py:31
+#: contrib/plugins/form_elements/fields/select_model_object/forms.py:32
+#: contrib/plugins/form_elements/fields/select_mptt_model_object/forms.py:32
 #: contrib/plugins/form_elements/fields/select_multiple/forms.py:29
-#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:31
-#: contrib/plugins/form_elements/fields/select_multiple_mptt_model_objects/forms.py:31
-#: contrib/plugins/form_elements/fields/slug/forms.py:30
-#: contrib/plugins/form_elements/fields/text/forms.py:30
+#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:32
+#: contrib/plugins/form_elements/fields/select_multiple_mptt_model_objects/forms.py:33
+#: contrib/plugins/form_elements/fields/select_multiple_with_max/forms.py:31
+#: contrib/plugins/form_elements/fields/slider/forms.py:61
+#: contrib/plugins/form_elements/fields/slug/forms.py:32
+#: contrib/plugins/form_elements/fields/text/forms.py:32
 #: contrib/plugins/form_elements/fields/textarea/forms.py:28
 #: contrib/plugins/form_elements/fields/time/forms.py:30
-#: contrib/plugins/form_elements/fields/url/forms.py:30
-#: contrib/plugins/form_elements/security/captcha/forms.py:29
-#: contrib/plugins/form_elements/security/honeypot/forms.py:30
-#: contrib/plugins/form_elements/security/recaptcha/forms.py:30
+#: contrib/plugins/form_elements/fields/url/forms.py:32
+#: contrib/plugins/form_elements/security/captcha/forms.py:30
+#: contrib/plugins/form_elements/security/honeypot/forms.py:31
+#: contrib/plugins/form_elements/security/recaptcha/forms.py:31
 msgid "Label"
 msgstr "Ярлык"
 
-#: base.py:547
-#: contrib/plugins/form_elements/fields/boolean/forms.py:37
-#: contrib/plugins/form_elements/fields/checkbox_select_multiple/forms.py:60
-#: contrib/plugins/form_elements/fields/date/forms.py:40
-#: contrib/plugins/form_elements/fields/date_drop_down/forms.py:47
-#: contrib/plugins/form_elements/fields/datetime/forms.py:40
-#: contrib/plugins/form_elements/fields/decimal/forms.py:45
-#: contrib/plugins/form_elements/fields/email/forms.py:42
-#: contrib/plugins/form_elements/fields/file/forms.py:39
-#: contrib/plugins/form_elements/fields/float/forms.py:41
-#: contrib/plugins/form_elements/fields/hidden_model_object/forms.py:47
-#: contrib/plugins/form_elements/fields/input/forms.py:65
-#: contrib/plugins/form_elements/fields/integer/forms.py:41
-#: contrib/plugins/form_elements/fields/ip_address/forms.py:43
-#: contrib/plugins/form_elements/fields/null_boolean/forms.py:37
-#: contrib/plugins/form_elements/fields/password/forms.py:40
-#: contrib/plugins/form_elements/fields/radio/forms.py:60
-#: contrib/plugins/form_elements/fields/regex/forms.py:43
-#: contrib/plugins/form_elements/fields/select/forms.py:60
-#: contrib/plugins/form_elements/fields/select_model_object/forms.py:47
-#: contrib/plugins/form_elements/fields/select_mptt_model_object/forms.py:47
-#: contrib/plugins/form_elements/fields/select_multiple/forms.py:60
-#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:47
-#: contrib/plugins/form_elements/fields/select_multiple_mptt_model_objects/forms.py:47
-#: contrib/plugins/form_elements/fields/slug/forms.py:40
-#: contrib/plugins/form_elements/fields/text/forms.py:40
-#: contrib/plugins/form_elements/fields/textarea/forms.py:38
-#: contrib/plugins/form_elements/fields/time/forms.py:40
-#: contrib/plugins/form_elements/fields/url/forms.py:40
-#: contrib/plugins/form_elements/security/captcha/forms.py:39
-#: contrib/plugins/form_elements/security/recaptcha/forms.py:40
+#: base.py:776 contrib/plugins/form_elements/fields/boolean/forms.py:41
+#: contrib/plugins/form_elements/fields/checkbox_select_multiple/forms.py:75
+#: contrib/plugins/form_elements/fields/date/forms.py:45
+#: contrib/plugins/form_elements/fields/date_drop_down/forms.py:54
+#: contrib/plugins/form_elements/fields/datetime/forms.py:44
+#: contrib/plugins/form_elements/fields/decimal/forms.py:51
+#: contrib/plugins/form_elements/fields/email/forms.py:48
+#: contrib/plugins/form_elements/fields/file/forms.py:45
+#: contrib/plugins/form_elements/fields/float/forms.py:45
+#: contrib/plugins/form_elements/fields/hidden_model_object/forms.py:54
+#: contrib/plugins/form_elements/fields/input/forms.py:67
+#: contrib/plugins/form_elements/fields/integer/forms.py:45
+#: contrib/plugins/form_elements/fields/ip_address/forms.py:48
+#: contrib/plugins/form_elements/fields/null_boolean/forms.py:41
+#: contrib/plugins/form_elements/fields/password/forms.py:46
+#: contrib/plugins/form_elements/fields/radio/forms.py:74
+#: contrib/plugins/form_elements/fields/range_select/forms.py:78
+#: contrib/plugins/form_elements/fields/regex/forms.py:49
+#: contrib/plugins/form_elements/fields/select/forms.py:74
+#: contrib/plugins/form_elements/fields/select_model_object/forms.py:54
+#: contrib/plugins/form_elements/fields/select_mptt_model_object/forms.py:54
+#: contrib/plugins/form_elements/fields/select_multiple/forms.py:74
+#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:53
+#: contrib/plugins/form_elements/fields/select_multiple_mptt_model_objects/forms.py:55
+#: contrib/plugins/form_elements/fields/select_multiple_with_max/forms.py:76
+#: contrib/plugins/form_elements/fields/slider/forms.py:175
+#: contrib/plugins/form_elements/fields/slug/forms.py:46
+#: contrib/plugins/form_elements/fields/text/forms.py:46
+#: contrib/plugins/form_elements/fields/textarea/forms.py:42
+#: contrib/plugins/form_elements/fields/time/forms.py:44
+#: contrib/plugins/form_elements/fields/url/forms.py:46
+#: contrib/plugins/form_elements/security/captcha/forms.py:44
+#: contrib/plugins/form_elements/security/recaptcha/forms.py:45
 msgid "Help text"
 msgstr "Помощь"
 
-#: base.py:552
-#: contrib/plugins/form_elements/fields/boolean/forms.py:47
-#: contrib/plugins/form_elements/fields/checkbox_select_multiple/forms.py:70
-#: contrib/plugins/form_elements/fields/date/forms.py:56
-#: contrib/plugins/form_elements/fields/date_drop_down/forms.py:72
-#: contrib/plugins/form_elements/fields/datetime/forms.py:56
-#: contrib/plugins/form_elements/fields/decimal/forms.py:75
-#: contrib/plugins/form_elements/fields/email/forms.py:58
-#: contrib/plugins/form_elements/fields/file/forms.py:55
-#: contrib/plugins/form_elements/fields/float/forms.py:61
-#: contrib/plugins/form_elements/fields/hidden/forms.py:49
-#: contrib/plugins/form_elements/fields/hidden_model_object/forms.py:57
-#: contrib/plugins/form_elements/fields/input/forms.py:81
-#: contrib/plugins/form_elements/fields/integer/forms.py:61
-#: contrib/plugins/form_elements/fields/ip_address/forms.py:70
-#: contrib/plugins/form_elements/fields/null_boolean/forms.py:47
-#: contrib/plugins/form_elements/fields/password/forms.py:56
-#: contrib/plugins/form_elements/fields/radio/forms.py:70
-#: contrib/plugins/form_elements/fields/regex/forms.py:65
-#: contrib/plugins/form_elements/fields/select/forms.py:70
-#: contrib/plugins/form_elements/fields/select_model_object/forms.py:57
-#: contrib/plugins/form_elements/fields/select_mptt_model_object/forms.py:57
-#: contrib/plugins/form_elements/fields/select_multiple/forms.py:70
-#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:57
-#: contrib/plugins/form_elements/fields/select_multiple_mptt_model_objects/forms.py:57
-#: contrib/plugins/form_elements/fields/slug/forms.py:56
-#: contrib/plugins/form_elements/fields/text/forms.py:56
-#: contrib/plugins/form_elements/fields/textarea/forms.py:48
-#: contrib/plugins/form_elements/fields/time/forms.py:56
-#: contrib/plugins/form_elements/fields/url/forms.py:56
-#: contrib/plugins/form_elements/security/captcha/forms.py:55
-#: contrib/plugins/form_elements/security/honeypot/forms.py:56
-#: contrib/plugins/form_elements/security/recaptcha/forms.py:56
+#: base.py:781 contrib/plugins/form_elements/fields/boolean/forms.py:55
+#: contrib/plugins/form_elements/fields/checkbox_select_multiple/forms.py:89
+#: contrib/plugins/form_elements/fields/date/forms.py:66
+#: contrib/plugins/form_elements/fields/date_drop_down/forms.py:85
+#: contrib/plugins/form_elements/fields/datetime/forms.py:65
+#: contrib/plugins/form_elements/fields/decimal/forms.py:83
+#: contrib/plugins/form_elements/fields/email/forms.py:70
+#: contrib/plugins/form_elements/fields/file/forms.py:67
+#: contrib/plugins/form_elements/fields/float/forms.py:67
+#: contrib/plugins/form_elements/fields/hidden/forms.py:59
+#: contrib/plugins/form_elements/fields/hidden_model_object/forms.py:68
+#: contrib/plugins/form_elements/fields/input/forms.py:89
+#: contrib/plugins/form_elements/fields/integer/forms.py:67
+#: contrib/plugins/form_elements/fields/ip_address/forms.py:85
+#: contrib/plugins/form_elements/fields/null_boolean/forms.py:55
+#: contrib/plugins/form_elements/fields/password/forms.py:68
+#: contrib/plugins/form_elements/fields/radio/forms.py:88
+#: contrib/plugins/form_elements/fields/range_select/forms.py:93
+#: contrib/plugins/form_elements/fields/regex/forms.py:88
+#: contrib/plugins/form_elements/fields/select/forms.py:88
+#: contrib/plugins/form_elements/fields/select_model_object/forms.py:68
+#: contrib/plugins/form_elements/fields/select_mptt_model_object/forms.py:68
+#: contrib/plugins/form_elements/fields/select_multiple/forms.py:88
+#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:67
+#: contrib/plugins/form_elements/fields/select_multiple_mptt_model_objects/forms.py:69
+#: contrib/plugins/form_elements/fields/select_multiple_with_max/forms.py:90
+#: contrib/plugins/form_elements/fields/slider/forms.py:182
+#: contrib/plugins/form_elements/fields/slug/forms.py:68
+#: contrib/plugins/form_elements/fields/text/forms.py:68
+#: contrib/plugins/form_elements/fields/textarea/forms.py:56
+#: contrib/plugins/form_elements/fields/time/forms.py:65
+#: contrib/plugins/form_elements/fields/url/forms.py:68
+#: contrib/plugins/form_elements/security/captcha/forms.py:66
+#: contrib/plugins/form_elements/security/honeypot/forms.py:65
+#: contrib/plugins/form_elements/security/recaptcha/forms.py:67
 msgid "Required"
 msgstr "Обязательно"
 
-#: base.py:574
+#: base.py:804
 msgid "Duplicate field name!"
 msgstr "Название поля должно быть уникальным!"
 
-#: base.py:581
+#: base.py:811
 msgid "Duplicate label name!"
 msgstr "Ярлык поля должен быть уникальым!"
 
-#: base.py:660
+#: base.py:904
 msgid "General"
 msgstr "Основное"
 
-#: base.py:2252
+#: base.py:1844
+msgid "No integration handler for plugin {} found."
+msgstr ""
+
+#: base.py:3402
+#, python-brace-format
 msgid "Theme `{0}` does not exist!"
 msgstr "Темы `{0}` не существует!"
 
-#: constants.py:19
+#: constants.py:29
 msgid "Append"
 msgstr "Добавить"
 
-#: constants.py:20
+#: constants.py:30
 msgid "Replace"
 msgstr "Заменить"
 
-#: forms.py:48
-msgid "The {0} form requires a request argument."
-msgstr ""
-
-#: forms.py:113
-msgid "Invalid action URL {0}."
-msgstr "Неверная ссылка действия {0}."
-
-#: forms.py:158
-msgid "Selected plugins"
-msgstr "Выбранные плагины"
-
-#: forms.py:163
-msgid "Users action"
-msgstr "Действие над пользователями"
-
-#: forms.py:165
-#: forms.py:172
-msgid "If set to ``replace``, the groups are replaced; otherwise - appended."
-msgstr "Если вы выберете ``заменить``, группы будут перезаписаны; в обратном случае - добавлены."
-
-#: forms.py:170
-msgid "Groups action"
-msgstr "Действие над группами"
-
-#: forms.py:212
-#: contrib/plugins/form_elements/fields/file/fobi_form_elements.py:26
-msgid "File"
-msgstr "Файл"
-
-#: helpers.py:397
-#: helpers.py:421
-msgid "Invalid value for initial: {0}. Should be any of the following: {1}"
-msgstr "Неверное начальное значение: {0}. Допустимые значения: {1}"
-
-#: models.py:80
-msgid "Group"
-msgstr "Группа"
-
-#: models.py:112
-#: models.py:414
-msgid "UID"
-msgstr ""
-
-#: models.py:131
-msgid "Groups"
-msgstr "Группы"
-
-#: models.py:142
-msgid "Users"
-msgstr "Пользователи"
-
-#: models.py:159
-#: models.py:190
-msgid "Plugin UID"
-msgstr "UID плагина"
-
-#: models.py:166
-msgid "Form element plugin"
-msgstr "Плагин элемента формы"
-
-#: models.py:167
-msgid "Form element plugins"
-msgstr "Плагины элементов формы"
-
-#: models.py:197
-msgid "Form handler plugin"
-msgstr "Плагин обработчика формы"
-
-#: models.py:198
-msgid "Form handler plugins"
-msgstr "Плагины обработчиков формы"
-
-#: models.py:217
-#: models.py:266
-#: contrib/plugins/form_elements/fields/slug/fobi_form_elements.py:23
-msgid "Slug"
-msgstr "Слаг"
-
-#: models.py:220
-msgid "Is public?"
-msgstr "Публично доступно?"
-
-#: models.py:221
-msgid "Makes your form wizard visible to the public."
-msgstr ""
-
-#: models.py:224
-msgid "Is cloneable?"
-msgstr "Можно клонировать?"
-
-#: models.py:225
-msgid "Makes your form wizard cloneable by other users."
-msgstr ""
-
-#: models.py:229
-msgid "Form wizard entry"
-msgstr ""
-
-#: models.py:230
-msgid "Form wizard entries"
-msgstr ""
-
-#: models.py:261
-msgid "Form wizard"
-msgstr ""
-
-#: models.py:269
-#: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/dashboard.html:52
-#: contrib/themes/simple/templates/simple/dashboard.html:51
-msgid "Public?"
-msgstr "Публично доступно?"
-
-#: models.py:270
-msgid "Makes your form visible to the public."
-msgstr "Ваша форма будет публично доступна."
-
-#: models.py:273
-msgid "Cloneable?"
-msgstr "Можно клонировать?"
-
-#: models.py:274
-msgid "Makes your form cloneable by other users."
-msgstr "Другие пользователи смогут клонировать вашу форму."
-
-#: models.py:277
-#: models.py:438
-msgid "Position"
-msgstr "Порядок"
-
-#: models.py:280
-msgid "Success page title"
-msgstr "Заголовок страницы успеха"
-
-#: models.py:281
-msgid "Custom message title to display after valid form is submitted"
-msgstr "Заголовок сообщения для отображения после проверки и отправления формы"
-
-#: models.py:285
-msgid "Success page body"
-msgstr "Текст страницы успеха"
-
-#: models.py:286
-msgid "Custom message text to display after valid form is submitted"
-msgstr "Текст сообщения для отображения после проверки и отправления формы"
-
-#: models.py:290
-msgid "Action"
-msgstr "Действие"
-
-#: models.py:291
-msgid "Custom form action; don't fill this field, unless really necessary."
-msgstr "Действие формы; не заполняйте это поле без крайней надобности."
-
-#: models.py:296
-msgid "Form entry"
-msgstr "Форма"
-
-#: models.py:297
-msgid "Form entries"
-msgstr "Формы"
-
-#: models.py:320
-msgid "Is repeatable?"
-msgstr ""
-
-#: models.py:321
-msgid "Makes your form fieldset repeatable."
-msgstr ""
-
-#: models.py:325
-msgid "Form fieldset entry"
-msgstr ""
-
-#: models.py:326
-msgid "Form fieldset entries"
-msgstr ""
-
-#: models.py:345
-#: contrib/plugins/form_handlers/db_store/models.py:36
-msgid "Plugin data"
-msgstr "Данные плагина"
-
-#: models.py:433
-#: models.py:467
-msgid "Plugin name"
-msgstr "Название плагина"
-
-#: models.py:436
-msgid "Form fieldset"
-msgstr ""
-
-#: models.py:442
-msgid "Form element entry"
-msgstr "Элемент формы"
-
-#: models.py:443
-msgid "Form element entries"
-msgstr "Элементы формы"
-
-#: models.py:473
-msgid "Form handler entries"
-msgstr "Обработчики формы"
-
-#: utils.py:370
-#: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/dashboard.html:80
-#: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/edit_form_entry_ajax.html:126
-#: contrib/themes/foundation5/templates/foundation5/dashboard.html:43
-#: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:118
-#: contrib/themes/simple/templates/simple/dashboard.html:80
-#: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:125
-#: templates/fobi/generic/dashboard.html:46
-#: templates/fobi/generic/edit_form_entry.html:8
-#: templates/fobi/generic/edit_form_entry_ajax.html:120
-#: templates/fobi/generic/view_form_entry.html:8
-msgid "Edit"
-msgstr "Редактировать"
-
-#: utils.py:375
-#: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/dashboard.html:85
-#: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/edit_form_entry_ajax.html:128
-#: contrib/themes/foundation5/templates/foundation5/dashboard.html:44
-#: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:124
-#: contrib/themes/simple/templates/simple/dashboard.html:85
-#: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:127
-#: templates/fobi/generic/dashboard.html:51
-#: templates/fobi/generic/edit_form_entry_ajax.html:122
-msgid "Delete"
-msgstr "Удалить"
-
-#: views.py:87
-msgid "{0} not found."
-msgstr "{0} не найдено."
-
-#: views.py:177
-msgid "Form {0} was created successfully."
-msgstr "Форма {0} успешно создана."
-
-#: views.py:187
-#: views.py:303
-msgid "Errors occurred while saving the form: {0}."
-msgstr "Во время сохранения данных формы произошли следующие ошибки: {0}."
-
-#: views.py:240
-#: views.py:401
-#: views.py:642
-#: views.py:873
-#: views.py:997
-#: views.py:1037
-#: views.py:1071
-msgid "Form entry not found."
-msgstr "Форма не найдена"
-
-#: views.py:263
-msgid "Elements ordering edited successfully."
-msgstr "Порядок элементов успешно сохранен."
-
-#: views.py:272
-msgid "Errors occurred while trying to change the elements ordering!"
-msgstr "При попытке сохранения порядка элементов произошла ошибка!"
-
-#: views.py:292
-msgid "Form {0} was edited successfully."
-msgstr "Форма {0} успешно сохранена."
-
-#: views.py:410
-#: views.py:649
-msgid "Plugin does not exist or you are not allowed to use this plugin!"
-msgstr "Плагин не найден или вам не разрешено его использовать!"
-
-#: views.py:473
-msgid "The form element plugin \"{0}\" was added successfully."
-msgstr "Элемент формы \"{0}\" добавлен успешно."
-
-#: views.py:524
-msgid "Form element entry not found."
-msgstr "Элемент формы не найден."
-
-#: views.py:536
-msgid "The form element plugin \"{0}\" is not configurable!"
-msgstr "Элемент формы \"{0}\" не настраивается!"
-
-#: views.py:568
-msgid "The form element plugin \"{0}\" was edited successfully."
-msgstr "Элемент формы \"{0}\" успешно сохранен."
-
-#: views.py:618
-msgid "The form element plugin \"{0}\" was deleted successfully."
-msgstr "Элемент формы \"{0}\" успешно удален."
-
-#: views.py:665
-msgid "The {0} plugin can be used only once in a form."
-msgstr "{0} плагин разрешено использовать единожды в форме."
-
-#: views.py:707
-msgid "The form handler plugin \"{0}\" was added successfully."
-msgstr "Обработчик формы \"{0}\" успешно добавлен."
-
-#: views.py:760
-msgid "Form handler entry not found."
-msgstr "Обработчик формы не найден."
-
-#: views.py:773
-msgid "The form handler plugin \"{0}\" is not configurable!"
-msgstr "Обработчик формы \"{0}\" не настраивается!"
-
-#: views.py:796
-msgid "The form handler plugin \"{0}\" was edited successfully."
-msgstr "Обработчик формы \"{0}\" успешно изменен."
-
-#: views.py:843
-msgid "The form handler plugin \"{0}\" was deleted successfully."
-msgstr "Oработчик формы \"{0}\" успешно удален."
-
-#: views.py:924
-msgid "Error occurred: {0}."
-msgstr "Произошли следующие ошибки: {0}."
-
-#: views.py:938
-#: integration/processors.py:157
-msgid "Form {0} was submitted successfully."
-msgstr "Форма {0} успешно отправлена."
-
-#: views.py:1043
-msgid "The form \"{0}\" was deleted successfully."
-msgstr "Форма \"{0}\" успешно удалена."
-
-#: views.py:1151
-msgid " (imported on {0})"
-msgstr " (дата импорта {0})"
-
-#: views.py:1167
-#: views.py:1189
-msgid "Plugin {0} is missing in the system."
-msgstr ""
-
-#: views.py:1174
-msgid "Some essential plugin data missing in the JSON import."
-msgstr "Часть основных данных плагина отсутствует в импорте JSON."
-
-#: views.py:1196
-msgid "Some essential data missing in the JSON import."
-msgstr "Часть основных данных отсутствует в импорте JSON."
-
-#: views.py:1203
-msgid "The form was imported successfully."
-msgstr "Форма успешно импортирована."
-
-#: widgets.py:20
-msgid "Yes"
-msgstr "Да"
-
-#: widgets.py:21
-msgid "No"
-msgstr "Нет"
-
-#: contrib/apps/djangocms_integration/cms_plugins.py:20
-#: contrib/apps/feincms_integration/widgets.py:79
-#: contrib/apps/mezzanine_integration/models.py:70
-#: contrib/apps/mezzanine_integration/models.py:75
-#: contrib/apps/wagtail_integration/models.py:84
-#: contrib/apps/wagtail_integration/models.py:87
+#: contrib/apps/djangocms_integration/cms_plugins.py:22
+#: contrib/apps/feincms_integration/widgets.py:84
+#: contrib/apps/mezzanine_integration/models.py:77
+#: contrib/apps/mezzanine_integration/models.py:82
+#: contrib/apps/wagtail_integration_/models.py:86
+#: contrib/apps/wagtail_integration_/models.py:89
 msgid "Fobi form"
 msgstr "Форма"
 
-#: contrib/apps/djangocms_integration/models.py:29
-#: contrib/apps/feincms_integration/widgets.py:32
-#: contrib/apps/mezzanine_integration/models.py:27
-#: contrib/apps/wagtail_integration/models.py:39
+#: contrib/apps/djangocms_integration/models.py:27
+#: contrib/apps/feincms_integration/widgets.py:36
+#: contrib/apps/mezzanine_integration/models.py:32
+#: contrib/apps/wagtail_integration_/models.py:39
 msgid "Form template name"
 msgstr "Шаблон формы"
 
-#: contrib/apps/djangocms_integration/models.py:31
-#: contrib/apps/feincms_integration/widgets.py:34
-#: contrib/apps/mezzanine_integration/models.py:29
-#: contrib/apps/wagtail_integration/models.py:41
+#: contrib/apps/djangocms_integration/models.py:29
+#: contrib/apps/feincms_integration/widgets.py:38
+#: contrib/apps/mezzanine_integration/models.py:34
+#: contrib/apps/wagtail_integration_/models.py:41
 msgid "Template to render the form with."
 msgstr "Шаблон для отображения формы."
 
-#: contrib/apps/djangocms_integration/models.py:35
-#: contrib/apps/feincms_integration/widgets.py:38
-#: contrib/apps/mezzanine_integration/models.py:33
-#: contrib/apps/wagtail_integration/models.py:45
+#: contrib/apps/djangocms_integration/models.py:33
+#: contrib/apps/feincms_integration/widgets.py:42
+#: contrib/apps/mezzanine_integration/models.py:38
+#: contrib/apps/wagtail_integration_/models.py:45
 msgid "Hide form title"
 msgstr "Не отображать заголовок формы"
 
-#: contrib/apps/djangocms_integration/models.py:36
-#: contrib/apps/feincms_integration/widgets.py:39
-#: contrib/apps/mezzanine_integration/models.py:34
-#: contrib/apps/wagtail_integration/models.py:46
+#: contrib/apps/djangocms_integration/models.py:34
+#: contrib/apps/feincms_integration/widgets.py:43
+#: contrib/apps/mezzanine_integration/models.py:39
+#: contrib/apps/wagtail_integration_/models.py:46
 msgid "If checked, no form title is shown."
 msgstr "Если флажок установлен, заголовок формы не отображается."
 
-#: contrib/apps/djangocms_integration/models.py:40
-#: contrib/apps/feincms_integration/widgets.py:43
-#: contrib/apps/mezzanine_integration/models.py:38
-#: contrib/apps/wagtail_integration/models.py:50
+#: contrib/apps/djangocms_integration/models.py:38
+#: contrib/apps/feincms_integration/widgets.py:47
+#: contrib/apps/mezzanine_integration/models.py:43
+#: contrib/apps/wagtail_integration_/models.py:50
 msgid "Form title"
 msgstr "Заголовок формы"
 
-#: contrib/apps/djangocms_integration/models.py:41
-#: contrib/apps/feincms_integration/widgets.py:44
-#: contrib/apps/mezzanine_integration/models.py:39
-#: contrib/apps/wagtail_integration/models.py:51
+#: contrib/apps/djangocms_integration/models.py:39
+#: contrib/apps/feincms_integration/widgets.py:48
+#: contrib/apps/mezzanine_integration/models.py:44
+#: contrib/apps/wagtail_integration_/models.py:51
 msgid "Overrides the default form title."
 msgstr "Заменяет заголовок формы."
 
-#: contrib/apps/djangocms_integration/models.py:45
-#: contrib/apps/feincms_integration/widgets.py:48
-#: contrib/apps/mezzanine_integration/models.py:43
-#: contrib/apps/wagtail_integration/models.py:55
+#: contrib/apps/djangocms_integration/models.py:43
+#: contrib/apps/feincms_integration/widgets.py:52
+#: contrib/apps/mezzanine_integration/models.py:48
+#: contrib/apps/wagtail_integration_/models.py:55
 msgid "Submit button text"
 msgstr "Текст кнопки Отправить."
 
-#: contrib/apps/djangocms_integration/models.py:46
-#: contrib/apps/feincms_integration/widgets.py:49
-#: contrib/apps/mezzanine_integration/models.py:44
-#: contrib/apps/wagtail_integration/models.py:56
+#: contrib/apps/djangocms_integration/models.py:44
+#: contrib/apps/feincms_integration/widgets.py:53
+#: contrib/apps/mezzanine_integration/models.py:49
+#: contrib/apps/wagtail_integration_/models.py:56
 msgid "Overrides the default form submit button text."
 msgstr "Заменяет текст кнопки Отправить."
 
-#: contrib/apps/djangocms_integration/models.py:50
-#: contrib/apps/feincms_integration/widgets.py:53
-#: contrib/apps/mezzanine_integration/models.py:48
-#: contrib/apps/wagtail_integration/models.py:60
+#: contrib/apps/djangocms_integration/models.py:48
+#: contrib/apps/feincms_integration/widgets.py:57
+#: contrib/apps/mezzanine_integration/models.py:53
+#: contrib/apps/wagtail_integration_/models.py:60
 msgid "Success page template name"
 msgstr "Шаблон страницы успеха"
 
-#: contrib/apps/djangocms_integration/models.py:52
-#: contrib/apps/feincms_integration/widgets.py:55
-#: contrib/apps/mezzanine_integration/models.py:50
-#: contrib/apps/wagtail_integration/models.py:62
+#: contrib/apps/djangocms_integration/models.py:50
+#: contrib/apps/feincms_integration/widgets.py:59
+#: contrib/apps/mezzanine_integration/models.py:55
+#: contrib/apps/wagtail_integration_/models.py:62
 msgid "Template to render the success page with."
 msgstr "Шаблон для отображения страницы успеха."
 
-#: contrib/apps/djangocms_integration/models.py:56
-#: contrib/apps/feincms_integration/widgets.py:59
-#: contrib/apps/mezzanine_integration/models.py:54
-#: contrib/apps/wagtail_integration/models.py:66
+#: contrib/apps/djangocms_integration/models.py:54
+#: contrib/apps/feincms_integration/widgets.py:63
+#: contrib/apps/mezzanine_integration/models.py:59
+#: contrib/apps/wagtail_integration_/models.py:66
 msgid "Hide success page title"
 msgstr "Не отображать заголовок страницы успеха"
 
-#: contrib/apps/djangocms_integration/models.py:57
-#: contrib/apps/feincms_integration/widgets.py:60
-#: contrib/apps/mezzanine_integration/models.py:55
-#: contrib/apps/wagtail_integration/models.py:67
+#: contrib/apps/djangocms_integration/models.py:55
+#: contrib/apps/feincms_integration/widgets.py:64
+#: contrib/apps/mezzanine_integration/models.py:60
+#: contrib/apps/wagtail_integration_/models.py:67
 msgid "If checked, no success page title is shown."
 msgstr "Если флажок установлен, заголовок страницы успеха не отображается."
 
-#: contrib/apps/djangocms_integration/models.py:61
-#: contrib/apps/feincms_integration/widgets.py:64
-#: contrib/apps/mezzanine_integration/models.py:59
-#: contrib/apps/wagtail_integration/models.py:71
+#: contrib/apps/djangocms_integration/models.py:59
+#: contrib/apps/feincms_integration/widgets.py:68
+#: contrib/apps/mezzanine_integration/models.py:64
+#: contrib/apps/wagtail_integration_/models.py:71
 msgid "Succes page title"
 msgstr "Заголовок страницы успеха"
 
-#: contrib/apps/djangocms_integration/models.py:62
-#: contrib/apps/feincms_integration/widgets.py:65
-#: contrib/apps/mezzanine_integration/models.py:60
-#: contrib/apps/wagtail_integration/models.py:72
+#: contrib/apps/djangocms_integration/models.py:60
+#: contrib/apps/feincms_integration/widgets.py:69
+#: contrib/apps/mezzanine_integration/models.py:65
+#: contrib/apps/wagtail_integration_/models.py:72
 msgid "Overrides the default success page title."
 msgstr "Заменяет заголовок страницы успеха."
 
-#: contrib/apps/djangocms_integration/models.py:66
-#: contrib/apps/feincms_integration/widgets.py:69
-#: contrib/apps/mezzanine_integration/models.py:64
-#: contrib/apps/wagtail_integration/models.py:76
+#: contrib/apps/djangocms_integration/models.py:64
+#: contrib/apps/feincms_integration/widgets.py:73
+#: contrib/apps/mezzanine_integration/models.py:69
+#: contrib/apps/wagtail_integration_/models.py:76
 msgid "Succes page text"
 msgstr "Текст страницы успеха"
 
-#: contrib/apps/djangocms_integration/models.py:67
-#: contrib/apps/feincms_integration/widgets.py:70
-#: contrib/apps/mezzanine_integration/models.py:65
-#: contrib/apps/wagtail_integration/models.py:77
+#: contrib/apps/djangocms_integration/models.py:65
+#: contrib/apps/feincms_integration/widgets.py:74
+#: contrib/apps/mezzanine_integration/models.py:70
+#: contrib/apps/wagtail_integration_/models.py:77
 msgid "Overrides the default success page text."
 msgstr "Заменяет текст по-умолчанию страницы успеха."
 
@@ -747,13 +399,277 @@ msgstr ""
 "Для просмотра контента необходима авторизация.\n"
 "<a href=\"%(login_url)s\">Авторизируйтесь</a> здесь.\n"
 
-#: contrib/apps/mezzanine_integration/models.py:71
-#: contrib/apps/wagtail_integration/models.py:84
+#: contrib/apps/drf_integration/dynamic.py:268
+#, python-brace-format
+msgid "Invalid data. Expected a dictionary, but got {datatype}."
+msgstr ""
+
+#: contrib/apps/drf_integration/fields.py:47
+msgid "Max number of choices reached."
+msgstr ""
+
+#: contrib/apps/drf_integration/form_elements/content/content_image/base.py:31
+#: contrib/apps/drf_integration/form_elements/content/content_video/base.py:31
+#: contrib/plugins/form_elements/content/content_image/base.py:33
+msgid "Content image"
+msgstr "Изображение (визуальный элемент)"
+
+#: contrib/apps/drf_integration/form_elements/content/content_image/base.py:32
+#: contrib/apps/drf_integration/form_elements/content/content_image_url/base.py:32
+#: contrib/apps/drf_integration/form_elements/content/content_text/base.py:32
+#: contrib/apps/drf_integration/form_elements/content/content_video/base.py:32
+#: contrib/plugins/form_elements/content/content_image/base.py:34
+#: contrib/plugins/form_elements/content/content_image_url/base.py:32
+#: contrib/plugins/form_elements/content/content_text/base.py:29
+#: contrib/plugins/form_elements/content/content_video/base.py:29
+msgid "Content"
+msgstr "Контент (визуальные элементы)"
+
+#: contrib/apps/drf_integration/form_elements/content/content_image_url/base.py:31
+#: contrib/plugins/form_elements/content/content_image_url/base.py:31
+#, fuzzy
+#| msgid "Content image"
+msgid "Content image URL"
+msgstr "Изображение (визуальный элемент)"
+
+#: contrib/apps/drf_integration/form_elements/content/content_text/base.py:31
+#: contrib/plugins/form_elements/content/content_text/base.py:28
+msgid "Content text"
+msgstr "Текст (визуальный элемент)"
+
+#: contrib/apps/drf_integration/form_elements/fields/boolean/base.py:27
+#: contrib/plugins/form_elements/fields/boolean/base.py:20
+msgid "Boolean"
+msgstr "Галочка"
+
+#: contrib/apps/drf_integration/form_elements/fields/boolean/base.py:28
+#: contrib/apps/drf_integration/form_elements/fields/checkbox_select_multiple/base.py:31
+#: contrib/apps/drf_integration/form_elements/fields/date/base.py:29
+#: contrib/apps/drf_integration/form_elements/fields/date_drop_down/base.py:29
+#: contrib/apps/drf_integration/form_elements/fields/datetime/base.py:28
+#: contrib/apps/drf_integration/form_elements/fields/decimal/base.py:30
+#: contrib/apps/drf_integration/form_elements/fields/email/base.py:28
+#: contrib/apps/drf_integration/form_elements/fields/file/base.py:30
+#: contrib/apps/drf_integration/form_elements/fields/float/base.py:28
+#: contrib/apps/drf_integration/form_elements/fields/hidden/base.py:28
+#: contrib/apps/drf_integration/form_elements/fields/input/base.py:28
+#: contrib/apps/drf_integration/form_elements/fields/integer/base.py:28
+#: contrib/apps/drf_integration/form_elements/fields/ip_address/base.py:28
+#: contrib/apps/drf_integration/form_elements/fields/null_boolean/base.py:28
+#: contrib/apps/drf_integration/form_elements/fields/password/base.py:28
+#: contrib/apps/drf_integration/form_elements/fields/radio/base.py:30
+#: contrib/apps/drf_integration/form_elements/fields/range_select/base.py:29
+#: contrib/apps/drf_integration/form_elements/fields/regex/base.py:28
+#: contrib/apps/drf_integration/form_elements/fields/select/base.py:29
+#: contrib/apps/drf_integration/form_elements/fields/select_model_object/base.py:30
+#: contrib/apps/drf_integration/form_elements/fields/select_multiple/base.py:31
+#: contrib/apps/drf_integration/form_elements/fields/select_multiple_model_objects/base.py:30
+#: contrib/apps/drf_integration/form_elements/fields/select_multiple_with_max/base.py:31
+#: contrib/apps/drf_integration/form_elements/fields/slider/base.py:29
+#: contrib/apps/drf_integration/form_elements/fields/slug/base.py:28
+#: contrib/apps/drf_integration/form_elements/fields/text/base.py:28
+#: contrib/apps/drf_integration/form_elements/fields/textarea/base.py:28
+#: contrib/apps/drf_integration/form_elements/fields/time/base.py:28
+#: contrib/apps/drf_integration/form_elements/fields/url/base.py:28
+#: contrib/plugins/form_elements/fields/boolean/base.py:21
+#: contrib/plugins/form_elements/fields/checkbox_select_multiple/base.py:28
+#: contrib/plugins/form_elements/fields/date/base.py:26
+#: contrib/plugins/form_elements/fields/date_drop_down/base.py:28
+#: contrib/plugins/form_elements/fields/datetime/base.py:27
+#: contrib/plugins/form_elements/fields/decimal/base.py:29
+#: contrib/plugins/form_elements/fields/email/base.py:27
+#: contrib/plugins/form_elements/fields/file/base.py:29
+#: contrib/plugins/form_elements/fields/float/base.py:26
+#: contrib/plugins/form_elements/fields/hidden/base.py:26
+#: contrib/plugins/form_elements/fields/hidden_model_object/base.py:36
+#: contrib/plugins/form_elements/fields/input/base.py:26
+#: contrib/plugins/form_elements/fields/integer/base.py:26
+#: contrib/plugins/form_elements/fields/ip_address/base.py:26
+#: contrib/plugins/form_elements/fields/null_boolean/base.py:26
+#: contrib/plugins/form_elements/fields/password/base.py:26
+#: contrib/plugins/form_elements/fields/radio/base.py:32
+#: contrib/plugins/form_elements/fields/range_select/base.py:36
+#: contrib/plugins/form_elements/fields/regex/base.py:26
+#: contrib/plugins/form_elements/fields/select/base.py:32
+#: contrib/plugins/form_elements/fields/select_model_object/base.py:46
+#: contrib/plugins/form_elements/fields/select_mptt_model_object/base.py:47
+#: contrib/plugins/form_elements/fields/select_multiple/base.py:33
+#: contrib/plugins/form_elements/fields/select_multiple_model_objects/base.py:47
+#: contrib/plugins/form_elements/fields/select_multiple_mptt_model_objects/base.py:48
+#: contrib/plugins/form_elements/fields/select_multiple_with_max/base.py:33
+#: contrib/plugins/form_elements/fields/slider/base.py:58
+#: contrib/plugins/form_elements/fields/slug/base.py:26
+#: contrib/plugins/form_elements/fields/text/base.py:26
+#: contrib/plugins/form_elements/fields/textarea/base.py:26
+#: contrib/plugins/form_elements/fields/time/base.py:26
+#: contrib/plugins/form_elements/fields/url/base.py:36
+msgid "Fields"
+msgstr "Поля"
+
+#: contrib/apps/drf_integration/form_elements/fields/checkbox_select_multiple/base.py:30
+#: contrib/plugins/form_elements/fields/checkbox_select_multiple/base.py:27
+msgid "Checkbox select multiple"
+msgstr "Галочки множественного выбора"
+
+#: contrib/apps/drf_integration/form_elements/fields/date/base.py:28
+#: contrib/plugins/form_elements/fields/date/base.py:25
+#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:41
+#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_wizard_data_entries.html:41
+#: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/view_saved_form_data_entries.html:42
+msgid "Date"
+msgstr "Дата"
+
+#: contrib/apps/drf_integration/form_elements/fields/date_drop_down/base.py:28
+#: contrib/plugins/form_elements/fields/date_drop_down/base.py:27
+msgid "Date drop down"
+msgstr "Дата (выпадающий список)"
+
+#: contrib/apps/drf_integration/form_elements/fields/datetime/base.py:27
+#: contrib/plugins/form_elements/fields/datetime/base.py:26
+msgid "DateTime"
+msgstr "Дата/время"
+
+#: contrib/apps/drf_integration/form_elements/fields/decimal/base.py:29
+#: contrib/apps/drf_integration/form_elements/fields/email/base.py:27
+#: contrib/plugins/form_elements/fields/decimal/base.py:28
+msgid "Decimal"
+msgstr "Десятичное число"
+
+#: contrib/apps/drf_integration/form_elements/fields/file/base.py:29
+#: contrib/plugins/form_elements/fields/file/base.py:28 forms.py:526
+msgid "File"
+msgstr "Файл"
+
+#: contrib/apps/drf_integration/form_elements/fields/float/base.py:27
+#: contrib/plugins/form_elements/fields/float/base.py:25
+msgid "Float"
+msgstr "Число с плавающей точкой"
+
+#: contrib/apps/drf_integration/form_elements/fields/hidden/base.py:27
+#: contrib/plugins/form_elements/fields/hidden/base.py:25
+msgid "Hidden"
+msgstr "Скрытое поле"
+
+#: contrib/apps/drf_integration/form_elements/fields/input/base.py:27
+#: contrib/apps/drf_integration/form_elements/fields/password/base.py:27
+#: contrib/apps/drf_integration/form_elements/fields/text/base.py:27
+#: contrib/plugins/form_elements/content/content_text/forms.py:34
+#: contrib/plugins/form_elements/fields/text/base.py:25
+msgid "Text"
+msgstr "Текст"
+
+#: contrib/apps/drf_integration/form_elements/fields/integer/base.py:27
+#: contrib/plugins/form_elements/fields/integer/base.py:25
+msgid "Integer"
+msgstr "Целое число"
+
+#: contrib/apps/drf_integration/form_elements/fields/ip_address/base.py:27
+#: contrib/plugins/form_elements/fields/ip_address/base.py:25
+msgid "IP address"
+msgstr "IP адрес"
+
+#: contrib/apps/drf_integration/form_elements/fields/null_boolean/base.py:27
+#: contrib/plugins/form_elements/fields/null_boolean/base.py:25
+msgid "Null boolean"
+msgstr "Булевое (выпадающий список)"
+
+#: contrib/apps/drf_integration/form_elements/fields/radio/base.py:29
+#: contrib/plugins/form_elements/fields/radio/base.py:31
+msgid "Radio"
+msgstr "Радио кнопка"
+
+#: contrib/apps/drf_integration/form_elements/fields/range_select/base.py:28
+#: contrib/plugins/form_elements/fields/range_select/base.py:35
+msgid "Range select"
+msgstr ""
+
+#: contrib/apps/drf_integration/form_elements/fields/regex/base.py:27
+#: contrib/plugins/form_elements/fields/regex/base.py:25
+#: contrib/plugins/form_elements/fields/regex/forms.py:56
+msgid "Regex"
+msgstr "Регулярное выражение"
+
+#: contrib/apps/drf_integration/form_elements/fields/select/base.py:28
+#: contrib/plugins/form_elements/fields/select/base.py:31
+msgid "Select"
+msgstr "Выпадающий список"
+
+#: contrib/apps/drf_integration/form_elements/fields/select_model_object/base.py:29
+#: contrib/plugins/form_elements/fields/select_model_object/base.py:45
+msgid "Select model object"
+msgstr "Выпадающий список объектов моделей"
+
+#: contrib/apps/drf_integration/form_elements/fields/select_multiple/base.py:30
+#: contrib/plugins/form_elements/fields/select_multiple/base.py:32
+msgid "Select multiple"
+msgstr "Выпадающий список множественного выбора"
+
+#: contrib/apps/drf_integration/form_elements/fields/select_multiple_model_objects/base.py:29
+#: contrib/plugins/form_elements/fields/select_multiple_model_objects/base.py:46
+msgid "Select multiple model objects"
+msgstr "Выпадающий список множественного выбора объектов моделей"
+
+#: contrib/apps/drf_integration/form_elements/fields/select_multiple_with_max/base.py:30
+#: contrib/plugins/form_elements/fields/select_multiple_with_max/base.py:32
+#, fuzzy
+#| msgid "Select multiple"
+msgid "Select multiple with max"
+msgstr "Выпадающий список множественного выбора"
+
+#: contrib/apps/drf_integration/form_elements/fields/slider/base.py:28
+#: contrib/plugins/form_elements/fields/slider/base.py:57
+msgid "Slider"
+msgstr ""
+
+#: contrib/apps/drf_integration/form_elements/fields/slug/base.py:27
+#: contrib/plugins/form_elements/fields/slug/base.py:25 models.py:268
+#: models.py:350
+msgid "Slug"
+msgstr "Слаг"
+
+#: contrib/apps/drf_integration/form_elements/fields/textarea/base.py:27
+#: contrib/plugins/form_elements/fields/textarea/base.py:25
+msgid "Textarea"
+msgstr "Блок текста"
+
+#: contrib/apps/drf_integration/form_elements/fields/time/base.py:27
+#: contrib/plugins/form_elements/fields/time/base.py:25
+msgid "Time"
+msgstr "Время"
+
+#: contrib/apps/drf_integration/form_elements/fields/url/base.py:27
+#: contrib/plugins/form_elements/content/content_image_url/forms.py:35
+#: contrib/plugins/form_elements/content/content_video/forms.py:34
+#: contrib/plugins/form_elements/fields/url/base.py:35
+msgid "URL"
+msgstr "Ссылка"
+
+#: contrib/apps/drf_integration/form_handlers/db_store/base.py:34
+#: contrib/plugins/form_handlers/db_store/base.py:47
+#: contrib/plugins/form_handlers/db_store/base.py:144
+msgid "DB store"
+msgstr "Сохранить в базе"
+
+#: contrib/apps/drf_integration/form_handlers/http_repost/base.py:34
+#: contrib/apps/drf_integration/form_handlers/mail/base.py:37
+#: contrib/plugins/form_handlers/mail/base.py:52
+#: contrib/plugins/form_handlers/mail/base.py:219
+msgid "Mail"
+msgstr "Переслать по эл. почте"
+
+#: contrib/apps/drf_integration/views.py:194 views.py:2242
+#, python-brace-format
+msgid "Error occurred: {0}."
+msgstr "Произошли следующие ошибки: {0}."
+
+#: contrib/apps/mezzanine_integration/models.py:78
+#: contrib/apps/wagtail_integration_/models.py:86
 msgid "Fobi forms"
 msgstr "Формы fobi"
 
 #: contrib/apps/mezzanine_integration/templates/mezzanine_integration/admin/change_form.html:8
-#: contrib/plugins/form_handlers/db_store/fobi_form_handlers.py:79
+#: contrib/plugins/form_handlers/db_store/base.py:119
+#: contrib/plugins/form_handlers/db_store/base.py:210
 #: contrib/plugins/form_handlers/db_store/templates/db_store/plugin_data_repr.html:4
 #: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/plugin_data_repr.html:4
 msgid "View entries"
@@ -767,483 +683,594 @@ msgstr "История"
 msgid "View on site"
 msgstr "Посмотреть на сайте"
 
-#: contrib/plugins/form_elements/content/content_image/defaults.py:24
+#: contrib/plugins/form_elements/content/content_image/defaults.py:36
 msgid "Smart crop"
 msgstr "Отсечь автоматически"
 
-#: contrib/plugins/form_elements/content/content_image/defaults.py:25
+#: contrib/plugins/form_elements/content/content_image/defaults.py:37
 msgid "Crop center"
 msgstr "Отсечь по центру"
 
-#: contrib/plugins/form_elements/content/content_image/defaults.py:26
+#: contrib/plugins/form_elements/content/content_image/defaults.py:38
 msgid "Crop scale"
 msgstr "Отсечь пропорционально"
 
-#: contrib/plugins/form_elements/content/content_image/defaults.py:27
+#: contrib/plugins/form_elements/content/content_image/defaults.py:39
+#: contrib/plugins/form_elements/content/content_image_url/defaults.py:27
 msgid "Fit width"
 msgstr "В ширину"
 
-#: contrib/plugins/form_elements/content/content_image/defaults.py:28
+#: contrib/plugins/form_elements/content/content_image/defaults.py:40
+#: contrib/plugins/form_elements/content/content_image_url/defaults.py:28
 msgid "Fit height"
 msgstr "В высоту"
 
-#: contrib/plugins/form_elements/content/content_image/fobi_form_elements.py:30
-msgid "Content image"
-msgstr "Изображение (визуальный элемент)"
-
-#: contrib/plugins/form_elements/content/content_image/fobi_form_elements.py:31
-#: contrib/plugins/form_elements/content/content_text/fobi_form_elements.py:25
-#: contrib/plugins/form_elements/content/content_video/fobi_form_elements.py:26
-msgid "Content"
-msgstr "Контент (визуальные элементы)"
-
-#: contrib/plugins/form_elements/content/content_image/forms.py:32
+#: contrib/plugins/form_elements/content/content_image/forms.py:35
 msgid "Image"
 msgstr "Изображение"
 
-#: contrib/plugins/form_elements/content/content_image/forms.py:38
+#: contrib/plugins/form_elements/content/content_image/forms.py:41
+#: contrib/plugins/form_elements/content/content_image_url/forms.py:42
 msgid "Alt text"
 msgstr "Текст изображения"
 
-#: contrib/plugins/form_elements/content/content_image/forms.py:45
+#: contrib/plugins/form_elements/content/content_image/forms.py:48
+#: contrib/plugins/form_elements/content/content_image_url/forms.py:49
 msgid "Fit method"
 msgstr "Метод вставки"
 
-#: contrib/plugins/form_elements/content/content_image/forms.py:54
-#: contrib/plugins/form_elements/content/content_video/forms.py:37
+#: contrib/plugins/form_elements/content/content_image/forms.py:57
+#: contrib/plugins/form_elements/content/content_image_url/forms.py:72
+#: contrib/plugins/form_elements/content/content_video/forms.py:41
 msgid "Size"
 msgstr "Размер"
 
 #: contrib/plugins/form_elements/content/content_image/templates/content_image/render.html:11
+#: contrib/plugins/form_elements/content/content_image_url/templates/content_image_url/render.html:6
 msgid "No image provided!"
 msgstr "Изображение отсутствует!"
 
-#: contrib/plugins/form_elements/content/content_text/fobi_form_elements.py:24
-msgid "Content text"
-msgstr "Текст (визуальный элемент)"
-
-#: contrib/plugins/form_elements/content/content_text/forms.py:24
-#: contrib/plugins/form_elements/fields/text/fobi_form_elements.py:23
-msgid "Text"
-msgstr "Текст"
-
-#: contrib/plugins/form_elements/content/content_video/fobi_form_elements.py:25
+#: contrib/plugins/form_elements/content/content_video/base.py:28
 msgid "Content video"
 msgstr "Видео (визуальный элемент)"
 
 #: contrib/plugins/form_elements/content/content_video/forms.py:27
+#: models.py:265 models.py:346
 msgid "Title"
 msgstr "Название"
 
-#: contrib/plugins/form_elements/content/content_video/forms.py:32
-#: contrib/plugins/form_elements/fields/url/fobi_form_elements.py:30
-msgid "URL"
-msgstr "Ссылка"
-
-#: contrib/plugins/form_elements/fields/boolean/fobi_form_elements.py:20
-msgid "Boolean"
-msgstr "Галочка"
-
-#: contrib/plugins/form_elements/fields/boolean/fobi_form_elements.py:21
-#: contrib/plugins/form_elements/fields/checkbox_select_multiple/fobi_form_elements.py:29
-#: contrib/plugins/form_elements/fields/date/fobi_form_elements.py:26
-#: contrib/plugins/form_elements/fields/date_drop_down/fobi_form_elements.py:24
-#: contrib/plugins/form_elements/fields/datetime/fobi_form_elements.py:26
-#: contrib/plugins/form_elements/fields/decimal/fobi_form_elements.py:26
-#: contrib/plugins/form_elements/fields/email/fobi_form_elements.py:26
-#: contrib/plugins/form_elements/fields/file/fobi_form_elements.py:27
-#: contrib/plugins/form_elements/fields/float/fobi_form_elements.py:24
-#: contrib/plugins/form_elements/fields/hidden/fobi_form_elements.py:24
-#: contrib/plugins/form_elements/fields/hidden_model_object/fobi_form_elements.py:26
-#: contrib/plugins/form_elements/fields/input/fobi_form_elements.py:24
-#: contrib/plugins/form_elements/fields/integer/fobi_form_elements.py:24
-#: contrib/plugins/form_elements/fields/ip_address/fobi_form_elements.py:24
-#: contrib/plugins/form_elements/fields/null_boolean/fobi_form_elements.py:24
-#: contrib/plugins/form_elements/fields/password/fobi_form_elements.py:24
-#: contrib/plugins/form_elements/fields/radio/fobi_form_elements.py:29
-#: contrib/plugins/form_elements/fields/regex/fobi_form_elements.py:26
-#: contrib/plugins/form_elements/fields/select/fobi_form_elements.py:29
-#: contrib/plugins/form_elements/fields/select_model_object/fobi_form_elements.py:30
-#: contrib/plugins/form_elements/fields/select_mptt_model_object/fobi_form_elements.py:31
-#: contrib/plugins/form_elements/fields/select_multiple/fobi_form_elements.py:29
-#: contrib/plugins/form_elements/fields/select_multiple_model_objects/fobi_form_elements.py:32
-#: contrib/plugins/form_elements/fields/select_multiple_mptt_model_objects/fobi_form_elements.py:33
-#: contrib/plugins/form_elements/fields/slug/fobi_form_elements.py:24
-#: contrib/plugins/form_elements/fields/text/fobi_form_elements.py:24
-#: contrib/plugins/form_elements/fields/textarea/fobi_form_elements.py:24
-#: contrib/plugins/form_elements/fields/time/fobi_form_elements.py:26
-#: contrib/plugins/form_elements/fields/url/fobi_form_elements.py:31
-msgid "Fields"
-msgstr "Поля"
-
-#: contrib/plugins/form_elements/fields/boolean/forms.py:42
-#: contrib/plugins/form_elements/fields/checkbox_select_multiple/forms.py:65
-#: contrib/plugins/form_elements/fields/date/forms.py:45
-#: contrib/plugins/form_elements/fields/date_drop_down/forms.py:62
-#: contrib/plugins/form_elements/fields/datetime/forms.py:45
-#: contrib/plugins/form_elements/fields/decimal/forms.py:50
-#: contrib/plugins/form_elements/fields/email/forms.py:47
-#: contrib/plugins/form_elements/fields/file/forms.py:44
-#: contrib/plugins/form_elements/fields/float/forms.py:46
-#: contrib/plugins/form_elements/fields/hidden/forms.py:38
-#: contrib/plugins/form_elements/fields/hidden_model_object/forms.py:52
-#: contrib/plugins/form_elements/fields/input/forms.py:70
-#: contrib/plugins/form_elements/fields/integer/forms.py:46
-#: contrib/plugins/form_elements/fields/ip_address/forms.py:48
-#: contrib/plugins/form_elements/fields/null_boolean/forms.py:42
-#: contrib/plugins/form_elements/fields/password/forms.py:45
-#: contrib/plugins/form_elements/fields/radio/forms.py:65
-#: contrib/plugins/form_elements/fields/regex/forms.py:54
-#: contrib/plugins/form_elements/fields/select/forms.py:65
-#: contrib/plugins/form_elements/fields/select_model_object/forms.py:52
-#: contrib/plugins/form_elements/fields/select_mptt_model_object/forms.py:52
-#: contrib/plugins/form_elements/fields/select_multiple/forms.py:65
-#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:52
-#: contrib/plugins/form_elements/fields/select_multiple_mptt_model_objects/forms.py:52
-#: contrib/plugins/form_elements/fields/slug/forms.py:45
-#: contrib/plugins/form_elements/fields/text/forms.py:45
-#: contrib/plugins/form_elements/fields/textarea/forms.py:43
-#: contrib/plugins/form_elements/fields/time/forms.py:45
-#: contrib/plugins/form_elements/fields/url/forms.py:45
-#: contrib/plugins/form_elements/security/honeypot/forms.py:45
+#: contrib/plugins/form_elements/fields/boolean/forms.py:48
+#: contrib/plugins/form_elements/fields/checkbox_select_multiple/forms.py:82
+#: contrib/plugins/form_elements/fields/date/forms.py:52
+#: contrib/plugins/form_elements/fields/date_drop_down/forms.py:71
+#: contrib/plugins/form_elements/fields/datetime/forms.py:51
+#: contrib/plugins/form_elements/fields/decimal/forms.py:58
+#: contrib/plugins/form_elements/fields/email/forms.py:55
+#: contrib/plugins/form_elements/fields/file/forms.py:52
+#: contrib/plugins/form_elements/fields/float/forms.py:52
+#: contrib/plugins/form_elements/fields/hidden/forms.py:44
+#: contrib/plugins/form_elements/fields/hidden_model_object/forms.py:61
+#: contrib/plugins/form_elements/fields/input/forms.py:74
+#: contrib/plugins/form_elements/fields/integer/forms.py:52
+#: contrib/plugins/form_elements/fields/ip_address/forms.py:55
+#: contrib/plugins/form_elements/fields/null_boolean/forms.py:48
+#: contrib/plugins/form_elements/fields/password/forms.py:53
+#: contrib/plugins/form_elements/fields/radio/forms.py:81
+#: contrib/plugins/form_elements/fields/range_select/forms.py:85
+#: contrib/plugins/form_elements/fields/regex/forms.py:73
+#: contrib/plugins/form_elements/fields/select/forms.py:81
+#: contrib/plugins/form_elements/fields/select_model_object/forms.py:61
+#: contrib/plugins/form_elements/fields/select_mptt_model_object/forms.py:61
+#: contrib/plugins/form_elements/fields/select_multiple/forms.py:81
+#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:60
+#: contrib/plugins/form_elements/fields/select_multiple_mptt_model_objects/forms.py:62
+#: contrib/plugins/form_elements/fields/select_multiple_with_max/forms.py:83
+#: contrib/plugins/form_elements/fields/slider/forms.py:75
+#: contrib/plugins/form_elements/fields/slug/forms.py:53
+#: contrib/plugins/form_elements/fields/text/forms.py:53
+#: contrib/plugins/form_elements/fields/textarea/forms.py:49
+#: contrib/plugins/form_elements/fields/time/forms.py:51
+#: contrib/plugins/form_elements/fields/url/forms.py:53
+#: contrib/plugins/form_elements/security/honeypot/forms.py:52
 msgid "Initial"
 msgstr "Начальное значение"
 
-#: contrib/plugins/form_elements/fields/checkbox_select_multiple/fobi_form_elements.py:28
-msgid "Checkbox select multiple"
-msgstr "Галочки множественного выбора"
-
-#: contrib/plugins/form_elements/fields/checkbox_select_multiple/forms.py:39
-#: contrib/plugins/form_elements/fields/radio/forms.py:39
-#: contrib/plugins/form_elements/fields/select/forms.py:39
-#: contrib/plugins/form_elements/fields/select_multiple/forms.py:39
+#: contrib/plugins/form_elements/fields/checkbox_select_multiple/forms.py:44
+#: contrib/plugins/form_elements/fields/radio/forms.py:43
+#: contrib/plugins/form_elements/fields/select/forms.py:43
+#: contrib/plugins/form_elements/fields/select_multiple/forms.py:43
+#: contrib/plugins/form_elements/fields/select_multiple_with_max/forms.py:45
 msgid "Choices"
 msgstr "Варианы"
 
-#: contrib/plugins/form_elements/fields/checkbox_select_multiple/forms.py:41
-#: contrib/plugins/form_elements/fields/radio/forms.py:41
-#: contrib/plugins/form_elements/fields/select/forms.py:41
-#: contrib/plugins/form_elements/fields/select_multiple/forms.py:41
-msgid "Enter single values/pairs per line. Example:<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;1<br/>&nbsp;&nbsp;&nbsp;&nbsp;2<br/>&nbsp;&nbsp;&nbsp;&nbsp;alpha, Alpha<br/>&nbsp;&nbsp;&nbsp;&nbsp;beta, Beta<br/>&nbsp;&nbsp;&nbsp;&nbsp;omega</code><br/>It finally transforms into the following HTML code:<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;select id=\"id_NAME_OF_THE_ELEMENT\" name=\"NAME_OF_THE_ELEMENT\"&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"1\"&gt;1&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"2\"&gt;2&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"alpha\"&gt;Alpha&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"beta\"&gt;Beta&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"omega\"&gt;omega&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/select&gt;</code>"
-msgstr "Введите либо отдельные, либо партные значения - по одному на строку. Пример: <code><br/>&nbsp;&nbsp;&nbsp;&nbsp;1<br/>&nbsp;&nbsp;&nbsp;&nbsp;2<br/>&nbsp;&nbsp;&nbsp;&nbsp;alpha, Alpha<br/>&nbsp;&nbsp;&nbsp;&nbsp;beta, Beta<br/>&nbsp;&nbsp;&nbsp;&nbsp;omega</code><br/>В результате получится следующий HTML код:<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;select id=\"id_NAME_OF_THE_ELEMENT\" name=\"NAME_OF_THE_ELEMENT\"&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"1\"&gt;1&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"2\"&gt;2&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"alpha\"&gt;Alpha&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"beta\"&gt;Beta&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"omega\"&gt;omega&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/select&gt;</code>"
+#: contrib/plugins/form_elements/fields/checkbox_select_multiple/forms.py:46
+#: contrib/plugins/form_elements/fields/radio/forms.py:45
+#: contrib/plugins/form_elements/fields/select/forms.py:45
+#: contrib/plugins/form_elements/fields/select_multiple/forms.py:45
+#: contrib/plugins/form_elements/fields/select_multiple_with_max/forms.py:47
+msgid ""
+"Enter single values/pairs per line. Example:<code><br/>&nbsp;&nbsp;&nbsp;"
+"&nbsp;1<br/>&nbsp;&nbsp;&nbsp;&nbsp;2<br/>&nbsp;&nbsp;&nbsp;&nbsp;alpha, "
+"Alpha<br/>&nbsp;&nbsp;&nbsp;&nbsp;beta, Beta<br/>&nbsp;&nbsp;&nbsp;&nbsp;"
+"omega</code><br/>It finally transforms into the following HTML code:"
+"<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;select id=\"id_NAME_OF_THE_ELEMENT\" "
+"name=\"NAME_OF_THE_ELEMENT\"&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+"&nbsp;&nbsp;&lt;option value=\"1\"&gt;1&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;"
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"2\"&gt;2&lt;/option&gt;<br/"
+">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"alpha"
+"\"&gt;Alpha&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+"&nbsp;&lt;option value=\"beta\"&gt;Beta&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;"
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"omega\"&gt;omega&lt;/"
+"option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/select&gt;</code>"
+msgstr ""
+"Введите либо отдельные, либо партные значения - по одному на строку. Пример: "
+"<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;1<br/>&nbsp;&nbsp;&nbsp;&nbsp;2<br/>&nbsp;"
+"&nbsp;&nbsp;&nbsp;alpha, Alpha<br/>&nbsp;&nbsp;&nbsp;&nbsp;beta, Beta<br/"
+">&nbsp;&nbsp;&nbsp;&nbsp;omega</code><br/>В результате получится следующий "
+"HTML код:<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;select id="
+"\"id_NAME_OF_THE_ELEMENT\" name=\"NAME_OF_THE_ELEMENT\"&gt;<br/>&nbsp;&nbsp;"
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"1\"&gt;1&lt;/"
+"option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option "
+"value=\"2\"&gt;2&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"
+"&nbsp;&nbsp;&lt;option value=\"alpha\"&gt;Alpha&lt;/option&gt;<br/>&nbsp;"
+"&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"beta\"&gt;"
+"Beta&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;"
+"option value=\"omega\"&gt;omega&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;"
+"&lt;/select&gt;</code>"
 
-#: contrib/plugins/form_elements/fields/date/fobi_form_elements.py:25
-#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:41
-#: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/view_saved_form_data_entries.html:42
-msgid "Date"
-msgstr "Дата"
-
-#: contrib/plugins/form_elements/fields/date/forms.py:51
-#: contrib/plugins/form_elements/fields/date_drop_down/forms.py:67
+#: contrib/plugins/form_elements/fields/date/forms.py:59
+#: contrib/plugins/form_elements/fields/date_drop_down/forms.py:78
 msgid "Input  formats"
 msgstr "Форматы ввода"
 
-#: contrib/plugins/form_elements/fields/date_drop_down/fobi_form_elements.py:23
-msgid "Date drop down"
-msgstr "Дата (выпадающий список)"
-
-#: contrib/plugins/form_elements/fields/date_drop_down/forms.py:52
+#: contrib/plugins/form_elements/fields/date_drop_down/forms.py:61
 msgid "Minimum year value"
 msgstr "Минимальное значение года"
 
-#: contrib/plugins/form_elements/fields/date_drop_down/forms.py:57
+#: contrib/plugins/form_elements/fields/date_drop_down/forms.py:66
 msgid "Maximum year value"
 msgstr "Максимальное значение года"
 
-#: contrib/plugins/form_elements/fields/datetime/fobi_form_elements.py:25
-msgid "DateTime"
-msgstr "Дата/время"
-
-#: contrib/plugins/form_elements/fields/datetime/forms.py:51
-#: contrib/plugins/form_elements/fields/time/forms.py:51
+#: contrib/plugins/form_elements/fields/datetime/forms.py:58
+#: contrib/plugins/form_elements/fields/time/forms.py:58
 msgid "Input formats"
 msgstr "Форматы ввода"
 
-#: contrib/plugins/form_elements/fields/decimal/fobi_form_elements.py:25
-msgid "Decimal"
-msgstr "Десятичное число"
-
-#: contrib/plugins/form_elements/fields/decimal/forms.py:55
+#: contrib/plugins/form_elements/fields/decimal/forms.py:63
 msgid "Max digits"
 msgstr "Максимальное кол-во цифр"
 
-#: contrib/plugins/form_elements/fields/decimal/forms.py:60
+#: contrib/plugins/form_elements/fields/decimal/forms.py:68
 msgid "Decimal places"
 msgstr "Разрядность"
 
-#: contrib/plugins/form_elements/fields/decimal/forms.py:65
-#: contrib/plugins/form_elements/fields/float/forms.py:51
-#: contrib/plugins/form_elements/fields/integer/forms.py:51
+#: contrib/plugins/form_elements/fields/decimal/forms.py:73
+#: contrib/plugins/form_elements/fields/float/forms.py:57
+#: contrib/plugins/form_elements/fields/integer/forms.py:57
+#: contrib/plugins/form_elements/fields/range_select/forms.py:54
+#: contrib/plugins/form_elements/fields/slider/forms.py:83
 msgid "Min value"
 msgstr "Минимальное значение"
 
-#: contrib/plugins/form_elements/fields/decimal/forms.py:70
-#: contrib/plugins/form_elements/fields/float/forms.py:56
-#: contrib/plugins/form_elements/fields/integer/forms.py:56
+#: contrib/plugins/form_elements/fields/decimal/forms.py:78
+#: contrib/plugins/form_elements/fields/float/forms.py:62
+#: contrib/plugins/form_elements/fields/integer/forms.py:62
+#: contrib/plugins/form_elements/fields/range_select/forms.py:62
+#: contrib/plugins/form_elements/fields/slider/forms.py:91
 msgid "Max value"
 msgstr "Максимальное значение"
 
-#: contrib/plugins/form_elements/fields/decimal/forms.py:80
-#: contrib/plugins/form_elements/fields/email/forms.py:63
-#: contrib/plugins/form_elements/fields/float/forms.py:66
-#: contrib/plugins/form_elements/fields/input/forms.py:86
-#: contrib/plugins/form_elements/fields/integer/forms.py:66
-#: contrib/plugins/form_elements/fields/ip_address/forms.py:75
-#: contrib/plugins/form_elements/fields/password/forms.py:61
-#: contrib/plugins/form_elements/fields/regex/forms.py:70
-#: contrib/plugins/form_elements/fields/slug/forms.py:61
-#: contrib/plugins/form_elements/fields/text/forms.py:61
-#: contrib/plugins/form_elements/fields/textarea/forms.py:53
-#: contrib/plugins/form_elements/fields/url/forms.py:61
+#: contrib/plugins/form_elements/fields/decimal/forms.py:90
+#: contrib/plugins/form_elements/fields/email/forms.py:77
+#: contrib/plugins/form_elements/fields/float/forms.py:74
+#: contrib/plugins/form_elements/fields/input/forms.py:96
+#: contrib/plugins/form_elements/fields/integer/forms.py:74
+#: contrib/plugins/form_elements/fields/ip_address/forms.py:92
+#: contrib/plugins/form_elements/fields/password/forms.py:75
+#: contrib/plugins/form_elements/fields/regex/forms.py:95
+#: contrib/plugins/form_elements/fields/slug/forms.py:75
+#: contrib/plugins/form_elements/fields/text/forms.py:75
+#: contrib/plugins/form_elements/fields/textarea/forms.py:63
+#: contrib/plugins/form_elements/fields/url/forms.py:75
 msgid "Placeholder"
 msgstr "Метка-заполнитель "
 
-#: contrib/plugins/form_elements/fields/email/fobi_form_elements.py:25
+#: contrib/plugins/form_elements/fields/decimal/forms.py:113
+#: contrib/plugins/form_elements/fields/float/forms.py:95
+#: contrib/plugins/form_elements/fields/integer/forms.py:95
+#: contrib/plugins/form_elements/fields/range_select/forms.py:112
+#: contrib/plugins/form_elements/fields/slider/forms.py:204
+msgid "`max_value` should be > than `min_value`."
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/decimal/forms.py:119
+#: contrib/plugins/form_elements/fields/float/forms.py:101
+#: contrib/plugins/form_elements/fields/integer/forms.py:101
+#: contrib/plugins/form_elements/fields/range_select/forms.py:124
+#: contrib/plugins/form_elements/fields/slider/forms.py:216
+msgid "`max_value` should be >= than `initial`."
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/decimal/forms.py:125
+#: contrib/plugins/form_elements/fields/float/forms.py:107
+#: contrib/plugins/form_elements/fields/integer/forms.py:107
+#: contrib/plugins/form_elements/fields/range_select/forms.py:130
+#: contrib/plugins/form_elements/fields/slider/forms.py:222
+msgid "`initial` should be >= than `min_value`."
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/decimal/forms.py:133
+msgid "Quantize result has too many digits for current context"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/email/base.py:26
 msgid "Email"
 msgstr "Эл. почта"
 
-#: contrib/plugins/form_elements/fields/email/forms.py:52
-#: contrib/plugins/form_elements/fields/file/forms.py:49
-#: contrib/plugins/form_elements/fields/hidden/forms.py:43
-#: contrib/plugins/form_elements/fields/input/forms.py:75
-#: contrib/plugins/form_elements/fields/ip_address/forms.py:64
-#: contrib/plugins/form_elements/fields/password/forms.py:50
-#: contrib/plugins/form_elements/fields/regex/forms.py:59
-#: contrib/plugins/form_elements/fields/slug/forms.py:50
-#: contrib/plugins/form_elements/fields/text/forms.py:50
-#: contrib/plugins/form_elements/fields/url/forms.py:50
-#: contrib/plugins/form_elements/security/honeypot/forms.py:50
+#: contrib/plugins/form_elements/fields/email/forms.py:62
+#: contrib/plugins/form_elements/fields/file/forms.py:59
+#: contrib/plugins/form_elements/fields/hidden/forms.py:51
+#: contrib/plugins/form_elements/fields/input/forms.py:81
+#: contrib/plugins/form_elements/fields/ip_address/forms.py:77
+#: contrib/plugins/form_elements/fields/password/forms.py:60
+#: contrib/plugins/form_elements/fields/regex/forms.py:80
+#: contrib/plugins/form_elements/fields/slug/forms.py:60
+#: contrib/plugins/form_elements/fields/text/forms.py:60
+#: contrib/plugins/form_elements/fields/url/forms.py:60
+#: contrib/plugins/form_elements/security/honeypot/forms.py:59
 msgid "Max length"
 msgstr "Максимальная длина"
 
-#: contrib/plugins/form_elements/fields/float/fobi_form_elements.py:23
-msgid "Float"
-msgstr "Число с плавающей точкой"
+#: contrib/plugins/form_elements/fields/email/forms.py:94
+#: contrib/plugins/form_elements/fields/file/forms.py:84
+#: contrib/plugins/form_elements/fields/hidden/forms.py:76
+#: contrib/plugins/form_elements/fields/input/forms.py:198
+#: contrib/plugins/form_elements/fields/ip_address/forms.py:109
+#: contrib/plugins/form_elements/fields/password/forms.py:92
+#: contrib/plugins/form_elements/fields/regex/forms.py:113
+#: contrib/plugins/form_elements/fields/slug/forms.py:92
+#: contrib/plugins/form_elements/fields/text/forms.py:93
+#: contrib/plugins/form_elements/fields/url/forms.py:92
+#, python-brace-format
+msgid "Ensure this value has at most {0} characters (it has {1})."
+msgstr ""
 
-#: contrib/plugins/form_elements/fields/hidden/fobi_form_elements.py:23
-msgid "Hidden"
-msgstr "Скрытое поле"
-
-#: contrib/plugins/form_elements/fields/hidden_model_object/fobi_form_elements.py:25
+#: contrib/plugins/form_elements/fields/hidden_model_object/base.py:35
 msgid "Hidden model object"
 msgstr "Скрытый объект модели"
 
-#: contrib/plugins/form_elements/fields/hidden_model_object/forms.py:41
-#: contrib/plugins/form_elements/fields/select_model_object/forms.py:41
-#: contrib/plugins/form_elements/fields/select_mptt_model_object/forms.py:41
-#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:41
-#: contrib/plugins/form_elements/fields/select_multiple_mptt_model_objects/forms.py:41
+#: contrib/plugins/form_elements/fields/hidden_model_object/forms.py:46
+#: contrib/plugins/form_elements/fields/select_model_object/forms.py:46
+#: contrib/plugins/form_elements/fields/select_mptt_model_object/forms.py:46
+#: contrib/plugins/form_elements/fields/select_multiple_model_objects/forms.py:46
+#: contrib/plugins/form_elements/fields/select_multiple_mptt_model_objects/forms.py:47
 msgid "Model"
 msgstr "Модель"
 
-#: contrib/plugins/form_elements/fields/input/fobi_form_elements.py:23
+#: contrib/plugins/form_elements/fields/input/base.py:25
 msgid "Input"
 msgstr "Универсальный"
 
-#: contrib/plugins/form_elements/fields/input/forms.py:93
+#: contrib/plugins/form_elements/fields/input/forms.py:105
 msgid "Auto-complete (HTML5 autocomplete)"
 msgstr "Авто-заполнение (HTML5 autocomplete)"
 
-#: contrib/plugins/form_elements/fields/input/forms.py:98
+#: contrib/plugins/form_elements/fields/input/forms.py:112
 msgid "Auto-focus (HTML5 autofocus)"
 msgstr "Авто-фокус (HTML5 autofocus)"
 
-#: contrib/plugins/form_elements/fields/input/forms.py:103
+#: contrib/plugins/form_elements/fields/input/forms.py:119
 msgid "Disabled"
 msgstr "Отключено"
 
-#: contrib/plugins/form_elements/fields/input/forms.py:113
+#: contrib/plugins/form_elements/fields/input/forms.py:133
 msgid "List (HTML5 list)"
 msgstr "Список (HTML5 list)"
 
-#: contrib/plugins/form_elements/fields/input/forms.py:118
+#: contrib/plugins/form_elements/fields/input/forms.py:140
 msgid "Max (HTML5 max)"
 msgstr "Максимально (HTML5 max)"
 
-#: contrib/plugins/form_elements/fields/input/forms.py:123
+#: contrib/plugins/form_elements/fields/input/forms.py:147
 msgid "Min (HTML5 min)"
 msgstr "Минимально (HTML5 min)"
 
-#: contrib/plugins/form_elements/fields/input/forms.py:128
+#: contrib/plugins/form_elements/fields/input/forms.py:154
 msgid "Multiple (HTML5 multiple)"
 msgstr "Множественный (HTML5 multiple)"
 
-#: contrib/plugins/form_elements/fields/input/forms.py:133
+#: contrib/plugins/form_elements/fields/input/forms.py:161
 msgid "Pattern (HTML5 pattern)"
 msgstr "Паттерн (HTML5 pattern)"
 
-#: contrib/plugins/form_elements/fields/input/forms.py:138
+#: contrib/plugins/form_elements/fields/input/forms.py:168
 msgid "Read-only (HTML readonly)"
 msgstr "Только для чтения (HTML readonly)"
 
-#: contrib/plugins/form_elements/fields/input/forms.py:143
+#: contrib/plugins/form_elements/fields/input/forms.py:175
 msgid "Step (HTML5 step)"
 msgstr "Шаг (HTML5 step)"
 
-#: contrib/plugins/form_elements/fields/input/forms.py:148
+#: contrib/plugins/form_elements/fields/input/forms.py:180
 msgid "Type (HTML type)"
 msgstr "Тип (HTML type)"
 
-#: contrib/plugins/form_elements/fields/integer/fobi_form_elements.py:23
-msgid "Integer"
-msgstr "Целое число"
-
-#: contrib/plugins/form_elements/fields/ip_address/fobi_form_elements.py:23
-msgid "IP address"
-msgstr "IP адрес"
-
-#: contrib/plugins/form_elements/fields/ip_address/forms.py:53
+#: contrib/plugins/form_elements/fields/ip_address/forms.py:62
 msgid "Protocol"
 msgstr "Протокол"
 
-#: contrib/plugins/form_elements/fields/ip_address/forms.py:59
+#: contrib/plugins/form_elements/fields/ip_address/forms.py:70
 msgid "Unpack IPV4"
 msgstr "Распаковать IPV4"
 
-#: contrib/plugins/form_elements/fields/null_boolean/fobi_form_elements.py:23
-msgid "Null boolean"
-msgstr "Булевое (выпадающий список)"
-
-#: contrib/plugins/form_elements/fields/password/fobi_form_elements.py:23
+#: contrib/plugins/form_elements/fields/password/base.py:25
 msgid "Password"
 msgstr "Пароль"
 
-#: contrib/plugins/form_elements/fields/radio/fobi_form_elements.py:28
-msgid "Radio"
-msgstr "Радио кнопка"
+#: contrib/plugins/form_elements/fields/range_select/forms.py:70
+#: contrib/plugins/form_elements/fields/slider/forms.py:99
+msgid "Step"
+msgstr ""
 
-#: contrib/plugins/form_elements/fields/regex/fobi_form_elements.py:25
-#: contrib/plugins/form_elements/fields/regex/forms.py:48
-msgid "Regex"
-msgstr "Регулярное выражение"
+#: contrib/plugins/form_elements/fields/range_select/forms.py:72
+#: contrib/plugins/form_elements/fields/slider/forms.py:101
+msgid "Step size"
+msgstr ""
 
-#: contrib/plugins/form_elements/fields/select/fobi_form_elements.py:28
-msgid "Select"
-msgstr "Выпадающий список"
+#: contrib/plugins/form_elements/fields/range_select/forms.py:118
+#: contrib/plugins/form_elements/fields/slider/forms.py:210
+msgid "`step` should be > than `max_value` - `min_value`."
+msgstr ""
 
-#: contrib/plugins/form_elements/fields/select_model_object/fobi_form_elements.py:29
-msgid "Select model object"
-msgstr "Выпадающий список объектов моделей"
+#: contrib/plugins/form_elements/fields/regex/forms.py:62
+#, python-brace-format
+msgid ""
+"Enter a valid regular expression. A couple of common examples are listed "
+"below.<br/>- Allow a single digit from 1 to 9 (example value 6): "
+"<code>^[1-9]$</code><br/>- Allow any combination of characters from a to z, "
+"including capitals (example value abcXYZ):<code>^([a-zA-Z])+$</code><br/>- "
+"Allow a hex value (example value #a5c125:<code>^#?([a-f0-9]{6}|[a-f0-9]"
+"{3})$</code><br/>"
+msgstr ""
 
-#: contrib/plugins/form_elements/fields/select_mptt_model_object/fobi_form_elements.py:30
+#: contrib/plugins/form_elements/fields/select_mptt_model_object/base.py:46
 msgid "Select MPTT model object"
 msgstr "Выпадающий список объектов MPTT моделей"
 
-#: contrib/plugins/form_elements/fields/select_multiple/fobi_form_elements.py:28
-msgid "Select multiple"
-msgstr "Выпадающий список множественного выбора"
-
-#: contrib/plugins/form_elements/fields/select_multiple_model_objects/fobi_form_elements.py:31
-msgid "Select multiple model objects"
-msgstr "Выпадающий список множественного выбора объектов моделей"
-
-#: contrib/plugins/form_elements/fields/select_multiple_mptt_model_objects/fobi_form_elements.py:32
+#: contrib/plugins/form_elements/fields/select_multiple_mptt_model_objects/base.py:47
 msgid "Select multiple MPTT model objects"
 msgstr "Выпадающий список множественного выбора объектов MPTT моделей"
 
-#: contrib/plugins/form_elements/fields/textarea/fobi_form_elements.py:23
-msgid "Textarea"
-msgstr "Блок текста"
+#: contrib/plugins/form_elements/fields/select_multiple_with_max/fields.py:31
+#, python-brace-format
+msgid "You must choose no more than {0} values."
+msgstr ""
 
-#: contrib/plugins/form_elements/fields/time/fobi_form_elements.py:25
-msgid "Time"
-msgstr "Время"
+#: contrib/plugins/form_elements/fields/select_multiple_with_max/forms.py:97
+#, fuzzy
+#| msgid "Choices"
+msgid "Max choices"
+msgstr "Варианы"
 
-#: contrib/plugins/form_elements/security/captcha/fobi_form_elements.py:74
+#: contrib/plugins/form_elements/fields/slider/constants.py:33
+msgid "Show"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/slider/constants.py:34
+msgid "Hide"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/slider/constants.py:35
+msgid "Always"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/slider/constants.py:44
+msgid "Round"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/slider/constants.py:45
+msgid "Square"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/slider/constants.py:46
+msgid "Triangle"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/slider/constants.py:55
+#, fuzzy
+#| msgid "Label"
+msgid "Labels"
+msgstr "Ярлык"
+
+#: contrib/plugins/form_elements/fields/slider/constants.py:56
+msgid "Ticks without labels"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/slider/constants.py:57
+msgid "Labeled ticks"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/slider/forms.py:107
+msgid "Tooltip"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/slider/forms.py:115
+#, fuzzy
+#| msgid "Handler"
+msgid "Handle"
+msgstr "Обработчик"
+
+#: contrib/plugins/form_elements/fields/slider/forms.py:130
+msgid "Show endpoints as"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/slider/forms.py:138
+msgid "Start label"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/slider/forms.py:139
+msgid "Start endpoint label"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/slider/forms.py:146
+msgid "End label"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/slider/forms.py:147
+#, fuzzy
+#| msgid "Endpoint URL"
+msgid "End endpoint label"
+msgstr "Ссылка отправной точки"
+
+#: contrib/plugins/form_elements/fields/slider/forms.py:154
+#, fuzzy
+#| msgid "Custom"
+msgid "Custom ticks"
+msgstr "Дополнительно"
+
+#: contrib/plugins/form_elements/fields/slider/forms.py:156
+msgid ""
+"Enter single values/pairs per line. Example:<code><br/>&nbsp;&nbsp;&nbsp;"
+"&nbsp;1<br/>&nbsp;&nbsp;&nbsp;&nbsp;2<br/>&nbsp;&nbsp;&nbsp;&nbsp;3, "
+"Alpha<br/>&nbsp;&nbsp;&nbsp;&nbsp;4, Beta<br/></code><br/>It finally "
+"transforms into the following HTML code:<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;"
+"data-slider-ticks=\"[1, 2, 3, 4]\"<br/>&nbsp;&nbsp;&nbsp;&nbsp;data-slider-"
+"ticks-labels='[\"1\", \"2\", \"Alpha\", \"Beta\"]'</code>"
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/slider/forms.py:233
+msgid ""
+"You are not allowed to use Triangle or Custom handles with ticks enabled."
+msgstr ""
+
+#: contrib/plugins/form_elements/fields/slider/forms.py:247
+msgid ""
+"Invalid format. First value should be an integer, second value should be a "
+"string."
+msgstr ""
+
+#: contrib/plugins/form_elements/security/captcha/base.py:81
 msgid "Captcha"
 msgstr ""
 
-#: contrib/plugins/form_elements/security/captcha/fobi_form_elements.py:75
-#: contrib/plugins/form_elements/security/honeypot/fobi_form_elements.py:25
-#: contrib/plugins/form_elements/security/recaptcha/fobi_form_elements.py:77
+#: contrib/plugins/form_elements/security/captcha/base.py:82
+#: contrib/plugins/form_elements/security/honeypot/base.py:26
+#: contrib/plugins/form_elements/security/recaptcha/base.py:84
 msgid "Security"
 msgstr "Безопасность"
+
+#: contrib/plugins/form_elements/security/honeypot/base.py:25
+msgid "Honeypot"
+msgstr "Ловушка (honeypot)"
 
 #: contrib/plugins/form_elements/security/honeypot/fields.py:19
 msgid "Field value was tampered with."
 msgstr "Значение поля был изменено."
 
-#: contrib/plugins/form_elements/security/honeypot/fobi_form_elements.py:24
-msgid "Honeypot"
-msgstr "Ловушка (honeypot)"
-
-#: contrib/plugins/form_elements/security/recaptcha/fobi_form_elements.py:76
+#: contrib/plugins/form_elements/security/recaptcha/base.py:83
 msgid "ReCaptcha"
 msgstr ""
 
-#: contrib/plugins/form_elements/test/dummy/fobi_form_elements.py:23
+#: contrib/plugins/form_elements/test/dummy/base.py:25
 msgid "Dummy"
 msgstr "Пустышка"
 
-#: contrib/plugins/form_elements/test/dummy/fobi_form_elements.py:24
+#: contrib/plugins/form_elements/test/dummy/base.py:26
 msgid "Testing"
 msgstr "Для тестирования"
 
-#: contrib/plugins/form_elements/test/dummy/fobi_form_elements.py:37
+#: contrib/plugins/form_elements/test/dummy/base.py:40
 msgid "Dummy content"
 msgstr "Содержание для тестирования"
 
-#: contrib/plugins/form_handlers/db_store/admin.py:25
+#: contrib/plugins/form_handlers/db_store/admin.py:67
+msgid "Export data to CSV/XLS"
+msgstr "Экспортировать данные в формат CSV/XLS"
+
+#: contrib/plugins/form_handlers/db_store/admin.py:84
+#: contrib/plugins/form_handlers/db_store/admin.py:155
 #: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:40
+#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_wizard_data_entries.html:40
 #: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/view_saved_form_data_entries.html:41
 msgid "Data"
 msgstr "Дата"
 
-#: contrib/plugins/form_handlers/db_store/admin.py:28
+#: contrib/plugins/form_handlers/db_store/admin.py:87
+#: contrib/plugins/form_handlers/db_store/admin.py:158
 msgid "Raw"
 msgstr "Сырое"
 
-#: contrib/plugins/form_handlers/db_store/admin.py:37
-#: contrib/plugins/form_handlers/db_store/models.py:41
+#: contrib/plugins/form_handlers/db_store/admin.py:99
+#: contrib/plugins/form_handlers/db_store/models.py:82
 msgid "Saved form data entry"
 msgstr "Сохраненная запись формы"
 
-#: contrib/plugins/form_handlers/db_store/admin.py:60
-msgid "Export data to CSV/XLS"
-msgstr "Экспортировать данные в формат CSV/XLS"
+#: contrib/plugins/form_handlers/db_store/admin.py:170
+#: contrib/plugins/form_handlers/db_store/models.py:102
+#, fuzzy
+#| msgid "Saved form data entry"
+msgid "Saved form wizard data entry"
+msgstr "Сохраненная запись формы"
 
-#: contrib/plugins/form_handlers/db_store/fobi_form_handlers.py:28
-msgid "DB store"
-msgstr "Сохранить в базе"
-
-#: contrib/plugins/form_handlers/db_store/fobi_form_handlers.py:85
+#: contrib/plugins/form_handlers/db_store/base.py:126
+#: contrib/plugins/form_handlers/db_store/base.py:217
 msgid "Export entries"
 msgstr "Экспортировать данные"
 
-#: contrib/plugins/form_handlers/db_store/models.py:34
+#: contrib/plugins/form_handlers/db_store/models.py:36
 msgid "Form data headers"
 msgstr "Заголовки данных формы"
 
-#: contrib/plugins/form_handlers/db_store/models.py:37
+#: contrib/plugins/form_handlers/db_store/models.py:38 models.py:466
+msgid "Plugin data"
+msgstr "Данные плагина"
+
+#: contrib/plugins/form_handlers/db_store/models.py:39
 msgid "Date created"
 msgstr "Дата создания"
 
-#: contrib/plugins/form_handlers/db_store/models.py:42
-msgid "Saved form data entries"
-msgstr "Сохраненные записи форм"
-
-#: contrib/plugins/form_handlers/db_store/models.py:65
+#: contrib/plugins/form_handlers/db_store/models.py:68
 msgid "Saved data"
 msgstr "Сохраненные данные"
 
+#: contrib/plugins/form_handlers/db_store/models.py:83
+msgid "Saved form data entries"
+msgstr "Сохраненные записи форм"
+
+#: contrib/plugins/form_handlers/db_store/models.py:103
+#, fuzzy
+#| msgid "Saved form data entries"
+msgid "Saved form wizard data entries"
+msgstr "Сохраненные записи форм"
+
 #: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:5
 #: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:23
+#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_wizard_data_entries.html:23
 #: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/view_saved_form_data_entries.html:5
 #: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/view_saved_form_data_entries.html:24
 msgid "View form data"
 msgstr "Просмотреть данные формы"
 
 #: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:30
+#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_wizard_data_entries.html:30
 #: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/view_saved_form_data_entries.html:31
 msgid "Saved form data"
 msgstr "Сохраненные данные формы"
 
 #: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:49
+#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_wizard_data_entries.html:49
 #: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/view_saved_form_data_entries.html:50
 msgid "Filter"
 msgstr "Фильтровать"
 
-#: contrib/plugins/form_handlers/http_repost/fobi_form_handlers.py:31
+#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_wizard_data_entries.html:5
+#, fuzzy
+#| msgid "View form data"
+msgid "View form wizard data"
+msgstr "Просмотреть данные формы"
+
+#: contrib/plugins/form_handlers/http_repost/base.py:47
+#: contrib/plugins/form_handlers/http_repost/base.py:134
 msgid "HTTP Repost"
 msgstr "Перепост по HTTP"
 
@@ -1252,13 +1279,9 @@ msgstr "Перепост по HTTP"
 msgid "Endpoint URL"
 msgstr "Ссылка отправной точки"
 
-#: contrib/plugins/form_handlers/mail/fields.py:16
+#: contrib/plugins/form_handlers/mail/fields.py:19
 msgid "Enter valid email addresses."
 msgstr "Введите допустимые адреса электронной почты."
-
-#: contrib/plugins/form_handlers/mail/fobi_form_handlers.py:35
-msgid "Mail"
-msgstr "Переслать по эл. почте"
 
 #: contrib/plugins/form_handlers/mail/forms.py:33
 msgid "From name"
@@ -1289,9 +1312,19 @@ msgstr "Содержание"
 msgid "To"
 msgstr "Получатель"
 
-#: contrib/plugins/form_importers/mailchimp_importer/fobi_form_importers.py:13
+#: contrib/plugins/form_importers/mailchimp_importer/base.py:19
 msgid "MailChimp"
 msgstr ""
+
+#: contrib/plugins/form_importers/mailchimp_importer/views.py:63
+msgid "Selected form could not be imported due errors."
+msgstr ""
+
+#: contrib/plugins/form_importers/mailchimp_importer/views.py:79
+#, fuzzy, python-brace-format
+#| msgid "Form {0} was edited successfully."
+msgid "Form {0} imported successfully."
+msgstr "Форма {0} успешно сохранена."
 
 #: contrib/themes/bootstrap3/fobi_themes.py:18
 msgid "Bootstrap 3"
@@ -1300,6 +1333,31 @@ msgstr ""
 #: contrib/themes/bootstrap3/templates/bootstrap3/snippets/form_non_field_and_hidden_errors_snippet.html:5
 msgid "Error"
 msgstr "Ошибка"
+
+#: contrib/themes/bootstrap3/templates/bootstrap3/snippets/form_wizard_ajax.html:17
+msgid "First"
+msgstr ""
+
+#: contrib/themes/bootstrap3/templates/bootstrap3/snippets/form_wizard_ajax.html:19
+#: templates/fobi/generic/edit_form_element_entry_ajax.html:9
+#: templates/fobi/generic/edit_form_handler_entry_ajax.html:9
+#: templates/fobi/generic/snippets/form_wizard.html:49
+#: templates/fobi/generic/view_form_entry_ajax.html:9
+msgid "Submit"
+msgstr "Отправить"
+
+#: contrib/themes/bootstrap3/templates/bootstrap3/snippets/form_wizard_ajax.html:19
+#: templates/fobi/generic/view_form_wizard_entry_ajax.html:9
+msgid "Next"
+msgstr ""
+
+#: contrib/themes/bootstrap3/templates/bootstrap3/snippets/form_wizard_ajax.html:21
+msgid "Previous"
+msgstr ""
+
+#: contrib/themes/bootstrap3/templates/bootstrap3/snippets/form_wizard_ajax.html:34
+msgid "(current)"
+msgstr ""
 
 #: contrib/themes/djangocms_admin_style_theme/fobi_themes.py:18
 msgid "DjangoCMS admin style"
@@ -1338,7 +1396,7 @@ msgstr "Документация"
 
 #: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/base_edit.html:73
 #: contrib/themes/simple/templates/simple/base_edit.html:65
-#: templatetags/fobi_tags.py:157
+#: templatetags/fobi_tags.py:256
 msgid "Log out"
 msgstr "Выйти"
 
@@ -1355,7 +1413,7 @@ msgstr "Главная"
 #: contrib/themes/simple/templates/simple/create_form_entry.html:5
 #: contrib/themes/simple/templates/simple/dashboard.html:27
 #: templates/fobi/generic/create_form_entry_ajax.html:6
-#: templates/fobi/generic/dashboard.html:77
+#: templates/fobi/generic/dashboard.html:82
 msgid "Create form"
 msgstr "Создать форму"
 
@@ -1364,42 +1422,100 @@ msgstr "Создать форму"
 #: contrib/themes/foundation5/templates/foundation5/dashboard.html:14
 #: contrib/themes/simple/templates/simple/dashboard.html:5
 #: templates/fobi/generic/dashboard.html:5
-#: templates/fobi/generic/dashboard.html:14
+#: templates/fobi/generic/dashboard.html:19
+#: templates/fobi/generic/form_wizards_dashboard.html:23
 msgid "Dashboard"
 msgstr "Панель управления"
 
 #: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/dashboard.html:23
 #: contrib/themes/foundation5/templates/foundation5/dashboard.html:20
 #: contrib/themes/simple/templates/simple/dashboard.html:22
-#: templates/fobi/generic/dashboard.html:21
+#: templates/fobi/generic/dashboard.html:26
 msgid "Your forms"
 msgstr "Ваши формы"
 
 #: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/dashboard.html:31
 #: contrib/themes/foundation5/templates/foundation5/dashboard.html:66
 #: contrib/themes/simple/templates/simple/dashboard.html:30
-#: templates/fobi/generic/dashboard.html:80
+#: templates/fobi/generic/dashboard.html:85
 #: templates/fobi/generic/import_form_entry_ajax.html:6
 msgid "Import form"
 msgstr "Импортировать форму"
 
-#: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/dashboard.html:65
+#: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/dashboard.html:57
+#: contrib/themes/simple/templates/simple/dashboard.html:56 models.py:353
+msgid "Public?"
+msgstr "Публично доступно?"
+
+#: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/dashboard.html:70
 #: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/edit_form_entry_ajax.html:106
+#: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/forms_list.html:15
 #: contrib/themes/foundation5/templates/foundation5/dashboard.html:32
 #: contrib/themes/foundation5/templates/foundation5/dashboard.html:60
 #: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:98
-#: contrib/themes/simple/templates/simple/dashboard.html:64
+#: contrib/themes/foundation5/templates/foundation5/forms_list.html:7
+#: contrib/themes/simple/templates/simple/dashboard.html:69
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:105
-#: templates/fobi/generic/dashboard.html:33
-#: templates/fobi/generic/dashboard.html:73
+#: contrib/themes/simple/templates/simple/forms_list.html:15
+#: templates/fobi/generic/dashboard.html:38
+#: templates/fobi/generic/dashboard.html:78
 #: templates/fobi/generic/edit_form_entry_ajax.html:102
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:122
+#: templates/fobi/generic/form_wizards_dashboard.html:42
+#: templates/fobi/generic/form_wizards_dashboard.html:82
+#: templates/fobi/generic/forms_list.html:7
 msgid "Actions"
 msgstr "Действия"
 
+#: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/dashboard.html:85
+#: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/edit_form_entry_ajax.html:126
+#: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/forms_list.html:31
+#: contrib/themes/foundation5/templates/foundation5/dashboard.html:43
+#: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:118
+#: contrib/themes/foundation5/templates/foundation5/forms_list.html:18
+#: contrib/themes/simple/templates/simple/dashboard.html:85
+#: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:125
+#: contrib/themes/simple/templates/simple/forms_list.html:32
+#: templates/fobi/generic/dashboard.html:51
+#: templates/fobi/generic/edit_form_entry.html:13
+#: templates/fobi/generic/edit_form_entry_ajax.html:120
+#: templates/fobi/generic/edit_form_wizard_entry.html:17
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:62
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:140
+#: templates/fobi/generic/form_wizards_dashboard.html:55
+#: templates/fobi/generic/forms_list.html:20
+#: templates/fobi/generic/view_form_entry.html:8
+#: templates/fobi/generic/view_form_wizard_entry.html:12 utils.py:569
+msgid "Edit"
+msgstr "Редактировать"
+
 #: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/dashboard.html:90
-#: contrib/themes/foundation5/templates/foundation5/dashboard.html:45
+#: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/edit_form_entry_ajax.html:128
+#: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/forms_list.html:38
+#: contrib/themes/foundation5/templates/foundation5/dashboard.html:44
+#: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:124
+#: contrib/themes/foundation5/templates/foundation5/forms_list.html:21
 #: contrib/themes/simple/templates/simple/dashboard.html:90
+#: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:127
+#: contrib/themes/simple/templates/simple/forms_list.html:39
 #: templates/fobi/generic/dashboard.html:56
+#: templates/fobi/generic/edit_form_entry_ajax.html:122
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:67
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:142
+#: templates/fobi/generic/form_wizards_dashboard.html:60
+#: templates/fobi/generic/forms_list.html:27 utils.py:577
+msgid "Delete"
+msgstr "Удалить"
+
+#: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/dashboard.html:95
+#: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/forms_list.html:45
+#: contrib/themes/foundation5/templates/foundation5/dashboard.html:45
+#: contrib/themes/foundation5/templates/foundation5/forms_list.html:24
+#: contrib/themes/simple/templates/simple/dashboard.html:95
+#: contrib/themes/simple/templates/simple/forms_list.html:46
+#: templates/fobi/generic/dashboard.html:61
+#: templates/fobi/generic/form_wizards_dashboard.html:65
+#: templates/fobi/generic/forms_list.html:34
 msgid "Export"
 msgstr "Экспортировать"
 
@@ -1420,6 +1536,7 @@ msgstr "Редактировать форму"
 #: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:12
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:7
 #: templates/fobi/generic/edit_form_entry_ajax.html:10
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:10
 msgid "Elements"
 msgstr "Элементы"
 
@@ -1427,6 +1544,7 @@ msgstr "Элементы"
 #: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:13
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:8
 #: templates/fobi/generic/edit_form_entry_ajax.html:11
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:11
 msgid "Handlers"
 msgstr "Обработчики"
 
@@ -1434,6 +1552,7 @@ msgstr "Обработчики"
 #: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:14
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:9
 #: templates/fobi/generic/edit_form_entry_ajax.html:12
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:12
 msgid "Properties"
 msgstr "Свойства"
 
@@ -1445,6 +1564,8 @@ msgstr "Свойства"
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:177
 #: templates/fobi/generic/edit_form_entry_ajax.html:13
 #: templates/fobi/generic/edit_form_entry_ajax.html:171
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:13
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:191
 msgid "Service"
 msgstr "Сервис"
 
@@ -1462,6 +1583,7 @@ msgstr "Добавить элемент"
 #: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:62
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:52
 #: templates/fobi/generic/edit_form_entry_ajax.html:63
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:83
 msgid "Save ordering"
 msgstr "Сохранить порядок"
 
@@ -1479,12 +1601,14 @@ msgstr "Добавить обработчик"
 #: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:96
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:94
 #: templates/fobi/generic/edit_form_entry_ajax.html:100
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:120
 msgid "Handler"
 msgstr "Обработчик"
 
 #: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/edit_form_entry_ajax.html:119
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:118
 #: templates/fobi/generic/edit_form_entry_ajax.html:113
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:133
 msgid "Info"
 msgstr "Информация"
 
@@ -1509,15 +1633,20 @@ msgstr "Экспортировать форму в формат JSON "
 #: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:182
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:192
 #: templates/fobi/generic/edit_form_entry_ajax.html:178
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:197
 msgid "Export your form into JSON format and import it again any time!"
-msgstr "После экспорта формы в формат JSON ее можно будет импортировать на других инстанциях."
+msgstr ""
+"После экспорта формы в формат JSON ее можно будет импортировать на других "
+"инстанциях."
 
 #: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/edit_form_entry_ajax.html:195
 #: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:185
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:195
 #: templates/fobi/generic/edit_form_entry_ajax.html:181
-msgid "Export form data"
-msgstr "Экспортировать формы данные"
+#, fuzzy
+#| msgid "Import form"
+msgid "Export form"
+msgstr "Импортировать форму"
 
 #: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/edit_form_entry_ajax.html:207
 #: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:191
@@ -1530,6 +1659,7 @@ msgstr "Удалить форму"
 #: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:192
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:208
 #: templates/fobi/generic/edit_form_entry_ajax.html:188
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:206
 msgid "Once deleted, can't be undone!"
 msgstr "Удаление окончательное и восстановлению не подлежит!"
 
@@ -1546,12 +1676,13 @@ msgstr "Удалить форму"
 msgid "Edit \"%(plugin_name)s\" form handler"
 msgstr "Редактировать обработчик \"%(plugin_name)s\""
 
-#: contrib/themes/foundation5/fobi_themes.py:19
+#: contrib/themes/foundation5/fobi_themes.py:22
 msgid "Foundation 5"
 msgstr ""
 
 #: contrib/themes/foundation5/templates/foundation5/dashboard.html:30
-#: templates/fobi/generic/dashboard.html:31
+#: templates/fobi/generic/dashboard.html:36
+#: templates/fobi/generic/form_wizards_dashboard.html:40
 msgid "Is public"
 msgstr "Публично доступна"
 
@@ -1583,19 +1714,280 @@ msgstr "Свойства формы"
 #: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:161
 #: templates/fobi/admin/bulk_change_plugins.html:76
 #: templates/fobi/generic/edit_form_entry_ajax.html:157
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:177
 msgid "Submit changes"
 msgstr "Сохранить изменения"
 
 #: contrib/themes/foundation5/templates/foundation5/snippets/form_properties_snippet.html:3
 #: contrib/themes/foundation5/templates/foundation5/snippets/form_snippet.html:3
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:43
 #: templates/fobi/generic/snippets/form_properties_snippet.html:4
 #: templates/fobi/generic/snippets/form_snippet.html:4
+#: templates/fobi/generic/snippets/form_wizard_properties_snippet.html:4
+#: templates/fobi/generic/snippets/form_wizard_snippet.html:4
 msgid "Fields marked with <span class=\"required-field\">*</span> are required"
-msgstr "Поля помеченные <span class=\"required-field\">*</span> заполнять обязательно"
+msgstr ""
+"Поля помеченные <span class=\"required-field\">*</span> заполнять обязательно"
 
 #: contrib/themes/simple/fobi_themes.py:17
-msgid "Simple"
-msgstr "Простая"
+#, fuzzy
+#| msgid "DjangoCMS admin style"
+msgid "Django admin style"
+msgstr "Стиль DjangoCMS admin"
+
+#: forms.py:82 forms.py:336
+#, python-brace-format
+msgid "The {0} form requires a request argument."
+msgstr ""
+
+#: forms.py:153
+#, python-brace-format
+msgid "Invalid action URL {0}."
+msgstr "Неверная ссылка действия {0}."
+
+#: forms.py:455
+msgid "Selected plugins"
+msgstr "Выбранные плагины"
+
+#: forms.py:460
+msgid "Users action"
+msgstr "Действие над пользователями"
+
+#: forms.py:462 forms.py:469
+msgid "If set to ``replace``, the groups are replaced; otherwise - appended."
+msgstr ""
+"Если вы выберете ``заменить``, группы будут перезаписаны; в обратном случае "
+"- добавлены."
+
+#: forms.py:467
+msgid "Groups action"
+msgstr "Действие над группами"
+
+#: helpers.py:506 helpers.py:535
+#, python-brace-format
+msgid "Invalid value for initial: {0}. Should be any of the following: {1}"
+msgstr "Неверное начальное значение: {0}. Допустимые значения: {1}"
+
+#: integration/processors.py:187 views.py:2255
+#, python-brace-format
+msgid "Form {0} was submitted successfully."
+msgstr "Форма {0} успешно отправлена."
+
+#: models.py:92
+msgid "Group"
+msgstr "Группа"
+
+#: models.py:125 models.py:507
+msgid "UID"
+msgstr ""
+
+#: models.py:146
+msgid "Groups"
+msgstr "Группы"
+
+#: models.py:158
+msgid "Users"
+msgstr "Пользователи"
+
+#: models.py:176 models.py:206 models.py:236
+msgid "Plugin UID"
+msgstr "UID плагина"
+
+#: models.py:184
+msgid "Form element plugin"
+msgstr "Плагин элемента формы"
+
+#: models.py:185
+msgid "Form element plugins"
+msgstr "Плагины элементов формы"
+
+#: models.py:214
+msgid "Form handler plugin"
+msgstr "Плагин обработчика формы"
+
+#: models.py:215
+msgid "Form handler plugins"
+msgstr "Плагины обработчиков формы"
+
+#: models.py:245
+#, fuzzy
+#| msgid "Form handler plugin"
+msgid "Form wizard handler plugin"
+msgstr "Плагин обработчика формы"
+
+#: models.py:246
+#, fuzzy
+#| msgid "Form handler plugins"
+msgid "Form wizard handler plugins"
+msgstr "Плагины обработчиков формы"
+
+#: models.py:266 models.py:347
+msgid "Shown in templates if available."
+msgstr ""
+
+#: models.py:271
+msgid "Is public?"
+msgstr "Публично доступно?"
+
+#: models.py:272
+msgid "Makes your form wizard visible to the public."
+msgstr ""
+
+#: models.py:275
+msgid "Is cloneable?"
+msgstr "Можно клонировать?"
+
+#: models.py:276
+msgid "Makes your form wizard cloneable by other users."
+msgstr ""
+
+#: models.py:279 models.py:364
+msgid "Success page title"
+msgstr "Заголовок страницы успеха"
+
+#: models.py:280 models.py:365
+msgid "Custom message title to display after valid form is submitted"
+msgstr "Заголовок сообщения для отображения после проверки и отправления формы"
+
+#: models.py:284 models.py:369
+msgid "Success page body"
+msgstr "Текст страницы успеха"
+
+#: models.py:285 models.py:370
+msgid "Custom message text to display after valid form is submitted"
+msgstr "Текст сообщения для отображения после проверки и отправления формы"
+
+#: models.py:289
+msgid "Show all navigation buttons?"
+msgstr ""
+
+#: models.py:290
+msgid "Show all navigation buttons."
+msgstr ""
+
+#: models.py:298
+msgid "Type"
+msgstr ""
+
+#: models.py:300
+#, fuzzy
+#| msgid "Template to render the form with."
+msgid "Type of the form wizard."
+msgstr "Шаблон для отображения формы."
+
+#: models.py:302 models.py:378
+#, fuzzy
+#| msgid "Create form"
+msgid "Created"
+msgstr "Создать форму"
+
+#: models.py:304 models.py:380
+msgid "Updated"
+msgstr ""
+
+#: models.py:310 models.py:413
+msgid "Form wizard entry"
+msgstr ""
+
+#: models.py:311
+msgid "Form wizard entries"
+msgstr ""
+
+#: models.py:354
+msgid "Makes your form visible to the public."
+msgstr "Ваша форма будет публично доступна."
+
+#: models.py:357
+msgid "Cloneable?"
+msgstr "Можно клонировать?"
+
+#: models.py:358
+msgid "Makes your form cloneable by other users."
+msgstr "Другие пользователи смогут клонировать вашу форму."
+
+#: models.py:374
+msgid "Action"
+msgstr "Действие"
+
+#: models.py:375
+msgid "Custom form action; don't fill this field, unless really necessary."
+msgstr "Действие формы; не заполняйте это поле без крайней надобности."
+
+#: models.py:386 models.py:416
+msgid "Form entry"
+msgstr "Форма"
+
+#: models.py:387
+msgid "Form entries"
+msgstr "Формы"
+
+#: models.py:418 models.py:600
+msgid "Position"
+msgstr "Порядок"
+
+#: models.py:425
+#, fuzzy
+#| msgid "Form handler entry"
+msgid "Form wizard form entry"
+msgstr "Обработчик формы"
+
+#: models.py:426
+#, fuzzy
+#| msgid "Form handler entries"
+msgid "Form wizard form entries"
+msgstr "Обработчики формы"
+
+#: models.py:442
+msgid "Is repeatable?"
+msgstr ""
+
+#: models.py:443
+msgid "Makes your form fieldset repeatable."
+msgstr ""
+
+#: models.py:449
+msgid "Form fieldset entry"
+msgstr ""
+
+#: models.py:450
+msgid "Form fieldset entries"
+msgstr ""
+
+#: models.py:594 models.py:632 models.py:689
+msgid "Plugin name"
+msgstr "Название плагина"
+
+#: models.py:598
+msgid "Form fieldset"
+msgstr ""
+
+#: models.py:607
+msgid "Form element entry"
+msgstr "Элемент формы"
+
+#: models.py:608
+msgid "Form element entries"
+msgstr "Элементы формы"
+
+#: models.py:641
+msgid "Form handler entries"
+msgstr "Обработчики формы"
+
+#: models.py:664 templates/fobi/generic/form_wizards_dashboard.html:39
+msgid "Form wizard"
+msgstr ""
+
+#: models.py:697
+#, fuzzy
+#| msgid "Form handler entry"
+msgid "Form wizard handler entry"
+msgstr "Обработчик формы"
+
+#: models.py:698
+#, fuzzy
+#| msgid "Form handler entries"
+msgid "Form wizard handler entries"
+msgstr "Обработчики формы"
 
 #: templates/fobi/admin/bulk_change_plugins.html:5
 #: templates/fobi/admin/bulk_change_plugins.html:32
@@ -1607,14 +1999,80 @@ msgstr "Редактировать множество объектов"
 msgid "Django site admin"
 msgstr "Django администрация сайта"
 
+#: templates/fobi/generic/_base.html:109
+#: templates/fobi/generic/add_form_element_entry.html:11
+#: templates/fobi/generic/add_form_handler_entry.html:11
+#: templates/fobi/generic/add_form_wizard_handler_entry.html:11
+#: templates/fobi/generic/create_form_entry.html:11
+#: templates/fobi/generic/create_form_wizard_entry.html:11
+#: templates/fobi/generic/dashboard.html:11
+#: templates/fobi/generic/edit_form_element_entry.html:18
+#: templates/fobi/generic/edit_form_entry.html:8
+#: templates/fobi/generic/edit_form_handler_entry.html:11
+#: templates/fobi/generic/edit_form_wizard_entry.html:12
+#: templates/fobi/generic/form_entry_submitted.html:11
+#: templates/fobi/generic/form_importer.html:11
+#: templates/fobi/generic/form_wizard_entry_submitted.html:11
+#: templates/fobi/generic/form_wizards_dashboard.html:17
+#: templates/fobi/generic/import_form_entry.html:11
+#: templates/fobi/generic/view_form_entry.html:13
+#: templates/fobi/generic/view_form_wizard_entry.html:17
+#, fuzzy
+#| msgid "Form"
+msgid "Forms"
+msgstr "Форма"
+
+#: templates/fobi/generic/_base.html:110
+#: templates/fobi/generic/add_form_element_entry.html:12
+#: templates/fobi/generic/add_form_handler_entry.html:12
+#: templates/fobi/generic/add_form_wizard_handler_entry.html:12
+#: templates/fobi/generic/create_form_entry.html:12
+#: templates/fobi/generic/create_form_wizard_entry.html:12
+#: templates/fobi/generic/dashboard.html:12
+#: templates/fobi/generic/edit_form_element_entry.html:19
+#: templates/fobi/generic/edit_form_entry.html:9
+#: templates/fobi/generic/edit_form_handler_entry.html:12
+#: templates/fobi/generic/edit_form_wizard_entry.html:13
+#: templates/fobi/generic/form_entry_submitted.html:12
+#: templates/fobi/generic/form_importer.html:12
+#: templates/fobi/generic/form_wizard_entry_submitted.html:12
+#: templates/fobi/generic/form_wizards_dashboard.html:18
+#: templates/fobi/generic/import_form_entry.html:12
+#: templates/fobi/generic/view_form_entry.html:14
+#: templates/fobi/generic/view_form_wizard_entry.html:18
+msgid "Wizards"
+msgstr ""
+
 #: templates/fobi/generic/add_form_element_entry_ajax.html:11
 #: templates/fobi/generic/add_form_handler_entry_ajax.html:9
+#: templates/fobi/generic/add_form_wizard_handler_entry_ajax.html:9
 #: templates/fobi/generic/create_form_entry_ajax.html:9
+#: templates/fobi/generic/create_form_wizard_entry_ajax.html:9
 msgid "Add"
 msgstr "Добавить"
 
+#: templates/fobi/generic/add_form_wizard_handler_entry.html:5
+#: templates/fobi/generic/add_form_wizard_handler_entry_ajax.html:6
+#, fuzzy, python-format
+#| msgid "Add \"%(plugin_name)s\" handler to the form"
+msgid "Add \"%(plugin_name)s\" handler to the form wizard"
+msgstr "Добавить обработичик \"%(plugin_name)s\""
+
 #: templates/fobi/generic/create_form_entry.html:5
 msgid "Create form entry"
+msgstr "Создать форму"
+
+#: templates/fobi/generic/create_form_wizard_entry.html:5
+#, fuzzy
+#| msgid "Create form entry"
+msgid "Create form wizard entry"
+msgstr "Создать форму"
+
+#: templates/fobi/generic/create_form_wizard_entry_ajax.html:6
+#: templates/fobi/generic/form_wizards_dashboard.html:86
+#, fuzzy
+#| msgid "Create form"
+msgid "Create form wizard"
 msgstr "Создать форму"
 
 #: templates/fobi/generic/edit_form_element_entry.html:5
@@ -1623,18 +2081,15 @@ msgstr "Создать форму"
 msgid "Edit \"%(plugin_name)s\" element of the form"
 msgstr "Редактировать элемент \"%(plugin_name)s\""
 
-#: templates/fobi/generic/edit_form_element_entry_ajax.html:9
-#: templates/fobi/generic/edit_form_handler_entry_ajax.html:9
-#: templates/fobi/generic/view_form_entry_ajax.html:9
-msgid "Submit"
-msgstr "Отправить"
-
 #: templates/fobi/generic/edit_form_entry.html:5
 msgid "Edit form entry"
 msgstr "Редактировать форму"
 
-#: templates/fobi/generic/edit_form_entry.html:9
+#: templates/fobi/generic/edit_form_entry.html:14
+#: templates/fobi/generic/edit_form_wizard_entry.html:18
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:57
 #: templates/fobi/generic/view_form_entry.html:9
+#: templates/fobi/generic/view_form_wizard_entry.html:13
 msgid "View"
 msgstr "Просмотреть"
 
@@ -1644,11 +2099,78 @@ msgstr "Просмотреть"
 msgid "Edit \"%(plugin_name)s\" handler of the form"
 msgstr "Редактировать обработчик \"%(plugin_name)s\"  вашей формы"
 
+#: templates/fobi/generic/edit_form_wizard_entry.html:5
+#, fuzzy
+#| msgid "Edit form entry"
+msgid "Edit form wizard entry"
+msgstr "Редактировать форму"
+
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:3
+#, fuzzy
+#| msgid "Edit form"
+msgid "Edit form wizard"
+msgstr "Редактировать форму"
+
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:22
+#, fuzzy
+#| msgid "Add elements to your form"
+msgid "Add forms to your form wizard"
+msgstr "Элементы формы"
+
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:30
+#, fuzzy
+#| msgid "Choose form element to add"
+msgid "Choose form to add"
+msgstr "Добавить элемент"
+
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:96
+#, fuzzy
+#| msgid "Add handlers to your form"
+msgid "Add handlers to your form wizard"
+msgstr "Обработчики формы"
+
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:104
+#, fuzzy
+#| msgid "Choose form handler to add"
+msgid "Choose form wizard handler to add"
+msgstr "Добавить обработчик"
+
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:166
+#, fuzzy
+#| msgid "Form properties"
+msgid "Form wizard properties"
+msgstr "Свойства формы"
+
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:196
+#, fuzzy
+#| msgid "Export your form as JSON"
+msgid "Export your form wizard as JSON"
+msgstr "Экспортировать форму в формат JSON "
+
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:200
+#, fuzzy
+#| msgid "Export form data"
+msgid "Export form wizard"
+msgstr "Экспортировать формы данные"
+
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:205
+#, fuzzy
+#| msgid "Delete your form"
+msgid "Delete your form wizard"
+msgstr "Удалить форму"
+
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:209
+#, fuzzy
+#| msgid "Delete form"
+msgid "Delete form wizard"
+msgstr "Удалить форму"
+
 #: templates/fobi/generic/form_entry_submitted.html:5
 msgid "Form submitted!"
 msgstr "Форма сохранена!"
 
 #: templates/fobi/generic/form_entry_submitted_ajax.html:4
+#: templates/fobi/generic/form_wizard_entry_submitted_ajax.html:4
 msgid "Thank you!"
 msgstr "Submit"
 
@@ -1656,86 +2178,484 @@ msgstr "Submit"
 msgid "Form submitted successfully."
 msgstr "Форма сохранена успешна."
 
-#: templates/fobi/generic/import_form_entry.html:5
-msgid "Import form entry"
-msgstr "Импортировать форму"
+#: templates/fobi/generic/form_importer.html:5
+#: templates/fobi/generic/form_importer_ajax.html:6
+#, fuzzy
+#| msgid "Form properties"
+msgid "Form importer"
+msgstr "Свойства формы"
 
+#: templates/fobi/generic/form_importer_ajax.html:9
 #: templates/fobi/generic/import_form_entry_ajax.html:9
 msgid "Import"
 msgstr "Импорт"
 
-#: templates/fobi/generic/view_form_entry.html:5
-#: templates/fobi/generic/view_form_entry_ajax.html:6
-msgid "View form"
-msgstr "Посмотреть форму"
+#: templates/fobi/generic/form_wizard_entry_submitted.html:5
+#, fuzzy
+#| msgid "Form submitted!"
+msgid "Form wizard submitted!"
+msgstr "Форма сохранена!"
+
+#: templates/fobi/generic/form_wizard_entry_submitted_ajax.html:15
+#, fuzzy
+#| msgid "Form submitted successfully."
+msgid "Form wizard submitted successfully."
+msgstr "Форма сохранена успешна."
+
+#: templates/fobi/generic/form_wizards_dashboard.html:5
+msgid "Form wizards dashboard"
+msgstr ""
+
+#: templates/fobi/generic/form_wizards_dashboard.html:30
+#, fuzzy
+#| msgid "Your forms"
+msgid "Your form wizards"
+msgstr "Ваши формы"
+
+#: templates/fobi/generic/form_wizards_dashboard.html:89
+#, fuzzy
+#| msgid "Import form"
+msgid "Import form wizard"
+msgstr "Импортировать форму"
+
+#: templates/fobi/generic/import_form_entry.html:5
+msgid "Import form entry"
+msgstr "Импортировать форму"
 
 #: templates/fobi/generic/snippets/form_properties_snippet.html:33
+#: templates/fobi/generic/snippets/form_wizard_properties_snippet.html:33
 msgid "Help"
 msgstr "Помощь"
 
-#: templatetags/fobi_tags.py:166
+#: templates/fobi/generic/snippets/form_wizard.html:33
+msgid "First step"
+msgstr ""
+
+#: templates/fobi/generic/snippets/form_wizard.html:42
+msgid "Previous step"
+msgstr ""
+
+#: templates/fobi/generic/view_form_entry.html:5
+#: templates/fobi/generic/view_form_entry_ajax.html:6
+#: templates/fobi/generic/view_form_wizard_entry_ajax.html:6
+msgid "View form"
+msgstr "Посмотреть форму"
+
+#: templates/fobi/generic/view_form_wizard_entry.html:5
+#, fuzzy
+#| msgid "View form data"
+msgid "View form wizard"
+msgstr "Просмотреть данные формы"
+
+#: templatetags/fobi_tags.py:265
 msgid "Log in"
 msgstr "Вход"
 
-#: urls/edit.py:20
+#: urls/edit.py:44
 msgid "^forms/create/$"
 msgstr "^формы/создать/$"
 
-#: urls/edit.py:25
+#: urls/edit.py:49
 msgid "^forms/edit/(?P<form_entry_id>\\d+)/$"
 msgstr "^формы/редактировать/(?P<form_entry_id>\\d+)/$"
 
-#: urls/edit.py:30
+#: urls/edit.py:54
 msgid "^forms/delete/(?P<form_entry_id>\\d+)/$"
 msgstr "^формы/удалить/(?P<form_entry_id>\\d+)/$"
 
-#: urls/edit.py:35
+#: urls/edit.py:63
 msgid "^forms/export/(?P<form_entry_id>\\d+)/$"
 msgstr "^формы/импорт/(?P<form_entry_id>\\d+)/$"
 
-#: urls/edit.py:40
+#: urls/edit.py:68
 msgid "^forms/import/$"
 msgstr "^формы/импорт/$"
 
-#: urls/edit.py:45
-msgid "^forms/elements/add/(?P<form_entry_id>\\d+)/(?P<form_element_plugin_uid>[\\w_\\-]+)/$"
-msgstr "^формы/элементы/добавить/(?P<form_entry_id>\\d+)/(?P<form_element_plugin_uid>[\\w_\\-]+)/$"
+#: urls/edit.py:73
+#, fuzzy
+#| msgid ""
+#| "^forms/handlers/add/(?P<form_entry_id>\\d+)/(?"
+#| "P<form_handler_plugin_uid>[\\w_\\-]+)/$"
+msgid "^forms/importer/(?P<form_importer_plugin_uid>[\\w_\\-]+)/$"
+msgstr ""
+"^формы/обработчики/добавить/(?P<form_entry_id>\\d+)/(?"
+"P<form_handler_plugin_uid>[\\w_\\-]+)/$"
 
-#: urls/edit.py:50
+#: urls/edit.py:82
+msgid ""
+"^forms/elements/add/(?P<form_entry_id>\\d+)/(?P<form_element_plugin_uid>[\\w_"
+"\\-]+)/$"
+msgstr ""
+"^формы/элементы/добавить/(?P<form_entry_id>\\d+)/(?"
+"P<form_element_plugin_uid>[\\w_\\-]+)/$"
+
+#: urls/edit.py:88
 msgid "^forms/elements/edit/(?P<form_element_entry_id>\\d+)/$"
 msgstr "^формы/элементы/редактировать/(?P<form_element_entry_id>\\d+)/$"
 
-#: urls/edit.py:55
+#: urls/edit.py:93
 msgid "^forms/elements/delete/(?P<form_element_entry_id>\\d+)/$"
 msgstr "^формы/элементры/удалить/(?P<form_element_entry_id>\\d+)/"
 
-#: urls/edit.py:60
-msgid "^forms/handlers/add/(?P<form_entry_id>\\d+)/(?P<form_handler_plugin_uid>[\\w_\\-]+)/$"
-msgstr "^формы/обработчики/добавить/(?P<form_entry_id>\\d+)/(?P<form_handler_plugin_uid>[\\w_\\-]+)/$"
+#: urls/edit.py:102
+msgid ""
+"^forms/handlers/add/(?P<form_entry_id>\\d+)/(?P<form_handler_plugin_uid>[\\w_"
+"\\-]+)/$"
+msgstr ""
+"^формы/обработчики/добавить/(?P<form_entry_id>\\d+)/(?"
+"P<form_handler_plugin_uid>[\\w_\\-]+)/$"
 
-#: urls/edit.py:65
+#: urls/edit.py:108
 msgid "^forms/handlers/edit/(?P<form_handler_entry_id>\\d+)/$"
 msgstr "^формы/обработчики/редактировать/(?P<form_handler_entry_id>\\d+)/$"
 
-#: urls/edit.py:70
+#: urls/edit.py:113
 msgid "^forms/handlers/delete/(?P<form_handler_entry_id>\\d+)/$"
 msgstr "^формы/обработчики/удалить/(?P<form_handler_entry_id>\\d+)/$"
 
-#: urls/edit.py:75
+#: urls/edit.py:122
+#, fuzzy
+#| msgid "^forms/create/$"
+msgid "^wizard/create/$"
+msgstr "^формы/создать/$"
+
+#: urls/edit.py:127
+#, fuzzy
+#| msgid "^forms/edit/(?P<form_entry_id>\\d+)/$"
+msgid "^wizard/edit/(?P<form_wizard_entry_id>\\d+)/$"
+msgstr "^формы/редактировать/(?P<form_entry_id>\\d+)/$"
+
+#: urls/edit.py:132
+#, fuzzy
+#| msgid "^forms/delete/(?P<form_entry_id>\\d+)/$"
+msgid "^wizard/delete/(?P<form_wizard_entry_id>\\d+)/$"
+msgstr "^формы/удалить/(?P<form_entry_id>\\d+)/$"
+
+#: urls/edit.py:141
+#, fuzzy
+#| msgid ""
+#| "^forms/elements/add/(?P<form_entry_id>\\d+)/(?"
+#| "P<form_element_plugin_uid>[\\w_\\-]+)/$"
+msgid ""
+"^wizard/forms/add/(?P<form_wizard_entry_id>\\d+)/(?P<form_entry_id>[\\w_"
+"\\-]+)/$"
+msgstr ""
+"^формы/элементы/добавить/(?P<form_entry_id>\\d+)/(?"
+"P<form_element_plugin_uid>[\\w_\\-]+)/$"
+
+#: urls/edit.py:152
+#, fuzzy
+#| msgid "^forms/elements/delete/(?P<form_element_entry_id>\\d+)/$"
+msgid "^wizard/elements/delete/(?P<form_wizard_form_entry_id>\\d+)/$"
+msgstr "^формы/элементры/удалить/(?P<form_element_entry_id>\\d+)/"
+
+#: urls/edit.py:161
+#, fuzzy
+#| msgid ""
+#| "^forms/handlers/add/(?P<form_entry_id>\\d+)/(?"
+#| "P<form_handler_plugin_uid>[\\w_\\-]+)/$"
+msgid ""
+"^wizard/handlers/add/(?P<form_wizard_entry_id>\\d+)/(?"
+"P<form_wizard_handler_plugin_uid>[\\w_\\-]+)/$"
+msgstr ""
+"^формы/обработчики/добавить/(?P<form_entry_id>\\d+)/(?"
+"P<form_handler_plugin_uid>[\\w_\\-]+)/$"
+
+#: urls/edit.py:167
+#, fuzzy
+#| msgid "^forms/handlers/edit/(?P<form_handler_entry_id>\\d+)/$"
+msgid "^wizard/handlers/edit/(?P<form_wizard_handler_entry_id>\\d+)/$"
+msgstr "^формы/обработчики/редактировать/(?P<form_handler_entry_id>\\d+)/$"
+
+#: urls/edit.py:172
+#, fuzzy
+#| msgid "^forms/handlers/delete/(?P<form_handler_entry_id>\\d+)/$"
+msgid "^wizard/handlers/delete/(?P<form_wizard_handler_entry_id>\\d+)/$"
+msgstr "^формы/обработчики/удалить/(?P<form_handler_entry_id>\\d+)/$"
+
+#: urls/edit.py:181
+#, fuzzy
+#| msgid "^forms/export/(?P<form_entry_id>\\d+)/$"
+msgid "^wizard/export/(?P<form_wizard_entry_id>\\d+)/$"
+msgstr "^формы/импорт/(?P<form_entry_id>\\d+)/$"
+
+#: urls/edit.py:186
+#, fuzzy
+#| msgid "^forms/import/$"
+msgid "^wizard/import/$"
+msgstr "^формы/импорт/$"
+
+#: urls/edit.py:195
 msgid "^$"
 msgstr ""
 
-#: urls/view.py:16
+#: urls/edit.py:198
+msgid "^wizards/$"
+msgstr ""
+
+#: urls/view.py:21
 msgid "^view/submitted/$"
 msgstr "^просмотр/отправлено/$"
 
-#: urls/view.py:21
+#: urls/view.py:26
 msgid "^view/(?P<form_entry_slug>[\\w_\\-]+)/$"
 msgstr "^просмотр/(?P<form_entry_slug>[\\w_\\-]+)/$"
 
-#: urls/view.py:26
+#: urls/view.py:31
 msgid "^view/(?P<form_entry_slug>[\\w_\\-]+)/submitted/$"
 msgstr "^просмотр/(?P<form_entry_slug>[\\w_\\-]+)/отправлено/$"
+
+#: urls/view.py:39
+#, fuzzy
+#| msgid "^view/submitted/$"
+msgid "^wizard-view/submitted/$"
+msgstr "^просмотр/отправлено/$"
+
+#: urls/view.py:44
+#, fuzzy
+#| msgid "^view/(?P<form_entry_slug>[\\w_\\-]+)/$"
+msgid "^wizard-view/(?P<form_wizard_entry_slug>[\\w_\\-]+)/$"
+msgstr "^просмотр/(?P<form_entry_slug>[\\w_\\-]+)/$"
+
+#: urls/view.py:49
+#, fuzzy
+#| msgid "^view/(?P<form_entry_slug>[\\w_\\-]+)/submitted/$"
+msgid "^wizard-view/(?P<form_wizard_entry_slug>[\\w_\\-]+)/submitted/$"
+msgstr "^просмотр/(?P<form_entry_slug>[\\w_\\-]+)/отправлено/$"
+
+#: utils.py:760 views.py:2677
+#, python-brace-format
+msgid " (imported on {0})"
+msgstr " (дата импорта {0})"
+
+#: utils.py:776 utils.py:798 views.py:2710
+#, python-brace-format
+msgid "Plugin {0} is missing in the system."
+msgstr ""
+
+#: utils.py:783
+msgid "Some essential plugin data missing in the JSON import."
+msgstr "Часть основных данных плагина отсутствует в импорте JSON."
+
+#: utils.py:805 views.py:2718
+msgid "Some essential data missing in the JSON import."
+msgstr "Часть основных данных отсутствует в импорте JSON."
+
+#: views.py:166 views.py:209 views.py:1873
+#, python-brace-format
+msgid "{0} not found."
+msgstr "{0} не найдено."
+
+#: views.py:370
+#, python-brace-format
+msgid "Form {0} was created successfully."
+msgstr "Форма {0} успешно создана."
+
+#: views.py:380 views.py:505
+#, python-brace-format
+msgid "Errors occurred while saving the form: {0}."
+msgstr "Во время сохранения данных формы произошли следующие ошибки: {0}."
+
+#: views.py:437 views.py:616 views.py:653 views.py:912 views.py:1790
+#: views.py:2188 views.py:2326 views.py:2372
+msgid "Form entry not found."
+msgstr "Форма не найдена"
+
+#: views.py:462
+msgid "Elements ordering edited successfully."
+msgstr "Порядок элементов успешно сохранен."
+
+#: views.py:471
+msgid "Errors occurred while trying to change the elements ordering!"
+msgstr "При попытке сохранения порядка элементов произошла ошибка!"
+
+#: views.py:491
+#, python-brace-format
+msgid "Form {0} was edited successfully."
+msgstr "Форма {0} успешно сохранена."
+
+#: views.py:622
+#, python-brace-format
+msgid "The form \"{0}\" was deleted successfully."
+msgstr "Форма \"{0}\" успешно удалена."
+
+#: views.py:662 views.py:919 views.py:1937
+msgid "Plugin does not exist or you are not allowed to use this plugin!"
+msgstr "Плагин не найден или вам не разрешено его использовать!"
+
+#: views.py:725
+#, python-brace-format
+msgid "The form element plugin \"{0}\" was added successfully."
+msgstr "Элемент формы \"{0}\" добавлен успешно."
+
+#: views.py:784
+msgid "Form element entry not found."
+msgstr "Элемент формы не найден."
+
+#: views.py:796
+#, python-brace-format
+msgid "The form element plugin \"{0}\" is not configurable!"
+msgstr "Элемент формы \"{0}\" не настраивается!"
+
+#: views.py:827
+#, python-brace-format
+msgid "The form element plugin \"{0}\" was edited successfully."
+msgstr "Элемент формы \"{0}\" успешно сохранен."
+
+#: views.py:883
+#, python-brace-format
+msgid "The form element plugin \"{0}\" was deleted successfully."
+msgstr "Элемент формы \"{0}\" успешно удален."
+
+#: views.py:936 views.py:1954
+#, python-brace-format
+msgid "The {0} plugin can be used only once in a form."
+msgstr "{0} плагин разрешено использовать единожды в форме."
+
+#: views.py:979
+#, python-brace-format
+msgid "The form handler plugin \"{0}\" was added successfully."
+msgstr "Обработчик формы \"{0}\" успешно добавлен."
+
+#: views.py:1038
+msgid "Form handler entry not found."
+msgstr "Обработчик формы не найден."
+
+#: views.py:1051
+#, python-brace-format
+msgid "The form handler plugin \"{0}\" is not configurable!"
+msgstr "Обработчик формы \"{0}\" не настраивается!"
+
+#: views.py:1074
+#, python-brace-format
+msgid "The form handler plugin \"{0}\" was edited successfully."
+msgstr "Обработчик формы \"{0}\" успешно изменен."
+
+#: views.py:1127
+#, python-brace-format
+msgid "The form handler plugin \"{0}\" was deleted successfully."
+msgstr "Oработчик формы \"{0}\" успешно удален."
+
+#: views.py:1172
+#, fuzzy, python-brace-format
+#| msgid "Form {0} was created successfully."
+msgid "Form wizard {0} was created successfully."
+msgstr "Форма {0} успешно создана."
+
+#: views.py:1182 views.py:1316
+#, fuzzy, python-brace-format
+#| msgid "Errors occurred while saving the form: {0}."
+msgid "Errors occurred while saving the form wizard: {0}."
+msgstr "Во время сохранения данных формы произошли следующие ошибки: {0}."
+
+#: views.py:1245 views.py:1410 views.py:1467 views.py:1693 views.py:1731
+#: views.py:1782 views.py:1928 views.py:2581
+#, fuzzy
+#| msgid "Form entry not found."
+msgid "Form wizard entry not found."
+msgstr "Форма не найдена"
+
+#: views.py:1269
+#, fuzzy
+#| msgid "Elements ordering edited successfully."
+msgid "Forms ordering edited successfully."
+msgstr "Порядок элементов успешно сохранен."
+
+#: views.py:1282
+#, fuzzy
+#| msgid "Errors occurred while trying to change the elements ordering!"
+msgid "Errors occurred while trying to change the forms ordering!"
+msgstr "При попытке сохранения порядка элементов произошла ошибка!"
+
+#: views.py:1304
+#, fuzzy, python-brace-format
+#| msgid "Form {0} was edited successfully."
+msgid "Form wizard {0} was edited successfully."
+msgstr "Форма {0} успешно сохранена."
+
+#: views.py:1416
+#, fuzzy, python-brace-format
+#| msgid "The form \"{0}\" was deleted successfully."
+msgid "The form wizard \"{0}\" was deleted successfully."
+msgstr "Форма \"{0}\" успешно удалена."
+
+#: views.py:1501
+msgid "Form wizard entry does not contain any forms."
+msgstr ""
+
+#: views.py:1542 wizard/views/dynamic.py:378
+msgid "ManagementForm data is missing or has been tampered."
+msgstr ""
+
+#: views.py:1801
+#, python-brace-format
+msgid ""
+"The form entry \"{0}\" could not be added to the wizard \"{1}\" due to the "
+"following error \"{2}\"."
+msgstr ""
+
+#: views.py:1837
+#, fuzzy, python-brace-format
+#| msgid "The form element plugin \"{0}\" was added successfully."
+msgid "The form entry \"{0}\" was added successfully to the wizard \"{1}\"."
+msgstr "Элемент формы \"{0}\" добавлен успешно."
+
+#: views.py:1884
+#, fuzzy, python-brace-format
+#| msgid "The form \"{0}\" was deleted successfully."
+msgid "The form wizard form entry \"{0}\" was deleted successfully."
+msgstr "Форма \"{0}\" успешно удалена."
+
+#: views.py:2000
+#, fuzzy, python-brace-format
+#| msgid "The form handler plugin \"{0}\" was added successfully."
+msgid "The form wizard handler plugin \"{0}\" was added successfully."
+msgstr "Обработчик формы \"{0}\" успешно добавлен."
+
+#: views.py:2060
+#, fuzzy
+#| msgid "Form handler entry not found."
+msgid "Form wizard handler entry not found."
+msgstr "Обработчик формы не найден."
+
+#: views.py:2074
+#, fuzzy, python-brace-format
+#| msgid "The form handler plugin \"{0}\" is not configurable!"
+msgid "The form wizard handler plugin \"{0}\" is not configurable!"
+msgstr "Обработчик формы \"{0}\" не настраивается!"
+
+#: views.py:2102
+#, fuzzy, python-brace-format
+#| msgid "The form handler plugin \"{0}\" was edited successfully."
+msgid "The form wizard handler plugin \"{0}\" was edited successfully."
+msgstr "Обработчик формы \"{0}\" успешно изменен."
+
+#: views.py:2156
+#, fuzzy, python-brace-format
+#| msgid "The form handler plugin \"{0}\" was deleted successfully."
+msgid "The form wizard handler plugin \"{0}\" was deleted successfully."
+msgstr "Oработчик формы \"{0}\" успешно удален."
+
+#: views.py:2519
+msgid "The form was imported successfully."
+msgstr "Форма успешно импортирована."
+
+#: views.py:2724
+#, fuzzy
+#| msgid "The form was imported successfully."
+msgid "The form wizard was imported successfully."
+msgstr "Форма успешно импортирована."
+
+#: widgets.py:34
+msgid "Yes"
+msgstr "Да"
+
+#: widgets.py:35
+msgid "No"
+msgstr "Нет"
+
+#~ msgid "Simple"
+#~ msgstr "Простая"
 
 #~ msgid "Custom form action"
 #~ msgstr "Действие формы"

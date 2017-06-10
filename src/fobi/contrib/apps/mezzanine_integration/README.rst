@@ -2,12 +2,19 @@ fobi.contrib.apps.mezzanine_integration
 ---------------------------------------
 A ``django-fobi`` integration with Mezzanine.
 
+Prerequisites
+~~~~~~~~~~~~~
+Tested with Mezzanine 3.1.10 and 4.2.3 only. Might work on earlier (or
+later) versions as well.
+
 Installation
 ~~~~~~~~~~~~
 Versions
 ########
-See the `requirements file
-<https://github.com/barseghyanartur/django-fobi/blob/stable/examples/mezzanine_example/requirements.txt>`_.
+See the requirements files:
+
+- `Mezzanine 4.2.3 requirements
+  <https://github.com/barseghyanartur/django-fobi/blob/stable/examples/mezzanine_example/requirements.txt>`_.
 
 your_project/settings.py
 ########################
