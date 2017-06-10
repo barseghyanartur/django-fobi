@@ -17,11 +17,14 @@ are used for versioning (schema follows below):
 
 0.11.13
 -------
-2017-06-dd
+2017-06-10
 
 - Updated docs for DjangoCMS, FeinCMS and Mezzanine.
 - Updated outdated Dutch translations.
 - Improvements of the DRF integration app documentation.
+- Duration field added.
+- Support ``DurationField`` in ``drf_integration`` integration app.
+- Minor fixes in docs.
 
 0.11.12
 -------

@@ -3263,25 +3263,25 @@ A ``django-fobi`` ContentImage plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.content.content_image``
-   to the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.content.content_image``
+    to the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.content.content_image',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.content.content_image',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 Usage
 ^^^^^
@@ -3331,25 +3331,25 @@ A ``django-fobi`` ContentImageURL plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.content.content_image_url``
-   to the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.content.content_image_url``
+    to the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.content.content_image_url',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.content.content_image_url',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 Usage
 ^^^^^
@@ -3399,25 +3399,25 @@ A ``django-fobi`` ContentText plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.content.content_text``
-   to the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.content.content_text``
+    to the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.content.content_text',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.content.content_text',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 Usage
 ^^^^^
@@ -3464,25 +3464,25 @@ A ``django-fobi`` ContentVideo plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.content.content_video``
-   to the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.content.content_video``
+    to the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.content.content_video',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.content.content_video',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 Usage
 ^^^^^
@@ -3536,25 +3536,25 @@ A ``django-fobi`` BooleanField plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.boolean`` to
-   the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.boolean`` to
+    the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.boolean',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.boolean',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_elements.fields.checkbox_select_multiple
@@ -3565,25 +3565,25 @@ A ``django-fobi`` CharField plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.checkbox_select_multiple``
-   to the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.checkbox_select_multiple``
+    to the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.checkbox_select_multiple',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.checkbox_select_multiple',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_elements.fields.date
@@ -3594,25 +3594,25 @@ A ``django-fobi`` DateField plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.date`` to the
-   ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.date`` to the
+    ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.date',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.date',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_elements.fields.date_drop_down
@@ -3626,25 +3626,25 @@ plugin of the core package.
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.date_drop_down``
-   to the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.date_drop_down``
+    to the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.date_drop_down',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.date_drop_down',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_elements.fields.datetime
@@ -3655,25 +3655,25 @@ A ``django-fobi`` DateField plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.datetime`` to
-   the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.datetime`` to
+    the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.datetime',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.datetime',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_elements.fields.decimal
@@ -3684,25 +3684,25 @@ A ``django-fobi`` DecimalField plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.decimal`` to
-   the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.decimal`` to
+    the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.decimal',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.decimal',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_elements.fields.email
@@ -3713,25 +3713,25 @@ A ``django-fobi`` EmailField plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.email`` to
-   the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.email`` to
+    the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.email',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.email',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_elements.fields.file
@@ -3742,25 +3742,25 @@ A ``django-fobi`` FileField plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.file`` to
-   the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.file`` to
+    the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.file',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.file',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_elements.fields.float
@@ -3771,25 +3771,25 @@ A ``django-fobi`` FloatField plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.float`` to
-   the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.float`` to
+    the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.float',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.float',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_elements.fields.hidden
@@ -3803,25 +3803,25 @@ Any values posted along won't be saved. Initial value would.
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.hidden`` to
-   the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.hidden`` to
+    the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.hidden',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.hidden',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_elements.fields.input
@@ -3832,25 +3832,25 @@ A ``django-fobi`` CharField plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.input`` to
-   the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.input`` to
+    the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.input',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.input',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_elements.fields.integer
@@ -3861,25 +3861,25 @@ A ``django-fobi`` IntegerField plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.integer`` to
-   the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.integer`` to
+    the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.integer',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.integer',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_elements.fields.ip_address
@@ -3890,25 +3890,25 @@ A ``django-fobi`` IPAddressField plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.ip_address`` to
-   the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.ip_address`` to
+    the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.ip_address',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.ip_address',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_elements.fields.null_boolean
@@ -3919,25 +3919,25 @@ A ``django-fobi`` NullBooleanField plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.null_boolean``
-   to the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.null_boolean``
+    to the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.null_boolean',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.null_boolean',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_elements.fields.password
@@ -3948,25 +3948,25 @@ A ``django-fobi`` CharField plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.password`` to
-   the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.password`` to
+    the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.password',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.password',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_elements.fields.radio
@@ -3977,25 +3977,25 @@ A ``django-fobi`` CharField plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.radio`` to
-   the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.radio`` to
+    the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.radio',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.radio',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_elements.fields.range_select
@@ -4006,25 +4006,25 @@ A ``django-fobi`` ChoiceField plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.range_select``
-   to the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.range_select``
+    to the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.range_select',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.range_select',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_elements.fields.regex
@@ -4064,54 +4064,25 @@ A ``django-fobi`` ChoiceField plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.select``
-   to the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.select``
+    to the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.select',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.select',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
-
-
-fobi.contrib.apps.drf_integration.form_elements.fields.select_multiple
-######################################################################
-A ``django-fobi`` CharField plugin for integration with
-``Django REST framework``. Makes use of the
-``rest_framework.fields.MultipleChoiceField``.
-
-Installation
-^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.select_multiple``
-   to the ``INSTALLED_APPS`` in your ``settings.py``.
-
-.. code-block:: python
-
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.select_multiple',
-        # ...
-    )
-
-2. In the terminal type:
-
-.. code-block:: sh
-
-    ./manage.py fobi_sync_plugins
-
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_elements.fields.select_multiple
@@ -4122,25 +4093,54 @@ A ``django-fobi`` CharField plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.select_multiple``
-   to the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.select_multiple``
+    to the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.select_multiple',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.select_multiple',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+
+
+fobi.contrib.apps.drf_integration.form_elements.fields.select_multiple
+######################################################################
+A ``django-fobi`` CharField plugin for integration with
+``Django REST framework``. Makes use of the
+``rest_framework.fields.MultipleChoiceField``.
+
+Installation
+^^^^^^^^^^^^
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.select_multiple``
+    to the ``INSTALLED_APPS`` in your ``settings.py``.
+
+    .. code-block:: python
+
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.select_multiple',
+            # ...
+        )
+
+(2) In the terminal type:
+
+    .. code-block:: sh
+
+        ./manage.py fobi_sync_plugins
+
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_elements.fields.slider
@@ -4151,25 +4151,25 @@ A ``django-fobi`` ChoiceField plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.slider``
-   to the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.slider``
+    to the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.slider',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.slider',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_elements.fields.slug
@@ -4180,25 +4180,25 @@ A ``django-fobi`` SlugField plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.slug`` to
-   the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.slug`` to
+    the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.slug',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.slug',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_elements.fields.text
@@ -4209,25 +4209,25 @@ A ``django-fobi`` CharField plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.text`` to
-   the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.text`` to
+    the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.text',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.text',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_elements.fields.textarea
@@ -4238,25 +4238,25 @@ A ``django-fobi`` CharField plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.textarea`` to
-   the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.textarea`` to
+    the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.textarea',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.textarea',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_elements.fields.time
@@ -4267,25 +4267,25 @@ A ``django-fobi`` TimeField plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.time`` to
-   the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.time`` to
+    the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.time',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.time',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_elements.fields.url
@@ -4296,25 +4296,25 @@ A ``django-fobi`` URLField plugin for integration with
 
 Installation
 ^^^^^^^^^^^^
-1. Add ``fobi.contrib.apps.drf_integration.form_elements.fields.time`` to
-   the ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.fields.time`` to
+    the ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_elements.fields.url',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.fields.url',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 Form handlers
@@ -4330,27 +4330,27 @@ with ``Django REST framework``. Saves submitted form data into the
 
 Installation
 ############
-1. Add ``fobi.contrib.apps.drf_integration.form_handlers.db_store`` to the
-   ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_handlers.db_store`` to the
+    ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_handlers.db_store',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_handlers.db_store',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py migrate
+        ./manage.py migrate
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_handlers.http_repost
@@ -4360,25 +4360,25 @@ with ``Django REST framework``. Submits the form to another endpoint specified.
 
 Installation
 ############
-1. Add ``fobi.contrib.apps.drf_integration.form_handlers.http_respost`` to the
-   ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_handlers.http_respost`` to the
+    ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_handlers.http_repost',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_handlers.http_repost',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.drf_integration.form_handlers.mail
@@ -4389,27 +4389,27 @@ specified email address.
 
 Installation
 ############
-1. Add ``fobi.contrib.apps.drf_integration.form_handlers.mail`` to the
-   ``INSTALLED_APPS`` in your ``settings.py``.
+(1) Add ``fobi.contrib.apps.drf_integration.form_handlers.mail`` to the
+    ``INSTALLED_APPS`` in your ``settings.py``.
 
-.. code-block:: python
+    .. code-block:: python
 
-    INSTALLED_APPS = (
-        # ...
-        'fobi.contrib.apps.drf_integration.form_handlers.mail',
-        # ...
-    )
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_handlers.mail',
+            # ...
+        )
 
-2. In the terminal type:
+(2) In the terminal type:
 
-.. code-block:: sh
+    .. code-block:: sh
 
-    ./manage.py migrate
+        ./manage.py migrate
 
-    ./manage.py fobi_sync_plugins
+        ./manage.py fobi_sync_plugins
 
-3. Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
 fobi.contrib.apps.feincms_integration
@@ -5579,21 +5579,21 @@ Installation
     the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 
-fobi.contrib.plugins.form_elements.fields.select
-------------------------------------------------
+fobi.contrib.plugins.form_elements.fields.duration
+--------------------------------------------------
 A ``Fobi`` Select form field plugin. Makes use of the
-``django.forms.fields.ChoiceField`` and ``django.forms.widgets.Select``.
+``django.forms.fields.DurationField``.
 
 Installation
 ~~~~~~~~~~~~
-(1) Add ``fobi.contrib.plugins.form_elements.fields.select`` to the
+(1) Add ``fobi.contrib.plugins.form_elements.fields.duration`` to the
     ``INSTALLED_APPS`` in your ``settings.py``.
 
     .. code-block:: python
 
         INSTALLED_APPS = (
             # ...
-            'fobi.contrib.plugins.form_elements.fields.select',
+            'fobi.contrib.plugins.form_elements.fields.duration',
             # ...
         )
 
@@ -5606,58 +5606,28 @@ Installation
 (3) Assign appropriate permissions to the target users/groups to be using
     the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
-(4) By default, the submitted form value of `select`
-    elements is label (human readable representation of the value chosen).
-    However, that part of the behaviour has been made configurable. You can
-    choose between the following options:
-
-    Consider the following list of (value, label) choices (the first element in
-    the tuple is value, the second element is label):
-
-    .. code-block:: python
-
-        [
-            ('alpha', 'Alpha'),
-            ('beta', 'Beta'),
-            ('gamma', 'Gamma'),
-        ]
-
-    .. code-block:: text
-
-        - "val": `value` (example: "alpha").
-        - "repr" (default): `label` (example: "Alpha").
-        - "mix": `value (label)` (example: "Alpha (alpha)").
-
-    Simply set the
-    ``FOBI_FORM_ELEMENT_SELECT_SUBMIT_VALUE_AS`` assign one of the following
-    values: "val", "repr" or "mix" to get the desired behaviour.
-
 Usage
 ~~~~~
-You should be entering a single choice per line. Choice might
-consist of just a single value or value/label pair.
-
-For example:
+Next to standard field attributes, duration plugin accepts the following
+attributes (all integers):
 
 .. code-block:: text
 
-    1
-    2
-    alpha, Alpha
-    beta, Beta
-    omega
+- weeks:
+- days:
+- hours
+- minutes:
+- seconds:
 
-The following HTML would be made of:
+All being used to form a ``datetime.timedelta`` value with the arguments
+mentioned above.
 
-.. code-block:: html
+Initial value should be a properly formatted string.
 
-    <select id="id_NAME_OF_THE_ELEMENT" name="NAME_OF_THE_ELEMENT">
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="alpha">Alpha</option>
-      <option value="beta">Beta</option>
-      <option value="omega">omega</option>
-    </select>
+.. code-block:: text
+
+    3 days, 23:10:53
+    09:30:00
 
 
 fobi.contrib.plugins.form_elements.fields.select_model_object
