@@ -65,5 +65,5 @@ README_PARTS.rst
 /examples/quickstart/
 /examples/static/
 /examples/requirements/wagtail.txt
-/examples/wagtaildemo/
+#/examples/wagtaildemo/
 /examples/wagtail_example_/
