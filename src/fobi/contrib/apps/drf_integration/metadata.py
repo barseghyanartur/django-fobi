@@ -16,6 +16,7 @@ __copyright__ = '2016-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'FobiMetaData',
+    'FobiJSONSchemaMetaData',
 )
 
 
@@ -54,5 +55,44 @@ class FobiMetaData(SimpleMetadata):
             for __k, __val in field_metadata.items():
                 if __val not in (None, ''):
                     field_info[__k] = __val
+
+        return field_info
+
+
+class FobiJSONSchemaMetaData(FobiMetaData):
+    def get_field_info(self, field):
+        default_field_info = super(FobiJSONSchemaMetaData, self).get_field_info(field)
+        field_info = {}
+
+        field_mappings = dict(
+            type='type',
+            title='label',
+            default='initial',
+            maximum='max_value',
+            minimum='min_value',
+            minLength='min_length',
+            maxLength='max_length',
+            # These are schema,but need to be handled differently.
+            # required='required',
+            # These are not schema, but ui.
+
+        )
+
+        # TODO handle required, needs to be a list on the parent
+        # required
+        # TODO handle UI
+        # readonly='read_only'
+        # disabled=None,
+        # help_text
+        # placeholder
+        # TODO Handle choices
+        # enum = field.choices
+        # uniqueItems = true
+        # Set checkboxes ?
+
+        for schema_key, drf_key in field_mappings.items():
+            value = default_field_info.get(drf_key)
+            if value is not None:
+                field_info[schema_key] = value
 
         return field_info
