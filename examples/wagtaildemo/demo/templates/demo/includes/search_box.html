@@ -1,4 +1,14 @@
-<form action="{% url 'wagtailsearch_search' %}" method="get">
-    <input type="text" name="q"{% if query_string %} value="{{ query_string }}"{% endif %}>
-    <input type="submit" class="btn btn-primary btn-sm" value="Search">
+<form action="{% url 'search' %}" class="form-inline" method="get">
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="input-group">
+                <input type="text" name="query" class="form-control" />
+                <div class="input-group-btn">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="glyphicon glyphicon-search"></i> Search
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </form>

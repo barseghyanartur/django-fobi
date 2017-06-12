@@ -1,0 +1,19 @@
+Django>=1.10,<1.11
+psycopg2==2.6
+django-compressor>=1.4
+django-modelcluster>=0.6
+wagtail>=1.10,<1.11
+django-taggit>=0.14.0
+django-libsass>=0.2
+libsass==0.8.2
+Pillow==3.2.0
+html5lib==0.999999
+
+# Dependencies for hosting
+django-redis==3.8.2
+elasticsearch==1.2.0
+
+# Dependencies for Heroku deployment
+dj-database-url==0.3.0
+whitenoise>=3.1,<4.0
+uwsgi>=2.0,<2.1

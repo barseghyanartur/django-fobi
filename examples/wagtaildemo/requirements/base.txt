@@ -1,8 +1,0 @@
-Django>=1.6.2,<1.7
-South>=1.0.0
-psycopg2>=2.5.2
-django-compressor>=1.4
-django-modelcluster>=0.4
-wagtail>=0.7
-django-taggit>=0.11.2
-django-libsass>=0.2

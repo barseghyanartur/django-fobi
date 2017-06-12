@@ -2,16 +2,19 @@
 
 {# Individual event item in a list - used on event index and home page #}
 <a class="list-group-item" href="{% pageurl event %}">
-    <h4 class="list-group-item-heading">{{ event.title }}</h4>
-    <p><strong>{{ event.date_from|date:"j F Y" }}{% if event.date_to %} to {{ event.date_to|date:"j F Y" }}{% endif %}</strong></p>
-    {% if event.search_description or event.feed_image %}
-        <p class="list-group-item-text">
-            {% if event.feed_image %}
-                {% image event.feed_image width-200 %}
-            {% endif %}
-            {% if event.search_description %}
-                {{ event.search_description }}
-            {% endif %}
-        </p>
+  <div class="media">
+    {% if event.feed_image %}
+      <div class="media-left">
+        {% image event.feed_image width-200 as img %}
+        <img class="media-object" src="{{ img.url }}" />
+      </div>
     {% endif %}
+    <div class="media-body">
+      <h4 class="media-heading">{{ event.title }}</h4>
+      <p><strong>{{ event.date_from }}{% if event.date_to %} to {{ event.date_to }}{% endif %}</strong></p>
+      {% if event.search_description %}
+        <p>{{ event.search_description }}</p>
+      {% endif %}
+    </div>
+  </div>
 </a>

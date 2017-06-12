@@ -13,18 +13,13 @@
         <meta name="description" content="{% if self.search_description %}{{ self.search_description }}{% endif %}">
 
         {# External stylesheets #}
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css">
-        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap-theme.min.css">
+        <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css" />
 
         {# Local static assets such as css, images and javascrpt should be stored at [yourapp]/static/[yourapp]/... #}
         {% compress css %}
-            {# Vendor stylesheets stored locally #}
-            <link rel="stylesheet" href="{% static "demo/css/vendor/jquery.bxslider.css" %}" />
-
             {# Custom stylesheets #}
             {# SCSS compilation relies on django compressor #}
             <link rel="stylesheet" type="text/x-scss" href="{% static "demo/css/main.scss" %}" />
-
         {% endcompress %}
 
         {% block extra_css %}{% endblock %} {# Override this block in individual templates in order to add stylesheets on a template by template basis #}
@@ -59,42 +54,29 @@
             {% top_menu parent=site_root calling_page=self %}
         {% endblock %}
 
-        <div class="container theme-showcase">
-            <div class="jumbotron">
-                <h1>Wagtail Demo</h1>
-                <p>A set of demo templates to show you what Wagtail can do.</p>
-                {% block search_box %}
-                    {% include "demo/includes/search_box.html" only %}
-                {% endblock %}
-            </div>
+        <div class="main container">
+
+            {% breadcrumbs %}
 
             {% block heading %}
                 <div class="page-header">
-                    <h2>{{ self.title }}</h2>
+                    <h1>{{ self.title }}</h1>
                 </div>
             {% endblock %}
 
-            {% block content %}
+            {% block content %}{% endblock %}
 
-            {% endblock %}
-
-            {% block secondary_menu %}
-                {% secondary_menu calling_page=self %}
-            {% endblock %}
-
-            {% block adverts %}
-                {# Uses a snippet - allows adverts to appear on every page #}
-                {% adverts %}
-            {% endblock %}
+            {% include 'demo/includes/prev_next.html' %}
 
         </div>
 
+        {% adverts %}
+
         {# External javascript #}
-        <script src="https://code.jquery.com/jquery-2.0.3.min.js"></script>
-        <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+        <script src="//code.jquery.com/jquery-2.1.3.min.js"></script>
+        <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
 
         {% compress js %}
-            <script src="{% static "demo/js/vendor/jquery.bxslider.min.js" %}"></script>
             <script src="{% static "demo/js/vendor/fluidvids.js" %}"></script>
             {# Custom javascript #}
             {# Local static assets such as css, images and javascrpt should be stored at [yourapp]/static/[yourapp]/... #}

@@ -1,41 +1,44 @@
 {% extends "demo/base.html" %}
 {% load wagtailcore_tags %}
 
-{% block title %}Search{% if search_results %} Results{% endif %}{% endblock %}
+{% block title %}Search{% if search_results %} results{% endif %}{% endblock %}
 
-{% block search_box %}
-    {% include "demo/includes/search_box.html" with query_string=query_string only %}
+{% block heading %}
+  <h1 class="page-header">
+    Search results{% if request.GET.query %} for “{{ request.GET.query }}”{% endif %}
+  </h1>
 {% endblock %}
 
+
 {% block content %}
-    <h2>Search Results{% if request.GET.q %} for {{ request.GET.q }}{% endif %}</h2>
-
-    {% with query.editors_picks.all as editors_picks %}
-        {% if editors_picks %}
-            <div class="well">
+    {% if search_picks %}
+        <div class="well">
             <h3>Editors picks</h3>
-                <ul>
-                    {% for editors_pick in editors_picks %}
-                        <li>
-                            <h4><a href="{% pageurl editors_pick.page %}">{{ editors_pick.page.title }}</a></h4>
-                            <p>{{ editors_pick.description|safe }}</p>
-                        </li>
-                    {% endfor %}
-                </ul>
-            </div>
-        {% endif %}
-    {% endwith %}
+            <ul>
+                {% for pick in search_picks %}
+                    <li>
+                        <h4><a href="{% pageurl pick.page %}">{{ pick.page.title }}</a></h4>
+                        <p>{{ pick.description }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
 
-    <ul>
-        {% for result in search_results %}
-            <li>
-                <h4><a href="{% pageurl result.specific %}">{{ result.specific }}</a></h4>
-                {% if result.specific.search_description %}
-                    {{ result.specific.search_description|safe }}
-                {% endif %}
-            </li>
-        {% empty %}
-            <li>No results found</li>
-        {% endfor %}
-    </ul>
+    {% if search_results %}
+        <ul>
+            {% for result in search_results %}
+                <li>
+                    <h4><a href="{% pageurl result.specific %}">{{ result.specific }}</a></h4>
+                    {% if result.specific.search_description %}
+                        {{ result.specific.search_description }}
+                    {% endif %}
+                </li>
+            {% endfor %}
+        </ul>
+    {% elif search_query %}
+        No results found
+    {% else %}
+        You didn’t search anything!
+    {% endif %}
 {% endblock %}

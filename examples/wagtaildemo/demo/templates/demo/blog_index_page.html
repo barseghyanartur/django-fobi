@@ -6,7 +6,7 @@
     {% include "demo/includes/intro.html" with intro=self.intro only %}
 
     {% if request.GET.tag|length %}
-        <h4>Showing posts tagged as {{ request.GET.tag|safe }} <a href=" {% pageurl self %} ">Show all</a></h4>
+        <h4>Showing posts tagged as {{ request.GET.tag }} <a href=" {% pageurl self %} ">Show all</a></h4>
     {% endif %}
 
     <div class="list-group">

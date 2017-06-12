@@ -1,16 +1,22 @@
-Wagtail demo
+[![Deploy](https://www.herokucdn.com/deploy/button.svg)](https://heroku.com/deploy?template=https://github.com/torchbox/wagtaildemo)
+
+Wagtail demo project
 =======================
 
-[Wagtail](http://wagtail.io) is distributed as a Python package, to be incorporated into a Django project via the INSTALLED_APPS setting. To get you up and running quickly, we provide a demo site with all the configuration in place, including a set of example page types.
+This is a demonstration project for [Wagtail CMS](http://wagtail.io).
 
-Setup (with Vagrant - recommended)
------
+*We do __not__ recommend using this project to start your own site*. This project is only to provide some examples of implementing common features, it is not an exemplar of Django or Wagtail best practice.
 
-We recommend running Wagtail in a virtual machine using Vagrant, as this ensures that the correct dependencies are in place regardless of how your host machine is set up.
+If you're reasonably new to Python/Django, we suggest you run this project on a Virtual Machine using Vagrant, which helps  resolve common software dependency issues. However for more experienced developers, instructions to start this project without Vagrant follow below.
+
+Once you're familiar with the examples in this project and you want to start a real site, we strongly recommend running the ``wagtail start`` command in a fresh virtual environment, explained in the [Wagtail CMS Documentation](http://wagtail.readthedocs.org/en/latest/getting_started/).
+
+Setup with Vagrant
+------------------
 
 ### Dependencies
 * [VirtualBox](https://www.virtualbox.org/)
-* [Vagrant 1.1+](http://www.vagrantup.com)
+* [Vagrant 1.5+](http://www.vagrantup.com)
 
 ### Installation
 Run the following commands:
@@ -20,25 +26,11 @@ Run the following commands:
     vagrant up
     vagrant ssh
       (then, within the SSH session:)
-    ./manage.py createsuperuser
     ./manage.py runserver 0.0.0.0:8000
 
-This will make the app accessible on the host machine as http://localhost:8111/ - you can access the Wagtail admin interface at http://localhost:8111/admin/ . The codebase is located on the host
-machine, exported to the VM as a shared folder; code editing and Git operations will generally be done on the host.
+The demo site will now be accessible at [http://localhost:8000/](http://localhost:8000/) and the Wagtail admin interface at [http://localhost:8000/admin/](http://localhost:8000/admin/) . Log into the admin with the credentials ``admin / changeme``.
 
-### Developing Wagtail
-The above setup is all you need for trying out the demo site and building Wagtail-powered sites. To develop Wagtail itself, you'll need a working copy of [the Wagtail codebase](https://github.com/torchbox/wagtail) alongside your demo site, shared with your VM so that it is picked up instead of the packaged copy of Wagtail. From the location where you cloned wagtaildemo:
-
-    git clone https://github.com/torchbox/wagtail.git
-    cd wagtaildemo
-    cp Vagrantfile.local.example Vagrantfile.local
-        (edit Vagrantfile.local to specify the path to the wagtail codebase, if required)
-    cp wagtaildemo/settings/local.py.example wagtaildemo/settings/local.py
-        (uncomment the lines from 'import sys' onward, and edit the rest of local.py as appropriate)
-    
-If your VM is currently running, you'll then need to run `vagrant halt` followed by `vagrant up` for the changes to take effect.
-
-Setup (without Vagrant)
+Setup without Vagrant
 -----
 Don't want to set up a whole VM to try out Wagtail? No problem.
 
@@ -52,15 +44,13 @@ With PostgreSQL running (and configured to allow you to connect as the 'postgres
 
     git clone https://github.com/torchbox/wagtaildemo.git
     cd wagtaildemo
-    pip install -r requirements/dev.txt
+    pip install -r requirements.txt
     createdb -Upostgres wagtaildemo
-    ./manage.py syncdb
     ./manage.py migrate
+    ./manage.py load_initial_data
     ./manage.py createsuperuser
     ./manage.py runserver
 
 ### SQLite support
 
-SQLite is supported as an alternative to PostgreSQL - update the DATABASES setting
-in wagtaildemo/settings/base.py to use 'django.db.backends.sqlite3', as you would
-with a regular Django project.
+SQLite is supported as an alternative to PostgreSQL. Before running the `pip install -r requirements.txt` step above, delete the `psycopg2` line in requirements.txt; then, in wagtaildemo/settings/base.py, update the `DATABASES` setting to use `'django.db.backends.sqlite3'` and set `NAME` to be the full path of your database file, as you would with a regular Django project.

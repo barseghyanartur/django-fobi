@@ -2,26 +2,27 @@ from datetime import date
 
 from django.db import models
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.core.management import call_command
-from django.dispatch import receiver
-from django.shortcuts import render
 from django.http import HttpResponse
+from django.utils.encoding import python_2_unicode_compatible
+from django import forms
 
 from wagtail.wagtailcore.models import Page, Orderable
-from wagtail.wagtailcore.fields import RichTextField
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel, \
-    InlinePanel, PageChooserPanel
+from wagtail.wagtailcore.fields import RichTextField, StreamField
+from wagtail.wagtailadmin.edit_handlers import FieldPanel, FieldRowPanel, MultiFieldPanel, \
+    InlinePanel, PageChooserPanel, StreamFieldPanel
 from wagtail.wagtailimages.edit_handlers import ImageChooserPanel
-from wagtail.wagtailimages.models import Image
 from wagtail.wagtaildocs.edit_handlers import DocumentChooserPanel
 from wagtail.wagtailsnippets.models import register_snippet
 from wagtail.wagtailforms.models import AbstractEmailForm, AbstractFormField
 from wagtail.wagtailsearch import index
 
+from wagtail.wagtailcore.blocks import TextBlock, StructBlock, StreamBlock, FieldBlock, CharBlock, RichTextBlock, RawHTMLBlock
+from wagtail.wagtailimages.blocks import ImageChooserBlock
+from wagtail.wagtaildocs.blocks import DocumentChooserBlock
+
 from modelcluster.fields import ParentalKey
 from modelcluster.tags import ClusterTaggableManager
-from taggit.models import Tag, TaggedItemBase
-from south.signals import post_migrate
+from taggit.models import TaggedItemBase
 
 from demo.utils import export_event
 
@@ -30,6 +31,54 @@ EVENT_AUDIENCE_CHOICES = (
     ('public', "Public"),
     ('private', "Private"),
 )
+
+# Global Streamfield definition
+
+
+class PullQuoteBlock(StructBlock):
+    quote = TextBlock("quote title")
+    attribution = CharBlock()
+
+    class Meta:
+        icon = "openquote"
+
+
+class ImageFormatChoiceBlock(FieldBlock):
+    field = forms.ChoiceField(choices=(
+        ('left', 'Wrap left'), ('right', 'Wrap right'), ('mid', 'Mid width'), ('full', 'Full width'),
+    ))
+
+
+class HTMLAlignmentChoiceBlock(FieldBlock):
+    field = forms.ChoiceField(choices=(
+        ('normal', 'Normal'), ('full', 'Full width'),
+    ))
+
+
+class ImageBlock(StructBlock):
+    image = ImageChooserBlock()
+    caption = RichTextBlock()
+    alignment = ImageFormatChoiceBlock()
+
+
+class AlignedHTMLBlock(StructBlock):
+    html = RawHTMLBlock()
+    alignment = HTMLAlignmentChoiceBlock()
+
+    class Meta:
+        icon = "code"
+
+
+class DemoStreamBlock(StreamBlock):
+    h2 = CharBlock(icon="title", classname="title")
+    h3 = CharBlock(icon="title", classname="title")
+    h4 = CharBlock(icon="title", classname="title")
+    intro = RichTextBlock(icon="pilcrow")
+    paragraph = RichTextBlock(icon="pilcrow")
+    aligned_image = ImageBlock(label="Aligned image", icon="image")
+    pullquote = PullQuoteBlock()
+    aligned_html = AlignedHTMLBlock(icon="code", label='Raw HTML')
+    document = DocumentChooserBlock(icon="doc-full-inverse")
 
 
 # A couple of abstract classes that contain commonly used fields
@@ -64,6 +113,8 @@ class LinkFields(models.Model):
         DocumentChooserPanel('link_document'),
     ]
 
+    api_fields = ['link_external', 'link_page', 'link_document']
+
     class Meta:
         abstract = True
 
@@ -86,6 +137,8 @@ class ContactFields(models.Model):
         FieldPanel('country'),
         FieldPanel('post_code'),
     ]
+
+    api_fields = ['telephone', 'email', 'address_1', 'address_2', 'city', 'country', 'post_code']
 
     class Meta:
         abstract = True
@@ -111,6 +164,8 @@ class CarouselItem(LinkFields):
         MultiFieldPanel(LinkFields.panels, "Link"),
     ]
 
+    api_fields = ['image', 'embed_url', 'caption'] + LinkFields.api_fields
+
     class Meta:
         abstract = True
 
@@ -125,6 +180,8 @@ class RelatedLink(LinkFields):
         MultiFieldPanel(LinkFields.panels, "Link"),
     ]
 
+    api_fields = ['title'] + LinkFields.api_fields
+
     class Meta:
         abstract = True
 
@@ -135,7 +192,10 @@ class AdvertPlacement(models.Model):
     page = ParentalKey('wagtailcore.Page', related_name='advert_placements')
     advert = models.ForeignKey('demo.Advert', related_name='+')
 
+    api_fields = ['advert']
 
+
+@python_2_unicode_compatible
 class Advert(models.Model):
     page = models.ForeignKey(
         'wagtailcore.Page',
@@ -152,7 +212,9 @@ class Advert(models.Model):
         FieldPanel('text'),
     ]
 
-    def __unicode__(self):
+    api_fields = ['page', 'url', 'text']
+
+    def __str__(self):
         return self.text
 
 register_snippet(Advert)
@@ -169,25 +231,24 @@ class HomePageRelatedLink(Orderable, RelatedLink):
 
 
 class HomePage(Page):
-    body = RichTextField(blank=True)
-
-    search_fields = Page.search_fields + (
+    body = StreamField(DemoStreamBlock())
+    search_fields = Page.search_fields + [
         index.SearchField('body'),
-    )
+    ]
+
+    api_fields = ['body', 'carousel_items', 'related_links']
 
     class Meta:
         verbose_name = "Homepage"
 
 HomePage.content_panels = [
     FieldPanel('title', classname="full title"),
-    FieldPanel('body', classname="full"),
-    InlinePanel(HomePage, 'carousel_items', label="Carousel items"),
-    InlinePanel(HomePage, 'related_links', label="Related links"),
+    StreamFieldPanel('body'),
+    InlinePanel('carousel_items', label="Carousel items"),
+    InlinePanel('related_links', label="Related links"),
 ]
 
-HomePage.promote_panels = [
-    MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-]
+HomePage.promote_panels = Page.promote_panels
 
 
 # Standard index page
@@ -206,18 +267,19 @@ class StandardIndexPage(Page):
         related_name='+'
     )
 
-    search_fields = Page.search_fields + (
+    search_fields = Page.search_fields + [
         index.SearchField('intro'),
-    )
+    ]
+
+    api_fields = ['intro', 'feed_image']
 
 StandardIndexPage.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('intro', classname="full"),
-    InlinePanel(StandardIndexPage, 'related_links', label="Related links"),
+    InlinePanel('related_links', label="Related links"),
 ]
 
-StandardIndexPage.promote_panels = [
-    MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+StandardIndexPage.promote_panels = Page.promote_panels + [
     ImageChooserPanel('feed_image'),
 ]
 
@@ -243,21 +305,22 @@ class StandardPage(Page):
         related_name='+'
     )
 
-    search_fields = Page.search_fields + (
+    search_fields = Page.search_fields + [
         index.SearchField('intro'),
         index.SearchField('body'),
-    )
+    ]
+
+    api_fields = ['intro', 'body', 'feed_image', 'carousel_items', 'related_links']
 
 StandardPage.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('intro', classname="full"),
-    InlinePanel(StandardPage, 'carousel_items', label="Carousel items"),
+    InlinePanel('carousel_items', label="Carousel items"),
     FieldPanel('body', classname="full"),
-    InlinePanel(StandardPage, 'related_links', label="Related links"),
+    InlinePanel('related_links', label="Related links"),
 ]
 
-StandardPage.promote_panels = [
-    MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+StandardPage.promote_panels = Page.promote_panels + [
     ImageChooserPanel('feed_image'),
 ]
 
@@ -271,9 +334,11 @@ class BlogIndexPageRelatedLink(Orderable, RelatedLink):
 class BlogIndexPage(Page):
     intro = RichTextField(blank=True)
 
-    search_fields = Page.search_fields + (
+    search_fields = Page.search_fields + [
         index.SearchField('intro'),
-    )
+    ]
+
+    api_fields = ['intro', 'related_links']
 
     @property
     def blogs(self):
@@ -312,12 +377,10 @@ class BlogIndexPage(Page):
 BlogIndexPage.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('intro', classname="full"),
-    InlinePanel(BlogIndexPage, 'related_links', label="Related links"),
+    InlinePanel('related_links', label="Related links"),
 ]
 
-BlogIndexPage.promote_panels = [
-    MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-]
+BlogIndexPage.promote_panels = Page.promote_panels
 
 
 # Blog page
@@ -335,7 +398,7 @@ class BlogPageTag(TaggedItemBase):
 
 
 class BlogPage(Page):
-    body = RichTextField()
+    body = StreamField(DemoStreamBlock())
     tags = ClusterTaggableManager(through=BlogPageTag, blank=True)
     date = models.DateField("Post date")
     feed_image = models.ForeignKey(
@@ -346,9 +409,11 @@ class BlogPage(Page):
         related_name='+'
     )
 
-    search_fields = Page.search_fields + (
+    search_fields = Page.search_fields + [
         index.SearchField('body'),
-    )
+    ]
+
+    api_fields = ['body', 'tags', 'date', 'feed_image', 'carousel_items', 'related_links']
 
     @property
     def blog_index(self):
@@ -358,13 +423,12 @@ class BlogPage(Page):
 BlogPage.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('date'),
-    FieldPanel('body', classname="full"),
-    InlinePanel(BlogPage, 'carousel_items', label="Carousel items"),
-    InlinePanel(BlogPage, 'related_links', label="Related links"),
+    StreamFieldPanel('body'),
+    InlinePanel('carousel_items', label="Carousel items"),
+    InlinePanel('related_links', label="Related links"),
 ]
 
-BlogPage.promote_panels = [
-    MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+BlogPage.promote_panels = Page.promote_panels + [
     ImageChooserPanel('feed_image'),
     FieldPanel('tags'),
 ]
@@ -396,12 +460,14 @@ class PersonPage(Page, ContactFields):
         related_name='+'
     )
 
-    search_fields = Page.search_fields + (
+    search_fields = Page.search_fields + [
         index.SearchField('first_name'),
         index.SearchField('last_name'),
         index.SearchField('intro'),
         index.SearchField('biography'),
-    )
+    ]
+
+    api_fields = ['first_name', 'last_name', 'intro', 'biography', 'image', 'feed_image'] + ContactFields.api_fields + ['related_links']
 
 PersonPage.content_panels = [
     FieldPanel('title', classname="full title"),
@@ -411,11 +477,10 @@ PersonPage.content_panels = [
     FieldPanel('biography', classname="full"),
     ImageChooserPanel('image'),
     MultiFieldPanel(ContactFields.panels, "Contact"),
-    InlinePanel(PersonPage, 'related_links', label="Related links"),
+    InlinePanel('related_links', label="Related links"),
 ]
 
-PersonPage.promote_panels = [
-    MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+PersonPage.promote_panels = Page.promote_panels + [
     ImageChooserPanel('feed_image'),
 ]
 
@@ -432,9 +497,11 @@ class ContactPage(Page, ContactFields):
         related_name='+'
     )
 
-    search_fields = Page.search_fields + (
+    search_fields = Page.search_fields + [
         index.SearchField('body'),
-    )
+    ]
+
+    api_fields = ['body', 'feed_image'] + ContactFields.api_fields
 
 ContactPage.content_panels = [
     FieldPanel('title', classname="full title"),
@@ -442,8 +509,7 @@ ContactPage.content_panels = [
     MultiFieldPanel(ContactFields.panels, "Contact"),
 ]
 
-ContactPage.promote_panels = [
-    MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+ContactPage.promote_panels = Page.promote_panels + [
     ImageChooserPanel('feed_image'),
 ]
 
@@ -457,9 +523,11 @@ class EventIndexPageRelatedLink(Orderable, RelatedLink):
 class EventIndexPage(Page):
     intro = RichTextField(blank=True)
 
-    search_fields = Page.search_fields + (
+    search_fields = Page.search_fields + [
         index.SearchField('intro'),
-    )
+    ]
+
+    api_fields = ['intro', 'related_links']
 
     @property
     def events(self):
@@ -478,12 +546,10 @@ class EventIndexPage(Page):
 EventIndexPage.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('intro', classname="full"),
-    InlinePanel(EventIndexPage, 'related_links', label="Related links"),
+    InlinePanel('related_links', label="Related links"),
 ]
 
-EventIndexPage.promote_panels = [
-    MultiFieldPanel(Page.promote_panels, "Common page configuration"),
-]
+EventIndexPage.promote_panels = Page.promote_panels
 
 
 # Event page
@@ -519,6 +585,8 @@ class EventPageSpeaker(Orderable, LinkFields):
         MultiFieldPanel(LinkFields.panels, "Link"),
     ]
 
+    api_fields = ['first_name', 'last_name', 'image']
+
 
 class EventPage(Page):
     date_from = models.DateField("Start date")
@@ -543,11 +611,13 @@ class EventPage(Page):
         related_name='+'
     )
 
-    search_fields = Page.search_fields + (
+    search_fields = Page.search_fields + [
         index.SearchField('get_audience_display'),
         index.SearchField('location'),
         index.SearchField('body'),
-    )
+    ]
+
+    api_fields = ['date_from', 'date_to', 'time_from', 'time_to', 'audience', 'location', 'body', 'cost', 'signup_link', 'feed_image', 'speakers', 'carousel_items', 'related_links']
 
     @property
     def event_index(self):
@@ -582,20 +652,20 @@ EventPage.content_panels = [
     FieldPanel('audience'),
     FieldPanel('cost'),
     FieldPanel('signup_link'),
-    InlinePanel(EventPage, 'carousel_items', label="Carousel items"),
+    InlinePanel('carousel_items', label="Carousel items"),
     FieldPanel('body', classname="full"),
-    InlinePanel(EventPage, 'speakers', label="Speakers"),
-    InlinePanel(EventPage, 'related_links', label="Related links"),
+    InlinePanel('speakers', label="Speakers"),
+    InlinePanel('related_links', label="Related links"),
 ]
 
-EventPage.promote_panels = [
-    MultiFieldPanel(Page.promote_panels, "Common page configuration"),
+EventPage.promote_panels = Page.promote_panels + [
     ImageChooserPanel('feed_image'),
 ]
 
 
 class FormField(AbstractFormField):
     page = ParentalKey('FormPage', related_name='form_fields')
+
 
 class FormPage(AbstractEmailForm):
     intro = RichTextField(blank=True)
@@ -604,48 +674,13 @@ class FormPage(AbstractEmailForm):
 FormPage.content_panels = [
     FieldPanel('title', classname="full title"),
     FieldPanel('intro', classname="full"),
-    InlinePanel(FormPage, 'form_fields', label="Form fields"),
+    InlinePanel('form_fields', label="Form fields"),
     FieldPanel('thank_you_text', classname="full"),
     MultiFieldPanel([
-        FieldPanel('to_address', classname="full"),
-        FieldPanel('from_address', classname="full"),
-        FieldPanel('subject', classname="full"),
-    ], "Email")
+        FieldRowPanel([
+            FieldPanel('from_address', classname="col6"),
+            FieldPanel('to_address', classname="col6"),
+        ]),
+        FieldPanel('subject'),
+    ], "Email"),
 ]
-
-
-# Signal handler to load demo data from fixtures after migrations have completed
-@receiver(post_migrate)
-def import_demo_data(sender, **kwargs):
-    # post_migrate will be fired after every app is migrated; we only want to do the import
-    # after demo has been migrated
-    if kwargs['app'] != 'demo':
-        return
-
-    # Check that there isn't already meaningful data in the db that would be clobbered.
-    # A freshly created databases should contain no images, tags or snippets
-    # and just two page records: root and homepage.
-    if Image.objects.count() or Tag.objects.count() or Advert.objects.count() or Page.objects.count() > 2:
-        return
-
-    # furthermore, if any page has a more specific type than Page, that suggests that meaningful
-    # data has been added
-    for page in Page.objects.all():
-        if page.specific_class != Page:
-            return
-
-    import os, shutil
-    from django.conf import settings
-
-    fixtures_dir = os.path.join(settings.PROJECT_ROOT, 'demo', 'fixtures')
-    fixture_file = os.path.join(fixtures_dir, 'demo.json')
-    image_src_dir = os.path.join(fixtures_dir, 'images')
-    image_dest_dir = os.path.join(settings.MEDIA_ROOT, 'original_images')
-
-    call_command('loaddata', fixture_file, verbosity=0)
-
-    if not os.path.isdir(image_dest_dir):
-        os.makedirs(image_dest_dir)
-
-    for filename in os.listdir(image_src_dir):
-        shutil.copy(os.path.join(image_src_dir, filename), image_dest_dir)

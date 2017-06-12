@@ -1,8 +1,6 @@
 $(document).ready(function(){
-    /* Initialise bxSlider */
-    $('.bxslider').bxSlider({
-        captions: true
-    });
+    // Initializes tooltips
+    $('[title]').tooltip({container: 'body'});
 
     //Apply img-thumbnail class to body-content images
     $('.body-content img').addClass("img-thumbnail");

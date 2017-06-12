@@ -4,8 +4,8 @@
 {% block content %}
     <div class="well">
         <p><strong>
-            {{ self.date_from|date:"j F Y" }}{% if self.date_to %} to {{ self.date_to|date:"j F Y" }}{% endif %}
-            {% if self.time_from %}{{ self.time_from|time_display }}{% endif %}{% if self.time_to %} to {{ self.time_to|time_display }}{% endif %}
+            {{ self.date_from }}{% if self.date_to %} to {{ self.date_to }}{% endif %}
+            {% if self.time_from %}{{ self.time_from|time }}{% endif %}{% if self.time_to %} to {{ self.time_to|time }}{% endif %}
         </strong></p>
         {% if self.location %}<p>Location: {{ self.location }}</p>{% endif %}
         {% if self.audience %}
@@ -14,7 +14,7 @@
             {{ self.get_audience_display }}</p>
         {% endif %}
         {% if self.cost %}
-            <p>Cost: {{ self.cost|safe }}</p>
+            <p>Cost: {{ self.cost }}</p>
         {% endif %}
 
         {% if self.signup_link %}
@@ -30,7 +30,11 @@
 
     {% include "demo/includes/carousel.html" with carousel_items=self.carousel_items.all only %}
 
-    {% include "demo/includes/body.html" with body=self.body only %}
+    {% if self.body %}
+        <div class="body-content">
+            {{ self.body|richtext }}
+        </div>
+    {% endif %}
 
     {% with self.speakers.all as speakers %}
         {% if speakers %}    

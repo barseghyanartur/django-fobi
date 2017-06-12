@@ -2,27 +2,34 @@
 {% load wagtailcore_tags %}
 
 
-{% if self.date %}
-    {% block heading %}
-        <div class="page-header">
-            <h2>{{ self.title }} {{ self.date|date:"j F Y" }}</h2>
-        </div>
-    {% endblock %}
-{% endif %}
+{% block heading %}
+  <div class="page-header">
+
+    <div class="pull-right">
+      {% for tag in self.tags.all %}
+        <a href="{% pageurl self.blog_index %}?tag={{ tag }}"
+           class="btn btn-primary btn-xs">
+          <i class="glyphicon glyphicon-tag"></i> {{ tag }}
+        </a>
+      {% endfor %}
+    </div>
+
+    <h2>
+      {{ self.title }}
+      {% if self.date %}<small>{{ self.date }}</small>{% endif %}
+    </h2>
+
+  </div>
+{% endblock %}
 
 {% block content %}
     {% include "demo/includes/carousel.html" with carousel_items=self.carousel_items.all only %}
 
-    {% include "demo/includes/body.html" with body=self.body only %}
-
-    {% with self.tags.all as tags %}
-        {% if tags %}
-            <div class="page-header"><h3>Tags</h3></div>
-            {% for tag in tags %}
-                <a href="{% pageurl self.blog_index %}?tag={{ tag }}"><button class="btn btn-primary" type="button">{{ tag }}</button></a>
-            {% endfor %}
-        {% endif %}
-    {% endwith %}
+    {% if self.body %}
+        <div class="body-content">
+            {% include "demo/includes/streamfield.html" with content=self.body %}
+        </div>
+    {% endif %}
 
     {% include "demo/includes/related_links.html" with related_links=self.related_links.all only %}
 {% endblock %}

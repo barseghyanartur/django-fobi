@@ -11,8 +11,9 @@
 # Clone https://github.com/torchbox/wagtail somewhere convenient, and replace
 # "../wagtail" below with the correct path:
 
-config.vm.share_folder "wagtail", "/home/vagrant/wagtail", "../wagtail"
+config.vm.synced_folder "../wagtail", "/home/vagrant/wagtail"
 
 
-# You'll also need to tweak the Python path so that it picks up this instance of
-# Wagtail rather than the packaged one - see wagtaildemo/settings/local.py.example.
+# You'll also need to configure your Python environment within the VM to pick up this
+# instance of Wagtail rather than the packaged one; usually this is done by running
+# `./setup.py develop` within the checked-out Wagtail codebase.

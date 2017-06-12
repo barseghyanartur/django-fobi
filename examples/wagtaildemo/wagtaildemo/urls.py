@@ -1,41 +1,59 @@
-from django.conf.urls import patterns, include, url
+from django.conf.urls import include, url
 from django.conf.urls.static import static
-from django.views.generic.base import RedirectView
-from django.contrib import admin
 from django.conf import settings
-import os.path
+from django.contrib import admin
 
-from wagtail.wagtailcore import urls as wagtail_urls
 from wagtail.wagtailadmin import urls as wagtailadmin_urls
 from wagtail.wagtaildocs import urls as wagtaildocs_urls
-from wagtail.wagtailsearch.urls import frontend as wagtailsearch_frontend_urls
+from wagtail.wagtailcore import urls as wagtail_urls
+from wagtail.contrib.wagtailapi import urls as wagtailapi_urls
+from wagtail.api.v2.router import WagtailAPIRouter
+from wagtail.api.v2.endpoints import PagesAPIEndpoint
+from wagtail.wagtaildocs.api.v2.endpoints import DocumentsAPIEndpoint
+from wagtail.wagtailimages.api.v2.endpoints import ImagesAPIEndpoint
 
-admin.autodiscover()
+from demo import views
 
 
-# Signal handlers
-from wagtail.wagtailsearch.signal_handlers import register_signal_handlers as wagtailsearch_register_signal_handlers
-wagtailsearch_register_signal_handlers()
+api = WagtailAPIRouter('api')
+api.register_endpoint('pages', PagesAPIEndpoint)
+api.register_endpoint('images', ImagesAPIEndpoint)
+api.register_endpoint('documents', DocumentsAPIEndpoint)
 
 
-urlpatterns = patterns('',
+urlpatterns = [
     url(r'^django-admin/', include(admin.site.urls)),
 
     url(r'^admin/', include(wagtailadmin_urls)),
-    url(r'^search/', include(wagtailsearch_frontend_urls)),
     url(r'^documents/', include(wagtaildocs_urls)),
 
-    # For anything not caught by a more specific rule above, hand over to
-    # Wagtail's serving mechanism
-    url(r'', include(wagtail_urls)),
-)
+    url(r'search/$', views.search, name='search'),
+    url(r'^api/', include(wagtailapi_urls)),
+    url(r'^api/v2/', include(api.urls)),
+]
 
 
 if settings.DEBUG:
     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+    from django.views.generic.base import RedirectView
 
-    urlpatterns += staticfiles_urlpatterns() # tell gunicorn where static files are in dev mode
-    urlpatterns += static(settings.MEDIA_URL + 'images/', document_root=os.path.join(settings.MEDIA_ROOT, 'images'))
-    urlpatterns += patterns('',
-        (r'^favicon\.ico$', RedirectView.as_view(url=settings.STATIC_URL + 'demo/images/favicon.ico'))
-    )
+    urlpatterns += staticfiles_urlpatterns()
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += [
+        url(r'^favicon\.ico$', RedirectView.as_view(url=settings.STATIC_URL + 'demo/images/favicon.ico'))
+    ]
+
+    # Uncomment the lines below to enable django-debug-toolbar (along with the
+    # corresponding lines in settings/local.py):
+    #import debug_toolbar
+
+    #urlpatterns += [
+    #    url(r'^__debug__/', include(debug_toolbar.urls)),
+    #]
+
+
+# For anything not caught by a more specific rule above, hand over to
+# Wagtail's serving mechanism (must come last)
+urlpatterns += [
+    url(r'', include(wagtail_urls)),
+]
