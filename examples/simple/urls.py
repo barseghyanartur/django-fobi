@@ -52,7 +52,7 @@ url_patterns_args = [
     url(r'^admin/', include(admin.site.urls)),
 
     # django-registration URLs:
-    url(r'^accounts/', include('registration.backends.default.urls')),
+    url(r'^accounts/', include('registration.backends.simple.urls')),
 
     # foo URLs:
     url(r'^foo/', include('foo.urls')),

@@ -265,6 +265,7 @@ INSTALLED_APPS = [
     # 'tinymce',  # TinyMCE
     'easy_thumbnails',  # Thumbnailer
     'registration',  # Auth views and registration app
+    'captcha',
 
     # ***********************************************************************
     # ***********************************************************************
@@ -484,7 +485,10 @@ PACKAGE_NAME_GRAPPELLI = "grappelli_safe"  # Just for tests
 # ********************* Registration settings ******************
 # **************************************************************
 
+
 ACCOUNT_ACTIVATION_DAYS = 7
+REGISTRATION_FORM = 'registration_addons.forms.CaptchaRegistrationForm'
+SIMPLE_BACKEND_REDIRECT_URL = '/en/'
 
 # **************************************************************
 # ************************ Fobi settings ***********************

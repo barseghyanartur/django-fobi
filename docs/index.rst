@@ -15,11 +15,6 @@ Present
 - Django 1.8, 1.9, 1.10 and 1.11.
 - Python 2.7, 3.4, 3.5, 3.6 and PyPy.
 
-Note, that Django 1.11 is not yet proclaimed to be flawlessly supported. The
-core and contrib packages have been tested against the Django 1.11.
-All tests have successfully passed, although it's yet too early
-to claim that Django 1.11 is fully supported.
-
 Past
 ----
 - Dropping support of Django 1.5, 1.6 has been announced in version
@@ -1804,6 +1799,8 @@ It's possible to provide `Dynamic initial values`_ for text elements.
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/date_drop_down/>`_
 - `Decimal
   <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/decimal>`_
+- `Duration
+  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/duration>`_
 - `Email*
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/email/>`_
 - `File
@@ -2733,6 +2730,7 @@ Fields
 - date_drop_down
 - datetime
 - decimal
+- duration
 - email
 - file
 - float
@@ -2785,6 +2783,7 @@ the core plugins:
 - fobi.contrib.plugins.form_elements.fields.date_drop_down
 - fobi.contrib.plugins.form_elements.fields.datetime
 - fobi.contrib.plugins.form_elements.fields.decimal
+- fobi.contrib.plugins.form_elements.fields.duration
 - fobi.contrib.plugins.form_elements.fields.email
 - fobi.contrib.plugins.form_elements.fields.file
 - fobi.contrib.plugins.form_elements.fields.float
@@ -2823,6 +2822,7 @@ in the ``INSTALLED_APPS`` as well:
 - fobi.contrib.apps.drf_integration.form_elements.fields.date_drop_down
 - fobi.contrib.apps.drf_integration.form_elements.fields.datetime
 - fobi.contrib.apps.drf_integration.form_elements.fields.decimal
+- fobi.contrib.apps.drf_integration.form_elements.fields.duration
 - fobi.contrib.apps.drf_integration.form_elements.fields.email
 - fobi.contrib.apps.drf_integration.form_elements.fields.file
 - fobi.contrib.apps.drf_integration.form_elements.fields.float
@@ -2886,6 +2886,7 @@ See the `example settings file
         'fobi.contrib.apps.drf_integration.form_elements.fields.date',
         'fobi.contrib.apps.drf_integration.form_elements.fields.datetime',
         'fobi.contrib.apps.drf_integration.form_elements.fields.decimal',
+        'fobi.contrib.apps.drf_integration.form_elements.fields.duration',
         'fobi.contrib.apps.drf_integration.form_elements.fields.email',
         'fobi.contrib.apps.drf_integration.form_elements.fields.file',
         'fobi.contrib.apps.drf_integration.form_elements.fields.float',
