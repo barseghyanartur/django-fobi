@@ -1,8 +1,0 @@
-# Copy image files into media folder
-mkdir -p media/original_images
-cp demo/fixtures/images/* media/original_images/
-
-# dj shortcut
-if ! command -v dj; then
-    ln -s /app/.heroku/python/bin/django-admin /app/.heroku/python/bin/dj
-fi
