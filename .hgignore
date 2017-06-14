@@ -40,6 +40,7 @@ syntax: regexp
 ^examples/wagtaildemo/dev\.db
 ^examples/wagtail_example_/static/
 ^examples/wagtail_example_/dev\.db
+^examples/wagtaildemo/\.git
 ^news-images/
 ^builddocs/
 ^builddocs\.zip
