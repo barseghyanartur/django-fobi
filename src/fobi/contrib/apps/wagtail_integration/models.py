@@ -146,10 +146,10 @@ class AbstractFobiFormPage(Page):
     if get_success_page_template_choices():
         success_page_panels.append(FieldPanel('success_page_template_name'))
 
-    content_panels = Page.content_panels + (
+    content_panels = Page.content_panels + [
         MultiFieldPanel(form_page_panels, heading=_('Form page')),
         MultiFieldPanel(success_page_panels, heading=_('Success page')),
-    )
+    ]
 
     preview_modes = [
         ('form', _('Form page')),
