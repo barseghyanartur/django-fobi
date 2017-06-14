@@ -31,9 +31,14 @@ class FobiFormProcessor(IntegrationProcessor):
 
     def get_context_data(self, request, instance, **kwargs):
         """Get context data."""
-        context = instance.get_context(request)
-        super(FobiFormProcessor, self).get_context_data(self, request,
-                                                        instance, **context)
+        context_data = super(FobiFormProcessor, self).get_context_data(
+            request,
+            instance,
+            **kwargs
+        )
+        page_context_data = instance.get_context(request)
+        context_data.update(page_context_data)
+        return context_data
 
     def get_form_template_name(self, request, instance):
         """Get form template name."""
