@@ -25,68 +25,30 @@ See the `example settings file
 
     INSTALLED_APPS = list(INSTALLED_APPS)
     INSTALLED_APPS += [
-        'feincms',  # FeinCMS
+        # ... standard wagtail apps
 
-        'fobi.contrib.apps.feincms_integration',  # Fobi FeinCMS app
+        # ... standard django-fobi apps
 
-        'page',  # Example
+        'fobi.contrib.apps.wagtail_integration',  # Wagtail integration app
     ]
-
-    FEINCMS_RICHTEXT_INIT_CONTEXT = {
-        'TINYMCE_JS_URL': STATIC_URL + 'tiny_mce/tiny_mce.js',
-    }
 
 your_project/page/models.py
 ###########################
 .. code-block:: python
 
-    from django.utils.translation import ugettext_lazy as _
+    from fobi.contrib.apps.wagtail_integration.models import AbstractFobiFormPage
 
-    from feincms.module.page.models import Page
-    from feincms.content.raw.models import RawContent
-    from feincms.content.richtext.models import RichTextContent
-    # Import the ``django-fobi`` widget.
-    from fobi.contrib.apps.feincms_integration.widgets import FobiFormWidget
+    class FobiFormPage(AbstractFobiFormPage):
+        """Fobi form page."""
 
-    Page.register_extensions('feincms.module.extensions.translations',)
+        # ... customise your form page further
 
-    # Register basic template.
-    Page.register_templates(
-        {
-            'title': _(u"Base template"),
-            'path': 'page/base.html',
-            'key': 'page_base',
-            'regions': (
-                ('main', _(u"Main")),
-                ('sidebar', _(u"Sidebar")),
-            )
-        },
-        )
-
-    # Standard content types
-    Page.create_content_type(RawContent)
-    Page.create_content_type(RichTextContent)
-
-    # Register the ``django-fobi`` widget.
-    Page.create_content_type(FobiFormWidget)
-
-your_project/admin.py
-#####################
-.. code-block:: python
-
-    from django.contrib import admin
-
-    from feincms.module.page.modeladmins import PageAdmin
-
-    from page.models import Page
-
-    admin.site.register(Page, PageAdmin)
 
 Information for developers
 ##########################
 Template rendering
 ^^^^^^^^^^^^^^^^^^
-The embed FeinCMS widget is rendered with use of two theme templates:
+The embed Wagtail page is rendered with use of two theme templates:
 
 - ``view_embed_form_entry_ajax_template``: Used for rendering the form.
 - ``embed_form_entry_submitted_ajax_template``: Used for rendering the form
@@ -101,7 +63,7 @@ Example:
 
 .. code-block:: python
 
-    FOBI_FEINCMS_INTEGRATION_FORM_TEMPLATE_CHOICES = (
+    FOBI_WAGTAIL_INTEGRATION_FORM_TEMPLATE_CHOICES = (
         ("yourapp/custom_view_embed_form_v1.html",
          "Custom embed form view template #1"),
         ("yourapp/custom_view_embed_form_v2.html",
@@ -112,7 +74,7 @@ Same goes for form-sent templates.
 
 .. code-block:: python
 
-    FOBI_FEINCMS_INTEGRATION_SUCCESS_PAGE_TEMPLATE_CHOICES = (
+    FOBI_WAGTAIL_INTEGRATION_SUCCESS_PAGE_TEMPLATE_CHOICES = (
         ("yourapp/custom_embed_form_submitted_v1.html",
          "Custom form-sent template #1"),
         ("yourapp/custom_embed_form_submitted_v2.html",
@@ -128,7 +90,7 @@ example below.
 
     FOBI_CUSTOM_THEME_DATA = {
         'bootstrap3': {
-            'feincms_integration': {
+            'wagtail_integration': {
                 'form_template_choices': [
                     ('fobi/bootstrap3_extras/view_embed_form.html',
                      "Custom bootstrap3 embed form view template"),
@@ -140,7 +102,7 @@ example below.
             },
         },
         'foundation5': {
-            'feincms_integration': {
+            'wagtail_integration': {
                 'form_template_choices': [
                     ('fobi/foundation5_extras/view_embed_form.html',
                      "Custom foundation5 embed form view template"),
@@ -155,8 +117,9 @@ example below.
 
 Usage
 ~~~~~
-The ``fobi.contrib.apps.feincms_integration.widgets.FobiFormWidget`` consists
-of the following fields:
+The ``fobi.contrib.apps.wagtail_integration.models.FobiFormPage`` consists
+of the following django-fobi specific fields (as well as of other Wagtail
+Page related fields):
 
 - Form: The form to be used.
 - Form template name: Template to be used to render the embed form.
