@@ -60,16 +60,18 @@ class AbstractFobiFormPage(Page):
     """A Fobi Form Page. Pages implementing a Fobi form should inherit from it.
     :property fobi.models.FormEntry form_entry: Form entry to be rendered.
     """
-    @classmethod
-    def __init__(cls, name, bases, dct):
-        super(AbstractFobiFormPage, cls).__init__(name, bases, dct)
-        if 'form_template' not in dct:
-            cls.form_template = cls.template
-        if 'success_page_template' not in dct:
-            name, ext = os.path.splitext(cls.template)
-            cls.success_template = name + '_success' + ext
 
     form_entry = models.ForeignKey('fobi.FormEntry', verbose_name=_("Form"))
+
+    form_template_name = models.CharField(
+        _("Form template name"), max_length=255, null=True, blank=True,
+        choices=get_form_template_choices(),
+        help_text=_(
+            "Choose an alternative template to render the form with. Leave "
+            "blank to use the default for this page type (e.g. "
+            "fobi_form_page.html)."
+        )
+    )
 
     hide_form_title = models.BooleanField(
         _("Hide form title"), default=False,
@@ -86,13 +88,13 @@ class AbstractFobiFormPage(Page):
         help_text=_("Overrides the default form submit button text.")
     )
 
-    form_template_name = models.CharField(
-        _("Form template name"), max_length=255, null=True, blank=True,
-        choices=get_form_template_choices(),
+    success_page_template_name = models.CharField(
+        _("Success page template name"), max_length=255, null=True, blank=True,
+        choices=get_success_page_template_choices(),
         help_text=_(
-            "Choose an alternative template to render the form with. Leave "
-            "blank to use the default for this page type (e.g. "
-            "fobi_form_page.html)."
+            "Choose an alternative template to render the success page with. "
+            "Leave blank to use the default for this page type (e.g. "
+            "fobi_form_page_success.html)."
         )
     )
 
@@ -110,23 +112,6 @@ class AbstractFobiFormPage(Page):
         _("Success page text"), null=True, blank=True,
         help_text=_("Overrides the default success page text.")
     )
-
-    success_page_template_name = models.CharField(
-        _("Success page template name"), max_length=255, null=True, blank=True,
-        choices=get_success_page_template_choices(),
-        help_text=_(
-            "Choose an alternative template to render the success page with. "
-            "Leave blank to use the default for this page type (e.g. "
-            "fobi_form_page_success.html)."
-        )
-    )
-
-    class Meta(object):
-        """Meta class."""
-
-        verbose_name = _('Fobi form page')
-        verbose_name_plural = _('Fobi form pages')
-        abstract = True
 
     form_page_panels = [
         FieldPanel('hide_form_title'),
@@ -156,6 +141,22 @@ class AbstractFobiFormPage(Page):
         ('form', _('Form page')),
         ('success', _('Success page')),
     ]
+
+    class Meta(object):
+        """Meta class."""
+
+        verbose_name = _('Fobi form page')
+        verbose_name_plural = _('Fobi form pages')
+        abstract = True
+
+    @classmethod
+    def __init__(cls, name, bases, dct):
+        super(AbstractFobiFormPage, cls).__init__(name, bases, dct)
+        if 'form_template' not in dct:
+            cls.form_template = cls.template
+        if 'success_page_template' not in dct:
+            name, ext = os.path.splitext(cls.template)
+            cls.success_template = name + '_success' + ext
 
     def get_form_template(self, request):
         """Return an alternative template name from the object's
