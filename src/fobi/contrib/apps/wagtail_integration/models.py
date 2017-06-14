@@ -121,8 +121,9 @@ class AbstractFobiFormPage(Page):
         )
     )
 
-    class Meta:
+    class Meta(object):
         """Meta class."""
+
         verbose_name = _('Fobi form page')
         verbose_name_plural = _('Fobi form pages')
         abstract = True
