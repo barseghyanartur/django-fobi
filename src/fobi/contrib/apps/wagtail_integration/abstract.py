@@ -3,6 +3,7 @@ from __future__ import absolute_import, unicode_literals
 import os
 
 from django.db import models
+from django.http import HttpResponse
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.integration.processors import IntegrationProcessor
@@ -173,9 +174,9 @@ class AbstractFobiFormPage(Page):
             name, ext = os.path.splitext(self.template)
             self.form_template = name + '_form' + ext
 
-            if not hasattr(self, 'form_template'):
-                name, ext = os.path.splitext(self.template)
-                self.form_template = name + '_form_success' + ext
+        if not hasattr(self, 'success_template'):
+            name, ext = os.path.splitext(self.template)
+            self.success_template = name + '_form_success' + ext
 
     def get_form_template(self, request):
         """Get an alternative template name.
@@ -207,13 +208,15 @@ class AbstractFobiFormPage(Page):
         if response:
             return response
 
-        return fobi_form_processor.rendered_output
+        return HttpResponse(fobi_form_processor.rendered_output)
 
     def serve_preview(self, request, mode):
         """Serve the page in Wagtail's 'preview' mode."""
         if mode == 'success':
             fobi_form_processor = FobiFormProcessor()
-            return fobi_form_processor.show_thanks_page(request, self)
+            return HttpResponse(
+                fobi_form_processor.show_thanks_page(request, self)
+            )
         else:
             return super(AbstractFobiFormPage, self).serve_preview(request,
                                                                    mode)
