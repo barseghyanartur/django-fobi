@@ -208,12 +208,16 @@ class AbstractFobiFormPage(Page):
         if response:
             return response
 
+        # TODO: Returning HttpResponse seems dirty. See if it can be
+        # replaced with TemplateResponse.
         return HttpResponse(fobi_form_processor.rendered_output)
 
     def serve_preview(self, request, mode):
         """Serve the page in Wagtail's 'preview' mode."""
         if mode == 'success':
             fobi_form_processor = FobiFormProcessor()
+            # TODO: Returning HttpResponse seems dirty. See if it can be
+            # replaced with TemplateResponse.
             return HttpResponse(
                 fobi_form_processor.show_thanks_page(request, self)
             )
