@@ -4,7 +4,7 @@ import sys
 from distutils.version import LooseVersion
 from setuptools import setup, find_packages
 
-version = '0.11.13'
+version = '0.12'
 
 # ***************************************************************************
 # ************************** Python version *********************************
@@ -121,6 +121,10 @@ template_dirs = [
     # Mezzanine integration
     "src/fobi/contrib/apps/mezzanine_integration/templates/"
     "mezzanine_integration",
+
+    # Wagtail integration
+    "src/fobi/contrib/apps/wagtail_integration/templates/"
+    "wagtail_integration",
 
     # Content image
     "src/fobi/contrib/plugins/form_elements/content/content_image/"

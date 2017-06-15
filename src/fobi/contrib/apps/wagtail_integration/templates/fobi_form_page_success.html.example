@@ -1,6 +1,0 @@
-{% extends "pages/page.html" %}
-
-{% block main %}
-    <h1>{{ fobi_success_page_title }}</h1>
-    <p>{{ fobi_success_page_text }}</p>
-{% endblock main %}

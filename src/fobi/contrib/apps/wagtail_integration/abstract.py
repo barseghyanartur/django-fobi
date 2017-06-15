@@ -216,6 +216,7 @@ class AbstractFobiFormPage(Page):
         """Serve the page in Wagtail's 'preview' mode."""
         if mode == 'success':
             fobi_form_processor = FobiFormProcessor()
+
             # TODO: Returning HttpResponse seems dirty. See if it can be
             # replaced with TemplateResponse.
             return HttpResponse(

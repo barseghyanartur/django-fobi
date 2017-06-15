@@ -32,8 +32,15 @@ See the `example settings file
         'fobi.contrib.apps.wagtail_integration',  # Wagtail integration app
     ]
 
-your_project/page/models.py
-###########################
+your_project/your_app/models.py
+###############################
+If existing ``fobi.contrib.apps.wagtail_integration.models.FobiFormPage``
+model does not fit your needs and you want to extend, there's a
+``fobi.contrib.apps.wagtail_integration.abstract.AbstractFobiFormPage``
+abstract model which you can extend. If so, remove the
+``fobi.contrib.apps.wagtail_integration`` from ``INSTALLED_APPS`` and add
+path to the app with your customised ``FobiFormPage`` model.
+
 .. code-block:: python
 
     from fobi.contrib.apps.wagtail_integration.models import AbstractFobiFormPage
@@ -43,6 +50,17 @@ your_project/page/models.py
 
         # ... customise your form page further
 
+And then:
+
+.. code-block:: python
+
+    INSTALLED_APPS = [
+        # ... standard wagtail apps
+
+        # ... standard django-fobi apps
+
+        'your_app',  # Customised `FobiFormPage` model app
+    ]
 
 Information for developers
 ##########################

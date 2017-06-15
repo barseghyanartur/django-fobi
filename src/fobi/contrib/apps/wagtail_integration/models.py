@@ -11,3 +11,6 @@ __all__ = ('FobiFormPage',)
 
 class FobiFormPage(AbstractFobiFormPage):
     """Fobi form page."""
+
+    form_template = 'wagtail_integration/fobi_form_page.html'
+    success_template = 'wagtail_integration/fobi_form_page_success.html'
