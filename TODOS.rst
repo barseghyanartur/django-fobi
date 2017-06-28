@@ -163,6 +163,7 @@ Uncategorised
     - Properly document the form importers API.
     + Add support for `imageurl` field of MailChimp (they are
       ignored at the moment).
+    + Wagtail integration.
     + django-rest-framework integration.
     + Update Mezzanine, DjangoCMS and FeinCMS integration to work with Django 1.8,
       1.9, 1.10 and 1.11.
@@ -413,7 +414,6 @@ Should haves
 
     - Add `django-treebeard` field as an alternative (vs MPTT fields).
     - Make sure that all views are 100% AJAX ready.
-    - Wagtail integration (in progress since October 2016).
     - Document the changes.
     - Find out why subclassing the ``select_model_object`` plugin didn't work.
     - Rename the ``simple`` theme into ``django_admin_style_theme``.
