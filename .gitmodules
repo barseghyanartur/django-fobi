@@ -1,0 +1,3 @@
+[submodule "examples/wagtaildemo"]
+	path = examples/wagtaildemo
+	url = git@github.com:barseghyanartur/wagtaildemo.git

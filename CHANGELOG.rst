@@ -15,6 +15,12 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.12
+----
+2017-06-28
+
+- Wagtail integration (yet experimental).
+
 0.11.13
 -------
 2017-06-10

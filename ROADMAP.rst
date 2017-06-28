@@ -3,12 +3,6 @@ Roadmap
 =======
 Upcoming releases road-map.
 
-0.12
-----
-yyyy-mm-dd (future).
-
-- Wagtail integration.
-
 0.13
 ----
 yyyy-mm-dd (future).

@@ -92,10 +92,11 @@ Uncategorised
 -------------
 .. code-block:: text
 
+    - Add Wagtail integration tests.
+    - Add Mezzanine integration tests.
+    - Add FeinCMS integration tests.
+    - Add DjangoCMS integration tests.
     - Implement fobi SAAS (with use of React.js).
-    - Add `HBase store` form handler.
-    - Add `Mongo store` form handler.
-    - Add `Cassandra store` form handler.
     - Update documentation http://pythonhosted.org/django-fobi/#versions
     - Somehow PyPy started to fail under Django 1.10 and 1.11 (invocation error),
       so it must be some package incompatibility/installation problems. Find out
@@ -163,6 +164,7 @@ Uncategorised
     - Properly document the form importers API.
     + Add support for `imageurl` field of MailChimp (they are
       ignored at the moment).
+    + Wagtail integration.
     + django-rest-framework integration.
     + Update Mezzanine, DjangoCMS and FeinCMS integration to work with Django 1.8,
       1.9, 1.10 and 1.11.
@@ -411,9 +413,11 @@ Should haves
 ============
 .. code-block:: text
 
+    - Add `HBase store` form handler.
+    - Add `Mongo store` form handler.
+    - Add `Cassandra store` form handler.
     - Add `django-treebeard` field as an alternative (vs MPTT fields).
     - Make sure that all views are 100% AJAX ready.
-    - Wagtail integration (in progress since October 2016).
     - Document the changes.
     - Find out why subclassing the ``select_model_object`` plugin didn't work.
     - Rename the ``simple`` theme into ``django_admin_style_theme``.

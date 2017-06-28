@@ -41,6 +41,7 @@ recursive-include src/fobi/contrib/themes/djangocms_admin_style_theme/templates 
 recursive-include src/fobi/contrib/apps/djangocms_integration/templates *
 #recursive-include src/fobi/contrib/apps/feincms_integration/templates *
 recursive-include src/fobi/contrib/apps/mezzanine_integration/templates *
+recursive-include src/fobi/contrib/apps/wagtail_integration/templates *
 
 recursive-include src/fobi/contrib/plugins/form_elements/content/content_image/templates *
 recursive-include src/fobi/contrib/plugins/form_elements/content/content_image_url/templates *
