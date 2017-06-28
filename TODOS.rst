@@ -92,10 +92,11 @@ Uncategorised
 -------------
 .. code-block:: text
 
+    - Add Wagtail integration tests.
+    - Add Mezzanine integration tests.
+    - Add FeinCMS integration tests.
+    - Add DjangoCMS integration tests.
     - Implement fobi SAAS (with use of React.js).
-    - Add `HBase store` form handler.
-    - Add `Mongo store` form handler.
-    - Add `Cassandra store` form handler.
     - Update documentation http://pythonhosted.org/django-fobi/#versions
     - Somehow PyPy started to fail under Django 1.10 and 1.11 (invocation error),
       so it must be some package incompatibility/installation problems. Find out
@@ -412,6 +413,9 @@ Should haves
 ============
 .. code-block:: text
 
+    - Add `HBase store` form handler.
+    - Add `Mongo store` form handler.
+    - Add `Cassandra store` form handler.
     - Add `django-treebeard` field as an alternative (vs MPTT fields).
     - Make sure that all views are 100% AJAX ready.
     - Document the changes.
