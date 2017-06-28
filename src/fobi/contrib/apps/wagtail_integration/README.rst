@@ -19,7 +19,7 @@ See the requirements files:
 your_project/settings.py
 ########################
 See the `example settings file
-<https://github.com/barseghyanartur/django-fobi/blob/stable/examples/wagtaildemo/settings/bootstrap3_theme_wagtail.py>`_.
+<https://github.com/barseghyanartur/django-fobi/blob/stable/examples/wagtaildemo/settings/fobi_integration.py>`_.
 
 .. code-block:: python
 
@@ -111,11 +111,11 @@ example below.
             'wagtail_integration': {
                 'form_template_choices': [
                     ('fobi/bootstrap3_extras/view_embed_form.html',
-                     "Custom bootstrap3 embed form view template"),
+                     "Custom form view (non-partial) template"),
                 ],
                 'success_page_template_choices': [
                     ('fobi/bootstrap3_extras/embed_form_submitted.html',
-                     "Custom bootstrap3 embed form entry submitted template"),
+                     "Custom form entry submitted (non-partial) template"),
                 ],
             },
         },
@@ -123,15 +123,19 @@ example below.
             'wagtail_integration': {
                 'form_template_choices': [
                     ('fobi/foundation5_extras/view_embed_form.html',
-                     "Custom foundation5 embed form view template"),
+                     "Custom form view (non-partial) template"),
                 ],
                 'success_page_template_choices': [
                     ('fobi/foundation5_extras/embed_form_submitted.html',
-                     "Custom foundation5 embed form entry submitted template"),
+                     "Custom form entry submitted (non-partial) template"),
                 ],
             },
         },
     }
+
+Disregard the name, both ``view_embed_form.html`` and
+``embed_form_submitted.html`` files should be full (non-partial) HTML
+templates.
 
 Usage
 ~~~~~

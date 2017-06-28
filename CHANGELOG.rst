@@ -17,9 +17,9 @@ are used for versioning (schema follows below):
 
 0.12
 ----
-2017-06-dd (not release yet)
+2017-06-28
 
-- Wagtail integration.
+- Wagtail integration (yet experimental).
 
 0.11.13
 -------

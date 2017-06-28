@@ -1,4 +1,4 @@
 [MASTER]
 ignore=migrations,south_migrations
 init-hook='import sys; import os; sys.path.append(os.path.abspath("src"))'
-
+disable=C, F, I, R, W
