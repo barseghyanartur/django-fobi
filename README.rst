@@ -111,7 +111,6 @@ Roadmap
 =======
 Some of the upcoming/in-development features/improvements are:
 
-- Wagtail integration (in version 0.12).
 - Bootstrap 4 and Foundation 6 support (in version 0.13).
 
 See the `TODOS
