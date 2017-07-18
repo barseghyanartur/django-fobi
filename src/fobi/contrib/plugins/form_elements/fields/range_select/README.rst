@@ -48,3 +48,29 @@ Installation
         - FOBI_FORM_ELEMENT_RANGE_SELECT_MIN_VALUE
         - FOBI_FORM_ELEMENT_RANGE_SELECT_MAX_VALUE
         - FOBI_FORM_ELEMENT_RANGE_SELECT_STEP
+
+(5) By default, the submitted form value of `range_select`
+    elements is label (human readable representation of the value chosen).
+    However, that part of the behaviour has been made configurable. You can
+    choose between the following options:
+
+    Consider the following list of (value, label) choices (the first element in
+    the tuple is value, the second element is label):
+
+    .. code-block:: python
+
+        [
+            ('alpha', 'Alpha'),
+            ('beta', 'Beta'),
+            ('gamma', 'Gamma'),
+        ]
+
+    .. code-block:: text
+
+        - "val": `value` (example: "alpha").
+        - "repr" (default): `label` (example: "Alpha").
+        - "mix": `value (label)` (example: "Alpha (alpha)").
+
+    Simply set the
+    ``FOBI_FORM_ELEMENT_RANGE_SELECT_SUBMIT_VALUE_AS`` assign one of the
+    following values: "val", "repr" or "mix" to get the desired behaviour.
