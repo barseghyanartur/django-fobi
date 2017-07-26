@@ -86,6 +86,9 @@ Main features and highlights
   <https://github.com/divio/djangocms-admin-style>`_).
 - Implemented `integration with Django REST framework
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/drf_integration>`_.
+- Implemented `integration with Wagtail
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/wagtail_integration>`_
+  (in a form of a Wagtail page).
 - Implemented `integration with FeinCMS
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/apps/feincms_integration>`_
   (in a form of a FeinCMS page widget).
@@ -108,7 +111,6 @@ Roadmap
 =======
 Some of the upcoming/in-development features/improvements are:
 
-- Wagtail integration (in version 0.12).
 - Bootstrap 4 and Foundation 6 support (in version 0.13).
 
 See the `TODOS
@@ -1522,7 +1524,7 @@ Integration with third-party apps and frameworks
 ================================================
 `django-fobi` has been successfully integrated into a number of diverse
 third-party apps and frameworks, such as: Django REST framework, Django CMS,
-FeinCMS and Mezzanine.
+FeinCMS, Mezzanine and Wagtail.
 
 Certainly, integration into CMS is one case, integration into REST framework -
 totally another. In REST frameworks we no longer have forms as such. Context

@@ -26,7 +26,7 @@ Installation
 (3) Assign appropriate permissions to the target users/groups to be using
     the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
-(4) By default, the submitted form value of `select_multiple`
+(4) By default, the submitted form value of `checkbox_select_multiple`
     elements is label (human readable representation of the value chosen).
     However, that part of the behaviour has been made configurable. You can
     choose between the following options:
