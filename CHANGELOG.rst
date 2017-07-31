@@ -17,8 +17,9 @@ are used for versioning (schema follows below):
 
 0.12.1
 ------
-yyyy-mm-dd (not released yet)
+2017-07-31
 
+- Reflect form-wizards support changes in the `simple` theme.
 - Fixes in docs.
 
 0.12

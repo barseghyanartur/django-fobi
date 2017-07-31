@@ -89,6 +89,7 @@ class Bootstrap3Theme(BaseTheme):
 
     form_wizard_properties_snippet_template_name = \
         'bootstrap3/snippets/form_wizard_properties_snippet.html'
+
     # ***********************************************************************
     # **************************** Form entry CRUD **************************
     # ***********************************************************************

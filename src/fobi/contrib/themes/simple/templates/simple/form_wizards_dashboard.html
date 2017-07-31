@@ -2,7 +2,7 @@
 
 {% load i18n admin_static %}
 
-{% block page-title %}{% trans "Dashboard" %}{% endblock page-title %}
+{% block page-title %}{% trans "Form wizards dashboard" %}{% endblock page-title %}
 
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="{% static 'admin/css/changelists.css' %}" />
@@ -19,23 +19,25 @@
 
 {% block content-wrapper %}
 
-<h1>{% trans "Your forms" %}</h1>
+<h1>{% trans "Your form wizards" %}</h1>
 
 <div id="content-main">
   <ul class="object-tools">
     <li>
-      <a class="addlink" href="{% url 'fobi.create_form_entry' %}">{% trans "Create form"%}</a>
+      <a class="addlink" href="{% url 'fobi.create_form_wizard_entry' %}">{% trans "Create form"%}</a>
     </li>
     <li>
-      <a class="addlink" href="{% url 'fobi.import_form_entry' %}">{% trans "Import form"%}</a>
+      <a class="addlink" href="{% url 'fobi.import_form_wizard_entry' %}">{% trans "Import form"%}</a>
     </li>
+    {% comment %}
     {% for form_importer_uid,form_importer_name,form_importer_url in form_importers %}
     <li>
       <a class="addlink addlink-importer-{{ form_importer_uid }}" href="{{ form_importer_url }}">{{ form_importer_name }}</a>
     </li>
     {% endfor %}
+    {% endcomment %}
     <li>
-      <a class="addlink" href="{% url 'fobi.form_wizards_dashboard' %}">{% trans "Wizards"%}</a>
+      <a class="addlink" href="{% url 'fobi.dashboard' %}">{% trans "Forms"%}</a>
     </li>
   </ul>
 
@@ -75,25 +77,25 @@
             </tr>
           </thead>
           <tbody>
-          {% for form_entry in form_entries %}
-            <tr class="{% if forloop.counter|divisibleby:2 %}row2{% else %}row1{% endif %}">
-              <th><a href="{% url 'fobi.view_form_entry' form_entry.slug %}">{{ form_entry.name }}</a></th>
-              <td>{{ form_entry.is_public }}</td>
-              {#<td>{{ form_entry.is_cloneable }}</td>#}
+          {% for form_wizard_entry in form_wizard_entries %}
+            <tr>
+              <td><a href="{% url 'fobi.view_form_wizard_entry' form_wizard_entry.slug %}">{{ form_wizard_entry.name }}</a></td>
+              <td>{{ form_wizard_entry.is_public }}</td>
+              {#<td>{{ form_wizard_entry.is_cloneable }}</td>#}
               <td>
                 <ul class="list-inline">
                   <li>
-                      <a href="{% url 'fobi.edit_form_entry' form_entry.pk %}">
+                      <a href="{% url 'fobi.edit_form_wizard_entry' form_wizard_entry.pk %}">
                           <span class="glyphicon glyphicon-edit"></span> {% trans "Edit" %}
                       </a>
                   </li>
                   <li>
-                      <a href="{% url 'fobi.delete_form_entry' form_entry.pk %}">
+                      <a href="{% url 'fobi.delete_form_wizard_entry' form_wizard_entry.pk %}">
                           <span class="glyphicon glyphicon-remove"></span> {% trans "Delete" %}
                       </a>
                   </li>
                   <li>
-                      <a href="{% url 'fobi.export_form_entry' form_entry.pk %}">
+                      <a href="{% url 'fobi.export_form_wizard_entry' form_wizard_entry.pk %}">
                           <span class="glyphicon glyphicon-export"></span> {% trans "Export" %}
                       </a>
                   </li>
@@ -106,7 +108,7 @@
       </div>
 
   </div><!-- /#changelist -->
-  
+
 </div><!-- /#content-main -->
 {% endblock content-wrapper %}
 

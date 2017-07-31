@@ -64,6 +64,7 @@ README_PARTS.rst
 /examples/quick_start/db.sqlite3
 /examples/quickstart/
 /examples/static/
+/examples/_static/
 /examples/requirements/wagtail.txt
 #/examples/wagtaildemo/
 /examples/wagtail_example_/
