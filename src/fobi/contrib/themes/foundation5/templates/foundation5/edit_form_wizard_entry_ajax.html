@@ -1,0 +1,229 @@
+{% load i18n fobi_tags %}
+
+<h3>{% trans "Edit form wizard" %}</h3>
+
+<div class="row">
+
+
+    <div class="columns">
+
+      <!-- Nav tabs -->
+      <dl class="tabs" data-tab="">
+        <dd class="active"><a href="#tab-form-elements">{% trans "Elements" %}</a></dd>
+        <dd><a href="#tab-form-handlers">{% trans "Handlers" %}</a></dd>
+        <dd><a href="#tab-form-properties">{% trans "Properties" %}</a></dd>
+        <dd><a href="#tab-form-service">{% trans "Service" %}</a></dd>
+      </dl>
+
+      <div class="tabs-content">
+
+        <div class="content active" id="tab-form-elements">
+
+
+            <!-- Form element plugins -->
+            <div>
+              <h4 id="form_elements">{% trans "Add forms to your form wizard" %}</h4>
+            </div>
+
+            <div class="panel panel-fobi">
+              <div class="panel-body">
+                <a href="javascript:;" data-dropdown="drop_form_elements" class="small secondary button dropdown large-dropdown">
+                  {% trans "Choose form to add" %}
+                </a>
+                <ul id="drop_form_elements" data-dropdown-content class="f-dropdown">
+                    {% for form_entry in all_form_entries %}
+                      <li><a href="{% url 'fobi.add_form_wizard_form_entry' form_wizard_entry.pk form_entry.pk %}">{{ form_entry.name }}</a></li>
+                      {% endfor %}
+                </ul>
+
+                <form method="post" action="{{ request.path }}?active_tab=tab-form-elements" novalidate="novalidate" class="form-horizontal">
+                  {% csrf_token %}
+                  <div class="alert-box secondary alert-box-larger">
+                      {% blocktrans %}Fields marked with <span class="required-field">*</span> are required{% endblocktrans %}
+                  </div>
+                  {% for form_wizard_form_entry in form_wizard_entry_forms %}
+                      <div class="form-group">
+                        <label class="col-sm-3 control-label" for="id_form-{{ forloop.counter0 }}-position">{#{ forloop.counter }#}</label>
+
+                        <div class="col-sm-9">
+                          {{ form_wizard_form_entry.form_entry.name }}
+                          <span class="help-block">
+                            <input id="id_form-{{ forloop.counter0 }}-position" min="0" name="form-{{ forloop.counter0 }}-position" type="hidden" value="{{ form_wizard_form_entry.position }}" class="form-element-position" />
+                            <input id="id_form-{{ forloop.counter0 }}-id" name="form-{{ forloop.counter0 }}-id" type="hidden" value="{{ form_wizard_form_entry.pk }}" />
+                            <ul class="{{ fobi_theme.form_list_container_class }}">
+                              <li>
+                                <a href="{% url 'fobi.view_form_entry' form_wizard_form_entry.form_entry.slug %}">
+                                  <span class="{{ fobi_theme.form_view_form_entry_option_class }}"></span> {% trans "View" %}
+                                </a>
+                              </li>
+                              <li>
+                                <a href="{% url 'fobi.edit_form_entry' form_wizard_form_entry.form_entry.pk %}">
+                                  <span class="{{ fobi_theme.form_edit_form_entry_option_class }}"></span> {% trans "Edit" %}
+                                </a>
+                              </li>
+                              <li>
+                                <a href="{% url 'fobi.delete_form_wizard_form_entry' form_wizard_form_entry.pk %}">
+                                  <span class="{{ fobi_theme.form_delete_form_entry_option_class }}"></span> {% trans "Delete" %}
+                                </a>
+                              </li>
+                            </ul>
+                          </span>
+
+                        </div>
+                      </div>
+                    {#% include fobi_theme.form_edit_snippet_template_name %#}
+                  {% endfor %}
+                  {#{ form_wizard_form_entry_formset.as_p }#}
+
+                  {{ form_wizard_form_entry_formset.management_form }}
+
+                  <div class="control-group">
+                    <div class="controls">
+                      <button type="submit" name="ordering" class="radius button btn-primary">{% trans "Save ordering" %}</button>
+                    </div>
+                  </div>
+                </form>
+
+              </div>
+            </div>
+
+        </div><!-- tab-form-elements -->
+
+        <div class="content" id="tab-form-handlers">
+
+            <!-- Form handler plugins -->
+            <div>
+              <h4 id="form_handlers">{% trans "Add handlers to your form wizard" %}</h4>
+            </div>
+
+            <div class="panel panel-fobi">
+              <div class="panel-body">
+                <a href="javascript:;" data-dropdown="drop_form_handlers" class="small secondary button dropdown large-dropdown">
+                  {% trans "Choose form handler to add" %}
+                </a>
+                <ul id="drop_form_handlers" data-dropdown-content class="f-dropdown">
+                  {% for form_wizard_handler_uid, form_wizard_handler_name in user_form_wizard_handler_plugins %}
+                      <li><a href="{% url 'fobi.add_form_wizard_handler_entry' form_wizard_entry.pk form_wizard_handler_uid %}">{{ form_wizard_handler_name }}</a></li>
+                  {% endfor %}
+                </ul>
+
+                <div class="clearfix"></div>
+
+                {% if form_wizard_handlers %}
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>{% trans "Handler" %}</th>
+                      {#<th>{% trans "Settings" %}</th>#}
+                      <th>{% trans "Actions" %}</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                  {% for form_wizard_handler in form_wizard_handlers %}
+                    {% with form_wizard_handler.get_plugin as plugin %}
+                      {% if plugin %}
+                    <tr>
+                      <td>{{ form_wizard_handler.plugin_name }}
+                        {% if form_wizard_handler.plugin_data or plugin.plugin_data_repr %}
+                        <span data-tooltip class="has-tip" data-options="show_on:large" title="{% spaceless %}{{ plugin.plugin_data_repr|safe }}{% endspaceless %}">
+                          <span class="round success label ">?</span>
+                        </span>
+                        {% endif %}
+                      </td>
+                      <td>
+                        <ul class="inline-list">
+                          {% if form_wizard_handler.plugin_data %}
+                          <li>
+                            <a href="{% url 'fobi.edit_form_wizard_handler_entry' form_wizard_handler.pk %}">
+                              <span class="fi-page-edit"></span> {% trans "Edit" %}
+                            </a>
+                          </li>
+                          {% endif %}
+                          <li>
+                            <a href="{% url 'fobi.delete_form_wizard_handler_entry' form_wizard_handler.pk %}">
+                              <span class="fi-page-delete"></span> {% trans "Delete" %}
+                            </a>
+                          </li>
+                          {% get_fobi_form_wizard_handler_plugin_custom_actions plugin form_wizard_entry as form_wizard_handler_plugin_custom_actions %}
+                          {#% for action in plugin.get_custom_actions %#}
+                          {% for action in form_wizard_handler_plugin_custom_actions %}
+                          <li><a href="{{ action.0 }}"><span class="{{ action.2 }}"></span> {{ action.1 }}</a></li>
+                          {% endfor %}
+                        </ul>
+                      </td>
+                    </tr>
+                      {% endif %}
+                    {% endwith %}
+                  {% endfor %}
+                  </tbody>
+                </table>
+                {% endif %}
+              </div>
+            </div>
+
+        </div><!-- tab-form-handlers -->
+
+        <div class="content" id="tab-form-properties">
+
+            <!-- Form properties -->
+            <div>
+              <h4 id="form_properties">{% trans "Form wizard properties" %}</h4>
+            </div>
+            <div class="panel panel-fobi">
+              <div class="panel-body">
+
+                <form method="post" action="{{ request.path }}?active_tab=tab-form-properties" enctype="multipart/form-data" class="{% block form_properties_html_class %}form-horizontal{% endblock %}">
+                  {% csrf_token %}
+                  {% include fobi_theme.form_wizard_properties_snippet_template_name %}
+
+                  <div class="control-group">
+                    <div class="controls">
+                      <button type="submit" class="radius button btn-primary">{% trans "Submit changes" %}</button>
+                    </div>
+                  </div>
+                </form>
+
+              </div>
+            </div>
+
+        </div><!-- tab-form-properties -->
+
+        <div class="content" id="tab-form-service">
+
+            <!-- Form service -->
+            <div>
+              <h4 id="form_service">{% trans "Service" %}</h4>
+            </div>
+            <div class="panel panel-fobi">
+              <div class="panel-body">
+
+                <div>
+                  <h3>{% trans "Export your form wizard as JSON" %}</h3>
+                  <p>{% trans "Export your form wizard into JSON format and import it again any time!" %}</p>
+                  <p>
+                    <a class="radius button btn-primary" href="{% url 'fobi.export_form_wizard_entry' form_wizard_entry.pk %}" role="button">
+                      <span class="fi-download"></span> {% trans "Export form" %}
+                    </a>
+                  </p>
+                </div>
+
+                <div>
+                  <h3>{% trans "Delete your form wizard" %}</h3>
+                  <p>{% trans "Once deleted, can't be undone!" %}</p>
+                  <p>
+                    <a class="radius button btn-primary" href="{% url 'fobi.delete_form_wizard_entry' form_wizard_entry.pk %}" role="button">
+                      <span class="fi-page-delete"></span> {% trans "Delete form" %}
+                    </a>
+                  </p>
+                </div>
+
+              </div>
+            </div>
+
+        </div><!-- tab-form-service -->
+
+      </div><!-- tabs-content -->
+
+    </div><!-- columns -->
+
+</div><!-- row -->

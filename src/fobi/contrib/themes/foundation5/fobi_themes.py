@@ -48,9 +48,10 @@ class Foundation5Theme(BaseTheme):
 
     # footer_text = '&copy; django-fobi example site 2014'
 
-    # *************************************************************************
-    # ********************** Form HTML specific *******************************
-    # *************************************************************************
+    # ***********************************************************************
+    # ***********************************************************************
+    # ********************** Form HTML specific *****************************
+    # ***********************************************************************
     form_element_html_class = 'form-control'
     form_element_checkbox_html_class = 'checkbox'
 
@@ -66,50 +67,51 @@ class Foundation5Theme(BaseTheme):
     # Important
     form_list_container_class = 'inline-list'
 
-    # *************************************************************************
-    # ********************** Templates specific *******************************
-    # *************************************************************************
+    # ***********************************************************************
+    # ***********************************************************************
+    # **************************** Templates ********************************
+    # ***********************************************************************
+    # ***********************************************************************
+
+    # ***********************************************************************
+    # *************************** Base templates ****************************
+    # ***********************************************************************
     master_base_template = 'foundation5/_base.html'
     base_template = 'foundation5/base.html'
 
-    form_ajax = 'foundation5/snippets/form_ajax.html'
+    # ***********************************************************************
+    # ***************************** Snippets ********************************
+    # ***********************************************************************
     form_snippet_template_name = 'foundation5/snippets/form_snippet.html'
+
     form_properties_snippet_template_name = \
         'foundation5/snippets/form_properties_snippet.html'
+
     messages_snippet_template_name = \
         'foundation5/snippets/messages_snippet.html'
+
     form_non_field_and_hidden_errors_snippet_template = \
         'foundation5/snippets/form_non_field_and_hidden_errors_snippet.html'
 
-    add_form_element_entry_template = \
-        'foundation5/add_form_element_entry.html'
-    add_form_element_entry_ajax_template = \
-        'foundation5/add_form_element_entry_ajax.html'
+    form_ajax = 'foundation5/snippets/form_ajax.html'
 
-    add_form_handler_entry_template = \
-        'foundation5/add_form_handler_entry.html'
-    add_form_handler_entry_ajax_template = \
-        'foundation5/add_form_handler_entry_ajax.html'
+    form_wizard_ajax = 'foundation5/snippets/form_wizard_ajax.html'  # TODO
 
+    form_wizard_snippet_template_name = \
+        'foundation5/snippets/form_wizard_snippet.html'  # TODO
+
+    form_wizard_properties_snippet_template_name = \
+        'foundation5/snippets/form_wizard_properties_snippet.html'  # TODO
+
+    # ***********************************************************************
+    # **************************** Form entry CRUD **************************
+    # ***********************************************************************
     create_form_entry_template = 'foundation5/create_form_entry.html'
     create_form_entry_ajax_template = \
         'foundation5/create_form_entry_ajax.html'
 
-    dashboard_template = 'foundation5/dashboard.html'
-    forms_list_template = 'foundation5/forms_list.html'
-
-    edit_form_element_entry_template = \
-        'foundation5/edit_form_element_entry.html'
-    edit_form_element_entry_ajax_template = \
-        'foundation5/edit_form_element_entry_ajax.html'
-
     edit_form_entry_template = 'foundation5/edit_form_entry.html'
     edit_form_entry_ajax_template = 'foundation5/edit_form_entry_ajax.html'
-
-    edit_form_handler_entry_template = \
-        'foundation5/edit_form_handler_entry.html'
-    edit_form_handler_entry_ajax_template = \
-        'foundation5/edit_form_handler_entry_ajax.html'
 
     form_entry_submitted_template = 'foundation5/form_entry_submitted.html'
     form_entry_submitted_ajax_template = \
@@ -117,6 +119,65 @@ class Foundation5Theme(BaseTheme):
 
     view_form_entry_template = 'foundation5/view_form_entry.html'
     view_form_entry_ajax_template = 'foundation5/view_form_entry_ajax.html'
+
+    # ***********************************************************************
+    # *********************** Form element entry CUD ************************
+    # ***********************************************************************
+    add_form_element_entry_template = \
+        'foundation5/add_form_element_entry.html'
+    add_form_element_entry_ajax_template = \
+        'foundation5/add_form_element_entry_ajax.html'
+
+    edit_form_element_entry_template = \
+        'foundation5/edit_form_element_entry.html'
+    edit_form_element_entry_ajax_template = \
+        'foundation5/edit_form_element_entry_ajax.html'
+
+    # ***********************************************************************
+    # *********************** Form handler entry CUD ************************
+    # ***********************************************************************
+    add_form_handler_entry_template = \
+        'foundation5/add_form_handler_entry.html'
+    add_form_handler_entry_ajax_template = \
+        'foundation5/add_form_handler_entry_ajax.html'
+
+    edit_form_handler_entry_template = \
+        'foundation5/edit_form_handler_entry.html'
+    edit_form_handler_entry_ajax_template = \
+        'foundation5/edit_form_handler_entry_ajax.html'
+
+    # ***********************************************************************
+    # ******************* Form wizard handler entry CUD *********************
+    # ***********************************************************************
+
+    # ***********************************************************************
+    # ***************************** Dashboard *******************************
+    # ***********************************************************************
+    dashboard_template = 'foundation5/dashboard.html'
+    form_wizards_dashboard_template = 'foundation5/form_wizards_dashboard.html'
+    forms_list_template = 'foundation5/forms_list.html'
+
+    # ***********************************************************************
+    # ************************ Form wizard entry CUD ************************
+    # ***********************************************************************
+    create_form_wizard_entry_template = \
+        'foundation5/create_form_wizard_entry.html'  # TODO
+    create_form_wizard_entry_ajax_template = \
+        'foundation5/create_form_wizard_entry_ajax.html'  # TODO
+
+    edit_form_wizard_entry_template = \
+        'foundation5/edit_form_wizard_entry.html'  # TODO
+    edit_form_wizard_entry_ajax_template = \
+        'foundation5/edit_form_wizard_entry_ajax.html'  # TODO
+
+    view_form_wizard_entry_template = \
+        'foundation5/view_form_wizard_entry.html'  # TODO
+    view_form_wizard_entry_ajax_template = \
+        'foundation5/view_form_wizard_entry_ajax.html'  # TODO
+
+    # ***********************************************************************
+    # ************************* Form importer templates *********************
+    # ***********************************************************************
 
     import_form_entry_template = 'foundation5/import_form_entry.html'
     import_form_entry_ajax_template = \

@@ -1,0 +1,51 @@
+{% extends "fobi/generic/snippets/form_wizard_ajax.html" %}
+{% load i18n %}
+{% block form_page_header_html_class %}page-header{% endblock %}
+
+{% block form_html_class %}form-horizontal{% endblock %}
+
+{% block form_button_outer_wrapper_html_class %}control-group{% endblock %}
+
+{% block form_button_wrapper_html_class %}controls{% endblock %}
+
+{% block form_primary_button_html_class %}btn btn-primary{% endblock %}
+
+{% block form_wizard_previous_button_html_class %}btn btn-primary{% endblock %}
+
+{% block form_wizard_first_button_html_class %}btn btn-primary{% endblock %}
+
+{% block form_wizard_first_button_text %}{% trans "First" %}{% endblock %}
+
+{% block form_wizard_primary_button_text %}{% if wizard.steps.is_last_step %}{% trans "Submit" %}{% else %}{% trans "Next" %}{% endif %}{% endblock %}
+
+{% block form_wizard_previous_button_text %}{% trans "Previous" %}{% endblock %}
+
+{% block form_page_sub_title_wrapper %}
+<nav aria-label="...">
+  <ul class="pagination">
+    <li class="disabled">
+      <span>
+        <span aria-hidden="true">&laquo;</span>
+      </span>
+    </li>
+    {% for step_index in steps_range %}
+      {% if step_index == wizard.steps.step1 %}
+        <li class="active">
+          <span>{{ step_index }} <span class="sr-only">{% trans "(current)" %}</span></span>
+        </li>
+      {% else %}
+        <li class="disabled">
+          <span>
+            <span aria-hidden="true">{{ step_index }}</span>
+          </span>
+        </li>
+      {% endif %}
+    {% endfor %}
+    <li class="disabled">
+      <span>
+        <span aria-hidden="true">&raquo;</span>
+      </span>
+    </li>
+  </ul>
+</nav>
+{% endblock form_page_sub_title_wrapper %}

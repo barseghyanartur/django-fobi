@@ -122,3 +122,9 @@ if getattr(settings, 'ENABLE_CAPTCHA', False):
                 ]
         except ImportError:
             pass
+
+if getattr(settings, 'DEBUG', False) and getattr(settings, 'DEBUG_TOOLBAR', False):
+    import debug_toolbar
+    urlpatterns = [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns
