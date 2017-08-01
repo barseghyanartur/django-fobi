@@ -15,6 +15,14 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.12.2
+------
+2017-08-02
+
+- Some work on full form-wizards support in the `foundation5` theme.
+- Django 1.11 fixes for customised widgets.
+- Update example project requirements.
+
 0.12.1
 ------
 2017-07-31
