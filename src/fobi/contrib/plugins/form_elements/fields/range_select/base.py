@@ -66,10 +66,10 @@ class RangeSelectInputPlugin(FormFieldPlugin):
         Might be used in integration plugins.
         """
         max_value = int(self.data.max_value) \
-            if self.data.max_value \
+            if self.data.max_value is not None \
             else INITIAL_MAX_VALUE
         min_value = int(self.data.min_value) \
-            if self.data.min_value \
+            if self.data.min_value is not None \
             else INITIAL_MIN_VALUE
         step = int(self.data.step) if self.data.step else STEP
 
