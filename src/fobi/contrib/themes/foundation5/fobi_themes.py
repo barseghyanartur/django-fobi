@@ -101,7 +101,7 @@ class Foundation5Theme(BaseTheme):
         'foundation5/snippets/form_wizard_snippet.html'  # TODO
 
     form_wizard_properties_snippet_template_name = \
-        'foundation5/snippets/form_wizard_properties_snippet.html'  # TODO
+        'foundation5/snippets/form_wizard_properties_snippet.html'
 
     # ***********************************************************************
     # **************************** Form entry CRUD **************************
@@ -161,19 +161,19 @@ class Foundation5Theme(BaseTheme):
     # ************************ Form wizard entry CUD ************************
     # ***********************************************************************
     create_form_wizard_entry_template = \
-        'foundation5/create_form_wizard_entry.html'  # TODO
+        'foundation5/create_form_wizard_entry.html'
     create_form_wizard_entry_ajax_template = \
-        'foundation5/create_form_wizard_entry_ajax.html'  # TODO
+        'foundation5/create_form_wizard_entry_ajax.html'
 
     edit_form_wizard_entry_template = \
-        'foundation5/edit_form_wizard_entry.html'  # TODO
+        'foundation5/edit_form_wizard_entry.html'
     edit_form_wizard_entry_ajax_template = \
-        'foundation5/edit_form_wizard_entry_ajax.html'  # TODO
+        'foundation5/edit_form_wizard_entry_ajax.html'
 
     view_form_wizard_entry_template = \
-        'foundation5/view_form_wizard_entry.html'  # TODO
+        'foundation5/view_form_wizard_entry.html'
     view_form_wizard_entry_ajax_template = \
-        'foundation5/view_form_wizard_entry_ajax.html'  # TODO
+        'foundation5/view_form_wizard_entry_ajax.html'
 
     # ***********************************************************************
     # ************************* Form importer templates *********************

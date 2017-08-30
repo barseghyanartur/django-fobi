@@ -1,23 +1,73 @@
-{% extends "fobi/generic/snippets/form_wizard_properties_snippet.html" %}
+{% load i18n fobi_tags %}
+                <div class="alert-box secondary alert-box-larger">
+                    {% blocktrans %}Fields marked with <span class="required-field">*</span> are required{% endblocktrans %}
+                </div>
 
-{% block form_required_fields_message_wrapper_class %}well well-sm{% endblock %}
+            {% if form.non_field_errors %}
+                <div class="row">
+                    {{ form.non_field_errors.as_ul }}
+                </div>
+            {% endif %}
+            {% for field in form %}
 
-{% block non_field_errors_form_element_wrapper_html_class %}form-group{% endblock %}
+                {% if field.is_hidden %}
+                    <div class="hidden">{{ field }}</div>
+                {% else %}
+                    {% get_form_field_type field as field_type %}
+                    <div class="row{% if field.errors %} error{% endif %}{% if field.is_hidden %} hidden{% endif %}">
 
-{% block form_element_wrapper_hidden_html_class %}hidden{% endblock %}
+                        {% if field_type.is_checkbox %}
+                        <div class="large-10 columns">
+                            {{ field }}
 
-{% block form_element_wrapper_html_class %}form-group{% endblock %}
+                            <label for="{{ field.id_for_label }}">
+                              {{ field.label }}
+                            </label>
 
-{% block hidden_form_element_error_html_class%}has-error{% endblock %}
+                            {% if field.errors %}
+                            <span class="error">
+                                {% for field_error in field.errors %}
+                                    {{ field_error }}
+                                {% endfor %}
+                            </span>
+                            {% endif %}
 
-{% block form_checkbox_element_field_wrapper_html_class %}col-sm-offset-2 col-sm-9{% endblock %}
+                            {% if field.help_text %}
+                            <span class="help-block">{{ field.help_text|safe }}</span>
+                            {% comment %}
+                            <span data-tooltip class="has-tip" data-options="show_on:large" title="{% spaceless %}{{ field.help_text|safe }}{% endspaceless %}">
+                              <span class="round success label ">?</span>
+                            </span>
+                            {% endcomment %}
+                            {% endif %}
+                        </div>
+                        {% else %}
+                        <label class="large-2 columns" for="{{ field.id_for_label }}">
+                            {{ field.label }}{% if field.field.required %}<span class="required-field">*</span>{% endif %}
+                        </label>
 
-{% block form_element_label_html_class %}col-sm-3 control-label{% endblock %}
+                        <div class="large-10 columns">
+                            {{ field }}
 
-{% block form_element_required_field_sign_html_class %}required-field{% endblock %}
+                            {% if field.errors %}
+                            <span class="error">
+                                {% for field_error in field.errors %}
+                                    {{ field_error }}
+                                {% endfor %}
+                            </span>
+                            {% endif %}
 
-{% block form_element_field_wrapper_html_class %}col-sm-9{% endblock %}
+                            {% if field.help_text %}
+                            <span class="help-block">{{ field.help_text|safe }}</span>
+                            {% comment %}
+                            <span data-tooltip class="has-tip" data-options="show_on:large" title="{% spaceless %}{{ field.help_text|safe }}{% endspaceless %}">
+                              <span class="round success label ">?</span>
+                            </span>
+                            {% endcomment %}
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
 
-{% block form_element_error_html_class %}help-block has-error{% endblock %}
-
-{% block form_element_help_text_html_class %}help-block{% endblock %}
+            {% endfor %}

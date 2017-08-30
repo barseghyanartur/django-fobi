@@ -347,6 +347,9 @@ else:
         #     '#egg=easy-thumbnails'
         # )
 
+# if PYPY:
+#     install_requires.remove('Pillow>=2.0.0')
+
 setup(
     name='django-fobi',
     version=version,

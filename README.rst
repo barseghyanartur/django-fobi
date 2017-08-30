@@ -522,7 +522,7 @@ before it gets saved. For that purpose, ``save_plugin_data`` method
 has been introduced.
 
 See the following `example
-<https://github.com/barseghyanartur/django-fobi/blob/stable/src/fobi/contrib/plugins/form_elements/content/image/forms.py>`_.
+<https://github.com/barseghyanartur/django-fobi/blob/stable/src/fobi/contrib/plugins/form_elements/content/content_image/forms.py>`_.
 
 .. code-block:: python
 

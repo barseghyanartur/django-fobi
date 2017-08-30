@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.12.3
+------
+2017-08-??
+
+- Reflect form-wizards support changes in the `foundation5` theme.
+- Documentation fixes.
+
 0.12.2
 ------
 2017-08-02
