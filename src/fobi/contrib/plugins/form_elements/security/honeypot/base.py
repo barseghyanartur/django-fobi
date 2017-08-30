@@ -41,7 +41,7 @@ class HoneypotInputPlugin(FormElementPlugin):
             ),
         }
 
-        if self.data.max_length:
+        if self.data.max_length is not None:
             field_kwargs['max_length'] = self.data.max_length
 
         # return [(self.data.name, (HoneypotField, TextInput), kwargs)]
