@@ -39,7 +39,7 @@ class FileInputPlugin(FormFieldPlugin):
             'required': self.data.required,
             'widget': ClearableFileInput(attrs={}),
         }
-        if self.data.max_length:
+        if self.data.max_length is not None:
             field_kwargs['max_length'] = self.data.max_length
 
         return [(self.data.name, FileField, field_kwargs)]

@@ -56,7 +56,7 @@ class SelectMultipleWithMaxInputPlugin(FormFieldPlugin):
             ),
         }
 
-        if self.data.max_choices:
+        if self.data.max_choices is not None:
             field_kwargs['max_choices'] = self.data.max_choices
 
         return [(self.data.name, MultipleChoiceWithMaxField, field_kwargs)]

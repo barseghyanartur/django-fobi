@@ -37,7 +37,7 @@ class DateDropDownInputPlugin(FormFieldPlugin):
         }
 
         years = None
-        if self.data.year_min and self.data.year_max:
+        if self.data.year_min is not None and self.data.year_max is not None:
             years = range(self.data.year_min, self.data.year_max)
 
         field_kwargs = {
