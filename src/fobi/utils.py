@@ -738,6 +738,7 @@ def perform_form_entry_import(request, form_data):
 
     form_data_keys_whitelist = (
         'name',
+        'title',
         'slug',
         'is_public',
         'is_cloneable',
@@ -748,7 +749,7 @@ def perform_form_entry_import(request, form_data):
     )
 
     # In this way we keep possible trash out.
-    for key in form_data.keys():
+    for key in list(form_data.keys()):
         if key not in form_data_keys_whitelist:
             form_data.pop(key)
 
