@@ -192,4 +192,4 @@ pseudoxml:
 	@echo "Build finished. The pseudo-XML files are in $(BUILDDIR)/pseudoxml."
 
 wagtaildemo:
-	cd ..; cd examples; git submodule update --init; cd ..; cd docs
+	cd ..; cd examples; git clone https://github.com/barseghyanartur/wagtaildemo.git; cd ..; cd docs
