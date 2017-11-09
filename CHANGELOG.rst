@@ -85,7 +85,7 @@ are used for versioning (schema follows below):
 2017-05-29
 
 - Minor fixes in ``content_text`` ``drf_integration`` plugin.
-- Added ``imageurl`` support to the ``mailchimp_impoter`` plugin.
+- Added ``imageurl`` support to the ``mailchimp_importer`` plugin.
 
 0.11.10
 -------
@@ -488,7 +488,7 @@ Release supported by `Lund University Cognitive Science
   may need to update your custom CSS/JS/HTML accordingly. See the listing
   0.8.a for the files affected.
 - An additional property `form_view_form_entry_option_class` has been added
-  to all the themes. Change your custom CSS/jS/HTML accordingly. See the
+  to all the themes. Change your custom CSS/JS/HTML accordingly. See the
   listing 0.8.b for the files affected.
 - Fixed drag-and-drop not working for ordering of form elements. #43
 - Fixed issue with non-proper rendering of the form-importer templates.
@@ -853,7 +853,7 @@ carefully.
   `fobi.contrib.apps.feincms_integration`,
   `fobi.contrib.apps.djangocms_integration`,
   `fobi.contrib.apps.mezzanine_integration`). Due to the change, you would
-  likely have to to rename a couple of database tables and update referencies
+  likely have to rename a couple of database tables and update references
   accordingly. No migrations to solve the issue are included at the moment.
 
 0.4.36
@@ -901,7 +901,7 @@ carefully.
 2015-03-23
 
 - When path of the uploaded file (plugins) doesn't yet exist, create it,
-  instaid of failing.
+  instead of failing.
 
 0.4.30
 ------
@@ -1256,7 +1256,7 @@ command which makes the necessary changes in the database for safe upgrade).
   your project apps, make necessary path changes and update the package paths
   in ``INSTALLED_APPS`` settings module (settings.py) before upgrading to this
   version. Then, in Django admin management interface, replace all the
-  occurances of ``Birthday`` field with ``Date drop down`` field.
+  occurrences of ``Birthday`` field with ``Date drop down`` field.
 - Better error validation/handling of hidden fields. A new form snippet 
   template added for displaying the non-field and hidden fields errors. The new
   template makes a part of a standard theme as an attribute
@@ -1307,7 +1307,7 @@ Note, that this release contains minor backwards incompatible changes. The
 changes do not anyhow affect your existing forms or data. The only thing you
 need to do is update the app paths in the ``settings`` module of your project.
 
-- Minor core improvements related to the themeing of the form handler plugins.
+- Minor core improvements related to the theming of the form handler plugins.
 - Several presentational form element plugins have been renamed.
   The ``fobi.contrib.plugins.form_elements.content.image`` plugin has been
   renamed to ``fobi.contrib.plugins.form_elements.content.content_image``.
