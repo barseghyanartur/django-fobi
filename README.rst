@@ -37,12 +37,12 @@ Key concepts
 - Number of form elements is not limited.
 - Each form may contain handlers. Handler processes the form data (for example,
   saves it or mails it). Number of the handlers is not limited.
-- Both form elements and form handlers are made with Django permission system 
+- Both form elements and form handlers are made with Django permission system
   in mind.
-- As an addition to form handlers, form callbacks are implemented. Form 
+- As an addition to form handlers, form callbacks are implemented. Form
   callbacks are fired on various stages of pre- and post-processing the form
   data (on POST). Form callbacks do not make use of permission system (unless
-  you intentionally do so in the code of your callback) and are fired for all 
+  you intentionally do so in the code of your callback) and are fired for all
   forms (unlike form handlers, that are executed only if assigned).
 - Each plugin (form element or form handler) or a callback - is a Django
   micro-app.
@@ -76,7 +76,7 @@ Main features and highlights
 - Data handling in plugins (form handlers). Save the data, mail it to some
   address or re-post it to some other endpoint. See the
   `Bundled form handler plugins`_ for more information.
-- Developer-friendly API, which allows to edit existing or build new form 
+- Developer-friendly API, which allows to edit existing or build new form
   fields and handlers without touching the core.
 - Support for custom user model.
 - `Theming`_. There are 4 ready to use `Bundled themes`_: "Bootstrap 3",
@@ -398,7 +398,7 @@ Defining the Sample textarea plugin.
         name = "Sample Textarea"
         form = SampleTextareaForm
         group = "Samples" # Group to which the plugin belongs to
-        
+
         def get_form_field_instances(self, request=None, form_entry=None,
                                      form_element_entries=None, **kwargs):
             kwargs = {
@@ -435,18 +435,18 @@ widget in edit mode. In the view mode, the original widget that you
 assigned in your form element plugin would be used.
 
 There might be cases, when you need to do additional handling of the data upon
-the successful form submission. In such cases, you will need to define a 
-``submit_plugin_form_data`` method in the plugin, which accepts the 
+the successful form submission. In such cases, you will need to define a
+``submit_plugin_form_data`` method in the plugin, which accepts the
 following arguments:
 
 - `form_entry` (fobi.models.FormEntry): Form entry, which is being submitted.
 - `request` (django.http.HttpRequest): The Django HTTP request.
-- `form` (django.forms.Form): Form object (a valid one, which contains 
+- `form` (django.forms.Form): Form object (a valid one, which contains
   the ``cleaned_data`` attribute).
 - `form_element_entries` (fobi.models.FormElementEntry): Form element entries
   for the `form_entry` given.
 - (**)kwargs : Additional arguments.
-  
+
 Example (taken from fobi.contrib.plugins.form_elements.fields.file):
 
 .. code-block:: python
@@ -511,7 +511,7 @@ Form for for ``SampleTextareaPlugin`` form element plugin.
         initial = forms.CharField(label="Initial", required=False)
         required = forms.BooleanField(label="Required", required=False)
 
-Note that although it's not being checked in the code, but for form 
+Note that although it's not being checked in the code, but for form
 field plugins the following fields should be present in the plugin
 form (``BasePluginForm``) and the form plugin (``FormFieldPlugin``):
 
@@ -754,8 +754,8 @@ Prioritise the execution order
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 Some form handlers shall be executed prior others. A good example of such, is
 a combination of "mail" and "db_save" form handlers for the form. In case if
-large files are posted, submission of form data would fail if "mail" plugin 
-would be executed after "db_save" has been executed. That's why it's possible 
+large files are posted, submission of form data would fail if "mail" plugin
+would be executed after "db_save" has been executed. That's why it's possible
 to prioritise that ordering in a ``FOBI_FORM_HANDLER_PLUGINS_EXECUTION_ORDER``
 setting variable.
 
@@ -881,7 +881,7 @@ Defining the Sample importer plugin.
         """Sample importer plugin."""
 
         uid = 'sample_importer'
-        name = _("Sample importer)
+        name = _("Sample importer")
         wizard = SampleImporterWizardView
         templates = [
             'sample_importer/0.html',
@@ -1135,7 +1135,7 @@ Custom action for the form
 --------------------------
 Sometimes, you would want to specify a different action for the form.
 Although it's possible to define a custom form action (``action`` field
-in the "Form properties" tab), you're advised to use the ``http_repost`` 
+in the "Form properties" tab), you're advised to use the ``http_repost``
 plugin instead, since then the form would be still validated locally
 and only then the valid data, as is, would be sent to the desired
 endpoint.
@@ -1424,7 +1424,7 @@ Directory structure
     │       │   └── override-simple-theme.css
     │       └── js
     │           └── override-simple-theme.js
-    │       
+    │
     ├── templates
     │   └── override_simple_theme
     │       ├── snippets
@@ -1755,7 +1755,7 @@ There are several management commands available.
   occur when some plugin which did exist in the system, no longer exists.
 - `fobi_sync_plugins`. Should be ran each time a new plugin is being added to
   the `django-fobi`.
-- `fobi_update_plugin_data`. A mechanism to update existing plugin data in 
+- `fobi_update_plugin_data`. A mechanism to update existing plugin data in
   case if it had become invalid after a change in a plugin. In order for it
   to work, each plugin should implement and ``update`` method, in which the
   data update happens.
@@ -1765,7 +1765,7 @@ Tuning
 There are number of `django-fobi` settings you can override in the settings
 module of your Django project:
 
-- `FOBI_RESTRICT_PLUGIN_ACCESS` (bool): If set to True, (Django) permission 
+- `FOBI_RESTRICT_PLUGIN_ACCESS` (bool): If set to True, (Django) permission
   system for dash plugins is enabled. Defaults to True. Setting this to False
   makes all plugins available for all users.
 - `FOBI_DEFAULT_THEME` (str): Active (default) theme UID. Defaults to
@@ -2107,7 +2107,7 @@ Rendering forms using third-party libraries
 ===========================================
 You might want to render your forms using third-party libraries such as
 `django-crispy-forms <http://django-crispy-forms.readthedocs.org/>`_,
-`django-floppyforms <http://django-floppyforms.readthedocs.org/>`_ or 
+`django-floppyforms <http://django-floppyforms.readthedocs.org/>`_ or
 other alternatives.
 
 For that purpose you should override the "snippets/form_snippet.html" used
@@ -2201,7 +2201,7 @@ If you have forms referring to form element- of form handler- plugins
 that are currently missing (not registered, removed, failed to load - thus
 there would be a risk that your form would't be rendered properly/fully and
 the necessary data handling wouldn't happen either) you will get an
-appropriate exception. Although it's fine to get an instant error message about 
+appropriate exception. Although it's fine to get an instant error message about
 such failures in development, in production is wouldn't look appropriate.
 Thus, there are two settings related to the non-existing (not-found) form
 element- and form handler- plugins.
