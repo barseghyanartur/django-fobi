@@ -2,11 +2,11 @@ fobi.contrib.plugins.form_elements.security.captcha
 ---------------------------------------------------
 A `CAPTCHA <http://en.wikipedia.org/wiki/CAPTCHA>`_ form field plugin. Makes
 use of the `django-simple-captcha
-<http://readthedocs.org/docs/django-simple-captcha>`_.
+<http://django-simple-captcha.readthedocs.io/en/latest/>`_.
 
 Prerequisites
 ~~~~~~~~~~~~~
-You will need ``libfreetype6``, otherwise ``django-captcha`` won't work.
+You will need ``libfreetype6``, otherwise ``django-simple-captcha`` won't work.
 
 .. code-block:: sh
 
@@ -27,9 +27,7 @@ Taken from django-simple-captcha `installation instructions
 
 (2) Add ``captcha`` to the ``INSTALLED_APPS`` in your ``settings.py``.
 
-(3) Run ``python manage.py syncdb`` (or ``python manage.py migrate`` if you are
-    managing database migrations via South) to create the required database
-    tables.
+(3) Run ``python manage.py migrate``.
 
 (4) Add an entry to your ``urls.py``:
 
@@ -69,9 +67,7 @@ At the moment, you can't use both ``CAPTCHA``
 (fobi.contrib.plugins.form_elements.security.captcha) and ``ReCAPTCHA``
 (fobi.contrib.plugins.form_elements.security.recaptcha) plugins alongside due
 to app name collision of the ``django-simple-captcha`` and ``django-recaptcha``
-packages. That limitation is likely to be solved in future in the
-``django-recaptcha`` package. Until then, you should choose either one or
-another, but not both on the same time.
+packages.
 
 Usage
 ~~~~~
