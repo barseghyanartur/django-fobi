@@ -16,9 +16,7 @@ Install `django-recaptcha`
 
 (2) Add ``captcha`` to the ``INSTALLED_APPS`` in your ``settings.py``.
 
-(3) Run ``python manage.py syncdb`` (or ``python manage.py migrate`` if you are
-   managing database migrations via South) to create the required database
-   tables.
+(3) Run ``python manage.py migrate``.
 
 Install `fobi` ReCAPTCHA plugin
 ###############################
@@ -42,7 +40,7 @@ Install `fobi` ReCAPTCHA plugin
 (3) Assign appropriate permissions to the target users/groups to be using
    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
-(4) Specify the following ReCAPTCHA credentials in your settings.
+(4) Specify the following ReCAPTCHA credentials in your settings:
 
     .. code-block:: text
 
@@ -57,13 +55,11 @@ At the moment, you can't use both ``CAPTCHA``
 (fobi.contrib.plugins.form_elements.security.captcha) and ``ReCAPTCHA``
 (fobi.contrib.plugins.form_elements.security.recaptcha) plugins alongside due
 to app name collision of the ``django-simple-captcha`` and ``django-recaptcha``
-packages. That limitation is likely to be solved in future in the
-``django-recaptcha`` package. Until then, you should choose either one or
-another, but not both on the same time.
+packages.
 
 If you happen to see errors like "Input error: k: Format of site key was
 invalid", make sure to have defined (and filled in properly) the
-``RECAPTCHA_PUBLIC_KEY`` and ``RECAPTCHA_PRIVATE_KEY`` in your settnings.py.
+``RECAPTCHA_PUBLIC_KEY`` and ``RECAPTCHA_PRIVATE_KEY`` in your settings.py.
 See the `following <https://github.com/praekelt/django-recaptcha/issues/32>`_
 thread for more information.
 
