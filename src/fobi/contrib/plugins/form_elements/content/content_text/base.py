@@ -55,7 +55,7 @@ class ContentTextPlugin(FormElementPlugin):
                                  form_element_entries=None, **kwargs):
         """Get form field instances."""
         field_kwargs = {
-            'initial': "<p>{0}</p>".format(smart_str(self.data.text)),
+            'initial': self.get_rendered_text(),
             'required': False,
             'label': '',
         }
