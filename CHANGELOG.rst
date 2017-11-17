@@ -20,6 +20,8 @@ are used for versioning (schema follows below):
 2017-mm-dd (not yet released)
 
 - Clean up.
+- Minor documentation fixes.
+- Minor plugin clean-up/fixes (``captcha``, ``recaptcha``, ``content_text``).
 
 0.12.5
 ------
