@@ -393,7 +393,7 @@ custom form element plugins you should update your code!
 - The :method:`get_form_field_instances`
   and :method:`_get_form_field_instances` of
   the :class:`fobi.base.FormElementPlugin` both accept two new optional
-  arguments: `form_entry` and `form_element_entries` as well as **kwargs.
+  arguments: `form_entry` and `form_element_entries` as well as `**kwargs`.
   Make sure to update your custom plugins if you have written any.
 - Minor fixes in the form wizards: forms in intermediate steps do receive
   updates from the `submit_plugin_form_data` of the plugins.
@@ -477,7 +477,7 @@ Release supported by `Lund University Cognitive Science
 <http://www.lucs.lu.se/choice-blindness-group/>`_.
 
 - Adding form-wizards functionality. Note, that at the moment only
-  `bootstrap3` theme was updated to filly support the form wizards. Although,
+  `bootstrap3` theme was updated to fully support the form wizards. Although,
   all other themes would by default support form-wizard functionality, they
   may not look as nice as they should be (to be fixed in 0.8.x releases
   shortly).
