@@ -53,7 +53,6 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'absolute_path',
     'admin_change_url',
     'clean_dict',
     'clone_file',
@@ -80,6 +79,7 @@ __all__ = (
     'StrippedRequest',
     'StrippedUser',
     'two_dicts_to_string',
+    'uniquify_sequence',
     'update_plugin_data',
     'validate_initial_for_choices',
     'validate_initial_for_multiple_choices',
@@ -198,6 +198,21 @@ def absolute_path(path):
     if path.startswith(('http://', 'https://', '/')):
         return path
     return static(path)
+
+
+def uniquify_sequence(sequence):
+    """Uniqify sequence.
+
+    Makes sure items in the given sequence are unique, having the original
+    order preserved.
+
+    :param iterable sequence:
+    :return list:
+    """
+    seen = set()
+    seen_add = seen.add
+    return [absolute_path(x)
+            for x in sequence if x not in seen and not seen_add(x)]
 
 
 def get_ignorable_form_values():
