@@ -18,6 +18,7 @@ from django.contrib.auth.models import AnonymousUser
 from django.core.files.base import File
 # from django.db.utils import DatabaseError
 from django.http import HttpResponse
+from django.templatetags.static import static
 from django.test.client import RequestFactory
 from django.utils.encoding import force_text
 from django.utils.html import format_html_join
@@ -52,6 +53,7 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
+    'absolute_path',
     'admin_change_url',
     'clean_dict',
     'clone_file',
@@ -78,7 +80,6 @@ __all__ = (
     'StrippedRequest',
     'StrippedUser',
     'two_dicts_to_string',
-    'uniquify_sequence',
     'update_plugin_data',
     'validate_initial_for_choices',
     'validate_initial_for_multiple_choices',
@@ -188,18 +189,15 @@ def two_dicts_to_string(headers, data, html_element='p'):
 empty_string = text_type('')
 
 
-def uniquify_sequence(sequence):
-    """Uniqify sequence.
-
-    Makes sure items in the given sequence are unique, having the original
-    order preserved.
-
-    :param iterable sequence:
-    :return list:
+def absolute_path(path):
     """
-    seen = set()
-    seen_add = seen.add
-    return [x for x in sequence if x not in seen and not seen_add(x)]
+    Given a relative or absolute path to a static asset, return an absolute
+    path. An absolute path will be returned unchanged while a relative path
+    will be passed to django.templatetags.static.static().
+    """
+    if path.startswith(('http://', 'https://', '/')):
+        return path
+    return static(path)
 
 
 def get_ignorable_form_values():

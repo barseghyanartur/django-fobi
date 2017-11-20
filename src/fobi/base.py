@@ -40,13 +40,13 @@ from .exceptions import (
     ThemeDoesNotExist,
 )
 from .helpers import (
+    absolute_path,
     clean_dict,
     get_form_element_entries_for_form_wizard_entry,
     get_ignorable_form_values,
     map_field_name_to_label,
     safe_text,
     StrippedRequest,
-    uniquify_sequence,
 )
 from .settings import (
     CUSTOM_THEME_DATA,
@@ -638,11 +638,8 @@ class BaseTheme(object):
 
         :return list:
         """
-        media_css = self.media_css[:]
-        if self.plugin_media_css:
-            media_css += self.plugin_media_css
-
-        media_css = uniquify_sequence(media_css)
+        media_css = [absolute_path(css)
+                     for css in set(self.media_css + self.plugin_media_css)]
 
         return media_css
 
@@ -651,11 +648,8 @@ class BaseTheme(object):
 
         :return list:
         """
-        media_js = self.media_js[:]
-        if self.plugin_media_js:
-            media_js += self.plugin_media_js
-
-        media_js = uniquify_sequence(media_js)
+        media_js = [absolute_path(js)
+                    for js in set(self.media_js + self.plugin_media_js)]
 
         return media_js
 
