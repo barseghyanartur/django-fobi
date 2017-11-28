@@ -638,11 +638,7 @@ class BaseTheme(object):
 
         :return list:
         """
-        media_css = self.media_css[:]
-        if self.plugin_media_css:
-            media_css += self.plugin_media_css
-
-        media_css = uniquify_sequence(media_css)
+        media_css = uniquify_sequence(self.media_css + self.plugin_media_css)
 
         return media_css
 
@@ -651,11 +647,7 @@ class BaseTheme(object):
 
         :return list:
         """
-        media_js = self.media_js[:]
-        if self.plugin_media_js:
-            media_js += self.plugin_media_js
-
-        media_js = uniquify_sequence(media_js)
+        media_js = uniquify_sequence(self.media_js + self.plugin_media_js)
 
         return media_js
 

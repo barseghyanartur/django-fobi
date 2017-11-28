@@ -18,6 +18,7 @@ from django.contrib.auth.models import AnonymousUser
 from django.core.files.base import File
 # from django.db.utils import DatabaseError
 from django.http import HttpResponse
+from django.templatetags.static import static
 from django.test.client import RequestFactory
 from django.utils.encoding import force_text
 from django.utils.html import format_html_join
@@ -188,6 +189,17 @@ def two_dicts_to_string(headers, data, html_element='p'):
 empty_string = text_type('')
 
 
+def absolute_path(path):
+    """
+    Given a relative or absolute path to a static asset, return an absolute
+    path. An absolute path will be returned unchanged while a relative path
+    will be passed to django.templatetags.static.static().
+    """
+    if path.startswith(('http://', 'https://', '/')):
+        return path
+    return static(path)
+
+
 def uniquify_sequence(sequence):
     """Uniqify sequence.
 
@@ -199,7 +211,8 @@ def uniquify_sequence(sequence):
     """
     seen = set()
     seen_add = seen.add
-    return [x for x in sequence if x not in seen and not seen_add(x)]
+    return [absolute_path(x)
+            for x in sequence if x not in seen and not seen_add(x)]
 
 
 def get_ignorable_form_values():
