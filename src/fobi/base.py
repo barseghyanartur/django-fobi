@@ -1019,7 +1019,7 @@ class BasePlugin(object):
                     field,
                     self.plugin_data.get(field, default_value)
                 )
-            except Exception as err:
+            except Exception:
                 setattr(self.data, field, default_value)
 
     def process_plugin_data(self, fetch_related_data=False):
@@ -1612,7 +1612,7 @@ class FormElementPlugin(BasePlugin):
                     has_value=has_value,
                     **kwargs
                 )
-            except AttributeError as err:
+            except AttributeError:
                 return []
 
         # This is the flexible part. We delegate implementation to the
@@ -1648,7 +1648,7 @@ class FormElementPlugin(BasePlugin):
                     form_element_entry=form_element_entry,
                     origin=origin
                 )
-            except Exception as err:
+            except Exception:
                 pass
 
     def get_origin_kwargs_update_func_results(self, kwargs_update_func,
@@ -3000,7 +3000,7 @@ def get_ignorable_form_fields(form_element_entries):
             form_element_plugin = form_element_entry.get_plugin()
             try:
                 ignorable_form_fields.append(form_element_plugin.data.name)
-            except AttributeError as err:
+            except AttributeError:
                 pass
 
     return ignorable_form_fields
