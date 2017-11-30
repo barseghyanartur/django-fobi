@@ -90,6 +90,16 @@ if 'feincms' in settings.INSTALLED_APPS:
     else:
         urlpatterns += i18n_patterns(*url_patterns_args)
 
+# Conditionally include django-summernote
+if 'django_summernote' in settings.INSTALLED_APPS:
+    url_patterns_args = [
+        url(r'^summernote/', include('django_summernote.urls')),
+    ]
+    if versions.DJANGO_LTE_1_7:
+        urlpatterns += i18n_patterns('', *url_patterns_args)
+    else:
+        urlpatterns += i18n_patterns(*url_patterns_args)
+
 # Conditionally including DjangoCMS URls in case if
 # DjangoCMS in installed apps.
 if 'cms' in settings.INSTALLED_APPS:
