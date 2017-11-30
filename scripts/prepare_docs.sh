@@ -145,6 +145,9 @@ cat README.rst \
     src/fobi/contrib/plugins/form_elements/content/content_text/README.rst \
     docs/empty.rst.distrib \
     \
+    src/fobi/contrib/plugins/form_elements/content/content_richtext/README.rst \
+    docs/empty.rst.distrib \
+    \
     src/fobi/contrib/plugins/form_elements/content/content_video/README.rst \
     docs/empty.rst.distrib \
     \

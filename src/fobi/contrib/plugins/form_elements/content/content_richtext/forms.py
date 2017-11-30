@@ -28,7 +28,7 @@ class ContentRichTextForm(forms.Form, BasePluginForm):
     ]
 
     text = forms.CharField(
-        label=_('Content'),
+        label=_('Text'),
         required=True,
         widget=SummernoteInplaceWidget(),
     )

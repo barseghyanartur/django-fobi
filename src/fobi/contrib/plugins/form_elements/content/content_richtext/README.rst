@@ -89,4 +89,5 @@ Controlling HTML tags and attributes
             'acronym': ['title'],
         }
 
-Alternatively use a ``summernote`` plugin like ``summernote-cleaner``.
+For frontend-only controll one can alternatively use
+a ``summernote`` plugin like ``summernote-cleaner``.
