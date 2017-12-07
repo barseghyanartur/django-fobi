@@ -470,7 +470,7 @@ class BasePluginModelAdmin(admin.ModelAdmin):
                 groups_action = form.cleaned_data.pop('groups_action')
                 cleaned_data = dict(
                     (key, val)
-                    for (key, val) in form.cleaned_data.iteritems()
+                    for (key, val) in form.cleaned_data.items()
                     if val is not None
                 )
 
