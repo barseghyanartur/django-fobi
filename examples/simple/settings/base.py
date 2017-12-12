@@ -266,7 +266,7 @@ INSTALLED_APPS = [
     'easy_thumbnails',  # Thumbnailer
     'registration',  # Auth views and registration app
     'captcha',
-    'django_summernote',  # WYSIWYG
+    # 'django_summernote',  # WYSIWYG
 
     # ***********************************************************************
     # ***********************************************************************
