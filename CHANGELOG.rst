@@ -17,11 +17,13 @@ are used for versioning (schema follows below):
 
 0.12.6
 ------
-2017-mm-dd (not yet released)
+2017-12-12
 
 - Clean up.
 - Minor documentation fixes.
 - Minor plugin clean-up/fixes (``captcha``, ``recaptcha``, ``content_text``).
+- Minor Python 3 fixes.
+- Minor fixes in FormWizard ``get_absolute_url`` method.
 
 0.12.5
 ------

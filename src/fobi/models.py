@@ -321,8 +321,10 @@ class FormWizardEntry(models.Model):
 
         :return string:
         """
-        return reverse('fobi.view_form_wizard_entry',
-                       kwargs={'slug': self.slug})
+        return reverse(
+            'fobi.view_form_wizard_entry',
+            kwargs={'form_wizard_entry_slug': self.slug}
+        )
 
 
 @python_2_unicode_compatible

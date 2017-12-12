@@ -8,7 +8,7 @@ from fobi.base import (
     get_registered_themes,
     get_registered_form_callbacks
 )
-from fobi.models import FormEntry
+from fobi.models import FormEntry, FormWizardEntry
 from fobi.forms import FormEntryForm
 
 from .base import print_info
@@ -117,6 +117,19 @@ class FobiCoreTest(TestCase):
         form_entry.save()
         return form_entry
 
+    def _create_form_wizard_entry(self):
+        """Create form wizard entry."""
+        user = get_or_create_admin_user()
+        self.assertTrue(user is not None)
+
+        form_wizard_entry = FormWizardEntry(
+            name=TEST_FORM_NAME,
+            slug=TEST_FORM_SLUG,
+            user=user
+        )
+        form_wizard_entry.save()
+        return form_wizard_entry
+
     @print_info
     def test_05_action_url(self):
         """Test `action` field of the URL."""
@@ -151,6 +164,26 @@ class FobiCoreTest(TestCase):
             form_entry, 'http://delusionalinsanity2.com/portfolio/'
         )
         self.assertTrue(not saved)
+
+    @print_info
+    def test_06_form_entry_get_absolute_url(self):
+        """Test ``get_absolute_url`` of the form entry."""
+        form_entry = self._create_form_entry()
+        absolute_url = form_entry.get_absolute_url()
+        self.assertTrue(
+            absolute_url,
+            '/en/fobi/view/{}/'.format(TEST_FORM_SLUG)
+        )
+
+    @print_info
+    def test_07_form_wizard_entry_get_absolute_url(self):
+        """Test ``get_absolute_url`` of the form wizard entry."""
+        form_wizard_entry = self._create_form_wizard_entry()
+        absolute_url = form_wizard_entry.get_absolute_url()
+        self.assertTrue(
+            absolute_url,
+            '/en/fobi/wizard-view/{}/'.format(TEST_FORM_SLUG)
+        )
 
 
 if __name__ == '__main__':
