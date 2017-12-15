@@ -20,12 +20,7 @@ class ContentRichTextPluginWidget(BaseContentRichTextPluginWidget):
     media_js = [
         'ckeditor/ckeditor-init.js',
         'ckeditor/ckeditor/ckeditor.js',
-        # 'bootstrap3/js/fobi.plugin.slider-bootstrap3-widget.js',
     ]
-    # media_css = [
-    #     'bootstrap3/css/bootstrap-slider.min.css',
-    #     'bootstrap3/css/fobi.plugin.slider-bootstrap3-widget.css',
-    # ]
 
 
 # Registering the widget

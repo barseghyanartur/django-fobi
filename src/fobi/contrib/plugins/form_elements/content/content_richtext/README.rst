@@ -2,38 +2,29 @@ fobi.contrib.plugins.form_elements.content.content_richtext
 -----------------------------------------------------------
 
 A ``Fobi`` Rich text form element plugin based on
-`Summernote <https://summernote.org/>`_.
+`CKEditor <https://ckeditor.com/>`_ and
+`django-ckeditor <https://github.com/django-ckeditor/django-ckeditor>`_.
 
 Installation
 ~~~~~~~~~~~~
 
-(1) Install ``django-summernote``.
+(1) Install ``django-ckeditor``.
 
     .. code-block:: sh
 
-        pip install django-summernote
+        pip install django-ckeditor
 
-(2) Add ``django_summernote`` to ``INSTALLED_APPS`` in ``settings.py``.
+(2) Add ``ckeditor`` to ``INSTALLED_APPS`` in ``settings.py``.
 
     .. code-block:: python
 
         INSTALLED_APPS = (
             ...
-            'django_summernote',
+            'ckeditor',
             ...
         )
 
-(3) Add ``django_summernote.urls`` to ``urls.py``.
-
-    .. code-block:: python
-
-        urlpatterns = [
-            ...
-            url(r'^summernote/', include('django_summernote.urls')),
-            ...
-        ]
-
-(4) Add ``fobi.contrib.plugins.form_elements.content.content_richtext`` to
+(3) Add ``fobi.contrib.plugins.form_elements.content.content_richtext`` to
     ``INSTALLED_APPS`` in ``settings.py``.
 
     .. code-block:: python
@@ -41,6 +32,17 @@ Installation
         INSTALLED_APPS = (
             ...
             'fobi.contrib.plugins.form_elements.content.content_richtext',
+            ...
+        )
+
+(4) Add ``fobi.contrib.themes.bootstrap3.widgets.form_elements.content_richtext_bootstrap3_widget`` to
+    ``INSTALLED_APPS`` in ``settings.py`` (if you're using ``bootstrap3`` theme).
+
+    .. code-block:: python
+
+        INSTALLED_APPS = (
+            ...
+            'fobi.contrib.themes.bootstrap3.widgets.form_elements.content_richtext_bootstrap3_widget',
             ...
         )
 
@@ -88,6 +90,3 @@ Controlling HTML tags and attributes
             'abbr': ['title'],
             'acronym': ['title'],
         }
-
-For frontend-only control one could alternatively use
-a ``summernote`` plugin like ``summernote-cleaner``.

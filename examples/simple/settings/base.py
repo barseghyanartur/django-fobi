@@ -479,7 +479,7 @@ CKEDITOR_CONFIGS = {
             ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent',
              'HorizontalRule', '-', 'JustifyLeft', 'JustifyCenter',
              'JustifyRight', 'JustifyBlock'],
-            ['Link', 'Unlink'],
+            ['Link', 'Unlink', 'Image'],
             ['Table',],
             ['RemoveFormat'],
         ],

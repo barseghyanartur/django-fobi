@@ -69,6 +69,15 @@ Regarding the Django REST framework integration
     + Fix representation of the content_text plugin, as now "No image provided"
       text is rendered instead of an text.
 
+Regarding the new content rich text plugin
+------------------------------------------
+.. code-block:: text
+
+    - Add correspondent Django REST Framework integration plugin for
+      the new ``content_richtext`` plugin.
+    - Add new widget for ``content_richtext`` plugin for Foundation5, Simple
+      and DjangoCMS themes.
+
 Regarding Heroku demo
 ---------------------
 .. code-block:: text
