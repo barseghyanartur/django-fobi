@@ -1,0 +1,26 @@
+.slider .slider-selection {
+    background: none;
+    background-image: none;
+}
+.slider .slider-selection.tick-slider-selection {
+    background: none;
+    background-image: none;
+}
+.slider .slider-tick.in-selection {
+    background-image: linear-gradient(to bottom, #f5f5f5 0, #c5c5c5 100%);
+}
+
+span.slider-endpoint-label-start {
+    display: inline-block;
+    clear: none;
+    max-width: 170px;
+    margin-right: 5px;
+    vertical-align: top;
+}
+span.slider-endpoint-label-end {
+    display: inline-block;
+    clear: none;
+    max-width: 170px;
+    margin-left: 5px;
+    vertical-align: top;
+}

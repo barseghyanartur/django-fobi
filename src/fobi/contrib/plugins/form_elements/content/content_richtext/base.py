@@ -21,6 +21,8 @@ __all__ = ('ContentRichTextPlugin',)
 
 
 class ContentRichTextPlugin(FormElementPlugin):
+    """Content rich text plugin."""
+
     uid = UID
     name = _('Content rich text')
     group = _('Content')
@@ -36,8 +38,11 @@ class ContentRichTextPlugin(FormElementPlugin):
             )
         )
 
-    def get_form_field_instances(self, request=None, form_entry=None,
-                                 form_element_entries=None, **kwargs):
+    def get_form_field_instances(self,
+                                 request=None,
+                                 form_entry=None,
+                                 form_element_entries=None,
+                                 **kwargs):
         field_kwargs = {
             'initial': smart_str(self.data.text),
             'required': False,

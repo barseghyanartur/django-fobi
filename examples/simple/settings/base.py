@@ -267,6 +267,8 @@ INSTALLED_APPS = [
     'registration',  # Auth views and registration app
     'captcha',
     # 'django_summernote',  # WYSIWYG
+    'ckeditor',
+    # 'ckeditor_uploader',
 
     # ***********************************************************************
     # ***********************************************************************
@@ -333,7 +335,7 @@ INSTALLED_APPS = [
     'fobi.contrib.plugins.form_elements.content.content_image',
     'fobi.contrib.plugins.form_elements.content.content_image_url',
     'fobi.contrib.plugins.form_elements.content.content_text',
-    # 'fobi.contrib.plugins.form_elements.content.content_richtext',
+    'fobi.contrib.plugins.form_elements.content.content_richtext',
     'fobi.contrib.plugins.form_elements.content.content_video',
 
     # ***********************************************************************
@@ -369,9 +371,13 @@ INSTALLED_APPS = [
     'fobi.contrib.themes.bootstrap3.widgets.form_elements.'
     'date_bootstrap3_widget',
 
-    # SliderPercentage widget
+    # Slider widget
     'fobi.contrib.themes.bootstrap3.widgets.form_elements.'
     'slider_bootstrap3_widget',
+
+    # CKEditor widget
+    'fobi.contrib.themes.bootstrap3.widgets.form_elements.'
+    'content_richtext_bootstrap3_widget',
 
     # ***********************************************************************
     # ************************ Foundation 5 theme ***************************
@@ -444,6 +450,7 @@ INSTALLED_APPS = [
     # Presentational elements
     'fobi.contrib.apps.drf_integration.form_elements.content.content_image',
     'fobi.contrib.apps.drf_integration.form_elements.content.content_image_url',
+    # 'fobi.contrib.apps.drf_integration.form_elements.content.content_richtext',
     'fobi.contrib.apps.drf_integration.form_elements.content.content_text',
     'fobi.contrib.apps.drf_integration.form_elements.content.content_video',
 
@@ -459,6 +466,23 @@ INSTALLED_APPS = [
     # Other project specific apps
     'foo',  # Test app
 ]
+
+STATIC_ROOT = PROJECT_DIR(os.path.join('..', '..', 'static'))
+CKEDITOR_UPLOAD_PATH = PROJECT_DIR(
+    os.path.join('..', '..', 'media', 'uploads')
+)
+CKEDITOR_CONFIGS = {
+    'default': {
+        'toolbar': 'Custom',
+        'toolbar_Custom': [
+            ['Bold', 'Italic', 'Underline'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', 'HorizontalRule', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
+            ['Link', 'Unlink'],
+            ['Table',],
+            ['RemoveFormat', 'Source'],
+        ]
+    }
+}
 
 if DJANGO_LTE_1_7:
     INSTALLED_APPS.append('south')

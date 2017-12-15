@@ -2,7 +2,8 @@ from django import forms
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
-from django_summernote.widgets import SummernoteInplaceWidget
+# from django_summernote.widgets import SummernoteInplaceWidget
+from ckeditor.widgets import CKEditorWidget
 
 from fobi.base import BasePluginForm, get_theme
 
@@ -23,6 +24,8 @@ theme = get_theme(request=None, as_instance=True)
 
 
 class ContentRichTextForm(forms.Form, BasePluginForm):
+    """ContentRichTextForm."""
+
     plugin_data_fields = [
         ('text', '')
     ]
@@ -30,7 +33,7 @@ class ContentRichTextForm(forms.Form, BasePluginForm):
     text = forms.CharField(
         label=_('Text'),
         required=True,
-        widget=SummernoteInplaceWidget(),
+        widget=CKEditorWidget(),
     )
 
     def clean_text(self):
