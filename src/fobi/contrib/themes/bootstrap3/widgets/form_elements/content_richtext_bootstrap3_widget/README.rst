@@ -1,13 +1,11 @@
-=============================================================================
-fobi.contrib.themes.bootstrap3.widgets.form_elements.slider_bootstrap3_widget
-=============================================================================
-A fancy slider widget to the ``slider`` plugin (for Bootstrap 3 theme). Based
-on `bootstrap-slider.js <http://seiyria.com/bootstrap-slider/>`_. See the
-`github <https://github.com/seiyria/bootstrap-slider>`_ for more.
+=======================================================================================
+fobi.contrib.themes.bootstrap3.widgets.form_elements.content_richtext_bootstrap3_widget
+=======================================================================================
+A rich-text widget to the ``content_richtext`` plugin (for Bootstrap 3 theme).
 
 Installation
 ============
-1. Add ``fobi.contrib.themes.bootstrap3.widgets.form_elements.slider_bootstrap3_widget``
+1. Add ``fobi.contrib.themes.bootstrap3.widgets.form_elements.content_richtext_bootstrap3_widget``
    to the ``INSTALLED_APPS`` in your ``settings.py``.
 
 .. code-block:: python
@@ -15,8 +13,8 @@ Installation
     INSTALLED_APPS = (
         # ...
         'fobi.contrib.themes.bootstrap3',
-        'fobi.contrib.themes.bootstrap3.widgets.form_elements.slider_bootstrap3_widget',
-        'fobi.contrib.plugins.form_elements.fields.slider',
+        'fobi.contrib.themes.bootstrap3.widgets.form_elements.content_richtext_bootstrap3_widget',
+        'fobi.contrib.plugins.form_elements.content.content_richtext',
         # ...
     )
 
