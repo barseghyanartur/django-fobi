@@ -1,7 +1,7 @@
 Question
 --------
-How to set a ``db_store`` form-handler as default form handler in django-fobi (
-in order to save all forms by default)?
+How to set a ``db_store`` form-handler as default form handler in django-fobi
+(in order to save all forms by default)?
 
 Answer
 ------

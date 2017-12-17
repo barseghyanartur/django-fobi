@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.12.7
+------
+2017-12-dd
+
+- Minor fixes (in the add form element entry bootstrap3 template).
+- Add content rich text plugin (based on CKEditor).
+
 0.12.6
 ------
 2017-12-12
