@@ -17,10 +17,12 @@ are used for versioning (schema follows below):
 
 0.12.7
 ------
-2017-12-dd
+2017-12-17
 
 - Minor fixes (in the add form element entry bootstrap3 template).
 - Add content rich text plugin (based on CKEditor).
+- Added common form callback ``AutoFormDbStore`` for auto saving the form
+  data (without need to add the db_store plugin to the form).
 
 0.12.6
 ------

@@ -18,6 +18,9 @@ from fobi.constants import (
 )
 
 from fobi.contrib.apps.drf_integration import UID as INTEGRATE_WITH
+# from fobi.contrib.plugins.form_handlers.db_store.callbacks import (
+#     AutoFormDbStore
+# )
 
 logger = logging.getLogger('fobi')
 
@@ -108,3 +111,9 @@ class DRFDummyInvalidCallback(IntegrationFormCallback):
 
 
 integration_form_callback_registry.register(DRFDummyInvalidCallback)
+
+# *************************************************************
+# **************** Auto Form DB store callback ****************
+# *************************************************************
+
+# form_callback_registry.register(AutoFormDbStore)
