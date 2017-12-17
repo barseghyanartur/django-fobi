@@ -2732,6 +2732,7 @@ they will be listed in the options action call. All content fields are of type
 
 - content_image
 - content_image_url
+- content_richtext
 - content_text
 - content_video
 
@@ -2820,6 +2821,7 @@ the core plugins:
 - fobi.contrib.plugins.form_elements.fields.url
 - fobi.contrib.plugins.form_elements.content.content_image
 - fobi.contrib.plugins.form_elements.content.content_image_url
+- fobi.contrib.plugins.form_elements.content.content_richtext
 - fobi.contrib.plugins.form_elements.content.content_text
 - fobi.contrib.plugins.form_elements.content.content_video
 - fobi.contrib.plugins.form_handlers.db_store
@@ -2859,6 +2861,7 @@ in the ``INSTALLED_APPS`` as well:
 - fobi.contrib.apps.drf_integration.form_elements.fields.url
 - fobi.contrib.apps.drf_integration.form_elements.content.content_image
 - fobi.contrib.apps.drf_integration.form_elements.content.content_image_url
+- fobi.contrib.apps.drf_integration.form_elements.content.content_richtext
 - fobi.contrib.apps.drf_integration.form_elements.content.content_text
 - fobi.contrib.apps.drf_integration.form_elements.content.content_video
 - fobi.contrib.apps.drf_integration.form_handlers.db_store
@@ -2925,6 +2928,7 @@ See the `example settings file
         # DRF integration form element plugins - presentational
         'fobi.contrib.apps.drf_integration.form_elements.content.content_image',
         'fobi.contrib.apps.drf_integration.form_elements.content.content_image_url',
+        'fobi.contrib.apps.drf_integration.form_elements.content.content_richtext',
         'fobi.contrib.apps.drf_integration.form_elements.content.content_text',
         'fobi.contrib.apps.drf_integration.form_elements.content.content_video',
 
@@ -3403,6 +3407,71 @@ it will be listed in the options action call.
 - ``content`` (str): Representation of the content. Rendered partial HTML.
 - ``raw`` (json dict): Raw attributes of the ``ContentImageURL`` plugin.
   Contains "url", "alt", "fit_method" and "size" attributes.
+
+
+fobi.contrib.apps.drf_integration.form_elements.content.content_richtext
+########################################################################
+A ``django-fobi`` ContentRichText plugin for integration with
+``Django REST framework``. Makes use of the
+``fobi.contrib.apps.drf_integration.fields.ContentRichText``.
+
+Installation
+^^^^^^^^^^^^
+(1) Add ``fobi.contrib.apps.drf_integration.form_elements.content.content_richtext``
+    to the ``INSTALLED_APPS`` in your ``settings.py``.
+
+    .. code-block:: python
+
+        INSTALLED_APPS = (
+            # ...
+            'fobi.contrib.apps.drf_integration.form_elements.content.content_richtext',
+            # ...
+        )
+
+(2) In the terminal type:
+
+    .. code-block:: sh
+
+        ./manage.py fobi_sync_plugins
+
+(3) Assign appropriate permissions to the target users/groups to be using
+    the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+
+Usage
+^^^^^
+Unlike standard fields, ``ContentText`` field is purely presentational.
+You're not supposed to make write actions on it (it won't work). Neither
+will it be displayed in the browsable API (list/retrieve actions). However,
+it will be listed in the options action call.
+
+**Sample JSON response fragment**
+
+.. code-block:: javascript
+
+    "actions": {
+        "PUT": {
+            // ...
+            "content_text_89c8c319-195b-487a-a44d-f59ef14a5d44": {
+                "type": "content",
+                "required": false,
+                "read_only": true,
+                "contenttype": "text",
+                "content": "\n<p>\n\nLorem ipsum dolor sit amet.\n\n\n</p>\n",
+                "raw": {
+                    "text": "Lorem ipsum dolor sit amet."
+                }
+            },
+            // ...
+        }
+    }
+
+**JSON response fragment explained**
+
+- ``type`` (str): Set to "content" for all presentational form elements.
+- ``contenttype`` (str): Set to "text" for ``ContentText`` field.
+- ``content`` (str): Representation of the content. Rendered partial HTML.
+- ``raw`` (json dict): Raw attributes of the ``ContentText`` plugin. Contains
+  "text" attribute.
 
 
 fobi.contrib.apps.drf_integration.form_elements.content.content_text
