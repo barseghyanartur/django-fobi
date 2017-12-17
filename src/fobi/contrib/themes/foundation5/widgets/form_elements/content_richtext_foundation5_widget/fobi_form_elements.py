@@ -17,10 +17,6 @@ class ContentRichTextPluginWidget(BaseContentRichTextPluginWidget):
     """Content rich-text plugin widget for Foundation 5."""
 
     theme_uid = UID
-    media_js = [
-        'ckeditor/ckeditor-init.js',
-        'ckeditor/ckeditor/ckeditor.js',
-    ]
 
 
 # Registering the widget

@@ -10,12 +10,16 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'BaseSliderPluginWidget',
+    'BaseContentRichTextPluginWidget',
 )
 
 
 class BaseContentRichTextPluginWidget(FormElementPluginWidget):
-    """Base date form element plugin widget."""
+    """Base content rich text form element plugin widget."""
 
     plugin_uid = UID
     html_classes = ['content-richtext']
+    media_js = [
+        'ckeditor/ckeditor-init.js',
+        'ckeditor/ckeditor/ckeditor.js',
+    ]

@@ -37,6 +37,8 @@ Installation
 
 (4) Add ``fobi.contrib.themes.bootstrap3.widgets.form_elements.content_richtext_bootstrap3_widget`` to
     ``INSTALLED_APPS`` in ``settings.py`` (if you're using ``bootstrap3`` theme).
+    If you're using another theme, add correspondent widget specific to the
+    active theme.
 
     .. code-block:: python
 
