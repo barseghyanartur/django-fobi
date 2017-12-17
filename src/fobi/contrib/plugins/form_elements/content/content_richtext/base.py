@@ -38,6 +38,11 @@ class ContentRichTextPlugin(FormElementPlugin):
             )
         )
 
+    def get_rendered_text(self):
+        """Get rendered text."""
+        rendered_text = "<div>{0}</div>".format(smart_str(self.data.text))
+        return rendered_text
+
     def get_form_field_instances(self,
                                  request=None,
                                  form_entry=None,

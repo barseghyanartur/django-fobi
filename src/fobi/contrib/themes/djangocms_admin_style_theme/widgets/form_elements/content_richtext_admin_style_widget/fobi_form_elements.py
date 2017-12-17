@@ -6,8 +6,7 @@ from fobi.contrib.plugins.form_elements.content.content_richtext.widgets \
 from fobi.contrib.themes.simple import UID
 
 __title__ = 'fobi.contrib.themes.djangocms_admin_style_theme.widgets.' \
-            'form_elements.' \
-            'content_richtext_djangocms_admin_style_theme_widget.' \
+            'form_elements.content_richtext_admin_style_widget.' \
             'fobi_form_elements'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2017 Artur Barseghyan'
