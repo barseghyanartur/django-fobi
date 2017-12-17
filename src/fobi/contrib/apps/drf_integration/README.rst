@@ -29,6 +29,7 @@ they will be listed in the options action call. All content fields are of type
 
 - content_image
 - content_image_url
+- content_richtext
 - content_text
 - content_video
 
