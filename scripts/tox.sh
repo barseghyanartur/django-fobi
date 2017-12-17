@@ -1,1 +1,2 @@
-xvfb-run python toxtests.py
+#!/usr/bin/env bash
+xvfb-run python toxtests.py "$@"
