@@ -2301,6 +2301,12 @@ Set up headless Firefox
 
         ./scripts/tox.sh
 
+   Or run specific tox tests using headless Firefox.
+
+   .. code-block:: sh
+
+        ./scripts/tox.sh -e py36-django111
+
 Setup PhantomJS
 ~~~~~~~~~~~~~~~
 You could also run tests in headless mode (faster). For that you will need
