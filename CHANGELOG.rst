@@ -17,7 +17,7 @@ are used for versioning (schema follows below):
 
 0.12.8
 ------
-2017-12-dd
+2017-12-19
 
 - Added common form callback ``AutoFormMail`` for auto mailing the form
   data (without need to add the mail plugin to the form).
