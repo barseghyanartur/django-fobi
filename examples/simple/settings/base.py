@@ -623,6 +623,11 @@ FOBI_CUSTOM_THEME_DATA = {
 
 FOBI_THEME_FOOTER_TEXT = gettext('&copy; django-fobi example site 2014-2015')
 
+FOBI_PLUGIN_MAIL_AUTO_MAIL_TO = ['to@example.info']
+FOBI_PLUGIN_MAIL_AUTO_MAIL_SUBJECT = 'Automatic email'
+FOBI_PLUGIN_MAIL_AUTO_MAIL_BODY = 'Automatic email'
+FOBI_PLUGIN_MAIL_AUTO_MAIL_FROM = 'from@example.com'
+
 # django-admin-tools custom dashboard
 ADMIN_TOOLS_INDEX_DASHBOARD = 'admin_tools_dashboard.CustomIndexDashboard'
 ADMIN_TOOLS_APP_INDEX_DASHBOARD = \
