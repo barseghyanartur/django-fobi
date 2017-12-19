@@ -122,8 +122,7 @@ Some screenshots
 ================
 See the documentation for some screen shots:
 
-- `PythonHosted <http://pythonhosted.org/django-fobi/#screenshots>`_
-- `ReadTheDocs <http://django-fobi.readthedocs.org/en/latest/#screenshots>`_
+- `ReadTheDocs <http://django-fobi.readthedocs.org/#screenshots>`_
 
 Demo
 ====
