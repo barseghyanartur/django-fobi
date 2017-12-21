@@ -48,9 +48,18 @@ url_patterns_args = [
         include('fobi.urls.edit')),
 
     url(r'^admin_tools/', include('admin_tools.urls')),
+]
 
-    url(r'^admin/', include(admin.site.urls)),
+if versions.DJANGO_GTE_2_0:
+    url_patterns_args += [
+        url(r'^admin/', admin.site.urls),
+    ]
+else:
+    url_patterns_args += [
+        url(r'^admin/', include(admin.site.urls)),
+    ]
 
+url_patterns_args += [
     # django-registration URLs:
     url(r'^accounts/', include('registration.backends.simple.urls')),
 
@@ -120,9 +129,14 @@ if 'cms' in settings.INSTALLED_APPS:
 # Conditionally including Django REST framework integration app
 if 'fobi.contrib.apps.drf_integration' in settings.INSTALLED_APPS:
     from fobi.contrib.apps.drf_integration.urls import fobi_router
-    urlpatterns += [
-        url(r'^api/', include(fobi_router.urls))
-    ]
+    if versions.DJANGO_GTE_2_0:
+        urlpatterns += [
+            url(r'^api/', include(fobi_router.urls))
+        ]
+    else:
+        urlpatterns += [
+            url(r'^api/', include(fobi_router.urls))
+        ]
 
 # Conditionally including Captcha URls in case if
 # Captcha in installed apps.
@@ -141,6 +155,12 @@ if getattr(settings, 'ENABLE_CAPTCHA', False):
 
 if getattr(settings, 'DEBUG', False) and getattr(settings, 'DEBUG_TOOLBAR', False):
     import debug_toolbar
-    urlpatterns = [
-        url(r'^__debug__/', include(debug_toolbar.urls)),
-    ] + urlpatterns
+
+    if versions.DJANGO_GTE_2_0:
+        urlpatterns = [
+            url(r'^__debug__/', debug_toolbar.urls),
+        ] + urlpatterns
+    else:
+        urlpatterns = [
+            url(r'^__debug__/', include(debug_toolbar.urls)),
+        ] + urlpatterns

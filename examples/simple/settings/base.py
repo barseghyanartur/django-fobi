@@ -152,7 +152,7 @@ if DJANGO_GTE_1_10:
                 'loaders': [
                     'django.template.loaders.filesystem.Loader',
                     'django.template.loaders.app_directories.Loader',
-                    'django.template.loaders.eggs.Loader',
+                    # 'django.template.loaders.eggs.Loader',
                     'admin_tools.template_loaders.Loader',
                 ],
                 'debug': DEBUG_TEMPLATE,

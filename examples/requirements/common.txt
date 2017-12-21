@@ -8,6 +8,7 @@ docopt==0.4.0
 docutils==0.12
 Jinja2==2.8
 mailchimp==2.0.9
+markdown
 MarkupSafe==0.23
 #MySQL-python
 ordereddict==1.1
