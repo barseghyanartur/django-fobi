@@ -70,7 +70,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('name', models.CharField(max_length=255, verbose_name='Name')),
                 ('is_repeatable', models.BooleanField(default=False, help_text='Makes your form fieldset repeatable.', verbose_name='Is repeatable?')),
-                ('form_entry', models.ForeignKey(verbose_name='Form', blank=True, to='fobi.FormEntry', null=True)),
+                ('form_entry', models.ForeignKey(verbose_name='Form', blank=True, to='fobi.FormEntry', null=True, on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'Form fieldset entry',
@@ -97,7 +97,7 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('plugin_data', models.TextField(null=True, verbose_name='Plugin data', blank=True)),
                 ('plugin_uid', models.CharField(max_length=255, verbose_name='Plugin name', choices=[(b'db_store', b'DB store'), (b'mail', b'Mail'), (b'http_repost', b'HTTP Repost')])),
-                ('form_entry', models.ForeignKey(verbose_name='Form', to='fobi.FormEntry')),
+                ('form_entry', models.ForeignKey(verbose_name='Form', to='fobi.FormEntry', on_delete=models.CASCADE)),
             ],
             options={
                 'abstract': False,
@@ -113,7 +113,7 @@ class Migration(migrations.Migration):
                 ('slug', autoslug.fields.AutoSlugField(verbose_name='Slug', unique=True, editable=False)),
                 ('is_public', models.BooleanField(default=False, help_text='Makes your form wizard visible to the public.', verbose_name='Is public?')),
                 ('is_cloneable', models.BooleanField(default=False, help_text='Makes your form wizard cloneable by other users.', verbose_name='Is cloneable?')),
-                ('user', models.ForeignKey(verbose_name='User', to=settings.AUTH_USER_MODEL)),
+                ('user', models.ForeignKey(verbose_name='User', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE)),
             ],
             options={
                 'verbose_name': 'Form wizard entry',
@@ -123,22 +123,22 @@ class Migration(migrations.Migration):
         migrations.AddField(
             model_name='formentry',
             name='form_wizard_entry',
-            field=models.ForeignKey(verbose_name='Form wizard', blank=True, to='fobi.FormWizardEntry', null=True),
+            field=models.ForeignKey(verbose_name='Form wizard', blank=True, to='fobi.FormWizardEntry', null=True, on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='formentry',
             name='user',
-            field=models.ForeignKey(verbose_name='User', to=settings.AUTH_USER_MODEL),
+            field=models.ForeignKey(verbose_name='User', to=settings.AUTH_USER_MODEL, on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='formelemententry',
             name='form_entry',
-            field=models.ForeignKey(verbose_name='Form', to='fobi.FormEntry'),
+            field=models.ForeignKey(verbose_name='Form', to='fobi.FormEntry', on_delete=models.CASCADE),
         ),
         migrations.AddField(
             model_name='formelemententry',
             name='form_fieldset_entry',
-            field=models.ForeignKey(verbose_name='Form fieldset', blank=True, to='fobi.FormFieldsetEntry', null=True),
+            field=models.ForeignKey(verbose_name='Form fieldset', blank=True, to='fobi.FormFieldsetEntry', null=True, on_delete=models.CASCADE),
         ),
         migrations.AlterUniqueTogether(
             name='formwizardentry',

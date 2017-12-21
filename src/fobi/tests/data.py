@@ -3,7 +3,7 @@ from collections import OrderedDict
 import datetime
 # from decimal import Decimal
 
-from django.utils.text import force_text
+from django.utils.encoding import force_text
 
 from faker import Faker
 

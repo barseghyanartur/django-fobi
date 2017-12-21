@@ -31,15 +31,23 @@ AUTH_USER_MODEL = settings.AUTH_USER_MODEL
 class AbstractSavedFormDataEntry(models.Model):
     """Abstract saved form data entry."""
 
-    user = models.ForeignKey(AUTH_USER_MODEL, verbose_name=_("User"),
-                             null=True, blank=True)
-    form_data_headers = models.TextField(_("Form data headers"), null=True,
-                                         blank=True)
+    user = models.ForeignKey(
+        AUTH_USER_MODEL,
+        verbose_name=_("User"),
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE
+    )
+    form_data_headers = models.TextField(
+        _("Form data headers"),
+        null=True,
+        blank=True
+    )
     saved_data = models.TextField(_("Plugin data"), null=True, blank=True)
     created = models.DateTimeField(_("Date created"), auto_now_add=True)
 
     class Meta(object):
-        """Meta class."""
+        """Meta options."""
 
         abstract = True
 
@@ -72,11 +80,16 @@ class AbstractSavedFormDataEntry(models.Model):
 class SavedFormDataEntry(AbstractSavedFormDataEntry):
     """Saved form data."""
 
-    form_entry = models.ForeignKey('fobi.FormEntry', verbose_name=_("Form"),
-                                   null=True, blank=True)
+    form_entry = models.ForeignKey(
+        'fobi.FormEntry',
+        verbose_name=_("Form"),
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE
+    )
 
     class Meta(object):
-        """Meta class."""
+        """Meta options."""
 
         abstract = False
         verbose_name = _("Saved form data entry")
@@ -92,11 +105,15 @@ class SavedFormWizardDataEntry(AbstractSavedFormDataEntry):
     """Saved form data."""
 
     form_wizard_entry = models.ForeignKey(
-        'fobi.FormWizardEntry', verbose_name=_("Form"), null=True, blank=True
+        'fobi.FormWizardEntry',
+        verbose_name=_("Form"),
+        null=True,
+        blank=True,
+        on_delete=models.CASCADE
     )
 
     class Meta(object):
-        """Meta class."""
+        """Meta options."""
 
         abstract = False
         verbose_name = _("Saved form wizard data entry")
