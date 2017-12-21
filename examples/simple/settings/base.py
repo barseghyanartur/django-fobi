@@ -266,8 +266,8 @@ INSTALLED_APPS = [
     'easy_thumbnails',  # Thumbnailer
     'registration',  # Auth views and registration app
     'captcha',
-    # 'django_summernote',  # WYSIWYG
     'ckeditor',
+    'fobi.reusable.markdown_widget',
     # 'ckeditor_uploader',
 
     # ***********************************************************************
@@ -334,6 +334,7 @@ INSTALLED_APPS = [
     # ***********************************************************************
     'fobi.contrib.plugins.form_elements.content.content_image',
     'fobi.contrib.plugins.form_elements.content.content_image_url',
+    'fobi.contrib.plugins.form_elements.content.content_markdown',
     'fobi.contrib.plugins.form_elements.content.content_text',
     'fobi.contrib.plugins.form_elements.content.content_richtext',
     'fobi.contrib.plugins.form_elements.content.content_video',
@@ -378,6 +379,10 @@ INSTALLED_APPS = [
     # CKEditor widget
     'fobi.contrib.themes.bootstrap3.widgets.form_elements.'
     'content_richtext_bootstrap3_widget',
+
+    # # Markdown
+    # 'fobi.contrib.themes.bootstrap3.widgets.form_elements.'
+    # 'content_markdown_bootstrap3_widget',
 
     # ***********************************************************************
     # ************************ Foundation 5 theme ***************************
@@ -450,6 +455,7 @@ INSTALLED_APPS = [
     # Presentational elements
     'fobi.contrib.apps.drf_integration.form_elements.content.content_image',
     'fobi.contrib.apps.drf_integration.form_elements.content.content_image_url',
+    'fobi.contrib.apps.drf_integration.form_elements.content.content_markdown',
     'fobi.contrib.apps.drf_integration.form_elements.content.content_richtext',
     'fobi.contrib.apps.drf_integration.form_elements.content.content_text',
     'fobi.contrib.apps.drf_integration.form_elements.content.content_video',

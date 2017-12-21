@@ -19,8 +19,9 @@ __copyright__ = '2016-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'ContentImageField',
+    'ContentMarkdownField',
+    'ContentRichTextField',
     'ContentTextField',
-    'ContentRichTextField'
     'ContentVideoField',
     'ModelChoiceField',
     'ModelMultipleChoiceField',
@@ -143,6 +144,10 @@ class ContentTextField(NoneField):
 
 class ContentRichTextField(NoneField):
     """Content rich text field."""
+
+
+class ContentMarkdownField(NoneField):
+    """Content markdown field."""
 
 
 class ContentImageField(NoneField):

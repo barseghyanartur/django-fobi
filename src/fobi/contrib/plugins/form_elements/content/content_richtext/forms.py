@@ -2,7 +2,6 @@ from django import forms
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
-# from django_summernote.widgets import SummernoteInplaceWidget
 from ckeditor.widgets import CKEditorWidget
 
 from fobi.base import BasePluginForm, get_theme

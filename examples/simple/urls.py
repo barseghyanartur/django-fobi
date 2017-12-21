@@ -90,15 +90,12 @@ if 'feincms' in settings.INSTALLED_APPS:
     else:
         urlpatterns += i18n_patterns(*url_patterns_args)
 
-# Conditionally include django-summernote
-if 'django_summernote' in settings.INSTALLED_APPS:
-    url_patterns_args = [
-        url(r'^summernote/', include('django_summernote.urls')),
-    ]
-    if versions.DJANGO_LTE_1_7:
-        urlpatterns += i18n_patterns('', *url_patterns_args)
-    else:
-        urlpatterns += i18n_patterns(*url_patterns_args)
+# # Conditionally include django-markdownx
+# if 'markdownx' in settings.INSTALLED_APPS:
+#     url_patterns_args = [
+#         url(r'^markdownx/', include('markdownx.urls')),
+#     ]
+#     urlpatterns += list(url_patterns_args)
 
 if 'ckeditor_uploader' in settings.INSTALLED_APPS:
     url_patterns_args = [
