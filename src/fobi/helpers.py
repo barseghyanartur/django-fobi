@@ -577,7 +577,11 @@ class StrippedUser(object):
         :return:
         """
         self._user = user
-        if not self._user.is_anonymous():
+        if DJANGO_GTE_1_10:
+            user_is_anonymous = self._user.is_anonymous
+        else:
+            user_is_anonymous = self._user.is_anonymous()
+        if not user_is_anonymous:
             setattr(self._user, User.USERNAME_FIELD, self._user.get_username())
         else:
             setattr(self._user, User.USERNAME_FIELD, None)
@@ -589,7 +593,11 @@ class StrippedUser(object):
 
     def get_username(self):
         """Get username."""
-        if not self._user.is_anonymous():
+        if DJANGO_GTE_1_10:
+            user_is_anonymous = self._user.is_anonymous
+        else:
+            user_is_anonymous = self._user.is_anonymous()
+        if not user_is_anonymous:
             try:
                 return self._user.get_username()
             except Exception as err:
@@ -597,7 +605,11 @@ class StrippedUser(object):
 
     def get_full_name(self):
         """Get full name."""
-        if not self._user.is_anonymous():
+        if DJANGO_GTE_1_10:
+            user_is_anonymous = self._user.is_anonymous
+        else:
+            user_is_anonymous = self._user.is_anonymous()
+        if not user_is_anonymous:
             try:
                 return self._user.get_full_name()
             except Exception as err:
@@ -605,7 +617,11 @@ class StrippedUser(object):
 
     def get_short_name(self):
         """Get short name."""
-        if not self._user.is_anonymous():
+        if DJANGO_GTE_1_10:
+            user_is_anonymous = self._user.is_anonymous
+        else:
+            user_is_anonymous = self._user.is_anonymous()
+        if not user_is_anonymous():
             try:
                 return self._user.get_full_name()
             except Exception as err:
@@ -613,7 +629,10 @@ class StrippedUser(object):
 
     def is_anonymous(self):
         """Is anonymous."""
-        return self._user.is_anonymous()
+        if DJANGO_GTE_1_10:
+            return self._user.is_anonymous
+        else:
+            return self._user.is_anonymous()
 
 
 class StrippedRequest(object):
