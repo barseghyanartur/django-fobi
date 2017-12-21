@@ -2196,7 +2196,7 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
         user_is_authenticated = request.user.is_authenticated()
     try:
         kwargs = {'slug': form_entry_slug}
-        if not user.is_authenticated:
+        if not user_is_authenticated:
             kwargs.update({'is_public': True})
         form_entry = FormEntry._default_manager.select_related('user') \
                               .get(**kwargs)
