@@ -1863,6 +1863,9 @@ complete and content rich.
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_richtext/>`_:
   Add rich text (based on `django-ckeditor <https://github.com/django-ckeditor/django-ckeditor>`_
   package).
+- `Content markdown
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_markdown/>`_:
+  Add markdown text.
 - `Content video
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_video/>`_:
   Add an embed YouTube or Vimeo video.

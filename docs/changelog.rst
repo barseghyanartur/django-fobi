@@ -15,6 +15,12 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.12.9
+------
+2017-12-21
+
+- Added content markdown plugin.
+
 0.12.8
 ------
 2017-12-19
