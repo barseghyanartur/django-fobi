@@ -16,8 +16,8 @@ from fobi.contrib.plugins.form_elements.content \
 
 from fobi.contrib.plugins.form_elements.fields \
          .boolean.fobi_form_elements import BooleanSelectPlugin
-# from fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple \
-#          .fobi_form_elements import CheckboxSelectMultipleInputPlugin
+from fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple \
+         .fobi_form_elements import CheckboxSelectMultipleInputPlugin
 from fobi.contrib.plugins.form_elements.fields \
          .date.fobi_form_elements import DateInputPlugin
 # from fobi.contrib.plugins.form_elements.fields \
@@ -48,6 +48,9 @@ from fobi.contrib.plugins.form_elements.fields.select_model_object \
          .fobi_form_elements import SelectModelObjectInputPlugin
 from fobi.contrib.plugins.form_elements.fields \
          .select_multiple.fobi_form_elements import SelectMultipleInputPlugin
+from fobi.contrib.plugins.form_elements.fields \
+         .select_multiple_with_max.fobi_form_elements \
+    import SelectMultipleWithMaxInputPlugin
 from fobi.contrib.plugins.form_elements.fields.slug \
          .fobi_form_elements import SlugInputPlugin
 from fobi.contrib.plugins.form_elements.fields \
@@ -191,7 +194,23 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
         'required': False,
     },
 
-    # Add a "Select multiple" (select multiple input) form element
+    # Add a "Select multiple with max" (select multiple with max input) form
+    # element
+    force_text(SelectMultipleWithMaxInputPlugin.name): {
+        'label': "Test select multiple with max input",
+        'help_text': "Lorem ipsum select multiple with max input",
+        'required': False,
+    },
+
+    # Add a "Checkbox select multiple" (checkbox select multiple input) form
+    # element
+    force_text(CheckboxSelectMultipleInputPlugin.name): {
+        'label': "Test checkbox select multiple input",
+        'help_text': "Lorem ipsum checkbox select multiple input",
+        'required': False,
+    },
+
+    # Add a "Slug" (slug input) form element
     force_text(SlugInputPlugin.name): {
         'label': "Test slug input",
         'help_text': "Lorem ipsum select multiple input",
