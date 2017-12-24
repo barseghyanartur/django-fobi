@@ -17,9 +17,11 @@ are used for versioning (schema follows below):
 
 0.12.10
 -------
-2017-12-dd
+2017-12-24
 
 - Django 2.0 support (experimental).
+- (Temporary) replace ``django-autoslug`` package with
+  ``django-autoslug-iplweb``, which works fine for Django versions >=1.8,<=2.0.
 
 0.12.9
 ------
