@@ -15,6 +15,14 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.12.10
+-------
+2017-12-24
+
+- Django 2.0 support (experimental).
+- (Temporary) replace ``django-autoslug`` package with
+  ``django-autoslug-iplweb``, which works fine for Django versions >=1.8,<=2.0.
+
 0.12.9
 ------
 2017-12-21
@@ -314,7 +322,7 @@ versions it will be wiped out.
 ------
 2016-11-05
 
-Announcing dropping support of Django 1.5 and 1.6. As of 0.9.17 everything is
+Announcing dropping support of Django 1.5 and 1.6. As of 0.9.13 everything is
 still backwards compatible with versions 1.5 and 1.6, but in future versions
 compatibility with these versions will be wiped out.
 
