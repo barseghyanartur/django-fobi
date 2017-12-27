@@ -36,6 +36,14 @@ fobi.contrib.plugins.form_handlers.db_store.base module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_handlers.db_store.callbacks module
+------------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_handlers.db_store.callbacks
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_handlers.db_store.conf module
 -------------------------------------------------------
 

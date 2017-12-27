@@ -20,6 +20,14 @@ fobi.contrib.plugins.form_handlers.mail.base module
     :undoc-members:
     :show-inheritance:
 
+fobi.contrib.plugins.form_handlers.mail.callbacks module
+--------------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_handlers.mail.callbacks
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.contrib.plugins.form_handlers.mail.conf module
 ---------------------------------------------------
 
@@ -64,6 +72,14 @@ fobi.contrib.plugins.form_handlers.mail.helpers module
 ------------------------------------------------------
 
 .. automodule:: fobi.contrib.plugins.form_handlers.mail.helpers
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+fobi.contrib.plugins.form_handlers.mail.mixins module
+-----------------------------------------------------
+
+.. automodule:: fobi.contrib.plugins.form_handlers.mail.mixins
     :members:
     :undoc-members:
     :show-inheritance:

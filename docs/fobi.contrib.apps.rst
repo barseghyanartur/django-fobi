@@ -10,7 +10,7 @@ Subpackages
     fobi.contrib.apps.drf_integration
     fobi.contrib.apps.feincms_integration
     fobi.contrib.apps.mezzanine_integration
-    fobi.contrib.apps.wagtail_integration_
+    fobi.contrib.apps.wagtail_integration
 
 Module contents
 ---------------

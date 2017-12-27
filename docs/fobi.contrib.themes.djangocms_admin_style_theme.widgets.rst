@@ -6,6 +6,7 @@ Subpackages
 
 .. toctree::
 
+    fobi.contrib.themes.djangocms_admin_style_theme.widgets.form_elements
     fobi.contrib.themes.djangocms_admin_style_theme.widgets.form_handlers
 
 Module contents

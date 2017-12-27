@@ -8,6 +8,8 @@ Subpackages
 
     fobi.contrib.plugins.form_elements.content.content_image
     fobi.contrib.plugins.form_elements.content.content_image_url
+    fobi.contrib.plugins.form_elements.content.content_markdown
+    fobi.contrib.plugins.form_elements.content.content_richtext
     fobi.contrib.plugins.form_elements.content.content_text
     fobi.contrib.plugins.form_elements.content.content_video
 

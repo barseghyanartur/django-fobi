@@ -12,6 +12,7 @@ Subpackages
     fobi.contrib.apps.drf_integration.form_elements.fields.date_drop_down
     fobi.contrib.apps.drf_integration.form_elements.fields.datetime
     fobi.contrib.apps.drf_integration.form_elements.fields.decimal
+    fobi.contrib.apps.drf_integration.form_elements.fields.duration
     fobi.contrib.apps.drf_integration.form_elements.fields.email
     fobi.contrib.apps.drf_integration.form_elements.fields.file
     fobi.contrib.apps.drf_integration.form_elements.fields.float
