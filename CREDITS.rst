@@ -39,3 +39,8 @@ Thanks to the following people for their contributions:
 - `Grzegorz Bialy
   <https://github.com/barseghyanartur/django-fobi/commits?author=grzegorzbialy>`_
   for number of bug reports and minor Python3 fixes.
+- `Frantisek Holop
+  <https://github.com/barseghyanartur/django-fobi/commits?author=minusf>`_
+  for (minor, still very accurate) fixes/clean-up in documentation/code and
+  his contributions the content rich-text plugin (some if which he did
+  working for RIPE NCC).

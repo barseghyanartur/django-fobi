@@ -1,10 +1,11 @@
 from __future__ import absolute_import
 
-import simplejson as json
-
+from django.apps import apps
 from django.forms.models import ModelMultipleChoiceField
 from django.forms.widgets import SelectMultiple
 from django.utils.translation import ugettext_lazy as _
+
+import simplejson as json
 
 from fobi.base import FormFieldPlugin, get_theme
 from fobi.constants import (
@@ -14,20 +15,12 @@ from fobi.constants import (
 from fobi.helpers import (
     safe_text,
     get_app_label_and_model_name,
-    get_model_name_for_object
+    get_model_name_for_object,
 )
-
-from nine.versions import DJANGO_GTE_1_7
 
 from . import UID
 from .forms import SelectMultipleModelObjectsInputForm
 from .settings import SUBMIT_VALUE_AS
-
-if DJANGO_GTE_1_7:
-    from django.apps import apps
-    get_model = apps.get_model
-else:
-    from django.db.models import get_model
 
 __title__ = 'fobi.contrib.plugins.form_elements.fields.' \
             'select_multiple_model_objects.fobi_form_elements'
@@ -53,7 +46,7 @@ class SelectMultipleModelObjectsInputPlugin(FormFieldPlugin):
         Might be used in integration packages.
         """
         app_label, model_name = get_app_label_and_model_name(self.data.model)
-        model = get_model(app_label, model_name)
+        model = apps.get_model(app_label, model_name)
         queryset = model._default_manager.all()
         return queryset
 

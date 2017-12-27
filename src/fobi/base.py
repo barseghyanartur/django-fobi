@@ -9,22 +9,20 @@ import traceback
 import uuid
 
 
-from collections import (
-    defaultdict,
-    # OrderedDict,
-)
+from collections import defaultdict
 
 import simplejson as json
 
-from six import with_metaclass, string_types
-
 from django import forms
 from django.forms import ModelForm
+from django.forms.utils import ErrorList
 from django.http import Http404
 from django.utils.translation import ugettext_lazy as _
 from django.template import RequestContext, Template
 
-from nine.versions import DJANGO_GTE_1_7
+from nine.versions import DJANGO_GTE_1_8
+
+from six import with_metaclass, string_types
 
 from .constants import CALLBACK_STAGES
 from .data_structures import SortableDict
@@ -64,11 +62,6 @@ from .settings import (
     THEME_FOOTER_TEXT,
     # FAIL_ON_ERRORS_IN_FORM_ELEMENT_PLUGINS,
 )
-
-if DJANGO_GTE_1_7:
-    from django.forms.utils import ErrorList
-else:
-    from django.forms.util import ErrorList
 
 __title__ = 'fobi.base'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -638,11 +631,7 @@ class BaseTheme(object):
 
         :return list:
         """
-        media_css = self.media_css[:]
-        if self.plugin_media_css:
-            media_css += self.plugin_media_css
-
-        media_css = uniquify_sequence(media_css)
+        media_css = uniquify_sequence(self.media_css + self.plugin_media_css)
 
         return media_css
 
@@ -651,11 +640,7 @@ class BaseTheme(object):
 
         :return list:
         """
-        media_js = self.media_js[:]
-        if self.plugin_media_js:
-            media_js += self.plugin_media_js
-
-        media_js = uniquify_sequence(media_js)
+        media_js = uniquify_sequence(self.media_js + self.plugin_media_js)
 
         return media_js
 
@@ -813,7 +798,7 @@ class BaseFormFieldPluginForm(BasePluginForm):
 
         return True
 
-    if not DJANGO_GTE_1_7:
+    if not DJANGO_GTE_1_8:
         def add_error(self, field, error):
             """Backwards compatibility hack."""
             raise forms.ValidationError(error, 'invalid')
@@ -1027,7 +1012,7 @@ class BasePlugin(object):
                     field,
                     self.plugin_data.get(field, default_value)
                 )
-            except Exception as err:
+            except Exception:
                 setattr(self.data, field, default_value)
 
     def process_plugin_data(self, fetch_related_data=False):
@@ -1620,7 +1605,7 @@ class FormElementPlugin(BasePlugin):
                     has_value=has_value,
                     **kwargs
                 )
-            except AttributeError as err:
+            except AttributeError:
                 return []
 
         # This is the flexible part. We delegate implementation to the
@@ -1656,7 +1641,7 @@ class FormElementPlugin(BasePlugin):
                     form_element_entry=form_element_entry,
                     origin=origin
                 )
-            except Exception as err:
+            except Exception:
                 pass
 
     def get_origin_kwargs_update_func_results(self, kwargs_update_func,
@@ -3008,7 +2993,7 @@ def get_ignorable_form_fields(form_element_entries):
             form_element_plugin = form_element_entry.get_plugin()
             try:
                 ignorable_form_fields.append(form_element_plugin.data.name)
-            except AttributeError as err:
+            except AttributeError:
                 pass
 
     return ignorable_form_fields

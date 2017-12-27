@@ -35,37 +35,37 @@ class InputPlugin(FormFieldPlugin):
             'type': self.data.type_value,
         }
 
-        if self.data.autocomplete_value:
+        if self.data.autocomplete_value is not None:
             widget_attrs.update({'autocomplete': 'on'})
 
-        if self.data.autofocus_value:
+        if self.data.autofocus_value is not None:
             widget_attrs.update({'autofocus': 'autofocus'})
 
-        if self.data.disabled_value:
+        if self.data.disabled_value is not None:
             widget_attrs.update({'disabled': 'disabled'})
 
         # if self.data.formnovalidate_value:
         #     widget_attrs.update({'formnovalidate': 'formnovalidate'})
 
-        if self.data.list_value:
+        if self.data.list_value is not None:
             widget_attrs.update({'list': self.data.list_value})
 
-        if self.data.max_value:
+        if self.data.max_value is not None:
             widget_attrs.update({'max': self.data.max_value})
 
-        if self.data.min_value:
+        if self.data.min_value is not None:
             widget_attrs.update({'min': self.data.min_value})
 
-        if self.data.multiple_value:
+        if self.data.multiple_value is not None:
             widget_attrs.update({'multiple': 'multiple'})
 
-        if self.data.pattern_value:
+        if self.data.pattern_value is not None:
             widget_attrs.update({'pattern': self.data.pattern_value})
 
-        if self.data.readonly_value:
+        if self.data.readonly_value is not None:
             widget_attrs.update({'readonly': 'readonly'})
 
-        if self.data.step_value:
+        if self.data.step_value is not None:
             widget_attrs.update({'step': self.data.step_value})
 
         if self.data.type_value and self.data.type_value in ('submit',
@@ -82,7 +82,7 @@ class InputPlugin(FormFieldPlugin):
             'required': self.data.required,
             'widget': TextInput(attrs=widget_attrs),
         }
-        # if self.data.max_length:
+        # if self.data.max_length is not None:
         #     kwargs['max_length'] = self.data.max_length
 
         return [(self.data.name, Field, field_kwargs)]

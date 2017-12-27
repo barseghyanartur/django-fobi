@@ -26,6 +26,8 @@ recursive-include src/fobi/contrib/themes/djangocms_admin_style_theme/static *
 
 recursive-include src/fobi/contrib/plugins/form_elements/test/dummy/static *
 recursive-include src/fobi/contrib/plugins/form_handlers/db_store/static *
+recursive-include src/fobi/reusable/markdown_widget/static *
+recursive-include src/fobi/contrib/plugins/form_elements/content/content_markdown/static *
 
 # Templates
 recursive-include src/fobi/templates *

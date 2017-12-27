@@ -77,11 +77,17 @@ class AbstractFobiFormPage(Page):
     :property fobi.models.FormEntry form_entry: Form entry to be rendered.
     """
 
-    form_entry = models.ForeignKey('fobi.FormEntry', verbose_name=_("Form"),
-                                   on_delete=models.PROTECT)
+    form_entry = models.ForeignKey(
+        'fobi.FormEntry',
+        verbose_name=_("Form"),
+        on_delete=models.PROTECT
+    )
 
     form_template_name = models.CharField(
-        _("Form template name"), max_length=255, null=True, blank=True,
+        _("Form template name"),
+        max_length=255,
+        null=True,
+        blank=True,
         choices=get_form_template_choices(),
         help_text=_(
             "Choose an alternative template to render the form with. Leave "
@@ -91,22 +97,32 @@ class AbstractFobiFormPage(Page):
     )
 
     hide_form_title = models.BooleanField(
-        _("Hide form title"), default=False,
+        _("Hide form title"),
+        default=False,
         help_text=_("If checked, no form title is shown.")
     )
 
     form_title = models.CharField(
-        _("Form title"), max_length=255, null=True, blank=True,
+        _("Form title"),
+        max_length=255,
+        null=True,
+        blank=True,
         help_text=_("Overrides the default form title.")
     )
 
     form_submit_button_text = models.CharField(
-        _("Submit button text"), max_length=255, null=True, blank=True,
+        _("Submit button text"),
+        max_length=255,
+        null=True,
+        blank=True,
         help_text=_("Overrides the default form submit button text.")
     )
 
     success_page_template_name = models.CharField(
-        _("Success page template name"), max_length=255, null=True, blank=True,
+        _("Success page template name"),
+        max_length=255,
+        null=True,
+        blank=True,
         choices=get_success_page_template_choices(),
         help_text=_(
             "Choose an alternative template to render the success page with. "
@@ -116,17 +132,23 @@ class AbstractFobiFormPage(Page):
     )
 
     hide_success_page_title = models.BooleanField(
-        _("Hide success page title"), default=False,
+        _("Hide success page title"),
+        default=False,
         help_text=_("If checked, no success page title is shown.")
     )
 
     success_page_title = models.CharField(
-        _("Success page title"), max_length=255, null=True, blank=True,
+        _("Success page title"),
+        max_length=255,
+        null=True,
+        blank=True,
         help_text=_("Overrides the default success page title.")
     )
 
     success_page_text = models.TextField(
-        _("Success page text"), null=True, blank=True,
+        _("Success page text"),
+        null=True,
+        blank=True,
         help_text=_("Overrides the default success page text.")
     )
 
@@ -160,7 +182,7 @@ class AbstractFobiFormPage(Page):
     ]
 
     class Meta(object):
-        """Meta class."""
+        """Meta options."""
 
         verbose_name = _('Fobi form page')
         verbose_name_plural = _('Fobi form pages')
@@ -223,5 +245,7 @@ class AbstractFobiFormPage(Page):
                 fobi_form_processor.show_thanks_page(request, self)
             )
         else:
-            return super(AbstractFobiFormPage, self).serve_preview(request,
-                                                                   mode)
+            return super(AbstractFobiFormPage, self).serve_preview(
+                request,
+                mode
+            )

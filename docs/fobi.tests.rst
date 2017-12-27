@@ -20,6 +20,14 @@ fobi.tests.constants module
     :undoc-members:
     :show-inheritance:
 
+fobi.tests.core module
+----------------------
+
+.. automodule:: fobi.tests.core
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fobi.tests.data module
 ----------------------
 
@@ -64,6 +72,14 @@ fobi.tests.test_dynamic_forms module
 ------------------------------------
 
 .. automodule:: fobi.tests.test_dynamic_forms
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+fobi.tests.test_feincms_integration module
+------------------------------------------
+
+.. automodule:: fobi.tests.test_feincms_integration
     :members:
     :undoc-members:
     :show-inheritance:

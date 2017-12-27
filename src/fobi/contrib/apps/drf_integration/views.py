@@ -4,6 +4,8 @@ from django.http import HttpRequest
 from django.utils.module_loading import import_string
 from django.utils.translation import ugettext
 
+from nine import versions
+
 from rest_framework import mixins, permissions
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
@@ -65,8 +67,12 @@ class FobiFormEntryViewSet(
         We show all forms to authenticated users and show only public forms
         to non-authenticated users.
         """
+        if versions.DJANGO_GTE_1_10:
+            user_is_authenticated = self.request.user.is_authenticated
+        else:
+            user_is_authenticated = self.request.user.is_authenticated()
         kwargs = {}
-        if not self.request.user.is_authenticated():
+        if not user_is_authenticated:
             kwargs.update({'is_public': True})
         return FormEntry.objects.select_related('user').filter(**kwargs)
 

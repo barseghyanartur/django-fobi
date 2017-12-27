@@ -1,1 +1,2 @@
-xvfb-run python runtests.py
+#!/usr/bin/env bash
+xvfb-run python runtests.py "$@"

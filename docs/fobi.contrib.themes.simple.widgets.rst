@@ -6,6 +6,7 @@ Subpackages
 
 .. toctree::
 
+    fobi.contrib.themes.simple.widgets.form_elements
     fobi.contrib.themes.simple.widgets.form_handlers
 
 Module contents

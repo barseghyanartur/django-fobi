@@ -2,8 +2,6 @@ from django.conf import settings
 from django.contrib import admin
 from django.utils.translation import ugettext_lazy as _
 
-from nine.versions import DJANGO_LTE_1_5
-
 from .helpers import DataExporter
 from .models import SavedFormDataEntry, SavedFormWizardDataEntry
 
@@ -40,23 +38,10 @@ class BaseSavedFormDataEntryAdmin(admin.ModelAdmin):
             ),
         )
 
-    def __queryset(self, request):
-        """Get queryset.
-
-        Used internally."""
-        if DJANGO_LTE_1_5:
-            queryset = super(BaseSavedFormDataEntryAdmin, self).queryset(
-                request
-            )
-        else:
-            queryset = super(BaseSavedFormDataEntryAdmin, self).get_queryset(
-                request
-            )
-
-        return queryset
-    get_queryset = __queryset
-    if DJANGO_LTE_1_5:
-        queryset = __queryset
+    def get_queryset(self, request):
+        """Get queryset."""
+        qs = super(BaseSavedFormDataEntryAdmin, self).get_queryset(request)
+        return qs
 
     def export_data(self, request, queryset):
         """Export data into XLS."""
@@ -108,22 +93,6 @@ class SavedFormDataEntryAdmin(BaseSavedFormDataEntryAdmin):
     #             settings.STATIC_URL
     #         ),
     #     )
-    #
-    # def __queryset(self, request):
-    #     """Get queryset.
-    #
-    #     Used internally."""
-    #     if DJANGO_LTE_1_5:
-    #         queryset = super(SavedFormDataEntryAdmin, self).queryset(request)
-    #     else:
-    #         queryset = super(SavedFormDataEntryAdmin, self).get_queryset(
-    #             request
-    #         )
-    #
-    #     return queryset
-    # get_queryset = __queryset
-    # if DJANGO_LTE_1_5:
-    #     queryset = __queryset
     #
     # def export_data(self, request, queryset):
     #     """Export data into XLS."""

@@ -48,9 +48,18 @@ url_patterns_args = [
         include('fobi.urls.edit')),
 
     url(r'^admin_tools/', include('admin_tools.urls')),
+]
 
-    url(r'^admin/', include(admin.site.urls)),
+if versions.DJANGO_GTE_2_0:
+    url_patterns_args += [
+        url(r'^admin/', admin.site.urls),
+    ]
+else:
+    url_patterns_args += [
+        url(r'^admin/', include(admin.site.urls)),
+    ]
 
+url_patterns_args += [
     # django-registration URLs:
     url(r'^accounts/', include('registration.backends.simple.urls')),
 
@@ -90,6 +99,22 @@ if 'feincms' in settings.INSTALLED_APPS:
     else:
         urlpatterns += i18n_patterns(*url_patterns_args)
 
+# # Conditionally include django-markdownx
+# if 'markdownx' in settings.INSTALLED_APPS:
+#     url_patterns_args = [
+#         url(r'^markdownx/', include('markdownx.urls')),
+#     ]
+#     urlpatterns += list(url_patterns_args)
+
+if 'ckeditor_uploader' in settings.INSTALLED_APPS:
+    url_patterns_args = [
+        url(r'^ckeditor/', include('ckeditor_uploader.urls')),
+    ]
+    if versions.DJANGO_LTE_1_7:
+        urlpatterns += i18n_patterns('', *url_patterns_args)
+    else:
+        urlpatterns += i18n_patterns(*url_patterns_args)
+
 # Conditionally including DjangoCMS URls in case if
 # DjangoCMS in installed apps.
 if 'cms' in settings.INSTALLED_APPS:
@@ -104,9 +129,14 @@ if 'cms' in settings.INSTALLED_APPS:
 # Conditionally including Django REST framework integration app
 if 'fobi.contrib.apps.drf_integration' in settings.INSTALLED_APPS:
     from fobi.contrib.apps.drf_integration.urls import fobi_router
-    urlpatterns += [
-        url(r'^api/', include(fobi_router.urls))
-    ]
+    if versions.DJANGO_GTE_2_0:
+        urlpatterns += [
+            url(r'^api/', include(fobi_router.urls))
+        ]
+    else:
+        urlpatterns += [
+            url(r'^api/', include(fobi_router.urls))
+        ]
 
 # Conditionally including Captcha URls in case if
 # Captcha in installed apps.
@@ -122,3 +152,15 @@ if getattr(settings, 'ENABLE_CAPTCHA', False):
                 ]
         except ImportError:
             pass
+
+if getattr(settings, 'DEBUG', False) and getattr(settings, 'DEBUG_TOOLBAR', False):
+    import debug_toolbar
+
+    if versions.DJANGO_GTE_2_0:
+        urlpatterns = [
+            url(r'^__debug__/', debug_toolbar.urls),
+        ] + urlpatterns
+    else:
+        urlpatterns = [
+            url(r'^__debug__/', include(debug_toolbar.urls)),
+        ] + urlpatterns

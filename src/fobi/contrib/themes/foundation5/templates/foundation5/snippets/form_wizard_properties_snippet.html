@@ -1,0 +1,73 @@
+{% load i18n fobi_tags %}
+                <div class="alert-box secondary alert-box-larger">
+                    {% blocktrans %}Fields marked with <span class="required-field">*</span> are required{% endblocktrans %}
+                </div>
+
+            {% if form.non_field_errors %}
+                <div class="row">
+                    {{ form.non_field_errors.as_ul }}
+                </div>
+            {% endif %}
+            {% for field in form %}
+
+                {% if field.is_hidden %}
+                    <div class="hidden">{{ field }}</div>
+                {% else %}
+                    {% get_form_field_type field as field_type %}
+                    <div class="row{% if field.errors %} error{% endif %}{% if field.is_hidden %} hidden{% endif %}">
+
+                        {% if field_type.is_checkbox %}
+                        <div class="large-10 columns">
+                            {{ field }}
+
+                            <label for="{{ field.id_for_label }}">
+                              {{ field.label }}
+                            </label>
+
+                            {% if field.errors %}
+                            <span class="error">
+                                {% for field_error in field.errors %}
+                                    {{ field_error }}
+                                {% endfor %}
+                            </span>
+                            {% endif %}
+
+                            {% if field.help_text %}
+                            <span class="help-block">{{ field.help_text|safe }}</span>
+                            {% comment %}
+                            <span data-tooltip class="has-tip" data-options="show_on:large" title="{% spaceless %}{{ field.help_text|safe }}{% endspaceless %}">
+                              <span class="round success label ">?</span>
+                            </span>
+                            {% endcomment %}
+                            {% endif %}
+                        </div>
+                        {% else %}
+                        <label class="large-2 columns" for="{{ field.id_for_label }}">
+                            {{ field.label }}{% if field.field.required %}<span class="required-field">*</span>{% endif %}
+                        </label>
+
+                        <div class="large-10 columns">
+                            {{ field }}
+
+                            {% if field.errors %}
+                            <span class="error">
+                                {% for field_error in field.errors %}
+                                    {{ field_error }}
+                                {% endfor %}
+                            </span>
+                            {% endif %}
+
+                            {% if field.help_text %}
+                            <span class="help-block">{{ field.help_text|safe }}</span>
+                            {% comment %}
+                            <span data-tooltip class="has-tip" data-options="show_on:large" title="{% spaceless %}{{ field.help_text|safe }}{% endspaceless %}">
+                              <span class="round success label ">?</span>
+                            </span>
+                            {% endcomment %}
+                            {% endif %}
+                        </div>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+            {% endfor %}

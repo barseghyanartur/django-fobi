@@ -15,10 +15,86 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.12.11
+-------
+2017-12-27
+
+- Clean up Django < 1.8 code.
+- Clean up old code.
+
+0.12.10
+-------
+2017-12-24
+
+- Django 2.0 support (experimental).
+- (Temporary) replace ``django-autoslug`` package with
+  ``django-autoslug-iplweb``, which works fine for Django versions >=1.8,<=2.0.
+
+0.12.9
+------
+2017-12-21
+
+- Added content markdown plugin.
+
+0.12.8
+------
+2017-12-19
+
+- Added common form callback ``AutoFormMail`` for auto mailing the form
+  data (without need to add the mail plugin to the form).
+
+0.12.7
+------
+2017-12-17
+
+- Minor fixes (in the add form element entry bootstrap3 template).
+- Add content rich text plugin (based on CKEditor).
+- Added common form callback ``AutoFormDbStore`` for auto saving the form
+  data (without need to add the db_store plugin to the form).
+
+0.12.6
+------
+2017-12-12
+
+- Clean up.
+- Minor documentation fixes.
+- Minor plugin clean-up/fixes (``captcha``, ``recaptcha``, ``content_text``).
+- Minor Python 3 fixes.
+- Minor fixes in FormWizard ``get_absolute_url`` method.
+
+0.12.5
+------
+2017-09-27
+
+- Documentation fixes.
+
+0.12.4
+------
+2017-09-27
+
+- Documentation fixes.
+
+0.12.3
+------
+2017-09-27
+
+- Minor fixes.
+- Reflect form-wizards support changes in the `foundation5` theme.
+- Documentation fixes.
+
+0.12.2
+------
+2017-08-02
+
+- Some work on full form-wizards support in the `foundation5` theme.
+- Django 1.11 fixes for customised widgets.
+- Update example project requirements.
+
 0.12.1
 ------
-yyyy-mm-dd (not released yet)
+2017-07-31
 
+- Reflect form-wizards support changes in the `simple` theme.
 - Fixes in docs.
 
 0.12
@@ -50,7 +126,7 @@ yyyy-mm-dd (not released yet)
 2017-05-29
 
 - Minor fixes in ``content_text`` ``drf_integration`` plugin.
-- Added ``imageurl`` support to the ``mailchimp_impoter`` plugin.
+- Added ``imageurl`` support to the ``mailchimp_importer`` plugin.
 
 0.11.10
 -------
@@ -253,7 +329,7 @@ versions it will be wiped out.
 ------
 2016-11-05
 
-Announcing dropping support of Django 1.5 and 1.6. As of 0.9.17 everything is
+Announcing dropping support of Django 1.5 and 1.6. As of 0.9.13 everything is
 still backwards compatible with versions 1.5 and 1.6, but in future versions
 compatibility with these versions will be wiped out.
 
@@ -358,7 +434,7 @@ custom form element plugins you should update your code!
 - The :method:`get_form_field_instances`
   and :method:`_get_form_field_instances` of
   the :class:`fobi.base.FormElementPlugin` both accept two new optional
-  arguments: `form_entry` and `form_element_entries` as well as **kwargs.
+  arguments: `form_entry` and `form_element_entries` as well as `**kwargs`.
   Make sure to update your custom plugins if you have written any.
 - Minor fixes in the form wizards: forms in intermediate steps do receive
   updates from the `submit_plugin_form_data` of the plugins.
@@ -442,7 +518,7 @@ Release supported by `Lund University Cognitive Science
 <http://www.lucs.lu.se/choice-blindness-group/>`_.
 
 - Adding form-wizards functionality. Note, that at the moment only
-  `bootstrap3` theme was updated to filly support the form wizards. Although,
+  `bootstrap3` theme was updated to fully support the form wizards. Although,
   all other themes would by default support form-wizard functionality, they
   may not look as nice as they should be (to be fixed in 0.8.x releases
   shortly).
@@ -453,7 +529,7 @@ Release supported by `Lund University Cognitive Science
   may need to update your custom CSS/JS/HTML accordingly. See the listing
   0.8.a for the files affected.
 - An additional property `form_view_form_entry_option_class` has been added
-  to all the themes. Change your custom CSS/jS/HTML accordingly. See the
+  to all the themes. Change your custom CSS/JS/HTML accordingly. See the
   listing 0.8.b for the files affected.
 - Fixed drag-and-drop not working for ordering of form elements. #43
 - Fixed issue with non-proper rendering of the form-importer templates.
@@ -818,7 +894,7 @@ carefully.
   `fobi.contrib.apps.feincms_integration`,
   `fobi.contrib.apps.djangocms_integration`,
   `fobi.contrib.apps.mezzanine_integration`). Due to the change, you would
-  likely have to to rename a couple of database tables and update referencies
+  likely have to rename a couple of database tables and update references
   accordingly. No migrations to solve the issue are included at the moment.
 
 0.4.36
@@ -866,7 +942,7 @@ carefully.
 2015-03-23
 
 - When path of the uploaded file (plugins) doesn't yet exist, create it,
-  instaid of failing.
+  instead of failing.
 
 0.4.30
 ------
@@ -1221,7 +1297,7 @@ command which makes the necessary changes in the database for safe upgrade).
   your project apps, make necessary path changes and update the package paths
   in ``INSTALLED_APPS`` settings module (settings.py) before upgrading to this
   version. Then, in Django admin management interface, replace all the
-  occurances of ``Birthday`` field with ``Date drop down`` field.
+  occurrences of ``Birthday`` field with ``Date drop down`` field.
 - Better error validation/handling of hidden fields. A new form snippet 
   template added for displaying the non-field and hidden fields errors. The new
   template makes a part of a standard theme as an attribute
@@ -1272,7 +1348,7 @@ Note, that this release contains minor backwards incompatible changes. The
 changes do not anyhow affect your existing forms or data. The only thing you
 need to do is update the app paths in the ``settings`` module of your project.
 
-- Minor core improvements related to the themeing of the form handler plugins.
+- Minor core improvements related to the theming of the form handler plugins.
 - Several presentational form element plugins have been renamed.
   The ``fobi.contrib.plugins.form_elements.content.image`` plugin has been
   renamed to ``fobi.contrib.plugins.form_elements.content.content_image``.

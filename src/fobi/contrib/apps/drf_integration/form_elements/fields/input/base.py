@@ -54,7 +54,9 @@ class InputPlugin(IntegrationFormFieldPlugin,
             field_metadata.update({'disabled': 'disabled'})
 
         if form_element_plugin.data.list_value:
-            field_metadata.update({'list': form_element_plugin.data.list_value})
+            field_metadata.update(
+                {'list': form_element_plugin.data.list_value}
+            )
 
         if form_element_plugin.data.max_value:
             field_metadata.update({'max': form_element_plugin.data.max_value})

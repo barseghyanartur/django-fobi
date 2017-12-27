@@ -10,7 +10,7 @@ Subpackages
     fobi.integration
     fobi.management
     fobi.migrations
-    fobi.south_migrations
+    fobi.reusable
     fobi.templatetags
     fobi.tests
     fobi.urls
@@ -47,14 +47,6 @@ fobi.base module
 ----------------
 
 .. automodule:: fobi.base
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
-fobi.compat module
-------------------
-
-.. automodule:: fobi.compat
     :members:
     :undoc-members:
     :show-inheritance:

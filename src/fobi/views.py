@@ -1456,9 +1456,13 @@ class FormWizardView(DynamicSessionWizardView):
 
     def get_initial_wizard_data(self, request, *args, **kwargs):
         """Get initial wizard data."""
+        if versions.DJANGO_GTE_1_10:
+            user_is_authenticated = request.user.is_authenticated
+        else:
+            user_is_authenticated = request.user.is_authenticated()
         try:
             qs_kwargs = {'slug': kwargs.get('form_wizard_entry_slug')}
-            if not request.user.is_authenticated():
+            if not user_is_authenticated:
                 kwargs.update({'is_public': True})
             form_wizard_entry = FormWizardEntry.objects \
                 .select_related('user') \
@@ -1682,9 +1686,13 @@ class FormWizardView(DynamicSessionWizardView):
 
     def done(self, form_list, **kwargs):
         """Done."""
+        if versions.DJANGO_GTE_1_10:
+            user_is_authenticated = self.request.user.is_authenticated
+        else:
+            user_is_authenticated = self.request.user.is_authenticated()
         try:
             qs_kwargs = {'slug': kwargs.get('form_wizard_entry_slug')}
-            if not self.request.user.is_authenticated():
+            if not user_is_authenticated:
                 kwargs.update({'is_public': True})
             form_wizard_entry = FormWizardEntry.objects \
                 .select_related('user') \
@@ -1720,9 +1728,13 @@ def form_wizard_entry_submitted(request, form_wizard_entry_slug=None,
     :param string template_name:
     :return django.http.HttpResponse:
     """
+    if versions.DJANGO_GTE_1_10:
+        user_is_authenticated = request.user.is_authenticated
+    else:
+        user_is_authenticated = request.user.is_authenticated()
     try:
         kwargs = {'slug': form_wizard_entry_slug}
-        if not request.user.is_authenticated():
+        if not user_is_authenticated:
             kwargs.update({'is_public': True})
         form_wizard_entry = FormWizardEntry._default_manager \
             .select_related('user') \
@@ -2178,9 +2190,13 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
     :param string template_name:
     :return django.http.HttpResponse:
     """
+    if versions.DJANGO_GTE_1_10:
+        user_is_authenticated = request.user.is_authenticated
+    else:
+        user_is_authenticated = request.user.is_authenticated()
     try:
         kwargs = {'slug': form_entry_slug}
-        if not request.user.is_authenticated():
+        if not user_is_authenticated:
             kwargs.update({'is_public': True})
         form_entry = FormEntry._default_manager.select_related('user') \
                               .get(**kwargs)
@@ -2315,9 +2331,13 @@ def form_entry_submitted(request, form_entry_slug=None, template_name=None):
     :param string template_name:
     :return django.http.HttpResponse:
     """
+    if versions.DJANGO_GTE_1_10:
+        user_is_authenticated = request.user.is_authenticated
+    else:
+        user_is_authenticated = request.user.is_authenticated()
     try:
         kwargs = {'slug': form_entry_slug}
-        if not request.user.is_authenticated():
+        if not user_is_authenticated:
             kwargs.update({'is_public': True})
         form_entry = FormEntry._default_manager \
             .select_related('user') \
@@ -2458,7 +2478,7 @@ def import_form_entry(request, template_name=None):
             # )
             #
             # # In this way we keep possible trash out.
-            # for key in form_data.keys():
+            # for key in list(form_data.keys()):
             #     if key not in form_data_keys_whitelist:
             #         form_data.pop(key)
             #
@@ -2665,7 +2685,7 @@ def import_form_wizard_entry(request, template_name=None):
             )
 
             # In this way we keep possible trash out.
-            for key in form_wizard_data.keys():
+            for key in list(form_wizard_data.keys()):
                 if key not in form_wizard_data_keys_whitelist:
                     form_wizard_data.pop(key)
 

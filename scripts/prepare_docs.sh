@@ -28,6 +28,9 @@ cat README.rst \
     src/fobi/contrib/apps/drf_integration/form_elements/content/content_image_url/README.rst \
     docs/empty.rst.distrib \
     \
+    src/fobi/contrib/apps/drf_integration/form_elements/content/content_richtext/README.rst \
+    docs/empty.rst.distrib \
+    \
     src/fobi/contrib/apps/drf_integration/form_elements/content/content_text/README.rst \
     docs/empty.rst.distrib \
     \
@@ -143,6 +146,9 @@ cat README.rst \
     docs/empty.rst.distrib \
     \
     src/fobi/contrib/plugins/form_elements/content/content_text/README.rst \
+    docs/empty.rst.distrib \
+    \
+    src/fobi/contrib/plugins/form_elements/content/content_richtext/README.rst \
     docs/empty.rst.distrib \
     \
     src/fobi/contrib/plugins/form_elements/content/content_video/README.rst \

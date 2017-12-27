@@ -35,9 +35,11 @@ class SimpleTheme(BaseTheme):
 
     # footer_text = '&copy; django-fobi example site 2014'
 
-    # *************************************************************************
-    # ********************** Form HTML specific *******************************
-    # *************************************************************************
+    # ***********************************************************************
+    # ***********************************************************************
+    # ********************** Form HTML specific *****************************
+    # ***********************************************************************
+    # ***********************************************************************
     form_element_html_class = 'vTextField'
     form_radio_element_html_class = 'radiolist'
     form_element_checkbox_html_class = 'checkbox'
@@ -54,47 +56,48 @@ class SimpleTheme(BaseTheme):
     # Important
     form_list_container_class = 'list-inline'
 
-    # *************************************************************************
-    # ********************** Templates specific *******************************
-    # *************************************************************************
+    # ***********************************************************************
+    # ***********************************************************************
+    # **************************** Templates ********************************
+    # ***********************************************************************
+    # ***********************************************************************
+
+    # ***********************************************************************
+    # *************************** Base templates ****************************
+    # ***********************************************************************
+
     master_base_template = 'simple/_base.html'
     base_template = 'simple/base.html'
     base_view_template = 'simple/base_view.html'
     base_edit_template = 'simple/base_edit.html'
 
-    form_ajax = 'simple/snippets/form_ajax.html'
+    # ***********************************************************************
+    # ***************************** Snippets ********************************
+    # ***********************************************************************
     form_snippet_template_name = 'simple/snippets/form_snippet.html'
-    form_view_snippet_template_name = 'simple/snippets/form_view_snippet.html'
-    form_edit_ajax = 'simple/snippets/form_edit_ajax.html'
-    form_edit_snippet_template_name = 'simple/snippets/form_edit_snippet.html'
     form_properties_snippet_template_name = \
         'simple/snippets/form_properties_snippet.html'
     messages_snippet_template_name = 'simple/snippets/messages_snippet.html'
+    form_ajax = 'simple/snippets/form_ajax.html'
+    form_view_snippet_template_name = 'simple/snippets/form_view_snippet.html'
 
-    add_form_element_entry_template = 'simple/add_form_element_entry.html'
-    add_form_element_entry_ajax_template = \
-        'simple/add_form_element_entry_ajax.html'
+    form_edit_ajax = 'simple/snippets/form_edit_ajax.html'
+    form_edit_snippet_template_name = 'simple/snippets/form_edit_snippet.html'
 
-    add_form_handler_entry_template = 'simple/add_form_handler_entry.html'
-    add_form_handler_entry_ajax_template = \
-        'simple/add_form_handler_entry_ajax.html'
+    form_wizard_snippet_template_name = \
+        'simple/snippets/form_wizard_snippet.html'
 
+    form_wizard_properties_snippet_template_name = \
+        'simple/snippets/form_wizard_properties_snippet.html'
+
+    # ***********************************************************************
+    # **************************** Form entry CRUD **************************
+    # ***********************************************************************
     create_form_entry_template = 'simple/create_form_entry.html'
     create_form_entry_ajax_template = 'simple/create_form_entry_ajax.html'
 
-    dashboard_template = 'simple/dashboard.html'
-    forms_list_template = 'simple/forms_list.html'
-
-    edit_form_element_entry_template = 'simple/edit_form_element_entry.html'
-    edit_form_element_entry_ajax_template = \
-        'simple/edit_form_element_entry_ajax.html'
-
     edit_form_entry_template = 'simple/edit_form_entry.html'
     edit_form_entry_ajax_template = 'simple/edit_form_entry_ajax.html'
-
-    edit_form_handler_entry_template = 'simple/edit_form_handler_entry.html'
-    edit_form_handler_entry_ajax_template = \
-        'simple/edit_form_handler_entry_ajax.html'
 
     form_entry_submitted_template = 'simple/form_entry_submitted.html'
     form_entry_submitted_ajax_template = \
@@ -102,6 +105,58 @@ class SimpleTheme(BaseTheme):
 
     view_form_entry_template = 'simple/view_form_entry.html'
     view_form_entry_ajax_template = 'simple/view_form_entry_ajax.html'
+    # ***********************************************************************
+    # *********************** Form element entry CUD ************************
+    # ***********************************************************************
+    add_form_element_entry_template = 'simple/add_form_element_entry.html'
+    add_form_element_entry_ajax_template = \
+        'simple/add_form_element_entry_ajax.html'
+
+    edit_form_element_entry_template = 'simple/edit_form_element_entry.html'
+    edit_form_element_entry_ajax_template = \
+        'simple/edit_form_element_entry_ajax.html'
+    # ***********************************************************************
+    # *********************** Form handler entry CUD ************************
+    # ***********************************************************************
+    add_form_handler_entry_template = 'simple/add_form_handler_entry.html'
+    add_form_handler_entry_ajax_template = \
+        'simple/add_form_handler_entry_ajax.html'
+
+    edit_form_handler_entry_template = 'simple/edit_form_handler_entry.html'
+    edit_form_handler_entry_ajax_template = \
+        'simple/edit_form_handler_entry_ajax.html'
+
+    # ***********************************************************************
+    # ******************* Form wizard handler entry CUD *********************
+    # ***********************************************************************
+
+    # ***********************************************************************
+    # ***************************** Dashboard *******************************
+    # ***********************************************************************
+    dashboard_template = 'simple/dashboard.html'
+    forms_list_template = 'simple/forms_list.html'
+
+    # ***********************************************************************
+    # ************************ Form wizard entry CUD ************************
+    # ***********************************************************************
+    create_form_wizard_entry_template = \
+        'simple/create_form_wizard_entry.html'
+    create_form_wizard_entry_ajax_template = \
+        'simple/create_form_wizard_entry_ajax.html'
+
+    edit_form_wizard_entry_template = \
+        'simple/edit_form_wizard_entry.html'
+    edit_form_wizard_entry_ajax_template = \
+        'simple/edit_form_wizard_entry_ajax.html'
+
+    view_form_wizard_entry_template = \
+        'simple/view_form_wizard_entry.html'
+    view_form_wizard_entry_ajax_template = \
+        'simple/view_form_wizard_entry_ajax.html'
+
+    # ***********************************************************************
+    # ************************* Form importer templates *********************
+    # ***********************************************************************
 
     import_form_entry_template = 'simple/import_form_entry.html'
     import_form_entry_ajax_template = 'simple/import_form_entry_ajax.html'

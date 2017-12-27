@@ -3,7 +3,7 @@ from __future__ import absolute_import
 from six import text_type, PY3
 
 from django.forms.fields import ChoiceField
-
+from django.forms.utils import flatatt
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
@@ -36,11 +36,6 @@ from .settings import (
     STEP
 )
 
-if versions.DJANGO_GTE_1_7:
-    from django.forms.utils import flatatt
-else:
-    from django.forms.util import flatatt
-
 __title__ = 'fobi.contrib.plugins.form_elements.fields.slider.base'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2017 Artur Barseghyan'
@@ -72,12 +67,12 @@ class SliderInputPlugin(FormFieldPlugin):
         Might be used in integration plugins.
         """
         max_value = int(self.data.max_value) \
-            if self.data.max_value \
+            if self.data.max_value is not None \
             else INITIAL_MAX_VALUE
         min_value = int(self.data.min_value) \
-            if self.data.min_value \
+            if self.data.min_value is not None \
             else INITIAL_MIN_VALUE
-        step = int(self.data.step) if self.data.step else STEP
+        step = int(self.data.step) if self.data.step is not None else STEP
 
         if PY3:
             _choices = [__r for __r in range(min_value, max_value + 1, step)]
@@ -93,17 +88,17 @@ class SliderInputPlugin(FormFieldPlugin):
         """Get form field instances."""
         initial = self.get_initial()
         max_value = int(self.data.max_value) \
-            if self.data.max_value \
+            if self.data.max_value is not None \
             else INITIAL_MAX_VALUE
         min_value = int(self.data.min_value) \
-            if self.data.min_value \
+            if self.data.min_value is not None \
             else INITIAL_MIN_VALUE
-        step = int(self.data.step) if self.data.step else STEP
+        step = int(self.data.step) if self.data.step is not None else STEP
         tooltip = self.data.tooltip \
-            if self.data.tooltip \
+            if self.data.tooltip is not None \
             else SLIDER_DEFAULT_TOOLTIP
         handle = self.data.handle \
-            if self.data.handle \
+            if self.data.handle is not None \
             else SLIDER_DEFAULT_HANDLE
 
         custom_ticks = get_select_field_choices(self.data.custom_ticks,

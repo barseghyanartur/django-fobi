@@ -6,7 +6,7 @@ from django.test import TestCase
 
 from fobi.data_structures import SortableDict
 
-from .base import print_info
+from .core import print_info
 
 __title__ = 'fobi.tests.test_dynamic_forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'

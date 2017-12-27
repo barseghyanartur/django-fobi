@@ -66,6 +66,13 @@
                 </ul>
             </li>
             {% endblock navbar-menu-content %}
+
+            {% block navbar-menu-right %}
+                {% block navbar-menu-right-content %}
+                <li><a href="{% url 'fobi.dashboard' %}">{% trans "Forms" %}</a></li>
+                <li><a href="{% url 'fobi.form_wizards_dashboard' %}">{% trans "Wizards" %}</a></li>
+                {% endblock navbar-menu-right-content %}
+            {% endblock navbar-menu-right %}
         </ul>
     </section>
 </nav>

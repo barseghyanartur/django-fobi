@@ -12,14 +12,6 @@ fobi.management.commands.fobi_find_broken_entries module
     :undoc-members:
     :show-inheritance:
 
-fobi.management.commands.fobi_migrate_03_to_04 module
------------------------------------------------------
-
-.. automodule:: fobi.management.commands.fobi_migrate_03_to_04
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 fobi.management.commands.fobi_sync_plugins module
 -------------------------------------------------
 

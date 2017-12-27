@@ -1,12 +1,13 @@
-import imp
+# import imp
 import logging
 import sys
 
+# from django.conf import settings
+from django.utils.module_loading import autodiscover_modules
+
+# from nine.versions import DJANGO_GTE_1_7
+
 import six
-
-from django.conf import settings
-
-from nine.versions import DJANGO_GTE_1_7
 
 from .conf import get_setting
 
@@ -15,27 +16,27 @@ from .conf import get_setting
 # have a great Django `autodiscover_modules` tool then. In cases if Django
 # version is >= 1.7, we use the Django `autodiscover_modules` tool falling back
 # to our own implementation of it otherwise.
-if DJANGO_GTE_1_7:
-    from django.utils.module_loading import autodiscover_modules
-else:
-    def autodiscover_modules(module_name):
-        """Auto-discover modules."""
-        for app in settings.INSTALLED_APPS:
-            try:
-                app = str(app)
-                app_path = __import__(
-                    app, {}, {}, [app.split('.')[-1]]
-                ).__path__
-            except (AttributeError, TypeError) as err:
-                logger.debug(str(err))
-                continue
-
-            try:
-                imp.find_module(module_name, app_path)
-            except ImportError as err:
-                logger.debug(str(err))
-                continue
-            __import__('{0}.{1}'.format(app, module_name))
+# if DJANGO_GTE_1_7:
+#     from django.utils.module_loading import autodiscover_modules
+# else:
+#     def autodiscover_modules(module_name):
+#         """Auto-discover modules."""
+#         for app in settings.INSTALLED_APPS:
+#             try:
+#                 app = str(app)
+#                 app_path = __import__(
+#                     app, {}, {}, [app.split('.')[-1]]
+#                 ).__path__
+#             except (AttributeError, TypeError) as err:
+#                 logger.debug(str(err))
+#                 continue
+#
+#             try:
+#                 imp.find_module(module_name, app_path)
+#             except ImportError as err:
+#                 logger.debug(str(err))
+#                 continue
+#             __import__('{0}.{1}'.format(app, module_name))
 
 
 logger = logging.getLogger(__file__)

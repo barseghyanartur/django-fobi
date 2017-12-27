@@ -1,5 +1,6 @@
 from __future__ import absolute_import
 
+from django.apps import apps
 from django.forms.widgets import Select
 from django.utils.translation import ugettext_lazy as _
 
@@ -13,21 +14,12 @@ from fobi.constants import (
 from fobi.helpers import (
     safe_text,
     get_app_label_and_model_name,
-    get_model_name_for_object
+    get_model_name_for_object,
 )
-
-from nine.versions import DJANGO_GTE_1_7
 
 from . import UID
 from .forms import SelectMPTTModelObjectInputForm
 from .settings import SUBMIT_VALUE_AS
-
-if DJANGO_GTE_1_7:
-    from django.apps import apps
-
-    get_model = apps.get_model
-else:
-    from django.db.models import get_model
 
 __title__ = 'fobi.contrib.plugins.form_elements.fields.' \
             'select_mptt_model_object.base'
@@ -47,11 +39,14 @@ class SelectMPTTModelObjectInputPlugin(FormFieldPlugin):
     group = _("Fields")
     form = SelectMPTTModelObjectInputForm
 
-    def get_form_field_instances(self, request=None, form_entry=None,
-                                 form_element_entries=None, **kwargs):
+    def get_form_field_instances(self,
+                                 request=None,
+                                 form_entry=None,
+                                 form_element_entries=None,
+                                 **kwargs):
         """Get form field instances."""
         app_label, model_name = get_app_label_and_model_name(self.data.model)
-        model = get_model(app_label, model_name)
+        model = apps.get_model(app_label, model_name)
         queryset = model._default_manager.all()
 
         field_kwargs = {
@@ -65,8 +60,12 @@ class SelectMPTTModelObjectInputPlugin(FormFieldPlugin):
 
         return [(self.data.name, TreeNodeChoiceField, field_kwargs)]
 
-    def submit_plugin_form_data(self, form_entry, request, form,
-                                form_element_entries=None, **kwargs):
+    def submit_plugin_form_data(self,
+                                form_entry,
+                                request,
+                                form,
+                                form_element_entries=None,
+                                **kwargs):
         """Submit plugin form data/process.
 
         :param fobi.models.FormEntry form_entry: Instance of

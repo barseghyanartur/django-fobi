@@ -34,6 +34,9 @@
       <a class="addlink addlink-importer-{{ form_importer_uid }}" href="{{ form_importer_url }}">{{ form_importer_name }}</a>
     </li>
     {% endfor %}
+    <li>
+      <a class="addlink" href="{% url 'fobi.form_wizards_dashboard' %}">{% trans "Wizards"%}</a>
+    </li>
   </ul>
 
   <div id="changelist" class="module">

@@ -23,8 +23,8 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'NumberInput',
     'BooleanRadioSelect',
+    'NumberInput',
     'RichSelect',
     'RichSelectInverseQuotes',
 )
@@ -108,7 +108,12 @@ class RichSelectInverseQuotes(RichSelect):
 
     Uses inverse quotes.
     """
-    if versions.DJANGO_GTE_1_10:
+    if versions.DJANGO_GTE_1_11:
+        template_name = 'fobi/django/forms/widgets/rich_select_inverse.html'
+        option_template_name = 'fobi/django/forms/widgets/' \
+                               'rich_select_inverse_option.html'
+
+    elif versions.DJANGO_GTE_1_10:
         def render(self, name, value, attrs=None):
             if self.override_name is not None:
                 name = self.override_name
@@ -132,6 +137,7 @@ class RichSelectInverseQuotes(RichSelect):
                     format_html(self.append_html)
                 ])
             )
+
     else:
         def render(self, name, value, attrs=None, choices=()):
             if self.override_name is not None:

@@ -7,38 +7,12 @@ TESTING = True
 
 INSTALLED_APPS = list(INSTALLED_APPS)
 
-if versions.DJANGO_1_5:
+if versions.DJANGO_1_8:
 
     try:
-        INSTALLED_APPS.append(
-            'south') if 'south' not in INSTALLED_APPS else None
-    except Exception as err:
-        pass
-
-elif versions.DJANGO_1_6:
-
-    try:
-        INSTALLED_APPS.append(
-            'south') if 'south' not in INSTALLED_APPS else None
-    except Exception as err:
-        pass
-
-
-elif versions.DJANGO_1_7:
-
-    try:
-        INSTALLED_APPS.remove('south') if 'south' in INSTALLED_APPS else None
-        INSTALLED_APPS.remove(
-            'tinymce') if 'tinymce' in INSTALLED_APPS else None
-    except Exception as err:
-        pass
-
-elif versions.DJANGO_1_8:
-
-    try:
-        INSTALLED_APPS.remove('south') if 'south' in INSTALLED_APPS else None
-        INSTALLED_APPS.remove(
-            'tinymce') if 'tinymce' in INSTALLED_APPS else None
+        INSTALLED_APPS.remove('tinymce') \
+            if 'tinymce' in INSTALLED_APPS \
+            else None
     except Exception as err:
         pass
 
@@ -55,9 +29,9 @@ elif versions.DJANGO_1_8:
 elif versions.DJANGO_1_9:
 
     try:
-        INSTALLED_APPS.remove('south') if 'south' in INSTALLED_APPS else None
-        INSTALLED_APPS.remove(
-            'tinymce') if 'tinymce' in INSTALLED_APPS else None
+        INSTALLED_APPS.remove('tinymce') \
+            if 'tinymce' in INSTALLED_APPS \
+            else None
     except Exception as err:
         pass
 
@@ -74,9 +48,9 @@ elif versions.DJANGO_1_9:
 elif versions.DJANGO_1_10:
 
     try:
-        INSTALLED_APPS.remove('south') if 'south' in INSTALLED_APPS else None
-        INSTALLED_APPS.remove(
-            'tinymce') if 'tinymce' in INSTALLED_APPS else None
+        INSTALLED_APPS.remove('tinymce') \
+            if 'tinymce' in INSTALLED_APPS \
+            else None
     except Exception as err:
         pass
 
@@ -93,3 +67,33 @@ elif versions.DJANGO_1_10:
 LOGGING = {}
 
 DEBUG_TOOLBAR = False
+
+DATABASES = {
+    'default': {
+        # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.sqlite3',
+        # Or path to database file if using sqlite3.
+        'NAME': PROJECT_DIR('../../db/example.db'),
+        # The following settings are not used with sqlite3:
+        'USER': '',
+        'PASSWORD': '',
+        # Empty for localhost through domain sockets or '127.0.0.1' for
+        # localhost through TCP.
+        'HOST': '',
+        # Set to empty string for default.
+        'PORT': '',
+    }
+}
+
+
+# FeinCMS addons
+
+INSTALLED_APPS += [
+    'feincms',  # FeinCMS
+
+    'fobi.contrib.apps.feincms_integration',  # Fobi FeinCMS app
+
+    'page',  # Example
+
+    'tinymce',  # TinyMCE
+]

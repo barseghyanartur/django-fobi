@@ -5,7 +5,7 @@ from fobi.contrib.plugins.form_elements.fields.slider.widgets import (
 from fobi.contrib.themes.bootstrap3 import UID
 
 __title__ = 'fobi.contrib.themes.bootstrap3.widgets.form_elements.' \
-            'slider_percentage_bootstrap3_widget.fobi_form_elements'
+            'slider_bootstrap3_widget.fobi_form_elements'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2017 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'

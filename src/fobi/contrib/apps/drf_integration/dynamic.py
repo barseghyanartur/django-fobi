@@ -1,14 +1,11 @@
 from __future__ import unicode_literals
 
 import copy
-from collections import Mapping
-
+from collections import Mapping, OrderedDict
 from django.core.exceptions import ValidationError as DjangoValidationError
 
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
-
-from nine.versions import DJANGO_GTE_1_7
 
 from rest_framework.compat import unicode_to_repr
 from rest_framework.exceptions import ErrorDetail, ValidationError
@@ -32,11 +29,6 @@ from rest_framework.utils.serializer_helpers import (
 import six
 
 from . import UID as INTEGRATE_WITH_UID
-
-if DJANGO_GTE_1_7:
-    from collections import OrderedDict
-else:
-    from django.utils.datastructures import SortedDict as OrderedDict
 
 
 __title__ = 'fobi.contrib.apps.drf_integration.dynamic'

@@ -1,6 +1,8 @@
+from django.forms.utils import (
+    ErrorDict as DjangoErrorDict,
+    ErrorList as DjangoErrorList,
+)
 from django.utils.encoding import force_text
-
-from nine.versions import DJANGO_GTE_1_7
 
 __title__ = 'fobi.form_utils'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -10,15 +12,6 @@ __all__ = (
     'ErrorDict',
     'ErrorList',
 )
-
-if DJANGO_GTE_1_7:
-    from django.forms.utils import (
-        ErrorDict as DjangoErrorDict, ErrorList as DjangoErrorList
-    )
-else:
-    from django.forms.util import (
-        ErrorDict as DjangoErrorDict, ErrorList as DjangoErrorList
-    )
 
 
 class ErrorDict(DjangoErrorDict):

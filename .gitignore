@@ -64,6 +64,7 @@ README_PARTS.rst
 /examples/quick_start/db.sqlite3
 /examples/quickstart/
 /examples/static/
+/examples/_static/
 /examples/requirements/wagtail.txt
 #/examples/wagtaildemo/
 /examples/wagtail_example_/
@@ -72,3 +73,4 @@ README_PARTS.rst
 /examples/wagtaildemo/static
 /examples/wagtaildemo/media
 /examples/wagtaildemo/Vagrantfile.local
+/src/fobi/contrib/themes/bootstrap3/widgets/form_elements/content_markdown_bootstrap3_widget
