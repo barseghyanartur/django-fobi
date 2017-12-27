@@ -25,7 +25,7 @@ from django.utils.html import format_html_join
 from django.utils.translation import ugettext_lazy as _
 
 from nine.user import User
-from nine.versions import DJANGO_GTE_1_7, DJANGO_GTE_1_10
+from nine.versions import DJANGO_GTE_1_8, DJANGO_GTE_1_10
 
 # import simplejson as json
 
@@ -38,7 +38,7 @@ from .constants import (
 )
 from .exceptions import ImproperlyConfigured
 
-if DJANGO_GTE_1_7:
+if DJANGO_GTE_1_8:
     import django.apps
 else:
     from django.db import models
@@ -229,7 +229,7 @@ def get_model_name_for_object(obj):
     """Get model name for object.
 
     Django version agnostic."""
-    return obj._meta.model_name if DJANGO_GTE_1_7 else obj._meta.module_name
+    return obj._meta.model_name
 
 # *****************************************************************************
 # *****************************************************************************
@@ -344,18 +344,22 @@ def get_registered_models(ignore=[]):
         be in ``app_label.model`` format (example ``auth.User``).
     :return list:
     """
-    if DJANGO_GTE_1_7:
-        get_models = django.apps.apps.get_models
-    else:
-        def get_models():
-            """Get models."""
-            return models.get_models(include_auto_created=True)
+    get_models = django.apps.apps.get_models
+    # if DJANGO_GTE_1_7:
+    #     get_models = django.apps.apps.get_models
+    # else:
+    #     def get_models():
+    #         """Get models."""
+    #         return models.get_models(include_auto_created=True)
 
-    registered_models = [("{0}.{1}".format(_m._meta.app_label,
-                                           _m._meta.model_name),
-                          _m._meta.object_name)
-                         for _m
-                         in get_models()]
+    registered_models = [
+        (
+            "{0}.{1}".format(_m._meta.app_label, _m._meta.model_name),
+            _m._meta.object_name
+        )
+        for _m
+        in get_models()
+    ]
 
     # registered_models = []
     # try:
@@ -745,11 +749,12 @@ class JSONDataExporter(object):
         :param str mimetype:
         :return django.http.HttpResponse:
         """
-        response_kwargs = {}
-        if DJANGO_GTE_1_7:
-            response_kwargs['content_type'] = mimetype
-        else:
-            response_kwargs['mimetype'] = mimetype
+        response_kwargs = {'content_type': mimetype}
+        # response_kwargs = {}
+        # if DJANGO_GTE_1_7:
+        #     response_kwargs['content_type'] = mimetype
+        # else:
+        #     response_kwargs['mimetype'] = mimetype
         return HttpResponse(**response_kwargs)
 
     def export_to_json(self):

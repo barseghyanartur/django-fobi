@@ -3,10 +3,8 @@ import os
 from nine.versions import (
     DJANGO_GTE_2_0,
     DJANGO_GTE_1_10,
-    DJANGO_GTE_1_7,
     DJANGO_GTE_1_8,
     DJANGO_GTE_1_9,
-    DJANGO_LTE_1_7,
 )
 
 
@@ -201,7 +199,7 @@ else:
         'django.template.loaders.eggs.Loader',
 
     ]
-    if DJANGO_GTE_1_7:
+    if DJANGO_GTE_1_8:
         TEMPLATE_LOADERS.append('admin_tools.template_loaders.Loader')
 
     TEMPLATE_CONTEXT_PROCESSORS = (
@@ -274,7 +272,6 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
 
     # Third party apps used in the project
-    # 'south',  # Database migration app
     # 'tinymce',  # TinyMCE
     'easy_thumbnails',  # Thumbnailer
     'registration',  # Auth views and registration app
@@ -506,9 +503,6 @@ CKEDITOR_CONFIGS = {
         'width': '100%',
     }
 }
-
-if DJANGO_LTE_1_7:
-    INSTALLED_APPS.append('south')
 
 # LOGIN_URL = '/accounts/login/'
 # LOGIN_REDIRECT_URL = '/fobi/' # Important for passing the selenium tests
@@ -753,18 +747,8 @@ LOGGING = {
 }
 
 # Make settings quite compatible among various Django versions used.
-if DJANGO_GTE_1_7 or DJANGO_GTE_1_8:
+if DJANGO_GTE_1_8:
     INSTALLED_APPS = list(INSTALLED_APPS)
-
-    # Django 1.7 specific checks
-    if DJANGO_GTE_1_7:
-        try:
-            INSTALLED_APPS.remove('south') \
-                if 'south' in INSTALLED_APPS else None
-            INSTALLED_APPS.remove('tinymce') \
-                if 'tinymce' in INSTALLED_APPS else None
-        except Exception as e:
-            pass
 
     # Django 1.8 specific checks
     if DJANGO_GTE_1_8:

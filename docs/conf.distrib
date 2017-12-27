@@ -20,6 +20,7 @@ import os
 #sys.path.insert(0, os.path.abspath('.'))
 sys.path.insert(0, os.path.abspath('../src'))
 sys.path.insert(0, os.path.abspath('../examples'))
+sys.path.insert(0, os.path.abspath('../examples/simple'))
 
 from nine.versions import DJANGO_LTE_1_7, DJANGO_GTE_1_8, DJANGO_GTE_1_7
 

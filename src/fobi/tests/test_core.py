@@ -11,7 +11,7 @@ from fobi.base import (
 from fobi.models import FormEntry, FormWizardEntry
 from fobi.forms import FormEntryForm
 
-from .base import print_info
+from .core import print_info
 from .constants import TEST_FORM_NAME, TEST_FORM_SLUG
 from .helpers import setup_fobi, get_or_create_admin_user
 

@@ -7,7 +7,7 @@ from fobi.contrib.plugins.form_importers \
          .mailchimp_importer.fobi_form_importers import MailChimpImporter
 from fobi.models import FormEntry, FormElementEntry
 
-from .base import print_info
+from .core import print_info
 from .data import TEST_MAILCHIMP_IMPORTER_FORM_DATA
 from .helpers import setup_fobi, get_or_create_admin_user
 

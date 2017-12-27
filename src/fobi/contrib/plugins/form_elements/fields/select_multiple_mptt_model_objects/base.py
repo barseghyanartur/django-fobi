@@ -1,34 +1,27 @@
 from __future__ import absolute_import
 
-import simplejson as json
-
+from django.apps import apps
 from django.forms.widgets import SelectMultiple
 from django.utils.translation import ugettext_lazy as _
 
 from mptt.fields import TreeNodeMultipleChoiceField
 
+import simplejson as json
+
 from fobi.base import FormFieldPlugin, get_theme
 from fobi.constants import (
     SUBMIT_VALUE_AS_VAL,
-    SUBMIT_VALUE_AS_REPR
+    SUBMIT_VALUE_AS_REPR,
 )
 from fobi.helpers import (
     safe_text,
     get_app_label_and_model_name,
-    get_model_name_for_object
+    get_model_name_for_object,
 )
-
-from nine.versions import DJANGO_GTE_1_7
 
 from . import UID
 from .forms import SelectMultipleMPTTModelObjectsInputForm
 from .settings import SUBMIT_VALUE_AS
-
-if DJANGO_GTE_1_7:
-    from django.apps import apps
-    get_model = apps.get_model
-else:
-    from django.db.models import get_model
 
 __title__ = 'fobi.contrib.plugins.form_elements.fields.' \
             'select_multiple_mptt_model_objects.base'
@@ -52,7 +45,7 @@ class SelectMultipleMPTTModelObjectsInputPlugin(FormFieldPlugin):
                                  form_element_entries=None, **kwargs):
         """Get form field instances."""
         app_label, model_name = get_app_label_and_model_name(self.data.model)
-        model = get_model(app_label, model_name)
+        model = apps.get_model(app_label, model_name)
         queryset = model._default_manager.all()
 
         field_kwargs = {

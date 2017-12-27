@@ -9,22 +9,20 @@ import traceback
 import uuid
 
 
-from collections import (
-    defaultdict,
-    # OrderedDict,
-)
+from collections import defaultdict
 
 import simplejson as json
 
-from six import with_metaclass, string_types
-
 from django import forms
 from django.forms import ModelForm
+from django.forms.utils import ErrorList
 from django.http import Http404
 from django.utils.translation import ugettext_lazy as _
 from django.template import RequestContext, Template
 
-from nine.versions import DJANGO_GTE_1_7
+from nine.versions import DJANGO_GTE_1_8
+
+from six import with_metaclass, string_types
 
 from .constants import CALLBACK_STAGES
 from .data_structures import SortableDict
@@ -64,11 +62,6 @@ from .settings import (
     THEME_FOOTER_TEXT,
     # FAIL_ON_ERRORS_IN_FORM_ELEMENT_PLUGINS,
 )
-
-if DJANGO_GTE_1_7:
-    from django.forms.utils import ErrorList
-else:
-    from django.forms.util import ErrorList
 
 __title__ = 'fobi.base'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -805,7 +798,7 @@ class BaseFormFieldPluginForm(BasePluginForm):
 
         return True
 
-    if not DJANGO_GTE_1_7:
+    if not DJANGO_GTE_1_8:
         def add_error(self, field, error):
             """Backwards compatibility hack."""
             raise forms.ValidationError(error, 'invalid')

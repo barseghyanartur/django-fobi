@@ -1,9 +1,10 @@
+from collections import OrderedDict
+
 from django.forms.forms import BaseForm
 from django.forms.widgets import media_property
 from django.http import HttpResponseRedirect
 
 from nine.versions import (
-    DJANGO_GTE_1_7,
     DJANGO_GTE_1_8,
     DJANGO_GTE_1_10,
 )
@@ -25,10 +26,6 @@ else:
         WizardView,
     )
 
-if DJANGO_GTE_1_7:
-    from collections import OrderedDict
-else:
-    from django.utils.datastructures import SortedDict as OrderedDict
 
 if DJANGO_GTE_1_10:
     from django.urls import reverse

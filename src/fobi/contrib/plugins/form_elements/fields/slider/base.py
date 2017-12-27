@@ -3,7 +3,7 @@ from __future__ import absolute_import
 from six import text_type, PY3
 
 from django.forms.fields import ChoiceField
-
+from django.forms.utils import flatatt
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
@@ -35,11 +35,6 @@ from .settings import (
     # MIN_VALUE,
     STEP
 )
-
-if versions.DJANGO_GTE_1_7:
-    from django.forms.utils import flatatt
-else:
-    from django.forms.util import flatatt
 
 __title__ = 'fobi.contrib.plugins.form_elements.fields.slider.base'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'

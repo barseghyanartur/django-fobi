@@ -1,12 +1,10 @@
 import csv
 
+from django.http import HttpResponse
+
 import simplejson as json
 
 from six import StringIO, BytesIO, text_type
-
-from django.http import HttpResponse
-
-from nine.versions import DJANGO_GTE_1_7
 
 from .....exceptions import ImproperlyConfigured
 from .....helpers import safe_text
@@ -40,11 +38,12 @@ class DataExporter(object):
 
         For compatibility with older versions (`mimetype` vs `content_type`).
         """
-        response_kwargs = {}
-        if DJANGO_GTE_1_7:
-            response_kwargs['content_type'] = mimetype
-        else:
-            response_kwargs['mimetype'] = mimetype
+        response_kwargs = {'content_type': mimetype}
+        # response_kwargs = {}
+        # if DJANGO_GTE_1_7:
+        #     response_kwargs['content_type'] = mimetype
+        # else:
+        #     response_kwargs['mimetype'] = mimetype
         return HttpResponse(**response_kwargs)
 
     def _get_data_headers(self):

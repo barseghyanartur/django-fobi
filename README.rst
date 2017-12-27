@@ -10,22 +10,8 @@ handling the submitted form data).
 
 Prerequisites
 =============
-Present
--------
 - Django 1.8, 1.9, 1.10, 1.11 and 2.0.
 - Python 2.7, 3.4, 3.5, 3.6 and PyPy.
-
-Past
-----
-- Dropping support of Django 1.5, 1.6 has been announced in version
-  0.9.13. Dropping support of Django 1.7 has been announced in version 0.9.17.
-  As of 0.9.17 everything is still backwards compatible with versions 1.5, 1.6
-  and 1.7, but in future versions compatibility with these versions will be
-  wiped out.
-- Dropping support of Python 2.6 has been announced in version 0.9.17.
-  As of 0.9.17 everything is still backwards compatible with Python 2.6, but
-  in future versions compatibility with it will be wiped out.
-- Since version 0.10.4 support for Python 3.3 has been dropped.
 
 Key concepts
 ============

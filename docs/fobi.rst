@@ -11,7 +11,6 @@ Subpackages
     fobi.management
     fobi.migrations
     fobi.reusable
-    fobi.south_migrations
     fobi.templatetags
     fobi.tests
     fobi.urls

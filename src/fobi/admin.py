@@ -326,18 +326,13 @@ class FormElementEntryAdmin(admin.ModelAdmin):
 
         app_label = _('Fobi')
 
-    def __queryset(self, request):
-        """Internal method used in get_queryset or queryset methods."""
-        if versions.DJANGO_LTE_1_5:
-            queryset = super(FormElementEntryAdmin, self).queryset(request)
-        else:
-            queryset = super(FormElementEntryAdmin, self).get_queryset(request)
+    def get_queryset(self, request):
+        """Get queryset."""
+        qs = super(FormElementEntryAdmin, self).get_queryset(request)
 
-        queryset = queryset.select_related('form_entry', 'form_fieldset_entry')
-        return queryset
-    get_queryset = __queryset
-    if versions.DJANGO_LTE_1_5:
-        queryset = __queryset
+        qs = qs.select_related('form_entry', 'form_fieldset_entry')
+        return qs
+
 
 # admin.site.register(FormElementEntry, FormElementEntryAdmin)
 
@@ -367,18 +362,13 @@ class FormHandlerEntryAdmin(admin.ModelAdmin):
 
         app_label = _('Form handler entry')
 
-    def __queryset(self, request):
-        """Internal method used in get_queryset or queryset methods."""
-        if versions.DJANGO_LTE_1_5:
-            queryset = super(FormHandlerEntryAdmin, self).queryset(request)
-        else:
-            queryset = super(FormHandlerEntryAdmin, self).get_queryset(request)
+    def get_queryset(self, request):
+        """Tweak the queryset."""
+        qs = super(FormHandlerEntryAdmin, self).get_queryset(request)
 
-        queryset = queryset.select_related('form_entry',)
-        return queryset
-    get_queryset = __queryset
-    if versions.DJANGO_LTE_1_5:
-        queryset = __queryset
+        qs = qs.select_related('form_entry',)
+        return qs
+
 
 # admin.site.register(FormHandlerEntry, FormHandlerEntryAdmin)
 
@@ -419,18 +409,12 @@ class BasePluginModelAdmin(admin.ModelAdmin):
         """
         return False
 
-    def __queryset(self, request):
-        """Internal method used in get_queryset or queryset methods."""
-        if versions.DJANGO_LTE_1_5:
-            queryset = super(BasePluginModelAdmin, self).queryset(request)
-        else:
-            queryset = super(BasePluginModelAdmin, self).get_queryset(request)
+    def get_queryset(self, request):
+        """Tweak queryset."""
+        qs = super(BasePluginModelAdmin, self).get_queryset(request)
 
-        queryset = queryset.prefetch_related('users', 'groups')
-        return queryset
-    get_queryset = __queryset
-    if versions.DJANGO_LTE_1_5:
-        queryset = __queryset
+        qs = qs.prefetch_related('users', 'groups')
+        return qs
 
     def _get_bulk_change_form_class(self):
         """Get change form class for bulk actions."""

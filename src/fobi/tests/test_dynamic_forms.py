@@ -4,7 +4,7 @@ from django.test import TestCase
 
 from fobi.dynamic import assemble_form_class
 
-from .base import print_info
+from .core import print_info
 from .data import TEST_DYNAMIC_FORMS_DEFINITION_DATA
 from .helpers import (
     create_form_with_entries,
