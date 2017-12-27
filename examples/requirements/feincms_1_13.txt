@@ -1,4 +1,4 @@
--r django_1_10.txt
+-r django_1_11.txt
 
 FeinCMS==1.13.2
 django-mptt==0.8.7
