@@ -8,7 +8,6 @@
 ;
 
 $(document).ready(function() {
-//    var markdownConverter = new showdown.Converter();
     var markdownConverter = new Remarkable();
     var markdownTextarea = $('div.markdown-widget-wrapper textarea');
     var markdownPreview = $('div.markdown-widget-wrapper .markdown-preview');
