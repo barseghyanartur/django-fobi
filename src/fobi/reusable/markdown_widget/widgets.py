@@ -12,12 +12,18 @@ __all__ = ('MarkdownWidget',)
 
 
 class MarkdownWidget(Textarea):
-    """Markdown widget based on showdownjs."""
+    """Markdown widget based on remarkable."""
 
     def render(self, name, value, attrs=None):
         if value is None:
             value = ''
-        final_attrs = self.build_attrs(attrs, name=name)
+
+        final_attrs = dict(name=name)
+        final_attrs.update(self.attrs)
+
+        if attrs is not None:
+            final_attrs.update(attrs)
+
         return format_html(
             '<div class="markdown-widget-wrapper">'
             '<textarea{}>\r\n{}</textarea>'
@@ -31,7 +37,6 @@ class MarkdownWidget(Textarea):
         """Media options."""
 
         js = [
-            # 'markdown_widget/showdown.min.js',
             'markdown_widget/remarkable.min.js',
             'content_markdown/fobi.plugin.content_markdown.js',
         ]
