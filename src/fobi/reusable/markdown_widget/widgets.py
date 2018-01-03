@@ -27,7 +27,8 @@ class MarkdownWidget(Textarea):
         return format_html(
             '<div class="markdown-widget-wrapper">'
             '<textarea{}>\r\n{}</textarea>'
-            '<div class="markdown-preview">Preview</div>'
+            '<h6>Preview:</h6>'
+            '<div class="markdown-preview"></div>'
             '</div>',
             flatatt(final_attrs),
             safe_text(value)
