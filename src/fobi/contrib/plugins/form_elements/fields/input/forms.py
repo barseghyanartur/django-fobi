@@ -10,7 +10,7 @@ from .constants import FORM_FIELD_TYPE_CHOICES
 
 __title__ = 'fobi.contrib.plugins.form_elements.fields.input.forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2017 Artur Barseghyan'
+__copyright__ = '2014-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('InputForm',)
 

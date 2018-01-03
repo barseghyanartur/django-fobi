@@ -15,6 +15,16 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.12.12
+-------
+2018-01-03
+
+- More consistent loading of assets (JS, CSS) in add- and
+  edit-form-element-entry templates.
+- Copyright and licenses year update.
+- Minor fixes in the widgets.
+- Clean up.
+
 0.12.11
 -------
 2017-12-27

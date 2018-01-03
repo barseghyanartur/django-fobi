@@ -37,7 +37,7 @@ try:
 except ImportError as err:
     version = '0.1'
     project = u'django-fobi'
-    copyright = u'2014, Artur Barseghyan <artur.barseghyan@gmail.com>'
+    copyright = u'2014-2018, Artur Barseghyan <artur.barseghyan@gmail.com>'
 
 try:
     from simple import settings_docs as docs_settings
