@@ -6,7 +6,7 @@
 
 {% block extrahead %}
     {% if form %}
-        {{ form.media }}
+        {{ form.media.css }}
     {% endif %}
     {{ block.super }}
 {% endblock extrahead %}
@@ -25,3 +25,10 @@
 
 {% block sidebar-content %}
 {% endblock sidebar-content %}
+
+{% block theme-javascripts %}
+    {{ block.super }}
+    {% if form %}
+        {{ form.media.js }}
+    {% endif %}
+{% endblock theme-javascripts %}

@@ -20,7 +20,7 @@ except ImportError:
 
 __title__ = 'fobi.widgets'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2017 Artur Barseghyan'
+__copyright__ = '2014-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'BooleanRadioSelect',
@@ -120,7 +120,20 @@ class RichSelectInverseQuotes(RichSelect):
 
             if value is None:
                 value = ''
-            final_attrs = self.build_attrs(attrs, name=name)
+
+            if not attrs:
+                attrs = self.attrs
+            else:
+                attrs.update(self.attrs)
+
+            if versions.DJANGO_GTE_1_11:
+                final_attrs = self.build_attrs(
+                    attrs,
+                    extra_attrs={'name': name}
+                )
+            else:
+                final_attrs = self.build_attrs(attrs, name=name)
+
             output = [
                 format_html('<select{}>', flatatt_inverse_quotes(final_attrs))
             ]
@@ -145,7 +158,20 @@ class RichSelectInverseQuotes(RichSelect):
 
             if value is None:
                 value = ''
-            final_attrs = self.build_attrs(attrs, name=name)
+
+            if not attrs:
+                attrs = self.attrs
+            else:
+                attrs.update(self.attrs)
+
+            if versions.DJANGO_GTE_1_11:
+                final_attrs = self.build_attrs(
+                    attrs,
+                    extra_attrs={'name': name}
+                )
+            else:
+                final_attrs = self.build_attrs(attrs, name=name)
+
             output = [
                 format_html('<select{}>', flatatt_inverse_quotes(final_attrs))
             ]

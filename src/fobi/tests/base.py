@@ -1,35 +1,21 @@
 import gc
 import logging
-import unittest
-
-from time import sleep
 
 from selenium import webdriver
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
-# from selenium.webdriver.firefox.webdriver import WebDriver
 from selenium.webdriver.support.wait import WebDriverWait
-from selenium.common.exceptions import WebDriverException
 
 from django.core.management import call_command
 from django.test import LiveServerTestCase
 from django.conf import settings
 
-from fobi.models import FormEntry
-
 from nine.versions import DJANGO_GTE_1_10
 
 from . import constants
-from .core import print_info, skip
-from .data import (
-    TEST_FORM_ELEMENT_PLUGIN_DATA,
-    TEST_FORM_FIELD_DATA,
-    TEST_FORM_HANDLER_PLUGIN_DATA
-)
 from .helpers import (
     setup_fobi,
     get_or_create_admin_user,
-    db_clean_up,
-    phantom_js_clean_up
+    phantom_js_clean_up,
 )
 
 if DJANGO_GTE_1_10:
@@ -39,14 +25,10 @@ else:
 
 __title__ = 'fobi.tests.test_browser_build_dynamic_forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2017 Artur Barseghyan'
+__copyright__ = '2014-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'BaseFobiBrowserBuldDynamicFormsTest',
-    # 'GeneralFobiBrowserBuldDynamicFormsTest',
-    # 'FormSpecificFobiBrowserBuldDynamicFormsTest',
-    # 'FormElementSpecificFobiBrowserBuldDynamicFormsTest',
-    # 'FormHandlerSpecificFobiBrowserBuldDynamicFormsTest',
 )
 
 logger = logging.getLogger(__name__)

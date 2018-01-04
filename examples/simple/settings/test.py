@@ -97,3 +97,10 @@ INSTALLED_APPS += [
 
     'tinymce',  # TinyMCE
 ]
+
+MIGRATION_MODULES = {
+    'fobi': 'fobi.migrations',
+    'db_store': 'fobi.contrib.plugins.form_handlers.db_store.migrations',
+    'page': 'page.migrations',
+}
+
