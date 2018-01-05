@@ -44,7 +44,7 @@
               </li>
             </ul>
 
-            <form method="post" action="{{ request.path }}?active_tab=tab-form-elements" novalidate="novalidate" class="{% block form_elements_html_class %}form-horizontal{% endblock %}">
+            <form method="post" action="{{ request.path }}?active_tab=tab-form-elements" novalidate="novalidate" class="{% block form_elements_html_class %}form-horizontal{% endblock %}" {% block form_elements_extra_attrs %}{% endblock %}>
               {% csrf_token %}
               {% with assembled_form as form %}
                  {% include fobi_theme.form_edit_snippet_template_name %}
@@ -197,9 +197,5 @@
       </div>
 
     </div>
-
   </div>
-
-  <div class="col-4 col-sm-4 col-lg-4"></div>
-
 </div>
