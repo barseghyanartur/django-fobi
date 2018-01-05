@@ -4,7 +4,7 @@
 </div>
 
 <div class="row">
-  <div class="col-12 col-sm-12 col-lg-12">
+  <div class="col-9 col-sm-12 col-lg-9">
     <!-- Nav tabs -->
     <ul class="nav nav-tabs" role="tablist">
       <li class="active"><a href="#tab-form-elements" role="tab" data-toggle="tab">{% trans "Elements" %}</a></li>
@@ -44,7 +44,7 @@
               </li>
             </ul>
 
-            <form method="post" action="{{ request.path }}?active_tab=tab-form-elements" novalidate="novalidate" class="{% block form_elements_html_class %}form-horizontal{% endblock %}" {% block form_elements_extra_attrs %}{% endblock %}>
+            <form id="fobi-form" method="post" action="{{ request.path }}?active_tab=tab-form-elements" novalidate="novalidate" class="{% block form_elements_html_class %}form-horizontal{% endblock %}" {% block form_elements_extra_attrs %}{% endblock %}>
               {% csrf_token %}
               {% with assembled_form as form %}
                  {% include fobi_theme.form_edit_snippet_template_name %}

@@ -70,13 +70,13 @@ $(function() {
 
     formElementPositionElements = $('.form-element-position');
     if (formElementPositionElements.length) {
-        $('.form-horizontal .form-group').css({ 'cursor': 'move' });
+        $('#fobi-form .form-group').css({ 'cursor': 'move' });
 
-        $('.form-horizontal').sortable({
+        $('#fobi-form').sortable({
             axis: 'y',
-            items: ".form-group",
+            items: '.form-group',
             update: function(){
-                $.each($('.form-horizontal .form-group'), function(i){
+                $.each($('#fobi-form .form-group'), function(i){
                     $(this).find('input:regex(name, .*-position)').val(i + 1);
                 });
 
