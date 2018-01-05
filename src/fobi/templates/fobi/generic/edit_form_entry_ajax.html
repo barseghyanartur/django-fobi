@@ -176,7 +176,7 @@
               <h3>{% trans "Export your form as JSON" %}</h3>
               <p>{% trans "Export your form into JSON format and import it again any time!" %}</p>
               <p>
-                <a class="btn btn-primary" href="{% url 'fobi.export_form_entry' form_entry.pk %}" role="button">
+                <a class="{% block form_service_export_button_html_class %}btn btn-primary{% endblock %}" href="{% url 'fobi.export_form_entry' form_entry.pk %}" role="button">
                   <span class="glyphicon glyphicon-export"></span> {% trans "Export form" %}
                 </a>
               </p>
@@ -186,7 +186,7 @@
               <h3>{% trans "Delete your form" %}</h3>
               <p>{% trans "Once deleted, can't be undone!" %}</p>
               <p>
-                <a class="btn btn-primary" href="{% url 'fobi.delete_form_entry' form_entry.pk %}" role="button">
+                <a class="{% block form_service_delete_button_html_class %}btn btn-primary{% endblock %}" href="{% url 'fobi.delete_form_entry' form_entry.pk %}" role="button">
                   <span class="glyphicon glyphicon-remove"></span> {% trans "Delete form" %}
                 </a>
               </p>
