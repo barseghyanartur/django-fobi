@@ -19,6 +19,28 @@ are used for versioning (schema follows below):
 --------
 2018-01-09
 
+Note, that this release contains minor backwards incompatible changes, that may
+slightly break your JS and/or styling.
+
+The `form-horizontal` class attribute on the main form with elements (in
+templates) has been replaced with `fobi-form` id attribute.
+
+Affected files:
+
+- /src/fobi/contrib/themes/djangocms_admin_style_theme/static/djangocms_admin_style_theme/js/fobi.djangocms_admin_style_theme.edit.js
+- /src/fobi/contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/edit_form_entry_ajax.html
+- /src/fobi/contrib/themes/foundation5/static/foundation5/js/foundation5_fobi_extras.js
+- /src/fobi/contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html
+- /src/fobi/contrib/themes/foundation5/templates/foundation5/edit_form_wizard_entry_ajax.html
+- /src/fobi/contrib/themes/simple/static/simple/js/fobi.simple.edit.js
+- /src/fobi/contrib/themes/simple/templates/simple/edit_form_entry_ajax.html
+- /src/fobi/contrib/themes/simple/templates/simple/edit_form_wizard_entry_ajax.html
+- /src/fobi/contrib/themes/bootstrap3/static/bootstrap3/js/bootstrap3_fobi_extras.js
+- /src/fobi/templates/fobi/generic/edit_form_entry_ajax.html
+
+If you have modified any of these, please double check that your edit views
+work and look properly.
+
 - Fixes in simple and django-cms-admin-style themes (assets being loaded
   incorrectly since 0.12.6).
 - Base template, as well as templates of all the themes have been made a
