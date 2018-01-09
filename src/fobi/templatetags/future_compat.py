@@ -8,7 +8,11 @@ try:
     # We're using the Django 1.6 admin templates, that make use of new
     # things. One of the new additions (changed) was the ``firstof``
     # template tag. If we can't import it, we simply define it ourselves.
+    from django.template import Library
     from django.template.defaulttags import firstof
+
+    register = Library()
+    register.tag('firstof', firstof)
 except ImportError:
     import warnings
 

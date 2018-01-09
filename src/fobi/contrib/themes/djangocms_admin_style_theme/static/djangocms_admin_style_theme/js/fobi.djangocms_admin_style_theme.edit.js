@@ -37,13 +37,13 @@ $(function() {
 
     formElementPositionElements = $('.form-element-position');
     if (formElementPositionElements.length) {
-        $('.form-horizontal .form-row').css({ 'cursor': 'move' });
+        $('#fobi-form .form-row').css({ 'cursor': 'move' });
 
-        $('.form-horizontal').sortable({
+        $('#fobi-form').sortable({
             axis: 'y',
             items: ".form-row",
             update: function(){
-                $.each($('.form-horizontal .form-row'), function(i){
+                $.each($('#fobi-form .form-row'), function(i){
                     $(this).find('input:regex(name, .*-position)').val(i + 1);
                 });
 

@@ -38,7 +38,7 @@
           </li>
         </ul>
 
-        <form method="post" action="{{ request.path }}?active_tab=tab-form-elements" novalidate="novalidate" class="form-horizontal">
+        <form id="fobi-form" method="post" action="{{ request.path }}?active_tab=tab-form-elements" novalidate="novalidate" class="{% block form_elements_html_class %}form-horizontal{% endblock %}" {% block form_elements_extra_attrs %}{% endblock %}>
           <div>
             <fieldset class="module aligned">
               {% csrf_token %}

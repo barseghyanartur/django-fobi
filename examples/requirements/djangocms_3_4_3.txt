@@ -1,6 +1,7 @@
 -r django_1_10.txt
 
 django-cms==3.4.3
+django-filer==1.2.4
 djangocms-picture==2.0.5
 djangocms-snippet==1.9.2
 djangocms-text-ckeditor==3.5.0
