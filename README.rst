@@ -164,7 +164,7 @@ If quick installer doesn't work for you, see the manual steps on running the
 
 Quick start
 ===========
-See the `quick start <http://django-fobi.readthedocs.io/en/latest/quickstart.html>`_.
+See the `quick start <http://pythonhosted.org/django-fobi/quickstart.html>`_.
 
 Installation
 ============

@@ -92,12 +92,12 @@ Uncategorised
 -------------
 .. code-block:: text
 
-    + Update documentation http://django-fobi.readthedocs.io/en/0.12.12/#versions
     - Add Wagtail integration tests.
     - Add Mezzanine integration tests.
     - Add FeinCMS integration tests.
     - Add DjangoCMS integration tests.
     - Implement fobi SAAS (with use of React.js).
+    - Update documentation http://pythonhosted.org/django-fobi/#versions
     - Somehow PyPy started to fail under Django 1.10 and 1.11 (invocation error),
       so it must be some package incompatibility/installation problems. Find out
       why.
