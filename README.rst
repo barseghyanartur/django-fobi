@@ -164,7 +164,7 @@ If quick installer doesn't work for you, see the manual steps on running the
 
 Quick start
 ===========
-See the `quick start <http://pythonhosted.org/django-fobi/quickstart.html>`_.
+See the `quick start <http://django-fobi.readthedocs.io/en/latest/quickstart.html>`_.
 
 Installation
 ============
@@ -2151,12 +2151,13 @@ and want to reuse those forms on another. You could of course re-create entire
 form in the GUI, but we can do better than that. It's possible to export forms
 into JSON format and import the exported forms again. It's preferable that
 you run both instances on the same versions of `django-fobi`, otherwise imports
-might break (although it might just work). There are two scenarios to deal with
-missing plugin errors, which you have don't yet have full control of. If both
-instances have the same set of form element and form handler plugins imports
-should go smoothly. It is though possible to make an import ignoring missing
-form element and form handler plugins. You would get an appropriate notice
-about that, but import will continue leaving the broken plugin data out.
+might break (although it might just work). There many ways to deal with
+missing plugin errors, but the chosen strategy (which you don't yet have full
+control of) is safest (import everything possible, but warn user about errors).
+If both instances have the same set of form element and form handler plugins
+imports should go smoothly. It is though possible to make an import ignoring
+missing form element and form handler plugins. You would get an appropriate
+notice about that, but import will continue leaving the broken plugin data out.
 
 Available translations
 ======================
