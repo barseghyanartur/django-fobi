@@ -12,7 +12,7 @@
 {#<!-- This is where stylesheets declared in the Python theme are listed -->#}
 
 {% for css_file in fobi_theme.get_media_css %}
-<link href="{% static css_file %}" rel="stylesheet" media="all" />
+<link href="{{ css_file }}" rel="stylesheet" media="all" />
 {% endfor %}
 
 {% endblock theme-stylesheets %}
@@ -88,7 +88,7 @@
   {% block theme-javascripts %}
     {#<!-- This is where javascripts declared in the Python theme are listed -->#}
     {% for js_file in fobi_theme.get_media_js %}
-    <script src="{% static js_file %}"></script>
+    <script src="{{ js_file }}"></script>
     {% endfor %}
 
   {% endblock theme-javascripts %}

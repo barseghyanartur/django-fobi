@@ -17,9 +17,13 @@ are used for versioning (schema follows below):
 
 0.12.13
 --------
-2018-mm-dd (not yet released)
+2018-01-09
 
-- Documentation fixes.
+- Fixes in simple and django-cms-admin-style themes (assets being loaded
+  incorrectly since 0.12.6).
+- Base template, as well as templates of all the themes have been made a
+  little bit more flexible.
+- Minor documentation fixes.
 
 0.12.12
 -------

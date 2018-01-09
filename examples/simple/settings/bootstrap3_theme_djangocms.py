@@ -9,9 +9,11 @@ INSTALLED_APPS += [
     'cms',  # DjangoCMS
     'menus',
     'sekizai',
-    # 'djangocms_admin_style',
+    'djangocms_admin_style',
 
     # Some plugins
+    'filer',
+    # 'cmsplugin_filer_image',
     # 'djangocms_picture',
     # 'djangocms_snippet',
 
