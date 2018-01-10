@@ -51,3 +51,11 @@
 .panel.panel-fobi {
     background-color: #fff;
 }
+
+.theme.theme-foundation5 .captcha {
+    float: left;
+    margin-right: 15px;
+}
+.theme.theme-foundation5 .form-control.form-captcha-text {
+    width: 50%;
+}

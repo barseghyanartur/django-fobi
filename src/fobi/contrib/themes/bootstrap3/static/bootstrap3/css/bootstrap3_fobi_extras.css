@@ -19,3 +19,11 @@
     height: auto;
     width: auto;
 }
+
+.theme.theme-bootstrap3 .captcha {
+    float: left;
+    margin-right: 15px;
+}
+.theme.theme-bootstrap3 .form-control.form-captcha-text {
+    width: 50%;
+}

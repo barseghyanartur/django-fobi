@@ -6524,6 +6524,19 @@ Install `fobi` Captcha plugin
 (3) Assign appropriate permissions to the target users/groups to be using
     the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
+(4) In order to have nicer text input widget, add the following line
+    to your settings (if you're using bootstrap3 theme):
+
+    .. code-block:: python
+
+        CAPTCHA_TEXT_FIELD_TEMPLATE = 'bootstrap3/captcha/text_field.html'
+
+    For foundation5 theme add the following line:
+
+    .. code-block:: python
+
+        CAPTCHA_TEXT_FIELD_TEMPLATE = 'foundation5/captcha/text_field.html'
+
 Troubleshooting and usage limitations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 In combination with other captcha solutions
