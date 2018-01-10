@@ -26,9 +26,11 @@
       {% endif %}
     {% endspaceless %}">
 
-      <label class="{% block form_element_label_html_class %}{% endblock %}" for="{{ field.id_for_label }}">
-        {{ field.label }}{% if field.field.required %}<span class="{% block form_element_required_field_sign_html_class %}required-field{% endblock %}">*</span>{% endif %}
-      </label>
+      {% if field.label %}
+        <label class="{% block form_element_label_html_class %}{% endblock %}" for="{{ field.id_for_label }}">
+          {{ field.label }}{% if field.field.required %}<span class="{% block form_element_required_field_sign_html_class %}required-field{% endblock %}">*</span>{% endif %}
+        </label>
+      {% endif %}
 
       <div class="{% block form_element_field_wrapper_html_class %}{% endblock %}">
         {% get_form_field_type field as form_field_type %}
