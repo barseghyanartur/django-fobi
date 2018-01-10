@@ -11,6 +11,11 @@ try:
         INSTALLED_APPS.append(
             'fobi.contrib.plugins.form_elements.security.captcha'
         )
+
+    CAPTCHA_TEXT_FIELD_TEMPLATE = 'bootstrap3/captcha/text_field.html'
+
+    ENABLE_CAPTCHA = True
+
 except Exception as e:
     pass
 
