@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.12.14
+--------
+2018-01-10
+
+- Minor clean up of HTML templates (unused classes removed).
+- Nicer captcha (simple captcha) for bootstrap3 and foundation5 themes.
+
 0.12.13
 --------
 2018-01-09
