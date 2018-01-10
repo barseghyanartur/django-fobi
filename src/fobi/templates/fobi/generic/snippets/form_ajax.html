@@ -6,7 +6,7 @@
 </div>
 {% endblock %}
 
-<form method="{% block form_method %}post{% endblock %}" action="{% block form_action %}{% if form_entry.action %}{{ form_entry.action }}{% else %}{{ request.path }}{% endif %}{% endblock %}" {% block form_enctype %}enctype="multipart/form-data"{% endblock %} class="{% block form_html_class %}{% endblock %}" {% block form_extra_attrs %}{% endblock %}>
+<form id="fobi-form" method="{% block form_method %}post{% endblock %}" action="{% block form_action %}{{ form_entry.action|default:request.path }}{% endblock %}" {% block form_enctype %}enctype="multipart/form-data"{% endblock %} class="{% block form_html_class %}{% endblock %}" {% block form_extra_attrs %}{% endblock %}>
   {% csrf_token %}
   {% include fobi_theme.form_snippet_template_name %}
   <div class="{% block form_button_outer_wrapper_html_class %}{% endblock %}">
