@@ -15,7 +15,9 @@
 
 {% for field in form %}
   {% if field.is_hidden %}
-    <div class="{% block hidden_form_element_wrapper_html_class %}hidden{% endblock %}">{{ field }}</div>
+    <div class="{% block hidden_form_element_wrapper_html_class %}hidden{% endblock %}">
+      {{ field }}
+    </div>
   {% else %}
     <div class="{% spaceless %}
       {% block form_element_wrapper_html_class %}form-group{% endblock %}
