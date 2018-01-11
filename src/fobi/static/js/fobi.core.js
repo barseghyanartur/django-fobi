@@ -83,24 +83,13 @@ FobiCore.prototype = {
             $(activeTabSelector + ' a:first').trigger('click');
         }
     }
-    
+
 };
 
-
-/**
- * Replaces "-" with "_". For the rest is the jQuery-Slugify-Plugin package is used.
- * @param <string> str:
- * @return <string>
- */
-//var fobiSlugify = function(str) {
-//    return str.replace(/[\-]+/g, '_');
-//};
 
 var fobiCore = new FobiCore();
 
 $(document).ready(function() {
-  
-  
   // Slugify form element name from label
   $('#form_element_entry_form #id_name').slugify(
     '#form_element_entry_form #id_label',
@@ -111,5 +100,3 @@ $(document).ready(function() {
     }
   );
 });
-
-//window.fobiCore = fobiCore;

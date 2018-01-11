@@ -6,13 +6,20 @@
 </div>
 {% endblock %}
 
-<form id="fobi-form" method="{% block form_method %}post{% endblock %}" action="{% block form_action %}{{ form_entry.action|default:request.path }}{% endblock %}" {% block form_enctype %}enctype="multipart/form-data"{% endblock %} class="{% block form_html_class %}{% endblock %}" {% block form_extra_attrs %}{% endblock %}>
+{% if form_entry.has_invisible_recaptcha and g_recaptcha_sitekey %}
+<script src="https://www.google.com/recaptcha/api.js" async defer></script>
+<script>
+  function g_recaptcha_onSubmit(token) { document.getElementById("fobi-form").submit(); }
+</script>
+{% endif %}
+<form id="{% block form_id %}fobi-form{% endblock %}" method="{% block form_method %}post{% endblock %}" action="{% block form_action %}{{ form_entry.action|default:request.path }}{% endblock %}" {% block form_enctype %}enctype="multipart/form-data"{% endblock %} class="{% block form_html_class %}{% endblock %}" {% block form_extra_attrs %}{% endblock %}>
   {% csrf_token %}
   {% include fobi_theme.form_snippet_template_name %}
   <div class="{% block form_button_outer_wrapper_html_class %}{% endblock %}">
     <div class="{% block form_button_wrapper_html_class %}{% endblock %}">
       {% block form_buttons %}
-      <button type="submit" class="{% block form_primary_button_html_class %}{% endblock %}">
+      <button class="{% if form_entry.has_invisible_recaptcha and g_recaptcha_sitekey %}g-recaptcha {% endif %}{% block form_primary_button_html_class %}{% endblock %}"
+      {% if form_entry.has_invisible_recaptcha and g_recaptcha_sitekey %}data-sitekey="{{ g_recaptcha_sitekey }}" data-callback="g_recaptcha_onSubmit"{% else %}type="submit"{% endif %}>
         {% block form_primary_button_text %}{% endblock %}
       </button>
       {% endblock %}

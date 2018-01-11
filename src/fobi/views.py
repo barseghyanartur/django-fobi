@@ -82,6 +82,7 @@ from .utils import (
     perform_form_entry_import,
     prepare_form_entry_export_data
 )
+from .validators import validate_invisible_recaptcha
 from .wizard import (
     # DynamicCookieWizardView,
     DynamicSessionWizardView,
@@ -161,7 +162,7 @@ def _delete_plugin_entry(request,
                              .select_related('form_entry') \
                              .get(pk=entry_id,
                                   form_entry__user__pk=request.user.pk)
-    except ObjectDoesNotExist as err:
+    except ObjectDoesNotExist:
         raise Http404(
             ugettext("{0} not found.").format(
                 entry_model_cls._meta.verbose_name
@@ -204,7 +205,7 @@ def _delete_wizard_plugin_entry(request,
                              .select_related('form_wizard_entry') \
                              .get(pk=entry_id,
                                   form_wizard_entry__user__pk=request.user.pk)
-    except ObjectDoesNotExist as err:
+    except ObjectDoesNotExist:
         raise Http404(
             ugettext("{0} not found.").format(
                 entry_model_cls._meta.verbose_name
@@ -612,7 +613,7 @@ def delete_form_entry(request, form_entry_id, template_name=None):
     try:
         obj = FormEntry._default_manager \
             .get(pk=form_entry_id, user__pk=request.user.pk)
-    except ObjectDoesNotExist as err:
+    except ObjectDoesNotExist:
         raise Http404(ugettext("Form entry not found."))
 
     obj.delete()
@@ -649,7 +650,7 @@ def add_form_element_entry(request,
         form_entry = FormEntry._default_manager \
                               .prefetch_related('formelemententry_set') \
                               .get(pk=form_entry_id)
-    except ObjectDoesNotExist as err:
+    except ObjectDoesNotExist:
         raise Http404(ugettext("Form entry not found."))
 
     form_elements = form_entry.formelemententry_set.all()
@@ -712,7 +713,7 @@ def add_form_element_entry(request,
             try:
                 position = records['{0}__max'.format('position')] + 1
 
-            except TypeError as err:
+            except TypeError:
                 pass
 
         obj.position = position
@@ -780,7 +781,7 @@ def edit_form_element_entry(request,
                                               'form_entry__user') \
                               .get(pk=form_element_entry_id,
                                    form_entry__user__pk=request.user.pk)
-    except ObjectDoesNotExist as err:
+    except ObjectDoesNotExist:
         raise Http404(ugettext("Form element entry not found."))
 
     form_entry = obj.form_entry
@@ -908,7 +909,7 @@ def add_form_handler_entry(request,
     """
     try:
         form_entry = FormEntry._default_manager.get(pk=form_entry_id)
-    except ObjectDoesNotExist as err:
+    except ObjectDoesNotExist:
         raise Http404(ugettext("Form entry not found."))
 
     user_form_handler_plugin_uids = get_user_form_handler_plugin_uids(
@@ -1034,7 +1035,7 @@ def edit_form_handler_entry(request,
         obj = FormHandlerEntry._default_manager \
                               .select_related('form_entry') \
                               .get(pk=form_handler_entry_id)
-    except ObjectDoesNotExist as err:
+    except ObjectDoesNotExist:
         raise Http404(ugettext("Form handler entry not found."))
 
     form_entry = obj.form_entry
@@ -1406,7 +1407,7 @@ def delete_form_wizard_entry(request, form_wizard_entry_id,
     try:
         obj = FormWizardEntry._default_manager \
             .get(pk=form_wizard_entry_id, user__pk=request.user.pk)
-    except ObjectDoesNotExist as err:
+    except ObjectDoesNotExist:
         raise Http404(ugettext("Form wizard entry not found."))
 
     obj.delete()
@@ -1467,7 +1468,7 @@ class FormWizardView(DynamicSessionWizardView):
             form_wizard_entry = FormWizardEntry.objects \
                 .select_related('user') \
                 .get(**qs_kwargs)
-        except ObjectDoesNotExist as err:
+        except ObjectDoesNotExist:
             raise Http404(ugettext("Form wizard entry not found."))
 
         form_entries = [
@@ -1697,7 +1698,7 @@ class FormWizardView(DynamicSessionWizardView):
             form_wizard_entry = FormWizardEntry.objects \
                 .select_related('user') \
                 .get(**qs_kwargs)
-        except ObjectDoesNotExist as err:
+        except ObjectDoesNotExist:
             raise Http404(ugettext("Form wizard entry not found."))
 
         # Run all handlers
@@ -1739,7 +1740,7 @@ def form_wizard_entry_submitted(request, form_wizard_entry_slug=None,
         form_wizard_entry = FormWizardEntry._default_manager \
             .select_related('user') \
             .get(**kwargs)
-    except ObjectDoesNotExist as err:
+    except ObjectDoesNotExist:
         raise Http404(ugettext("Form wizard entry not found."))
 
     context = {
@@ -1880,7 +1881,7 @@ def delete_form_wizard_form_entry(request, form_wizard_form_entry_id):
             .select_related('form_wizard_entry') \
             .get(pk=form_wizard_form_entry_id,
                  form_wizard_entry__user__pk=request.user.pk)
-    except ObjectDoesNotExist as err:
+    except ObjectDoesNotExist:
         raise Http404(
             ugettext("{0} not found.").format(
                 FormWizardFormEntry._meta.verbose_name
@@ -1936,7 +1937,7 @@ def add_form_wizard_handler_entry(request,
         form_wizard_entry = FormWizardEntry._default_manager.get(
             pk=form_wizard_entry_id
         )
-    except ObjectDoesNotExist as err:
+    except ObjectDoesNotExist:
         raise Http404(ugettext("Form wizard entry not found."))
 
     user_form_wizard_handler_plugin_uids = \
@@ -2068,7 +2069,7 @@ def edit_form_wizard_handler_entry(request,
         obj = FormWizardHandlerEntry._default_manager \
             .select_related('form_wizard_entry') \
             .get(pk=form_wizard_handler_entry_id)
-    except ObjectDoesNotExist as err:
+    except ObjectDoesNotExist:
         raise Http404(ugettext("Form wizard handler entry not found."))
 
     form_wizard_entry = obj.form_wizard_entry
@@ -2214,13 +2215,21 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
     )
 
     if request.method == 'POST':
+        invisible_recaptcha_is_valid = True
+
+        if form_entry.has_invisible_recaptcha:
+            success, msg = validate_invisible_recaptcha(request.POST)
+            if not success:
+                messages.error(request, ugettext(msg))
+                invisible_recaptcha_is_valid = False
+
         form = form_cls(request.POST, request.FILES)
 
         # Fire pre form validation callbacks
         fire_form_callbacks(form_entry=form_entry, request=request, form=form,
                             stage=CALLBACK_BEFORE_FORM_VALIDATION)
 
-        if form.is_valid():
+        if form.is_valid() and invisible_recaptcha_is_valid:
             # Fire form valid callbacks, before handling submitted plugin
             # form data.
             form = fire_form_callbacks(
@@ -2308,6 +2317,12 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
         'fobi_form_title': form_entry.title,
     }
 
+    if form_entry.has_invisible_recaptcha:
+        from django.conf import settings
+        context['g_recaptcha_sitekey'] = getattr(
+            settings, 'FOBI_INVISIBLE_RECAPTCHA_SITE_KEY', ''
+        )
+
     if not template_name:
         template_name = theme.view_form_entry_template
 
@@ -2342,7 +2357,7 @@ def form_entry_submitted(request, form_entry_slug=None, template_name=None):
         form_entry = FormEntry._default_manager \
             .select_related('user') \
             .get(**kwargs)
-    except ObjectDoesNotExist as err:
+    except ObjectDoesNotExist:
         raise Http404(ugettext("Form entry not found."))
 
     # try:
@@ -2388,7 +2403,7 @@ def export_form_entry(request, form_entry_id, template_name=None):
         form_entry = FormEntry._default_manager \
                               .get(pk=form_entry_id, user__pk=request.user.pk)
 
-    except ObjectDoesNotExist as err:
+    except ObjectDoesNotExist:
         raise Http404(ugettext("Form entry not found."))
 
     data = prepare_form_entry_export_data(form_entry)
@@ -2597,7 +2612,7 @@ def export_form_wizard_entry(request,
         form_wizard_entry = FormWizardEntry._default_manager \
             .get(pk=form_wizard_entry_id, user__pk=request.user.pk)
 
-    except ObjectDoesNotExist as err:
+    except ObjectDoesNotExist:
         raise Http404(ugettext("Form wizard entry not found."))
 
     data = {
