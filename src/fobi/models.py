@@ -395,6 +395,12 @@ class FormEntry(models.Model):
         default=False,
         help_text=_("Makes your form visible to the public.")
     )
+    has_invisible_recaptcha = models.BooleanField(
+        _("Invisible reCAPTCHA?"),
+        default=False,
+        help_text=_("Spam and abuse protection service from Google. "
+                    "Requires a valid API key.")
+    )
     is_cloneable = models.BooleanField(
         _("Cloneable?"),
         default=False,

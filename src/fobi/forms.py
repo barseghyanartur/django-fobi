@@ -70,8 +70,16 @@ class FormEntryForm(forms.ModelForm):
         """Meta class."""
 
         model = FormEntry
-        fields = ('name', 'title', 'is_public', 'success_page_title',
-                  'success_page_message', 'action',)  # 'is_cloneable',
+        fields = (
+            'name',
+            'title',
+            'is_public',
+            'has_invisible_recaptcha',
+            'success_page_title',
+            'success_page_message',
+            'action',
+            # 'is_cloneable',
+        )
 
     def __init__(self, *args, **kwargs):
         """Constructor."""
@@ -113,6 +121,12 @@ class FormEntryForm(forms.ModelForm):
         self.fields['is_public'].widget = forms.widgets.CheckboxInput(
             attrs={'data-customforms': 'disabled'}
         )
+
+        self.fields['has_invisible_recaptcha'].widget = \
+            forms.widgets.CheckboxInput(
+                attrs={'data-customforms': 'disabled'}
+            )
+
         # self.fields['is_cloneable'].widget = forms.widgets.CheckboxInput(
         #    attrs={'data-customforms': 'disabled'}
         # )
@@ -135,14 +149,14 @@ class FormEntryForm(forms.ModelForm):
 
             try:
                 localhost = socket.gethostbyname('localhost')
-            except Exception as err:
+            except Exception:
                 localhost = '127.0.0.1'
 
             try:
                 host = socket.gethostbyname(parsed_url.hostname)
 
                 local = (localhost == host)
-            except socket.gaierror as err:
+            except socket.gaierror:
                 pass
 
             if local:

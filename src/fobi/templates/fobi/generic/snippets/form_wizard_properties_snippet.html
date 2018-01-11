@@ -19,7 +19,7 @@
                     {% get_form_field_type field as field_type %}
                     <div class="{% spaceless %}
                                 {% block form_element_wrapper_html_class %}{% endblock %}
-                                {% if field.errors %} {% block hidden_form_element_error_html_class%}{% endblock %}{% endif %}
+                                {% if field.errors %} {% block form_element_wrapper_error_html_class %}{% endblock %}{% endif %}
                                 {% endspaceless %}">
 
                         {% if field_type.is_checkbox %}
