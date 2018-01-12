@@ -4,14 +4,14 @@
 <div class="{% block form_required_fields_message_wrapper_class %}{% endblock %}">
   {% blocktrans %}Fields marked with <span class="required-field">*</span> are required{% endblocktrans %}
 </div>
-{% endblock %}
+{% endblock form_required_fields_message_block %}
 
 {% block form_non_field_and_hidden_errors %}
 {% get_form_hidden_fields_errors form as form_hidden_fields_errors %}
 {% if form.non_field_errors or form_hidden_fields_errors %}
   {% include fobi_theme.form_non_field_and_hidden_errors_snippet_template %}
 {% endif %}
-{% endblock %}
+{% endblock form_non_field_and_hidden_errors %}
 
 {% for field in form %}
   {% if field.is_hidden %}
