@@ -87,15 +87,6 @@ FobiCore.prototype = {
 };
 
 
-/**
- * Replaces "-" with "_". For the rest is the jQuery-Slugify-Plugin package is used.
- * @param <string> str:
- * @return <string>
- */
-//var fobiSlugify = function(str) {
-//    return str.replace(/[\-]+/g, '_');
-//};
-
 var fobiCore = new FobiCore();
 
 $(document).ready(function() {
