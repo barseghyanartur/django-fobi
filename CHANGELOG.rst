@@ -15,6 +15,17 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.12.15
+--------
+2018-mm-dd (not yet released)
+
+- Minor clean up of HTML templates (in some templates
+  ``hidden_form_element_wrapper_html_class`` was used while others
+  ``form_element_wrapper_hidden_html_class``). Now
+  ``form_element_wrapper_hidden_html_class`` is used everywhere. Some HTML
+  files have been re-indented (2 spaces).
+- Minor clean up of JS.
+
 0.12.14
 --------
 2018-01-10
