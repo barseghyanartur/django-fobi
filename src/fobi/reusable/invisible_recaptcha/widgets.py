@@ -12,6 +12,7 @@ class InvisibleRecaptchaWidget(CheckboxInput):
     """Invisible recaptcha widget."""
 
     class Media(object):
+        """Media."""
         css = {
             'all': ('pretty.css',)
         }
