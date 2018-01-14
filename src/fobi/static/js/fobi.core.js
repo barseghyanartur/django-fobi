@@ -86,7 +86,6 @@ FobiCore.prototype = {
 
 };
 
-
 var fobiCore = new FobiCore();
 
 $(document).ready(function() {
