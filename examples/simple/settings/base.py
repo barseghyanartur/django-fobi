@@ -809,6 +809,23 @@ if DEBUG:
     except ImportError:
         pass
 
+# if DEBUG:
+#     try:
+#         # Make sure the django-template-debug is installed. You can then
+#         # in templates use it as follows:
+#         #
+#         # {% load debug_tags %}
+#         # {% set_trace %}
+#         import debug_toolbar_mongo
+#         INSTALLED_APPS += (
+#             'debug_toolbar_mongo',
+#         )
+#         DEBUG_TOOLBAR_PANELS = (
+#             'debug_toolbar_mongo.panel.MongoDebugPanel',
+#         )
+#     except ImportError:
+#         pass
+
 # Make the `django-fobi` package available without installation.
 if DEV:
     import sys
