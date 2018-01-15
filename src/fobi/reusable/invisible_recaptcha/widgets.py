@@ -30,7 +30,7 @@ class InvisibleRecaptchaWidget(CheckboxInput):
         """
         html = super(InvisibleRecaptchaWidget, self).render(*args, **kwargs)
         invisible_recaptcha_html = """
-            <script src="://www.google.com/recaptcha/api.js" async defer>
+            <script src="https://www.google.com/recaptcha/api.js" async defer>
             </script>
             <script>
               function g_recaptcha_onSubmit(token) { 
