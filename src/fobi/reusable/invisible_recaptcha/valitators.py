@@ -4,7 +4,7 @@ from django.conf import settings
 
 import requests
 
-__title__ = 'fobi.reusablbe.invisible_recaptcha.validators'
+__title__ = 'fobi.reusable.invisible_recaptcha.validators'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2013-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
