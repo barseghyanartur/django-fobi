@@ -1,6 +1,6 @@
 from django import forms
-from django.utils.translation import ugettext_lazy as _
 from django.core.validators import MinValueValidator
+from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import BaseFormFieldPluginForm, get_theme
 from fobi.settings import DEFAULT_MAX_LENGTH, DEFAULT_MIN_LENGTH
@@ -24,7 +24,8 @@ class FileInputForm(forms.Form, BaseFormFieldPluginForm):
         ("help_text", ""),
         ("initial", ""),
         ("max_length", str(DEFAULT_MAX_LENGTH)),
-        ("required", False)
+        ("required", False),
+        ("allowed_extensions", "")
     ]
 
     label = forms.CharField(
@@ -68,6 +69,16 @@ class FileInputForm(forms.Form, BaseFormFieldPluginForm):
         required=False,
         widget=forms.widgets.CheckboxInput(
             attrs={'class': theme.form_element_checkbox_html_class}
+        )
+    )
+    allowed_extensions = forms.CharField(
+        label=_("Allowed extensions"),
+        help_text=_("List of allowed file extensions separated by comma "
+                    "(Example: '.pdf, .jpeg'). "
+                    "Leave blank to allow all extensions."),
+        required=False,
+        widget=forms.widgets.TextInput(
+            attrs={'class': theme.form_element_html_class}
         )
     )
 
