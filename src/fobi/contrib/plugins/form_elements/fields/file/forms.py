@@ -1,6 +1,6 @@
 from django import forms
-from django.utils.translation import ugettext_lazy as _
 from django.core.validators import MinValueValidator
+from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import BaseFormFieldPluginForm, get_theme
 from fobi.settings import DEFAULT_MAX_LENGTH, DEFAULT_MIN_LENGTH
@@ -81,7 +81,6 @@ class FileInputForm(forms.Form, BaseFormFieldPluginForm):
             attrs={'class': theme.form_element_html_class}
         )
     )
-
 
     def clean(self):
         super(FileInputForm, self).clean()
