@@ -1,8 +1,10 @@
 import copy
 from collections import OrderedDict
 import datetime
+import os
 # from decimal import Decimal
 
+from django.conf import settings
 from django.utils.encoding import force_text
 
 from faker import Faker
@@ -28,8 +30,8 @@ from fobi.contrib.plugins.form_elements.fields \
          .decimal.fobi_form_elements import DecimalInputPlugin
 from fobi.contrib.plugins.form_elements.fields \
          .email.fobi_form_elements import EmailInputPlugin
-# from fobi.contrib.plugins.form_elements.fields \
-#          .file.fobi_form_elements import FileInputPlugin
+from fobi.contrib.plugins.form_elements.fields \
+         .file.fobi_form_elements import FileInputPlugin
 from fobi.contrib.plugins.form_elements.fields \
          .float.fobi_form_elements import FloatInputPlugin
 from fobi.contrib.plugins.form_elements.fields \
@@ -127,14 +129,13 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
         'required': True,
     },
 
-    # TODO: Add file test.
     # Add a "File" (file) form element
-    # force_text(FileInputPlugin.name): {
-    #     'label': "Test file input",
-    #     #'name': "test_file_input",
-    #     'help_text': "Lorem ipsum hidden",
-    #     'required': False,
-    #     },
+    force_text(FileInputPlugin.name): {
+        'label': "Test file input",
+        # 'name': "test_file_input",
+        'help_text': "Lorem ipsum file",
+        'required': False,
+        },
 
     # Add an float input plugin
     force_text(FloatInputPlugin.name): {
@@ -248,7 +249,11 @@ TEST_FORM_FIELD_DATA = {
     ),
     'test_decimal_input': '10.01',  # Decimal(10.01),
     'test_email_input': 'john@doe.net',
-    # 'test_file_input': '',
+    'test_file_input': os.path.join(
+        settings.MEDIA_ROOT,
+        'testing',
+        'delusional_insanity_-_karima_van_der_voort.jpg'
+    ),
     'test_float_input': '10.01',
     # 'test_hidden_input': '',
     'test_integer': '2014',
