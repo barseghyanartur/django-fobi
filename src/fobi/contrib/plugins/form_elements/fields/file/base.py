@@ -89,6 +89,7 @@ class FileInputPlugin(FormFieldPlugin):
             of ``fobi.models.FormEntry``.
         :param django.http.HttpRequest request:
         :param django.forms.Form form:
+        :param form_element_entries:
         """
         # Get the file path
         cleaned_data = self.prepare_plugin_form_data(form.cleaned_data)

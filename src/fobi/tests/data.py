@@ -30,8 +30,8 @@ from fobi.contrib.plugins.form_elements.fields \
          .decimal.fobi_form_elements import DecimalInputPlugin
 from fobi.contrib.plugins.form_elements.fields \
          .email.fobi_form_elements import EmailInputPlugin
-# from fobi.contrib.plugins.form_elements.fields \
-#          .file.fobi_form_elements import FileInputPlugin
+from fobi.contrib.plugins.form_elements.fields \
+         .file.fobi_form_elements import FileInputPlugin
 from fobi.contrib.plugins.form_elements.fields \
          .float.fobi_form_elements import FloatInputPlugin
 from fobi.contrib.plugins.form_elements.fields \

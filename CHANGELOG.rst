@@ -17,7 +17,7 @@ are used for versioning (schema follows below):
 
 0.12.15
 --------
-2018-mm-dd (not yet released)
+2018-01-17
 
 - Minor clean up of HTML templates (in some templates
   ``hidden_form_element_wrapper_html_class`` was used while others
@@ -25,6 +25,7 @@ are used for versioning (schema follows below):
   ``form_element_wrapper_hidden_html_class`` is used everywhere. Some HTML
   files have been re-indented (2 spaces).
 - Minor clean up of JS.
+- Optionally limit file extensions for file upload element
 
 0.12.14
 --------
