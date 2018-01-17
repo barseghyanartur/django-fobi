@@ -2,15 +2,15 @@ from __future__ import absolute_import
 
 import os
 
-from django.forms.fields import FileField
+from django.conf import settings
 from django.forms.widgets import ClearableFileInput
 from django.utils.translation import ugettext_lazy as _
-from django.conf import settings
 
 from fobi.base import FormFieldPlugin
 from fobi.helpers import handle_uploaded_file
 
 from . import UID
+from .fields import AllowedExtensionsFileField as FileField
 from .forms import FileInputForm
 from .settings import FILES_UPLOAD_DIR
 
@@ -32,19 +32,32 @@ class FileInputPlugin(FormFieldPlugin):
     def get_form_field_instances(self, request=None, form_entry=None,
                                  form_element_entries=None, **kwargs):
         """Get form field instances."""
+        if self.data.allowed_extensions:
+            attrs = {'accept': self.data.allowed_extensions.replace(' ', '')}
+        else:
+            attrs = {}
+
         field_kwargs = {
             'label': self.data.label,
             'help_text': self.data.help_text,
             'initial': self.data.initial,
             'required': self.data.required,
-            'widget': ClearableFileInput(attrs={}),
+            'widget': ClearableFileInput(attrs=attrs),
         }
         if self.data.max_length is not None:
             field_kwargs['max_length'] = self.data.max_length
 
+        if self.data.allowed_extensions:
+            field_kwargs['allowed_extensions'] = self.data.allowed_extensions
+
         return [(self.data.name, FileField, field_kwargs)]
 
     def prepare_plugin_form_data(self, cleaned_data):
+        """Prepare plugin form data.
+
+        :param cleaned_data:
+        :return:
+        """
         # Get the file path
         file_path = cleaned_data.get(self.data.name, None)
         if file_path:
@@ -76,6 +89,7 @@ class FileInputPlugin(FormFieldPlugin):
             of ``fobi.models.FormEntry``.
         :param django.http.HttpRequest request:
         :param django.forms.Form form:
+        :param form_element_entries:
         """
         # Get the file path
         cleaned_data = self.prepare_plugin_form_data(form.cleaned_data)
