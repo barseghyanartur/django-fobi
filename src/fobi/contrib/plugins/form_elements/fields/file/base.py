@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 import os
 
-from django.forms.fields import FileField
+from .fields import AllowedExtensionsFileField as FileField
 from django.forms.widgets import ClearableFileInput
 from django.utils.translation import ugettext_lazy as _
 from django.conf import settings
@@ -31,16 +31,25 @@ class FileInputPlugin(FormFieldPlugin):
 
     def get_form_field_instances(self, request=None, form_entry=None,
                                  form_element_entries=None, **kwargs):
+
+        if self.data.allowed_extensions:
+            attrs = {'accept': self.data.allowed_extensions.replace(' ', '')}
+        else:
+            attrs = {}
+
         """Get form field instances."""
         field_kwargs = {
             'label': self.data.label,
             'help_text': self.data.help_text,
             'initial': self.data.initial,
             'required': self.data.required,
-            'widget': ClearableFileInput(attrs={}),
+            'widget': ClearableFileInput(attrs=attrs),
         }
         if self.data.max_length is not None:
             field_kwargs['max_length'] = self.data.max_length
+
+        if self.data.allowed_extensions:
+            field_kwargs['allowed_extensions'] = self.data.allowed_extensions
 
         return [(self.data.name, FileField, field_kwargs)]
 
