@@ -83,15 +83,12 @@ FobiCore.prototype = {
             $(activeTabSelector + ' a:first').trigger('click');
         }
     }
-    
-};
 
+};
 
 var fobiCore = new FobiCore();
 
 $(document).ready(function() {
-  
-  
   // Slugify form element name from label
   $('#form_element_entry_form #id_name').slugify(
     '#form_element_entry_form #id_label',
@@ -102,5 +99,3 @@ $(document).ready(function() {
     }
   );
 });
-
-//window.fobiCore = fobiCore;
