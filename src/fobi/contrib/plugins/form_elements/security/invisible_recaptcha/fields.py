@@ -20,12 +20,12 @@ LOGGER = logging.getLogger(__name__)
 
 
 class InvisibleRecaptchaField(forms.CharField):
-    """InvisibleRecaptchaField"""
+    """Invisible reCAPTCHA field"""
 
     default_error_messages = {
         'invalid': _('Field value was tampered with.'),
-        'validation_error': _('Invisible Recaptcha validation error'),
-        'incorrect_captcha': _('Incorrect captcha, please try again'),
+        'validation_error': _('Invisible reCAPTCHA validation error'),
+        'incorrect_captcha': _('Incorrect CAPTCHA, please try again'),
     }
     widget = InvisibleRecaptchaWidget
 
@@ -53,7 +53,7 @@ class InvisibleRecaptchaField(forms.CharField):
 
         if response.status_code != requests.codes.ok:
             LOGGER.error(
-                'Invisible Recaptcha error: %s: %s',
+                'Invisible reCAPTCHA error: %s: %s',
                 response.status_code,
                 response.reason
             )
@@ -66,7 +66,7 @@ class InvisibleRecaptchaField(forms.CharField):
         error_codes = response.get('error-codes')
         if error_codes:
             LOGGER.error(
-                'Invisible Recaptcha verification error: %s', error_codes
+                'Invisible reCAPTCHA verification error: %s', error_codes
             )
 
         result = response.get('success')
