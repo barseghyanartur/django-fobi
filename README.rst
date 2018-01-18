@@ -1860,10 +1860,13 @@ Security
 ~~~~~~~~
 - `CAPTCHA
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/captcha/>`__:
-  Captcha integration, requires ``django-simple-captcha`` package.
+  CAPTCHA integration, requires ``django-simple-captcha`` package.
 - `ReCAPTCHA
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/recaptcha/>`__:
-  Captcha integration, requires ``django-recaptcha`` package.
+  CAPTCHA integration, requires ``django-recaptcha`` package.
+- `Invisible ReCAPTCHA
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/invisible_recaptcha/>`__:
+  Google invisible reCAPTCHA integration, with no additional dependencies.
 - `Honeypot
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/honeypot/>`__:
   `Anti-spam honeypot <http://en.wikipedia.org/wiki/Anti-spam_techniques#Honeypots>`_
