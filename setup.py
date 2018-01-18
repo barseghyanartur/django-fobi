@@ -194,6 +194,9 @@ static_dirs = [
     # Markdown widget
     "src/fobi/reusable/markdown_widget/static",
     "src/fobi/contrib/plugins/form_elements/content/content_markdown/static",
+
+    # Invisible reCAPTCHA
+    "src/fobi/contrib/plugins/form_elements/security/invisible_recaptcha/static",
 ]
 
 locale_dirs = [
