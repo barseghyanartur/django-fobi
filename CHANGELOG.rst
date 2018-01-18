@@ -25,7 +25,7 @@ are used for versioning (schema follows below):
   ``form_element_wrapper_hidden_html_class`` is used everywhere. Some HTML
   files have been re-indented (2 spaces).
 - Minor clean up of JS.
-- Optionally limit file extensions for file upload element
+- Optionally limit file extensions for file upload element.
 
 0.12.14
 --------
