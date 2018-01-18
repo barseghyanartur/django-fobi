@@ -35,7 +35,7 @@ class AllowedExtensionsFileField(FileField):
     def validate(self, file):
         super(AllowedExtensionsFileField, self).validate(file)
 
-        if self.allowed_extensions:
+        if file and self.allowed_extensions:
             extension = splitext(file.name)[1].lower()
             if extension not in self.allowed_extensions:
                 raise forms.ValidationError(
