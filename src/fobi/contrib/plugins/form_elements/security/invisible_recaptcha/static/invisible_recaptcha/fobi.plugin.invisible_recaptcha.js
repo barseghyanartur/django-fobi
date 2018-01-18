@@ -17,10 +17,12 @@ function g_recaptcha_onSubmit(token) {
 
 $(document).ready(function() {
     var siteKey = window.InvisibleRecaptchaSiteKey || "";
-//    var submitFormButton = $('form.form-horizontal button[type=submit]');
-    var submitFormButton = $('form#fobi-form button[type=submit]');
-    submitFormButton.addClass('g-recaptcha');
-    submitFormButton.attr('data-sitekey', siteKey);
-    submitFormButton.attr('data-callback', 'g_recaptcha_onSubmit');
-    submitFormButton.removeAttr('type');
+    if (siteKey) {
+//        var submitFormButton = $('form.form-horizontal button[type=submit]');
+        var submitFormButton = $('form#fobi-form button[type=submit]');
+        submitFormButton.addClass('g-recaptcha');
+        submitFormButton.attr('data-sitekey', siteKey);
+        submitFormButton.attr('data-callback', 'g_recaptcha_onSubmit');
+        submitFormButton.removeAttr('type');
+    }
 });
