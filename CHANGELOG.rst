@@ -15,6 +15,12 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.12.16
+--------
+2018-01-18
+
+- Invisible reCAPTCHA form plugin added.
+
 0.12.15
 --------
 2018-01-17
@@ -25,7 +31,7 @@ are used for versioning (schema follows below):
   ``form_element_wrapper_hidden_html_class`` is used everywhere. Some HTML
   files have been re-indented (2 spaces).
 - Minor clean up of JS.
-- Optionally limit file extensions for file upload element.
+- Optionally limit file extensions for file upload element
 
 0.12.14
 --------

@@ -15,6 +15,12 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.12.16
+--------
+2018-01-18
+
+- Invisible reCAPTCHA form plugin added.
+
 0.12.15
 --------
 2018-01-17
