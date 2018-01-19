@@ -21,41 +21,11 @@ __all__ = (
 class InvisibleRecaptchaWidget(HiddenInput):
     """Invisible recaptcha widget."""
 
-    # class Media(object):
-    #     """Media."""
-    #
-    #     js = (
-    #         {
-    #             'src': 'https://www.google.com/recaptcha/api.js',
-    #             'attrs': 'async defer',
-    #         }
-    #     )
-
     def __init__(self, *args, **kwargs):
         attrs = kwargs.get('attrs', {})
         attrs.update({'data-customforms': 'disabled'})
         kwargs.update({'attrs': attrs})
         super(InvisibleRecaptchaWidget, self).__init__(*args, **kwargs)
-
-    # def render_js(self):
-    #     rendered_js = []
-    #     for path in self._js:
-    #         if isinstance(dict, path):
-    #             rendered_js.append(
-    #                 format_html(
-    #                     '<script type="text/javascript" src="{}" {}></script>',
-    #                     self.absolute_path(path['src']),
-    #                     self.absolute_path(path['attrs']),
-    #                 )
-    #             )
-    #         else:
-    #             rendered_js.append(
-    #                 format_html(
-    #                     '<script type="text/javascript" src="{}"></script>',
-    #                     self.absolute_path(path)
-    #                 )
-    #             )
-    #     return rendered_js
 
     def render(self, *args, **kwargs):
         """Returns this Widget rendered as HTML, as a Unicode string."""
