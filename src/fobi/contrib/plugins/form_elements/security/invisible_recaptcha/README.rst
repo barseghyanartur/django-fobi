@@ -14,6 +14,7 @@ Installation
         INSTALLED_APPS = (
             # ...
             'fobi.contrib.plugins.form_elements.security.invisible_recaptcha',
+            'fobi.contrib.themes.bootstrap3.widgets.form_elements.invisible_recaptcha_bootstrap3_widget',
             # ...
         )
 
