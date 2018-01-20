@@ -17,7 +17,7 @@ are used for versioning (schema follows below):
 
 0.12.16
 --------
-2018-01-dd (not yet released)
+2018-01-21
 
 .. note::
 
@@ -36,7 +36,7 @@ are used for versioning (schema follows below):
     If you have modified any of these, you might want to check and update
     your code.
 
-- Invisible reCAPTCHA form plugin added.
+- Invisible reCAPTCHA form plugin (security) added.
 - Clean up templates.
 - Introduce a form_id block. The following templates were affected.
 
