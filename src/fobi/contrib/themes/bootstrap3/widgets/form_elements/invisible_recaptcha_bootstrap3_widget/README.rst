@@ -1,11 +1,12 @@
-=======================================================================================
-fobi.contrib.themes.bootstrap3.widgets.form_elements.content_richtext_bootstrap3_widget
-=======================================================================================
-A rich-text widget to the ``content_richtext`` plugin (for Bootstrap 3 theme).
+==========================================================================================
+fobi.contrib.themes.bootstrap3.widgets.form_elements.invisible_recaptcha_bootstrap3_widget
+==========================================================================================
+An Invisible reCAPTCHA widget for the ``invisible_recaptcha`` plugin (for
+Bootstrap 3 theme).
 
 Installation
 ============
-1. Add ``fobi.contrib.themes.bootstrap3.widgets.form_elements.content_richtext_bootstrap3_widget``
+1. Add ``fobi.contrib.themes.bootstrap3.widgets.form_elements.invisible_recaptcha_bootstrap3_widget``
    to the ``INSTALLED_APPS`` in your ``settings.py``.
 
 .. code-block:: python
@@ -13,8 +14,8 @@ Installation
     INSTALLED_APPS = (
         # ...
         'fobi.contrib.themes.bootstrap3',
-        'fobi.contrib.themes.bootstrap3.widgets.form_elements.content_richtext_bootstrap3_widget',
-        'fobi.contrib.plugins.form_elements.content.content_richtext',
+        'fobi.contrib.themes.bootstrap3.widgets.form_elements.invisible_recaptcha_bootstrap3_widget',
+        'fobi.contrib.plugins.form_elements.security.invisible_recaptcha_bootstrap3_widget',
         # ...
     )
 

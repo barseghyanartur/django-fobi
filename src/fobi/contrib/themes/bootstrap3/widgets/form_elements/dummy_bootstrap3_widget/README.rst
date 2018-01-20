@@ -1,7 +1,7 @@
 ============================================================================
 fobi.contrib.themes.bootstrap3.widgets.form_elements.dummy_bootstrap3_widget
 ============================================================================
-A dummy widget to the ``dummy`` plugin (for Bootstrap 3 theme).
+A dummy widget for the ``dummy`` plugin (for Bootstrap 3 theme).
 
 Installation
 ============

@@ -1,7 +1,7 @@
 =============================================================================
 fobi.contrib.themes.foundation5.widgets.form_elements.date_foundation5_widget
 =============================================================================
-A fancy date picker widget to the ``date`` plugin (for Foundation 5
+A fancy date picker widget for the ``date`` plugin (for Foundation 5
 theme).
 
 Installation

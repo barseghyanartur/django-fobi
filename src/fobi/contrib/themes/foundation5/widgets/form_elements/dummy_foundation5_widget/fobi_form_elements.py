@@ -14,6 +14,7 @@ __all__ = ('DummyPluginWidget',)
 
 class DummyPluginWidget(BaseDummyPluginWidget):
     """Dummy plugin widget for Foundation 5."""
+
     theme_uid = UID
     media_js = [
         # 'bootstrap3/js/fobi.plugin.dummy-bootstrap3-widget.js',

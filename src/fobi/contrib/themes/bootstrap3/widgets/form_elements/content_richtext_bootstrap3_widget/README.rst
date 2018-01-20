@@ -1,7 +1,7 @@
 =======================================================================================
 fobi.contrib.themes.bootstrap3.widgets.form_elements.content_richtext_bootstrap3_widget
 =======================================================================================
-A rich-text widget to the ``content_richtext`` plugin (for Bootstrap 3 theme).
+A rich-text widget for the ``content_richtext`` plugin (for Bootstrap 3 theme).
 
 Installation
 ============
