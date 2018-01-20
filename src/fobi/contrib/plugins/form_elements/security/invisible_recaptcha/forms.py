@@ -21,7 +21,6 @@ class InvisibleRecaptchaInputForm(forms.Form, BaseFormFieldPluginForm):
     plugin_data_fields = [
         ("label", ""),
         ("name", ""),
-        ("initial", ""),
         ("max_length", "255"),
         ("required", True),
     ]
@@ -36,13 +35,6 @@ class InvisibleRecaptchaInputForm(forms.Form, BaseFormFieldPluginForm):
     name = forms.CharField(
         label=_("Name"),
         required=True,
-        widget=forms.widgets.TextInput(
-            attrs={'class': theme.form_element_html_class}
-        )
-    )
-    initial = forms.CharField(
-        label=_("Initial"),
-        required=False,
         widget=forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
         )

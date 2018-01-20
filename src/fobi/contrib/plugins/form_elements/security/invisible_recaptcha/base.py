@@ -43,7 +43,6 @@ class InvisibleRecaptchaInputPlugin(FormElementPlugin):
             recaptcha_response = request.POST.get(RECAPTCHA_FIELD)
         field_kwargs = {
             'label': self.data.label,
-            'initial': self.data.initial,
             # 'help_text': self.data.help_text,
             'required': self.data.required,
             'widget': InvisibleRecaptchaWidget(
