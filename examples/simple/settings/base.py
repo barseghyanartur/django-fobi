@@ -224,27 +224,16 @@ else:
         PROJECT_DIR(os.path.join('..', 'templates')),
     )
 
-
-if DJANGO_GTE_2_0:
-    MIDDLEWARE = [
-        'django.contrib.sessions.middleware.SessionMiddleware',
-        'django.middleware.common.CommonMiddleware',
-        'django.middleware.csrf.CsrfViewMiddleware',
-        'django.contrib.auth.middleware.AuthenticationMiddleware',
-        'django.contrib.messages.middleware.MessageMiddleware',
-        # Uncomment the next line for simple clickjacking protection:
-        # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    ]
-else:
-    MIDDLEWARE_CLASSES = [
-        'django.contrib.sessions.middleware.SessionMiddleware',
-        'django.middleware.common.CommonMiddleware',
-        'django.middleware.csrf.CsrfViewMiddleware',
-        'django.contrib.auth.middleware.AuthenticationMiddleware',
-        'django.contrib.messages.middleware.MessageMiddleware',
-        # Uncomment the next line for simple clickjacking protection:
-        # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    ]
+# Final declaration of the middleware is done on the bottom of this file
+_MIDDLEWARE = [
+    'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.common.CommonMiddleware',
+    'django.middleware.csrf.CsrfViewMiddleware',
+    'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.contrib.messages.middleware.MessageMiddleware',
+    # Uncomment the next line for simple clickjacking protection:
+    # 'django.middleware.clickjacking.XFrameOptionsMiddleware',
+]
 
 ROOT_URLCONF = 'urls'
 
@@ -333,6 +322,7 @@ INSTALLED_APPS = [
     # ************************ Security elements ****************************
     # ***********************************************************************
     'fobi.contrib.plugins.form_elements.security.honeypot',
+    'fobi.contrib.plugins.form_elements.security.invisible_recaptcha',
 
     # ***********************************************************************
     # ************************* Testing elements ****************************
@@ -389,6 +379,10 @@ INSTALLED_APPS = [
     # CKEditor widget
     'fobi.contrib.themes.bootstrap3.widgets.form_elements.'
     'content_richtext_bootstrap3_widget',
+
+    # Invisible Recaptcha widget
+    'fobi.contrib.themes.bootstrap3.widgets.form_elements.'
+    'invisible_recaptcha_bootstrap3_widget',
 
     # # Markdown
     # 'fobi.contrib.themes.bootstrap3.widgets.form_elements.'
@@ -781,7 +775,7 @@ if DEBUG and DEBUG_TOOLBAR:
         import debug_toolbar
 
         # debug_toolbar
-        MIDDLEWARE_CLASSES += (
+        _MIDDLEWARE += (
             'debug_toolbar.middleware.DebugToolbarMiddleware',
         )
 
@@ -794,6 +788,12 @@ if DEBUG and DEBUG_TOOLBAR:
         }
     except ImportError:
         pass
+
+# Only now make proper assignments
+if DJANGO_GTE_2_0:
+    MIDDLEWARE = _MIDDLEWARE
+else:
+    MIDDLEWARE_CLASSES = _MIDDLEWARE
 
 if DEBUG:
     try:
@@ -808,6 +808,23 @@ if DEBUG:
         )
     except ImportError:
         pass
+
+# if DEBUG:
+#     try:
+#         # Make sure the django-template-debug is installed. You can then
+#         # in templates use it as follows:
+#         #
+#         # {% load debug_tags %}
+#         # {% set_trace %}
+#         import debug_toolbar_mongo
+#         INSTALLED_APPS += (
+#             'debug_toolbar_mongo',
+#         )
+#         DEBUG_TOOLBAR_PANELS = (
+#             'debug_toolbar_mongo.panel.MongoDebugPanel',
+#         )
+#     except ImportError:
+#         pass
 
 # Make the `django-fobi` package available without installation.
 if DEV:

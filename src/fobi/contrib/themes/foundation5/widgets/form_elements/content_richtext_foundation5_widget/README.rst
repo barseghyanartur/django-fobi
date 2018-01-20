@@ -1,7 +1,7 @@
 =========================================================================================
 fobi.contrib.themes.foundation5.widgets.form_elements.content_richtext_foundation5_widget
 =========================================================================================
-A rich text widget to the ``content_richtext`` plugin (for Foundation 5
+A rich text widget for the ``content_richtext`` plugin (for Foundation 5
 theme).
 
 Installation

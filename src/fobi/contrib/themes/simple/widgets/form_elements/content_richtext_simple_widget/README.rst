@@ -1,7 +1,7 @@
 ===============================================================================
 fobi.contrib.themes.simple.widgets.form_elements.content_richtext_simple_widget
 ===============================================================================
-A rich-text widget to the ``content_richtext`` plugin (for Simple theme).
+A rich-text widget for the ``content_richtext`` plugin (for Simple theme).
 
 Installation
 ============

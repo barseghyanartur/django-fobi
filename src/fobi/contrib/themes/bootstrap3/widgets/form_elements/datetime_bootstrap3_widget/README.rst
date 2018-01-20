@@ -1,7 +1,7 @@
 ===============================================================================
 fobi.contrib.themes.bootstrap3.widgets.form_elements.datetime_bootstrap3_widget
 ===============================================================================
-A fancy datetime picker widget to the ``datetime`` plugin (for Bootstrap 3
+A fancy datetime picker widget for the ``datetime`` plugin (for Bootstrap 3
 theme).
 
 Installation

@@ -1,7 +1,7 @@
 ==============================================================================
 fobi.contrib.themes.foundation5.widgets.form_elements.dummy_foundation5_widget
 ==============================================================================
-A dummy widget to the ``dummy`` plugin (for Foundation 5 theme).
+A dummy widget for the ``dummy`` plugin (for Foundation 5 theme).
 
 Installation
 ============

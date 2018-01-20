@@ -2,7 +2,6 @@
 fobi.contrib.themes.simple.widgets.form_handlers.db_store
 =========================================================
 A ``db_store`` form handler plugin widget for Simple theme.
-was used.
 
 Installation
 ============

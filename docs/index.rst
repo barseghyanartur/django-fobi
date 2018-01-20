@@ -1860,10 +1860,13 @@ Security
 ~~~~~~~~
 - `CAPTCHA
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/captcha/>`__:
-  Captcha integration, requires ``django-simple-captcha`` package.
+  CAPTCHA integration, requires ``django-simple-captcha`` package.
 - `ReCAPTCHA
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/recaptcha/>`__:
-  Captcha integration, requires ``django-recaptcha`` package.
+  CAPTCHA integration, requires ``django-recaptcha`` package.
+- `Invisible ReCAPTCHA
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/invisible_recaptcha/>`__:
+  Google invisible reCAPTCHA integration, with no additional dependencies.
 - `Honeypot
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/honeypot/>`__:
   `Anti-spam honeypot <http://en.wikipedia.org/wiki/Anti-spam_techniques#Honeypots>`_
@@ -5363,6 +5366,9 @@ Installation
     of the media root. If you want to change the directory location,
     set the ``FOBI_PLUGIN_FIELDS_FILE_FILES_UPLOAD_DIR`` value to the desired
     (relative) path.
+
+(5) You may optionally restrict uploaded files extensions by specifying the
+    ``allowed_extensions`` field in the plugin.
 
 
 fobi.contrib.plugins.form_elements.fields.float

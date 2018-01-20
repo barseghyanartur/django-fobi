@@ -30,3 +30,6 @@ Installation
     of the media root. If you want to change the directory location,
     set the ``FOBI_PLUGIN_FIELDS_FILE_FILES_UPLOAD_DIR`` value to the desired
     (relative) path.
+
+(5) You may optionally restrict uploaded files extensions by specifying the
+    ``allowed_extensions`` field in the plugin.

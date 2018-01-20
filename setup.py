@@ -4,7 +4,7 @@ import sys
 from distutils.version import LooseVersion
 from setuptools import setup, find_packages
 
-version = '0.12.14'
+version = '0.12.16'
 
 # ***************************************************************************
 # ************************** Python version *********************************
@@ -194,6 +194,9 @@ static_dirs = [
     # Markdown widget
     "src/fobi/reusable/markdown_widget/static",
     "src/fobi/contrib/plugins/form_elements/content/content_markdown/static",
+
+    # Invisible reCAPTCHA
+    "src/fobi/contrib/plugins/form_elements/security/invisible_recaptcha/static",
 ]
 
 locale_dirs = [
