@@ -32,13 +32,14 @@ def get_temporary_file(prefix):
 
     :return:
     """
-    image = Image.new('RGBA', size=(100, 100), color=(256,0,0))
+    image = Image.new('RGBA', size=(100, 100), color=(256, 0, 0))
     tmp_file = BytesIO()
     _tmp_file = tempfile.NamedTemporaryFile(prefix=prefix, suffix='.png')
     image.save(tmp_file, "PNG")
     tmp_file.seek(0)
     tmp_file.name = _tmp_file.name
     return tmp_file
+
 
 BASE64_PREFIX = 'data:image/png;base64,'
 

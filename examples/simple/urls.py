@@ -153,7 +153,8 @@ if getattr(settings, 'ENABLE_CAPTCHA', False):
         except ImportError:
             pass
 
-if getattr(settings, 'DEBUG', False) and getattr(settings, 'DEBUG_TOOLBAR', False):
+if getattr(settings, 'DEBUG', False) and \
+        getattr(settings, 'DEBUG_TOOLBAR', False):
     import debug_toolbar
 
     if versions.DJANGO_GTE_2_0:

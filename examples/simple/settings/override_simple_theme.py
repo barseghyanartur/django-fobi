@@ -7,13 +7,13 @@ INSTALLED_APPS = list(INSTALLED_APPS)
 try:
     INSTALLED_APPS.append('override_simple_theme')
     INSTALLED_APPS.append('crispy_forms')
-except Exception as e:
+except Exception as err:
     pass
 
 if DJANGO_GTE_1_7:
     try:
         INSTALLED_APPS.remove('south') if 'south' in INSTALLED_APPS else None
-    except:
+    except Exception as err:
         pass
 
 FOBI_DEFAULT_THEME = 'simple'

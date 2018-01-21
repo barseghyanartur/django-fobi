@@ -13,11 +13,13 @@ def project_dir(base):
         os.path.join(os.path.dirname(__file__), base).replace('\\', '/')
     )
 
+
 PROJECT_DIR = project_dir
 
 
 def gettext(s):
     return s
+
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
@@ -458,7 +460,8 @@ INSTALLED_APPS = [
 
     # Presentational elements
     'fobi.contrib.apps.drf_integration.form_elements.content.content_image',
-    'fobi.contrib.apps.drf_integration.form_elements.content.content_image_url',
+    'fobi.contrib.apps.drf_integration.form_elements.content.'
+    'content_image_url',
     'fobi.contrib.apps.drf_integration.form_elements.content.content_markdown',
     'fobi.contrib.apps.drf_integration.form_elements.content.content_richtext',
     'fobi.contrib.apps.drf_integration.form_elements.content.content_text',
@@ -490,7 +493,7 @@ CKEDITOR_CONFIGS = {
              'HorizontalRule', '-', 'JustifyLeft', 'JustifyCenter',
              'JustifyRight', 'JustifyBlock'],
             ['Link', 'Unlink', 'Image'],
-            ['Table',],
+            ['Table'],
             ['RemoveFormat'],
         ],
         # 'height': 300,
