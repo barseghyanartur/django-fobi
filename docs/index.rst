@@ -384,8 +384,11 @@ Defining the Sample textarea plugin.
         form = SampleTextareaForm
         group = "Samples" # Group to which the plugin belongs to
 
-        def get_form_field_instances(self, request=None, form_entry=None,
-                                     form_element_entries=None, **kwargs):
+        def get_form_field_instances(self,
+                                     request=None,
+                                     form_entry=None,
+                                     form_element_entries=None,
+                                     **kwargs):
             kwargs = {
                 'required': self.data.required,
                 'label': self.data.label,
@@ -436,8 +439,12 @@ Example (taken from fobi.contrib.plugins.form_elements.fields.file):
 
 .. code-block:: python
 
-    def submit_plugin_form_data(self, form_entry, request, form,
-                                form_element_entries=None, **kwargs):
+    def submit_plugin_form_data(self,
+                                form_entry,
+                                request,
+                                form,
+                                form_element_entries=None,
+                                **kwargs):
         """Submit plugin form data."""
         # Get the file path
         file_path = form.cleaned_data.get(self.data.name, None)
@@ -728,8 +735,11 @@ Defining the form for Sample mail handler plugin.
         to_name = forms.CharField(label=_("To name"), required=True)
         to_email = forms.EmailField(label=_("To email"), required=True)
         subject = forms.CharField(label=_("Subject"), required=True)
-        body = forms.CharField(label=_("Body"), required=False,
-                               widget=forms.widgets.Textarea)
+        body = forms.CharField(
+            label=_("Body"),
+            required=False,
+            widget=forms.widgets.Textarea
+        )
 
 After the plugin has been processed, all its' data is available in a
 ``plugin_instance.data`` container (for example,
@@ -1030,7 +1040,8 @@ Defining the wizard view for Sample importer plugin.
             )
 
             redirect_url = reverse(
-                'fobi.edit_form_entry', kwargs={'form_entry_id': form_entry.pk}
+                'fobi.edit_form_entry',
+                kwargs={'form_entry_id': form_entry.pk}
             )
 
             messages.info(
@@ -1971,7 +1982,7 @@ Dynamic initial values
 It's possible to provide a dynamic initial value for any of the text elements.
 In order to do that, you should use the build-in context processor or make
 your own one. The only requirement is that you should store all values that
-should be exposes in the form as a dict for ``fobi_dynamic_values`` dictionary
+should be exposed in the form as a dict for ``fobi_dynamic_values`` dictionary
 key. Beware, that passing the original request object might be unsafe in
 many ways. Currently, a stripped down version of the request object is being
 passed as a context variable.
