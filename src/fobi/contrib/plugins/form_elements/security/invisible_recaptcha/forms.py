@@ -1,7 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from fobi.base import BasePluginForm, get_theme
+from fobi.base import BaseFormFieldPluginForm, get_theme
 
 __title__ = 'fobi.contrib.plugins.form_elements.security.' \
             'invisible_recaptcha.forms'
@@ -13,7 +13,7 @@ __all__ = ('InvisibleRecaptchaInputForm',)
 theme = get_theme(request=None, as_instance=True)
 
 
-class InvisibleRecaptchaInputForm(forms.Form, BasePluginForm):
+class InvisibleRecaptchaInputForm(forms.Form, BaseFormFieldPluginForm):
     """Form for ``InvisibleRecaptchaInputPlugin``."""
 
     plugin_data_fields = [
