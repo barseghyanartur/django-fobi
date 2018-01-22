@@ -1,9 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
-from fobi.base import BaseFormFieldPluginForm, get_theme
-from fobi.settings import DEFAULT_MAX_LENGTH
-from fobi.widgets import NumberInput
+from fobi.base import BasePluginForm, get_theme
 
 __title__ = 'fobi.contrib.plugins.form_elements.security.' \
             'invisible_recaptcha.forms'
@@ -15,13 +13,12 @@ __all__ = ('InvisibleRecaptchaInputForm',)
 theme = get_theme(request=None, as_instance=True)
 
 
-class InvisibleRecaptchaInputForm(forms.Form, BaseFormFieldPluginForm):
+class InvisibleRecaptchaInputForm(forms.Form, BasePluginForm):
     """Form for ``InvisibleRecaptchaInputPlugin``."""
 
     plugin_data_fields = [
         ("label", ""),
         ("name", ""),
-        ("max_length", "255"),
         ("required", True),
     ]
 
@@ -38,12 +35,6 @@ class InvisibleRecaptchaInputForm(forms.Form, BaseFormFieldPluginForm):
         widget=forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
         )
-    )
-    max_length = forms.IntegerField(
-        label=_("Max length"),
-        required=True,
-        widget=NumberInput(attrs={'class': theme.form_element_html_class}),
-        initial=DEFAULT_MAX_LENGTH
     )
     required = forms.BooleanField(
         label=_("Required"),

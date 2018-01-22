@@ -1,6 +1,5 @@
 from __future__ import absolute_import
 
-# from django.forms.widgets import HiddenInput
 from django.utils.translation import ugettext_lazy as _
 
 from fobi.base import FormElementPlugin, get_theme
@@ -29,7 +28,6 @@ class InvisibleRecaptchaInputPlugin(FormElementPlugin):
     group = _("Security")
     form = InvisibleRecaptchaInputForm
     is_hidden = True
-    # media_js = ['https://www.google.com/recaptcha/api.js']
 
     def get_form_field_instances(self,
                                  request=None,
@@ -41,17 +39,14 @@ class InvisibleRecaptchaInputPlugin(FormElementPlugin):
         recaptcha_response = ''
         if request.method == 'POST':
             recaptcha_response = request.POST.get(RECAPTCHA_FIELD)
+
         field_kwargs = {
             'label': self.data.label,
-            # 'help_text': self.data.help_text,
             'required': self.data.required,
             'widget': InvisibleRecaptchaWidget(
                 attrs={'class': theme.form_element_html_class}
             ),
             'recaptcha_response': recaptcha_response,
         }
-
-        if self.data.max_length is not None:
-            field_kwargs['max_length'] = self.data.max_length
 
         return [(self.data.name, InvisibleRecaptchaField, field_kwargs)]

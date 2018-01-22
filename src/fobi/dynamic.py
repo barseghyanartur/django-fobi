@@ -68,7 +68,6 @@ def assemble_form_class(form_entry, base_class=BaseForm, request=None,
     if form_element_entries is None:
         form_element_entries = form_entry.formelemententry_set.all()
 
-    # DeclarativeFieldsMetaclass
     class DeclarativeFieldsMetaclass(type):
         """Declarative fields meta class.
 
@@ -118,7 +117,6 @@ def assemble_form_class(form_entry, base_class=BaseForm, request=None,
 
             return new_class
 
-    # DynamicForm
     class DynamicForm(with_metaclass(DeclarativeFieldsMetaclass, base_class)):
         """Dynamically created form element plugin class."""
 
