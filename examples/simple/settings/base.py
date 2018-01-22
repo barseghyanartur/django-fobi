@@ -367,28 +367,23 @@ INSTALLED_APPS = [
     # ************************ Bootstrap 3 theme ****************************
     # ***********************************************************************
     'fobi.contrib.themes.bootstrap3',  # Bootstrap 3 theme
-    # DateTime widget
-    'fobi.contrib.themes.bootstrap3.widgets.form_elements.'
-    'datetime_bootstrap3_widget',
 
-    'fobi.contrib.themes.bootstrap3.widgets.form_elements.'
-    'date_bootstrap3_widget',
+    # DateTime widget
+    'fobi.contrib.themes.bootstrap3.widgets.form_elements.datetime_bootstrap3_widget',  # NOQA
+
+    'fobi.contrib.themes.bootstrap3.widgets.form_elements.date_bootstrap3_widget',  # NOQA
 
     # Slider widget
-    'fobi.contrib.themes.bootstrap3.widgets.form_elements.'
-    'slider_bootstrap3_widget',
+    'fobi.contrib.themes.bootstrap3.widgets.form_elements.slider_bootstrap3_widget',  # NOQA
 
     # CKEditor widget
-    'fobi.contrib.themes.bootstrap3.widgets.form_elements.'
-    'content_richtext_bootstrap3_widget',
+    'fobi.contrib.themes.bootstrap3.widgets.form_elements.content_richtext_bootstrap3_widget',  # NOQA
 
-    # Invisible Recaptcha widget
-    'fobi.contrib.themes.bootstrap3.widgets.form_elements.'
-    'invisible_recaptcha_bootstrap3_widget',
+    # Invisible reCAPTCHA widget
+    'fobi.contrib.themes.bootstrap3.widgets.form_elements.invisible_recaptcha_bootstrap3_widget',  # NOQA
 
     # # Markdown
-    # 'fobi.contrib.themes.bootstrap3.widgets.form_elements.'
-    # 'content_markdown_bootstrap3_widget',
+    # 'fobi.contrib.themes.bootstrap3.widgets.form_elements.content_markdown_bootstrap3_widget',  # NOQA
 
     # ***********************************************************************
     # ************************ Foundation 5 theme ***************************
@@ -424,8 +419,7 @@ INSTALLED_APPS = [
 
     # Form fields
     'fobi.contrib.apps.drf_integration.form_elements.fields.boolean',
-    'fobi.contrib.apps.drf_integration.form_elements.fields'
-    '.checkbox_select_multiple',
+    'fobi.contrib.apps.drf_integration.form_elements.fields.checkbox_select_multiple',  # NOQA
     'fobi.contrib.apps.drf_integration.form_elements.fields.date',
     'fobi.contrib.apps.drf_integration.form_elements.fields.date_drop_down',
     'fobi.contrib.apps.drf_integration.form_elements.fields.datetime',
@@ -444,13 +438,10 @@ INSTALLED_APPS = [
     'fobi.contrib.apps.drf_integration.form_elements.fields.range_select',
     'fobi.contrib.apps.drf_integration.form_elements.fields.regex',
     'fobi.contrib.apps.drf_integration.form_elements.fields.select',
-    # 'fobi.contrib.apps.drf_integration.form_elements.fields'
-    # '.select_model_object',
+    # 'fobi.contrib.apps.drf_integration.form_elements.fields.select_model_object',  # NOQA
     'fobi.contrib.apps.drf_integration.form_elements.fields.select_multiple',
-    # 'fobi.contrib.apps.drf_integration.form_elements.fields'
-    # '.select_multiple_model_objects',
-    'fobi.contrib.apps.drf_integration.form_elements.fields'
-    '.select_multiple_with_max',
+    # 'fobi.contrib.apps.drf_integration.form_elements.fields.select_multiple_model_objects',  # NOQA
+    'fobi.contrib.apps.drf_integration.form_elements.fields.select_multiple_with_max',  # NOQA
     'fobi.contrib.apps.drf_integration.form_elements.fields.slider',
     'fobi.contrib.apps.drf_integration.form_elements.fields.slug',
     'fobi.contrib.apps.drf_integration.form_elements.fields.text',
@@ -460,8 +451,7 @@ INSTALLED_APPS = [
 
     # Presentational elements
     'fobi.contrib.apps.drf_integration.form_elements.content.content_image',
-    'fobi.contrib.apps.drf_integration.form_elements.content.'
-    'content_image_url',
+    'fobi.contrib.apps.drf_integration.form_elements.content.content_image_url',  # NOQA
     'fobi.contrib.apps.drf_integration.form_elements.content.content_markdown',
     'fobi.contrib.apps.drf_integration.form_elements.content.content_richtext',
     'fobi.contrib.apps.drf_integration.form_elements.content.content_text',
@@ -553,8 +543,7 @@ FOBI_CUSTOM_THEME_DATA = {
             ],
             'success_page_template_choices': [
                 (
-                    'fobi/bootstrap3_extras/embed_form_entry_'
-                    'submitted_ajax.html',
+                    'fobi/bootstrap3_extras/embed_form_entry_submitted_ajax.html',  # NOQA
                     gettext("Custom bootstrap3 embed form entry submitted "
                             "template")
                 ),
@@ -569,8 +558,7 @@ FOBI_CUSTOM_THEME_DATA = {
             ],
             'success_page_template_choices': [
                 (
-                    'fobi/bootstrap3_extras/embed_form_entry_submitted_'
-                    'ajax.html',
+                    'fobi/bootstrap3_extras/embed_form_entry_submitted_ajax.html',  # NOQA
                     gettext("Custom bootstrap3 embed form entry submitted "
                             "template")
                 ),
@@ -593,8 +581,7 @@ FOBI_CUSTOM_THEME_DATA = {
             ],
             'success_page_template_choices': [
                 (
-                    'fobi/foundation5_extras/embed_form_entry_submitted_'
-                    'ajax.html',
+                    'fobi/foundation5_extras/embed_form_entry_submitted_ajax.html',  # NOQA
                     gettext("Custom foundation5 embed form entry submitted "
                             "template")
                 ),
@@ -609,8 +596,7 @@ FOBI_CUSTOM_THEME_DATA = {
             ],
             'success_page_template_choices': [
                 (
-                    'fobi/foundation5_extras/embed_form_entry_submitted_'
-                    'ajax.html',
+                    'fobi/foundation5_extras/embed_form_entry_submitted_ajax.html',  # NOQA
                     gettext("Custom foundation5 embed form entry submitted "
                             "template")
                 ),
