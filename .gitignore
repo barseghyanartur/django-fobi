@@ -41,6 +41,7 @@ README_PARTS.rst
 /src/fobi/contrib/plugins/form_elements/fields/hidden_model_object/
 /src/fobi/contrib/plugins/form_importers/mailchimp_importer/bucket.py
 /src/fobi/contrib/apps/wagtail_integration_/
+/src/fobi/contrib/themes/bootstrap3/widgets/form_elements/date_bootstrap3_widget/static/bootstrap3/js/fobi.plugin.date-bootstrap3-widget-exp.js
 
 /scripts/install_django_1_7_wagtail.sh
 /scripts/reinstall_django_1_7_wagtail.sh
