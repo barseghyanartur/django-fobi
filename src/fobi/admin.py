@@ -172,19 +172,26 @@ class FormHandlerEntryInlineAdmin(admin.TabularInline):
 class FormEntryAdmin(admin.ModelAdmin):
     """FormEntry admin."""
 
-    list_display = ('name', 'slug', 'user', 'is_public', 'created', 'updated',
-                    'is_cloneable',)
-    list_editable = ('is_public', 'is_cloneable',)
-    list_filter = ('is_public', 'is_cloneable',)
+    list_display = (
+        'name',
+        'slug',
+        'user',
+        'is_public',
+        'created',
+        'updated',
+        'is_cloneable',
+    )
+    list_editable = ('is_public', 'is_cloneable')
+    list_filter = ('is_public', 'is_cloneable')
     readonly_fields = ('slug',)
     radio_fields = {"user": admin.VERTICAL}
     fieldsets = (
         (_("Form"), {
-            'fields': ('name', 'is_public', 'is_cloneable',)
+            'fields': ('name', 'is_public', 'is_cloneable', 'inactive_page_title', 'inactive_page_message')
         }),
         (_("Custom"), {
             'classes': ('collapse',),
-            'fields': ('success_page_title', 'success_page_message', 'action',)
+            'fields': ('success_page_title', 'success_page_message', 'action')
         }),
         # (_("Wizard"), {
         #     'classes': ('collapse',),

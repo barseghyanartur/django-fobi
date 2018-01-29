@@ -1,0 +1,13 @@
+{% load i18n %}
+
+{% block form_page_header_wrapper %}
+<div class="page-header">
+  <h1>{{ page_header }}</h1>
+</div>
+{% endblock form_page_header_wrapper %}
+
+{% if form_entry.inactive_page_message %}
+  {{ form_entry.inactive_page_message|safe }}
+{% else %}
+  {% blocktrans %}This form is not active.{% endblocktrans %}
+{% endif %}

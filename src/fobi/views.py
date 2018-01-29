@@ -2203,6 +2203,25 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
     except ObjectDoesNotExist as err:
         raise Http404(ugettext("Form entry not found."))
 
+    if not form_entry.is_active:
+        context = {
+            'form_entry': form_entry,
+            'page_header': (form_entry.inactive_page_title
+                            or form_entry.title
+                            or form_entry.name),
+        }
+
+        if not template_name:
+            theme = get_theme(request=request, as_instance=True)
+            template_name = theme.form_entry_inactive_template
+
+        if versions.DJANGO_GTE_1_10:
+            return render(request, template_name, context)
+        else:
+            return render_to_response(
+                template_name, context, context_instance=RequestContext(request)
+            )
+
     form_element_entries = form_entry.formelemententry_set.all()[:]
 
     # This is where the most of the magic happens. Our form is being built
