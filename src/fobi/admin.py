@@ -177,6 +177,7 @@ class FormEntryAdmin(admin.ModelAdmin):
         'slug',
         'user',
         'is_public',
+        'is_active',
         'created',
         'updated',
         'is_cloneable',
@@ -187,7 +188,15 @@ class FormEntryAdmin(admin.ModelAdmin):
     radio_fields = {"user": admin.VERTICAL}
     fieldsets = (
         (_("Form"), {
-            'fields': ('name', 'is_public', 'is_cloneable', 'inactive_page_title', 'inactive_page_message')
+            'fields': (
+                'name',
+                'is_public',
+                'is_cloneable',
+                'active_date_from',
+                'active_date_to',
+                'inactive_page_title',
+                'inactive_page_message',
+            )
         }),
         (_("Custom"), {
             'classes': ('collapse',),
