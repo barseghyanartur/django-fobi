@@ -76,8 +76,19 @@ class FormEntryForm(forms.ModelForm):
         """Meta class."""
 
         model = FormEntry
-        fields = ('name', 'title', 'is_public', 'success_page_title',
-                  'success_page_message', 'action',)  # 'is_cloneable',
+        fields = (
+            'name',
+            'title',
+            'is_public',
+            'active_date_from',
+            'active_date_to',
+            'inactive_page_title',
+            'inactive_page_message',
+            'success_page_title',
+            'success_page_message',
+            'action',
+            # 'is_cloneable',
+        )
 
     def __init__(self, *args, **kwargs):
         """Constructor."""
@@ -105,12 +116,32 @@ class FormEntryForm(forms.ModelForm):
             attrs={'class': theme.form_element_html_class}
         )
 
+        self.fields['inactive_page_title'].widget = forms.widgets.TextInput(
+            attrs={'class': theme.form_element_html_class}
+        )
+
+        self.fields['active_date_from'].widget = forms.widgets.DateTimeInput(
+            format='%Y-%m-%d %H:%M',
+            attrs={'class': theme.form_element_html_class}
+        )
+
+        self.fields['active_date_to'].widget = forms.widgets.DateTimeInput(
+            format='%Y-%m-%d %H:%M',
+            attrs={'class': theme.form_element_html_class}
+        )
+
         if CKEDITOR_INSTALLED:
             self.fields['success_page_message'].widget = CKEditorWidget(
                 attrs={'class': theme.form_element_html_class}
             )
+            self.fields['inactive_page_message'].widget = CKEditorWidget(
+                attrs={'class': theme.form_element_html_class}
+            )
         else:
             self.fields['success_page_message'].widget = forms.widgets.Textarea(
+                attrs={'class': theme.form_element_html_class}
+            )
+            self.fields['inactive_page_message'].widget = forms.widgets.Textarea(
                 attrs={'class': theme.form_element_html_class}
             )
 

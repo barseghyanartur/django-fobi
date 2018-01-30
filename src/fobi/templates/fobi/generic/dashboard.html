@@ -28,12 +28,12 @@
 
     <div class="panel panel-default">
       <div class="panel-body">
-
-          <table class="table table-striped">
+        <table class="table table-striped">
           <thead>
             <tr>
               <th class="col-sm-3">{% trans "Form" %}</th>
               <th class="col-sm-1">{% trans "Is public" %}</th>
+              <th class="col-sm-1">{% trans "Is active" %}</th>
               {#<th class="col-sm-1">{% trans "Is cloneable" %}</th>#}
               <th class="col-sm-3">{% trans "Actions" %}</th>
             </tr>
@@ -43,23 +43,24 @@
             <tr>
               <td><a href="{% url 'fobi.view_form_entry' form_entry.slug %}">{{ form_entry.name }}</a></td>
               <td>{{ form_entry.is_public }}</td>
+              <td>{{ form_entry.is_active }}</td>
               {#<td>{{ form_entry.is_cloneable }}</td>#}
               <td>
                 <ul class="list-inline">
                   <li>
-                      <a href="{% url 'fobi.edit_form_entry' form_entry.pk %}">
-                          <span class="glyphicon glyphicon-edit"></span> {% trans "Edit" %}
-                      </a>
+                    <a href="{% url 'fobi.edit_form_entry' form_entry.pk %}">
+                      <span class="glyphicon glyphicon-edit"></span> {% trans "Edit" %}
+                    </a>
                   </li>
                   <li>
-                      <a href="{% url 'fobi.delete_form_entry' form_entry.pk %}">
-                          <span class="glyphicon glyphicon-remove"></span> {% trans "Delete" %}
-                      </a>
+                    <a href="{% url 'fobi.delete_form_entry' form_entry.pk %}">
+                      <span class="glyphicon glyphicon-remove"></span> {% trans "Delete" %}
+                    </a>
                   </li>
                   <li>
-                      <a href="{% url 'fobi.export_form_entry' form_entry.pk %}">
-                          <span class="glyphicon glyphicon-export"></span> {% trans "Export" %}
-                      </a>
+                    <a href="{% url 'fobi.export_form_entry' form_entry.pk %}">
+                      <span class="glyphicon glyphicon-export"></span> {% trans "Export" %}
+                    </a>
                   </li>
                 </ul>
               </td>
@@ -69,20 +70,19 @@
         </table>
       </div>
     </div>
-
   </div>
 
   <div class="col-4 col-sm-4 col-lg-4">
-
     <div>
       <h2>{% trans "Actions" %}</h2>
     </div>
+
     <div class="list-group">
       <a href="{% url 'fobi.create_form_entry' %}" class="list-group-item">
-          <span class="glyphicon glyphicon-plus"></span> {% trans "Create form" %}
+        <span class="glyphicon glyphicon-plus"></span> {% trans "Create form" %}
       </a>
       <a href="{% url 'fobi.import_form_entry' %}" class="list-group-item">
-          <span class="glyphicon glyphicon-import"></span> {% trans "Import form" %}
+        <span class="glyphicon glyphicon-import"></span> {% trans "Import form" %}
       </a>
       {% for form_importer_uid,form_importer_name,form_importer_url in form_importers %}
         <a href="{{ form_importer_url }}" class="list-group-item">
@@ -90,7 +90,6 @@
         </a>
       {% endfor %}
     </div>
-      
   </div>
 </div>
 {% endblock content-wrapper %}

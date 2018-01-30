@@ -289,6 +289,10 @@ class BaseTheme(object):
 
     view_embed_form_entry_ajax_template = None
 
+    form_entry_inactive_template = 'fobi/generic/form_entry_inactive.html'
+    form_entry_inactive_ajax_template = \
+        'fobi/generic/form_entry_inactive_ajax.html'
+
     # ***********************************************************************
     # *********************** Form element entry CUD ************************
     # ***********************************************************************
