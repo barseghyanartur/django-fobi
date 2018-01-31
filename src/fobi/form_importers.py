@@ -22,7 +22,7 @@ __all__ = (
     'form_importer_plugin_registry',
     'ensure_autodiscover',
     'get_form_importer_plugin_uids',
-    'get_form_impoter_plugin_urls',
+    'get_form_importer_plugin_urls',
 )
 
 
@@ -165,7 +165,7 @@ def get_form_importer_plugin_uids():
     return list(form_importer_plugin_registry._registry.keys())
 
 
-def get_form_impoter_plugin_urls():
+def get_form_importer_plugin_urls():
     """Gets the form importer plugin URLs as a list of tuples."""
     urls = []
     ensure_autodiscover()
