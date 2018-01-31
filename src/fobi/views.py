@@ -46,7 +46,7 @@ from .decorators import permissions_required, SATISFY_ALL, SATISFY_ANY
 from .dynamic import assemble_form_class
 from .form_importers import (
     ensure_autodiscover as ensure_importers_autodiscover,
-    form_importer_plugin_registry, get_form_impoter_plugin_urls
+    form_importer_plugin_registry, get_form_importer_plugin_urls
 )
 from .forms import (
     FormEntryForm,
@@ -263,7 +263,7 @@ def dashboard(request, theme=None, template_name=None):
 
     context = {
         'form_entries': form_entries,
-        'form_importers': get_form_impoter_plugin_urls(),
+        'form_importers': get_form_importer_plugin_urls(),
     }
 
     # If given, pass to the template (and override the value set by
@@ -311,7 +311,7 @@ def form_wizards_dashboard(request, theme=None, template_name=None):
 
     context = {
         'form_wizard_entries': form_wizard_entries,
-        # 'form_importers': get_form_impoter_plugin_urls(),
+        # 'form_importers': get_form_importer_plugin_urls(),
     }
 
     # If given, pass to the template (and override the value set by
