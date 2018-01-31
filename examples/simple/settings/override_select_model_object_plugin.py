@@ -6,11 +6,11 @@ INSTALLED_APPS = list(INSTALLED_APPS)
 
 try:
     INSTALLED_APPS.append('override_select_model_object_plugin')
-except Exception as e:
+except Exception as err:
     pass
 
 if DJANGO_GTE_1_7:
     try:
         INSTALLED_APPS.remove('south') if 'south' in INSTALLED_APPS else None
-    except:
+    except Exception as err:
         pass

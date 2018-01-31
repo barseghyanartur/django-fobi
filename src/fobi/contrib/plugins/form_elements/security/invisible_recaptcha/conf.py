@@ -26,8 +26,8 @@ def get_setting(setting, override=None):
     """
     if override is not None:
         return override
-    if hasattr(settings, 'FOBI_PLUGIN_INVISIBLE_RECAPTCHA_{0}'.format(setting)):
-        return getattr(settings, 'FOBI_PLUGIN_INVISIBLE_RECAPTCHA_{0}'
-                                 ''.format(setting))
+    key = 'FOBI_PLUGIN_INVISIBLE_RECAPTCHA_{0}'.format(setting)
+    if hasattr(settings, key):
+        return getattr(settings, key)
     else:
         return getattr(defaults, setting)

@@ -10,7 +10,7 @@ __title__ = 'fobi.contrib.plugins.form_elements.fields.ip_address.forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('TextInputForm',)
+__all__ = ('IPAddressInputForm',)
 
 theme = get_theme(request=None, as_instance=True)
 

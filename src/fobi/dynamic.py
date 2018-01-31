@@ -48,9 +48,13 @@ __all__ = (
 # ****************************************************************************
 
 
-def assemble_form_class(form_entry, base_class=BaseForm, request=None,
-                        origin=None, origin_kwargs_update_func=None,
-                        origin_return_func=None, form_element_entries=None,
+def assemble_form_class(form_entry,
+                        base_class=BaseForm,
+                        request=None,
+                        origin=None,
+                        origin_kwargs_update_func=None,
+                        origin_return_func=None,
+                        form_element_entries=None,
                         get_form_field_instances_kwargs={}):
     """Assemble a form class by given entry.
 
@@ -126,13 +130,26 @@ def assemble_form_class(form_entry, base_class=BaseForm, request=None,
     return DynamicForm
 
 
-def assemble_form_wizard_class(form_wizard_entry, base_class=SessionWizardView,
-                               request=None, origin=None,
+def assemble_form_wizard_class(form_wizard_entry,
+                               base_class=SessionWizardView,
+                               request=None,
+                               origin=None,
                                origin_kwargs_update_func=None,
                                origin_return_func=None,
                                form_wizard_form_entries=None,
                                template_name=None):
-    """Assemble form wizard class."""
+    """Assemble form wizard class.
+
+    :param form_wizard_entry:
+    :param base_class:
+    :param request:
+    :param origin:
+    :param origin_kwargs_update_func:
+    :param origin_return_func:
+    :param form_wizard_form_entries:
+    :param template_name:
+    :return:
+    """
 
     if form_wizard_entry.wizard_type == WIZARD_TYPE_SESSION:
         base_class = SessionWizardView

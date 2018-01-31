@@ -103,4 +103,3 @@ MIGRATION_MODULES = {
     'db_store': 'fobi.contrib.plugins.form_handlers.db_store.migrations',
     'page': 'page.migrations',
 }
-

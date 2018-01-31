@@ -8,6 +8,12 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 
 # from nonefield.fields import NoneField
 
+try:
+    from ckeditor.widgets import CKEditorWidget
+    CKEDITOR_INSTALLED = True
+except ImportError:
+    CKEDITOR_INSTALLED = False
+
 from .base import (
     get_registered_form_element_plugins,
     get_registered_form_handler_plugins,
@@ -99,9 +105,14 @@ class FormEntryForm(forms.ModelForm):
             attrs={'class': theme.form_element_html_class}
         )
 
-        self.fields['success_page_message'].widget = forms.widgets.Textarea(
-            attrs={'class': theme.form_element_html_class}
-        )
+        if CKEDITOR_INSTALLED:
+            self.fields['success_page_message'].widget = CKEditorWidget(
+                attrs={'class': theme.form_element_html_class}
+            )
+        else:
+            self.fields['success_page_message'].widget = forms.widgets.Textarea(
+                attrs={'class': theme.form_element_html_class}
+            )
 
         self.fields['action'].widget = forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
