@@ -1,7 +1,7 @@
 import datetime
 
 from .base import get_theme
-from .form_importers import get_form_impoter_plugin_urls
+from .form_importers import get_form_importer_plugin_urls
 from .helpers import StrippedRequest
 
 __title__ = 'fobi.context_processors'
@@ -38,5 +38,5 @@ def dynamic_values(request):
 def form_importers(request):
     """Form importers."""
     return {
-        'form_importers': get_form_impoter_plugin_urls(),
+        'form_importers': get_form_importer_plugin_urls(),
     }

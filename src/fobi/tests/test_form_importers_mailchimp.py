@@ -15,10 +15,10 @@ __title__ = 'fobi.tests.test_form_importers_mailchimp'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('FormImpotersMailchimpTest',)
+__all__ = ('FormImportersMailchimpTest',)
 
 
-class FormImpotersMailchimpTest(TestCase):
+class FormImportersMailchimpTest(TestCase):
     """Tests of form importers mailchimp functionality."""
 
     def setUp(self):
@@ -26,8 +26,8 @@ class FormImpotersMailchimpTest(TestCase):
         setup_fobi(fobi_sync_plugins=True)
 
     @print_info
-    def test_01_test_mailchimp_impoter(self):
-        """Test mailchimp impoter."""
+    def test_01_test_mailchimp_importer(self):
+        """Test mailchimp importer."""
         user = get_or_create_admin_user()
 
         form_properties = {
