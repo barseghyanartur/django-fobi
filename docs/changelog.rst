@@ -17,8 +17,9 @@ are used for versioning (schema follows below):
 
 0.12.17
 --------
-yyyy-mm-dd (not released yet)
+2018-02-14
 
+- Security fixes in db_store plugin.
 - Minor fixes and cleanups.
 - If CKEditor is installed, use it (rich text) for success page message.
 
