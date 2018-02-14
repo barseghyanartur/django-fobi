@@ -15,14 +15,22 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.12.17
+--------
+2018-02-14
+
+- Security fixes in db_store plugin.
+- Minor fixes and cleanups.
+- If CKEditor is installed, use it (rich text) for success page message.
+
 0.12.16
 --------
 2018-01-21
 
 .. note::
 
-    Note, that this release contains minor backwards incompatible changes, that may
-    slightly break your JS and/or styling.
+    Note, that this release contains minor backwards incompatible changes, that
+    may slightly break your JS and/or styling.
 
     The `form-horizontal` class attribute on the main form with elements (in
     templates) has been replaced with `fobi-form` id attribute.
