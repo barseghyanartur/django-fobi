@@ -4,7 +4,7 @@ import sys
 from distutils.version import LooseVersion
 from setuptools import setup, find_packages
 
-version = '0.12.16'
+version = '0.12.17'
 
 # ***************************************************************************
 # ************************** Python version *********************************
@@ -233,6 +233,7 @@ if DJANGO_INSTALLED:
     if DJANGO_1_5 or DJANGO_1_6 or DJANGO_1_7:
         install_requires = [
             # 'django-autoslug==1.7.1',
+            'bleach',
             'django-autoslug-iplweb',
             # 'django-formtools>=1.0',
             'django-nine>=0.1.13',
@@ -248,6 +249,7 @@ if DJANGO_INSTALLED:
     elif DJANGO_1_8:
         install_requires = [
             # 'django-autoslug==1.7.1',
+            'bleach',
             'django-autoslug-iplweb',
             'django-formtools>=1.0',
             'django-nine>=0.1.13',
@@ -262,6 +264,7 @@ if DJANGO_INSTALLED:
     elif DJANGO_1_9:
         install_requires = [
             # 'django-autoslug==1.9.3',
+            'bleach',
             'django-autoslug-iplweb',
             'django-formtools>=1.0',
             'django-nine>=0.1.13',
@@ -276,6 +279,7 @@ if DJANGO_INSTALLED:
     elif DJANGO_1_10:
         install_requires = [
             # 'django-autoslug==1.9.3',
+            'bleach',
             'django-autoslug-iplweb',
             'django-formtools>=1.0',
             'django-nine>=0.1.13',
@@ -290,6 +294,7 @@ if DJANGO_INSTALLED:
     elif DJANGO_1_11:
         install_requires = [
             # 'django-autoslug==1.9.3',
+            'bleach',
             'django-autoslug-iplweb',
             'django-formtools>=2.0',
             'django-nine>=0.1.13',
@@ -308,6 +313,7 @@ if DJANGO_INSTALLED:
     elif DJANGO_2_0:
         install_requires = [
             # 'django-autoslug==1.9.3',
+            'bleach',
             'django-autoslug-iplweb',
             'django-formtools>=2.0',
             'django-nine>=0.1.13',
@@ -327,6 +333,7 @@ if DJANGO_INSTALLED:
 # Fall back to the latest dependencies
 if not install_requires:
     install_requires = [
+        'bleach',
         'django-autoslug>=1.9.3',
         'django-formtools>=1.0',
         'django-nine>=0.1.13',
