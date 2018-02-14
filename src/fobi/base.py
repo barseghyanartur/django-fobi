@@ -2769,7 +2769,7 @@ def assemble_form_field_widget_class(base_class, plugin):
 def get_registered_plugins(registry, as_instances=False, sort_items=True):
     """Get registered plugins.
 
-    Get a list of registered plugins in a form if tuple (plugin name, plugin
+    Get a list of registered plugins in a form of tuple (plugin name, plugin
     description). If not yet auto-discovered, auto-discovers them.
 
     :param registry:
@@ -2797,7 +2797,7 @@ def get_registered_plugins(registry, as_instances=False, sort_items=True):
 def get_registered_plugins_grouped(registry, sort_items=True):
     """Get registered plugins grouped.
 
-    Gets a list of registered plugins in a form if tuple (plugin name, plugin
+    Gets a list of registered plugins in a form of tuple (plugin name, plugin
     description). If not yet auto-discovered, auto-discovers them.
 
     :return dict:
@@ -2861,7 +2861,7 @@ def validate_plugin_uid(registry, plugin_uid):
 def get_registered_form_element_plugins():
     """Get registered form element plugins.
 
-    Gets a list of registered plugins in a form if tuple (plugin name, plugin
+    Gets a list of registered plugins in a form of tuple (plugin name, plugin
     description). If not yet auto-discovered, auto-discovers them.
 
     :return list:
@@ -2872,7 +2872,7 @@ def get_registered_form_element_plugins():
 def get_registered_form_element_plugins_grouped():
     """Get registered form element plugins grouped.
 
-    Gets a list of registered plugins in a form if tuple (plugin name, plugin
+    Gets a list of registered plugins in a form of tuple (plugin name, plugin
     description). If not yet auto-discovered, auto-discovers them.
 
     :return dict:
@@ -2883,7 +2883,7 @@ def get_registered_form_element_plugins_grouped():
 def get_registered_form_element_plugin_uids(flattern=True):
     """Get registered form element plugin uids.
 
-    Gets a list of registered plugins in a form if tuple (plugin name, plugin
+    Gets a list of registered plugins in a form of tuple (plugin name, plugin
     description). If not yet auto-discovered, auto-discovers them.
 
     :return list:

@@ -1,5 +1,5 @@
+import bleach
 import simplejson as json
-
 from six import python_2_unicode_compatible, string_types
 
 from django.conf import settings
@@ -60,13 +60,16 @@ class AbstractSavedFormDataEntry(models.Model):
             headers = json.loads(self.form_data_headers)
             data = json.loads(self.saved_data)
             for key, value in data.items():
-                if isinstance(value, string_types) and \
-                        (value.startswith(settings.MEDIA_URL) or
-                         value.startswith('http://') or
-                         value.startswith('https://')):
-                    data[key] = '<a href="{value}">{value}</a>'.format(
-                        value=value
-                    )
+
+                if isinstance(value, string_types):
+                    value = bleach.clean(value, strip=True)
+                    if (value.startswith(settings.MEDIA_URL) or
+                            value.startswith('http://') or
+                            value.startswith('https://')):
+                        value = '<a href="{value}">{value}</a>'.format(
+                            value=value
+                        )
+                    data[key] = value
 
             return two_dicts_to_string(headers, data)
         except (ValueError, json.decoder.JSONDecodeError) as err:
