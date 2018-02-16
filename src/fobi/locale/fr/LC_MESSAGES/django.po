@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2018-02-16 11:10+0100\n"
-"PO-Revision-Date: 2018-02-16 12:41+0100\n"
+"PO-Revision-Date: 2018-02-16 13:38+0100\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -411,7 +411,7 @@ msgstr "Nombre maximum de choix atteint."
 #: contrib/apps/drf_integration/form_elements/content/content_video/base.py:31
 #: contrib/plugins/form_elements/content/content_image/base.py:33
 msgid "Content image"
-msgstr "Contenu image"
+msgstr "Image"
 
 #: contrib/apps/drf_integration/form_elements/content/content_image/base.py:32
 #: contrib/apps/drf_integration/form_elements/content/content_image_url/base.py:32
@@ -431,22 +431,22 @@ msgstr "Contenu"
 #: contrib/apps/drf_integration/form_elements/content/content_image_url/base.py:31
 #: contrib/plugins/form_elements/content/content_image_url/base.py:31
 msgid "Content image URL"
-msgstr "URL de l'image"
+msgstr "Image externe (URL)"
 
 #: contrib/apps/drf_integration/form_elements/content/content_markdown/base.py:31
 #: contrib/plugins/form_elements/content/content_markdown/base.py:27
 msgid "Content markdown"
-msgstr "Contenu Markdown"
+msgstr "Markdown"
 
 #: contrib/apps/drf_integration/form_elements/content/content_richtext/base.py:31
 #: contrib/plugins/form_elements/content/content_richtext/base.py:27
 msgid "Content rich text"
-msgstr "Contenu texte riche"
+msgstr "Texte riche"
 
 #: contrib/apps/drf_integration/form_elements/content/content_text/base.py:31
 #: contrib/plugins/form_elements/content/content_text/base.py:27
 msgid "Content text"
-msgstr "Contenu texte"
+msgstr "Texte"
 
 #: contrib/apps/drf_integration/form_elements/fields/boolean/base.py:27
 #: contrib/plugins/form_elements/fields/boolean/base.py:20
@@ -534,7 +534,7 @@ msgstr "Date"
 #: contrib/apps/drf_integration/form_elements/fields/date_drop_down/base.py:28
 #: contrib/plugins/form_elements/fields/date_drop_down/base.py:33
 msgid "Date drop down"
-msgstr "Menu déroulant de dates"
+msgstr "Sélecteur de date"
 
 #: contrib/apps/drf_integration/form_elements/fields/datetime/base.py:27
 #: contrib/plugins/form_elements/fields/datetime/base.py:26
@@ -565,7 +565,7 @@ msgstr "Nombre à virgule flottante"
 #: contrib/apps/drf_integration/form_elements/fields/hidden/base.py:27
 #: contrib/plugins/form_elements/fields/hidden/base.py:25
 msgid "Hidden"
-msgstr "Masqué"
+msgstr "Invisible"
 
 #: contrib/apps/drf_integration/form_elements/fields/input/base.py:27
 #: contrib/apps/drf_integration/form_elements/fields/password/base.py:27
@@ -803,7 +803,7 @@ msgstr "Aucune image fournie !"
 
 #: contrib/plugins/form_elements/content/content_video/base.py:28
 msgid "Content video"
-msgstr "Contenu vidéo"
+msgstr "Vidéo"
 
 #: contrib/plugins/form_elements/content/content_video/forms.py:27
 #: models.py:270 models.py:384
@@ -1271,11 +1271,11 @@ msgstr "ReCaptcha"
 
 #: contrib/plugins/form_elements/test/dummy/base.py:25
 msgid "Dummy"
-msgstr ""
+msgstr "Contenu fictif"
 
 #: contrib/plugins/form_elements/test/dummy/base.py:26
 msgid "Testing"
-msgstr ""
+msgstr "Test"
 
 #: contrib/plugins/form_elements/test/dummy/base.py:40
 msgid "Dummy content"
@@ -2136,7 +2136,7 @@ msgstr ""
 
 #: models.py:296 models.py:411
 msgid "Custom message title to display after valid form is submitted"
-msgstr ""
+msgstr "Titre personnalisé qui apparaît après l’envoi d'un formulaire valide"
 
 #: models.py:300 models.py:415
 msgid "Success page body"
@@ -2144,7 +2144,7 @@ msgstr "Contenu de la page de succès"
 
 #: models.py:303 models.py:418
 msgid "Custom message text to display after valid form is submitted"
-msgstr ""
+msgstr "Message personnalisé qui apparaît après l’envoi d'un formulaire valide"
 
 #: models.py:307
 msgid "Show all navigation buttons?"
@@ -2197,6 +2197,8 @@ msgstr "Action"
 #: models.py:426
 msgid "Custom form action; don't fill this field, unless really necessary."
 msgstr ""
+"Action du formulaire personnalisée. Ne remplissez ce champ que si vous savez "
+"ce que vous faites."
 
 #: models.py:445 models.py:480
 msgid "Form entry"
