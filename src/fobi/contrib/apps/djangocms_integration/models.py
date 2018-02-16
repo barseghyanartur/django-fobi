@@ -93,7 +93,6 @@ class FobiFormWidget(CMSPlugin):
     class Meta(object):
         """Meta options."""
 
-        app_label = 'cms'
         if CMS_VERSION_GT_3_0:
             db_table = 'djangocms_integration_fobiformwidget'
 
