@@ -5011,9 +5011,10 @@ Controlling HTML tags and attributes
 
         pip install bleach
 
-(2) Specify ``FOBI_PLUGIN_CONTENT_RICHTEXT_ALLOWED_TAGS`` and
-    ``FOBI_PLUGIN_CONTENT_RICHTEXT_ALLOWED_ATTRIBUTES`` in
-    ``settings.py``. The default values are:
+(2) Specify ``FOBI_PLUGIN_CONTENT_RICHTEXT_ALLOWED_TAGS``,
+    ``FOBI_PLUGIN_CONTENT_RICHTEXT_ALLOWED_ATTRIBUTES`` and
+    ``FOBI_PLUGIN_CONTENT_RICHTEXT_ALLOWED_STYLES`` in
+    ``settings.py``. The default values come from bleach:
 
     .. code-block:: python
 
@@ -5037,6 +5038,8 @@ Controlling HTML tags and attributes
             'abbr': ['title'],
             'acronym': ['title'],
         }
+
+        FOBI_PLUGIN_CONTENT_RICHTEXT_ALLOWED_STYLES = []
 
 
 fobi.contrib.plugins.form_elements.content.content_video
