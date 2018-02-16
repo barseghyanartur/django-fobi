@@ -9,7 +9,7 @@ from fobi.base import BasePluginForm, get_theme
 try:
     import bleach
     BLEACH_INSTALLED = True
-except ImportError as err:
+except ImportError:
     BLEACH_INSTALLED = False
 
 __title__ = 'fobi.contrib.plugins.form_elements.content.content_richtext.forms'
@@ -39,32 +39,27 @@ class ContentRichTextForm(forms.Form, BasePluginForm):
         if not BLEACH_INSTALLED:
             return self.cleaned_data['text']
 
-        ALLOWED_TAGS = [
-            'a', 'abbr', 'acronym', 'b', 'blockquote',
-            'code', 'em', 'i', 'li', 'ol', 'strong', 'ul',
-        ]
-
-        ALLOWED_ATTRIBUTES = {
-            'a': ['href', 'title'],
-            'abbr': ['title'],
-            'acronym': ['title'],
-        }
-
         allowed_tags = getattr(
             settings,
             'FOBI_PLUGIN_CONTENT_RICHTEXT_ALLOWED_TAGS',
-            ALLOWED_TAGS
+            bleach.ALLOWED_TAGS,
         )
         allowed_attrs = getattr(
             settings,
             'FOBI_PLUGIN_CONTENT_RICHTEXT_ALLOWED_ATTRIBUTES',
-            ALLOWED_ATTRIBUTES
+            bleach.ALLOWED_ATTRIBUTES,
+        )
+        allowed_styles = getattr(
+            settings,
+            'FOBI_PLUGIN_CONTENT_RICHTEXT_ALLOWED_STYLES',
+            bleach.ALLOWED_STYLES,
         )
 
         return bleach.clean(
             text=self.cleaned_data['text'],
             tags=allowed_tags,
             attributes=allowed_attrs,
+            styles=allowed_styles,
             strip=True,
             strip_comments=True,
         )
