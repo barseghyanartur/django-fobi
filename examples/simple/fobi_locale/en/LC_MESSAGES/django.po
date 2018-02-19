@@ -1,0 +1,29 @@
+# `django-fobi` example locale overrides.
+# Copyright (C) 2014-2018 Artur Barseghyan
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <artur.barseghyan@gmail.com>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-02-19 13:21-0600\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: Artur Barseghyan <artur.barseghyan@gmail.com>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: English \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+#: contrib/apps/drf_integration/form_elements/fields/boolean/base.py:27
+#: contrib/plugins/form_elements/fields/boolean/base.py:20
+
+#: contrib/apps/drf_integration/form_elements/fields/boolean/base.py:27
+#: contrib/plugins/form_elements/fields/boolean/base.py:20
+msgid "Boolean"
+msgstr "Checkbox"
+
+#: contrib/apps/drf_integration/form_elements/fields/checkbox_select_multiple/base.py:30
+#: contrib/plugins/form_elements/fields/checkbox_select_multiple/base.py:27
+msgid "Checkbox select multiple"
+msgstr "Multiple checkboxes"
