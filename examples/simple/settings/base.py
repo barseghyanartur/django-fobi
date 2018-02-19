@@ -71,6 +71,7 @@ LANGUAGES = (
     ('nl', gettext("Dutch")),
     ('ru', gettext("Russian")),
     ('de', gettext("German")),
+    ('fr', gettext("French")),
 )
 
 SITE_ID = 1

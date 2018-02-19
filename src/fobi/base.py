@@ -8,8 +8,7 @@ import re
 import traceback
 import uuid
 
-
-from collections import defaultdict
+from collections import defaultdict, OrderedDict
 
 import simplejson as json
 
@@ -2818,11 +2817,14 @@ def get_registered_plugins_grouped(registry, sort_items=True):
             registered_plugins[plugin_group] = []
         registered_plugins[plugin_group].append((uid, plugin_name))
 
-    if sort_items:
-        for key, prop in registered_plugins.items():
-            prop.sort()
+    if not sort_items:
+        return registered_plugins
 
-    return registered_plugins
+    ordered_registered_plugins = OrderedDict()
+    for key, prop in sorted(registered_plugins.items()):
+        ordered_registered_plugins[key] = sorted(prop)
+
+    return ordered_registered_plugins
 
 
 def get_registered_plugin_uids(registry, flattern=True, sort_items=True):

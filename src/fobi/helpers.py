@@ -3,6 +3,7 @@ Helpers module. This module can be safely imported from any fobi (sub)module,
 since it never imports from any of the fobi (sub)modules (except for the
 `fobi.constants` and `fobi.exceptions` modules).
 """
+from __future__ import unicode_literals
 import glob
 import logging
 import os
