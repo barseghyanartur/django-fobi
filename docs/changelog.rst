@@ -17,11 +17,13 @@ are used for versioning (schema follows below):
 
 0.12.18
 -------
-2018-02-16
+2018-02-19
 
+- Improved form element add drop-down order.
 - Add initial migrations for DjangoCMS integration app.
 - Add French translations.
 - Implemented styles for ``bleach`` within ``content_richtext`` plugin.
+- Documentation improvements.
 
 0.12.17
 -------
