@@ -2194,8 +2194,8 @@ available (core and plugins)
 
 Overriding translations
 -----------------------
-There might be cases if you wish to override certain translations. This can
-be done very easily by introducing of a custom locale path in your project.
+There might be cases when you want to override certain translations. It's
+easily achievable with introduction of custom locale paths in your project.
 
 See the following as a good example of overriding some English labels.
 
