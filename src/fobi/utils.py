@@ -239,11 +239,14 @@ def get_user_plugins_grouped(get_allowed_plugin_uids_func,
                 registered_plugins[plugin_group] = []
             registered_plugins[plugin_group].append((uid, plugin_name))
 
-    if sort_items:
-        for key, prop in registered_plugins.items():
-            prop.sort()
+    if not sort_items:
+        return registered_plugins
 
-    return registered_plugins
+    ordered_registered_plugins = OrderedDict()
+    for key, prop in sorted(registered_plugins.items()):
+        ordered_registered_plugins[key] = sorted(prop)
+
+    return ordered_registered_plugins
 
 
 def get_user_plugin_uids(get_allowed_plugin_uids_func,
