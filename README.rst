@@ -2190,7 +2190,7 @@ available (core and plugins)
 - `Dutch <https://django-fobi.herokuapp.com/nl/>`_
 - `German <https://django-fobi.herokuapp.com/de/>`_
 - `Russian <https://django-fobi.herokuapp.com/ru/>`_
-- `French <https://django-fobi.herokuapp.com/fr/>`_ (not yet released)
+- `French <https://django-fobi.herokuapp.com/fr/>`_
 
 Overriding translations
 -----------------------
