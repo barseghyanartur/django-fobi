@@ -2199,10 +2199,10 @@ be done very easily by introducing of a custom locale path in your project.
 
 See the following as a good example of overriding some English labels.
 
-`custom settings
-<https://raw.githubusercontent.com/barseghyanartur/django-fobi/master/examples/simple/settings/alternative_labels.py>`__
-`custom locales directory
-<https://github.com/barseghyanartur/django-fobi/tree/master/examples/simple/fobi_locale/>`__
+- `custom settings
+  <https://raw.githubusercontent.com/barseghyanartur/django-fobi/master/examples/simple/settings/alternative_labels.py>`__
+- `custom locales directory
+  <https://github.com/barseghyanartur/django-fobi/tree/master/examples/simple/fobi_locale/>`__
 
 Run the example project as follows:
 
