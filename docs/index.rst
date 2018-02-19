@@ -97,7 +97,14 @@ Roadmap
 =======
 Some of the upcoming/in-development features/improvements are:
 
-- Bootstrap 4 and Foundation 6 support (in version 0.13).
+- Implement disabling forms based on dates.
+- Class based views.
+- Cloning of forms.
+- JSON schema support.
+- Webpack integration.
+- Improved Django REST framework OPTIONS.
+- Bootstrap 4 support.
+- Foundation 6 support.
 
 See the `TODOS
 <https://raw.githubusercontent.com/barseghyanartur/django-fobi/master/TODOS.rst>`_
@@ -2173,13 +2180,39 @@ imports should go smoothly. It is though possible to make an import ignoring
 missing form element and form handler plugins. You would get an appropriate
 notice about that, but import will continue leaving the broken plugin data out.
 
+Translations
+============
 Available translations
-======================
-English is the primary language.
+----------------------
+English is the primary language. The following translations are
+available (core and plugins)
 
-- `Dutch <https://django-fobi.herokuapp.com/nl/>`_ (core and plugins)
-- `German <https://django-fobi.herokuapp.com/de/>`_ (core and plugins)
-- `Russian <https://django-fobi.herokuapp.com/ru/>`_ (core and plugins)
+- `Dutch <https://django-fobi.herokuapp.com/nl/>`_
+- `German <https://django-fobi.herokuapp.com/de/>`_
+- `Russian <https://django-fobi.herokuapp.com/ru/>`_
+- `French <https://django-fobi.herokuapp.com/fr/>`_ (not yet released)
+
+Overriding translations
+-----------------------
+There might be cases if you wish to override certain translations. This can
+be done very easily by introducing of a custom locale path in your project.
+
+See the following as a good example of overriding some English labels.
+
+`custom settings
+<https://raw.githubusercontent.com/barseghyanartur/django-fobi/master/examples/simple/settings/alternative_labels.py>`__
+`custom locales directory
+<https://github.com/barseghyanartur/django-fobi/tree/master/examples/simple/fobi_locale/>`__
+
+Run the example project as follows:
+
+.. code-block:: sh
+
+    cd examples/simple/
+    ./manage.py runserver --settings=settings.alternative_labels
+
+In the example given, "Boolean" and "Checkbox select multiple" plugin names
+are renamed to "Checkbox" and "Multiple checkboxes" respectively.
 
 Debugging
 =========
