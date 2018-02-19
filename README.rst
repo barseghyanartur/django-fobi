@@ -2197,7 +2197,7 @@ Overriding translations
 There might be cases when you want to override certain translations. It's
 easily achievable with introduction of custom locale paths in your project.
 
-See the following as a good example of overriding some English labels.
+See the following as a good example of overriding some English plugin labels.
 
 - `custom settings
   <https://raw.githubusercontent.com/barseghyanartur/django-fobi/master/examples/simple/settings/alternative_labels.py>`__
