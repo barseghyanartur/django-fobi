@@ -15,13 +15,21 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.12.19
+-------
+2018-02-21
+
+- Make it possible to sort on plugin ``name`` instead of ``uid``.
+
 0.12.18
 -------
-2018-02-16
+2018-02-19
 
+- Improved form element add drop-down order.
 - Add initial migrations for DjangoCMS integration app.
 - Add French translations.
 - Implemented styles for ``bleach`` within ``content_richtext`` plugin.
+- Documentation improvements.
 
 0.12.17
 -------
