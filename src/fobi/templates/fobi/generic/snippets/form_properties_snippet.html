@@ -63,10 +63,3 @@
     </div>
   {% endif %}
 {% endfor %}
-
-{% if form.media.js %}
-  {% block javascripts %}
-    {{ block.super }}
-    {{ form.media.js }}
-  {% endblock javascripts %}
-{% endif %}
