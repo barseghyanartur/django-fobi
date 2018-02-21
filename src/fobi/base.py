@@ -58,6 +58,7 @@ from .settings import (
     FAIL_ON_MISSING_INTEGRATION_FORM_HANDLER_PLUGINS,
     FORM_HANDLER_PLUGINS_EXECUTION_ORDER,
     FORM_WIZARD_HANDLER_PLUGINS_EXECUTION_ORDER,
+    SORT_PLUGINS_BY_VALUE,
     THEME_FOOTER_TEXT,
     # FAIL_ON_ERRORS_IN_FORM_ELEMENT_PLUGINS,
 )
@@ -2797,7 +2798,9 @@ def get_registered_plugins(registry, as_instances=False, sort_items=True):
     return registered_plugins
 
 
-def get_registered_plugins_grouped(registry, sort_items=True):
+def get_registered_plugins_grouped(registry,
+                                   sort_items=True,
+                                   sort_by_value=SORT_PLUGINS_BY_VALUE):
     """Get registered plugins grouped.
 
     Gets a list of registered plugins in a form of tuple (plugin name, plugin
@@ -2822,7 +2825,10 @@ def get_registered_plugins_grouped(registry, sort_items=True):
 
     ordered_registered_plugins = OrderedDict()
     for key, prop in sorted(registered_plugins.items()):
-        ordered_registered_plugins[key] = sorted(prop)
+        if sort_by_value:
+            ordered_registered_plugins[key] = sorted(prop, key=lambda t: t[1])
+        else:
+            ordered_registered_plugins[key] = sorted(prop)
 
     return ordered_registered_plugins
 
@@ -2875,7 +2881,9 @@ def get_registered_form_element_plugins():
     return get_registered_plugins(form_element_plugin_registry)
 
 
-def get_registered_form_element_plugins_grouped():
+def get_registered_form_element_plugins_grouped(
+        sort_by_value=SORT_PLUGINS_BY_VALUE
+):
     """Get registered form element plugins grouped.
 
     Gets a list of registered plugins in a form of tuple (plugin name, plugin
@@ -2883,7 +2891,10 @@ def get_registered_form_element_plugins_grouped():
 
     :return dict:
     """
-    return get_registered_plugins_grouped(form_element_plugin_registry)
+    return get_registered_plugins_grouped(
+        form_element_plugin_registry,
+        sort_by_value=sort_by_value
+    )
 
 
 def get_registered_form_element_plugin_uids(flattern=True):

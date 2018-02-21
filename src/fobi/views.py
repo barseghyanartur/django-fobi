@@ -67,7 +67,11 @@ from .models import (
     FormWizardFormEntry,
     FormWizardHandlerEntry
 )
-from .settings import GET_PARAM_INITIAL_DATA, DEBUG
+from .settings import (
+    GET_PARAM_INITIAL_DATA,
+    DEBUG,
+    SORT_PLUGINS_BY_VALUE,
+)
 from .utils import (
     append_edit_and_delete_links_to_field,
     get_user_form_element_plugins_grouped,
@@ -530,7 +534,8 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
 
     # List of form element plugins allowed to user
     user_form_element_plugins = get_user_form_element_plugins_grouped(
-        request.user
+        request.user,
+        sort_by_value=SORT_PLUGINS_BY_VALUE
     )
     # List of form handler plugins allowed to user
     user_form_handler_plugins = get_user_form_handler_plugins(
