@@ -2214,6 +2214,17 @@ Run the example project as follows:
 In the example given, "Boolean" and "Checkbox select multiple" plugin names
 are renamed to "Checkbox" and "Multiple checkboxes" respectively.
 
+All built-in plugin ``name`` values are almost equivalent to the plugin ``uid``
+values. By default plugins are sorted by ``uid`` value. When you override the
+``name`` of the plugin, sorting breaks. Therefore, it's recommended to
+set the ``FOBI_SORT_PLUGINS_BY_VALUE`` value to True in your settings module.
+Default value is False, which means that plugins are sorted by their ``uid``
+value.
+
+.. code-block:: python
+
+    FOBI_SORT_PLUGINS_BY_VALUE = True
+
 Debugging
 =========
 By default debugging is turned off. It means that broken form entries, which

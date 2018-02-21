@@ -15,6 +15,12 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.12.19
+-------
+2018-02-21
+
+- Make it possible to sort on plugin ``name`` instead of ``uid``.
+
 0.12.18
 -------
 2018-02-19
