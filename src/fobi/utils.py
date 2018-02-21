@@ -46,7 +46,12 @@ from .models import (
     FormHandlerEntry,
     FormWizardHandler
 )
-from .settings import RESTRICT_PLUGIN_ACCESS, DEBUG, WIZARD_FILES_UPLOAD_DIR
+from .settings import (
+    RESTRICT_PLUGIN_ACCESS,
+    DEBUG,
+    WIZARD_FILES_UPLOAD_DIR,
+    SORT_PLUGINS_BY_VALUE,
+)
 
 if DJANGO_GTE_1_10:
     from django.urls import reverse
@@ -204,15 +209,22 @@ def get_user_plugins_grouped(get_allowed_plugin_uids_func,
                              get_registered_plugins_grouped_func,
                              registry,
                              user,
-                             sort_items=True):
+                             sort_items=True,
+                             sort_by_value=False):
     """Get user plugins grouped.
 
-    :param callable get_allowed_plugin_uids_func:
-    :param callable get_registered_plugins_grouped_func:
-    :param fobi.base.BaseRegistry registry: Subclass of
-        ``fobi.base.BaseRegistry`` instance.
-    :param django.contrib.auth.models.User user:
-    :param bool sort_items:
+    :param get_allowed_plugin_uids_func:
+    :param get_registered_plugins_grouped_func:
+    :param registry: Subclass of ``fobi.base.BaseRegistry`` instance.
+    :param user:
+    :param sort_items:
+    :param sort_by_value:
+    :type get_allowed_plugin_uids_func: callable
+    :type get_registered_plugins_grouped_func: callable
+    :type registry: fobi.base.BaseRegistry
+    :type user: django.contrib.auth.models.User
+    :type sort_items: bool
+    :type sort_by_value: bool
     :return dict:
     """
     ensure_autodiscover()
@@ -246,7 +258,11 @@ def get_user_plugins_grouped(get_allowed_plugin_uids_func,
 
     ordered_registered_plugins = OrderedDict()
     for key, prop in sorted(registered_plugins.items()):
-        ordered_registered_plugins[key] = sorted(prop)
+        import ipdb; ipdb.set_trace()
+        if sort_by_value:
+            ordered_registered_plugins[key] = sorted(prop, key=lambda t: t[1])
+        else:
+            ordered_registered_plugins[key] = sorted(prop)
 
     return ordered_registered_plugins
 
@@ -354,13 +370,15 @@ def get_user_form_element_plugins(user):
     )
 
 
-def get_user_form_element_plugins_grouped(user):
+def get_user_form_element_plugins_grouped(user,
+                                          sort_by_value=SORT_PLUGINS_BY_VALUE):
     """Get user form element plugins grouped."""
     return get_user_plugins_grouped(
         get_allowed_form_element_plugin_uids,
         get_registered_form_element_plugins_grouped,
         form_element_plugin_registry,
-        user
+        user,
+        sort_by_value=sort_by_value
     )
 
 
@@ -455,13 +473,15 @@ def get_user_form_handler_plugins(user,
 #     return user_form_handler_plugins
 
 
-def get_user_form_handler_plugins_grouped(user):
+def get_user_form_handler_plugins_grouped(user,
+                                          sort_by_value=SORT_PLUGINS_BY_VALUE):
     """Get user form handler plugins grouped."""
     return get_user_plugins_grouped(
         get_allowed_form_handler_plugin_uids,
         get_registered_form_handler_plugins,
         form_handler_plugin_registry,
-        user
+        user,
+        sort_by_value=sort_by_value
     )
 
 
