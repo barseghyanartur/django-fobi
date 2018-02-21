@@ -19,3 +19,17 @@
 {% block content-wrapper %}
   {% include fobi_theme.edit_form_entry_ajax_template %}
 {% endblock content-wrapper %}
+
+{% block extra-stylesheets %}
+  {{ block.super }}
+  {% if form %}
+    {{ form.media.css }}
+  {% endif %}
+{% endblock extra-stylesheets %}
+
+{% block theme-javascripts %}
+  {{ block.super }}
+  {% if form %}
+    {{ form.media.js }}
+  {% endif %}
+{% endblock theme-javascripts %}

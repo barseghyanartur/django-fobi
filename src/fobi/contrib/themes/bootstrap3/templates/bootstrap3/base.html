@@ -1,15 +1,1 @@
 {% extends "bootstrap3/_base.html" %}
-
-{% block extrahead %}
-  {{ block.super }}
-  {% if form %}
-    {{ form.media.css }}
-  {% endif %}
-{% endblock extrahead %}
-
-{% block theme-javascripts %}
-  {{ block.super }}
-  {% if form %}
-    {{ form.media.js }}
-  {% endif %}
-{% endblock theme-javascripts %}
