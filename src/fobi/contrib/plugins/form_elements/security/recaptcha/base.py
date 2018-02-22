@@ -3,6 +3,7 @@ from __future__ import absolute_import
 import logging
 
 from django.utils.translation import ugettext_lazy as _
+from django.conf. import settings
 
 from fobi.base import (
     FormElementPlugin,
@@ -97,7 +98,7 @@ class ReCaptchaInputPlugin(FormElementPlugin):
             'help_text': self.data.help_text,
             # 'initial': self.data.initial,
             'required': self.data.required,
-            'widget': ReCaptchaWidget(attrs=widget_attrs),
+            'widget': ReCaptchaWidget(public_key=settings.RECAPTCHA_PUBLIC_KEY, attrs=widget_attrs),
         }
 
         return [(self.data.name, ReCaptchaField, field_kwargs)]
