@@ -72,8 +72,7 @@
     {% block breadcrumbs %}
     <div class="breadcrumbs">
       <a href="{% url 'admin:index' %}">{% trans 'Home' %}</a> &rsaquo;
-      {% url 'fobi.dashboard' as fobi_dashboard_url %}
-      <a href="{{ fobi_dashboard_url }}">{% trans 'Fobi' %}</a>
+      <a href="{% url 'fobi.dashboard' %}">{% trans 'Fobi' %}</a>
       {% block breadcrumbs-inner %}
       {% if form_entry %}
         {% with form_entry.name as title %}

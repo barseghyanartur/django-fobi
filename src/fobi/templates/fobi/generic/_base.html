@@ -61,8 +61,7 @@
             <span class="icon-bar"></span>
           </button>
           {% block dashboard-menu-item %}
-          {% url 'fobi.dashboard' as fobi_dashboard_url %}
-          <a class="navbar-brand" href="{{ fobi_dashboard_url }}">{{ fobi_theme.project_name }}</a>
+          <a class="navbar-brand" href="{% url 'fobi.dashboard' %}">{{ fobi_theme.project_name }}</a>
           {% endblock dashboard-menu-item %}
         </div>
         {% endblock navbar-header %}
