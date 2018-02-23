@@ -1,3 +1,4 @@
+# from __future__ import unicode_literals
 import copy
 from collections import OrderedDict
 import datetime
@@ -238,6 +239,13 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
         'help_text': "Lorem ipsum text area",
         'required': True,
     },
+
+    # Add a "Text" (text input) form element
+    # force_text(TextInputPlugin.name): {
+    #     'label': u"Անուն",
+    #     'help_text': u"Անուն",
+    #     'required': True,
+    # },
 }
 
 TEST_FORM_FIELD_DATA = {
@@ -266,6 +274,7 @@ TEST_FORM_FIELD_DATA = {
     'test_text': 'Lorem ipsum',
     'test_text_area': 'Dolor sit amet',
     'test_url_input': 'http://dev.example.com',
+    # 'test_unicode_text': u'Անուն',
 }
 
 TEST_FORM_HANDLER_PLUGIN_DATA = {
@@ -598,7 +607,20 @@ TEST_DYNAMIC_FORMS_DEFINITION_DATA = OrderedDict([
             'semper lorem rhoncus sem cras amet."'
             '}'
         )
-    )
+    ),
+    # (
+    #     'unicode_name',
+    #     (
+    #         TextInputPlugin.uid,
+    #         '{'
+    #         '"name": "unicode_name", '
+    #         '"required": true, '
+    #         '"max_length": 200, '
+    #         '"label": u"Անուն", '
+    #         '"placeholder": u"Անուն"'
+    #         '}'
+    #     )
+    # ),
 ])
 
 TEST_DYNAMIC_FORMS_DEFINITION_DATA_DRF = copy.copy(
@@ -627,6 +649,7 @@ TEST_DYNAMIC_FORMS_PUT_DATA_ALL = {
     'special_fields': FAKER.pystr(),
     'number_of_children': FAKER.pyint(),
     'bio': FAKER.text(),
+    # 'unicode_name': u'Անուն',
 }
 
 TEST_DYNAMIC_FORMS_PUT_DATA = copy.copy(TEST_DYNAMIC_FORMS_PUT_DATA_ALL)
@@ -664,5 +687,11 @@ TEST_DYNAMIC_FORMS_OPTIONS_RESPONSE = OrderedDict([
     (u'bio', OrderedDict([(u'type', u'string'),
                           (u'required', True),
                           (u'read_only', False),
-                          (u'label', u'Biography')]))
+                          (u'label', u'Biography')])),
+    # (u'unicode_name', OrderedDict([(u'type', u'string'),
+    #                                (u'required', True),
+    #                                (u'read_only', False),
+    #                                (u'label', u'Անուն'),
+    #                                (u'max_length', 200),
+    #                                (u'placeholder', u'Անուն')])),
 ])

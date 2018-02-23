@@ -84,7 +84,7 @@ class MailHandlerMixin(object):
 
         send_mail(
             safe_text(self.data.subject),
-            "{0}\n\n{1}".format(
+            u"{0}\n\n{1}".format(
                 safe_text(self.data.body),
                 ''.join(rendered_data)
             ),

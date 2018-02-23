@@ -21,7 +21,7 @@ from django.core.files.base import File
 from django.http import HttpResponse
 from django.templatetags.static import static
 from django.test.client import RequestFactory
-from django.utils.encoding import force_text
+from django.utils.encoding import force_text, smart_text
 from django.utils.html import format_html_join
 from django.utils.translation import ugettext_lazy as _
 
@@ -108,10 +108,11 @@ def safe_text(text):
 
     :return str:
     """
-    if PY3:
-        return force_text(text, encoding='utf-8')
-    else:
-        return force_text(text, encoding='utf-8').encode('utf-8')
+    return smart_text(text)
+    # if PY3:
+    #     return force_text(text, encoding='utf-8')
+    # else:
+    #     return force_text(text, encoding='utf-8').encode('utf-8')
 
 
 def lists_overlap(sub, main):
