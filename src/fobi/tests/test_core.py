@@ -1,6 +1,8 @@
+import datetime
 import unittest
 
 from django.test import TestCase, RequestFactory
+from django.utils import timezone
 
 from fobi.base import (
     get_registered_form_element_plugins,
@@ -92,7 +94,7 @@ class FobiCoreTest(TestCase):
             if form.is_valid():
                 form.save()
                 saved = True
-        except Exception as err:
+        except Exception:
             pass
 
         return saved
@@ -177,6 +179,32 @@ class FobiCoreTest(TestCase):
             absolute_url,
             '/en/fobi/wizard-view/{}/'.format(TEST_FORM_SLUG)
         )
+
+    @print_info
+    def test_08_form_entry_is_active(self):
+        """Test ``is_active`` of the form entry."""
+        form_entry = self._create_form_entry()
+        self.assertTrue(form_entry.is_active)
+
+        now = timezone.now()
+        tomorrow = now + datetime.timedelta(days=1)
+        yesterday = now - datetime.timedelta(days=1)
+
+        form_entry.active_date_from = now
+        form_entry.active_date_to = None
+        self.assertTrue(form_entry.is_active)
+
+        form_entry.active_date_from = yesterday
+        form_entry.active_date_to = tomorrow
+        self.assertTrue(form_entry.is_active)
+
+        form_entry.active_date_from = tomorrow
+        form_entry.active_date_to = yesterday
+        self.assertFalse(form_entry.is_active)
+
+        form_entry.active_date_from = None
+        form_entry.active_date_to = now
+        self.assertFalse(form_entry.is_active)
 
 
 if __name__ == '__main__':
