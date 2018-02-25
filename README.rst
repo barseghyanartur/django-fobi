@@ -2293,7 +2293,7 @@ install the test requirements:
 
 .. code-block:: sh
 
-    pip install -r examples/requirements/common_test_requirements.txt
+    pip install -r examples/requirements/test.txt
 
 Browser tests
 -------------
