@@ -15,6 +15,26 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.13
+----
+2018-02-25
+
+.. note::
+
+    This release contains minor backwards incompatible changes.
+    A number of new database fields have been added to the `FormEntry`
+    model (`active_date_from`, `active_date_to`, `inactive_page_title`,
+    `inactive_page_message`). You will need to migrate your database.
+
+- Implement disabling forms based on dates. Note, that although the feature
+  is landed into the core, contrib packages (such as Foundation 5 theme,
+  Simple theme, Django CMS admin style theme, DRF integration app,
+  FeinCMS integration app, Mezzanine integration app, DjangoCMS integration app
+  and Wagtail app) are not yet updated to reflect these changes. It's a work
+  in progress to be done in the nearest minor releases. Check the
+  `issue #143 <https://github.com/barseghyanartur/django-fobi/issues/143>`_
+  for state of the progress.
+
 0.12.20
 -------
 2018-02-24
