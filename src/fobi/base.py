@@ -49,6 +49,7 @@ from .settings import (
     CUSTOM_THEME_DATA,
     DEBUG,
     DEFAULT_THEME,
+    FAIL_ON_ERRORS_IN_FORM_ELEMENT_PLUGINS,
     FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS,
     FAIL_ON_ERRORS_IN_FORM_WIZARD_HANDLER_PLUGINS,
     FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS,
@@ -1669,7 +1670,10 @@ class FormElementPlugin(BasePlugin):
                 if kwargs_update:
                     return kwargs_update
             except Exception as err:
-                logger.debug(str(err))
+                if FAIL_ON_ERRORS_IN_FORM_ELEMENT_PLUGINS:
+                    raise err
+                else:
+                    logger.error(str(err))
         return {}
 
     def _submit_plugin_form_data(self, form_entry, request, form,
