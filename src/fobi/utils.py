@@ -258,7 +258,6 @@ def get_user_plugins_grouped(get_allowed_plugin_uids_func,
 
     ordered_registered_plugins = OrderedDict()
     for key, prop in sorted(registered_plugins.items()):
-        import ipdb; ipdb.set_trace()
         if sort_by_value:
             ordered_registered_plugins[key] = sorted(prop, key=lambda t: t[1])
         else:
@@ -610,13 +609,17 @@ def append_edit_and_delete_links_to_field(form_element_plugin,
         help_text = ''
 
     data_dict = {
-        'help_text': "{0} {1}".format(help_text, help_text_extra),
+        'help_text': u"{0} {1}".format(help_text, help_text_extra),
     }
 
     label = safe_text(getattr(form_element_plugin.data, 'label', ''))
     data_dict.update(
-        {'label': "{0} ({1})".format(label,
-                                     safe_text(form_element_plugin.name))}
+        {
+            'label': u"{0} ({1})".format(
+                label,
+                safe_text(form_element_plugin.name)
+            )
+        }
     )
 
     # if 'hidden' == form_element_plugin.uid:

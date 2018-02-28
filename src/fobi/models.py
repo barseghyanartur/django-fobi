@@ -7,6 +7,7 @@ from autoslug import AutoSlugField
 from django.conf import settings
 from django.contrib.auth.models import Group
 from django.db import models
+from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
 from nine.versions import DJANGO_GTE_1_10
@@ -360,19 +361,7 @@ class FormWizardEntry(models.Model):
 
 @python_2_unicode_compatible
 class FormEntry(models.Model):
-    """Form entry.
-
-    :Properties:
-
-        - `user` (django.contrib.auth.models.User: User owning the plugin.
-        - `name` (str): Form name.
-        - `title` (str): Form title - used in templates.
-        - `slug` (str): Form slug.
-        - `description` (str): Form description.
-        - `is_public` (bool): If set to True, is visible to public.
-        - `is_cloneable` (bool): If set to True, is cloneable.
-        - `position` (int): Ordering position in the wizard.
-    """
+    """Form entry."""
 
     user = models.ForeignKey(
         AUTH_USER_MODEL,
@@ -394,6 +383,35 @@ class FormEntry(models.Model):
         _("Public?"),
         default=False,
         help_text=_("Makes your form visible to the public.")
+    )
+    active_date_from = models.DateTimeField(
+        _("Active from"),
+        null=True,
+        blank=True,
+        help_text=_("Date and time when the form becomes active "
+                    "in the format: 'YYYY-MM-DD HH:MM'. "
+                    "Leave it blank to activate immediately.")
+    )
+    active_date_to = models.DateTimeField(
+        _("Active until"),
+        null=True,
+        blank=True,
+        help_text=_("Date and time when the form becomes inactive "
+                    "in the format: 'YYYY-MM-DD HH:MM'. "
+                    "Leave it blank to keep active forever.")
+    )
+    inactive_page_title = models.CharField(
+        _("Inactive form page title"),
+        max_length=255,
+        null=True,
+        blank=True,
+        help_text=_("Custom message title to display if form is inactive.")
+    )
+    inactive_page_message = models.TextField(
+        _("Inactive form page body"),
+        null=True,
+        blank=True,
+        help_text=_("Custom message text to display if form is inactive.")
     )
     is_cloneable = models.BooleanField(
         _("Cloneable?"),
@@ -448,6 +466,22 @@ class FormEntry(models.Model):
 
     def __str__(self):
         return self.name
+
+    @property
+    def is_active(self):
+        active_from_ok = True
+        active_to_ok = True
+        now = timezone.now()
+
+        if self.active_date_from and now < self.active_date_from:
+            active_from_ok = False
+        if self.active_date_to and now > self.active_date_to:
+            active_to_ok = False
+
+        if active_from_ok and active_to_ok:
+            return True
+        else:
+            return False
 
     def get_absolute_url(self):
         """Get absolute URL.
