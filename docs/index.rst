@@ -48,14 +48,18 @@ Main features and highlights
 - `Form wizards`_. Combine your forms into wizards. Form wizards may contain
   handlers. Handler processes the form wizard data (for example, saves it or
   mails it). Number of the form wizard handlers is not limited.
+- Forms can be automatically enabled/disabled based on dates (start date, end
+  date).
 - Anti-spam solutions like `CAPTCHA
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/captcha>`_,
   `ReCAPTCHA
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/recaptcha>`_
-  or `Honeypot
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/recaptcha>`_,
+  `Honeypot
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/honeypot>`_
+  or `Invisible reCAPTCHA
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/security/invisible_recaptcha>`__
   come out of the box (CAPTCHA and ReCAPTCHA do require additional third-party
-  apps to be installed).
+  apps to be installed; Invisible reCAPTCHA doesn't).
 - In addition to standard form elements, there are cosmetic (presentational)
   form elements (for adding a piece of text, image or a embed video)
   alongside standard form elements.
@@ -2293,7 +2297,7 @@ install the test requirements:
 
 .. code-block:: sh
 
-    pip install -r examples/requirements/common_test_requirements.txt
+    pip install -r examples/requirements/test.txt
 
 Browser tests
 -------------
