@@ -30,6 +30,7 @@ from .models import (
 
     # Form entries
     FormEntry,
+    FormEntryEditableSlug,
     FormFieldsetEntry,
     FormElementEntry,
     FormHandlerEntry,
@@ -50,6 +51,7 @@ __all__ = (
     'BulkChangeFormHandlerPluginsForm',
     'BulkChangeFormWizardHandlerPluginsForm',
     'FormElementEntryFormSet',
+    'FormEntryEditSlugForm',
     'FormEntryForm',
     'FormFieldsetEntryForm',
     'FormHandlerEntryForm',
@@ -196,6 +198,36 @@ class FormEntryForm(forms.ModelForm):
                 )
 
         return url
+
+
+class FormEntryEditSlugForm(forms.ModelForm):
+    """FormEntry edit slug form."""
+
+    class Meta(object):
+        """Meta class."""
+
+        model = FormEntryEditableSlug
+        fields = (
+            'slug',
+        )
+
+    def __init__(self, *args, **kwargs):
+        """Constructor."""
+        self.request = kwargs.pop('request', None)
+        if self.request is None:
+            raise ImproperlyConfigured(
+                ugettext(
+                    "The {0} form requires a "
+                    "request argument.".format(self.__class__.__name__)
+                )
+            )
+
+        super(FormEntryEditSlugForm, self).__init__(*args, **kwargs)
+        theme = get_theme(request=None, as_instance=True)
+
+        self.fields['slug'].widget = forms.widgets.TextInput(
+            attrs={'class': theme.form_element_html_class}
+        )
 
 
 class FormFieldsetEntryForm(forms.ModelForm):

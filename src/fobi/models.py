@@ -360,7 +360,7 @@ class FormWizardEntry(models.Model):
 
 
 @python_2_unicode_compatible
-class FormEntry(models.Model):
+class BaseFormEntry(models.Model):
     """Form entry."""
 
     user = models.ForeignKey(
@@ -460,6 +460,7 @@ class FormEntry(models.Model):
     class Meta(object):
         """Meta class."""
 
+        abstract = True
         verbose_name = _("Form entry")
         verbose_name_plural = _("Form entries")
         unique_together = (('user', 'slug'), ('user', 'name'),)
@@ -494,6 +495,29 @@ class FormEntry(models.Model):
             'fobi.view_form_entry',
             kwargs={'form_entry_slug': self.slug}
         )
+
+
+class FormEntry(BaseFormEntry):
+    """Form entry."""
+
+    slug = AutoSlugField(
+        populate_from='name', verbose_name=_("Slug"), unique=True
+    )
+
+
+class FormEntryEditableSlug(BaseFormEntry):
+    """Form entry with editable slug."""
+
+    slug = models.SlugField(
+        verbose_name=_("Slug"),
+        unique=True
+    )
+
+    class Meta(object):
+        """Options."""
+
+        managed = False
+        db_table = FormEntry._meta.db_table
 
 
 @python_2_unicode_compatible

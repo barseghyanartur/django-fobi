@@ -10,6 +10,7 @@
       <li class="active"><a href="#tab-form-elements" role="tab" data-toggle="tab">{% trans "Elements" %}</a></li>
       <li><a href="#tab-form-handlers" role="tab" data-toggle="tab">{% trans "Handlers" %}</a></li>
       <li><a href="#tab-form-properties" role="tab" data-toggle="tab">{% trans "Properties" %}</a></li>
+      <li><a href="#tab-form-slug" role="tab" data-toggle="tab">{% trans "Slug" %}</a></li>
       <li><a href="#tab-form-service" role="tab" data-toggle="tab">{% trans "Service" %}</a></li>
     </ul>
 
@@ -155,6 +156,30 @@
               <div class="{% block form_properties_button_outer_wrapper_html_class %}control-group{% endblock %}">
                 <div class="{% block form_properties_button_wrapper_html_class %}controls{% endblock %}">
                   <input type="submit" class="{% block form_properties_button_html_class %}btn btn-primary pull-right{% endblock %}" value="{% trans 'Submit changes' %}"/>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Form slug -->
+      <div class="tab-pane" id="tab-form-slug">
+
+        <div>
+          <h2 id="form_slug">{% trans "Form slug" %}</h2>
+        </div>
+
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <form method="post" action="{{ request.path }}?active_tab=tab-form-slug" enctype="multipart/form-data" class="{% block form_slug_html_class %}form-horizontal{% endblock %}">
+              {% csrf_token %}
+              {% include fobi_theme.form_slug_snippet_template_name %}
+
+              <div class="{% block form_slug_button_outer_wrapper_html_class %}control-group{% endblock %}">
+                <div class="{% block form_slug_button_wrapper_html_class %}controls{% endblock %}">
+                  <input type="submit" class="{% block form_slug_button_html_class %}btn btn-primary pull-right{% endblock %}" value="{% trans 'Submit changes' %}"/>
                 </div>
               </div>
             </form>

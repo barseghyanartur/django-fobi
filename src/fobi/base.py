@@ -245,6 +245,9 @@ class BaseTheme(object):
     form_properties_snippet_template_name = \
         'fobi/generic/snippets/form_properties_snippet.html'
 
+    form_slug_snippet_template_name = \
+        'fobi/generic/snippets/form_slug_snippet.html'
+
     messages_snippet_template_name = \
         'fobi/generic/snippets/messages_snippet.html'
 

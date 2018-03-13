@@ -49,14 +49,15 @@ from .form_importers import (
     form_importer_plugin_registry, get_form_importer_plugin_urls
 )
 from .forms import (
-    FormEntryForm,
+    # FormWizardFormEntry,
+    # FormWizardFormEntryForm
     FormElementEntryFormSet,
+    FormEntryEditSlugForm,
+    FormEntryForm,
+    FormWizardEntryForm,
+    FormWizardFormEntryFormSet,
     ImportFormEntryForm,
     ImportFormWizardEntryForm,
-    FormWizardEntryForm,
-    # FormWizardFormEntry,
-    FormWizardFormEntryFormSet,
-    # FormWizardFormEntryForm
 )
 from .helpers import JSONDataExporter
 from .models import (
@@ -442,8 +443,19 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
 
     if request.method == 'POST':
         # The form entry form (does not contain form elements)
-        form = FormEntryForm(request.POST, request.FILES, instance=form_entry,
-                             request=request)
+        form = FormEntryForm(
+            request.POST,
+            request.FILES,
+            instance=form_entry,
+            request=request
+        )
+
+        form_slug = FormEntryEditSlugForm(
+            request.POST,
+            request.FILES,
+            instance=form_entry,
+            request=request
+        )
 
         # This is where we save ordering if it has been changed.
         # The `FormElementEntryFormSet` contain ids and positions only.
@@ -512,6 +524,7 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
     else:
         # The form entry form (does not contain form elements)
         form = FormEntryForm(instance=form_entry, request=request)
+        form_slug = FormEntryEditSlugForm(instance=form_entry, request=request)
 
         form_element_entry_formset = FormElementEntryFormSet(
             queryset=form_entry.formelemententry_set.all(),
@@ -571,6 +584,7 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
 
     context = {
         'form': form,
+        'form_slug': form_slug,
         'form_entry': form_entry,
         'form_elements': form_elements,
         'form_handlers': form_handlers,
