@@ -15,6 +15,15 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.13.2
+------
+2018-03-12
+
+- Choices are now required fields for `checkbox_select_multiple`, `radio`,
+  `select`, `select_multiple` and `select_multiple_with_max` form elements.
+- The `active_date_from`, `active_date_to`, `inactive_page_title`,
+  `inactive_page_message` added to forms the import/export flow.
+
 0.13.1
 ------
 2018-02-28
