@@ -1482,7 +1482,7 @@ class FormWizardView(DynamicSessionWizardView):
         try:
             qs_kwargs = {'slug': kwargs.get('form_wizard_entry_slug')}
             if not user_is_authenticated:
-                kwargs.update({'is_public': True})
+                qs_kwargs.update({'is_public': True})
             form_wizard_entry = FormWizardEntry.objects \
                 .select_related('user') \
                 .get(**qs_kwargs)
