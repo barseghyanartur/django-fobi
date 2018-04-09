@@ -41,7 +41,7 @@ class SelectMultipleInputForm(forms.Form, BaseFormFieldPluginForm):
     )
     choices = forms.CharField(
         label=_("Choices"),
-        required=False,
+        required=True,
         help_text=_("Enter single values/pairs per line. Example:<code><br/>"
                     "&nbsp;&nbsp;&nbsp;&nbsp;1<br/>"
                     "&nbsp;&nbsp;&nbsp;&nbsp;2<br/>"
