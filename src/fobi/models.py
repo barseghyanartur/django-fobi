@@ -41,14 +41,15 @@ __all__ = (
     'FormWizardHandler',
 
     # Entries
-    'BaseAbstractPluginEntry',
+    'AbstractFormWizardPluginEntry',
     'AbstractPluginEntry',
-    'FormWizardEntry',
-    'FormEntry',
+    'BaseAbstractPluginEntry',
     'FormElementEntry',
+    'FormEntry',
     'FormFieldsetEntry',
     'FormHandlerEntry',
-    'AbstractFormWizardPluginEntry',
+    'FormWizardEntry',
+    'FormWizardFormEntry',
     'FormWizardHandlerEntry',
 )
 
