@@ -1,5 +1,5 @@
 """
-Views.
+Function based views.
 """
 import datetime
 import logging
@@ -15,6 +15,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.storage import FileSystemStorage
+from django.core.serializers.json import DjangoJSONEncoder
 from django.forms import ValidationError
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import redirect
@@ -24,7 +25,7 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 
 from nine import versions
 
-from .base import (
+from ..base import (
     fire_form_callbacks,
     run_form_handlers,
     run_form_wizard_handlers,
@@ -33,22 +34,22 @@ from .base import (
     form_wizard_handler_plugin_registry,
     submit_plugin_form_data,
     get_theme,
-    # get_registered_form_handler_plugins
+    # get_registered_form_handler_plugins,
 )
-from .constants import (
+from ..constants import (
     CALLBACK_BEFORE_FORM_VALIDATION,
     CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA,
     CALLBACK_FORM_VALID,
     CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS,
-    CALLBACK_FORM_INVALID
+    CALLBACK_FORM_INVALID,
 )
-from .decorators import permissions_required, SATISFY_ALL, SATISFY_ANY
-from .dynamic import assemble_form_class
-from .form_importers import (
+from ..decorators import permissions_required, SATISFY_ALL, SATISFY_ANY
+from ..dynamic import assemble_form_class
+from ..form_importers import (
     ensure_autodiscover as ensure_importers_autodiscover,
-    form_importer_plugin_registry, get_form_importer_plugin_urls
+    form_importer_plugin_registry, get_form_importer_plugin_urls,
 )
-from .forms import (
+from ..forms import (
     FormEntryForm,
     FormElementEntryFormSet,
     ImportFormEntryForm,
@@ -56,23 +57,23 @@ from .forms import (
     FormWizardEntryForm,
     # FormWizardFormEntry,
     FormWizardFormEntryFormSet,
-    # FormWizardFormEntryForm
+    # FormWizardFormEntryForm,
 )
-from .helpers import JSONDataExporter
-from .models import (
+from ..helpers import JSONDataExporter
+from ..models import (
     FormEntry,
     FormElementEntry,
     FormHandlerEntry,
     FormWizardEntry,
     FormWizardFormEntry,
-    FormWizardHandlerEntry
+    FormWizardHandlerEntry,
 )
-from .settings import (
+from ..settings import (
     GET_PARAM_INITIAL_DATA,
     DEBUG,
     SORT_PLUGINS_BY_VALUE,
 )
-from .utils import (
+from ..utils import (
     append_edit_and_delete_links_to_field,
     get_user_form_element_plugins_grouped,
     get_user_form_field_plugin_uids,
@@ -84,9 +85,9 @@ from .utils import (
     get_user_form_wizard_handler_plugin_uids,
     get_wizard_files_upload_dir,
     perform_form_entry_import,
-    prepare_form_entry_export_data
+    prepare_form_entry_export_data,
 )
-from .wizard import (
+from ..wizard import (
     # DynamicCookieWizardView,
     DynamicSessionWizardView,
 )
@@ -120,11 +121,14 @@ __all__ = (
     'delete_form_handler_entry',
     'delete_form_wizard_entry',
     'delete_form_wizard_form_entry',
+    'delete_form_wizard_handler_entry',
     'edit_form_element_entry',
     'edit_form_entry',
     'edit_form_handler_entry',
+    'edit_form_wizard_entry',
     'edit_form_wizard_handler_entry',
     'export_form_entry',
+    'export_form_wizard_entry',
     'form_entry_submitted',
     'form_importer',
     'form_wizard_entry_submitted',
@@ -2416,41 +2420,10 @@ def export_form_entry(request, form_entry_id, template_name=None):
         raise Http404(ugettext("Form entry not found."))
 
     data = prepare_form_entry_export_data(form_entry)
-
-    # data = {
-    #     'name': form_entry.name,
-    #     'slug': form_entry.slug,
-    #     'is_public': False,
-    #     'is_cloneable': False,
-    #     # 'position': form_entry.position,
-    #     'success_page_title': form_entry.success_page_title,
-    #     'success_page_message': form_entry.success_page_message,
-    #     'action': form_entry.action,
-    #     'form_elements': [],
-    #     'form_handlers': [],
-    # }
-    #
-    # form_element_entries = form_entry.formelemententry_set.all()[:]
-    # form_handler_entries = form_entry.formhandlerentry_set.all()[:]
-    #
-    # for form_element_entry in form_element_entries:
-    #     data['form_elements'].append(
-    #         {
-    #             'plugin_uid': form_element_entry.plugin_uid,
-    #             'position': form_element_entry.position,
-    #             'plugin_data': form_element_entry.plugin_data,
-    #         }
-    #     )
-    #
-    # for form_handler_entry in form_handler_entries:
-    #     data['form_handlers'].append(
-    #         {
-    #             'plugin_uid': form_handler_entry.plugin_uid,
-    #             'plugin_data': form_handler_entry.plugin_data,
-    #         }
-    #     )
-
-    data_exporter = JSONDataExporter(json.dumps(data), form_entry.slug)
+    data_exporter = JSONDataExporter(
+        json.dumps(data, cls=DjangoJSONEncoder),
+        form_entry.slug
+    )
 
     return data_exporter.export()
 
@@ -2653,7 +2626,10 @@ def export_form_wizard_entry(request,
             }
         )
 
-    data_exporter = JSONDataExporter(json.dumps(data), form_wizard_entry.slug)
+    data_exporter = JSONDataExporter(
+        json.dumps(data, cls=DjangoJSONEncoder),
+        form_wizard_entry.slug
+    )
 
     return data_exporter.export()
 
