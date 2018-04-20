@@ -1,5 +1,5 @@
 """
-Views.
+Function based views.
 """
 import datetime
 import logging
@@ -25,7 +25,7 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 
 from nine import versions
 
-from .base import (
+from ..base import (
     fire_form_callbacks,
     run_form_handlers,
     run_form_wizard_handlers,
@@ -34,22 +34,22 @@ from .base import (
     form_wizard_handler_plugin_registry,
     submit_plugin_form_data,
     get_theme,
-    # get_registered_form_handler_plugins
+    # get_registered_form_handler_plugins,
 )
-from .constants import (
+from ..constants import (
     CALLBACK_BEFORE_FORM_VALIDATION,
     CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA,
     CALLBACK_FORM_VALID,
     CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS,
-    CALLBACK_FORM_INVALID
+    CALLBACK_FORM_INVALID,
 )
-from .decorators import permissions_required, SATISFY_ALL, SATISFY_ANY
-from .dynamic import assemble_form_class
-from .form_importers import (
+from ..decorators import permissions_required, SATISFY_ALL, SATISFY_ANY
+from ..dynamic import assemble_form_class
+from ..form_importers import (
     ensure_autodiscover as ensure_importers_autodiscover,
-    form_importer_plugin_registry, get_form_importer_plugin_urls
+    form_importer_plugin_registry, get_form_importer_plugin_urls,
 )
-from .forms import (
+from ..forms import (
     FormEntryForm,
     FormElementEntryFormSet,
     ImportFormEntryForm,
@@ -57,23 +57,23 @@ from .forms import (
     FormWizardEntryForm,
     # FormWizardFormEntry,
     FormWizardFormEntryFormSet,
-    # FormWizardFormEntryForm
+    # FormWizardFormEntryForm,
 )
-from .helpers import JSONDataExporter
-from .models import (
+from ..helpers import JSONDataExporter
+from ..models import (
     FormEntry,
     FormElementEntry,
     FormHandlerEntry,
     FormWizardEntry,
     FormWizardFormEntry,
-    FormWizardHandlerEntry
+    FormWizardHandlerEntry,
 )
-from .settings import (
+from ..settings import (
     GET_PARAM_INITIAL_DATA,
     DEBUG,
     SORT_PLUGINS_BY_VALUE,
 )
-from .utils import (
+from ..utils import (
     append_edit_and_delete_links_to_field,
     get_user_form_element_plugins_grouped,
     get_user_form_field_plugin_uids,
@@ -85,9 +85,9 @@ from .utils import (
     get_user_form_wizard_handler_plugin_uids,
     get_wizard_files_upload_dir,
     perform_form_entry_import,
-    prepare_form_entry_export_data
+    prepare_form_entry_export_data,
 )
-from .wizard import (
+from ..wizard import (
     # DynamicCookieWizardView,
     DynamicSessionWizardView,
 )
@@ -121,11 +121,14 @@ __all__ = (
     'delete_form_handler_entry',
     'delete_form_wizard_entry',
     'delete_form_wizard_form_entry',
+    'delete_form_wizard_handler_entry',
     'edit_form_element_entry',
     'edit_form_entry',
     'edit_form_handler_entry',
+    'edit_form_wizard_entry',
     'edit_form_wizard_handler_entry',
     'export_form_entry',
+    'export_form_wizard_entry',
     'form_entry_submitted',
     'form_importer',
     'form_wizard_entry_submitted',
