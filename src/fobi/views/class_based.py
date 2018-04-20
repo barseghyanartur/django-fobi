@@ -1,0 +1,3 @@
+"""
+Class based views.
+"""
