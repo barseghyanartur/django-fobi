@@ -22,6 +22,7 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.views.generic import View, TemplateView, FormView
 from django.views.generic.detail import SingleObjectMixin
+from django.views.generic.list import MultipleObjectMixin
 from django.views.generic.edit import FormMixin
 
 
@@ -118,6 +119,8 @@ __all__ = (
     'FobiFormRedirectMixin',
     'CreateFormWizardEntryView',
     'EditFormWizardEntryView',
+    'FormWizardDashboardView',
+    'FormDashboardView',
 )
 
 
@@ -420,6 +423,13 @@ class FobiThemeMixin(TemplateView):
     template_name = None
     theme_template_name = None
 
+    def get_context_data(self, **kwargs):
+        context = super(FobiThemeMixin, self).get_context_data(**kwargs)
+        if 'fobi_theme' not in context:
+            self.get_theme(self.request)
+            context['fobi_theme'] = self.theme
+        return context
+
     def get_theme_template_name(self):
         return self.theme_template_name
 
@@ -652,9 +662,7 @@ class EditFormWizardEntryView(FobiFormRedirectMixin, FobiThemeMixin, SingleObjec
                         self.request,
                         _("Forms ordering edited successfully.")
                     )
-                    return redirect(
-                        self.get_success_url()
-                    )
+                    return super(EditFormWizardEntryView, self).post(*args, **kwargs)
             except MultiValueDictKeyError as err:
                 messages.error(
                     self.request,
@@ -668,3 +676,40 @@ class EditFormWizardEntryView(FobiFormRedirectMixin, FobiThemeMixin, SingleObjec
         if form.is_valid():
             return super(EditFormWizardEntryView, self).form_valid(form=form)
         return super(EditFormWizardEntryView, self).form_invalid(form=form)
+
+
+class FormWizardDashboardView(MultipleObjectMixin, FobiThemeMixin, TemplateView):
+    theme = None
+    model = FormWizardEntry
+    theme_template_name = 'form_wizards_dashboard_template'
+    context_object_name = 'form_wizard_entries'
+
+    def get_queryset(self):
+        return super(FormWizardDashboard, self).get_queryset().filter(
+            user__pk=self.request.user.pk,
+        ).select_related('user')
+
+    def get_context_data(self, **kwargs):
+        self.object_list = self.get_queryset()
+        context = super(FormWizardDashboard, self).get_context_data(**kwargs)
+        context['form_wizard_entries'] = self.get_queryset()
+        return context
+
+
+class FormDashboardView(MultipleObjectMixin, FobiThemeMixin, TemplateView):
+    theme = None
+    model = FormEntry
+    theme_template_name = 'dashboard_template'
+    context_object_name = 'form_entries'
+
+    def get_queryset(self):
+        return super(FormDashboard, self).get_queryset().filter(
+            user__pk=self.request.user.pk
+        ).select_related('user')
+
+    def get_context_data(self, **kwargs):
+        self.object_list = self.get_queryset()
+        context = super(FormDashboard, self).get_context_data(**kwargs)
+        context[self.context_object_name] = self.object_list[:]
+        context['form_importers'] = get_form_importer_plugin_urls()
+        return context
