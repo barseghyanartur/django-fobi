@@ -121,6 +121,8 @@ __all__ = (
     'EditFormWizardEntryView',
     'FormWizardDashboardView',
     'FormDashboardView',
+    'CreateFormEntryView',
+    'EditFormEntryView',
 )
 
 
