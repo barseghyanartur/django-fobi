@@ -6,6 +6,8 @@ from fobi.views.class_based import (
     EditFormWizardEntryView,
     FormWizardDashboardView,
     FormDashboardView,
+    CreateFormEntryView,
+    EditFormEntryView,
 )
 
 __title__ = 'fobi.urls.class_based'
@@ -21,12 +23,12 @@ urlpatterns = [
     # *********************************************************************
 
     # wizard dashboard
-    url( _(r'^/dashboard/wizards/$'), 
+    url( _(r'^dashboard/wizards/$'), 
             view=FormWizardDashboardView.as_view(),
             name='fobi.class_based.wizard-dashboard'),
            
     # form dashbaord
-    url(_(r'^/dashboard/forms/$'),
+    url(_(r'^dashboard/forms/$'),
         view=FormDashboardView.as_view(),
         name='fobi.class_based.dashboard'),
         
@@ -43,5 +45,19 @@ urlpatterns = [
     url(_(r'^wizard/edit/(?P<form_wizard_entry_id>\d+)/$'),
         view=EditFormWizardEntryView.as_view(),
         name='fobi.class_based.edit_form_wizard_entry'),
+
+    # ************************************************************
+    # **************************** Form Entry CUD**************
+    # ************************************************************
+
+    # create form entry
+    url(_(r'^forms/create/$'),
+        view=CreateFormEntryView.as_view(),
+        name='fobi.class_based.create_form_entry'),
+    
+    # edit form entry
+    url(_(r'^forms/edit/(?P<form_entry_id >\d+)/$'),
+        view=EditFormEntryView,
+        name='fobi.class_based.edit_form_entry'),
 ]
 
