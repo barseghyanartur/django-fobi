@@ -19,7 +19,7 @@ class ClassBasedViewsTheme(Bootstrap3Theme):
   name = _("Class Based Views")
 
   dashboard = 'fobi.class_based.dashboard'
-  form_wizards_dashboard = 'fobi.class_based.form_wizard_dashboard'
+  form_wizards_dashboard = 'fobi.class_based.form_wizards_dashboard'
   create_form_entry = 'fobi.class_based.create_form_entry'
   edit_form_entry = 'fobi.class_based.edit_form_entry'
   create_form_wizard_entry = 'fobi.class_based.create_form_wizard_entry'
