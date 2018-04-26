@@ -579,8 +579,13 @@ class FobiFormsetMixin(object):
     def get_context_formset_name(self):
         return self.context_formset_name
 
-    def post(self, *args, **kwargs):        
-        formset = getattr(self, self.get_property_formset_name())
+    def get_context_data(self, *args, **kwargs):
+        context = super(FobiFormsetMixin, self).get_context_data(*args, **kwargs)
+        context[self.get_context_formset_name()] = getattr(self, self.get_property_formset_name())
+        return context
+
+    def process_formset(self, formset=None, *args, **kwargs):        
+        formset = getattr(self, self.get_property_formset_name()) if formset is None else formset
         try:
             if formset.is_valid():
                 formset.save()
@@ -858,8 +863,7 @@ class EditFormEntryView(FobiThemeRedirectMixin, FobiFormsetMixin, SingleObjectMi
     formset_success_message = 'success in update'
     formset_error_message = 'ERROR!!'
     formset_class = FormElementEntryFormSet
-    object_formset_name = 'formelemententry_set'
-    _form_element_entry_formset = None
+    object_formset_name = 'formelemententry_set'    
     form_valid_redirect = 'edit_form_entry'
     form_valid_redirect_kwargs = (
         ('form_entry_id', 'pk'),
@@ -913,15 +917,13 @@ class EditFormEntryView(FobiThemeRedirectMixin, FobiFormsetMixin, SingleObjectMi
                 context['assembled_form'].as_p()
             except Exception as err:
                 logger.error(err)
-        context['fobi_theme'].collect_plugin_media(context['form_elements'])
-        context['form_element_entry_formset'] = self.form_element_entry_formset
+        context['fobi_theme'].collect_plugin_media(context['form_elements'])        
         return context
 
     def dispatch(self, request, *args, **kwargs):
         self.form_entry_id = kwargs.pop('form_entry_id', None)
         self.object = self.get_object()
         self.get_theme(request=request)
-
         return super(EditFormEntryView, self).dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
@@ -956,15 +958,6 @@ class EditFormEntryView(FobiThemeRedirectMixin, FobiFormsetMixin, SingleObjectMi
             form_args = [self.request.POST, self.request.FILES]
         return form_class(*form_args, **self.get_form_kwargs())
 
-    @property
-    def form_element_entry_formset(self):
-            kwargs = dict(queryset=self.object.formelemententry_set.all())
-            args = [] if self.request.method.lower() == 'get' else [self.request.POST, self.request.FILES]
-            return FormElementEntryFormSet(
-                *args,
-                **kwargs
-            )
-
     def post(self, request, *args, **kwargs):
         if 'ordering' in self.request.POST:
             # try:
@@ -982,7 +975,7 @@ class EditFormEntryView(FobiThemeRedirectMixin, FobiFormsetMixin, SingleObjectMi
             #           "elements ordering!")
             #     )
             #     return redirect(self.get_success_url())\
-            return super(EditFormEntry, self).post(*args, **kwargs)
+            return super(EditFormEntryView, self).process_formset(*args, **kwargs)
         form = self.get_form()(**self.get_form_kwargs())
         if form.is_valid():
             return super(EditFormEntryView, self).form_valid(form=form)
