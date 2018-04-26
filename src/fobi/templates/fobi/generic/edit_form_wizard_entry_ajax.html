@@ -31,7 +31,7 @@
                     </a>
                     <ul class="dropdown-menu">
                       {% for form_entry in all_form_entries %}
-                      <li><a href="{% url fobi_theme.add_form_wizard_form_entry form_wizard_entry.pk form_entry.pk %}">{{ form_entry.name }}</a></li>
+                      <li><a href="{% url 'fobi.add_form_wizard_form_entry' form_wizard_entry.pk form_entry.pk %}">{{ form_entry.name }}</a></li>
                       {% endfor %}
                     </ul>
                   </li>
@@ -53,17 +53,17 @@
                             <input id="id_form-{{ forloop.counter0 }}-id" name="form-{{ forloop.counter0 }}-id" type="hidden" value="{{ form_wizard_form_entry.pk }}" />
                             <ul class="{{ fobi_theme.form_list_container_class }}">
                               <li>
-                                <a href="{% url fobi_theme.view_form_entry form_wizard_form_entry.form_entry.slug %}">
+                                <a href="{% url 'fobi.view_form_entry' form_wizard_form_entry.form_entry.slug %}">
                                   <span class="{{ fobi_theme.form_view_form_entry_option_class }}"></span> {% trans "View" %}
                                 </a>
                               </li>
                               <li>
-                                <a href="{% url fobi_theme.edit_form_entry form_wizard_form_entry.form_entry.pk %}">
+                                <a href="{% url 'fobi.edit_form_entry' form_wizard_form_entry.form_entry.pk %}">
                                   <span class="{{ fobi_theme.form_edit_form_entry_option_class }}"></span> {% trans "Edit" %}
                                 </a>
                               </li>
                               <li>
-                                <a href="{% url fobi_theme.delete_form_wizard_form_entry form_wizard_form_entry.pk %}">
+                                <a href="{% url 'fobi.delete_form_wizard_form_entry' form_wizard_form_entry.pk %}">
                                   <span class="{{ fobi_theme.form_delete_form_entry_option_class }}"></span> {% trans "Delete" %}
                                 </a>
                               </li>
@@ -105,7 +105,7 @@
                     </a>
                     <ul class="dropdown-menu">
                       {% for form_wizard_handler_uid, form_wizard_handler_name in user_form_wizard_handler_plugins %}
-                      <li><a href="{% url fobi_theme.add_form_wizard_handler_entry form_wizard_entry.pk form_wizard_handler_uid %}">{{ form_wizard_handler_name }}</a></li>
+                      <li><a href="{% url 'fobi.add_form_wizard_handler_entry' form_wizard_entry.pk form_wizard_handler_uid %}">{{ form_wizard_handler_name }}</a></li>
                       {% endfor %}
                     </ul>
                   </li>
@@ -137,9 +137,9 @@
                       <td>
                         <ul class="list-inline">
                           {% if form_wizard_handler.plugin_data %}
-                          <li><a href="{% url fobi_theme.edit_form_wizard_handler_entry form_wizard_handler.pk %}"><span class="glyphicon glyphicon-edit"></span> {% trans "Edit" %}</a></li>
+                          <li><a href="{% url 'fobi.edit_form_wizard_handler_entry' form_wizard_handler.pk %}"><span class="glyphicon glyphicon-edit"></span> {% trans "Edit" %}</a></li>
                           {% endif %}
-                          <li><a href="{% url fobi_theme.delete_form_wizard_handler_entry form_wizard_handler.pk %}"><span class="glyphicon glyphicon-remove"></span> {% trans "Delete" %}</a></li>
+                          <li><a href="{% url 'fobi.delete_form_wizard_handler_entry' form_wizard_handler.pk %}"><span class="glyphicon glyphicon-remove"></span> {% trans "Delete" %}</a></li>
                           {% get_fobi_form_wizard_handler_plugin_custom_actions plugin form_wizard_entry as form_wizard_handler_plugin_custom_actions %}
                           {#% for action in plugin.get_custom_actions %#}
                           {% for action in form_wizard_handler_plugin_custom_actions %}
@@ -196,7 +196,7 @@
                   <h3>{% trans "Export your form wizard as JSON" %}</h3>
                   <p>{% trans "Export your form into JSON format and import it again any time!" %}</p>
                   <p>
-                    <a class="btn btn-primary" href="{% url fobi_theme.export_form_wizard_entry form_wizard_entry.pk %}" role="button">
+                    <a class="btn btn-primary" href="{% url 'fobi.export_form_wizard_entry' form_wizard_entry.pk %}" role="button">
                       <span class="glyphicon glyphicon-export"></span> {% trans "Export form wizard" %}
                     </a>
                   </p>
@@ -205,7 +205,7 @@
                   <h3>{% trans "Delete your form wizard" %}</h3>
                   <p>{% trans "Once deleted, can't be undone!" %}</p>
                   <p>
-                    <a class="btn btn-primary" href="{% url fobi_theme.delete_form_wizard_entry form_wizard_entry.pk %}" role="button">
+                    <a class="btn btn-primary" href="{% url 'fobi.delete_form_wizard_entry' form_wizard_entry.pk %}" role="button">
                       <span class="glyphicon glyphicon-remove"></span> {% trans "Delete form wizard" %}
                     </a>
                   </p>

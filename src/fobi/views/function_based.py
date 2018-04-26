@@ -1,5 +1,5 @@
 """
-Function based views.
+        Function based views.
 """
 import datetime
 import logging
@@ -133,6 +133,7 @@ __all__ = (
     'form_importer',
     'form_wizard_entry_submitted',
     'form_wizards_dashboard',
+    'FormWizardView',
     'import_form_entry',
     'import_form_wizard_entry',
     'view_form_entry',

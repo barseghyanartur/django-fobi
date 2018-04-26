@@ -8,12 +8,12 @@
 {% endblock navbar-menu-content %}
 
 {% block navbar-menu-right-content %}
-            <li><a href="{% url fobi_theme.dashboard %}">{% trans "Forms" %}</a></li>
-            <li class="active"><a href="{% url fobi_theme.form_wizards_dashboard %}">{% trans "Wizards" %}</a></li>
+            <li><a href="{% url 'fobi.dashboard' %}">{% trans "Forms" %}</a></li>
+            <li class="active"><a href="{% url 'fobi.form_wizards_dashboard' %}">{% trans "Wizards" %}</a></li>
 {% endblock navbar-menu-right-content %}
 
 {% block dashboard-menu-item %}
-<a class="navbar-brand" href="{% url fobi_theme.form_wizards_dashboard %}">{{ fobi_theme.project_name }}</a>
+<a class="navbar-brand" href="{% url 'fobi.form_wizards_dashboard' %}">{{ fobi_theme.project_name }}</a>
 {% endblock dashboard-menu-item %}
 
 {% block content %}
