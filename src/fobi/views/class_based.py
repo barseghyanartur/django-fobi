@@ -77,10 +77,10 @@ from ..settings import (
 )
 from ..utils import (
     # append_edit_and_delete_links_to_field,
-    # get_user_form_element_plugins_grouped,
+    get_user_form_element_plugins_grouped,
     # get_user_form_field_plugin_uids,
     # get_user_form_element_plugins,
-    # get_user_form_handler_plugins_grouped,
+    get_user_form_handler_plugins_grouped,
     # get_user_form_handler_plugins,
     get_user_form_wizard_handler_plugins,
     # get_user_form_handler_plugin_uids,
