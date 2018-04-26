@@ -37,7 +37,7 @@
                   {% endif %}
                   <li class="dropdown-header">{{ group }}</li>
                   {% for form_element_uid, form_element_name in plugins %}
-                    <li><a href="{% url 'fobi.add_form_element_entry' form_entry.pk form_element_uid %}">{{ form_element_name }}</a></li>
+                    <li><a href="{% url fobi_theme.add_form_element_entry form_entry.pk form_element_uid %}">{{ form_element_name }}</a></li>
                   {% endfor %}
                 {% endfor %}
                 </ul>
@@ -85,7 +85,7 @@
                 </a>
                 <ul class="dropdown-menu">
                 {% for form_handler_uid, form_handler_name in user_form_handler_plugins %}
-                  <li><a href="{% url 'fobi.add_form_handler_entry' form_entry.pk form_handler_uid %}">{{ form_handler_name }}</a></li>
+                  <li><a href="{% url fobi_theme.add_form_handler_entry form_entry.pk form_handler_uid %}">{{ form_handler_name }}</a></li>
                 {% endfor %}
                 </ul>
               </li>
@@ -117,9 +117,9 @@
                       <td>
                         <ul class="list-inline">
                           {% if form_handler.plugin_data %}
-                          <li><a href="{% url 'fobi.edit_form_handler_entry' form_handler.pk %}"><span class="glyphicon glyphicon-edit"></span> {% trans "Edit" %}</a></li>
+                          <li><a href="{% url fobi_theme.edit_form_handler_entry form_handler.pk %}"><span class="glyphicon glyphicon-edit"></span> {% trans "Edit" %}</a></li>
                           {% endif %}
-                          <li><a href="{% url 'fobi.delete_form_handler_entry' form_handler.pk %}"><span class="glyphicon glyphicon-remove"></span> {% trans "Delete" %}</a></li>
+                          <li><a href="{% url fobi_theme.delete_form_handler_entry form_handler.pk %}"><span class="glyphicon glyphicon-remove"></span> {% trans "Delete" %}</a></li>
                           {% get_fobi_form_handler_plugin_custom_actions plugin form_entry as form_handler_plugin_custom_actions %}
                           {#% for action in plugin.get_custom_actions %#}
                           {% for action in form_handler_plugin_custom_actions %}
@@ -176,7 +176,7 @@
               <h3>{% trans "Export your form as JSON" %}</h3>
               <p>{% trans "Export your form into JSON format and import it again any time!" %}</p>
               <p>
-                <a class="{% block form_service_export_button_html_class %}btn btn-primary{% endblock %}" href="{% url 'fobi.export_form_entry' form_entry.pk %}" role="button">
+                <a class="{% block form_service_export_button_html_class %}btn btn-primary{% endblock %}" href="{% url fobi_theme.export_form_entry form_entry.pk %}" role="button">
                   <span class="glyphicon glyphicon-export"></span> {% trans "Export form" %}
                 </a>
               </p>
@@ -186,7 +186,7 @@
               <h3>{% trans "Delete your form" %}</h3>
               <p>{% trans "Once deleted, can't be undone!" %}</p>
               <p>
-                <a class="{% block form_service_delete_button_html_class %}btn btn-primary{% endblock %}" href="{% url 'fobi.delete_form_entry' form_entry.pk %}" role="button">
+                <a class="{% block form_service_delete_button_html_class %}btn btn-primary{% endblock %}" href="{% url fobi_theme.delete_form_entry form_entry.pk %}" role="button">
                   <span class="glyphicon glyphicon-remove"></span> {% trans "Delete form" %}
                 </a>
               </p>
