@@ -566,7 +566,7 @@ class FobiFormsetMixin(object):
     
     def __new__(cls):
         obj = super(FobiFormsetMixin, cls).__new__(cls)
-        if obj.__class__ == FobiFormsetMixin):
+        if hasattr(obj, obj.get_property_formset_name()):
             return obj
         return cls._provide_formset(obj)
 
