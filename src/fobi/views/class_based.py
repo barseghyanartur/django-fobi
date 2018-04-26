@@ -123,6 +123,7 @@ __all__ = (
     'FormDashboardView',
     'CreateFormEntryView',
     'EditFormEntryView',
+    'AddFormElementEntryView',
 )
 
 
@@ -912,7 +913,7 @@ class EditFormEntryView(FobiFormRedirectMixin, SingleObjectMixin, FobiThemeMixin
             return super(EditFormEntryView, self).form_valid(form=form)
 
 
-class AddFormElementEntry(FobiFormRedirectMixin, FobiThemeMixin,  SingleObjectMixin, RedirectView):
+class AddFormElementEntryView(FobiFormRedirectMixin, FobiThemeMixin,  SingleObjectMixin, RedirectView):
     obj = None
     form_element_plugin = None
     save_object = False
