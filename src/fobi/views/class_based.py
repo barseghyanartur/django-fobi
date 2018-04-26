@@ -52,7 +52,7 @@ from ..form_importers import (
     form_importer_plugin_registry, get_form_importer_plugin_urls,
 )
 from ..forms import (
-    # FormEntryForm,
+    FormEntryForm,
     # FormElementEntryFormSet,
     # ImportFormEntryForm,
     # ImportFormWizardEntryForm,
