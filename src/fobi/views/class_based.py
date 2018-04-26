@@ -883,7 +883,7 @@ class EditFormEntryView(FobiFormRedirectMixin, SingleObjectMixin, FobiThemeMixin
     def form_element_entry_formset(self, value):
         self._form_element_entry_formset = value
 
-    def post(self, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         if 'ordering' in self.request.POST:
             self.form_element_entry_formset = FormElementEntryFormSet(
                 self.request.POST,
@@ -1021,7 +1021,7 @@ class AddFormElementEntryView(FobiFormRedirectMixin, FobiThemeMixin,  SingleObje
         return ugettext('The form element plugin "{0}" was added successfully') \
             .format(self.form_element_plugin.name)
 
-    def post(self, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         context = self.context
         form = self.get_form()
         form.validate_plugin_data(
