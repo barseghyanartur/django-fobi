@@ -930,11 +930,11 @@ class AddFormElementEntryView(FobiFormRedirectMixin, FobiThemeMixin,  SingleObje
 
     def get_success_url(self, *args, **kwargs):
         return "{0}?active_tab=tab-form-elements".format(
-            super(AddFormElementEntry, self).get_success_url(*args, **kwargs)
+            super(AddFormElementEntryView, self).get_success_url(*args, **kwargs)
         )
 
     def get_queryset(self):
-        return super(AddFormElementEntry, self).get_queryset() \
+        return super(AddFormElementEntryView, self).get_queryset() \
                                                .prefetch_related('formelemententry_set')
 
     def _save_object(self, form=None):
@@ -944,7 +944,7 @@ class AddFormElementEntryView(FobiFormRedirectMixin, FobiThemeMixin,  SingleObje
         self.obj.save()
 
     def get_context_data(self, **kwargs):
-        context = super(AddFormElementEntry, self).get_context_data()
+        context = super(AddFormElementEntryView, self).get_context_data()
         self.object = self.get_object()
         context['form_elements'] = self.object.formelemententry_set.all()
         user_form_element_plugin_uids = get_user_form_field_plugin_uids(
@@ -994,7 +994,7 @@ class AddFormElementEntryView(FobiFormRedirectMixin, FobiThemeMixin,  SingleObje
 
         if not self.form_element_plugin_form_cls:
             self.save_object = True
-        res = super(AddFormElementEntry, self).dispatch(
+        res = super(AddFormElementEntryView, self).dispatch(
             request, *args, **kwargs)
         if self.save_object:
             position = 1
@@ -1003,8 +1003,7 @@ class AddFormElementEntryView(FobiFormRedirectMixin, FobiThemeMixin,  SingleObje
             if records:
                 try:
                     position = records['{0}__max'.format('position')] + 1
-                except TypeError as err:
-                    # yoi suck
+                except TypeError as err:                   
                     pass
 
             self.obj.position = position
@@ -1030,5 +1029,5 @@ class AddFormElementEntryView(FobiFormRedirectMixin, FobiThemeMixin,  SingleObje
             form.save_plugin_data(request=self.request)
             self.obj.plugin_data = form.get_plugin_data(request=self.request)
             self.save_object = True
-            return super(AddFormElementEntry, self).form_valid(form=form)
-        return super(AddFormElementEntry, self).form_invalid(form=form)
+            return super(AddFormElementEntryView, self).form_valid(form=form)
+        return super(AddFormElementEntryView, self).form_invalid(form=form)
