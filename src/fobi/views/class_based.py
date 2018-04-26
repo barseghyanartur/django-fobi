@@ -20,7 +20,7 @@ from django.forms import ValidationError
 from django.http import Http404, HttpResponseRedirect
 from django.utils.datastructures import MultiValueDictKeyError
 from django.utils.translation import ugettext, ugettext_lazy as _
-from django.views.generic import View, TemplateView, FormView
+from django.views.generic import View, RedirectView, TemplateView, FormView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.list import MultipleObjectMixin
 from django.views.generic.edit import FormMixin
@@ -32,9 +32,9 @@ from ..base import (
     # fire_form_callbacks,
     # run_form_handlers,
     # run_form_wizard_handlers,
-    # form_element_plugin_registry,
-    # form_handler_plugin_registry,
-    # form_wizard_handler_plugin_registry,
+    form_element_plugin_registry,
+    form_handler_plugin_registry,
+    form_wizard_handler_plugin_registry,
     # submit_plugin_form_data,
     get_theme,
 )
@@ -52,23 +52,23 @@ from ..form_importers import (
     form_importer_plugin_registry, get_form_importer_plugin_urls,
 )
 from ..forms import (
-    # FormEntryForm,
-    # FormElementEntryFormSet,
-    # ImportFormEntryForm,
-    # ImportFormWizardEntryForm,
+    FormEntryForm,
+    FormElementEntryFormSet,
+    ImportFormEntryForm,
+    ImportFormWizardEntryForm,
     FormWizardEntryForm,
-    # FormWizardFormEntry,
+    FormWizardFormEntry,
     FormWizardFormEntryFormSet,
-    # FormWizardFormEntryForm,
+    FormWizardFormEntryForm,
 )
 from ..helpers import JSONDataExporter
 from ..models import (
     FormEntry,
-    # FormElementEntry,
-    # FormHandlerEntry,
+    FormElementEntry,
+    FormHandlerEntry,
     FormWizardEntry,
-    # FormWizardFormEntry,
-    # FormWizardHandlerEntry,
+    FormWizardFormEntry,
+    FormWizardHandlerEntry,
 )
 from ..settings import (
     GET_PARAM_INITIAL_DATA,
@@ -76,16 +76,16 @@ from ..settings import (
     SORT_PLUGINS_BY_VALUE,
 )
 from ..utils import (
-    # append_edit_and_delete_links_to_field,
-    # get_user_form_element_plugins_grouped,
-    # get_user_form_field_plugin_uids,
-    # get_user_form_element_plugins,
-    # get_user_form_handler_plugins_grouped,
-    # get_user_form_handler_plugins,
+    append_edit_and_delete_links_to_field,
+    get_user_form_element_plugins_grouped,
+    get_user_form_field_plugin_uids,
+    get_user_form_element_plugins,
+    get_user_form_handler_plugins_grouped,
+    get_user_form_handler_plugins,
     get_user_form_wizard_handler_plugins,
-    # get_user_form_handler_plugin_uids,
-    # get_user_form_wizard_handler_plugin_uids,
-    # get_wizard_files_upload_dir,
+    get_user_form_handler_plugin_uids,
+    get_user_form_wizard_handler_plugin_uids,
+    get_wizard_files_upload_dir,
     # perform_form_entry_import,
     # prepare_form_entry_export_data,
 )
@@ -123,6 +123,7 @@ __all__ = (
     'FormDashboardView',
     'CreateFormEntryView',
     'EditFormEntryView',
+    'AddFormElementEntryView',
 )
 
 
@@ -527,7 +528,7 @@ class CreateFormWizardEntryView(FobiThemeMixin, FobiFormRedirectMixin, SingleObj
     form_class = FormWizardEntryForm
     context_object_name = 'form_wizard_entry'
     theme_template_name = 'create_form_wizard_entry_template'
-    form_valid_redirect = 'edit-wizard-entry'
+    form_valid_redirect = 'fobi.class_based.edit_form_wizard_entry'
     form_valid_redirect_kwargs = (
         ('form_wizard_entry_id', 'pk'),
     )
@@ -554,9 +555,9 @@ class CreateFormWizardEntryView(FobiThemeMixin, FobiFormRedirectMixin, SingleObj
 
     def get_form(self, form_class=None):
         form_args = [] if self.request.method == 'GET' else [
-            self.request.POST, self.request.FILES]
+            self.request.POST, self.request.FILES
+        ]
         form_kwargs = dict(request=self.request)
-        form_kwargs. update(self.get_form_kwargs())
         if form_class is None:
             form_class = self.form_class
         return form_class(*form_args, **form_kwargs)
@@ -569,7 +570,7 @@ class EditFormWizardEntryView(FobiFormRedirectMixin, SingleObjectMixin, FobiThem
     pk_url_kwarg = 'form_wizard_entry_id'
     form_class = FormWizardEntryForm
     _form_wizard_form_entry_formset = None
-    form_valid_redirect = 'edit-wizard-entry'
+    form_valid_redirect = 'fobi.class_based.edit_form_wizard_entry'
     form_valid_redirect_kwargs = (
         ('form_wizard_entry_id', 'pk')
     )
@@ -705,13 +706,13 @@ class FormWizardDashboardView(MultipleObjectMixin, FobiThemeMixin, TemplateView)
     context_object_name = 'form_wizard_entries'
 
     def get_queryset(self):
-        return super(FormWizardDashboard, self).get_queryset().filter(
+        return super(FormWizardDashboardView, self).get_queryset().filter(
             user__pk=self.request.user.pk,
         ).select_related('user')
 
     def get_context_data(self, **kwargs):
         self.object_list = self.get_queryset()
-        context = super(FormWizardDashboard, self).get_context_data(**kwargs)
+        context = super(FormWizardDashboardView, self).get_context_data(**kwargs)
         context['form_wizard_entries'] = self.get_queryset()
         return context
 
@@ -723,13 +724,13 @@ class FormDashboardView(MultipleObjectMixin, FobiThemeMixin, TemplateView):
     context_object_name = 'form_entries'
 
     def get_queryset(self):
-        return super(FormDashboard, self).get_queryset().filter(
+        return super(FormDashboardView, self).get_queryset().filter(
             user__pk=self.request.user.pk
         ).select_related('user')
 
     def get_context_data(self, **kwargs):
         self.object_list = self.get_queryset()
-        context = super(FormDashboard, self).get_context_data(**kwargs)
+        context = super(FormDashboardView, self).get_context_data(**kwargs)
         context[self.context_object_name] = self.object_list[:]
         context['form_importers'] = get_form_importer_plugin_urls()
         return context
@@ -740,7 +741,7 @@ class CreateFormEntryView(FobiThemeMixin, FobiFormRedirectMixin, SingleObjectMix
     model = FormEntry
     form_class = FormEntryForm
     theme_template_name = 'create_form_entry_template'
-    form_valid_redirect = 'edit-form-entry'
+    form_valid_redirect = 'fobi.class_based.edit_form_entry'
     form_valid_redirect_kwargs = (
         ('form_entry_id', 'pk'),
     )
@@ -774,7 +775,7 @@ class EditFormEntryView(FobiFormRedirectMixin, SingleObjectMixin, FobiThemeMixin
     pk_url_kwarg = 'form_entry_id'
     form_class = FormEntryForm
     _form_element_entry_formset = None
-    form_valid_redirect = 'edit-form-entry'
+    form_valid_redirect = 'fobi.class_based.edit_form_entry'
     form_valid_redirect_kwargs = (
         ('form_entry_id', 'pk')
     )
@@ -870,26 +871,16 @@ class EditFormEntryView(FobiFormRedirectMixin, SingleObjectMixin, FobiThemeMixin
         return form_class(*form_args, **self.get_form_kwargs())
 
     @property
-    def form_element_entry_formset(self):
-        if self._form_element_entry_formset is None:
+    def form_element_entry_formset(self):        
+            kwargs = dict(queryset=self.object.formelemententry_set.all())
+            args = [] if self.request.method.lower() == 'get' else [self.request.POST, self.request.FILES]
             return FormElementEntryFormSet(
-                queryset=self.object.formelemententry_set.all(),
-                # prefix = 'form_element'
-            )
-        return self._form_element_entry_formset
+                *args,
+                **kwargs
+            )        
 
-    @form_element_entry_formset.setter
-    def form_element_entry_formset(self, value):
-        self._form_element_entry_formset = value
-
-    def post(self, *args, **kwargs):
-        if 'ordering' in self.request.POST:
-            self.form_element_entry_formset = FormElementEntryFormSet(
-                self.request.POST,
-                self.request.FILES,
-                queryset=self.object.formelemententry_set.all(),
-                # prefix = 'form_element'
-            )
+    def post(self, request, *args, **kwargs):
+        if 'ordering' in self.request.POST:           
             try:
                 if self.form_element_entry_formset.is_valid():
                     self.form_element_entry_formset.save()
@@ -912,7 +903,7 @@ class EditFormEntryView(FobiFormRedirectMixin, SingleObjectMixin, FobiThemeMixin
             return super(EditFormEntryView, self).form_valid(form=form)
 
 
-class AddFormElementEntry(FobiFormRedirectMixin, FobiThemeMixin,  SingleObjectMixin, RedirectView):
+class AddFormElementEntryView(FobiFormRedirectMixin, FobiThemeMixin,  SingleObjectMixin, RedirectView):
     obj = None
     form_element_plugin = None
     save_object = False
@@ -922,18 +913,18 @@ class AddFormElementEntry(FobiFormRedirectMixin, FobiThemeMixin,  SingleObjectMi
     form_class = None
     theme_template_name = 'add_form_element_entry_template'
     context_object_name = 'form_entry'
-    form_valid_redirect = 'edit-form-entry'
+    form_valid_redirect = 'fobi.class_based.edit_form_entry'
     form_valid_redirect_kwargs = (
         ('form_entry_id', 'pk'),
     )
 
     def get_success_url(self, *args, **kwargs):
         return "{0}?active_tab=tab-form-elements".format(
-            super(AddFormElementEntry, self).get_success_url(*args, **kwargs)
+            super(AddFormElementEntryView, self).get_success_url(*args, **kwargs)
         )
 
     def get_queryset(self):
-        return super(AddFormElementEntry, self).get_queryset() \
+        return super(AddFormElementEntryView, self).get_queryset() \
                                                .prefetch_related('formelemententry_set')
 
     def _save_object(self, form=None):
@@ -943,7 +934,7 @@ class AddFormElementEntry(FobiFormRedirectMixin, FobiThemeMixin,  SingleObjectMi
         self.obj.save()
 
     def get_context_data(self, **kwargs):
-        context = super(AddFormElementEntry, self).get_context_data()
+        context = super(AddFormElementEntryView, self).get_context_data()
         self.object = self.get_object()
         context['form_elements'] = self.object.formelemententry_set.all()
         user_form_element_plugin_uids = get_user_form_field_plugin_uids(
@@ -993,7 +984,7 @@ class AddFormElementEntry(FobiFormRedirectMixin, FobiThemeMixin,  SingleObjectMi
 
         if not self.form_element_plugin_form_cls:
             self.save_object = True
-        res = super(AddFormElementEntry, self).dispatch(
+        res = super(AddFormElementEntryView, self).dispatch(
             request, *args, **kwargs)
         if self.save_object:
             position = 1
@@ -1002,8 +993,7 @@ class AddFormElementEntry(FobiFormRedirectMixin, FobiThemeMixin,  SingleObjectMi
             if records:
                 try:
                     position = records['{0}__max'.format('position')] + 1
-                except TypeError as err:
-                    # yoi suck
+                except TypeError as err:                   
                     pass
 
             self.obj.position = position
@@ -1020,7 +1010,7 @@ class AddFormElementEntry(FobiFormRedirectMixin, FobiThemeMixin,  SingleObjectMi
         return ugettext('The form element plugin "{0}" was added successfully') \
             .format(self.form_element_plugin.name)
 
-    def post(self, *args, **kwargs):
+    def post(self, request, *args, **kwargs):
         context = self.context
         form = self.get_form()
         form.validate_plugin_data(
@@ -1029,5 +1019,5 @@ class AddFormElementEntry(FobiFormRedirectMixin, FobiThemeMixin,  SingleObjectMi
             form.save_plugin_data(request=self.request)
             self.obj.plugin_data = form.get_plugin_data(request=self.request)
             self.save_object = True
-            return super(AddFormElementEntry, self).form_valid(form=form)
-        return super(AddFormElementEntry, self).form_invalid(form=form)
+            return super(AddFormElementEntryView, self).form_valid(form=form)
+        return super(AddFormElementEntryView, self).form_invalid(form=form)

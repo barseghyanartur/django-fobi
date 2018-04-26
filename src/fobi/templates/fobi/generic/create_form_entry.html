@@ -8,8 +8,8 @@
 {% endblock navbar-menu-content %}
 
 {% block navbar-menu-right-content %}
-            <li class="active"><a href="{% url 'fobi.dashboard' %}">{% trans "Forms" %}</a></li>
-            <li><a href="{% url 'fobi.form_wizards_dashboard' %}">{% trans "Wizards" %}</a></li>
+            <li class="active"><a href="{% url fobi_theme.dashboard %}">{% trans "Forms" %}</a></li>
+            <li><a href="{% url fobi_theme.form_wizards_dashboard %}">{% trans "Wizards" %}</a></li>
 {% endblock navbar-menu-right-content %}
 
 {% block content %}
