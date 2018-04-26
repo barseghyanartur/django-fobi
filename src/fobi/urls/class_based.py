@@ -25,7 +25,7 @@ urlpatterns = [
     # wizard dashboard
     url( _(r'^dashboard/wizards/$'), 
             view=FormWizardDashboardView.as_view(),
-            name='fobi.class_based.wizard-dashboard'),
+            name='fobi.class_based.form_wizards_dashboard'),
            
     # form dashbaord
     url(_(r'^dashboard/forms/$'),
