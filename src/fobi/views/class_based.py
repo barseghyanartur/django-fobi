@@ -552,7 +552,7 @@ class FobiFormsetMixin(object):
                         [] if self.request.method.lower() == 'get' 
                         else [self.request.POST, self.request.FILES]
                     ),
-                    **(
+                    **dict(
                         queryset=getattr(self.object, self.get_object_formset_name()).all()
                     )
                 )
