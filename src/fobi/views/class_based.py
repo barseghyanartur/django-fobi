@@ -423,7 +423,6 @@ class FormWizardView(DynamicSessionWizardView):
 class FobiThemeMixin(TemplateView):
     theme = None
     template_name = None
-    theme_template_name = None
 
     def get_context_data(self, **kwargs):
         context = super(FobiThemeMixin, self).get_context_data(**kwargs)
@@ -436,12 +435,16 @@ class FobiThemeMixin(TemplateView):
         return self.theme_template_name
 
     def get_theme(self, request, theme=None):
+        if request is None:
+            request = self.request
         if theme is None:
             theme = get_theme(request=request, as_instance=True)
         self.theme = theme
         return self.theme
 
     def get_template_names(self):
+        if self.theme is None:
+            self.get_theme()
         if self.template_name is None:
             self.template_name = getattr(
                 self.theme, self.get_theme_template_name())
@@ -487,13 +490,16 @@ class FobiFormRedirectMixin(FormMixin):
             kwargs=reverse_kwargs
         )
 
+    def _save_object(self, form=None):
+        self.object.save()
+
     def form_valid(self, form=None):
         if form is None:
             form = self.get_form()
         self.object = form.save(commit=False)
         self.object.user = self.request.user
         try:
-            self.object.save()
+          self._save_object(form=form)
             messages.info(
                 self.request,
                 ugettext(
