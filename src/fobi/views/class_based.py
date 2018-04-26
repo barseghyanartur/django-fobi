@@ -20,7 +20,7 @@ from django.forms import ValidationError
 from django.http import Http404, HttpResponseRedirect
 from django.utils.datastructures import MultiValueDictKeyError
 from django.utils.translation import ugettext, ugettext_lazy as _
-from django.views.generic import View, TemplateView, FormView
+from django.views.generic import View, RedirectView, TemplateView, FormView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.list import MultipleObjectMixin
 from django.views.generic.edit import FormMixin
