@@ -121,6 +121,8 @@ __all__ = (
     'EditFormWizardEntryView',
     'FormWizardDashboardView',
     'FormDashboardView',
+    'CreateFormEntryView',
+    'EditFormEntryView',
 )
 
 
@@ -677,7 +679,6 @@ class EditFormWizardEntryView(FobiFormRedirectMixin, FobiThemeMixin, SingleObjec
             return super(EditFormWizardEntryView, self).form_valid(form=form)
         return super(EditFormWizardEntryView, self).form_invalid(form=form)
 
-
 class FormWizardDashboardView(MultipleObjectMixin, FobiThemeMixin, TemplateView):
     theme = None
     model = FormWizardEntry
@@ -694,7 +695,6 @@ class FormWizardDashboardView(MultipleObjectMixin, FobiThemeMixin, TemplateView)
         context = super(FormWizardDashboard, self).get_context_data(**kwargs)
         context['form_wizard_entries'] = self.get_queryset()
         return context
-
 
 class FormDashboardView(MultipleObjectMixin, FobiThemeMixin, TemplateView):
     theme = None
@@ -713,3 +713,178 @@ class FormDashboardView(MultipleObjectMixin, FobiThemeMixin, TemplateView):
         context[self.context_object_name] = self.object_list[:]
         context['form_importers'] = get_form_importer_plugin_urls()
         return context
+
+class CreateFormEntryView(FobiThemeMixin, FobiFormRedirectMixin, SingleObjectMixin):
+    template_name = None
+    model = FormEntry
+    form_class = FormEntryForm
+    theme_template_name = 'create_form_entry_template'
+    form_valid_redirect = 'edit-form-entry'
+    form_valid_redirect_kwargs = (
+        ('form_entry_id', 'pk'),
+    )
+
+    def get_success_message(self):
+        return 'Form {0} was created successfully.'.format(self.object.name)
+
+    def get_error_message(self, e):
+        return 'Errors occurred while saving the form: {0}.'.format(str(e))
+
+    def dispatch(self, request, *args, **kwargs):
+        self.get_theme(request)
+        return super(CreateFormEntryView, self).dispatch(request, *args, **kwargs)
+
+    def post(self, *args, **kwargs):
+        return super(CreateFormEntryView, self).form_valid()
+
+    def get_form(self, form_class=None):
+        form_args = [] if self.request.method == 'GET' else [
+            self.request.POST, self.request.FILES]
+        form_kwargs = dict(request=self.request)
+        if form_class is None:
+            form_class = self.form_class
+        return form_class(*form_args, **form_kwargs)
+
+class EditFormEntryView(FobiFormRedirectMixin, SingleObjectMixin, FobiThemeMixin, View):
+    form_entry_id = None
+    theme = None
+    model = FormEntry
+    pk_url_kwarg = 'form_entry_id'
+    form_class = FormEntryForm
+    _form_element_entry_formset = None
+    form_valid_redirect = 'edit-form-entry'
+    form_valid_redirect_kwargs = (
+        ('form_entry_id', 'pk')
+    )
+    context_object_name = 'form_entry'
+    theme_template_name = 'edit_form_entry_template'
+
+    def get_success_message(self):
+        return "Form {0} was edited successfully".format(self.object.name)
+
+    def get_error_message(self, e):
+        return "Errors occurred while saving the Form: {0}".format(e)
+
+    def get_context_data(self, **kwargs):
+        context = super(EditFormEntryView, self).get_context_data(**kwargs)
+        context['form_elements'] = self.object.formelemententry_set.all()
+        context['form_handlers'] = self.object.formhandlerentry_set.all()[:]
+
+        context['used_form_handler_uids'] = [
+            form_handler.plugin_uid
+            for form_handler
+            in context['form_handlers']
+        ]
+        # The code below (two lines below) is not really used at the moment,
+        # thus - comment out, but do not remove, as we might need it later on.
+        # context['all_form_entries'] = self.model._default_manager \
+        #                            .only('id', 'name', 'slug') \
+        #                            .filter(user__pk=self.request.user.pk)
+
+        context['user_form_element_plugins'] = get_user_form_element_plugins_grouped(
+            self.request.user,
+            sort_by_value=SORT_PLUGINS_BY_VALUE,
+        )
+
+        context['user_form_handler_plugins'] = get_user_form_handler_plugins(
+            self.request.user,
+            exclude_used_singles=True,
+            used_form_handler_plugin_uids=context['used_form_handler_uids'],
+        )
+        form_cls = assemble_form_class(
+            self.object,
+            origin='edit_form_entry',
+            origin_kwargs_update_func=append_edit_and_delete_links_to_field,
+            request=self.request,
+        )
+        context['assembled_form'] = form_cls()
+        if DEBUG:
+            context['assembled_form'].as_p()
+        else:
+            try:
+                context['assembled_form'].as_p()
+            except Exception as err:
+                logger.error(err)
+        context['fobi_theme'].collect_plugin_media(context['form_elements'])
+        return context
+
+    def dispatch(self, request, *args, **kwargs):
+        self.form_entry_id = kwargs.pop('form_entry_id', None)
+        self.object = self.get_object()
+        self.get_theme(request=request)
+
+        return super(EditFormEntryView, self).dispatch(request, *args, **kwargs)
+
+    def get(self, request, *args, **kwargs):
+        return self.render_to_response(self.get_context_data())
+
+    def get_queryset(self):
+        return self.model._default_manager \
+            .select_related('user') \
+            .prefetch_related('formelemententry_set')
+
+    def get_object(self, queryset=None):
+        if queryset is None:
+            queryset = self.get_queryset()
+        try:
+            return queryset.get(pk=self.form_entry_id, user__pk=self.request.user.pk)
+        except self.model.ObjectDoesNotExist as err:
+            raise Http404(ugettext('not found'))
+
+    def get_form_kwargs(self):
+        kwargs = super(EditFormEntryView, self).get_form_kwargs()
+        if hasattr(self, 'object'):
+            kwargs.update({'instance': self.object})
+        if 'request' not in kwargs:
+            kwargs.update({'request': self.request})
+        return kwargs
+
+    def get_form(self, form_class=None):
+        if form_class is None:
+            form_class = self.form_class
+        form_args = []
+        if self.request.method == 'POST':
+            form_args = [self.request.POST, self.request.FILES]
+        return form_class(*form_args, **self.get_form_kwargs())
+
+    @property
+    def form_element_entry_formset(self):
+        if self._form_element_entry_formset is None:
+            return FormElementEntryFormSet(
+                queryset=self.object.formelemententry_set.all(),
+                # prefix = 'form_element'
+            )
+        return self._form_element_entry_formset
+
+    @form_element_entry_formset.setter
+    def form_element_entry_formset(self, value):
+        self._form_element_entry_formset = value
+
+    def post(self, *args, **kwargs):
+        if 'ordering' in self.request.POST:
+            self.form_element_entry_formset = FormElementEntryFormSet(
+                self.request.POST,
+                self.request.FILES,
+                queryset=self.object.formelemententry_set.all(),
+                # prefix = 'form_element'
+            )
+            try:
+                if self.form_element_entry_formset.is_valid():
+                    self.form_element_entry_formset.save()
+                    messages.info(
+                        self.request,
+                        _("Element ordering edited successfully.")
+                    )
+                    return super(EditFormEntryView, self).post(*args, **kwargs)
+            except MultiValueDictKeyError as err:
+                messages.error(
+                    self.request,
+                    _("Errors occurred while trying to change the "
+                      "elements ordering!")
+                )
+                return redirect(
+                    self.get_success_url()
+                )
+        form = self.get_form()(self.get_form_kwargs())
+        if form.is_valid():
+            return super(EditFormEntryView, self).form_valid(form=form)
