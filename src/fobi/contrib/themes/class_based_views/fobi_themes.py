@@ -1,5 +1,7 @@
 from django.utils.translation import ugettext_lazy as _
 
+from fobi.base import theme_registry
+
 from fobi.contrib.themes.bootstrap3.fobi_themes import Bootstrap3Theme
 
 from . import UID
@@ -22,3 +24,6 @@ class ClassBasedViewsTheme(Bootstrap3Theme):
   edit_form_entry = 'fobi.class_based.edit_form_entry'
   create_form_wizard_entry = 'fobi.class_based.create_form_wizard_entry'
   edit_form_wizard_entry =  'fobi.class_based.edit_form_wizard_entry'
+
+
+theme_registry.register(ClassBasedViewsTheme)
