@@ -8,6 +8,7 @@ from fobi.views.class_based import (
     FormDashboardView,
     CreateFormEntryView,
     EditFormEntryView,
+    AddFormElementEntryView
 )
 
 __title__ = 'fobi.urls.class_based'
@@ -57,7 +58,18 @@ urlpatterns = [
     
     # edit form entry
     url(_(r'^forms/edit/(?P<form_entry_id>\d+)/$'),
-        view=EditFormEntryView,
+        view=EditFormEntryView.as_view(),
         name='fobi.class_based.edit_form_entry'),
+
+    # ************************************************************
+    # **************************** Form Element Entry CUD*********
+    # ************************************************************
+
+    # add form element entry 
+    url(_(r'^forms/elements/add/(?P<form_entry_id>\d+)/'
+          r'(?P<form_element_plugin_uid>[\w_\-]+)/$'),
+          view=AddFormElementEntryView.as_view(),
+          name='fobi.class_based.add_form_element_entry',
+        )
 ]
 
