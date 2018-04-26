@@ -560,7 +560,7 @@ class FobiFormsetMixin(object):
         data.update(obj.__dict__)
         return type(
             obj.__class__.__name__,
-            obj.__class__.mro(),
+            tuple(obj.__class__.mro()),
             data
         )
     
