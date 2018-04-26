@@ -555,9 +555,9 @@ class CreateFormWizardEntryView(FobiThemeMixin, FobiFormRedirectMixin, SingleObj
 
     def get_form(self, form_class=None):
         form_args = [] if self.request.method == 'GET' else [
-            self.request.POST, self.request.FILES]
+            self.request.POST, self.request.FILES
+        ]
         form_kwargs = dict(request=self.request)
-        form_kwargs. update(self.get_form_kwargs())
         if form_class is None:
             form_class = self.form_class
         return form_class(*form_args, **form_kwargs)
