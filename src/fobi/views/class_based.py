@@ -32,9 +32,9 @@ from ..base import (
     # fire_form_callbacks,
     # run_form_handlers,
     # run_form_wizard_handlers,
-    # form_element_plugin_registry,
-    # form_handler_plugin_registry,
-    # form_wizard_handler_plugin_registry,
+    form_element_plugin_registry,
+    form_handler_plugin_registry,
+    form_wizard_handler_plugin_registry,
     # submit_plugin_form_data,
     get_theme,
 )
