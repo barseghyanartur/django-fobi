@@ -528,7 +528,7 @@ class CreateFormWizardEntryView(FobiThemeMixin, FobiFormRedirectMixin, SingleObj
     form_class = FormWizardEntryForm
     context_object_name = 'form_wizard_entry'
     theme_template_name = 'create_form_wizard_entry_template'
-    form_valid_redirect = 'edit-wizard-entry'
+    form_valid_redirect = 'fobi.class_based.edit_form_wizard_entry'
     form_valid_redirect_kwargs = (
         ('form_wizard_entry_id', 'pk'),
     )
@@ -570,7 +570,7 @@ class EditFormWizardEntryView(FobiFormRedirectMixin, SingleObjectMixin, FobiThem
     pk_url_kwarg = 'form_wizard_entry_id'
     form_class = FormWizardEntryForm
     _form_wizard_form_entry_formset = None
-    form_valid_redirect = 'edit-wizard-entry'
+    form_valid_redirect = 'fobi.class_based.edit_form_wizard_entry'
     form_valid_redirect_kwargs = (
         ('form_wizard_entry_id', 'pk')
     )
@@ -741,7 +741,7 @@ class CreateFormEntryView(FobiThemeMixin, FobiFormRedirectMixin, SingleObjectMix
     model = FormEntry
     form_class = FormEntryForm
     theme_template_name = 'create_form_entry_template'
-    form_valid_redirect = 'edit-form-entry'
+    form_valid_redirect = 'fobi.class_based.edit_form_entry'
     form_valid_redirect_kwargs = (
         ('form_entry_id', 'pk'),
     )
@@ -775,7 +775,7 @@ class EditFormEntryView(FobiFormRedirectMixin, SingleObjectMixin, FobiThemeMixin
     pk_url_kwarg = 'form_entry_id'
     form_class = FormEntryForm
     _form_element_entry_formset = None
-    form_valid_redirect = 'edit-form-entry'
+    form_valid_redirect = 'fobi.class_based.edit_form_entry'
     form_valid_redirect_kwargs = (
         ('form_entry_id', 'pk')
     )
@@ -923,7 +923,7 @@ class AddFormElementEntryView(FobiFormRedirectMixin, FobiThemeMixin,  SingleObje
     form_class = None
     theme_template_name = 'add_form_element_entry_template'
     context_object_name = 'form_entry'
-    form_valid_redirect = 'edit-form-entry'
+    form_valid_redirect = 'fobi.class_based.edit_form_entry'
     form_valid_redirect_kwargs = (
         ('form_entry_id', 'pk'),
     )
