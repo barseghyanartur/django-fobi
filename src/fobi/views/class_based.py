@@ -871,26 +871,16 @@ class EditFormEntryView(FobiFormRedirectMixin, SingleObjectMixin, FobiThemeMixin
         return form_class(*form_args, **self.get_form_kwargs())
 
     @property
-    def form_element_entry_formset(self):
-        if self._form_element_entry_formset is None:
+    def form_element_entry_formset(self):        
+            kwargs = dict(queryset=self.object.formelemententry_set.all())
+            args = [] if self.request.method.lower() == 'get' else [self.request.POST, self.request.FILES]
             return FormElementEntryFormSet(
-                queryset=self.object.formelemententry_set.all(),
-                # prefix = 'form_element'
-            )
-        return self._form_element_entry_formset
-
-    @form_element_entry_formset.setter
-    def form_element_entry_formset(self, value):
-        self._form_element_entry_formset = value
+                *args,
+                **kwargs
+            )        
 
     def post(self, request, *args, **kwargs):
-        if 'ordering' in self.request.POST:
-            self.form_element_entry_formset = FormElementEntryFormSet(
-                self.request.POST,
-                self.request.FILES,
-                queryset=self.object.formelemententry_set.all(),
-                # prefix = 'form_element'
-            )
+        if 'ordering' in self.request.POST:           
             try:
                 if self.form_element_entry_formset.is_valid():
                     self.form_element_entry_formset.save()
