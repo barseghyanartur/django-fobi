@@ -706,13 +706,13 @@ class FormWizardDashboardView(MultipleObjectMixin, FobiThemeMixin, TemplateView)
     context_object_name = 'form_wizard_entries'
 
     def get_queryset(self):
-        return super(FormWizardDashboard, self).get_queryset().filter(
+        return super(FormWizardDashboardView, self).get_queryset().filter(
             user__pk=self.request.user.pk,
         ).select_related('user')
 
     def get_context_data(self, **kwargs):
         self.object_list = self.get_queryset()
-        context = super(FormWizardDashboard, self).get_context_data(**kwargs)
+        context = super(FormWizardDashboardView, self).get_context_data(**kwargs)
         context['form_wizard_entries'] = self.get_queryset()
         return context
 
@@ -724,13 +724,13 @@ class FormDashboardView(MultipleObjectMixin, FobiThemeMixin, TemplateView):
     context_object_name = 'form_entries'
 
     def get_queryset(self):
-        return super(FormDashboard, self).get_queryset().filter(
+        return super(FormDashboardView, self).get_queryset().filter(
             user__pk=self.request.user.pk
         ).select_related('user')
 
     def get_context_data(self, **kwargs):
         self.object_list = self.get_queryset()
-        context = super(FormDashboard, self).get_context_data(**kwargs)
+        context = super(FormDashboardView, self).get_context_data(**kwargs)
         context[self.context_object_name] = self.object_list[:]
         context['form_importers'] = get_form_importer_plugin_urls()
         return context
