@@ -520,15 +520,21 @@ class FobiFormRedirectMixin(FormMixin):
             )
             return super(FobiFormRedirectMixin, self).form_invalid(form)
 
+class FobiThemeRedirectMixin(FobiThemeMixin, FobiFormRedirectMixin):
+    def get_form_valid_redirect(self, *args, **kwargs):
+        self.get_theme()
+        return getattr(self.theme, super(FobiThemeRedirectMixin, self).get_form_valid_redirect(*args, **kwargs))
+        
 
-class CreateFormWizardEntryView(FobiThemeMixin, FobiFormRedirectMixin, SingleObjectMixin):
+
+class CreateFormWizardEntryView(FobiThemeRedirectMixin, SingleObjectMixin):
     result = None
     template_name = None
     model = FormWizardEntry
     form_class = FormWizardEntryForm
     context_object_name = 'form_wizard_entry'
     theme_template_name = 'create_form_wizard_entry_template'
-    form_valid_redirect = 'fobi.class_based.edit_form_wizard_entry'
+    form_valid_redirect = 'edit_form_wizard_entry'
     form_valid_redirect_kwargs = (
         ('form_wizard_entry_id', 'pk'),
     )
@@ -563,14 +569,14 @@ class CreateFormWizardEntryView(FobiThemeMixin, FobiFormRedirectMixin, SingleObj
         return form_class(*form_args, **form_kwargs)
 
 
-class EditFormWizardEntryView(FobiFormRedirectMixin, SingleObjectMixin, FobiThemeMixin, View):
+class EditFormWizardEntryView(FobiThemeRedirectMixin, SingleObjectMixin, View):
     form_wizard_entry_id = None
     theme = None
     model = FormWizardEntry
     pk_url_kwarg = 'form_wizard_entry_id'
     form_class = FormWizardEntryForm
     _form_wizard_form_entry_formset = None
-    form_valid_redirect = 'fobi.class_based.edit_form_wizard_entry'
+    form_valid_redirect = 'edit_form_wizard_entry'
     form_valid_redirect_kwargs = (
         ('form_wizard_entry_id', 'pk')
     )
@@ -736,12 +742,12 @@ class FormDashboardView(MultipleObjectMixin, FobiThemeMixin, TemplateView):
         return context
 
 
-class CreateFormEntryView(FobiThemeMixin, FobiFormRedirectMixin, SingleObjectMixin):
+class CreateFormEntryView(FobiThemeRedirectMixin, SingleObjectMixin):
     template_name = None
     model = FormEntry
     form_class = FormEntryForm
     theme_template_name = 'create_form_entry_template'
-    form_valid_redirect = 'fobi.class_based.edit_form_entry'
+    form_valid_redirect = 'edit_form_entry'
     form_valid_redirect_kwargs = (
         ('form_entry_id', 'pk'),
     )
@@ -768,14 +774,14 @@ class CreateFormEntryView(FobiThemeMixin, FobiFormRedirectMixin, SingleObjectMix
         return form_class(*form_args, **form_kwargs)
 
 
-class EditFormEntryView(FobiFormRedirectMixin, SingleObjectMixin, FobiThemeMixin, View):
+class EditFormEntryView(FobiThemeRedirectMixin, SingleObjectMixin, View):
     form_entry_id = None
     theme = None
     model = FormEntry
     pk_url_kwarg = 'form_entry_id'
     form_class = FormEntryForm
     _form_element_entry_formset = None
-    form_valid_redirect = 'fobi.class_based.edit_form_entry'
+    form_valid_redirect = 'edit_form_entry'
     form_valid_redirect_kwargs = (
         ('form_entry_id', 'pk'),
     )
@@ -902,7 +908,7 @@ class EditFormEntryView(FobiFormRedirectMixin, SingleObjectMixin, FobiThemeMixin
             return super(EditFormEntryView, self).form_valid(form=form)
 
 
-class AddFormElementEntryView(FobiFormRedirectMixin, FobiThemeMixin,  SingleObjectMixin, RedirectView):
+class AddFormElementEntryView(FobiThemeRedirectMixin, SingleObjectMixin, RedirectView):
     obj = None
     form_element_plugin = None
     save_object = False
@@ -912,7 +918,7 @@ class AddFormElementEntryView(FobiFormRedirectMixin, FobiThemeMixin,  SingleObje
     form_class = None
     theme_template_name = 'add_form_element_entry_template'
     context_object_name = 'form_entry'
-    form_valid_redirect = 'fobi.class_based.edit_form_entry'
+    form_valid_redirect = 'edit_form_entry'
     form_valid_redirect_kwargs = (
         ('form_entry_id', 'pk'),
     )
