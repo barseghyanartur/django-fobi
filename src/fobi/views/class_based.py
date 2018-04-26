@@ -525,7 +525,80 @@ class FobiThemeRedirectMixin(FobiThemeMixin, FobiFormRedirectMixin):
         self.get_theme()
         return getattr(self.theme, super(FobiThemeRedirectMixin, self).get_form_valid_redirect(*args, **kwargs))
         
+class FobiFormsetMixin(object):
+    context_formset_name = None
+    object_formset_name = None
+    formset_class = None
+    property_formset_name = None
+    formset_success_message = None
+    formset_error_message = None
+    
+    def get_formset_error_message(self, err):
+        return self.formset_error_message
+    
+    def get_formset_success_message(self):
+        return self.formset_success_message
+    
+    def get_property_formset_name(self):
+        return self.property_formset_name
+    
+    @classmethod
+    def _provide_formset(cls, obj):
+        data = {}
+        tmp = \
+            lambda self, *args, **kwargs: \
+                self.get_formset_class()(
+                    *(
+                        [] if self.request.method.lower() == 'get' 
+                        else [self.request.POST, self.request.FILES]
+                    ),
+                    **(
+                        queryset=getattr(self.object, self.get_object_formset_name()).all()
+                    )
+                )
+        data[obj.get_property_formset_name()] = property(tmp)
+        data.update(obj.__dict__)
+        return type(
+            obj.__class__.__name__,
+            (*obj.mro()),
+            data
+        )
+    
+    def __new__(cls):
+        obj = super(FobiFormsetMixin, cls).__new__(cls)
+        if not isinstance(obj,FobiFormsetMixin):
+            return cls._provide_formset(obj)
+        return obj
 
+    def get_formset_class(self):
+        return self.formset_class    
+    
+    def get_object_formset_name(self):
+        return self.object_formset_name
+
+    def get_context_formset_name(self):
+        return self.context_formset_name
+
+    def post(self, *args, **kwargs):        
+        formset = getattr(self, self.get_property_formset_name())
+        try:
+            if formset.is_valid():
+                formset.save()
+                messages.info(
+                    self.request,
+                    _(self.get_formset_success_message())
+                )                    
+        except MultiValueDictKeyError as err:
+            messages.error(
+                self.request,
+                _(self.get_formset_error_message(err))
+            )
+        return redirect(self.get_success_url())        
+        
+        
+
+            
+    
 
 class CreateFormWizardEntryView(FobiThemeRedirectMixin, SingleObjectMixin):
     result = None
@@ -774,12 +847,18 @@ class CreateFormEntryView(FobiThemeRedirectMixin, SingleObjectMixin):
         return form_class(*form_args, **form_kwargs)
 
 
-class EditFormEntryView(FobiThemeRedirectMixin, SingleObjectMixin, View):
+class EditFormEntryView(FobiThemeRedirectMixin, FobiFormsetMixin, SingleObjectMixin, View):
     form_entry_id = None
     theme = None
     model = FormEntry
     pk_url_kwarg = 'form_entry_id'
     form_class = FormEntryForm
+    context_formset_name = 'form_element_entry_formset'
+    property_formset_name = 'form_element_entry_formset'
+    formset_success_message = 'success in update'
+    formset_error_message = 'ERROR!!'
+    formset_class = FormElementEntryFormSet
+    object_formset_name = 'formelemententry_set'
     _form_element_entry_formset = None
     form_valid_redirect = 'edit_form_entry'
     form_valid_redirect_kwargs = (
@@ -888,21 +967,22 @@ class EditFormEntryView(FobiThemeRedirectMixin, SingleObjectMixin, View):
 
     def post(self, request, *args, **kwargs):
         if 'ordering' in self.request.POST:
-            try:
-                if self.form_element_entry_formset.is_valid():
-                    self.form_element_entry_formset.save()
-                    messages.info(
-                        self.request,
-                        _("Element ordering edited successfully.")
-                    )
-                    return redirect(self.get_success_url())
-            except MultiValueDictKeyError as err:
-                messages.error(
-                    self.request,
-                    _("Errors occurred while trying to change the "
-                      "elements ordering!")
-                )
-                return redirect(self.get_success_url())
+            # try:
+            #     if self.form_element_entry_formset.is_valid():
+            #         self.form_element_entry_formset.save()
+            #         messages.info(
+            #             self.request,
+            #             _("Element ordering edited successfully.")
+            #         )
+            #         return redirect(self.get_success_url())
+            # except MultiValueDictKeyError as err:
+            #     messages.error(
+            #         self.request,
+            #         _("Errors occurred while trying to change the "
+            #           "elements ordering!")
+            #     )
+            #     return redirect(self.get_success_url())\
+            return super(EditFormEntry, self).post(*args, **kwargs)
         form = self.get_form()(**self.get_form_kwargs())
         if form.is_valid():
             return super(EditFormEntryView, self).form_valid(form=form)
