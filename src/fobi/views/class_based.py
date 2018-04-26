@@ -85,7 +85,7 @@ from ..utils import (
     get_user_form_wizard_handler_plugins,
     # get_user_form_handler_plugin_uids,
     # get_user_form_wizard_handler_plugin_uids,
-    # get_wizard_files_upload_dir,
+    get_wizard_files_upload_dir,
     # perform_form_entry_import,
     # prepare_form_entry_export_data,
 )
