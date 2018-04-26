@@ -24,6 +24,6 @@ class ClassBasedViewsTheme(Bootstrap3Theme):
   edit_form_entry = 'fobi.class_based.edit_form_entry'
   create_form_wizard_entry = 'fobi.class_based.create_form_wizard_entry'
   edit_form_wizard_entry =  'fobi.class_based.edit_form_wizard_entry'
-
+  add_form_element_entry = 'fobi.class_based.add_form_element_entry'
 
 theme_registry.register(ClassBasedViewsTheme)
