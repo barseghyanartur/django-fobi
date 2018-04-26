@@ -889,17 +889,15 @@ class EditFormEntryView(FobiFormRedirectMixin, SingleObjectMixin, FobiThemeMixin
                         self.request,
                         _("Element ordering edited successfully.")
                     )
-                    return super(EditFormEntryView, self).post(*args, **kwargs)
+                    return redirect(self.get_success_url())
             except MultiValueDictKeyError as err:
                 messages.error(
                     self.request,
                     _("Errors occurred while trying to change the "
                       "elements ordering!")
                 )
-                return redirect(
-                    self.get_success_url()
-                )
-        form = self.get_form()(self.get_form_kwargs())
+                return redirect(self.get_success_url())
+        form = self.get_form()(**self.get_form_kwargs())
         if form.is_valid():
             return super(EditFormEntryView, self).form_valid(form=form)
 
