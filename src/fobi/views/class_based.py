@@ -556,19 +556,15 @@ class FobiFormsetMixin(object):
                         queryset=getattr(self.object, self.get_object_formset_name()).all()
                     )
                 )
-        data[obj.get_property_formset_name()] = property(tmp)
-        data.update(obj.__dict__)
-        return type(
-            obj.__class__.__name__,
-            tuple(obj.__class__.mro()),
-            data
-        )
+        setattr(obj, obj.get_property_formset_name(), property(tmp))
+        
     
     def __new__(cls):
         obj = super(FobiFormsetMixin, cls).__new__(cls)
-        if hasattr(obj, obj.get_property_formset_name()):
-            return obj
-        return cls._provide_formset(obj)
+        if not hasattr(obj, obj.get_property_formset_name()):
+            cls._provide_formset(obj)
+        return obj
+        
 
     def get_formset_class(self):
         return self.formset_class    
