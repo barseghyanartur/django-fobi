@@ -210,7 +210,7 @@ class BaseTheme(object):
 
     # form wizard entry
 
-    create_form_wizard_entry = 'create_form_wizard_entry'
+    create_form_wizard_entry = 'fobi.create_form_wizard_entry'
     import_form_wizard_entry = 'fobi.import_form_wizard_entry'
     view_form_wizard_entry = 'fobi.view_form_wizard_entry'
     edit_form_wizard_entry = 'fobi.edit_form_wizard_entry'
