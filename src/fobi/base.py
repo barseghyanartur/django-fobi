@@ -217,6 +217,13 @@ class BaseTheme(object):
     delete_form_wizard_entry = 'fobi.delete_form_wizard_entry'
     export_form_wizard_entry = 'fobi.export_form_wizard_entry'
 
+    add_form_wizard_form_entry = 'fobi.add_form_wizard_form_entry'
+    delete_form_wizard_form_entry = 'fobi.delete_form_wizard_form_entry'
+
+    add_form_wizard_handler_entry = 'fobi.add_form_wizard_handler_entry'
+    edit_form_wizard_handler_entry = 'fobi.edit_form_wizard_handler_entry'
+    delete_form_wizard_handler_entry = 'fobi.delete_form_wizard_handler_entry'
+
     # form entry
 
     create_form_entry = 'fobi.create_form_entry'
