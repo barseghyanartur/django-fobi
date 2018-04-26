@@ -5,13 +5,13 @@
 {% block page-title %}{% trans "Edit form entry" %}{% endblock page-title %}
 
 {% block navbar-menu-right-content %}
-            <li class="active"><a href="{% url 'fobi.dashboard' %}">{% trans "Forms" %}</a></li>
-            <li><a href="{% url 'fobi.form_wizards_dashboard' %}">{% trans "Wizards" %}</a></li>
+            <li class="active"><a href="{% url fobi_theme.dashboard %}">{% trans "Forms" %}</a></li>
+            <li><a href="{% url fobi_theme.form_wizards_dashboard %}">{% trans "Wizards" %}</a></li>
 {% endblock navbar-menu-right-content %}
 
 {% block navbar-menu-content %}
-<li class="active"><a href="{% url 'fobi.edit_form_entry' form_entry.pk %}">{% trans "Edit" %}</a></li>
-<li><a href="{% url 'fobi.view_form_entry' form_entry.slug %}">{% trans "View" %}</a></li>
+<li class="active"><a href="{% url fobi_theme.edit_form_entry form_entry.pk %}">{% trans "Edit" %}</a></li>
+<li><a href="{% url fobi_theme.view_form_entry form_entry.slug %}">{% trans "View" %}</a></li>
 {% comment %}
 <li class="dropdown">
   <a class="dropdown-toggle" data-toggle="dropdown" href="#">
@@ -20,7 +20,7 @@
   <ul class="dropdown-menu">
     {% for entry in all_form_entries %}
     <li>
-      <a href="{% url 'fobi.edit_form_entry' entry.pk %}">{{ entry.name }}</a>
+      <a href="{% url fobi_theme.edit_form_entry entry.pk %}">{{ entry.name }}</a>
     </li>
     {% endfor %}
   </ul>

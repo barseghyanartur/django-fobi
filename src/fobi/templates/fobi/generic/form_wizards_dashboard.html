@@ -10,12 +10,12 @@
 {% block main-content-inner-attrs %}{% endblock main-content-inner-attrs %}
 
 {% block dashboard-menu-item %}
-<a class="navbar-brand" href="{% url 'fobi.form_wizards_dashboard' %}">{{ fobi_theme.project_name }}</a>
+<a class="navbar-brand" href="{% url fobi_theme.form_wizards_dashboard %}">{{ fobi_theme.project_name }}</a>
 {% endblock dashboard-menu-item %}
 
 {% block navbar-menu-right-content %}
-            <li><a href="{% url 'fobi.dashboard' %}">{% trans "Forms" %}</a></li>
-            <li class="active"><a href="{% url 'fobi.form_wizards_dashboard' %}">{% trans "Wizards" %}</a></li>
+            <li><a href="{% url fobi_theme.dashboard %}">{% trans "Forms" %}</a></li>
+            <li class="active"><a href="{% url fobi_theme.form_wizards_dashboard %}">{% trans "Wizards" %}</a></li>
 {% endblock navbar-menu-right-content %}
 
 {% block content-wrapper %}
@@ -45,23 +45,23 @@
           <tbody>
           {% for form_wizard_entry in form_wizard_entries %}
             <tr>
-              <td><a href="{% url 'fobi.view_form_wizard_entry' form_wizard_entry.slug %}">{{ form_wizard_entry.name }}</a></td>
+              <td><a href="{% url fobi_theme.view_form_wizard_entry form_wizard_entry.slug %}">{{ form_wizard_entry.name }}</a></td>
               <td>{{ form_wizard_entry.is_public }}</td>
               {#<td>{{ form_wizard_entry.is_cloneable }}</td>#}
               <td>
                 <ul class="list-inline">
                   <li>
-                      <a href="{% url 'fobi.edit_form_wizard_entry' form_wizard_entry.pk %}">
+                      <a href="{% url fobi_theme.edit_form_wizard_entry form_wizard_entry.pk %}">
                           <span class="glyphicon glyphicon-edit"></span> {% trans "Edit" %}
                       </a>
                   </li>
                   <li>
-                      <a href="{% url 'fobi.delete_form_wizard_entry' form_wizard_entry.pk %}">
+                      <a href="{% url fobi_theme.delete_form_wizard_entry form_wizard_entry.pk %}">
                           <span class="glyphicon glyphicon-remove"></span> {% trans "Delete" %}
                       </a>
                   </li>
                   <li>
-                      <a href="{% url 'fobi.export_form_wizard_entry' form_wizard_entry.pk %}">
+                      <a href="{% url fobi_theme.export_form_wizard_entry form_wizard_entry.pk %}">
                           <span class="glyphicon glyphicon-export"></span> {% trans "Export" %}
                       </a>
                   </li>
@@ -82,10 +82,10 @@
       <h2>{% trans "Actions" %}</h2>
     </div>
     <div class="list-group">
-      <a href="{% url 'fobi.create_form_wizard_entry' %}" class="list-group-item">
+      <a href="{% url fobi_theme.create_form_wizard_entry %}" class="list-group-item">
           <span class="glyphicon glyphicon-plus"></span> {% trans "Create form wizard" %}
       </a>
-      <a href="{% url 'fobi.import_form_wizard_entry' %}" class="list-group-item">
+      <a href="{% url fobi_theme.import_form_wizard_entry %}" class="list-group-item">
           <span class="glyphicon glyphicon-import"></span> {% trans "Import form wizard" %}
       </a>
       {% comment %}

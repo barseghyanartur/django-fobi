@@ -3,10 +3,13 @@
 .gitignore~
 ghostdriver.log
 .hg/
+.eggs/
+.vscode/
 .hgtags
 .tox/
 .travis.yml~
 .zip
+*~
 /.coverage
 /dev.db
 /.cache/
