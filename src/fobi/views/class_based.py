@@ -829,6 +829,7 @@ class EditFormEntryView(FobiFormRedirectMixin, SingleObjectMixin, FobiThemeMixin
             except Exception as err:
                 logger.error(err)
         context['fobi_theme'].collect_plugin_media(context['form_elements'])
+        context['form_element_entry_formset'] = self.form_element_entry_formset
         return context
 
     def dispatch(self, request, *args, **kwargs):
@@ -871,16 +872,16 @@ class EditFormEntryView(FobiFormRedirectMixin, SingleObjectMixin, FobiThemeMixin
         return form_class(*form_args, **self.get_form_kwargs())
 
     @property
-    def form_element_entry_formset(self):        
+    def form_element_entry_formset(self):
             kwargs = dict(queryset=self.object.formelemententry_set.all())
             args = [] if self.request.method.lower() == 'get' else [self.request.POST, self.request.FILES]
             return FormElementEntryFormSet(
                 *args,
                 **kwargs
-            )        
+            )
 
     def post(self, request, *args, **kwargs):
-        if 'ordering' in self.request.POST:           
+        if 'ordering' in self.request.POST:
             try:
                 if self.form_element_entry_formset.is_valid():
                     self.form_element_entry_formset.save()
@@ -993,7 +994,7 @@ class AddFormElementEntryView(FobiFormRedirectMixin, FobiThemeMixin,  SingleObje
             if records:
                 try:
                     position = records['{0}__max'.format('position')] + 1
-                except TypeError as err:                   
+                except TypeError as err:
                     pass
 
             self.obj.position = position
