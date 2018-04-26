@@ -777,7 +777,7 @@ class EditFormEntryView(FobiFormRedirectMixin, SingleObjectMixin, FobiThemeMixin
     _form_element_entry_formset = None
     form_valid_redirect = 'fobi.class_based.edit_form_entry'
     form_valid_redirect_kwargs = (
-        ('form_entry_id', 'pk')
+        ('form_entry_id', 'pk'),
     )
     context_object_name = 'form_entry'
     theme_template_name = 'edit_form_entry_template'
