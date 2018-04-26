@@ -566,9 +566,9 @@ class FobiFormsetMixin(object):
     
     def __new__(cls):
         obj = super(FobiFormsetMixin, cls).__new__(cls)
-        if not isinstance(obj,FobiFormsetMixin):
-            return cls._provide_formset(obj)
-        return obj
+        if obj.__class__ == FobiFormsetMixin):
+            return obj
+        return cls._provide_formset(obj)
 
     def get_formset_class(self):
         return self.formset_class    
