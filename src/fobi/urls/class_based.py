@@ -56,7 +56,7 @@ urlpatterns = [
         name='fobi.class_based.create_form_entry'),
     
     # edit form entry
-    url(_(r'^forms/edit/(?P<form_entry_id >\d+)/$'),
+    url(_(r'^forms/edit/(?P<form_entry_id>\d+)/$'),
         view=EditFormEntryView,
         name='fobi.class_based.edit_form_entry'),
 ]
