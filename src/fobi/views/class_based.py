@@ -577,7 +577,7 @@ class FobiFormsetMixin(object):
         context[self.get_context_formset_name()] = getattr(self, self.get_property_formset_name())
         return context
 
-    def process_formset(self, formset=None, *args, **kwargs):        
+    def process_formset(self, formset=None):        
         formset = getattr(self, self.get_property_formset_name()) if formset is None else formset
         try:
             if formset.is_valid():
@@ -597,7 +597,7 @@ class FobiFormsetMixin(object):
 class FobiFormsetOrderingMixin(FobiFormsetMixin):
     def post(self, *args, **kwargs):        
         if 'ordering' in self.request.POST:
-            return super(FobiFormsetOrderingMixin, self).process_formset(*args, **kwargs)           
+            return super(FobiFormsetOrderingMixin, self).process_formset()           
         form = self.get_form()(self.get_form_kwargs())
         if form.is_valid():
             return super(FobiFormsetOrderingMixin, self).form_valid(form=form)
