@@ -594,6 +594,16 @@ class FobiFormsetMixin(object):
         return redirect(self.get_success_url())        
     
 
+class FobiFormsetOrderingMixin(FobiFormsetMixin):
+    def post(self, *args, **kwargs):        
+        if 'ordering' in self.request.POST:
+            return super(FobiFormsetOrderingMixin, self).process_formset(*args, **kwargs)           
+        form = self.get_form()(self.get_form_kwargs())
+        if form.is_valid():
+            return super(FobiFormsetOrderingMixin, self).form_valid(form=form)
+        return super(FobiFormsetOrderingMixin, self).form_invalid(form=form)
+
+
 class CreateFormWizardEntryView(FobiThemeRedirectMixin, SingleObjectMixin):
     result = None
     template_name = None
@@ -636,7 +646,7 @@ class CreateFormWizardEntryView(FobiThemeRedirectMixin, SingleObjectMixin):
         return form_class(*form_args, **form_kwargs)
 
 
-class EditFormWizardEntryView(FobiThemeRedirectMixin, FobiFormsetMixin, SingleObjectMixin, View):
+class EditFormWizardEntryView(FobiThemeRedirectMixin, FobiFormsetOrderingMixin, SingleObjectMixin, View):
     form_wizard_entry_id = None
     theme = None
     model = FormWizardEntry
@@ -729,13 +739,13 @@ class EditFormWizardEntryView(FobiThemeRedirectMixin, FobiFormsetMixin, SingleOb
             form_args = [self.request.POST, self.request.FILES]
         return form_class(*form_args, **self.get_form_kwargs())
 
-    def post(self, *args, **kwargs):
-        if 'ordering' in self.request.POST:
-            return super(EditFormEntryView, self).process_formset(*args, **kwargs)           
-        form = self.get_form()(self.get_form_kwargs())
-        if form.is_valid():
-            return super(EditFormWizardEntryView, self).form_valid(form=form)
-        return super(EditFormWizardEntryView, self).form_invalid(form=form)
+    # def post(self, *args, **kwargs):
+    #     if 'ordering' in self.request.POST:
+    #         return super(EditFormEntryView, self).process_formset(*args, **kwargs)           
+    #     form = self.get_form()(self.get_form_kwargs())
+    #     if form.is_valid():
+    #         return super(EditFormWizardEntryView, self).form_valid(form=form)
+    #     return super(EditFormWizardEntryView, self).form_invalid(form=form)
 
 
 class FormWizardDashboardView(MultipleObjectMixin, FobiThemeMixin, TemplateView):
@@ -807,7 +817,7 @@ class CreateFormEntryView(FobiThemeRedirectMixin, SingleObjectMixin):
         return form_class(*form_args, **form_kwargs)
 
 
-class EditFormEntryView(FobiThemeRedirectMixin, FobiFormsetMixin, SingleObjectMixin, View):
+class EditFormEntryView(FobiThemeRedirectMixin, FobiFormsetOrderingMixin, SingleObjectMixin, View):
     form_entry_id = None
     theme = None
     model = FormEntry
@@ -915,12 +925,12 @@ class EditFormEntryView(FobiThemeRedirectMixin, FobiFormsetMixin, SingleObjectMi
             form_args = [self.request.POST, self.request.FILES]
         return form_class(*form_args, **self.get_form_kwargs())
 
-    def post(self, request, *args, **kwargs):
-        if 'ordering' in self.request.POST:          
-            return super(EditFormEntryView, self).process_formset(*args, **kwargs)
-        form = self.get_form()(**self.get_form_kwargs())
-        if form.is_valid():
-            return super(EditFormEntryView, self).form_valid(form=form)
+    # def post(self, request, *args, **kwargs):
+    #     if 'ordering' in self.request.POST:          
+    #         return super(EditFormEntryView, self).process_formset(*args, **kwargs)
+    #     form = self.get_form()(**self.get_form_kwargs())
+    #     if form.is_valid():
+    #         return super(EditFormEntryView, self).form_valid(form=form)
 
 
 class AddFormElementEntryView(FobiThemeRedirectMixin, SingleObjectMixin, RedirectView):
