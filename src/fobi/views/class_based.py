@@ -544,28 +544,24 @@ class FobiFormsetMixin(object):
     
     @classmethod
     def _provide_formset(cls, obj):
-        data = {}
-        tmp = \
-            lambda self, *args, **kwargs: \
-                self.get_formset_class()(
-                    *(
-                        [] if self.request.method.lower() == 'get' 
-                        else [self.request.POST, self.request.FILES]
-                    ),
-                    **dict(
-                        queryset=getattr(self.object, self.get_object_formset_name()).all()
-                    )
+        tmp = lambda self, *args, **kwargs: \
+            self.get_formset_class()(
+                *(
+                    [] if self.request.method.lower() == 'get' 
+                    else [self.request.POST, self.request.FILES]
+                ),
+                **dict(
+                    queryset=getattr(self.object, self.get_object_formset_name()).all()
                 )
+            )
         prop_name = obj.get_property_formset_name()
-        setattr(obj.__class__, prop_name, property(tmp))
-        
+        setattr(obj.__class__, prop_name, property(tmp))        
     
     def __new__(cls):
         obj = super(FobiFormsetMixin, cls).__new__(cls)
         if not hasattr(obj, obj.get_property_formset_name()):
             cls._provide_formset(obj)
-        return obj
-        
+        return obj        
 
     def get_formset_class(self):
         return self.formset_class    
@@ -596,10 +592,6 @@ class FobiFormsetMixin(object):
                 _(self.get_formset_error_message(err))
             )
         return redirect(self.get_success_url())        
-        
-        
-
-            
     
 
 class CreateFormWizardEntryView(FobiThemeRedirectMixin, SingleObjectMixin):
