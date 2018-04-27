@@ -652,8 +652,8 @@ class EditFormWizardEntryView(FobiThemeRedirectMixin, FobiFormsetMixin, SingleOb
     object_formset_name = 'formwizardformentry_set'
     formset_class = FormWizardFormEntryFormSet
     property_formset_name = 'form_wizard_form_entry_formset'
-    formset_success_message = 'success in update'
-    formset_error_message = 'error!'
+    formset_success_message = 'Forms ordering edited successfully.'
+    formset_error_message = 'Errors occurred while trying to change the elements ordering!'
 
     def get_success_message(self):
         return "Form wizard {0} was edited successfully".format(self.object.name)
@@ -731,30 +731,7 @@ class EditFormWizardEntryView(FobiThemeRedirectMixin, FobiFormsetMixin, SingleOb
 
     def post(self, *args, **kwargs):
         if 'ordering' in self.request.POST:
-            return super(EditFormEntryView, self).process_formset(*args, **kwargs)
-            # self.form_wizard_form_entry_formset = FormWizardFormEntryFormSet(
-            #     self.request.POST,
-            #     self.request.FILES,
-            #     queryset=self.object.formwizardformentry_set.all(),
-            #     # prefix = 'form_element'
-            # )
-            # try:
-            #     if self.form_wizard_form_entry_formset.is_valid():
-            #         self.form_wizard_form_entry_formset.save()
-            #         messages.info(
-            #             self.request,
-            #             _("Forms ordering edited successfully.")
-            #         )
-            #         return super(EditFormWizardEntryView, self).post(*args, **kwargs)
-            # except MultiValueDictKeyError as err:
-            #     messages.error(
-            #         self.request,
-            #         _("Errors occurred while trying to change the "
-            #           "elements ordering!")
-            #     )
-            #     return redirect(
-            #         self.get_success_url()
-            #     )
+            return super(EditFormEntryView, self).process_formset(*args, **kwargs)           
         form = self.get_form()(self.get_form_kwargs())
         if form.is_valid():
             return super(EditFormWizardEntryView, self).form_valid(form=form)
@@ -838,8 +815,8 @@ class EditFormEntryView(FobiThemeRedirectMixin, FobiFormsetMixin, SingleObjectMi
     form_class = FormEntryForm
     context_formset_name = 'form_element_entry_formset'
     property_formset_name = 'form_element_entry_formset'
-    formset_success_message = 'success in update'
-    formset_error_message = 'ERROR!!'
+    formset_success_message = 'Forms ordering edited successfully.'
+    formset_error_message = 'Errors occurred while trying to change the elements ordering!'
     formset_class = FormElementEntryFormSet
     object_formset_name = 'formelemententry_set'    
     form_valid_redirect = 'edit_form_entry'
@@ -848,6 +825,8 @@ class EditFormEntryView(FobiThemeRedirectMixin, FobiFormsetMixin, SingleObjectMi
     )
     context_object_name = 'form_entry'
     theme_template_name = 'edit_form_entry_template'
+
+
 
     def get_success_message(self):
         return "Form {0} was edited successfully".format(self.object.name)
