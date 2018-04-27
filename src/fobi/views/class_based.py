@@ -556,7 +556,8 @@ class FobiFormsetMixin(object):
                         queryset=getattr(self.object, self.get_object_formset_name()).all()
                     )
                 )
-        setattr(obj, obj.get_property_formset_name(), property(tmp))
+        prop_name = obj.get_property_formset_name()
+        setattr(obj.__class__, prop_name, property(tmp))
         
     
     def __new__(cls):
