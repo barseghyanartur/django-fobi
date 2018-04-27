@@ -644,19 +644,24 @@ class CreateFormWizardEntryView(FobiThemeRedirectMixin, SingleObjectMixin):
         return form_class(*form_args, **form_kwargs)
 
 
-class EditFormWizardEntryView(FobiThemeRedirectMixin, SingleObjectMixin, View):
+class EditFormWizardEntryView(FobiThemeRedirectMixin, FobiFormsetMixin, SingleObjectMixin, View):
     form_wizard_entry_id = None
     theme = None
     model = FormWizardEntry
     pk_url_kwarg = 'form_wizard_entry_id'
-    form_class = FormWizardEntryForm
-    _form_wizard_form_entry_formset = None
+    form_class = FormWizardEntryForm    
     form_valid_redirect = 'edit_form_wizard_entry'
     form_valid_redirect_kwargs = (
         ('form_wizard_entry_id', 'pk')
     )
     context_object_name = 'form_wizard_entry'
     theme_template_name = 'edit_form_wizard_entry_template'
+    context_formset_name = 'form_wizard_form_entry_formset'
+    object_formset_name = 'formwizardformentry_set'
+    formset_class = FormWizardFormEntryFormSet
+    property_formset_name = 'form_wizard_form_entry_formset'
+    formset_success_message = 'success in update'
+    formset_error_message = 'error!'
 
     def get_success_message(self):
         return "Form wizard {0} was edited successfully".format(self.object.name)
@@ -692,12 +697,7 @@ class EditFormWizardEntryView(FobiThemeRedirectMixin, SingleObjectMixin, View):
             self.request.user,
             exclude_used_singles=True,
             used_form_wizard_handler_plugin_uids=context['used_form_wizard_handler_uids'],
-        )
-
-        theme = self.get_theme(request=self.request)
-        context['form_wizard_form_entry_formset'] = self.form_wizard_form_entry_formset
-
-        context['fobi_theme'] = theme
+        )        
         return context
 
     def dispatch(self, request, *args, **kwargs):
@@ -737,43 +737,32 @@ class EditFormWizardEntryView(FobiThemeRedirectMixin, SingleObjectMixin, View):
             form_args = [self.request.POST, self.request.FILES]
         return form_class(*form_args, **self.get_form_kwargs())
 
-    @property
-    def form_wizard_form_entry_formset(self):
-        if self._form_wizard_form_entry_formset is None:
-            return FormWizardFormEntryFormSet(
-                queryset=self.object.formwizardformentry_set.all()
-            )
-        return self._form_wizard_form_entry_formset
-
-    @form_wizard_form_entry_formset.setter
-    def form_wizard_form_entry_formset(self, value):
-        self._form_wizard_form_entry_formset = value
-
     def post(self, *args, **kwargs):
         if 'ordering' in self.request.POST:
-            self.form_wizard_form_entry_formset = FormWizardFormEntryFormSet(
-                self.request.POST,
-                self.request.FILES,
-                queryset=self.object.formwizardformentry_set.all(),
-                # prefix = 'form_element'
-            )
-            try:
-                if self.form_wizard_form_entry_formset.is_valid():
-                    self.form_wizard_form_entry_formset.save()
-                    messages.info(
-                        self.request,
-                        _("Forms ordering edited successfully.")
-                    )
-                    return super(EditFormWizardEntryView, self).post(*args, **kwargs)
-            except MultiValueDictKeyError as err:
-                messages.error(
-                    self.request,
-                    _("Errors occurred while trying to change the "
-                      "elements ordering!")
-                )
-                return redirect(
-                    self.get_success_url()
-                )
+            return super(EditFormEntryView, self).process_formset(*args, **kwargs)
+            # self.form_wizard_form_entry_formset = FormWizardFormEntryFormSet(
+            #     self.request.POST,
+            #     self.request.FILES,
+            #     queryset=self.object.formwizardformentry_set.all(),
+            #     # prefix = 'form_element'
+            # )
+            # try:
+            #     if self.form_wizard_form_entry_formset.is_valid():
+            #         self.form_wizard_form_entry_formset.save()
+            #         messages.info(
+            #             self.request,
+            #             _("Forms ordering edited successfully.")
+            #         )
+            #         return super(EditFormWizardEntryView, self).post(*args, **kwargs)
+            # except MultiValueDictKeyError as err:
+            #     messages.error(
+            #         self.request,
+            #         _("Errors occurred while trying to change the "
+            #           "elements ordering!")
+            #     )
+            #     return redirect(
+            #         self.get_success_url()
+            #     )
         form = self.get_form()(self.get_form_kwargs())
         if form.is_valid():
             return super(EditFormWizardEntryView, self).form_valid(form=form)
@@ -956,22 +945,7 @@ class EditFormEntryView(FobiThemeRedirectMixin, FobiFormsetMixin, SingleObjectMi
         return form_class(*form_args, **self.get_form_kwargs())
 
     def post(self, request, *args, **kwargs):
-        if 'ordering' in self.request.POST:
-            # try:
-            #     if self.form_element_entry_formset.is_valid():
-            #         self.form_element_entry_formset.save()
-            #         messages.info(
-            #             self.request,
-            #             _("Element ordering edited successfully.")
-            #         )
-            #         return redirect(self.get_success_url())
-            # except MultiValueDictKeyError as err:
-            #     messages.error(
-            #         self.request,
-            #         _("Errors occurred while trying to change the "
-            #           "elements ordering!")
-            #     )
-            #     return redirect(self.get_success_url())\
+        if 'ordering' in self.request.POST:          
             return super(EditFormEntryView, self).process_formset(*args, **kwargs)
         form = self.get_form()(**self.get_form_kwargs())
         if form.is_valid():
