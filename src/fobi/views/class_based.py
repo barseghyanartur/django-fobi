@@ -1169,8 +1169,8 @@ class AddFormWizardFormEntryView(FobiFormRedirectMixin, FormWizardPropertyMixin,
     def get_form_valid_redirect_kwargs(self):
         return dict(form_wizard_entry_id=self.form_wizard_entry.id)
 
-      def get_success_url(self):
-            return  "{0}?active_tab=tab-form-elements".format(super(AddFormWizardFormEntry, self).get_success_url())
+    def get_success_url(self):
+        return  "{0}?active_tab=tab-form-elements".format(super(AddFormWizardFormEntry, self).get_success_url())
 
     def dispatch(self, request, *args, **kwargs):
         try:
