@@ -1187,26 +1187,26 @@ class AddFormWizardFormEntryView(FobiFormRedirectMixin, FormWizardPropertyMixin,
                 ).format(self.form_entry.name, self.form_wizard_entry.name, str(err))
             )              
             return self.form_valid()
-    # Handling the position
-    position = 1
-    records = FormWizardFormEntry.objects.filter(
-        form_wizard_entry_id=self.kwargs.get('form_wizard_entry_id'),
-        # form_entry_id=form_entry_id
-    ).aggregate(models.Max('position'))
-    if records:
-        try:
-            position = records['{0}__max'.format('position')] + 1
-        except TypeError as err:
-            pass
-    obj.position = position
-    # Save the object.
-    obj.save()
+        # Handling the position
+        position = 1
+        records = FormWizardFormEntry.objects.filter(
+            form_wizard_entry_id=self.kwargs.get('form_wizard_entry_id'),
+            # form_entry_id=form_entry_id
+        ).aggregate(models.Max('position'))
+        if records:
+            try:
+                position = records['{0}__max'.format('position')] + 1
+            except TypeError as err:
+                pass
+        obj.position = position
+        # Save the object.
+        obj.save()
 
-    messages.info(
-        request,
-        ugettext(
-            'The form entry "{0}" was added successfully to the wizard "{1}".'
-        ).format(self.form_entry.name, self.form_wizard_entry.name)
-    )
-    return self.form_valid(form=None)
+        messages.info(
+            request,
+            ugettext(
+                'The form entry "{0}" was added successfully to the wizard "{1}".'
+            ).format(self.form_entry.name, self.form_wizard_entry.name)
+        )
+        return self.form_valid(form=None)
     
