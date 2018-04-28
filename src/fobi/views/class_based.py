@@ -1134,7 +1134,7 @@ class EditFormElementEntryView(FobiThemeRedirectMixin, SingleObjectMixin):
         return context.get('form_element_plugin').get_initialised_create_form_or_404(**kwargs)
         
     def get_form_elements(self):
-        return self.get_queryset()
+        return self.get_queryset() \
             .exclude(
                 pk=self.kwargs.get(
                     'form_element_entry_id'
