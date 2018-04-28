@@ -1093,7 +1093,7 @@ class EditFormElementEntryView(FobiThemeRedirectMixin, SingleObjectMixin):
     success_message = 'The form element plugin "{0}" was edited successfully.'
 
     def get_queryset(self):    
-        return FormElementEntry._default_manager
+        return FormElementEntry._default_manager \
             .select_related('form_entry', 'form_entry__user')    
 
     def get_object(self):
@@ -1139,7 +1139,7 @@ class EditFormElementEntryView(FobiThemeRedirectMixin, SingleObjectMixin):
                 pk=self.kwargs.get(
                     'form_element_entry_id'
                 )
-            )
+            )\
             .filter(form_entry=self.get_object())
 
     def get_success_message(self):
