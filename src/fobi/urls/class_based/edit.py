@@ -70,7 +70,7 @@ urlpatterns = [
     url(_(r'^forms/elements/add/(?P<form_entry_id>\d+)/'
           r'(?P<form_element_plugin_uid>[\w_\-]+)/$'),
         view=AddFormElementEntryView.as_view(),
-        name='fobi.class_based.add_form_element_entry',)
+        name='fobi.class_based.add_form_element_entry'),
 
     # edit form element entry
     url(_(r'^forms/elements/edit/(?P<form_element_entry_id>\d+)/$'),
