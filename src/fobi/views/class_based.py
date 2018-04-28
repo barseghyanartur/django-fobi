@@ -1148,8 +1148,8 @@ class EditFormElementEntryView(FobiThemeRedirectMixin, SingleObjectMixin):
                     .format(self.get_context_data().get('form_element_plugin').name)
 
     def _save_object(self, form=None):
-         form.save_plugin_data(request=self.request)
-         # get the plugin data
+        form.save_plugin_data(request=self.request)
+        # get the plugin data
         self.form_element_entry.plugin_data = form.get_plugin_data(request=self.request)
         # save the object
         self.form_element_entry.save()
