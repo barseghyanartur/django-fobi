@@ -943,8 +943,8 @@ class EditFormEntryView(FobiThemeRedirectMixin, FobiFormsetOrderingMixin, Single
             queryset = self.get_queryset()
         try:
             return queryset.get(pk=self.form_entry_id, user__pk=self.request.user.pk)
-        except self.model.ObjectDoesNotExist as err:
-            raise Http404(ugettext('not found'))
+        except self.model.DoesNotExist as err:
+            raise Http404(ugettext('{0} not found'.format(self.model.__name__)))
 
     def get_form_kwargs(self):
         kwargs = super(EditFormEntryView, self).get_form_kwargs()
