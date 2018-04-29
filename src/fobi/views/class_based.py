@@ -840,7 +840,7 @@ class CreateFormEntryView(FobiThemeRedirectMixin, SingleObjectMixin):
     )
 
     def get_success_message(self):
-        return 'Form {0} was created successfully.'.format(self.object.name)
+        return 'Form {0} was created successfully.'.format(self.obj.name)
 
     def get_error_message(self, e):
         return 'Errors occurred while saving the form: {0}.'.format(str(e))
