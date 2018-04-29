@@ -224,6 +224,11 @@ class FobiFormRedirectMixin(FormMixin):
     error_message = None
     success_url = None
 
+    def get_context_data(self, **kwargs):
+        self.object = self.obj
+        kwargs['object'] = self.object
+        return super(FobiFormRedirectMixin, self).get_context_data(**kwargs)
+
     def get_success_message(self):
         return self.success_message
 
