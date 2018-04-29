@@ -217,6 +217,7 @@ class FobiThemeMixin(TemplateView):
 
 class FobiFormRedirectMixin(FormMixin):
     obj = None
+    object = None    
     form_valid_redirect = None
     form_valid_redirect_kwargs = None
     success_message = None
