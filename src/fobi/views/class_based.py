@@ -215,19 +215,18 @@ class FobiThemeMixin(TemplateView):
                 self.theme, self.get_theme_template_name())
         return [self.template_name]
 
-class FobiFormRedirectMixin(FormMixin):
-    obj = None
+class FobiFormRedirectMixin(FormMixin):    
     object = None    
     form_valid_redirect = None
     form_valid_redirect_kwargs = None
     success_message = None
     error_message = None
-    success_url = None
+    success_url = None    
 
-    def get_context_data(self, **kwargs):
-        self.object = self.obj
-        kwargs['object'] = self.object
-        return super(FobiFormRedirectMixin, self).get_context_data(**kwargs)
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.get_theme(request=request)
+        return super(FobiFormRedirectMixin, self).dispatch(request, *args, **kwargs)
 
     def get_success_message(self):
         return self.success_message
@@ -256,21 +255,21 @@ class FobiFormRedirectMixin(FormMixin):
 
     def get_success_url(self, *args, **kwargs):
         reverse_kwargs = self.get_form_valid_redirect_kwargs(
-            result=self.obj)
+            result=self.object)
         return reverse_lazy(
             self.get_form_valid_redirect(),
             kwargs=reverse_kwargs
         )
 
     def _save_object(self, form=None):
-        self.obj.save()
+        self.object.save()
 
     def form_valid(self, form=None):
         if form is None:
             form = self.get_form()
-        if getattr(self, 'obj', None) is None:
-            self.obj = form.save(commit=False)
-            self.obj.user = self.request.user
+        if getattr(self, 'object', None) is None:
+            self.object = form.save(commit=False)
+            self.object.user = self.request.user
         try:
             self._save_object(form=form)
             messages.info(
@@ -840,7 +839,7 @@ class CreateFormEntryView(FobiThemeRedirectMixin, SingleObjectMixin):
     )
 
     def get_success_message(self):
-        return 'Form {0} was created successfully.'.format(self.obj.name)
+        return 'Form {0} was created successfully.'.format(self.object.name)
 
     def get_error_message(self, e):
         return 'Errors occurred while saving the form: {0}.'.format(str(e))
@@ -932,8 +931,6 @@ class EditFormEntryView(FobiThemeRedirectMixin, FobiFormsetOrderingMixin, Single
 
     def dispatch(self, request, *args, **kwargs):
         self.form_entry_id = kwargs.pop('form_entry_id', None)
-        self.object = self.get_object()
-        self.get_theme(request=request)
         return super(EditFormEntryView, self).dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
