@@ -114,25 +114,102 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 
 
 __all__ = (
+    'AddFormElementEntryView',
+    'AddFormWizardFormEntryView',
+    'CreateFormWizardEntryView',
+    'CreateFormEntryView',
+    'DeletePluginMixin',
+    'DeleteFormElementEntryView',
+    'EditFormWizardEntryView',
+    'EditFormEntryView',
+    'EditFormElementEntryView',
     'FormWizardView',
     'FobiThemeMixin',
     'FobiFormRedirectMixin',
     'FobiThemeRedirectMixin',
     'FobiFormsetMixin',
-    'FobiFormsetOrderingMixin',
-    'CreateFormWizardEntryView',
-    'EditFormWizardEntryView',
+    'FobiFormsetOrderingMixin',    
     'FormWizardDashboardView',
-    'FormDashboardView',
-    'CreateFormEntryView',
-    'EditFormEntryView',
-    'AddFormElementEntryView',
-    'EditFormElementEntryView',
-    'AddFormWizardFormEntryView',
+    'FormDashboardView',    
 )
-# *****************************************************************************
-# ************************ View form wizard entry *****************************
-# ****************************************************************************
+
+class FormEntryMixin(object):
+    """ mixin class to grab the form_entry from kwargs """
+    form_entry = None
+    form_entry_class = FormEntry
+
+    def get_form_entry_class(self):
+        return self.form_entry_class
+
+    def dispatch(self, request, *args, **kwargs):
+        try:
+            self.form_entry = self.get_form_entry_class()._default_manager.get(pk=self.kwargs.get('form_entry_id'))
+        except ObjectDoesNotExist as err:
+            raise Http404(ugettext("Form Entry Not Found"))
+        return super(FormEntryMixin, self).dispatch(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        kwargs['form_entry'] = self.form_entry
+        return super(FormEntryMixin, self).get_context_data(**kwargs)
+
+
+class DeletePluginMixin(object):
+    entry_model_cls = None
+    get_user_plugin_uids_func = None
+    message = None
+    html_anchor = None
+
+    def get_entry_id(self):
+        return self.kwargs.get('entry_id')
+
+    def get_entry_model_cls(self):
+        return self.entry_model_cls
+
+    def get_entry_model(self):
+        try:
+            return self.get_entry_model_cls() \
+                             ._default_manager \
+                             .select_related('form_entry') \
+                             .get(
+                                 pk=self.get_entry_id(), 
+                                 form_entry__user__pk=self.request.user.pk
+                            )
+        except ObjectDoesNotExist as err:
+            raise Http404(
+                ugettext(
+                    "{0} not found."
+                ).format(self.get_entry_model_cls()._meta.verbose_name)
+            )
+    
+    def get_form_entry(self):
+        return self.get_entry_model().form_entry
+
+    def get_plugin(self):
+        plugin = self.get_entry_model().get_plugin(request=self.request)
+        pluigin.request = self.request
+        return plugin
+
+    def get_message(self):
+        return self.message
+
+    def get_html_anchor(self):
+        return self.html_anchor
+
+    def redirect(self):
+        redirect_url = reverse(
+            'fobi.edit_form_entry', kwargs={'form_entry_id': self.get_form_entry().pk}
+        )
+        return redirect("{0}{1}".format(redirect_url, self.get_html_anchor()))
+
+    def dispatch(self, request, *args, **kwargs):
+        obj = self.get_entry_model()
+        plugin = self.get_plugin()
+
+        plugin._delete_plugin_data()
+        obj.delete()
+        messages.info(self.request, self.get_message().format(plugin.name))
+        return self.redirect()
+
 class FobiModelPropertyMixin(object):
     model = None
     model_property_name = None
@@ -181,9 +258,6 @@ class FormEntryPropertyMixin(FobiModelPropertyMixin):
     model_property_name = 'form_entry'
     model_request_kwarg = 'form_entry_id'
     model_missing_message = 'Form Entry Not Found'
-
-
-
 
 class FobiThemeMixin(TemplateView):
     theme = None
@@ -826,7 +900,7 @@ class FormDashboardView(MultipleObjectMixin, FobiThemeMixin, TemplateView):
         context['form_importers'] = get_form_importer_plugin_urls()
         return context
 
-class CreateFormEntryView(FobiThemeRedirectMixin, SingleObjectMixin):
+class CreateFormEntryView(FobiThemeRedirectMixin, View):
     template_name = None
     model = FormEntry
     form_class = FormEntryForm
@@ -1211,3 +1285,101 @@ class AddFormWizardFormEntryView(FobiFormRedirectMixin, FormWizardPropertyMixin,
         )
         return self.form_valid(form=None)
     
+class DeleteFormElementEntryView(DeletePluginMixin, View):
+    entry_model_cls = FormElementEntry
+    message = ugettext('The form element plugin "{0}" was deleted successfully.')
+    html_anchor = '?active_tab=tab-form-elements'
+
+    def get_entry_id(self):
+        return self.kwargs.get('form_element_entry_id')
+    
+class AddFormHandlerEntryView(FormEntryMixin, FobiThemeRedirectMixin):
+    theme = None
+    model = FormHandlerEntry
+    form_class = None
+    form_valid_redirect = 'edit_form_entry'
+    form_valid_redirect_kwargs = None
+    theme_template_name = 'add_form_handler_entry_template'
+    save_object = False
+
+    def get_form(self):
+        form_kwargs = {} if self.request.method.lower() == 'get' else dict(data=self.request.POST, files=self.request.FILES)
+        return self._get_form_handler_plugin().get_initialised_create_form_or_404(
+            **form_kwargs
+        )
+
+    def get_context_data(self, **kwargs):
+        kwargs['form'] = self.get_form()
+        kwargs['form_handler_plugin'] = self._get_form_handler_plugin()
+        return super(AddFormHandlerEntryView, self).get_context_data(**kwargs)
+        
+    def _get_form_handler_plugin_cls(self):
+        return form_handler_plugin_registry.get(
+            self.kwargs.get('form_handler_plugin_uid')
+        )
+
+    def _get_form_handler_plugin(self):
+        plugin = self._get_form_handler_plugin_cls()(user=self.request.user)
+        plugin.request = self.request
+        return plugin
+
+    def check_multiple(self):
+        form_handler_plugin_cls = self._get_form_handler_plugin_cls()
+        if not form_handler_plugin_cls.allow_multiple:
+            times_used  = FormHandlerEntry._default_manager \
+                .filter(
+                    form_entry__id=self.kwargs.get('form_entry_id'),
+                    plugin_uid=form_handler_plugin_cls.uid
+                ).count()
+            if times_used > 0:
+                raise Http404(
+                     ugettext("The {0} plugin can be used only once in a form.")
+                    .format(form_handler_plugin_cls.name)
+                )
+                
+    def check_allowed(self):
+        user_form_handler_plugin_uids =  get_user_form_handler_plugin_uids(
+            self.request.user
+        )
+        if self.kwargs.get('form_handler_plugin_uid') not in user_form_handler_plugin_uids:
+             raise Http404(ugettext("Plugin does not exist or you are not allowed "
+                                    "to use this plugin!"))
+    
+    def get_form_valid_redirect_kwargs(self):
+        return (
+            ('form_entry_id', self.kwargs.get('form_entry_id'))
+        )
+    def get_success_url(self):
+        return "{0}?active_tab=tab-form-handlers".format(super(AddFormHandlerEntryView, self).get_success_url())
+
+    def dispatch(self, request, *args, **kwargs):
+        self.check_allowed()
+
+        self.check_multiple()
+
+        form_handler_plugin_form_cls = self._get_form_handler_plugin().get_form()
+        obj  = FormHandlerEntry()
+        obj.form_entry = self.form_entry
+        obj.plugin_uid = self.kwargs.get('form_handler_plugin_uid')
+        obj.user = self.request.user
+
+        if not form_handler_plugin_form_cls:
+            self.save_object = True
+
+        form = self.get_form()
+        if self.request.method.lower() == 'post':
+            if form.is_valid():
+                form.save_plugin_data(request=self.request)
+                obj.plugin_data = form.get_plugin_data(request=self.request)
+
+                self.save_object = True
+        if self.save_object:
+            obj.save()
+
+            messages.info(
+                self.request,
+                ugettext("The form handler plugin '{0}' was added").format(self._get_form_handler_plugin().name)
+            )
+            return super(AddFormHandlerEntryView, self).form_valid()
+        
+

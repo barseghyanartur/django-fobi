@@ -10,7 +10,9 @@ from fobi.views.class_based import (
     EditFormEntryView,
     AddFormElementEntryView,
     EditFormElementEntryView,
-    
+    DeleteFormElementEntryView,
+    AddFormHandlerEntryView,
+    AddFormWizardFormEntryView,
 )
 
 __title__ = 'fobi.urls.class_based'
@@ -76,5 +78,33 @@ urlpatterns = [
     url(_(r'^forms/elements/edit/(?P<form_element_entry_id>\d+)/$'),
         view=EditFormElementEntryView.as_view(),
         name='fobi.class_based.edit_form_element_entry'),
+
+    # delete form element entry
+    url(_(r'^forms/elements/delete/(?P<form_element_entry_id>\d+)/$'),
+        view=DeleteFormElementEntryView.as_view(),
+        name='fobi.class_based.delete_form_element_entry'),
+
+    # ***********************************************************************
+    # *********************** Form handler entry CUD ************************
+    # ***********************************************************************
+
+
+    # add form handler entry
+    url(_(r'^forms/handlers/add/(?P<form_entry_id>\d+)/'
+          r'(?P<form_handler_plugin_uid>[\w_\-]+)/$'),
+        view=AddFormHandlerEntryView.as_view(),
+        name='fobi.class_based.add_form_handler_entry'),
+
+
+    # ***********************************************************************
+    # ******************** Form wizard form entry CUD ***********************
+    # ***********************************************************************
+
+    # add form wizard form entry
+    url(_(r'^wizard/forms/add/(?P<form_wizard_entry_id>\d+)/'
+          r'(?P<form_entry_id>[\w_\-]+)/$'),
+        view=AddFormWizardFormEntryView.as_view(),
+        name='fobi.class_based.add_form_wizard_form_entry'),  
+
 ]
 
