@@ -342,15 +342,15 @@ class FobiFormRedirectMixin(FormMixin):
         self.object.save()
 
     def get_object(self, form=None):
-         if form is None:
-                form = self.get_form()
+        if form is None:
+            form = self.get_form()
         if getattr(self, 'object', None) is None:
             self.object = form.save(commit=False)
             self.object.user = self.request.user
         return self.object
 
     def form_valid(self, form=None):
-       self.get_object()
+        self.get_object()
         try:
             self._save_object(form=form)
             messages.info(
