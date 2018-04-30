@@ -215,13 +215,18 @@ class FobiThemeMixin(TemplateView):
                 self.theme, self.get_theme_template_name())
         return [self.template_name]
 
-class FobiFormRedirectMixin(FormMixin):
-    obj = None
+class FobiFormRedirectMixin(FormMixin):    
+    object = None    
     form_valid_redirect = None
     form_valid_redirect_kwargs = None
     success_message = None
     error_message = None
-    success_url = None
+    success_url = None    
+
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.get_theme(request=request)
+        return super(FobiFormRedirectMixin, self).dispatch(request, *args, **kwargs)
 
     def get_success_message(self):
         return self.success_message
@@ -250,21 +255,21 @@ class FobiFormRedirectMixin(FormMixin):
 
     def get_success_url(self, *args, **kwargs):
         reverse_kwargs = self.get_form_valid_redirect_kwargs(
-            result=self.obj)
+            result=self.object)
         return reverse_lazy(
             self.get_form_valid_redirect(),
             kwargs=reverse_kwargs
         )
 
     def _save_object(self, form=None):
-        self.obj.save()
+        self.object.save()
 
     def form_valid(self, form=None):
         if form is None:
             form = self.get_form()
-        if getattr(self, 'obj', None) is None:
-            self.obj = form.save(commit=False)
-            self.obj.user = self.request.user
+        if getattr(self, 'object', None) is None:
+            self.object = form.save(commit=False)
+            self.object.user = self.request.user
         try:
             self._save_object(form=form)
             messages.info(
@@ -924,8 +929,6 @@ class EditFormEntryView(FobiThemeRedirectMixin, FobiFormsetOrderingMixin, Single
 
     def dispatch(self, request, *args, **kwargs):
         self.form_entry_id = kwargs.pop('form_entry_id', None)
-        self.object = self.get_object()
-        self.get_theme(request=request)
         return super(EditFormEntryView, self).dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
@@ -941,8 +944,8 @@ class EditFormEntryView(FobiThemeRedirectMixin, FobiFormsetOrderingMixin, Single
             queryset = self.get_queryset()
         try:
             return queryset.get(pk=self.form_entry_id, user__pk=self.request.user.pk)
-        except self.model.ObjectDoesNotExist as err:
-            raise Http404(ugettext('not found'))
+        except self.model.DoesNotExist as err:
+            raise Http404(ugettext('{0} not found'.format(self.model.__name__)))
 
     def get_form_kwargs(self):
         kwargs = super(EditFormEntryView, self).get_form_kwargs()
@@ -1091,7 +1094,7 @@ class EditFormElementEntryView(FobiThemeRedirectMixin, SingleObjectMixin):
     success_message = 'The form element plugin "{0}" was edited successfully.'
 
     def get_queryset(self):    
-        return FormElementEntry._default_manager
+        return FormElementEntry._default_manager \
             .select_related('form_entry', 'form_entry__user')    
 
     def get_object(self):
@@ -1132,12 +1135,12 @@ class EditFormElementEntryView(FobiThemeRedirectMixin, SingleObjectMixin):
         return context.get('form_element_plugin').get_initialised_create_form_or_404(**kwargs)
         
     def get_form_elements(self):
-        return self.get_queryset()
+        return self.get_queryset() \
             .exclude(
                 pk=self.kwargs.get(
                     'form_element_entry_id'
                 )
-            )
+            )\
             .filter(form_entry=self.get_object())
 
     def get_success_message(self):
@@ -1146,8 +1149,8 @@ class EditFormElementEntryView(FobiThemeRedirectMixin, SingleObjectMixin):
                     .format(self.get_context_data().get('form_element_plugin').name)
 
     def _save_object(self, form=None):
-         form.save_plugin_data(request=self.request)
-         # get the plugin data
+        form.save_plugin_data(request=self.request)
+        # get the plugin data
         self.form_element_entry.plugin_data = form.get_plugin_data(request=self.request)
         # save the object
         self.form_element_entry.save()
@@ -1167,8 +1170,8 @@ class AddFormWizardFormEntryView(FobiFormRedirectMixin, FormWizardPropertyMixin,
     def get_form_valid_redirect_kwargs(self):
         return dict(form_wizard_entry_id=self.form_wizard_entry.id)
 
-      def get_success_url(self):
-            return  "{0}?active_tab=tab-form-elements".format(super(AddFormWizardFormEntry, self).get_success_url())
+    def get_success_url(self):
+        return  "{0}?active_tab=tab-form-elements".format(super(AddFormWizardFormEntry, self).get_success_url())
 
     def dispatch(self, request, *args, **kwargs):
         try:
@@ -1185,26 +1188,26 @@ class AddFormWizardFormEntryView(FobiFormRedirectMixin, FormWizardPropertyMixin,
                 ).format(self.form_entry.name, self.form_wizard_entry.name, str(err))
             )              
             return self.form_valid()
-    # Handling the position
-    position = 1
-    records = FormWizardFormEntry.objects.filter(
-        form_wizard_entry_id=self.kwargs.get('form_wizard_entry_id'),
-        # form_entry_id=form_entry_id
-    ).aggregate(models.Max('position'))
-    if records:
-        try:
-            position = records['{0}__max'.format('position')] + 1
-        except TypeError as err:
-            pass
-    obj.position = position
-    # Save the object.
-    obj.save()
+        # Handling the position
+        position = 1
+        records = FormWizardFormEntry.objects.filter(
+            form_wizard_entry_id=self.kwargs.get('form_wizard_entry_id'),
+            # form_entry_id=form_entry_id
+        ).aggregate(models.Max('position'))
+        if records:
+            try:
+                position = records['{0}__max'.format('position')] + 1
+            except TypeError as err:
+                pass
+        obj.position = position
+        # Save the object.
+        obj.save()
 
-    messages.info(
-        request,
-        ugettext(
-            'The form entry "{0}" was added successfully to the wizard "{1}".'
-        ).format(self.form_entry.name, self.form_wizard_entry.name)
-    )
-    return self.form_valid(form=None)
+        messages.info(
+            request,
+            ugettext(
+                'The form entry "{0}" was added successfully to the wizard "{1}".'
+            ).format(self.form_entry.name, self.form_wizard_entry.name)
+        )
+        return self.form_valid(form=None)
     
