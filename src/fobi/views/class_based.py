@@ -297,8 +297,11 @@ class FobiFormRedirectMixin(FormMixin):
     error_message = None
     success_url = None    
 
-    def dispatch(self, request, *args, **kwargs):
+    def post(self, *args, **kwargs):
         self.object = self.get_object()
+        return super(FobiFormRedirectMixin, self).post(*args, **kwargs)
+
+    def dispatch(self, request, *args, **kwargs):
         self.get_theme(request=request)
         return super(FobiFormRedirectMixin, self).dispatch(request, *args, **kwargs)
 
@@ -338,12 +341,16 @@ class FobiFormRedirectMixin(FormMixin):
     def _save_object(self, form=None):
         self.object.save()
 
-    def form_valid(self, form=None):
-        if form is None:
-            form = self.get_form()
+    def get_object(self, form=None):
+         if form is None:
+                form = self.get_form()
         if getattr(self, 'object', None) is None:
             self.object = form.save(commit=False)
             self.object.user = self.request.user
+        return self.object
+
+    def form_valid(self, form=None):
+       self.get_object()
         try:
             self._save_object(form=form)
             messages.info(
