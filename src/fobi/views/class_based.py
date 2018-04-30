@@ -727,8 +727,7 @@ class EditFormWizardEntryView(FobiThemeRedirectMixin, FobiFormsetOrderingMixin, 
             .all().select_related('form_entry') \
             .order_by('position')[:]
 
-        context['form_wizard_handlers'] = self.object.formwizardhandlerentry_set.all()[
-            :]
+        context['form_wizard_handlers'] = self.object.formwizardhandlerentry_set.all()[:]
         context['used_form_wizard_handler_uids'] = [
             form_wizard_handler.plugin_uid
             for form_wizard_handler
@@ -736,8 +735,7 @@ class EditFormWizardEntryView(FobiThemeRedirectMixin, FobiFormsetOrderingMixin, 
         ]
         context['form_wizard_form_entry_ids'] = [
             _f.form_entry_id
-            for _f in context['form_wizard_handlers']
-
+            for _f in context['form_wizard_entry_forms']
         ]
         context['all_form_entries'] = FormEntry._default_manager \
                                                .only('id', 'name', 'slug') \
