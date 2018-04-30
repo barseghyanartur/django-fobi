@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.conf.urls import url
 from django.utils.translation import ugettext_lazy as _
 
@@ -104,7 +105,6 @@ urlpatterns = [
     url(_(r'^wizard/forms/add/(?P<form_wizard_entry_id>\d+)/'
           r'(?P<form_entry_id>[\w_\-]+)/$'),
         view=AddFormWizardFormEntryView.as_view(),
-        name='fobi.class_based.add_form_wizard_form_entry'),  
-
+        name='fobi.class_based.add_form_wizard_form_entry'),
 ]
 
