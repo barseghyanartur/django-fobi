@@ -341,9 +341,8 @@ class FobiFormRedirectMixin(FormMixin):
     def _save_object(self, form=None):
         self.object.save()
 
-    def get_object(self, form=None):
-        if form is None:
-            form = self.get_form()
+    def get_object(self,  queryset=None):        
+        form = self.get_form()
         if getattr(self, 'object', None) is None:
             self.object = form.save(commit=False)
             self.object.user = self.request.user
@@ -923,7 +922,7 @@ class CreateFormEntryView(FobiThemeRedirectMixin, View):
     def get_context_data(self, **kwargs):
         kwargs['form'] = self.get_form()
         return super(CreateFormEntryView, self).get_context_data(**kwargs)
-        
+
     def get_success_message(self):
         return 'Form {0} was created successfully.'.format(self.object.name)
 
@@ -1054,6 +1053,7 @@ class EditFormEntryView(FobiThemeRedirectMixin, FobiFormsetOrderingMixin, Single
 class AddFormElementEntryView(FobiThemeRedirectMixin, SingleObjectMixin, RedirectView):
     obj = None
     form_element_plugin = None
+    form_element_entry_class = FormElementEntry
     save_object = False
     form_element_plugin_form_cls = None
     pk_url_kwarg = 'form_entry_id'
@@ -1082,7 +1082,7 @@ class AddFormElementEntryView(FobiThemeRedirectMixin, SingleObjectMixin, Redirec
         self.obj.save()
 
     def get_context_data(self, **kwargs):
-        context = super(AddFormElementEntryView, self).get_context_data()
+        context = super(AddFormElementEntryView, self).get_context_data(**kwargs)
         self.object = self.get_object()
         context['form_elements'] = self.object.formelemententry_set.all()
         user_form_element_plugin_uids = get_user_form_field_plugin_uids(
@@ -1136,8 +1136,8 @@ class AddFormElementEntryView(FobiThemeRedirectMixin, SingleObjectMixin, Redirec
             request, *args, **kwargs)
         if self.save_object:
             position = 1
-            records = FormElementEntry.objects.filter(form_entry=self.object) \
-                                      .aggregate(models.Max('position'))
+            records = FormElementEntry._default_manager.filter(form_entry=self.object) \
+                                                  .aggregate(models.Max('position'))
             if records:
                 try:
                     position = records['{0}__max'.format('position')] + 1
@@ -1228,8 +1228,7 @@ class EditFormElementEntryView(FobiThemeRedirectMixin, SingleObjectMixin):
                 pk=self.kwargs.get(
                     'form_element_entry_id'
                 )
-            )\
-            .filter(form_entry=self.get_object())
+            ).filter(form_entry=self.get_object())
 
     def get_success_message(self):
         return super(EditFormElementEntryView, self) \
