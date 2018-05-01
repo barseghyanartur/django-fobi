@@ -399,6 +399,9 @@ class FobiFormsetMixin(object):
 
     def get_context_formset_name(self):
         return self.context_formset_name
+
+    def get_formset_queryset(self):
+        return  getattr(self.object, self.get_object_formset_name()).all()
     
     @classmethod
     def _provide_formset(cls, obj):
@@ -409,7 +412,7 @@ class FobiFormsetMixin(object):
                     else [self.request.POST, self.request.FILES]
                 ),
                 **dict(
-                    queryset=getattr(self.object, self.get_object_formset_name()).all()
+                    queryset=self.get_formset_queryset()
                 )
             )
         prop_name = obj.get_property_formset_name()
@@ -917,6 +920,10 @@ class CreateFormEntryView(FobiThemeRedirectMixin, View):
         ('form_entry_id', 'pk'),
     )
 
+    def get_context_data(self, **kwargs):
+        kwargs['form'] = self.get_form()
+        return super(CreateFormEntryView, self).get_context_data(**kwargs)
+        
     def get_success_message(self):
         return 'Form {0} was created successfully.'.format(self.object.name)
 
