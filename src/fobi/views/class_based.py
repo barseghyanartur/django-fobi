@@ -158,9 +158,13 @@ class DeletePluginMixin(object):
     get_user_plugin_uids_func = None
     message = None
     html_anchor = None
+    entry_model_id = 'entry_id'
 
     def get_entry_id(self):
-        return self.kwargs.get('entry_id')
+        return self.kwargs.get(self.get_entry_model_id())
+
+    def get_entry_model_id(self):
+        return self.entry_model_id
 
     def get_entry_model_cls(self):
         return self.entry_model_cls
@@ -201,7 +205,7 @@ class DeletePluginMixin(object):
         )
         return redirect("{0}{1}".format(redirect_url, self.get_html_anchor()))
 
-    def dispatch(self, request, *args, **kwargs):
+    def post(self, *args, **kwargs):
         obj = self.get_entry_model()
         plugin = self.get_plugin()
 
