@@ -1016,6 +1016,7 @@ class EditFormEntryView(FobiThemeRedirectMixin, FobiFormsetOrderingMixin, Single
 
     def dispatch(self, request, *args, **kwargs):
         self.form_entry_id = kwargs.pop('form_entry_id', None)
+        self.object = self.get_object()
         return super(EditFormEntryView, self).dispatch(request, *args, **kwargs)
 
     def get(self, request, *args, **kwargs):
