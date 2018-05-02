@@ -343,10 +343,11 @@ class FobiFormRedirectMixin(FormMixin):
 
     def get_object(self,  queryset=None):        
         form = self.get_form()
-        if getattr(self, 'object', None) is None:
+        if getattr(self, 'object', None) is None and hasattr(form, 'save'):
             self.object = form.save(commit=False)
-            self.object.user = self.request.user
-        return self.object
+            self.object.user = self.request.user            
+            return self.object
+        return super(FobiFormRedirectMixin, self).get_object(queryset=queryset)
 
     def form_valid(self, form=None):
         self.get_object()
