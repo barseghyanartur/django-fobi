@@ -23,7 +23,7 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 from django.views.generic import View, RedirectView, TemplateView, FormView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.list import MultipleObjectMixin
-from django.views.generic.edit import FormMixin
+from django.views.generic.edit import FormMixin, DeleteView
 
 
 from nine import versions
@@ -186,7 +186,7 @@ class DeletePluginMixin(object):
 
     def get_plugin(self):
         plugin = self.get_entry_model().get_plugin(request=self.request)
-        pluigin.request = self.request
+        plugin.request = self.request
         return plugin
 
     def get_message(self):
@@ -1133,7 +1133,8 @@ class AddFormElementEntryView(FobiThemeRedirectMixin, SingleObjectMixin, Redirec
         if not self.form_element_plugin_form_cls:
             self.save_object = True
         res = super(AddFormElementEntryView, self).dispatch(
-            request, *args, **kwargs)
+            request, *args, **kwargs
+        )
         if self.save_object:
             position = 1
             records = FormElementEntry._default_manager.filter(form_entry=self.object) \
@@ -1305,6 +1306,11 @@ class DeleteFormElementEntryView(DeletePluginMixin, View):
 
     def get_entry_id(self):
         return self.kwargs.get('form_element_entry_id')
+
+class DeleteFormEntryView(DeleteView):
+    model = FormEntry
+    pk_url_kwarg = 'form_entry_id'
+    success_url = reverse_lazy('fobi.dashboard')
     
 class AddFormHandlerEntryView(FormEntryMixin, FobiThemeRedirectMixin):
     theme = None

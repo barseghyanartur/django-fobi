@@ -14,7 +14,9 @@ from fobi.views.class_based import (
     DeleteFormElementEntryView,
     AddFormHandlerEntryView,
     AddFormWizardFormEntryView,
+    DeleteFormEntryView,
 )
+
 
 __title__ = 'fobi.urls.class_based'
 __author__ = 'Kyle Roux <jstacoder@gmail.com>'
@@ -64,6 +66,12 @@ urlpatterns = [
     url(_(r'^forms/edit/(?P<form_entry_id>\d+)/$'),
         view=EditFormEntryView.as_view(),
         name='fobi.class_based.edit_form_entry'),
+
+    # Delete form entry
+    url(_(r'^forms/delete/(?P<form_entry_id>\d+)/$'),
+        view=DeleteFormEntryView.as_view(),
+        name='fobi.class_based.delete_form_entry'),
+
 
     # ************************************************************
     # **************************** Form Element Entry CUD*********
