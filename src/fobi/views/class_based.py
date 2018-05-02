@@ -201,12 +201,13 @@ class DeletePluginMixin(object):
 
     def redirect(self):
         redirect_url = reverse(
-            'fobi.edit_form_entry', kwargs={'form_entry_id': self.get_form_entry().pk}
+            'fobi.edit_form_entry', kwargs={'form_entry_id': self.form_entry_id}
         )
         return redirect("{0}{1}".format(redirect_url, self.get_html_anchor()))
 
-    def post(self, *args, **kwargs):
+    def dispatch(self, *args, **kwargs):
         obj = self.get_entry_model()
+        self.form_entry_id = obj.form_entry.id
         plugin = self.get_plugin()
 
         plugin._delete_plugin_data()
