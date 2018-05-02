@@ -400,7 +400,7 @@ class FobiFormsetMixin(object):
         return self.context_formset_name
 
     def get_formset_queryset(self):
-        return  getattr(self.object, self.get_object_formset_name()).all()
+        return  getattr(self.get_object(), self.get_object_formset_name()).all()
     
     @classmethod
     def _provide_formset(cls, obj):
@@ -1311,6 +1311,18 @@ class DeleteFormEntryView(DeleteView):
     model = FormEntry
     pk_url_kwarg = 'form_entry_id'
     success_url = reverse_lazy('fobi.dashboard')
+
+    def get_object(self, queryset=None):
+        return super(DeleteFormEntryView, self).filter(user__id=self.request.user.id).get_object(queryset)
+
+    def post(self, *args, **kwargs):
+        res = super(DeleteFormElementEntryView).post(*args, **kwargs)
+        messages.info(
+            request,
+            ugettext('The form "{0}" was deleted successfully.').format(self.object.name)
+        )
+
+
     
 class AddFormHandlerEntryView(FormEntryMixin, FobiThemeRedirectMixin):
     theme = None
