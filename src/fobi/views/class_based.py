@@ -556,13 +556,19 @@ class ViewFormEntryView(FormEntryMixin, FobiThemeRedirectMixin, View):
     def get_success_message(self):
         return  ugettext("Form {0} was submitted successfully.").format(self.form_entry.name)
 
+    def initial_data_check(self):
+        return GET_PARAM_INITIAL_DATA in request.GET
+
+    def get_initial_data(self):
+        return self.request.GET
+
     def get_form_kwargs(self, **kwargs):
          # Providing initial form data by feeding entire GET dictionary
         # to the form, if ``GET_PARAM_INITIAL_DATA`` is present in the
         # GET.
         kwargs = {}
-        if GET_PARAM_INITIAL_DATA in request.GET:
-            kwargs = {'initial': request.GET}
+        if self.initial_data_check():
+            kwargs = {'initial': self.get_initial_data()}
         return super(ViewFormEntryView, self).get_form_kwargs(**kwargs)                
 
     def post(self, *args, **kwargs):
@@ -1333,7 +1339,7 @@ class AddFormElementEntryView(FobiThemeRedirectMixin, SingleObjectMixin, Redirec
             return super(AddFormElementEntryView, self).form_valid(form=form)
         return super(AddFormElementEntryView, self).form_invalid(form=form)
 
-class EditFormElementEntryView(FobiThemeRedirectMixin, UpdateMixin):
+class EditFormElementEntryView(FobiThemeRedirectMixin, UpdateView):
     form_valid_redirect = 'edit_form_entry'
     form_valid_redirect_kwargs = (
         ('form_entry_id', 'pk'),
