@@ -50,7 +50,7 @@ from ..dynamic import assemble_form_class
 from ..form_importers import (
     ensure_autodiscover as ensure_importers_autodiscover,
     form_importer_plugin_registry, get_form_importer_plugin_urls,
-)
+) 
 from ..forms import (
     FormEntryForm,
     FormElementEntryFormSet,
@@ -70,7 +70,7 @@ from ..models import (
     FormWizardFormEntry,
     FormWizardHandlerEntry,
 )
-from ..settings import (
+from ...settings import (
     GET_PARAM_INITIAL_DATA,
     DEBUG,
     SORT_PLUGINS_BY_VALUE,
@@ -137,13 +137,32 @@ class FormEntryMixin(object):
     """ mixin class to grab the form_entry from kwargs """
     form_entry = None
     form_entry_class = FormEntry
+    form_entry_kwarg = 'form_entry_id'
+    form_entry_query_arg = 'pk'
+
+    def get_form_entry_kwarg(self):
+        return self.form_entry_kwarg
+
+    def get_form_entry_query_arg(self):
+        return self.form_entry_query_arg
 
     def get_form_entry_class(self):
         return self.form_entry_class
 
+    def get_query_kwargs(self):
+        return {
+            self.get_form_entry_query_arg() : 
+            self.kwargs.get(
+                self.get_form_entry_kwarg()
+            )
+        }
+
     def dispatch(self, request, *args, **kwargs):
         try:
-            self.form_entry = self.get_form_entry_class()._default_manager.get(pk=self.kwargs.get('form_entry_id'))
+            self.form_entry = self.get_form_entry_class()._default_manager.get(**
+                self.get_query_kwargs()
+            )
+
         except ObjectDoesNotExist as err:
             raise Http404(ugettext("Form Entry Not Found"))
         return super(FormEntryMixin, self).dispatch(request, *args, **kwargs)
@@ -152,13 +171,13 @@ class FormEntryMixin(object):
         kwargs['form_entry'] = self.form_entry
         return super(FormEntryMixin, self).get_context_data(**kwargs)
 
-
 class DeletePluginMixin(object):
     entry_model_cls = None
     get_user_plugin_uids_func = None
     message = None
     html_anchor = None
     entry_model_id = 'entry_id'
+    form_entry_id = None
 
     def get_entry_id(self):
         return self.kwargs.get(self.get_entry_model_id())
@@ -419,7 +438,7 @@ class FobiFormsetMixin(object):
                 **dict(
                     queryset=self.get_formset_queryset()
                 )
-            )
+            ) if 'ordering' in self.request.POST else self.get_formset_class()
         prop_name = obj.get_property_formset_name()
         setattr(obj.__class__, prop_name, property(tmp))        
     
@@ -454,10 +473,130 @@ class FobiFormsetOrderingMixin(FobiFormsetMixin):
     def post(self, *args, **kwargs):        
         if 'ordering' in self.request.POST:
             return super(FobiFormsetOrderingMixin, self).process_formset()           
-        form = self.get_form()(self.get_form_kwargs())
+        form = self.get_form_class()(**self.get_form_kwargs())
         if form.is_valid():
             return super(FobiFormsetOrderingMixin, self).form_valid(form=form)
         return super(FobiFormsetOrderingMixin, self).form_invalid(form=form)
+
+class ViewFormEntryView(FormEntryMixin, FobiThemeRedirectMixin, View):
+    form_entry_kwarg = 'form_entry_slug'
+    form_entry_query_arg = 'slug'
+    form_valid_redirect = 'fobi.form_entry_submitted'
+    theme_template_name = 'view_form_entry_template'
+
+    def get_query_kwargs(self):
+        kwargs = super(ViewFormEntryView, self).get_query_kwargs()
+        if not self.request.user.is_authenticated:
+            kwargs['is_public'] = True
+        return kwargs        
+    
+    def get_form_valid_redirect_kwargs(self):
+        return {'form_entry_slug': self.form_entry.slug}
+
+    def get_theme_template_name(self):
+        if not self.form_entry.is_active:
+            return self.theme.form_entry_inactive_template
+        return super(ViewFormEntryView, self).get_theme_template_name()
+
+    def get_form(self, **kwargs):
+        form = super(ViewFormEntryView, self).get_form(**kwargs)
+        if DEBUG:
+            try:
+                form.as_p()
+            except Exception as err:
+                logger.error(err)
+
+    def dispatch(self, request,  *args, **kwargs):
+        response = super(ViewFormEntryView, self).dispatch(request, *args, **kwargs)
+        self.theme.collect_plugin_media(self.form_entry.formelemententry_set.all()[:])
+
+    def get_form_class(self):
+        return assemble_form_class(
+            self.form_entry,
+            form_element_entries=self.form_entry.formelemententry_set.all()[:],
+            request=self.request,
+        )
+
+    def get_context_data(self, **kwargs):
+        kwargs['form_entry'] = self.form_entry
+        if not self.form_entry.is_active:
+            kwargs.update({
+                'page_header':  (self.form_entry.inactive_page_title
+                            or self.form_entry.title
+                            or self.form_entry.name)
+            })
+        kwargs['form_element_entries'] = self.form_entry.formelemententry_set.all()[:]
+        kwargs['fobi_form_title'] = self.form_entry.title
+        return super(ViewFormEntryView, self).get_context_data(**kwarg)
+
+    def _get_form_callback_kwargs(self, stage=None):
+        kwargs =  dict(
+            form_entry=self.form_entry,
+            request=self.request,
+            form=self.form,
+        )
+        if stage is not None:
+            kwargs['stage'] = stage
+        return kwargs
+
+    def get_success_message(self):
+        return  ugettext("Form {0} was submitted successfully.").format(self.form_entry.name)
+
+    def get_form_kwargs(self, **kwargs):
+         # Providing initial form data by feeding entire GET dictionary
+        # to the form, if ``GET_PARAM_INITIAL_DATA`` is present in the
+        # GET.
+        kwargs = {}
+        if GET_PARAM_INITIAL_DATA in request.GET:
+            kwargs = {'initial': request.GET}
+        return super(ViewFormEntryView, self).get_form_kwargs(**kwargs)                
+
+    def post(self, *args, **kwargs):
+        self.form = self.get_form()
+        fire_form_callbacks(
+            **self._get_form_callback_kwargs(
+                stage=CALLBACK_BEFORE_FORM_VALIDATION
+            )
+        )
+        if form.is_valid():
+             # Fire form valid callbacks, before handling submitted plugin
+            # form data.
+            form = fire_form_callbacks(
+                **self._get_form_callback_kwargs(       
+                    stage=CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA
+                )
+            )
+            # fire plugin processors
+            form = submit_plugin_form_data(**self._get_form_callback_kwargs())
+            # fire plugin processors
+            form = fire_form_callbacks(
+                 **self._get_form_callback_kwargs(
+                     stage=CALLBACK_FORM_VALID,
+                 )                    
+            )
+            # Run all handlers
+            handler_responses, handler_errors = run_form_handlers(
+                form_entry=form_entry,
+                request=request,
+                form=form,
+                form_element_entries=form_element_entries
+            )
+            if handler_errors:
+                for handler_error in handler_errors:
+                    messages.warning(
+                        request,
+                        ugettext("Error occurred: {0}.").format(handler_error)
+                    )
+
+        else:
+            fire_form_callbacks(
+                **self._get_form_callback_kwargs(
+                    stage=CALLBACK_FORM_INVALID
+                )
+            )
+        return super(self.__class__, self).post(*args, **kwargs)
+        
+ 
 
 class FormWizardView(DynamicSessionWizardView):
     """Dynamic form wizard."""
@@ -748,8 +887,9 @@ class FormWizardView(DynamicSessionWizardView):
                                args=[form_wizard_entry.slug])
         return HttpResponseRedirect(redirect_url)
 
-class CreateFormWizardEntryView(FobiThemeRedirectMixin, SingleObjectMixin):
+class CreateFormWizardEntryView(FobiThemeRedirectMixin, PageTitleMixin, SingleObjectMixin):
     result = None
+    page_title = 'Create form wizard entry'
     template_name = None
     model = FormWizardEntry
     form_class = FormWizardEntryForm
@@ -789,9 +929,10 @@ class CreateFormWizardEntryView(FobiThemeRedirectMixin, SingleObjectMixin):
             form_class = self.form_class
         return form_class(*form_args, **form_kwargs)
 
-class EditFormWizardEntryView(FobiThemeRedirectMixin, FobiFormsetOrderingMixin, SingleObjectMixin, View):
+class EditFormWizardEntryView(FobiThemeRedirectMixin, PageTitleMixin, FobiFormsetOrderingMixin, SingleObjectMixin, View):
     form_wizard_entry_id = None
     theme = None
+    page_title = 'Edit form wizard entry'
     model = FormWizardEntry
     pk_url_kwarg = 'form_wizard_entry_id'
     form_class = FormWizardEntryForm    
@@ -915,9 +1056,10 @@ class FormDashboardView(MultipleObjectMixin, FobiThemeMixin, TemplateView):
         context['form_importers'] = get_form_importer_plugin_urls()
         return context
 
-class CreateFormEntryView(FobiThemeRedirectMixin, View):
+class CreateFormEntryView(FobiThemeRedirectMixin, PageTitleMixin, View):
     template_name = None
     model = FormEntry
+    page_title = 'Create Form'
     form_class = FormEntryForm
     theme_template_name = 'create_form_entry_template'
     form_valid_redirect = 'edit_form_entry'
@@ -950,10 +1092,11 @@ class CreateFormEntryView(FobiThemeRedirectMixin, View):
             form_class = self.form_class
         return form_class(*form_args, **form_kwargs)
 
-class EditFormEntryView(FobiThemeRedirectMixin, FobiFormsetOrderingMixin, SingleObjectMixin, View):
+class EditFormEntryView(FobiThemeRedirectMixin, PageTitleMixin, FobiFormsetOrderingMixin, SingleObjectMixin, View):
     form_entry_id = None
     theme = None
     model = FormEntry
+    page_title = 'Edit form entry'
     pk_url_kwarg = 'form_entry_id'
     form_class = FormEntryForm
     context_formset_name = 'form_element_entry_formset'
@@ -968,8 +1111,6 @@ class EditFormEntryView(FobiThemeRedirectMixin, FobiFormsetOrderingMixin, Single
     )
     context_object_name = 'form_entry'
     theme_template_name = 'edit_form_entry_template'
-
-
 
     def get_success_message(self):
         return "Form {0} was edited successfully".format(self.object.name)
@@ -1178,7 +1319,7 @@ class AddFormElementEntryView(FobiThemeRedirectMixin, SingleObjectMixin, Redirec
             return super(AddFormElementEntryView, self).form_valid(form=form)
         return super(AddFormElementEntryView, self).form_invalid(form=form)
 
-class EditFormElementEntryView(FobiThemeRedirectMixin, SingleObjectMixin):
+class EditFormElementEntryView(FobiThemeRedirectMixin, UpdateMixin):
     form_valid_redirect = 'edit_form_entry'
     form_valid_redirect_kwargs = (
         ('form_entry_id', 'pk'),
