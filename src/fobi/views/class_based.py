@@ -70,7 +70,7 @@ from ..models import (
     FormWizardFormEntry,
     FormWizardHandlerEntry,
 )
-from ...settings import (
+from ..settings import (
     GET_PARAM_INITIAL_DATA,
     DEBUG,
     SORT_PLUGINS_BY_VALUE,
