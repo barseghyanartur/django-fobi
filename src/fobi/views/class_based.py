@@ -23,7 +23,7 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 from django.views.generic import View, RedirectView, TemplateView, FormView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.list import MultipleObjectMixin
-from django.views.generic.edit import FormMixin, DeleteView, UpdateView
+from django.views.generic.edit import FormMixin, DeleteView, UpdateView, ProcessFormView
 
 
 from nine import versions
@@ -492,7 +492,7 @@ class PageTitleMixin(object):
             context['page_title'] = self.get_page_title(**context)
         return context
 
-class ViewFormEntryView(FormEntryMixin, FobiThemeRedirectMixin, View):
+class ViewFormEntryView(FormEntryMixin, FobiThemeRedirectMixin, ProcessFormView): 
     form_entry_kwarg = 'form_entry_slug'
     form_entry_query_arg = 'slug'
     form_valid_redirect = 'fobi.form_entry_submitted'
@@ -519,11 +519,12 @@ class ViewFormEntryView(FormEntryMixin, FobiThemeRedirectMixin, View):
                 form.as_p()
             except Exception as err:
                 logger.error(err)
+        return form
 
     def dispatch(self, request,  *args, **kwargs):
         response = super(ViewFormEntryView, self).dispatch(request, *args, **kwargs)
         self.theme.collect_plugin_media(self.form_entry.formelemententry_set.all()[:])
-        return super(ViewFormEntryView, self).dispatch(request, *args, **kwargs)
+        return response
 
     def get_form_class(self):
         return assemble_form_class(
@@ -533,6 +534,7 @@ class ViewFormEntryView(FormEntryMixin, FobiThemeRedirectMixin, View):
         )
 
     def get_context_data(self, **kwargs):
+        kwargs = super(ViewFormEntryView, self).get_context_data(**kwargs)
         kwargs['form_entry'] = self.form_entry
         if not self.form_entry.is_active:
             kwargs.update({
@@ -542,7 +544,9 @@ class ViewFormEntryView(FormEntryMixin, FobiThemeRedirectMixin, View):
             })
         kwargs['form_element_entries'] = self.form_entry.formelemententry_set.all()[:]
         kwargs['fobi_form_title'] = self.form_entry.title
-        return super(ViewFormEntryView, self).get_context_data(**kwargs)
+        if 'form' not in kwargs:
+            kwargs['form'] = self.get_form()
+        return kwargs
 
     def _get_form_callback_kwargs(self, stage=None):
         kwargs =  dict(
@@ -573,7 +577,7 @@ class ViewFormEntryView(FormEntryMixin, FobiThemeRedirectMixin, View):
         return kwargs
 
     def post(self, *args, **kwargs):
-        self.form = self.get_form()
+        form = self.form = self.get_form()
         fire_form_callbacks(
             **self._get_form_callback_kwargs(
                 stage=CALLBACK_BEFORE_FORM_VALIDATION
