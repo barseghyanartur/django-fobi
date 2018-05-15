@@ -602,10 +602,10 @@ class ViewFormEntryView(FormEntryMixin,FobiThemeRedirectMixin,ProcessFormView):
             )
             # Run all handlers
             handler_responses, handler_errors = run_form_handlers(
-                form_entry=form_entry,
-                request=request,
+                form_entry=self.form_entry,
+                request=self.request,
                 form=form,
-                form_element_entries=form_element_entries
+                form_element_entries=self.get_context_data().get('form_element_entries'),
             )
             if handler_errors:
                 for handler_error in handler_errors:
