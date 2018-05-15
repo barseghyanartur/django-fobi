@@ -523,6 +523,7 @@ class ViewFormEntryView(FormEntryMixin, FobiThemeRedirectMixin, View):
     def dispatch(self, request,  *args, **kwargs):
         response = super(ViewFormEntryView, self).dispatch(request, *args, **kwargs)
         self.theme.collect_plugin_media(self.form_entry.formelemententry_set.all()[:])
+        return super(ViewFormEntryView, self).dispatch(request, *args, **kwargs)
 
     def get_form_class(self):
         return assemble_form_class(
@@ -541,7 +542,7 @@ class ViewFormEntryView(FormEntryMixin, FobiThemeRedirectMixin, View):
             })
         kwargs['form_element_entries'] = self.form_entry.formelemententry_set.all()[:]
         kwargs['fobi_form_title'] = self.form_entry.title
-        return super(ViewFormEntryView, self).get_context_data(**kwarg)
+        return super(ViewFormEntryView, self).get_context_data(**kwargs)
 
     def _get_form_callback_kwargs(self, stage=None):
         kwargs =  dict(
@@ -557,7 +558,7 @@ class ViewFormEntryView(FormEntryMixin, FobiThemeRedirectMixin, View):
         return  ugettext("Form {0} was submitted successfully.").format(self.form_entry.name)
 
     def initial_data_check(self):
-        return GET_PARAM_INITIAL_DATA in request.GET
+        return GET_PARAM_INITIAL_DATA in self.request.GET
 
     def get_initial_data(self):
         return self.request.GET
@@ -566,10 +567,10 @@ class ViewFormEntryView(FormEntryMixin, FobiThemeRedirectMixin, View):
          # Providing initial form data by feeding entire GET dictionary
         # to the form, if ``GET_PARAM_INITIAL_DATA`` is present in the
         # GET.
-        kwargs = {}
+        kwargs = super(ViewFormEntryView, self).get_form_kwargs(**kwargs)
         if self.initial_data_check():
-            kwargs = {'initial': self.get_initial_data()}
-        return super(ViewFormEntryView, self).get_form_kwargs(**kwargs)                
+            kwargs['initial'] = self.get_initial_data()
+        return kwargs
 
     def post(self, *args, **kwargs):
         self.form = self.get_form()
@@ -614,7 +615,7 @@ class ViewFormEntryView(FormEntryMixin, FobiThemeRedirectMixin, View):
                     stage=CALLBACK_FORM_INVALID
                 )
             )
-        return super(self.__class__, self).post(*args, **kwargs)
+        return super(ViewFormEntryView, self).post(*args, **kwargs)
         
  
 
