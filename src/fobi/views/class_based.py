@@ -492,7 +492,7 @@ class PageTitleMixin(object):
             context['page_title'] = self.get_page_title(**context)
         return context
 
-class ViewFormEntryView(FormEntryMixin, FobiThemeRedirectMixin, ProcessFormView): 
+class ViewFormEntryView(FormEntryMixin, FobiThemeRedirectMixin, ProcessFormView):
     form_entry_kwarg = 'form_entry_slug'
     form_entry_query_arg = 'slug'
     form_valid_redirect = 'fobi.form_entry_submitted'
