@@ -478,6 +478,20 @@ class FobiFormsetOrderingMixin(FobiFormsetMixin):
             return super(FobiFormsetOrderingMixin, self).form_valid(form=form)
         return super(FobiFormsetOrderingMixin, self).form_invalid(form=form)
 
+
+class PageTitleMixin(object):
+    """ mixin to provide page title """
+    page_title = None
+
+    def get_page_title(self, **kwargs):
+        return self.page_title
+
+    def get_context_data(self, **kwargs):
+        context = super(PageTitleMixin, self).get_context_data(**kwargs)
+        if 'page_title' not in context:
+            context['page_title'] = self.get_page_title(**context)
+        return context
+
 class ViewFormEntryView(FormEntryMixin, FobiThemeRedirectMixin, View):
     form_entry_kwarg = 'form_entry_slug'
     form_entry_query_arg = 'slug'
