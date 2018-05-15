@@ -23,7 +23,7 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 from django.views.generic import View, RedirectView, TemplateView, FormView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.list import MultipleObjectMixin
-from django.views.generic.edit import FormMixin, DeleteView, UpdateMixin
+from django.views.generic.edit import FormMixin, DeleteView, UpdateView
 
 
 from nine import versions
