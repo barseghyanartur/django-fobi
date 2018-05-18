@@ -1,3 +1,4 @@
+# -*- coding: UTF-8 -*-
 """
 Class based views.
 """
@@ -23,7 +24,7 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 from django.views.generic import View, RedirectView, TemplateView, FormView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.list import MultipleObjectMixin
-from django.views.generic.edit import FormMixin, DeleteView
+from django.views.generic.edit import FormMixin, DeleteView, UpdateView, ProcessFormView
 
 
 from nine import versions
@@ -492,7 +493,7 @@ class PageTitleMixin(object):
             context['page_title'] = self.get_page_title(**context)
         return context
 
-class ViewFormEntryView(FormEntryMixin, FobiThemeRedirectMixin, View):
+class ViewFormEntryView(FormEntryMixin,FobiThemeRedirectMixin,ProcessFormView):
     form_entry_kwarg = 'form_entry_slug'
     form_entry_query_arg = 'slug'
     form_valid_redirect = 'fobi.form_entry_submitted'
@@ -519,10 +520,12 @@ class ViewFormEntryView(FormEntryMixin, FobiThemeRedirectMixin, View):
                 form.as_p()
             except Exception as err:
                 logger.error(err)
+        return form
 
     def dispatch(self, request,  *args, **kwargs):
         response = super(ViewFormEntryView, self).dispatch(request, *args, **kwargs)
         self.theme.collect_plugin_media(self.form_entry.formelemententry_set.all()[:])
+        return response
 
     def get_form_class(self):
         return assemble_form_class(
@@ -532,6 +535,7 @@ class ViewFormEntryView(FormEntryMixin, FobiThemeRedirectMixin, View):
         )
 
     def get_context_data(self, **kwargs):
+        kwargs = super(ViewFormEntryView, self).get_context_data(**kwargs)
         kwargs['form_entry'] = self.form_entry
         if not self.form_entry.is_active:
             kwargs.update({
@@ -541,7 +545,9 @@ class ViewFormEntryView(FormEntryMixin, FobiThemeRedirectMixin, View):
             })
         kwargs['form_element_entries'] = self.form_entry.formelemententry_set.all()[:]
         kwargs['fobi_form_title'] = self.form_entry.title
-        return super(ViewFormEntryView, self).get_context_data(**kwarg)
+        if 'form' not in kwargs:
+            kwargs['form'] = self.get_form()
+        return kwargs
 
     def _get_form_callback_kwargs(self, stage=None):
         kwargs =  dict(
@@ -556,17 +562,23 @@ class ViewFormEntryView(FormEntryMixin, FobiThemeRedirectMixin, View):
     def get_success_message(self):
         return  ugettext("Form {0} was submitted successfully.").format(self.form_entry.name)
 
+    def initial_data_check(self):
+        return GET_PARAM_INITIAL_DATA in self.request.GET
+
+    def get_initial_data(self):
+        return self.request.GET
+
     def get_form_kwargs(self, **kwargs):
          # Providing initial form data by feeding entire GET dictionary
         # to the form, if ``GET_PARAM_INITIAL_DATA`` is present in the
         # GET.
-        kwargs = {}
-        if GET_PARAM_INITIAL_DATA in request.GET:
-            kwargs = {'initial': request.GET}
-        return super(ViewFormEntryView, self).get_form_kwargs(**kwargs)                
+        kwargs = super(ViewFormEntryView, self).get_form_kwargs(**kwargs)
+        if self.initial_data_check():
+            kwargs['initial'] = self.get_initial_data()
+        return kwargs
 
     def post(self, *args, **kwargs):
-        self.form = self.get_form()
+        form = self.form = self.get_form()
         fire_form_callbacks(
             **self._get_form_callback_kwargs(
                 stage=CALLBACK_BEFORE_FORM_VALIDATION
@@ -590,10 +602,10 @@ class ViewFormEntryView(FormEntryMixin, FobiThemeRedirectMixin, View):
             )
             # Run all handlers
             handler_responses, handler_errors = run_form_handlers(
-                form_entry=form_entry,
-                request=request,
+                form_entry=self.form_entry,
+                request=self.request,
                 form=form,
-                form_element_entries=form_element_entries
+                form_element_entries=self.get_context_data().get('form_element_entries'),
             )
             if handler_errors:
                 for handler_error in handler_errors:
@@ -608,7 +620,7 @@ class ViewFormEntryView(FormEntryMixin, FobiThemeRedirectMixin, View):
                     stage=CALLBACK_FORM_INVALID
                 )
             )
-        return super(self.__class__, self).post(*args, **kwargs)
+        return super(ViewFormEntryView, self).post(*args, **kwargs)
         
  
 
@@ -1333,7 +1345,7 @@ class AddFormElementEntryView(FobiThemeRedirectMixin, SingleObjectMixin, Redirec
             return super(AddFormElementEntryView, self).form_valid(form=form)
         return super(AddFormElementEntryView, self).form_invalid(form=form)
 
-class EditFormElementEntryView(FobiThemeRedirectMixin, UpdateMixin):
+class EditFormElementEntryView(FobiThemeRedirectMixin, UpdateView):
     form_valid_redirect = 'edit_form_entry'
     form_valid_redirect_kwargs = (
         ('form_entry_id', 'pk'),
