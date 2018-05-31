@@ -9,7 +9,7 @@ from fobi.models import FormEntry, FormElementEntry
 
 from .core import print_info
 from .data import TEST_MAILCHIMP_IMPORTER_FORM_DATA
-from .helpers import setup_fobi, get_or_create_admin_user
+from .helpers import setup_app, get_or_create_admin_user
 
 __title__ = 'fobi.tests.test_form_importers_mailchimp'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -23,7 +23,7 @@ class FormImportersMailchimpTest(TestCase):
 
     def setUp(self):
         """Set up."""
-        setup_fobi(fobi_sync_plugins=True)
+        setup_app(fobi_sync_plugins=True)
 
     @print_info
     def test_01_test_mailchimp_importer(self):
