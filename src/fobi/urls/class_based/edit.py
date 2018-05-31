@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.conf.urls import url
 from django.utils.translation import ugettext_lazy as _
 
@@ -10,8 +11,12 @@ from fobi.views.class_based import (
     EditFormEntryView,
     AddFormElementEntryView,
     EditFormElementEntryView,
-    
+    DeleteFormElementEntryView,
+    AddFormHandlerEntryView,
+    AddFormWizardFormEntryView,
+    DeleteFormEntryView,
 )
+
 
 __title__ = 'fobi.urls.class_based'
 __author__ = 'Kyle Roux <jstacoder@gmail.com>'
@@ -62,6 +67,12 @@ urlpatterns = [
         view=EditFormEntryView.as_view(),
         name='fobi.class_based.edit_form_entry'),
 
+    # Delete form entry
+    url(_(r'^forms/delete/(?P<form_entry_id>\d+)/$'),
+        view=DeleteFormEntryView.as_view(),
+        name='fobi.class_based.delete_form_entry'),
+
+
     # ************************************************************
     # **************************** Form Element Entry CUD*********
     # ************************************************************
@@ -70,11 +81,38 @@ urlpatterns = [
     url(_(r'^forms/elements/add/(?P<form_entry_id>\d+)/'
           r'(?P<form_element_plugin_uid>[\w_\-]+)/$'),
         view=AddFormElementEntryView.as_view(),
-        name='fobi.class_based.add_form_element_entry',)
+        name='fobi.class_based.add_form_element_entry'),
 
     # edit form element entry
     url(_(r'^forms/elements/edit/(?P<form_element_entry_id>\d+)/$'),
         view=EditFormElementEntryView.as_view(),
         name='fobi.class_based.edit_form_element_entry'),
+
+    # delete form element entry
+    url(_(r'^forms/elements/delete/(?P<form_element_entry_id>\d+)/$'),
+        view=DeleteFormElementEntryView.as_view(),
+        name='fobi.class_based.delete_form_element_entry'),
+
+    # ***********************************************************************
+    # *********************** Form handler entry CUD ************************
+    # ***********************************************************************
+
+
+    # add form handler entry
+    url(_(r'^forms/handlers/add/(?P<form_entry_id>\d+)/'
+          r'(?P<form_handler_plugin_uid>[\w_\-]+)/$'),
+        view=AddFormHandlerEntryView.as_view(),
+        name='fobi.class_based.add_form_handler_entry'),
+
+
+    # ***********************************************************************
+    # ******************** Form wizard form entry CUD ***********************
+    # ***********************************************************************
+
+    # add form wizard form entry
+    url(_(r'^wizard/forms/add/(?P<form_wizard_entry_id>\d+)/'
+          r'(?P<form_entry_id>[\w_\-]+)/$'),
+        view=AddFormWizardFormEntryView.as_view(),
+        name='fobi.class_based.add_form_wizard_form_entry'),
 ]
 
