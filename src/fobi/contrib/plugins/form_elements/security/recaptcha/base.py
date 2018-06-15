@@ -10,6 +10,7 @@ from fobi.base import (
     get_theme,
 )
 
+from ......pip_helpers import check_if_installed, get_installed_packages
 from . import UID
 from .forms import ReCaptchaInputForm
 
@@ -29,23 +30,22 @@ except ImportError as e:
 
     # Trying to identify the problem
     try:
-        import pip
-        installed_packages = pip.get_installed_distributions()
-        for installed_package in installed_packages:
-            if "django-simple-captcha" == str(installed_package.key):
-                DJANGO_SIMPLE_CAPTCHA_INSTALLED = True
-                logger.error(
-                    "You have installed  the `django-simple-captcha` in your "
-                    "environment. At the moment you can't have both "
-                    "`django-simple-captcha` and `django-recaptcha` installed "
-                    "alongside due to app name collision (captcha). Remove "
-                    "both packages using pip uninstall and reinstall the"
-                    "`django-recaptcha` if you want to make use of the "
-                    "`fobi.contrib.plugins.form_elements.security.recaptcha` "
-                    "package."
-                )
-            if "django-recaptcha" == str(installed_package.key):
-                DJANGO_RECAPTCHA_INSTALLED = True
+        installed_packages = get_installed_packages()
+
+        if check_if_installed("django-simple-captcha", installed_packages):
+            DJANGO_SIMPLE_CAPTCHA_INSTALLED = True
+            logger.error(
+                "You have installed  the `django-simple-captcha` in your "
+                "environment. At the moment you can't have both "
+                "`django-simple-captcha` and `django-recaptcha` installed "
+                "alongside due to app name collision (captcha). Remove "
+                "both packages using pip uninstall and reinstall the"
+                "`django-recaptcha` if you want to make use of the "
+                "`fobi.contrib.plugins.form_elements.security.recaptcha` "
+                "package."
+            )
+        if check_if_installed("django-recaptcha", installed_packages):
+            DJANGO_RECAPTCHA_INSTALLED = True
 
         if DJANGO_RECAPTCHA_INSTALLED and not DJANGO_SIMPLE_CAPTCHA_INSTALLED:
             logger.error(
