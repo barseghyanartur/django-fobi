@@ -32,12 +32,12 @@ urlpatterns = [
     # wizard dashboard
     url(_(r'^wizards/$'),
         view=FormWizardDashboardView.as_view(),
-        name='fobi.class_based.form_wizards_dashboard'),
+        name='fobi.form_wizards_dashboard'),
 
     # form dashbaord
     url(_(r'^$'),
         view=FormDashboardView.as_view(),
-        name='fobi.class_based.dashboard'),
+        name='fobi.dashboard'),
 
     # ********************************************************************
     # ************************* Form Wizard Entry C**UD ******************
@@ -46,12 +46,12 @@ urlpatterns = [
     # create form wizard entry
     url(_(r'^wizard/create/$'),
         view=CreateFormWizardEntryView.as_view(),
-        name='fobi.class_based.create_form_wizard_entry'),
+        name='fobi.create_form_wizard_entry'),
 
     # edit form wizard entry
     url(_(r'^wizard/edit/(?P<form_wizard_entry_id>\d+)/$'),
         view=EditFormWizardEntryView.as_view(),
-        name='fobi.class_based.edit_form_wizard_entry'),
+        name='fobi.edit_form_wizard_entry'),
 
     # ************************************************************
     # **************************** Form Entry CUD*****************
@@ -60,17 +60,17 @@ urlpatterns = [
     # create form entry
     url(_(r'^forms/create/$'),
         view=CreateFormEntryView.as_view(),
-        name='fobi.class_based.create_form_entry'),
+        name='fobi.create_form_entry'),
 
     # edit form entry
     url(_(r'^forms/edit/(?P<form_entry_id>\d+)/$'),
         view=EditFormEntryView.as_view(),
-        name='fobi.class_based.edit_form_entry'),
+        name='fobi.edit_form_entry'),
 
     # Delete form entry
     url(_(r'^forms/delete/(?P<form_entry_id>\d+)/$'),
         view=DeleteFormEntryView.as_view(),
-        name='fobi.class_based.delete_form_entry'),
+        name='fobi.delete_form_entry'),
 
 
     # ************************************************************
@@ -81,17 +81,17 @@ urlpatterns = [
     url(_(r'^forms/elements/add/(?P<form_entry_id>\d+)/'
           r'(?P<form_element_plugin_uid>[\w_\-]+)/$'),
         view=AddFormElementEntryView.as_view(),
-        name='fobi.class_based.add_form_element_entry'),
+        name='fobi.add_form_element_entry'),
 
     # edit form element entry
     url(_(r'^forms/elements/edit/(?P<form_element_entry_id>\d+)/$'),
         view=EditFormElementEntryView.as_view(),
-        name='fobi.class_based.edit_form_element_entry'),
+        name='fobi.edit_form_element_entry'),
 
     # delete form element entry
     url(_(r'^forms/elements/delete/(?P<form_element_entry_id>\d+)/$'),
         view=DeleteFormElementEntryView.as_view(),
-        name='fobi.class_based.delete_form_element_entry'),
+        name='fobi.delete_form_element_entry'),
 
     # ***********************************************************************
     # *********************** Form handler entry CUD ************************
@@ -102,7 +102,7 @@ urlpatterns = [
     url(_(r'^forms/handlers/add/(?P<form_entry_id>\d+)/'
           r'(?P<form_handler_plugin_uid>[\w_\-]+)/$'),
         view=AddFormHandlerEntryView.as_view(),
-        name='fobi.class_based.add_form_handler_entry'),
+        name='fobi.add_form_handler_entry'),
 
 
     # ***********************************************************************
@@ -113,6 +113,6 @@ urlpatterns = [
     url(_(r'^wizard/forms/add/(?P<form_wizard_entry_id>\d+)/'
           r'(?P<form_entry_id>[\w_\-]+)/$'),
         view=AddFormWizardFormEntryView.as_view(),
-        name='fobi.class_based.add_form_wizard_form_entry'),
+        name='fobi.add_form_wizard_form_entry'),
 ]
 
