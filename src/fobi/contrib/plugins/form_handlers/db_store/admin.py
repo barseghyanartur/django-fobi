@@ -82,7 +82,7 @@ class SavedFormDataEntryAdmin(BaseSavedFormDataEntryAdmin):
         """Meta class."""
 
         app_label = _('Saved form data entry')
-    #
+
     # class Media:
     #     """Media class."""
     #
@@ -93,14 +93,6 @@ class SavedFormDataEntryAdmin(BaseSavedFormDataEntryAdmin):
     #             settings.STATIC_URL
     #         ),
     #     )
-    #
-    # def export_data(self, request, queryset):
-    #     """Export data into XLS."""
-    #     data_exporter = DataExporter(queryset)
-    #
-    #     return data_exporter.graceful_export()
-    #
-    # export_data.short_description = _('Export data to CSV/XLS')
 
 
 admin.site.register(SavedFormDataEntry, SavedFormDataEntryAdmin)
