@@ -2017,11 +2017,19 @@ passed as a context variable.
 
 .. code-block:: python
 
-    TEMPLATE_CONTEXT_PROCESSORS = (
-        # ...
-        "fobi.context_processors.dynamic_values",
-        # ...
-    )
+    TEMPLATES = [
+        {
+            # ...
+            'OPTIONS': {
+                # ...
+                'context_processors': [
+                    # ...
+                    "fobi.context_processors.theme",  # Important!
+                    "fobi.context_processors.dynamic_values",  # Optional
+                ]
+            },
+        },
+    ]
 
 .. code-block:: python
 
