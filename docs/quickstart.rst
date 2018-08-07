@@ -161,18 +161,33 @@ Putting all together, you would have something like this.
 TEMPLATE_CONTEXT_PROCESSORS
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^
 Add ``django.core.context_processors.request`` and
-``fobi.context_processors.theme`` to ``TEMPLATE_CONTEXT_PROCESSORS`` of
+``fobi.context_processors.theme`` to ``TEMPLATES`` of
 your ``settings`` module.
 
 .. code-block:: python
 
-    TEMPLATE_CONTEXT_PROCESSORS = (
-        # ...
-        "django.core.context_processors.request",
-        "fobi.context_processors.theme",  # Obligatory
-        "fobi.context_processors.dynamic_values",  # Optional
-        # ...
-    )
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [(os.path.join('path', 'to', 'your', 'templates'))],
+            'OPTIONS': {
+                'context_processors': [
+                    "django.template.context_processors.debug",
+                    'django.template.context_processors.request',
+                    "django.contrib.auth.context_processors.auth",
+                    "django.contrib.messages.context_processors.messages",
+                    "fobi.context_processors.theme",  # Important!
+                    "fobi.context_processors.dynamic_values",  # Optional
+                ],
+                'loaders': [
+                    'django.template.loaders.filesystem.Loader',
+                    'django.template.loaders.app_directories.Loader',
+                    'admin_tools.template_loaders.Loader',
+                ],
+                'debug': DEBUG_TEMPLATE,
+            }
+        },
+    ]
 
 urlpatterns
 ^^^^^^^^^^^
@@ -198,12 +213,11 @@ Add the following line to ``urlpatterns`` of your ``urls`` module.
 
 Update the database
 ^^^^^^^^^^^^^^^^^^^
-1. First you should be syncing/migrating the database. Depending on your
+1. First you should migrate the database. Depending on your
    Django version and migration app, this step may vary. Typically as follows:
 
 .. code-block:: sh
 
-    ./manage.py syncdb
     ./manage.py migrate --fake-initial
 
 2. Sync installed ``fobi`` plugins. Go to terminal and type the following
