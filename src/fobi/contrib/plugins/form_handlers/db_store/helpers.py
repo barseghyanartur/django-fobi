@@ -1,4 +1,5 @@
 import csv
+import logging
 
 from django.http import HttpResponse
 
@@ -23,6 +24,9 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2018 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('DataExporter',)
+
+
+LOGGER = logging.getLogger(__name__)
 
 
 class DataExporter(object):
@@ -57,7 +61,7 @@ class DataExporter(object):
         # Normal RDMBs
         try:
             qs = self.queryset.only(*only_args)
-            qs = qs.distinct('form_data_headers')
+            qs = qs.distinct('form_data_headers').order_by('form_data_headers')
             qs = [obj.form_data_headers for obj in qs]
 
         # Engines like SQLite
