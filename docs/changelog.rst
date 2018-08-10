@@ -15,6 +15,12 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.13.3
+------
+2018-07-10
+
+- Minor fixes admin export of form entries (Postgres).
+
 0.13.2
 ------
 2018-03-12
