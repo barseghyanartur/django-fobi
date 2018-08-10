@@ -1,7 +1,9 @@
-factory_boy==2.7.0
-fake-factory==0.7.2
-Faker==0.7.11
-pytest-cov==2.2.1
-pytest-django==2.9.1
-pytest==3.0.2
-tox==2.1.1
+factory_boy==2.11.1
+Faker==0.8.17
+py==1.5.4
+pytest-cov==2.5.1
+pytest-django==3.3.3
+pytest-ordering==0.5
+pytest==3.7.1
+selenium==2.53.6
+tox==3.1.2
