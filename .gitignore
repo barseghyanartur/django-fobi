@@ -14,6 +14,7 @@ ghostdriver.log
 /third_party/
 *.py,cover
 /.idea/
+/.pytest_cache/
 tags
 codebin.py
 examples/mezzanine_example/dev.db
