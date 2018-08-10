@@ -19,11 +19,12 @@ pickleshare==0.5
 Pillow==4.2.1
 pluggy==0.3.1
 ptyprocess==0.5
+psycopg2==2.7.5
 #py==1.4.31
 Pygments==2.0.2
 pytz==2015.6
 #requests==2.8.1
-selenium==2.53.6
+#selenium==2.53.6
 simplegeneric==0.8.1
 simplejson==3.8.0
 six==1.10.0
