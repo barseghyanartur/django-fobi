@@ -20,6 +20,7 @@ are used for versioning (schema follows below):
 2018-08-11
 
 - Django 2.1 support (initial).
+- Upgrade test suite.
 
 0.13.3
 ------
