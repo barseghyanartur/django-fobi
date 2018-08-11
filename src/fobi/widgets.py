@@ -83,7 +83,7 @@ class RichSelect(Select):
             else None
         super(RichSelect, self).__init__(attrs=attrs, choices=choices)
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, **kwargs):
         """Renders the element, having prepended and appended extra parts."""
         if self.override_name is not None:
             name = self.override_name
@@ -91,7 +91,8 @@ class RichSelect(Select):
         rendered_select = super(RichSelect, self).render(
             name=name,
             value=value,
-            attrs=attrs
+            attrs=attrs,
+            **kwargs
         )
 
         return mark_safe(
@@ -114,7 +115,7 @@ class RichSelectInverseQuotes(RichSelect):
                                'rich_select_inverse_option.html'
 
     elif versions.DJANGO_GTE_1_10:
-        def render(self, name, value, attrs=None):
+        def render(self, name, value, attrs=None, **kwargs):
             if self.override_name is not None:
                 name = self.override_name
 
