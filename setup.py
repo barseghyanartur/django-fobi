@@ -4,7 +4,7 @@ import sys
 from distutils.version import LooseVersion
 from setuptools import setup, find_packages
 
-version = '0.13.2'
+version = '0.13.4'
 
 # ***************************************************************************
 # ************************** Python version *********************************
@@ -317,7 +317,7 @@ if DJANGO_INSTALLED:
             'django-autoslug-iplweb',
             'django-formtools>=2.0',
             'django-nine>=0.1.13',
-            'django-nonefield>=0.1',
+            'django-nonefield>=0.3',
             # 'ordereddict>=1.1',
             'Pillow>=2.0.0',
             'requests>=1.0.0',
@@ -394,13 +394,12 @@ setup(
                 "customisable, modular, user- and developer- friendly.",
     long_description="{0}{1}".format(readme, screenshots),
     classifiers=[
-        # "Programming Language :: Python :: 2.6",
         "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        # "Programming Language :: Python :: 3.3",
         "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
+        "Programming Language :: Python :: 3.7",
         "Environment :: Web Environment",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
         "License :: OSI Approved :: GNU Lesser General Public License v2 or "

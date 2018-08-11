@@ -10,8 +10,8 @@ handling the submitted form data).
 
 Prerequisites
 =============
-- Django 1.8, 1.9, 1.10, 1.11 and 2.0.
-- Python 2.7, 3.4, 3.5, 3.6 and PyPy.
+- Django 1.8, 1.9, 1.10, 1.11, 2.0 and 2.1.
+- Python 2.7, 3.4, 3.5, 3.6, 3.7 and PyPy.
 
 Key concepts
 ============
@@ -271,22 +271,39 @@ Or latest stable version from BitBucket:
         # ...
     )
 
+(3) Make appropriate changes to the ``TEMPLATES`` of the your projects'
+    Django settings.
 
-(3) Make appropriate changes to the ``TEMPLATE_CONTEXT_PROCESSORS`` of the your
-    projects' Django settings.
-
-And the following to the context processors.
+And ``fobi.context_processors.theme`` and
+``fobi.context_processors.dynamic_values``. See the following example.
 
 .. code-block:: python
 
-    TEMPLATE_CONTEXT_PROCESSORS = (
-        # ...
-        "fobi.context_processors.theme",
-        # ...
-    )
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [(os.path.join('path', 'to', 'your', 'templates'))],
+            'OPTIONS': {
+                'context_processors': [
+                    "django.template.context_processors.debug",
+                    'django.template.context_processors.request',
+                    "django.contrib.auth.context_processors.auth",
+                    "django.contrib.messages.context_processors.messages",
+                    "fobi.context_processors.theme",  # Important!
+                    "fobi.context_processors.dynamic_values",  # Optional
+                ],
+                'loaders': [
+                    'django.template.loaders.filesystem.Loader',
+                    'django.template.loaders.app_directories.Loader',
+                    'admin_tools.template_loaders.Loader',
+                ],
+                'debug': DEBUG_TEMPLATE,
+            }
+        },
+    ]
 
 Make sure that ``django.core.context_processors.request`` is in
-``TEMPLATE_CONTEXT_PROCESSORS`` too.
+``context_processors`` too.
 
 (4) Configure URLs
 
@@ -2000,11 +2017,19 @@ passed as a context variable.
 
 .. code-block:: python
 
-    TEMPLATE_CONTEXT_PROCESSORS = (
-        # ...
-        "fobi.context_processors.dynamic_values",
-        # ...
-    )
+    TEMPLATES = [
+        {
+            # ...
+            'OPTIONS': {
+                # ...
+                'context_processors': [
+                    # ...
+                    "fobi.context_processors.theme",  # Important!
+                    "fobi.context_processors.dynamic_values",  # Optional
+                ]
+            },
+        },
+    ]
 
 .. code-block:: python
 

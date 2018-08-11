@@ -157,7 +157,7 @@ if getattr(settings, 'DEBUG', False) and \
         getattr(settings, 'DEBUG_TOOLBAR', False):
     import debug_toolbar
 
-    if versions.DJANGO_GTE_2_0:
+    if versions.DJANGO_GTE_2_2:
         urlpatterns = [
             url(r'^__debug__/', debug_toolbar.urls),
         ] + urlpatterns

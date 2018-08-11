@@ -53,7 +53,7 @@ def view_saved_form_data_entries(
     :param string template_name:
     :return django.http.HttpResponse:
     """
-    entries = SavedFormDataEntry._default_manager\
+    entries = SavedFormDataEntry._default_manager \
         .select_related('form_entry') \
         .filter(form_entry__user__pk=request.user.pk)
 
