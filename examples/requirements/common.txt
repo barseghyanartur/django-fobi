@@ -17,7 +17,7 @@ path.py==8.1.2
 pexpect==4.0.1
 pickleshare==0.5
 Pillow==4.2.1
-pluggy==0.3.1
+pluggy==0.7.1
 ptyprocess==0.5
 psycopg2==2.7.5
 #py==1.4.31
