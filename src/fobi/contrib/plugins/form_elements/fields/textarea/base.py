@@ -46,6 +46,6 @@ class TextareaPlugin(FormFieldPlugin):
             field_kwargs['max_length'] = self.data.max_length
         else:
             field_kwargs['max_length'] = None
-        field_kwargs['max_length'] = None
+        field_kwargs['min_length'] = None
 
         return [(self.data.name, CharField, field_kwargs)]
