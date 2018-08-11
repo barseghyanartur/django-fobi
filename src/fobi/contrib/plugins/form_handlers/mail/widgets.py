@@ -30,7 +30,10 @@ class MultiEmailWidget(Textarea):
             return MULTI_EMAIL_FIELD_VALUE_SPLITTER.join(value)
         raise ValidationError('Invalid format.')
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, **kwargs):
         """Render."""
         value = self.prep_value(value)
-        return super(MultiEmailWidget, self).render(name, value, attrs)
+        return super(MultiEmailWidget, self).render(name,
+                                                    value,
+                                                    attrs,
+                                                    **kwargs)
