@@ -41,7 +41,11 @@ class TextareaPlugin(FormFieldPlugin):
             'widget': Textarea(attrs=widget_attrs)
         }
 
-        if self.data.max_length is not None:
+        # if self.data.max_length is not None:
+        if self.data.max_length:
             field_kwargs['max_length'] = self.data.max_length
+        else:
+            field_kwargs['max_length'] = None
+        field_kwargs['max_length'] = None
 
         return [(self.data.name, CharField, field_kwargs)]

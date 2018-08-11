@@ -2752,14 +2752,14 @@ def assemble_form_field_widget_class(base_class, plugin):
             )
             return new_class
 
-        def render(self, name, value, attrs=None):
+        def render(self, name, value, attrs=None, **kwargs):
             """Smart render."""
             widget = plugin.get_widget()
             if widget.hasattr('render') and callable(widget.render):
                 return widget.render(name, value, attrs=attrs)
             else:
                 super(DeclarativeMetaclass, self).render(
-                    name, value, attrs=attrs
+                    name, value, attrs=attrs, **kwargs
                 )
 
     class WrappedWidget(with_metaclass(DeclarativeMetaclass, base_class)):
