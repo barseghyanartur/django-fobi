@@ -41,7 +41,15 @@ class SlugInputPlugin(FormFieldPlugin):
             'required': self.data.required,
             'widget': TextInput(attrs=widget_attrs),
         }
-        if self.data.max_length is not None:
-            field_kwargs['max_length'] = int(self.data.max_length)
+
+        if self.data.max_length:
+            try:
+                field_kwargs['max_length'] = int(self.data.max_length)
+            except ValueError:
+                field_kwargs['max_length'] = None
+        else:
+            field_kwargs['max_length'] = None
+
+        field_kwargs['min_length'] = None
 
         return [(self.data.name, SlugField, field_kwargs)]
