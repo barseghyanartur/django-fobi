@@ -1,4 +1,5 @@
 import os
+from nine.versions import *
 
 
 def gettext(s):
@@ -69,3 +70,8 @@ os.environ.setdefault(
     'FOBI_SOURCE_PATH',
     '/home/user/repose/django-fobi/src'
 )
+
+try:
+    from .loca_settings import TEST_DATABASES as DATABASES
+except:
+    pass

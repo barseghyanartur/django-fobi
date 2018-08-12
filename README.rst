@@ -2299,6 +2299,12 @@ Testing
 =======
 Project is covered by test (functional- and browser-tests).
 
+.. note::
+
+    You are recommended to use Postgres or MySQL for testing. Tests
+    occasionally fail on SQLite due to very intensive IO and SQLite table
+    locking.
+
 To test with all supported Python/Django versions type:
 
 .. code-block:: sh
@@ -2309,7 +2315,7 @@ To test against specific environment, type:
 
 .. code-block:: sh
 
-    tox -e pypy-django18
+    tox -e py37-django21
 
 To test just your working environment type:
 

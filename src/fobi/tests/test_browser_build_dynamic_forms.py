@@ -10,7 +10,7 @@ from nine.versions import DJANGO_GTE_1_10
 
 from . import constants
 from .base import BaseFobiBrowserBuldDynamicFormsTest
-from .core import print_info, skip
+from .core import print_info
 from .data import (
     TEST_FORM_ELEMENT_PLUGIN_DATA,
     TEST_FORM_FIELD_DATA,
@@ -482,7 +482,6 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
     # +++++++++++++++++++++++++++ General +++++++++++++++++++++++++++
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    @skip
     @print_info
     def test_1001_open_dashboard(self):
         """Test open dashboard."""
@@ -502,7 +501,6 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
     # ++++++++++++++++++++++ Form specific ++++++++++++++++++++++++++
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    @skip
     @print_info
     def test_2001_add_form(self):
         """Test add a new form."""
@@ -518,19 +516,16 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         #     )
         # )
 
-    @skip
     @print_info
     def test_2002_edit_form(self):
         """Test edit a form."""
         # TODO
 
-    @skip
     @print_info
     def test_2003_delete_form(self):
         """Test delete a form."""
         # TODO
 
-    @skip
     @print_info
     def test_2004_submit_form(self, wait=WAIT_FOR):
         """Test submit form."""
@@ -578,7 +573,6 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
 
         self._sleep(wait)
 
-
 # class FormElementSpecificFobiBrowserBuldDynamicFormsTest(
 #         BaseFobiBrowserBuldDynamicFormsTest):
 #     """Form element specific."""
@@ -587,18 +581,15 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
     # ++++++++++++++++++++ Form element specific ++++++++++++++++++++
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    @skip
     @print_info
     def test_3001_add_form_elements(self, wait=WAIT_FOR):
         """Test adding form elements."""
-        # Clean up database
-        db_clean_up()
+        db_clean_up()  # Clean up database
 
         self._test_add_form_elements(create_form=True)
 
         self._sleep(wait)
 
-    @skip
     @print_info
     def test_3002_remove_form_elements(self):
         """Test remove form element."""
@@ -609,10 +600,10 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
 
         self._test_remove_form_elements()
 
-    @skip
     @print_info
     def test_3003_edit_form_elements(self):
         """Test edit form element."""
+        db_clean_up()  # Clean up database
 
 
 # class FormHandlerSpecificFobiBrowserBuldDynamicFormsTest(
@@ -623,32 +614,27 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
     # ++++++++++++++++++++ Form handler specific ++++++++++++++++++++
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    @skip
     @print_info
     def test_4001_add_form_handlers(self, wait=WAIT_FOR):
         """Test of adding a single form handler.
 
         At this point, if form isn't created, it should be.
         """
-        # Clean up database
-        db_clean_up()
+        db_clean_up()  # Clean up database
 
         self._test_add_form_handlers(create_form=True)
 
         self._sleep(wait)
 
-    @skip
     @print_info
     def test_4002_remove_form_handlers(self):
         """Test remove form handler."""
-        # Clean up database
-        db_clean_up()
+        db_clean_up()  # Clean up database
 
         self._test_add_form_handlers(create_form=True)
 
         self._test_remove_form_handlers()
 
-    @skip
     @print_info
     def test_4003_edit_form_handlers(self):
         """Test edit form handler."""

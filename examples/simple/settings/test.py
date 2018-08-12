@@ -71,12 +71,16 @@ DEBUG_TOOLBAR = False
 DATABASES = {
     'default': {
         # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'ENGINE': 'django.db.backends.sqlite3',
-        # Or path to database file if using sqlite3.
-        'NAME': PROJECT_DIR('../../db/example.db'),
-        # The following settings are not used with sqlite3:
-        'USER': '',
-        'PASSWORD': '',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'fobi',
+        'USER': 'postgres',
+        'PASSWORD': 'test',
+
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': PROJECT_DIR('../../db/example.db'),
+        # 'USER': '',
+        # 'PASSWORD': '',
+
         # Empty for localhost through domain sockets or '127.0.0.1' for
         # localhost through TCP.
         'HOST': '',
@@ -85,6 +89,11 @@ DATABASES = {
     }
 }
 
+# Conditionally choosing the right postgres engine
+if DJANGO_GTE_1_11:
+    DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
+else:
+    DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
 
 # FeinCMS addons
 
@@ -103,3 +112,8 @@ MIGRATION_MODULES = {
     'db_store': 'fobi.contrib.plugins.form_handlers.db_store.migrations',
     'page': 'page.migrations',
 }
+
+try:
+    from .loca_settings import TEST_DATABASES as DATABASES
+except:
+    pass
