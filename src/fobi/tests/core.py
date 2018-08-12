@@ -9,10 +9,10 @@ __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'PRINT_INFO',
     'print_info',
-    'fobi_setup',
+    'app_setup',
     'skip',
-    'is_fobi_setup_completed',
-    'mark_fobi_setup_as_completed',
+    'is_app_setup_completed',
+    'mark_app_setup_as_completed',
 )
 
 # ****************************************************************************
@@ -62,7 +62,7 @@ def skip(func):
     return inner
 
 
-class FobiSetup(object):
+class AppSetup(object):
     """Setup fobi.
 
     Basic setup class in order to avoid the fobi test data
@@ -73,14 +73,14 @@ class FobiSetup(object):
         self.is_done = False
 
 
-fobi_setup = FobiSetup()
+app_setup = AppSetup()
 
 
-def is_fobi_setup_completed():
+def is_app_setup_completed():
     """Is fobi setup completed?"""
-    return fobi_setup.is_done is True
+    return app_setup.is_done is True
 
 
-def mark_fobi_setup_as_completed():
+def mark_app_setup_as_completed():
     """Mark fobi setup as completed."""
-    fobi_setup.is_done = True
+    app_setup.is_done = True

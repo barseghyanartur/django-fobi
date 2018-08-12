@@ -591,6 +591,7 @@ TEST_DYNAMIC_FORMS_DEFINITION_DATA = OrderedDict([
             '{'
             '"name": "bio", '
             '"required": true, '
+            # '"max_length": null',
             '"label": "Biography"'
             '}'
         )
@@ -690,6 +691,7 @@ TEST_DYNAMIC_FORMS_OPTIONS_RESPONSE = OrderedDict([
                                          (u'label', u'Number of children')])),
     (u'bio', OrderedDict([(u'type', u'string'),
                           (u'required', True),
+                          # (u'max_length', None),
                           (u'read_only', False),
                           (u'label', u'Biography')])),
     # (u'unicode_name', OrderedDict([(u'type', u'string'),

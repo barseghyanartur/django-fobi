@@ -9,7 +9,7 @@ from .data import TEST_DYNAMIC_FORMS_DEFINITION_DATA
 from .helpers import (
     create_form_with_entries,
     get_or_create_admin_user,
-    setup_fobi,
+    setup_app,
 )
 
 __title__ = 'fobi.tests.test_dynamic_forms'
@@ -24,7 +24,7 @@ class FobiDynamicFormsTest(TestCase):
 
     def setUp(self):
         """Set up."""
-        setup_fobi(fobi_sync_plugins=True)
+        setup_app(fobi_sync_plugins=True)
         self.user = get_or_create_admin_user()
         self.form_entry = create_form_with_entries(
             self.user,

@@ -15,7 +15,7 @@ from fobi.forms import FormEntryForm
 
 from .core import print_info
 from .constants import TEST_FORM_NAME, TEST_FORM_SLUG
-from .helpers import setup_fobi, get_or_create_admin_user
+from .helpers import setup_app, get_or_create_admin_user
 
 __title__ = 'fobi.tests.test_core'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -29,7 +29,7 @@ class FobiCoreTest(TestCase):
 
     def setUp(self):
         """Set up."""
-        setup_fobi(fobi_sync_plugins=True)
+        setup_app(fobi_sync_plugins=True)
 
     @print_info
     def test_01_get_registered_form_element_plugins(self):

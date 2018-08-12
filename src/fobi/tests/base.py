@@ -13,7 +13,7 @@ from nine.versions import DJANGO_GTE_1_10
 
 from . import constants
 from .helpers import (
-    setup_fobi,
+    setup_app,
     get_or_create_admin_user,
     phantom_js_clean_up,
 )
@@ -85,7 +85,7 @@ class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         else:
             cls.driver = webdriver.Firefox()
 
-        setup_fobi(fobi_sync_plugins=True)
+        setup_app(fobi_sync_plugins=True)
         # user = get_or_create_admin_user()
         # create_form_with_entries(user)
 
