@@ -180,6 +180,7 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
         'label': "Test select",
         'help_text': "Lorem ipsum text input",
         'required': False,
+        'choices': "1{s}2{s}alpha, Alpha{s}beta".format(s=os.linesep),
     },
 
     # Add a "Select model object" (select input) form element
@@ -194,6 +195,7 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
         'label': "Test select multiple input",
         'help_text': "Lorem ipsum select multiple input",
         'required': False,
+        'choices': "1{s}2{s}alpha, Alpha{s}beta".format(s=os.linesep),
     },
 
     # Add a "Select multiple with max" (select multiple with max input) form
@@ -202,6 +204,7 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
         'label': "Test select multiple with max input",
         'help_text': "Lorem ipsum select multiple with max input",
         'required': False,
+        'choices': "1{s}2{s}alpha, Alpha{s}beta".format(s=os.linesep),
     },
 
     # Add a "Checkbox select multiple" (checkbox select multiple input) form
@@ -210,6 +213,7 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
         'label': "Test checkbox select multiple input",
         'help_text': "Lorem ipsum checkbox select multiple input",
         'required': False,
+        'choices': "1{s}2{s}alpha, Alpha{s}beta".format(s=os.linesep),
     },
 
     # Add a "Slug" (slug input) form element
