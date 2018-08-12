@@ -45,7 +45,9 @@ class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
     Backed up by selenium. This test is based on the bootstrap3 theme.
     """
 
+    reset_sequences = True
     cleans_up_after_itself = True
+
     try:
         LIVE_SERVER_URL = settings.LIVE_SERVER_URL
     except Exception as e:
@@ -54,11 +56,13 @@ class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
     def tearDown(self):
         """Tear down."""
         super(BaseFobiBrowserBuldDynamicFormsTest, self).tearDown()
-        call_command('flush', verbosity=0, interactive=False,
-                     reset_sequences=False,
-                     allow_cascade=False,
+        call_command('flush',
+                     verbosity=0,
+                     interactive=False,
+                     reset_sequences=True,
+                     allow_cascade=True,
                      inhibit_post_migrate=False)
-        gc.collect()
+        # gc.collect()
 
     @classmethod
     def setUpClass(cls):
@@ -97,11 +101,13 @@ class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
             print(err)
 
         super(BaseFobiBrowserBuldDynamicFormsTest, cls).tearDownClass()
-        call_command('flush', verbosity=0, interactive=False,
-                     reset_sequences=False,
-                     allow_cascade=False,
+        call_command('flush',
+                     verbosity=0,
+                     interactive=False,
+                     reset_sequences=True,
+                     allow_cascade=True,
                      inhibit_post_migrate=False)
-        gc.collect()
+        # gc.collect()
 
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
