@@ -16,7 +16,7 @@ __all__ = ('MarkdownWidget',)
 class MarkdownWidget(Textarea):
     """Markdown widget based on remarkable."""
 
-    def render(self, name, value, attrs=None):
+    def render(self, name, value, attrs=None, **kwargs):
         if value is None:
             value = ''
 

@@ -187,14 +187,18 @@ def create_form_with_entries(user=None,
     return form_entry
 
 
-def db_clean_up():
+def db_clean_up(clean_form=False, clean_elements=True, clean_handlers=True):
     """Clean up the database.
 
     Clean up the database by removing all form element and form handler
     entries.
     """
-    FormElementEntry._default_manager.all().delete()
-    FormHandlerEntry._default_manager.all().delete()
+    if clean_form:
+        FormEntry._default_manager.all().delete()
+    if clean_elements:
+        FormElementEntry._default_manager.all().delete()
+    if clean_handlers:
+        FormHandlerEntry._default_manager.all().delete()
 
 
 def phantom_js_clean_up():
