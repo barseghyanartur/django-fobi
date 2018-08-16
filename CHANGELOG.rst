@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.13.6
+------
+2018-08-16
+
+- Completely wiping out ``django-autoslug`` in requirements (for now it has
+  been replaced with ``django-autoslug-iplweb``).
+
 0.13.5
 ------
 2018-08-12
@@ -457,14 +464,14 @@ hesitate to `contact her <mailto:anahit.gardishyan@gmail.com>`_.
     written custom form element plugins - update your code.
 
 - Added `form_entry_elements` and `kwargs` to the `submit_plugin_form_data`
-  method of the form element plugins. Make sure to update your custom 
+  method of the form element plugins. Make sure to update your custom
   plugins if you have written any.
 - Added tests for mailchimp integration plugin.
-- Moving all plugins to base submodules of the correspondent sub 
+- Moving all plugins to base submodules of the correspondent sub
   packages.
 - Add missing whitespace to the ``help_text`` of the ``title`` field of
   ``FormEntry`` and ``FormWizardEntry`` models.
-- Disable GoogleAnalytics while testing (guess what - this change speeds up 
+- Disable GoogleAnalytics while testing (guess what - this change speeds up
   selenium tests twice).
 - Docs updated.
 - Helper scripts updated.
@@ -979,7 +986,7 @@ Existing files
 ------
 2015-08-20
 
-- Minor improvements of the dynamic values feature. Forbid usage of django 
+- Minor improvements of the dynamic values feature. Forbid usage of django
   template tags in initial values.
 
 0.5.10
@@ -1170,7 +1177,7 @@ Existing files
 ------
 2015-03-13
 
-- Fix improperly picked configurations of the 
+- Fix improperly picked configurations of the
   `fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects`
   plugin.
 - Long identifiers of models can now be safely used in foreign key plugins
@@ -1197,11 +1204,11 @@ Existing files
 ------
 2015-03-12
 
-- Temporary allow the `fobi.contrib.plugins.form_handlers.db_store` plugin to 
+- Temporary allow the `fobi.contrib.plugins.form_handlers.db_store` plugin to
   be used multiple times per form, until the bug with not being able to assign
   the `db_store` plugin to the form due to incorrect handling of restrictions
   (``allow_multiple``) introduced in previous version is properly fixed.
-- From now it's possible to have some control/configure the following plugins 
+- From now it's possible to have some control/configure the following plugins
   for the submitted value:
 
       * fobi.contrib.plugins.form_elements.fields.radio
@@ -1261,7 +1268,7 @@ Existing files
 2015-03-03
 
 - Fix replace system-specific path separator by a slash on file urls.
-- Fix empty options appearing in the Select-like (`radio`,  `select` and 
+- Fix empty options appearing in the Select-like (`radio`,  `select` and
   `select_multiple`) plugins and unified the processing of the raw choices
   data.
 - Validate the initial value for Select-like (`radio`,  `select` and
@@ -1296,7 +1303,7 @@ Existing files
 2015-02-15
 
 - Some more work on future (Django 1.9) compatibility.
-- Replace bits of backwards-/forwards- compatibility code with equal code 
+- Replace bits of backwards-/forwards- compatibility code with equal code
   parts of ``django-nine``.
 
 0.4.18
@@ -1429,8 +1436,8 @@ Existing files
 -----
 2014-12-04
 
-- Helper script (management command) in order to migrate django-fobi==0.3.* 
-  data to django-fobi==0.4.* data (caused by renaming the ``birthday`` field 
+- Helper script (management command) in order to migrate django-fobi==0.3.*
+  data to django-fobi==0.4.* data (caused by renaming the ``birthday`` field
   to ``date_drop_down`` - see the release notes of 0.4 below). Follow the steps
   precisely in order to painlessly upgrade your django-fobi==0.3.* to
   django-fobi==0.4.*:
@@ -1446,7 +1453,7 @@ Existing files
      .. code-block:: python
 
          'fobi.contrib.plugins.form_elements.fields.birthday'
-         
+
      to:
 
      .. code-block:: python
@@ -1479,7 +1486,7 @@ Existing files
     carefully (UPDATE 2014-12-04: the django-fobi==0.4.2 contains a management
     command which makes the necessary changes in the database for safe upgrade).
 
-- The ``captcha`` field has been moved from 
+- The ``captcha`` field has been moved from
   ``fobi.contrib.plugins.form_elements.fields.captcha`` to
   ``fobi.contrib.plugins.form_elements.security.captcha``. Make sure to update
   the package paths in ``INSTALLED_APPS`` of your projects' settings module
@@ -1495,7 +1502,7 @@ Existing files
   in ``INSTALLED_APPS`` settings module (settings.py) before upgrading to this
   version. Then, in Django admin management interface, replace all the
   occurrences of ``Birthday`` field with ``Date drop down`` field.
-- Better error validation/handling of hidden fields. A new form snippet 
+- Better error validation/handling of hidden fields. A new form snippet
   template added for displaying the non-field and hidden fields errors. The new
   template makes a part of a standard theme as an attribute
   ``form_non_field_and_hidden_errors_snippet_template``.
@@ -1511,7 +1518,7 @@ Existing files
 2014-11-23
 
 - New settings ``FOBI_FAIL_ON_ERRORS_IN_FORM_ELEMENT_PLUGINS`` and
-  ``FOBI_FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS`` introduced. They do as 
+  ``FOBI_FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS`` introduced. They do as
   their name tells. Default value for both is False.
 - Fixed exceptions raised when unicode characters were used as form names.
 - Fixed exceptions raised when unicode characters were used as field labels.
@@ -1555,7 +1562,7 @@ Existing files
   renamed to ``fobi.contrib.plugins.form_elements.content.content_text``.
   The ``fobi.contrib.plugins.form_elements.content.video`` plugin has been
   renamed to ``fobi.contrib.plugins.form_elements.content.content_video``.
-  If you have used any of the above mentioned plugins, make sure to update 
+  If you have used any of the above mentioned plugins, make sure to update
   the app paths in the ``settings`` module of your project.
 - The ``fobi.contrib.plugins.form_elements.content.dummy`` plugin has been moved
   to ``fobi.contrib.plugins.form_elements.test.dummy`` location. If you have
@@ -1581,7 +1588,7 @@ Existing files
 - Minor improvements of the ``simple`` theme. Make sure that custom
   form handler actions are properly shown in the form handlers list.
 - Make it possible to fail silently on missing form element or form
-  handler plugins by setting the respected values to False: 
+  handler plugins by setting the respected values to False:
   ``FOBI_FAIL_ON_MISSING_FORM_ELEMENT_PLUGINS``,
   ``FOBI_FAIL_ON_MISSING_FORM_HANDLER_PLUGINS``. Otherwise an appropriate
   exception is raised.
@@ -1592,13 +1599,13 @@ Existing files
 
 Note, that this release contains minor backwards incompatible changes.
 
-- Minor (backwards incompatible) changes in the form handler plugin API. 
+- Minor (backwards incompatible) changes in the form handler plugin API.
   From now on both ``custom_actions`` and ``get_custom_actions`` methods
   accept ``form_entry`` (obligatory) and ``request`` (optional) arguments. If
   you have written your own or have changed existing form handler plugins
   with use of one of the above mentioned methods, append those arguments to
   the method declarations when upgrading to this version. If you haven't
-  written your own or changed existing form handler plugins, you may just 
+  written your own or changed existing form handler plugins, you may just
   upgrade to this version.
 - Added data export features to the ``db_store`` plugin.
 - Minor fixes in ``db_store`` plugin.
@@ -1617,7 +1624,7 @@ Note, that this release contains minor backwards incompatible changes.
   is used. For a success page the ``embed_form_entry_submitted_ajax_template``
   template would be used.
 - Functional improvements of the FeinCMS integration (the widget). If you
-  have used the FeinCMS widget of earlier versions, you likely want to update 
+  have used the FeinCMS widget of earlier versions, you likely want to update
   to this one. From now on you can select a custom form title and the button
   text, as well as provide custom success page title and the success  message;
   additionally, it has been made possible to hide the form- or success-page-
