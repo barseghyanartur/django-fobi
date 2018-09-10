@@ -8,8 +8,12 @@ from django.utils.translation import ugettext_lazy as _
 
 from fobi.integration.processors import IntegrationProcessor
 
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
-from wagtail.wagtailcore.models import Page
+try:
+    from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
+    from wagtail.wagtailcore.models import Page
+except ImportError: # since wagtail 2.x changes
+    from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
+    from wagtail.core.models import Page
 
 from .helpers import (
     get_form_template_choices,
