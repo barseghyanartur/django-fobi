@@ -90,7 +90,7 @@ DATABASES = {
 }
 
 # Conditionally choosing the right postgres engine
-if DJANGO_GTE_1_11:
+if versions.DJANGO_GTE_1_11:
     DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
 else:
     DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
