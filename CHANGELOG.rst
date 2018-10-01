@@ -15,6 +15,12 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.13.7
+------
+2018-10-01
+
+- Make fobi wagtail integration work with wagtail 2.
+
 0.13.6
 ------
 2018-08-16
