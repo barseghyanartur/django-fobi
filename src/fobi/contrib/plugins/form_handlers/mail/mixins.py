@@ -63,6 +63,9 @@ class MailHandlerMixin(object):
                         if hasattr(value, 'isoformat') \
                         else value
 
+                if isinstance(value, list):
+                    cleaned_data[key] = ', '.join([safe_text(v) for v in value])
+
             label = field_name_to_label_map.get(key, key)
             rendered_data.append('{0}: {1}\n'.format(
                 safe_text(label), safe_text(cleaned_data[key]))
