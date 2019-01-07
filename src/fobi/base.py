@@ -192,7 +192,6 @@ class BaseTheme(object):
     project_name = _("Build your forms")  # Project name
     footer_text = ''  # '&copy; Company 2014'
 
-    
 
     # ***********************************************************************
     # ***********************************************************************
@@ -238,7 +237,6 @@ class BaseTheme(object):
 
     dashboard = 'fobi.dashboard'
     form_wizards_dashboard = 'fobi.form_wizards_dashboard'
-    
 
 
     # ***********************************************************************
@@ -3096,7 +3094,13 @@ def get_cleaned_data(form, keys_to_remove=[], values_to_remove=[]):
         values=values_to_remove
     )
 
-    return cleaned_data
+    # Order cleaned data
+    ordered_cleaned_data = OrderedDict()
+    for key in form.fields.keys():
+        if key in cleaned_data:
+            ordered_cleaned_data[key] = cleaned_data[key]
+
+    return ordered_cleaned_data
 
 
 def get_field_name_to_label_map(form, keys_to_remove=[], values_to_remove=[]):
