@@ -15,6 +15,12 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.13.8
+------
+2019-01-07
+
+- Make it easier to redirect to a new URL (on success) in integration apps.
+
 0.13.7
 ------
 2018-10-01

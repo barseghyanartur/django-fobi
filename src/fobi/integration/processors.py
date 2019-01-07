@@ -95,6 +95,19 @@ class IntegrationProcessor(object):
         """Get login required template name."""
         return self.login_required_template_name or None
 
+    def get_process_form_redirect_url(self, request, instance):
+        """Get process form redirect URL (success).
+
+        :param django.http.HttpRequest request:
+        :param fobi.models.FormEntry instance:
+        :return str:
+        """
+        return "{0}?{1}={2}".format(
+            request.path,
+            self.form_sent_get_param,
+            instance.form_entry.slug
+        )
+
     def _process_form(self, request, instance, **kwargs):
         """Process form.
 
@@ -195,9 +208,7 @@ class IntegrationProcessor(object):
 
                 if self.can_redirect:
                     return redirect(
-                        "{0}?{1}={2}".format(request.path,
-                                             self.form_sent_get_param,
-                                             instance.form_entry.slug)
+                        self.get_process_form_redirect_url(request, instance)
                     )
                 else:
                     return self._show_thanks_page(request, instance, **kwargs)
