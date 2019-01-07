@@ -11,12 +11,7 @@
     <ul class="title-area">
 
         <li class="name">
-            <h1>
-            {% url 'fobi.dashboard' as fobi_dashboard_url %}
-            <a href="{{ fobi_dashboard_url }}">
-            {{ fobi_theme.project_name }}
-            </a>
-            </h1>
+            <h1><a href="{% url 'fobi.dashboard' %}">{{ fobi_theme.project_name }}</a></h1>
         </li>
 
         <li class="toggle-topbar menu-icon"><a href="#"><span>menu</span></a></li>
@@ -86,10 +81,7 @@
             <!-- Title Area -->
 
             <li class="name">
-              {% url 'fobi.dashboard' as fobi_dashboard_url %}
-              <h1>
-                <a href="{{ fobi_dashboard_url }}">{{ fobi_theme.project_name }}</a>
-              </h1>
+              <h1><a href="{% url 'fobi.dashboard' %}">{{ fobi_theme.project_name }}</a></h1>
             </li>
 
             <li class="toggle-topbar menu-icon">
