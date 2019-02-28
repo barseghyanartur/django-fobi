@@ -15,6 +15,12 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.13.10
+-------
+2019-02-28
+
+- Add `mail_sender` DRF integration plugin.
+
 0.13.9
 ------
 2019-02-28

@@ -5746,7 +5746,7 @@ Installation
     values: "val", "repr" or "mix" to get the desired behaviour.
 
 Usage
------
+~~~~~
 You should be entering a single choice per line. Choice might
 consist of just a single value or value/label pair.
 
@@ -6350,7 +6350,7 @@ Installation
     following values: "val", "repr" or "mix" to get the desired behaviour.
 
 Usage
------
+~~~~~
 You should be entering a single choice per line. Choice might
 consist of just a single value or value/label pair. If you enter an integer in
 the 'max_choices' field, the user can choose only <max_choices> or less choices.
