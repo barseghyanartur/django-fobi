@@ -265,6 +265,7 @@ Or latest stable version from BitBucket:
         'fobi.contrib.plugins.form_handlers.db_store',
         'fobi.contrib.plugins.form_handlers.http_repost',
         'fobi.contrib.plugins.form_handlers.mail',
+        'fobi.contrib.plugins.form_handlers.mail_sender',
 
         # Other project specific apps
         'foo', # Test app
@@ -1543,6 +1544,9 @@ README.rst file in directory of each plugin for details.
 - `Mail
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/mail/>`__:
   Send the form data by email.
+- `Mail the sender
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/mail_sender/>`__:
+  Send the form data by email to the sender (submitter) of the form.
 
 Integration with third-party apps and frameworks
 ================================================
@@ -1940,6 +1944,9 @@ in directory of each plugin for details.
 - `Mail
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/mail/>`__:
   Send the form data by email.
+- `Mail the sender
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/mail_sender/>`__:
+  Send the form data by email to the sender.
 
 Bundled themes
 --------------
@@ -5739,7 +5746,7 @@ Installation
     values: "val", "repr" or "mix" to get the desired behaviour.
 
 Usage
------
+~~~~~
 You should be entering a single choice per line. Choice might
 consist of just a single value or value/label pair.
 
@@ -6343,7 +6350,7 @@ Installation
     following values: "val", "repr" or "mix" to get the desired behaviour.
 
 Usage
------
+~~~~~
 You should be entering a single choice per line. Choice might
 consist of just a single value or value/label pair. If you enter an integer in
 the 'max_choices' field, the user can choose only <max_choices> or less choices.
