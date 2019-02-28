@@ -265,6 +265,7 @@ Or latest stable version from BitBucket:
         'fobi.contrib.plugins.form_handlers.db_store',
         'fobi.contrib.plugins.form_handlers.http_repost',
         'fobi.contrib.plugins.form_handlers.mail',
+        'fobi.contrib.plugins.form_handlers.mail_sender',
 
         # Other project specific apps
         'foo', # Test app
@@ -1943,6 +1944,9 @@ in directory of each plugin for details.
 - `Mail
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/mail/>`__:
   Send the form data by email.
+- `Mail the sender
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/mail_sender/>`__:
+  Send the form data by email to the sender.
 
 Bundled themes
 --------------
