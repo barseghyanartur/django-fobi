@@ -534,6 +534,7 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
 
         # Add form elements
         self._test_add_form_elements(create_form=True)
+        self._test_add_form_handlers(create_form=False)
 
         # self._sleep(wait)
 
