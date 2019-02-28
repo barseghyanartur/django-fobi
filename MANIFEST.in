@@ -51,6 +51,7 @@ recursive-include src/fobi/contrib/plugins/form_elements/content/content_image_u
 
 recursive-include src/fobi/contrib/plugins/form_handlers/db_store/templates *
 recursive-include src/fobi/contrib/plugins/form_handlers/mail/templates *
+recursive-include src/fobi/contrib/plugins/form_handlers/mail_sender/templates *
 recursive-include src/fobi/contrib/plugins/form_handlers/http_repost/templates *
 
 recursive-include src/fobi/contrib/plugins/form_importers/mailchimp_importer/templates *

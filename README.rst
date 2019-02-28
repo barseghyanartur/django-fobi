@@ -1543,6 +1543,9 @@ README.rst file in directory of each plugin for details.
 - `Mail
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/mail/>`__:
   Send the form data by email.
+- `Mail the sender
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/mail_sender/>`__:
+  Send the form data by email to the sender (submitter) of the form.
 
 Integration with third-party apps and frameworks
 ================================================

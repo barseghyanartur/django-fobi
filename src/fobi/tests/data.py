@@ -69,6 +69,8 @@ from fobi.contrib.plugins.form_handlers \
 from fobi.contrib.plugins.form_handlers \
          .mail.fobi_form_handlers import MailHandlerPlugin
 from fobi.contrib.plugins.form_handlers \
+         .mail_sender.fobi_form_handlers import MailSenderHandlerPlugin
+from fobi.contrib.plugins.form_handlers \
          .http_repost.fobi_form_handlers import HTTPRepostHandlerPlugin
 
 __title__ = 'fobi.tests.data'
@@ -95,13 +97,6 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
         'help_text': "Lorem ipsum boolean",
         'required': False,
     },
-
-    # Add a "Select multiple" (select multiple input) form elelement
-    # force_text(CheckboxSelectMultipleInputPlugin.name): {
-    #     'label': "Test checkbox select multiple input",
-    #     'help_text': "Lorem ipsum select multiple input",
-    #     'required': False,
-    # },
 
     # Add a "Date" input form element
     force_text(DateInputPlugin.name): {
@@ -289,6 +284,14 @@ TEST_FORM_HANDLER_PLUGIN_DATA = {
         'from_email': "from@example.com",
         'to_name': "To you",
         'to_email': "to@example.com",
+        'subject': "Test email subject",
+        'body': "Test email body",
+    },
+    force_text(MailSenderHandlerPlugin.name): {
+        'from_name': "From me",
+        'from_email': "from@example.com",
+        'to_name': "To you",
+        'form_field_name_to_email': "test_email_input",
         'subject': "Test email subject",
         'body': "Test email body",
     },

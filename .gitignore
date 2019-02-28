@@ -18,6 +18,7 @@ ghostdriver.log
 tags
 codebin.py
 examples/mezzanine_example/dev.db
+geckodriver.log
 
 MANIFEST.in~
 MIND_BUCKET.rst

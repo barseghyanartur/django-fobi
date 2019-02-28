@@ -4,7 +4,7 @@ import sys
 from distutils.version import LooseVersion
 from setuptools import setup, find_packages
 
-version = '0.13.8'
+version = '0.13.9'
 
 # ***************************************************************************
 # ************************** Python version *********************************
@@ -139,6 +139,9 @@ template_dirs = [
 
     # Mail
     "src/fobi/contrib/plugins/form_handlers/mail/templates/mail",
+
+    # Mail sender
+    "src/fobi/contrib/plugins/form_handlers/mail_sender/templates/mail_sender",
 
     # Http re-post
     "src/fobi/contrib/plugins/form_handlers/http_repost/templates/"

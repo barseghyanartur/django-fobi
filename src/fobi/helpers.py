@@ -62,6 +62,7 @@ __all__ = (
     'do_slugify',
     'empty_string',
     'ensure_unique_filename',
+    'extract_file_path',
     'flatatt_inverse_quotes',
     'get_app_label_and_model_name',
     'get_form_element_entries_for_form_wizard_entry',

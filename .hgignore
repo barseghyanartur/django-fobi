@@ -13,6 +13,7 @@ syntax: regexp
 \.py,cover
 \.idea/
 \.pytest_cache/
+\geckodriver\.log
 
 ^MANIFEST\.in~
 ^tmp/
