@@ -705,6 +705,12 @@ Defining the Sample mail handler plugin.
                 fail_silently=True
             )
 
+Register the plugin
+
+.. code-block:: python
+
+    form_handler_plugin_registry.register(SampleMailHandlerPlugin)
+
 Some form handlers are configurable, some others not. In order to
 have a user friendly way of showing the form handler settings, what's
 sometimes needed, a ``plugin_data_repr`` method has been introduced.
