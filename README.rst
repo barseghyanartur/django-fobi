@@ -695,7 +695,7 @@ Defining the Sample mail handler plugin.
         name = _("Sample mail")
         form = SampleMailForm
 
-        def run(self, form_entry, request, form):
+        def run(self, form_entry, request, form, form_element_entries=None):
             """To be executed by handler."""
             send_mail(
                 self.data.subject,
