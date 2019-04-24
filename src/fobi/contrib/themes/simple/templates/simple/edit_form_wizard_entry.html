@@ -1,6 +1,10 @@
 {% extends "fobi/generic/edit_form_wizard_entry.html" %}
 
-{% load i18n admin_static %}
+{% if VERSIONS.DJANGO_GTE_2_1 %}
+    {% load i18n static %}
+{% else %}
+    {% load i18n admin_static %}
+{% endif %}
 
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="{% static 'admin/css/changelists.css' %}" />
