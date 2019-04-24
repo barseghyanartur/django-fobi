@@ -2468,26 +2468,26 @@ msgid ""
 "^wizard/handlers/add/(?P<form_wizard_entry_id>\\d+)/(?"
 "P<form_wizard_handler_plugin_uid>[\\w_\\-]+)/$"
 msgstr ""
-"^ assistant/gestionnaires/ajouter/(?P<form_wizard_entry_id>\\d+)/(?"
+"^assistant/gestionnaires/ajouter/(?P<form_wizard_entry_id>\\d+)/(?"
 "P<form_wizard_handler_plugin_uid>[\\w_\\-]+)/$"
 
 #: urls/edit.py:167
 msgid "^wizard/handlers/edit/(?P<form_wizard_handler_entry_id>\\d+)/$"
 msgstr ""
-"^ assistant/gestionnaires/modifier/(?P<form_wizard_handler_entry_id>\\d+)/$"
+"^assistant/gestionnaires/modifier/(?P<form_wizard_handler_entry_id>\\d+)/$"
 
 #: urls/edit.py:172
 msgid "^wizard/handlers/delete/(?P<form_wizard_handler_entry_id>\\d+)/$"
 msgstr ""
-"^ assistant/gestionnaires/supprimer/(?P<form_wizard_handler_entry_id>\\d+)/$"
+"^assistant/gestionnaires/supprimer/(?P<form_wizard_handler_entry_id>\\d+)/$"
 
 #: urls/edit.py:181
 msgid "^wizard/export/(?P<form_wizard_entry_id>\\d+)/$"
-msgstr "^ assistant/exporter/(?P<form_wizard_entry_id>\\d+)/$"
+msgstr "^assistant/exporter/(?P<form_wizard_entry_id>\\d+)/$"
 
 #: urls/edit.py:186
 msgid "^wizard/import/$"
-msgstr "^ assistant/importer/$"
+msgstr "^assistant/importer/$"
 
 #: urls/edit.py:195
 msgid "^$"
@@ -2495,7 +2495,7 @@ msgstr "^$"
 
 #: urls/edit.py:198
 msgid "^wizards/$"
-msgstr "^ assistants/$"
+msgstr "^assistants/$"
 
 #: urls/view.py:21
 msgid "^view/submitted/$"
