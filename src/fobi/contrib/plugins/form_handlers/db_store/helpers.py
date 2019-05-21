@@ -43,11 +43,6 @@ class DataExporter(object):
         For compatibility with older versions (`mimetype` vs `content_type`).
         """
         response_kwargs = {'content_type': mimetype}
-        # response_kwargs = {}
-        # if DJANGO_GTE_1_7:
-        #     response_kwargs['content_type'] = mimetype
-        # else:
-        #     response_kwargs['mimetype'] = mimetype
         return HttpResponse(**response_kwargs)
 
     def _get_data_headers(self):

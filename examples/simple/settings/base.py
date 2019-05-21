@@ -200,10 +200,9 @@ else:
         'django.template.loaders.filesystem.Loader',
         'django.template.loaders.app_directories.Loader',
         'django.template.loaders.eggs.Loader',
+        'admin_tools.template_loaders.Loader'
 
     ]
-    if DJANGO_GTE_1_8:
-        TEMPLATE_LOADERS.append('admin_tools.template_loaders.Loader')
 
     TEMPLATE_CONTEXT_PROCESSORS = (
         "django.contrib.auth.context_processors.auth",
@@ -497,7 +496,6 @@ CKEDITOR_CONFIGS = {
 # LOGIN_URL = '/accounts/login/'
 # LOGIN_REDIRECT_URL = '/fobi/' # Important for passing the selenium tests
 
-# if DJANGO_GTE_1_8:
 LOGIN_URL = '/en/accounts/login/'
 LOGIN_REDIRECT_URL = '/en/fobi/'  # Important for passing the selenium tests
 
@@ -512,7 +510,6 @@ PACKAGE_NAME_GRAPPELLI = "grappelli_safe"  # Just for tests
 #    'fobi': 'migrations',
 #    'db_store': 'fobi.contrib.plugins.form_handlers.db_store.migrations'
 # }
-# SOUTH_MIGRATION_MODULES = 'south_migrations'
 
 # **************************************************************
 # ********************* Registration settings ******************
@@ -632,11 +629,6 @@ ADMIN_TOOLS_APP_INDEX_DASHBOARD = \
     'admin_tools_dashboard.CustomAppIndexDashboard'
 ADMIN_TOOLS_MENU = 'admin_tools_dashboard.menu.CustomMenu'
 
-SOUTH_MIGRATION_MODULES = {
-    'fobi': 'fobi.south_migrations',
-    'db_store': 'ignore',
-}
-
 MIGRATION_MODULES = {
     'fobi': 'fobi.migrations',
     'db_store': 'fobi.contrib.plugins.form_handlers.db_store.migrations',
@@ -732,20 +724,18 @@ LOGGING = {
 }
 
 # Make settings quite compatible among various Django versions used.
-if DJANGO_GTE_1_8:
-    INSTALLED_APPS = list(INSTALLED_APPS)
 
-    # Django 1.8 specific checks
-    if DJANGO_GTE_1_8:
-        try:
-            INSTALLED_APPS.remove('admin_tools') \
-                if 'admin_tools' in INSTALLED_APPS else None
-            INSTALLED_APPS.remove('admin_tools.menu') \
-                if 'admin_tools.menu' in INSTALLED_APPS else None
-            INSTALLED_APPS.remove('admin_tools.dashboard') \
-                if 'admin_tools.dashboard' in INSTALLED_APPS else None
-        except Exception as e:
-            pass
+INSTALLED_APPS = list(INSTALLED_APPS)
+
+try:
+    INSTALLED_APPS.remove('admin_tools') \
+        if 'admin_tools' in INSTALLED_APPS else None
+    INSTALLED_APPS.remove('admin_tools.menu') \
+        if 'admin_tools.menu' in INSTALLED_APPS else None
+    INSTALLED_APPS.remove('admin_tools.dashboard') \
+        if 'admin_tools.dashboard' in INSTALLED_APPS else None
+except Exception as e:
+    pass
 
 # For Selenium tests
 FIREFOX_BIN_PATH = ''

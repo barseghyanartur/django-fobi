@@ -138,10 +138,6 @@ TEMPLATE_DIRS = (
     PROJECT_DIR('templates'),
 )
 
-#FIXTURE_DIRS = (
-#   PROJECT_DIR(os.path.join('..', 'fixtures'))
-#)
-
 INSTALLED_APPS = (
     # Admin dashboard
     #'admin_tools',
@@ -159,11 +155,9 @@ INSTALLED_APPS = (
     'django.contrib.sitemaps',
 
     # Third party apps used in the project
-    'south', # Database migration app
-    'tinymce', # TinyMCE
-    'easy_thumbnails', # Thumbnailer
-    'registration', # Auth views and registration app
-    #'localeurl', # Locale URL
+    'tinymce',  # TinyMCE
+    'easy_thumbnails',  # Thumbnailer
+    'registration',  # Auth views and registration app
 
     # Fobi core
     'fobi',
@@ -198,12 +192,12 @@ INSTALLED_APPS = (
     #'fobi.contrib.plugins.form_handlers.mail',
 
     # Your custom fobi apps
-    'sample_layout', # Sample theme/layout
-    'sample_textarea', # Sample text area form element plugin
-    'sample_mail', # Sample mail form handler plugin
+    'sample_layout',  # Sample theme/layout
+    'sample_textarea',  # Sample text area form element plugin
+    'sample_mail',  # Sample mail form handler plugin
 
     # Other project specific apps
-    'foo', # Test app
+    'foo',  # Test app
 )
 
 LOGIN_REDIRECT_URL = '/fobi/' # Important for passing the selenium tests
@@ -212,24 +206,10 @@ LOGIN_REDIRECT_URL = '/fobi/' # Important for passing the selenium tests
 #LOGIN_ERROR_URL = '/accounts/login/'
 #LOGOUT_URL = '/accounts/logout/'
 
-# localeurl locale independent paths (language code won't be appended)
-LOCALE_INDEPENDENT_PATHS = (
-    r'^/sitemap.*\.xml$', # Global regex for all XML sitemaps
-    #r'^/admin/',
-    #r'^/dashboard/',
-)
-
-# Tell localeurl to use sessions for language store.
-LOCALEURL_USE_SESSION = True
-
 # django-admin-tools custom dashboard
 ADMIN_TOOLS_INDEX_DASHBOARD = 'admin_tools_dashboard.CustomIndexDashboard'
 ADMIN_TOOLS_APP_INDEX_DASHBOARD = 'admin_tools_dashboard.CustomAppIndexDashboard'
 ADMIN_TOOLS_MENU = 'admin_tools_dashboard.menu.CustomMenu'
-
-SOUTH_MIGRATION_MODULES = {
-    'fobi': 'fobi.south_migrations',
-}
 
 MIGRATION_MODULES = {
     'fobi': 'fobi.migrations',
@@ -308,7 +288,7 @@ if DEBUG and DEBUG_TOOLBAR:
     # debug_toolbar
     MIDDLEWARE_CLASSES += (
         'debug_toolbar.middleware.DebugToolbarMiddleware',
-	)
+    )
 
     INSTALLED_APPS += (
         'debug_toolbar',

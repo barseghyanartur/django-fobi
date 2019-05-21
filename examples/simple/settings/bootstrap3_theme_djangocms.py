@@ -1,5 +1,4 @@
 from cms import __version__
-from nine.versions import DJANGO_GTE_1_8
 from .base import *
 
 CMS_VERSION = [int(__v) for __v in __version__.split('.')]
@@ -70,12 +69,9 @@ MIDDLEWARE_CLASSES += [
     # 'django.middleware.cache.FetchFromCacheMiddleware',
 ]
 
-if DJANGO_GTE_1_8:
-    TEMPLATES[0]['OPTIONS']['context_processors'] += \
-        DJANGO_CMS_CONTEXT_PROCESSORS
-else:
-    TEMPLATE_CONTEXT_PROCESSORS = list(TEMPLATE_CONTEXT_PROCESSORS)
-    TEMPLATE_CONTEXT_PROCESSORS += DJANGO_CMS_CONTEXT_PROCESSORS
+
+TEMPLATES[0]['OPTIONS']['context_processors'] += \
+    DJANGO_CMS_CONTEXT_PROCESSORS
 
 FOBI_DEFAULT_THEME = 'bootstrap3'
 # FOBI_DEFAULT_THEME = 'foundation5'

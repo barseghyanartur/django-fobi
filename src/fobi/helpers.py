@@ -348,12 +348,6 @@ def get_registered_models(ignore=[]):
     :return list:
     """
     get_models = django.apps.apps.get_models
-    # if DJANGO_GTE_1_7:
-    #     get_models = django.apps.apps.get_models
-    # else:
-    #     def get_models():
-    #         """Get models."""
-    #         return models.get_models(include_auto_created=True)
 
     registered_models = [
         (
@@ -363,22 +357,6 @@ def get_registered_models(ignore=[]):
         for _m
         in get_models()
     ]
-
-    # registered_models = []
-    # try:
-    #     content_types = ContentType._default_manager.all()
-    #
-    #     for content_type in content_types:
-    #         # model = content_type.model_class()
-    #         content_type_id = "{0}.{1}".format(
-    #             content_type.app_label, content_type.model
-    #         )
-    #         if content_type_id not in ignore:
-    #             registered_models.append(
-    #                 (content_type_id, content_type.name)
-    #             )
-    # except DatabaseError as err:
-    #     logger.debug(str(err))
 
     return registered_models
 
@@ -753,11 +731,6 @@ class JSONDataExporter(object):
         :return django.http.HttpResponse:
         """
         response_kwargs = {'content_type': mimetype}
-        # response_kwargs = {}
-        # if DJANGO_GTE_1_7:
-        #     response_kwargs['content_type'] = mimetype
-        # else:
-        #     response_kwargs['mimetype'] = mimetype
         return HttpResponse(**response_kwargs)
 
     def export_to_json(self):

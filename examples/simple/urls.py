@@ -75,10 +75,7 @@ url_patterns_args += [
     # url(r'^', include('fobi.contrib.apps.public_forms.urls')),
 ]
 
-if versions.DJANGO_LTE_1_7:
-    urlpatterns += i18n_patterns('', *url_patterns_args)
-else:
-    urlpatterns += i18n_patterns(*url_patterns_args)
+urlpatterns += i18n_patterns(*url_patterns_args)
 
 # Serving media and static in debug/developer mode.
 if settings.DEBUG:
