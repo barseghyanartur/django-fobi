@@ -1,21 +1,52 @@
+dist: xenial
+
 language: python
+
 cache: pip
+
 sudo: false
+
 matrix:
+  fast_finish: true
   include:
-  - env: TOXENV=py34-django18
+  - env: TOX_ENV=py27-django18
+    python: 2.7
+  - env: TOX_ENV=py35-django18
+    python: 3.5
+  - env: TOX_ENV=py36-django18
     python: 3.6
-  - env: TOXENV=py34-django19
+
+  - env: TOX_ENV=py27-django111
+    python: 2.7
+  - env: TOX_ENV=py35-django111
+    python: 3.5
+  - env: TOX_ENV=py36-django111
     python: 3.6
-  - env: TOXENV=py34-django110
+
+  - env: TOX_ENV=py35-django20
+    python: 3.5
+  - env: TOX_ENV=py36-django20
     python: 3.6
-  - env: TOXENV=py35-django110
+  - env: TOX_ENV=py37-django22
+    python: 3.7
+
+  - env: TOX_ENV=py36-django21
     python: 3.6
-  - env: TOXENV=py35-django111
+  - env: TOX_ENV=py37-django21
+    python: 3.7
+
+  - env: TOX_ENV=py36-django22
     python: 3.6
-  - env: TOXENV=py35-django20
-    python: 3.6
+  - env: TOX_ENV=py37-django22
+    python: 3.7
+
 install:
-  - pip install tox
-script:
-- tox
+  - wget http://chromedriver.storage.googleapis.com/2.42/chromedriver_linux64.zip
+  - unzip chromedriver_linux64.zip -d /home/travis/
+  - pip install -r examples/requirements/test.txt
+
+before_script:
+  - export CHROME_BIN=/home/travis/chromedriver
+  - sleep 2
+
+script: travis_retry tox -e $TOX_ENV

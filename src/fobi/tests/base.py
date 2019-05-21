@@ -67,12 +67,26 @@ class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         """Set up class."""
-        # cls.driver = WebDriver()
+        chrome_driver_path = getattr(
+            settings,
+            'CHROME_DRIVER_EXECUTABLE_PATH',
+            None
+        )
+        chrome_driver_options = getattr(
+            settings,
+            'CHROME_DRIVER_OPTIONS',
+            None
+        )
         firefox_bin_path = getattr(settings, 'FIREFOX_BIN_PATH', None)
         phantom_js_executable_path = getattr(
             settings, 'PHANTOM_JS_EXECUTABLE_PATH', None
         )
-        if phantom_js_executable_path is not None:
+        if chrome_driver_path is not None:
+            cls.driver = webdriver.Chrome(
+                executable_path=chrome_driver_path,
+                chrome_options=chrome_driver_options
+            )
+        elif phantom_js_executable_path is not None:
             if phantom_js_executable_path:
                 cls.driver = webdriver.PhantomJS(
                     executable_path=phantom_js_executable_path

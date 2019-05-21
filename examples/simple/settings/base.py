@@ -518,7 +518,6 @@ PACKAGE_NAME_GRAPPELLI = "grappelli_safe"  # Just for tests
 # ********************* Registration settings ******************
 # **************************************************************
 
-
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_FORM = 'registration_addons.forms.CaptchaRegistrationForm'
 SIMPLE_BACKEND_REDIRECT_URL = '/en/'
@@ -751,6 +750,14 @@ if DJANGO_GTE_1_8:
 # For Selenium tests
 FIREFOX_BIN_PATH = ''
 PHANTOM_JS_EXECUTABLE_PATH = None
+
+CHROME_DRIVER_EXECUTABLE_PATH = os.environ.get('CHROME_BIN', None)
+
+from selenium import webdriver
+CHROME_DRIVER_OPTIONS = webdriver.ChromeOptions()
+CHROME_DRIVER_OPTIONS.add_argument('-headless')
+CHROME_DRIVER_OPTIONS.add_argument('-no-sandbox')
+CHROME_DRIVER_OPTIONS.add_argument('-single-process')
 
 # Testing mode
 TESTING = False
