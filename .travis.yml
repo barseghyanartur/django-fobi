@@ -1,5 +1,8 @@
 dist: xenial
 
+services:
+  - postgresql
+
 language: python
 
 cache: pip
@@ -47,6 +50,7 @@ install:
 
 before_script:
   - export CHROME_BIN=/home/travis/chromedriver
+  - psql -c 'create database fobi_test;' -U postgres
   - sleep 2
 
 script: travis_retry tox -e $TOX_ENV
