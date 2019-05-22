@@ -170,9 +170,9 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         #     self._get_live_server_url(),
         #     form_element_to_add.get_attribute('href'))
         # )
-        # self.driver.get(form_element_to_add.get_attribute('href'))
-        self._move_to_element(form_element_to_add, simple=True)
-        form_element_to_add.click()
+        self.driver.get(form_element_to_add.get_attribute('href'))
+        # self._move_to_element(form_element_to_add, simple=True)
+        # form_element_to_add.click()
 
         # Adding form data
         if form_element_data:
