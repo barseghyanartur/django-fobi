@@ -163,8 +163,15 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
                 '//a[text()="{0}"]'.format(form_element_name)
             )
 
-        self._scroll_to_element(form_element_to_add, simple=True)
+        # self._scroll_to_element(form_element_to_add, simple=True)
         # self._scroll_by(0, -150)
+        # form_element_to_add.click()
+        # self.driver.get('{0}{1}'.format(
+        #     self._get_live_server_url(),
+        #     form_element_to_add.get_attribute('href'))
+        # )
+        # self.driver.get(form_element_to_add.get_attribute('href'))
+        self._move_to_element(form_element_to_add, simple=True)
         form_element_to_add.click()
 
         # Adding form data

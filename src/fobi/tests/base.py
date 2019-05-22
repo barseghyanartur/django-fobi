@@ -2,6 +2,7 @@ import gc
 import logging
 
 from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.support.wait import WebDriverWait
@@ -196,6 +197,10 @@ class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         self.driver.execute_script(
             "window.scrollBy({0}, {1});".format(0, -100)
         )
+
+    def _move_to_element(self, form_element, simple=False):
+        """Move to element."""
+        ActionChains(self.driver).move_to_element(form_element).perform()
 
     def _scroll_to(self, x, y):
         """Scroll to."""
