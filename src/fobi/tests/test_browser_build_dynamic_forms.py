@@ -2,6 +2,7 @@ import logging
 import unittest
 
 from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.common.action_chains import ActionChains
 
 from fobi.models import FormEntry
 
@@ -526,8 +527,25 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
 
         self._sleep(2)
 
+        self._scroll_page_bottom()
+
+        # Wait until button is there
+        WebDriverWait(self.driver, timeout=TIMEOUT).until(
+            lambda driver: driver.find_element_by_xpath(
+                '//button[@type="submit"]'
+            )
+        )
+
         # Click add widget button
-        self.driver.find_element_by_xpath('//button[@type="submit"]').click()
+        submit_button = self.driver.find_element_by_xpath('//button[@type="submit"]')
+
+        self._scroll_page_bottom()
+        submit_button.click()
+
+        try:
+            submit_button.click()
+        except Exception as err:
+            import pytest; pytest.set_trace()
 
         # Wait until the submit success page opens a clear success message.
         WebDriverWait(self.driver, timeout=TIMEOUT).until(

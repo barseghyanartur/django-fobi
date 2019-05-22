@@ -2,6 +2,7 @@ import gc
 import logging
 
 from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -207,3 +208,13 @@ class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         self.driver.execute_script(
             "window.scrollBy({0}, {1});".format(x, y)
         )
+
+    def _scroll_page_top(self):
+        """Scroll to the page top."""
+        html = self.driver.find_element_by_tag_name('html')
+        html.send_keys(Keys.HOME)
+
+    def _scroll_page_bottom(self):
+        """Scroll to the page bottom."""
+        html = self.driver.find_element_by_tag_name('html')
+        html.send_keys(Keys.END)
