@@ -8,9 +8,21 @@ even export forms into JSON format and import them on other instances. API
 allows you to build your own form elements and form handlers (mechanisms for
 handling the submitted form data).
 
+.. image:: https://img.shields.io/pypi/v/django-fobi.svg
+   :target: https://pypi.python.org/pypi/django-fobi
+   :alt: PyPI Version
+
+.. image:: https://img.shields.io/travis/barseghyanartur/django-fobi/master.svg
+   :target: http://travis-ci.org/barseghyanartur/django-fobi
+   :alt: Build Status
+
+.. image:: https://img.shields.io/badge/license-GPL--2.0--only%20OR%20LGPL--2.1--or--later-blue.svg
+   :target: https://github.com/barseghyanartur/django-fobi/#License
+   :alt: GPL-2.0-only OR LGPL-2.1-or-later
+
 Prerequisites
 =============
-- Django 1.8, 1.9, 1.10, 1.11, 2.0 and 2.1.
+- Django 1.8, 1.9, 1.10, 1.11, 2.0, 2.1 and 2.2.
 - Python 2.7, 3.4, 3.5, 3.6, 3.7 and PyPy.
 
 Key concepts
@@ -2463,7 +2475,7 @@ or ask the `Author`_ how you could help.
 
 License
 =======
-GPL 2.0/LGPL 2.1
+GPL-2.0-only OR LGPL-2.1-or-later
 
 Support
 =======

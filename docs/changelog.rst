@@ -15,6 +15,15 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.14.0
+------
+yyyy-mm-dd (not yet released)
+
+- Wiping out (as stated many versions ago) support for Django < 1.8.
+- Use ChromeDriver by default.
+- Reactivate travis.
+- Tested again Django 2.2.
+
 0.13.10
 -------
 2019-02-28

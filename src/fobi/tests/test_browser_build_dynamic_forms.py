@@ -164,7 +164,7 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
             )
 
         self._scroll_to_element(form_element_to_add, simple=True)
-        self._scroll_by(0, -150)
+        # self._scroll_by(0, -150)
         form_element_to_add.click()
 
         # Adding form data
