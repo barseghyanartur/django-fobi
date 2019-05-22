@@ -1,9 +1,8 @@
 # Django settings for example project.
 import os
-from nine.versions import (
+from django_nine.versions import (
     DJANGO_GTE_2_0,
     DJANGO_GTE_1_10,
-    DJANGO_GTE_1_8,
     DJANGO_GTE_1_9,
 )
 
@@ -161,7 +160,7 @@ if DJANGO_GTE_1_10:
             }
         },
     ]
-elif DJANGO_GTE_1_8:
+else:
     TEMPLATES = [
         {
             'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -191,40 +190,6 @@ elif DJANGO_GTE_1_8:
             }
         },
     ]
-else:
-    TEMPLATE_DEBUG = DEBUG_TEMPLATE
-
-    # List of callables that know how to import templates from various
-    # sources.
-    TEMPLATE_LOADERS = [
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-        'django.template.loaders.eggs.Loader',
-        'admin_tools.template_loaders.Loader'
-
-    ]
-
-    TEMPLATE_CONTEXT_PROCESSORS = (
-        "django.contrib.auth.context_processors.auth",
-        "django.core.context_processors.debug",
-        "django.core.context_processors.i18n",
-        "django.core.context_processors.media",
-        "django.core.context_processors.static",
-        "django.core.context_processors.tz",
-        "django.contrib.messages.context_processors.messages",
-        "django.core.context_processors.request",
-        "fobi.context_processors.theme",  # Important!
-        "fobi.context_processors.dynamic_values",  # Optional
-        "context_processors.testing",  # Testing
-    )
-
-    TEMPLATE_DIRS = (
-        # Put strings here, like "/home/html/django_templates" or
-        # "C:/www/django/templates".
-        # Always use forward slashes, even on Windows.
-        # Don't forget to use absolute paths, not relative paths.
-        PROJECT_DIR(os.path.join('..', 'templates')),
-    )
 
 # Final declaration of the middleware is done on the bottom of this file
 _MIDDLEWARE = [

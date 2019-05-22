@@ -22,6 +22,7 @@ yyyy-mm-dd (not yet released)
 - Wiping out (as stated many versions ago) support for Django < 1.8.
 - Use ChromeDriver by default.
 - Reactivate travis.
+- Tested again Django 2.2.
 
 0.13.10
 -------

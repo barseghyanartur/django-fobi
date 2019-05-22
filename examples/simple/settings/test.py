@@ -1,5 +1,5 @@
 # Use in `tox`.
-from nine import versions
+from django_nine import versions
 
 from .base import *
 

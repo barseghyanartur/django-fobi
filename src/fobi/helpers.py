@@ -13,8 +13,9 @@ import uuid
 from autoslug.settings import slugify
 
 from django import forms
+import django.apps
 from django.conf import settings
-from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.models import User, AnonymousUser
 # from django.contrib.contenttypes.models import ContentType
 from django.core.files.base import File
 # from django.db.utils import DatabaseError
@@ -25,10 +26,7 @@ from django.utils.encoding import force_text, smart_text
 from django.utils.html import format_html_join
 from django.utils.translation import ugettext_lazy as _
 
-from nine.user import User
-from nine.versions import DJANGO_GTE_1_8, DJANGO_GTE_1_10
-
-# import simplejson as json
+from django_nine.versions import DJANGO_GTE_1_10
 
 from six import text_type, PY3
 
@@ -38,11 +36,6 @@ from .constants import (
     SUBMIT_VALUE_AS_VAL,
 )
 from .exceptions import ImproperlyConfigured
-
-if DJANGO_GTE_1_8:
-    import django.apps
-else:
-    from django.db import models
 
 if DJANGO_GTE_1_10:
     from django.urls import reverse
@@ -66,6 +59,7 @@ __all__ = (
     'flatatt_inverse_quotes',
     'get_app_label_and_model_name',
     'get_form_element_entries_for_form_wizard_entry',
+    'get_ignorable_form_values',
     'get_model_name_for_object',
     'get_registered_models',
     'get_select_field_choices',

@@ -1,6 +1,6 @@
 from __future__ import absolute_import, unicode_literals
 import os
-from nine.versions import (
+from django_nine.versions import (
     DJANGO_GTE_1_10,
     DJANGO_GTE_1_9,
 )

@@ -1,5 +1,3 @@
-from nine.versions import DJANGO_GTE_1_8
-
 from .base import *
 
 INSTALLED_APPS = list(INSTALLED_APPS)

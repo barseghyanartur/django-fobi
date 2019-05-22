@@ -10,7 +10,7 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import ugettext_lazy as _
 
-from nine.versions import DJANGO_GTE_1_10
+from django_nine.versions import DJANGO_GTE_1_10
 
 from six import python_2_unicode_compatible
 
@@ -41,14 +41,15 @@ __all__ = (
     'FormWizardHandler',
 
     # Entries
-    'BaseAbstractPluginEntry',
+    'AbstractFormWizardPluginEntry',
     'AbstractPluginEntry',
-    'FormWizardEntry',
-    'FormEntry',
+    'BaseAbstractPluginEntry',
     'FormElementEntry',
+    'FormEntry',
     'FormFieldsetEntry',
     'FormHandlerEntry',
-    'AbstractFormWizardPluginEntry',
+    'FormWizardEntry',
+    'FormWizardFormEntry',
     'FormWizardHandlerEntry',
 )
 

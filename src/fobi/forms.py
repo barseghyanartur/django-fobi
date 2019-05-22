@@ -49,6 +49,7 @@ __all__ = (
     'BulkChangeFormElementPluginsForm',
     'BulkChangeFormHandlerPluginsForm',
     'BulkChangeFormWizardHandlerPluginsForm',
+    'FormElementEntryForm',
     'FormElementEntryFormSet',
     'FormEntryForm',
     'FormFieldsetEntryForm',

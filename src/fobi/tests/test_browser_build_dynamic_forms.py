@@ -6,7 +6,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 from fobi.models import FormEntry
 
-from nine.versions import DJANGO_GTE_1_10
+from django_nine.versions import DJANGO_GTE_1_10
 
 from . import constants
 from .base import BaseFobiBrowserBuldDynamicFormsTest

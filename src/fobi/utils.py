@@ -17,7 +17,7 @@ from django.utils.translation import (
     # ugettext_lazy as _,
 )
 
-from nine.versions import DJANGO_GTE_1_10
+from django_nine.versions import DJANGO_GTE_1_10
 
 from six import PY3
 
@@ -63,25 +63,28 @@ __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2019 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
-    'get_allowed_plugin_uids',
-    'get_user_plugins',
-    'get_user_plugin_uids',
-    'sync_plugins',
+    'append_edit_and_delete_links_to_field',
     'get_allowed_form_element_plugin_uids',
-    'get_user_form_element_plugins',
-    'get_user_form_element_plugin_uids',
     'get_allowed_form_handler_plugin_uids',
     'get_allowed_form_wizard_handler_plugin_uids',
-    'get_user_form_handler_plugins',
-    'get_user_form_wizard_handler_plugins',
-    'get_user_form_handler_plugin_uids',
-    'get_user_form_wizard_handler_plugin_uids',
-    'get_user_plugins_grouped',
+    'get_allowed_plugin_uids',
+    'get_user_form_element_plugin_uids',
+    'get_user_form_element_plugins',
     'get_user_form_element_plugins_grouped',
+    'get_user_form_field_plugin_uids',
+    'get_user_form_handler_plugin_uids',
+    'get_user_form_handler_plugins',
     'get_user_form_handler_plugins_grouped',
+    'get_user_form_wizard_handler_plugin_uids',
+    'get_user_form_wizard_handler_plugins',
     'get_user_form_wizard_handler_plugins_grouped',
-    'prepare_form_entry_export_data',
+    'get_user_plugin_uids',
+    'get_user_plugins',
+    'get_user_plugins_grouped',
+    'get_wizard_files_upload_dir',
     'perform_form_entry_import',
+    'prepare_form_entry_export_data',
+    'sync_plugins',
 )
 
 logger = logging.getLogger(__name__)

@@ -19,8 +19,6 @@ from django.http import Http404
 from django.utils.translation import ugettext_lazy as _
 from django.template import RequestContext, Template
 
-from nine.versions import DJANGO_GTE_1_8
-
 from six import with_metaclass, string_types
 
 from .constants import CALLBACK_STAGES
@@ -116,6 +114,7 @@ __all__ = (
     'get_registered_form_callbacks',
     'get_registered_form_element_plugin_uids',
     'get_registered_form_element_plugins',
+    'get_registered_form_element_plugins_grouped',
     'get_registered_form_handler_plugin_uids',
     'get_registered_form_handler_plugins',
     'get_registered_form_wizard_handler_plugin_uids',
@@ -130,8 +129,12 @@ __all__ = (
     'get_registered_plugins',
     'get_registered_theme_uids',
     'get_registered_themes',
+    'get_theme',
+    'integration_form_callback_registry',
     'integration_form_element_plugin_registry',
     'integration_form_handler_plugin_registry',
+    'IntegrationFormCallback',
+    'IntegrationFormCallbackRegistry',
     'IntegrationFormElementPlugin',
     'IntegrationFormElementPluginDataStorage',
     'IntegrationFormElementPluginProcessor',
@@ -140,11 +143,9 @@ __all__ = (
     'IntegrationFormHandlerPlugin',
     'IntegrationFormHandlerPluginDataStorage',
     'IntegrationFormHandlerPluginRegistry',
-    'IntegrationFormCallbackRegistry',
-    'IntegrationFormCallback',
-    'integration_form_callback_registry',
     'run_form_handlers',
     'run_form_wizard_handlers',
+    'submit_plugin_form_data',
     'theme_registry',
     'validate_form_element_plugin_uid',
     'validate_form_handler_plugin_uid',
@@ -802,11 +803,6 @@ class BaseFormFieldPluginForm(BasePluginForm):
                 return False
 
         return True
-
-    if not DJANGO_GTE_1_8:
-        def add_error(self, field, error):
-            """Backwards compatibility hack."""
-            raise forms.ValidationError(error, 'invalid')
 
 # *****************************************************************************
 # *****************************************************************************

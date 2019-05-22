@@ -8,7 +8,7 @@ from django.views.generic import TemplateView
 
 from fobi.settings import DEFAULT_THEME
 
-from nine import versions
+from django_nine import versions
 
 admin.autodiscover()
 

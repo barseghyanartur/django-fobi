@@ -10,7 +10,7 @@ from django.core.management import call_command
 from django.test import LiveServerTestCase
 from django.conf import settings
 
-from nine.versions import DJANGO_GTE_1_10
+from django_nine.versions import DJANGO_GTE_1_10
 
 from . import constants
 from .helpers import (
