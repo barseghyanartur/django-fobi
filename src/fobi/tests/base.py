@@ -175,7 +175,7 @@ class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
 
     def _click(self, element):
         """Click on any element."""
-        self.driver.execute_script("$(arguments[0]).click();", element)
+        self.driver.execute_script("arguments[0].click();", element)
 
     def _aggressive_click(self, element):
         """Aggressive click."""
