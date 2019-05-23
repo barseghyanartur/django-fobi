@@ -38,10 +38,10 @@ matrix:
   - env: TOX_ENV=py37-django21
     python: 3.7
 
-#  - env: TOX_ENV=py36-django22
-#    python: 3.6
-#  - env: TOX_ENV=py37-django22
-#    python: 3.7
+  - env: TOX_ENV=py36-django22
+    python: 3.6
+  - env: TOX_ENV=py37-django22
+    python: 3.7
 
 install:
   - wget http://chromedriver.storage.googleapis.com/2.42/chromedriver_linux64.zip
