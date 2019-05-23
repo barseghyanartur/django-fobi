@@ -2363,6 +2363,27 @@ Thus, instead of using system Firefox you could better use a custom one.
 
 For PhantomJS you need to have NodeJS installed.
 
+Set up ChromeDriver
+~~~~~~~~~~~~~~~~~~~
+1. Download ChromeDriver 42:
+
+    .. code-block:: sh
+
+        wget https://chromedriver.storage.googleapis.com/2.42/chromedriver_linux64.zip
+        unzip chromedriver_linux64.zip
+        sudo mv chromedriver /usr/bin/chromedriver42
+        sudo chown root:root /usr/bin/chromedriver42
+        sudo chmod +x /usr/bin/chromedriver42
+
+2. Specify the full path to your ChromeDriver in
+   ``CHROME_DRIVER_EXECUTABLE_PATH`` setting. Example:
+
+    .. code-block:: python
+
+        CHROME_DRIVER_EXECUTABLE_PATH = '/usr/bin/chromedriver42'
+
+After that your Selenium tests would work.
+
 Set up Firefox 47
 ~~~~~~~~~~~~~~~~~
 1. Download Firefox 47 from
