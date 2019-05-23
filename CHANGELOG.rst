@@ -19,11 +19,11 @@ are used for versioning (schema follows below):
 ----
 2019-05-24
 
+- Tested again Django 2.2 and Python 3.7.
+- Use ChromeDriver (for browser tests).
 - Wiping out (as stated many versions ago) support for Django < 1.8.
-- Use ChromeDriver by default.
 - Reactivate travis (although not all tests yet pass, while they do pass
   locally; to be solved in future).
-- Tested again Django 2.2 and Python 3.7.
 
 0.13.10
 -------
