@@ -170,9 +170,9 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         #     self._get_live_server_url(),
         #     form_element_to_add.get_attribute('href'))
         # )
-        self.driver.get(form_element_to_add.get_attribute('href'))
-        # self._move_to_element(form_element_to_add, simple=True)
-        # form_element_to_add.click()
+        # self.driver.get(form_element_to_add.get_attribute('href'))
+        self._move_to_element(form_element_to_add, simple=True)
+        form_element_to_add.click()
 
         # Adding form data
         if form_element_data:
@@ -191,9 +191,16 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
                 field_input.send_keys(field_value)
 
             # Click add widget button
-            self.driver.find_element_by_xpath(
+            submit_button = self.driver.find_element_by_xpath(
                 '//button[@type="submit"]'
-            ).click()
+            )
+
+            submit_button.click()
+
+            try:
+                submit_button.click()
+            except Exception as err:
+                pass
 
         logger.debug(form_element_name)
 
