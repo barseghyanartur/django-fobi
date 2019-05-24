@@ -3,7 +3,7 @@ from __future__ import absolute_import
 from django.forms.fields import DateField
 from django.utils.translation import ugettext_lazy as _
 
-from nine import versions
+from django_nine import versions
 
 from fobi.base import FormFieldPlugin, get_theme
 
@@ -18,7 +18,7 @@ else:
 __title__ = 'fobi.contrib.plugins.form_elements.fields.' \
             'date_drop_down.base'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2018 Artur Barseghyan'
+__copyright__ = '2014-2019 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('DateDropDownInputPlugin',)
 

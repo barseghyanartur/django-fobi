@@ -9,7 +9,7 @@ from fobi.base import get_theme
 from fobi.helpers import handle_uploaded_file
 from fobi.models import FormEntry
 
-from nine import versions
+from django_nine import versions
 
 if versions.DJANGO_GTE_1_10:
     from django.shortcuts import render

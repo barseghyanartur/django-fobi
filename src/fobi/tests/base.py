@@ -2,6 +2,8 @@ import gc
 import logging
 
 from selenium import webdriver
+from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -9,7 +11,7 @@ from django.core.management import call_command
 from django.test import LiveServerTestCase
 from django.conf import settings
 
-from nine.versions import DJANGO_GTE_1_10
+from django_nine.versions import DJANGO_GTE_1_10
 
 from . import constants
 from .helpers import (
@@ -25,7 +27,7 @@ else:
 
 __title__ = 'fobi.tests.test_browser_build_dynamic_forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2018 Artur Barseghyan'
+__copyright__ = '2014-2019 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'BaseFobiBrowserBuldDynamicFormsTest',
@@ -67,12 +69,26 @@ class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
     @classmethod
     def setUpClass(cls):
         """Set up class."""
-        # cls.driver = WebDriver()
+        chrome_driver_path = getattr(
+            settings,
+            'CHROME_DRIVER_EXECUTABLE_PATH',
+            None
+        )
+        chrome_driver_options = getattr(
+            settings,
+            'CHROME_DRIVER_OPTIONS',
+            None
+        )
         firefox_bin_path = getattr(settings, 'FIREFOX_BIN_PATH', None)
         phantom_js_executable_path = getattr(
             settings, 'PHANTOM_JS_EXECUTABLE_PATH', None
         )
-        if phantom_js_executable_path is not None:
+        if chrome_driver_path is not None:
+            cls.driver = webdriver.Chrome(
+                executable_path=chrome_driver_path,
+                chrome_options=chrome_driver_options
+            )
+        elif phantom_js_executable_path is not None:
             if phantom_js_executable_path:
                 cls.driver = webdriver.PhantomJS(
                     executable_path=phantom_js_executable_path
@@ -160,7 +176,7 @@ class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
 
     def _click(self, element):
         """Click on any element."""
-        self.driver.execute_script("$(arguments[0]).click();", element)
+        self.driver.execute_script("arguments[0].click();", element)
 
     def _aggressive_click(self, element):
         """Aggressive click."""
@@ -182,6 +198,10 @@ class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
             "window.scrollBy({0}, {1});".format(0, -100)
         )
 
+    def _move_to_element(self, form_element, simple=False):
+        """Move to element."""
+        ActionChains(self.driver).move_to_element(form_element).perform()
+
     def _scroll_to(self, x, y):
         """Scroll to."""
         self.driver.execute_script(
@@ -193,3 +213,13 @@ class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         self.driver.execute_script(
             "window.scrollBy({0}, {1});".format(x, y)
         )
+
+    def _scroll_page_top(self):
+        """Scroll to the page top."""
+        html = self.driver.find_element_by_tag_name('html')
+        html.send_keys(Keys.HOME)
+
+    def _scroll_page_bottom(self):
+        """Scroll to the page bottom."""
+        html = self.driver.find_element_by_tag_name('html')
+        html.send_keys(Keys.END)

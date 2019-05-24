@@ -25,7 +25,7 @@ from .settings import SUBMIT_VALUE_AS
 __title__ = 'fobi.contrib.plugins.form_elements.fields.' \
             'select_multiple_model_objects.fobi_form_elements'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2018 Artur Barseghyan'
+__copyright__ = '2014-2019 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('SelectMultipleModelObjectsInputPlugin',)
 

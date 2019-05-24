@@ -4,7 +4,7 @@ import simplejson as json
 
 from django.utils.translation import ugettext_lazy as _
 
-from nine.versions import DJANGO_GTE_1_10
+from django_nine.versions import DJANGO_GTE_1_10
 
 from .....base import (
     FormHandlerPlugin,
@@ -25,7 +25,7 @@ else:
 
 __title__ = 'fobi.contrib.plugins.form_handlers.db_store.base'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2018 Artur Barseghyan'
+__copyright__ = '2014-2019 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'DBStoreHandlerPlugin',
