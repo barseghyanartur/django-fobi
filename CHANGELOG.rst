@@ -15,6 +15,51 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.14
+----
+2019-05-24
+
+- Tested again Django 2.2 and Python 3.7.
+- Use ChromeDriver (for browser tests).
+- Wiping out (as stated many versions ago) support for Django < 1.8.
+- Reactivate travis (although not all tests yet pass, while they do pass
+  locally; to be solved in future).
+
+0.13.10
+-------
+2019-02-28
+
+- Add `mail_sender` DRF integration plugin.
+
+0.13.9
+------
+2019-02-28
+
+.. note::
+
+    Release supported by `Goldmund, Wyldebeast & Wunderliebe
+    <https://goldmund-wyldebeast-wunderliebe.nl/>`_.
+
+- Add `mail_sender` form handler plugin.
+- Upgrade test suite.
+
+0.13.8
+------
+2019-01-07
+
+.. note::
+
+    Release supported by `Goldmund, Wyldebeast & Wunderliebe
+    <https://goldmund-wyldebeast-wunderliebe.nl/>`_.
+
+- Make it easier to redirect to a new URL (on success) in integration apps.
+
+0.13.7
+------
+2018-10-01
+
+- Make fobi wagtail integration work with wagtail 2.
+
 0.13.6
 ------
 2018-08-16

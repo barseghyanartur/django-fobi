@@ -2,13 +2,13 @@ from django.forms.utils import flatatt
 from django.forms.widgets import Textarea
 from django.utils.html import format_html
 
-from nine.versions import DJANGO_GTE_1_11
+from django_nine.versions import DJANGO_GTE_1_11
 
 from fobi.helpers import safe_text
 
 __title__ = 'fobi.reusable.markdown_widget.widgets'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2018 Artur Barseghyan'
+__copyright__ = '2014-2019 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('MarkdownWidget',)
 

@@ -4,14 +4,14 @@ from django.forms.utils import ErrorDict
 from django.template import Library, TemplateSyntaxError, Node
 from django.utils.translation import ugettext_lazy as _
 
-from nine.versions import DJANGO_GTE_1_10
+from django_nine.versions import DJANGO_GTE_1_10
 
 from ..base import get_theme
 from ..settings import DISPLAY_AUTH_LINK
 
 __title__ = 'fobi.templatetags.fobi_tags'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2018 Artur Barseghyan'
+__copyright__ = '2014-2019 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'get_fobi_form_handler_plugin_custom_actions',

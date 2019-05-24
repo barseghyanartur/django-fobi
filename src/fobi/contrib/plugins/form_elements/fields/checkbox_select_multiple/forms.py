@@ -7,7 +7,7 @@ from fobi.helpers import validate_initial_for_multiple_choices
 __title__ = 'fobi.contrib.plugins.form_elements.fields.' \
             'checkbox_select_multiple.forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2018 Artur Barseghyan'
+__copyright__ = '2014-2019 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('CheckboxSelectMultipleInputForm',)
 

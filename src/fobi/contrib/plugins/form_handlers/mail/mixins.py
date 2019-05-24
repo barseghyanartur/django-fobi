@@ -15,7 +15,7 @@ from .settings import MULTI_EMAIL_FIELD_VALUE_SPLITTER
 
 __title__ = 'fobi.contrib.plugins.form_handlers.mail.mixins'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2018 Artur Barseghyan'
+__copyright__ = '2014-2019 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'MailHandlerMixin',
@@ -112,7 +112,7 @@ class MailHandlerMixin(object):
                 if PY3:
                     imf_chunks = b''.join([c for c in imf.chunks()])
                 else:
-                    imf_chunks = ''.join([c for c in imf.chunks()])
+                    imf_chunks = str('').join([c for c in imf.chunks()])
                 files[field_name] = (
                     imf.name,
                     imf_chunks,

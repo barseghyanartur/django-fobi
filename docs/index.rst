@@ -8,10 +8,22 @@ even export forms into JSON format and import them on other instances. API
 allows you to build your own form elements and form handlers (mechanisms for
 handling the submitted form data).
 
+.. image:: https://img.shields.io/pypi/v/django-fobi.svg
+   :target: https://pypi.python.org/pypi/django-fobi
+   :alt: PyPI Version
+
+.. image:: https://img.shields.io/travis/barseghyanartur/django-fobi/master.svg
+   :target: http://travis-ci.org/barseghyanartur/django-fobi
+   :alt: Build Status
+
+.. image:: https://img.shields.io/badge/license-GPL--2.0--only%20OR%20LGPL--2.1--or--later-blue.svg
+   :target: https://github.com/barseghyanartur/django-fobi/#License
+   :alt: GPL-2.0-only OR LGPL-2.1-or-later
+
 Prerequisites
 =============
-- Django 1.8, 1.9, 1.10, 1.11, 2.0 and 2.1.
-- Python 2.7, 3.4, 3.5, 3.6, 3.7 and PyPy.
+- Django 1.8, 1.9, 1.10, 1.11, 2.0, 2.1 and 2.2.
+- Python 2.7, 3.4, 3.5, 3.6 and 3.7.
 
 Key concepts
 ============
@@ -265,6 +277,7 @@ Or latest stable version from BitBucket:
         'fobi.contrib.plugins.form_handlers.db_store',
         'fobi.contrib.plugins.form_handlers.http_repost',
         'fobi.contrib.plugins.form_handlers.mail',
+        'fobi.contrib.plugins.form_handlers.mail_sender',
 
         # Other project specific apps
         'foo', # Test app
@@ -1543,6 +1556,9 @@ README.rst file in directory of each plugin for details.
 - `Mail
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/mail/>`__:
   Send the form data by email.
+- `Mail the sender
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/mail_sender/>`__:
+  Send the form data by email to the sender (submitter) of the form.
 
 Integration with third-party apps and frameworks
 ================================================
@@ -1940,6 +1956,9 @@ in directory of each plugin for details.
 - `Mail
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/mail/>`__:
   Send the form data by email.
+- `Mail the sender
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_handlers/mail_sender/>`__:
+  Send the form data by email to the sender.
 
 Bundled themes
 --------------
@@ -2344,6 +2363,27 @@ Thus, instead of using system Firefox you could better use a custom one.
 
 For PhantomJS you need to have NodeJS installed.
 
+Set up ChromeDriver
+~~~~~~~~~~~~~~~~~~~
+1. Download ChromeDriver 42:
+
+    .. code-block:: sh
+
+        wget https://chromedriver.storage.googleapis.com/2.42/chromedriver_linux64.zip
+        unzip chromedriver_linux64.zip
+        sudo mv chromedriver /usr/bin/chromedriver42
+        sudo chown root:root /usr/bin/chromedriver42
+        sudo chmod +x /usr/bin/chromedriver42
+
+2. Specify the full path to your ChromeDriver in
+   ``CHROME_DRIVER_EXECUTABLE_PATH`` setting. Example:
+
+    .. code-block:: python
+
+        CHROME_DRIVER_EXECUTABLE_PATH = '/usr/bin/chromedriver42'
+
+After that your Selenium tests would work.
+
 Set up Firefox 47
 ~~~~~~~~~~~~~~~~~
 1. Download Firefox 47 from
@@ -2456,7 +2496,7 @@ or ask the `Author`_ how you could help.
 
 License
 =======
-GPL 2.0/LGPL 2.1
+GPL-2.0-only OR LGPL-2.1-or-later
 
 Support
 =======
@@ -5739,7 +5779,7 @@ Installation
     values: "val", "repr" or "mix" to get the desired behaviour.
 
 Usage
------
+~~~~~
 You should be entering a single choice per line. Choice might
 consist of just a single value or value/label pair.
 
@@ -6343,7 +6383,7 @@ Installation
     following values: "val", "repr" or "mix" to get the desired behaviour.
 
 Usage
------
+~~~~~
 You should be entering a single choice per line. Choice might
 consist of just a single value or value/label pair. If you enter an integer in
 the 'max_choices' field, the user can choose only <max_choices> or less choices.

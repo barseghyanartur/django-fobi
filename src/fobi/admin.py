@@ -9,7 +9,7 @@ from django.utils.decorators import method_decorator
 from django.utils.html import strip_tags
 from django.utils.translation import ugettext_lazy as _
 
-from nine import versions
+from django_nine import versions
 
 from .constants import ACTION_CHOICE_REPLACE
 from .forms import (
@@ -39,7 +39,7 @@ else:
 
 __title__ = 'fobi.admin'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2018 Artur Barseghyan'
+__copyright__ = '2014-2019 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'base_bulk_change_plugins',
@@ -525,6 +525,8 @@ class FormElementAdmin(BasePluginModelAdmin):
     """FormElement admin."""
 
     actions = [bulk_change_form_element_plugins]
+    if versions.DJANGO_GTE_2_2:
+        actions += BasePluginModelAdmin.actions
 
     def _get_bulk_change_form_class(self):
         """Get bulk change form class."""
@@ -561,6 +563,9 @@ class FormHandlerAdmin(BasePluginModelAdmin):
 
     actions = [bulk_change_form_handler_plugins]
 
+    if versions.DJANGO_GTE_2_2:
+        actions += BasePluginModelAdmin.actions
+
     def _get_bulk_change_form_class(self):
         """Get bulk change form class."""
         return BulkChangeFormHandlerPluginsForm
@@ -595,6 +600,9 @@ class FormWizardHandlerAdmin(BasePluginModelAdmin):
     """FormHandler admin."""
 
     actions = [bulk_change_form_wizard_handler_plugins]
+
+    if versions.DJANGO_GTE_2_2:
+        actions += BasePluginModelAdmin.actions
 
     def _get_bulk_change_form_class(self):
         """Get bulk change form class."""
