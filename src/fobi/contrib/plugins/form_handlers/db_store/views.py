@@ -7,7 +7,7 @@ from .....base import (
     get_form_wizard_handler_plugin_widget,
 )
 
-from nine import versions
+from django_nine import versions
 
 from . import UID
 from .models import SavedFormDataEntry, SavedFormWizardDataEntry

@@ -15,6 +15,16 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.14
+----
+2019-05-24
+
+- Tested again Django 2.2 and Python 3.7.
+- Use ChromeDriver (for browser tests).
+- Wiping out (as stated many versions ago) support for Django < 1.8.
+- Reactivate travis (although not all tests yet pass, while they do pass
+  locally; to be solved in future).
+
 0.13.10
 -------
 2019-02-28

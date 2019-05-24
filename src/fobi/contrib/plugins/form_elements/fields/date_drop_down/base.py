@@ -3,7 +3,7 @@ from __future__ import absolute_import
 from django.forms.fields import DateField
 from django.utils.translation import ugettext_lazy as _
 
-from nine import versions
+from django_nine import versions
 
 from fobi.base import FormFieldPlugin, get_theme
 

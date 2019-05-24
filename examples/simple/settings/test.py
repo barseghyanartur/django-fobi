@@ -1,5 +1,5 @@
 # Use in `tox`.
-from nine import versions
+from django_nine import versions
 
 from .base import *
 
@@ -86,6 +86,11 @@ DATABASES = {
         'HOST': '',
         # Set to empty string for default.
         'PORT': '',
+        'TEST': {
+            'NAME': 'fobi_tests',
+            'USER': 'postgres',
+            'PASSWORD': '',  # For travis
+        }
     }
 }
 

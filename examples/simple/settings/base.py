@@ -1,9 +1,8 @@
 # Django settings for example project.
 import os
-from nine.versions import (
+from django_nine.versions import (
     DJANGO_GTE_2_0,
     DJANGO_GTE_1_10,
-    DJANGO_GTE_1_8,
     DJANGO_GTE_1_9,
 )
 
@@ -161,7 +160,7 @@ if DJANGO_GTE_1_10:
             }
         },
     ]
-elif DJANGO_GTE_1_8:
+else:
     TEMPLATES = [
         {
             'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -191,41 +190,6 @@ elif DJANGO_GTE_1_8:
             }
         },
     ]
-else:
-    TEMPLATE_DEBUG = DEBUG_TEMPLATE
-
-    # List of callables that know how to import templates from various
-    # sources.
-    TEMPLATE_LOADERS = [
-        'django.template.loaders.filesystem.Loader',
-        'django.template.loaders.app_directories.Loader',
-        'django.template.loaders.eggs.Loader',
-
-    ]
-    if DJANGO_GTE_1_8:
-        TEMPLATE_LOADERS.append('admin_tools.template_loaders.Loader')
-
-    TEMPLATE_CONTEXT_PROCESSORS = (
-        "django.contrib.auth.context_processors.auth",
-        "django.core.context_processors.debug",
-        "django.core.context_processors.i18n",
-        "django.core.context_processors.media",
-        "django.core.context_processors.static",
-        "django.core.context_processors.tz",
-        "django.contrib.messages.context_processors.messages",
-        "django.core.context_processors.request",
-        "fobi.context_processors.theme",  # Important!
-        "fobi.context_processors.dynamic_values",  # Optional
-        "context_processors.testing",  # Testing
-    )
-
-    TEMPLATE_DIRS = (
-        # Put strings here, like "/home/html/django_templates" or
-        # "C:/www/django/templates".
-        # Always use forward slashes, even on Windows.
-        # Don't forget to use absolute paths, not relative paths.
-        PROJECT_DIR(os.path.join('..', 'templates')),
-    )
 
 # Final declaration of the middleware is done on the bottom of this file
 _MIDDLEWARE = [
@@ -497,7 +461,6 @@ CKEDITOR_CONFIGS = {
 # LOGIN_URL = '/accounts/login/'
 # LOGIN_REDIRECT_URL = '/fobi/' # Important for passing the selenium tests
 
-# if DJANGO_GTE_1_8:
 LOGIN_URL = '/en/accounts/login/'
 LOGIN_REDIRECT_URL = '/en/fobi/'  # Important for passing the selenium tests
 
@@ -512,12 +475,10 @@ PACKAGE_NAME_GRAPPELLI = "grappelli_safe"  # Just for tests
 #    'fobi': 'migrations',
 #    'db_store': 'fobi.contrib.plugins.form_handlers.db_store.migrations'
 # }
-# SOUTH_MIGRATION_MODULES = 'south_migrations'
 
 # **************************************************************
 # ********************* Registration settings ******************
 # **************************************************************
-
 
 ACCOUNT_ACTIVATION_DAYS = 7
 REGISTRATION_FORM = 'registration_addons.forms.CaptchaRegistrationForm'
@@ -633,11 +594,6 @@ ADMIN_TOOLS_APP_INDEX_DASHBOARD = \
     'admin_tools_dashboard.CustomAppIndexDashboard'
 ADMIN_TOOLS_MENU = 'admin_tools_dashboard.menu.CustomMenu'
 
-SOUTH_MIGRATION_MODULES = {
-    'fobi': 'fobi.south_migrations',
-    'db_store': 'ignore',
-}
-
 MIGRATION_MODULES = {
     'fobi': 'fobi.migrations',
     'db_store': 'fobi.contrib.plugins.form_handlers.db_store.migrations',
@@ -733,24 +689,30 @@ LOGGING = {
 }
 
 # Make settings quite compatible among various Django versions used.
-if DJANGO_GTE_1_8:
-    INSTALLED_APPS = list(INSTALLED_APPS)
 
-    # Django 1.8 specific checks
-    if DJANGO_GTE_1_8:
-        try:
-            INSTALLED_APPS.remove('admin_tools') \
-                if 'admin_tools' in INSTALLED_APPS else None
-            INSTALLED_APPS.remove('admin_tools.menu') \
-                if 'admin_tools.menu' in INSTALLED_APPS else None
-            INSTALLED_APPS.remove('admin_tools.dashboard') \
-                if 'admin_tools.dashboard' in INSTALLED_APPS else None
-        except Exception as e:
-            pass
+INSTALLED_APPS = list(INSTALLED_APPS)
+
+try:
+    INSTALLED_APPS.remove('admin_tools') \
+        if 'admin_tools' in INSTALLED_APPS else None
+    INSTALLED_APPS.remove('admin_tools.menu') \
+        if 'admin_tools.menu' in INSTALLED_APPS else None
+    INSTALLED_APPS.remove('admin_tools.dashboard') \
+        if 'admin_tools.dashboard' in INSTALLED_APPS else None
+except Exception as e:
+    pass
 
 # For Selenium tests
 FIREFOX_BIN_PATH = ''
 PHANTOM_JS_EXECUTABLE_PATH = None
+
+CHROME_DRIVER_EXECUTABLE_PATH = os.environ.get('CHROME_BIN', None)
+
+from selenium import webdriver
+CHROME_DRIVER_OPTIONS = webdriver.ChromeOptions()
+CHROME_DRIVER_OPTIONS.add_argument('-headless')
+CHROME_DRIVER_OPTIONS.add_argument('-no-sandbox')
+CHROME_DRIVER_OPTIONS.add_argument('-single-process')
 
 # Testing mode
 TESTING = False

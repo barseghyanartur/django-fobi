@@ -19,8 +19,6 @@ from django.http import Http404
 from django.utils.translation import ugettext_lazy as _
 from django.template import RequestContext, Template
 
-from nine.versions import DJANGO_GTE_1_8
-
 from six import with_metaclass, string_types
 
 from .constants import CALLBACK_STAGES
@@ -852,11 +850,6 @@ class BaseFormFieldPluginForm(BasePluginForm):
                 return False
 
         return True
-
-    if not DJANGO_GTE_1_8:
-        def add_error(self, field, error):
-            """Backwards compatibility hack."""
-            raise forms.ValidationError(error, 'invalid')
 
 # *****************************************************************************
 # *****************************************************************************

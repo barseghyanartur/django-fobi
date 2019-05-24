@@ -4,7 +4,7 @@ import simplejson as json
 
 from django.utils.translation import ugettext_lazy as _
 
-from nine.versions import DJANGO_GTE_1_10
+from django_nine.versions import DJANGO_GTE_1_10
 
 from .....base import (
     FormHandlerPlugin,

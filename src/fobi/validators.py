@@ -1,6 +1,6 @@
 from django.conf import settings
 
-from nine import versions
+from django_nine import versions
 
 import requests
 

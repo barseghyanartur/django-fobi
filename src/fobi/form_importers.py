@@ -1,4 +1,4 @@
-from nine.versions import DJANGO_GTE_1_10
+from django_nine.versions import DJANGO_GTE_1_10
 
 import simplejson as json
 

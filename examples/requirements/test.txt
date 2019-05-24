@@ -5,5 +5,5 @@ pytest-cov==2.6.1
 pytest-django==3.4.8
 pytest-ordering==0.6
 pytest==4.3.0
-selenium==2.53.6
+selenium==3.141.0
 tox==3.7.0

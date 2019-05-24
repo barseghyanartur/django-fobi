@@ -277,29 +277,33 @@ TEST_FORM_FIELD_DATA = {
     # 'test_unicode_text': u'Անուն',
 }
 
-TEST_FORM_HANDLER_PLUGIN_DATA = {
-    force_text(DBStoreHandlerPlugin.name): None,
-    force_text(MailHandlerPlugin.name): {
-        'from_name': "From me",
-        'from_email': "from@example.com",
-        'to_name': "To you",
-        'to_email': "to@example.com",
-        'subject': "Test email subject",
-        'body': "Test email body",
-    },
-    force_text(MailSenderHandlerPlugin.name): {
+# Order of the elements matters a lot, since `Mail` and `Mail the sender`
+# both share the `Mail` word. If order isn't taken into consideration,
+# it may happen that the wrong plugin is detected (occasional on Python2).
+# Therefore, an ordered dict. Note that `MailSenderHandlerPlugin` shall
+# be placed before the `MailHandlerPlugin`.
+TEST_FORM_HANDLER_PLUGIN_DATA = OrderedDict([
+    (force_text(DBStoreHandlerPlugin.name), None),
+    (force_text(MailSenderHandlerPlugin.name), {
         'from_name': "From me",
         'from_email': "from@example.com",
         'to_name': "To you",
         'form_field_name_to_email': "test_email_input",
         'subject': "Test email subject",
         'body': "Test email body",
-    },
-    force_text(HTTPRepostHandlerPlugin.name): {
+    }),
+    (force_text(MailHandlerPlugin.name), {
+        'from_name': "From me",
+        'from_email': "from@example.com",
+        'to_name': "To you",
+        'to_email': "to@example.com",
+        'subject': "Test email subject",
+        'body': "Test email body",
+    }),
+    (force_text(HTTPRepostHandlerPlugin.name), {
         'endpoint_url': 'http://dev.example.com'
-    }
-}
-
+    }),
+])
 
 TEST_MAILCHIMP_IMPORTER_FORM_DATA = [
     {

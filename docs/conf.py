@@ -22,12 +22,9 @@ sys.path.insert(0, os.path.abspath('../src'))
 sys.path.insert(0, os.path.abspath('../examples'))
 sys.path.insert(0, os.path.abspath('../examples/simple'))
 
-from nine.versions import DJANGO_GTE_1_8
-
-if DJANGO_GTE_1_8:
-    import django
-    os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'simple.settings.docs')
-    django.setup()
+import django
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'simple.settings.docs')
+django.setup()
 
 try:
     import fobi
@@ -203,57 +200,35 @@ except Exception as e:
         STATIC_URL = '/static/'
         STATIC_ROOT = PROJECT_DIR(os.path.join('..', 'static'))
 
-        if DJANGO_GTE_1_8:
-            TEMPLATES = [
-                {
-                    'BACKEND': 'django.template.backends.django.DjangoTemplates',
-                    #'APP_DIRS': True,
-                    'DIRS': [PROJECT_DIR('templates'),],
-                    'OPTIONS': {
-                        'context_processors': [
-                            "django.contrib.auth.context_processors.auth",
-                            "django.core.context_processors.debug",
-                            "django.core.context_processors.i18n",
-                            "django.core.context_processors.media",
-                            "django.core.context_processors.static",
-                            "django.core.context_processors.tz",
-                            "django.contrib.messages.context_processors.messages",
-                            "django.core.context_processors.request",
-                            "fobi.context_processors.theme", # Important!
-                            "fobi.context_processors.dynamic_values", # Optional
-                        ],
-                        'loaders': [
-                            'django.template.loaders.filesystem.Loader',
-                            'django.template.loaders.app_directories.Loader',
-                            'django.template.loaders.eggs.Loader',
-                            'admin_tools.template_loaders.Loader',
-                        ],
-                        'debug': False,
-                    }
-                },
-            ]
-        else:
-            TEMPLATE_CONTEXT_PROCESSORS = (
-                "django.contrib.auth.context_processors.auth",
-                "django.core.context_processors.debug",
-                "django.core.context_processors.i18n",
-                "django.core.context_processors.media",
-                "django.core.context_processors.static",
-                "django.core.context_processors.tz",
-                "django.contrib.messages.context_processors.messages",
-                "django.core.context_processors.request",
-                "fobi.context_processors.theme", # Important!
-                "fobi.context_processors.dynamic_values", # Optional
-            )
-            TEMPLATE_DIRS = (
-                PROJECT_DIR('templates'),
-            )
-            TEMPLATE_LOADERS = (
-                'django.template.loaders.filesystem.Loader',
-                'django.template.loaders.app_directories.Loader',
-                'django.template.loaders.eggs.Loader',
-            )
-            TEMPLATE_DEBUG = False
+        TEMPLATES = [
+            {
+                'BACKEND': 'django.template.backends.django.DjangoTemplates',
+                #'APP_DIRS': True,
+                'DIRS': [PROJECT_DIR('templates'),],
+                'OPTIONS': {
+                    'context_processors': [
+                        "django.contrib.auth.context_processors.auth",
+                        "django.core.context_processors.debug",
+                        "django.core.context_processors.i18n",
+                        "django.core.context_processors.media",
+                        "django.core.context_processors.static",
+                        "django.core.context_processors.tz",
+                        "django.contrib.messages.context_processors.messages",
+                        "django.core.context_processors.request",
+                        "fobi.context_processors.theme", # Important!
+                        "fobi.context_processors.dynamic_values", # Optional
+                    ],
+                    'loaders': [
+                        'django.template.loaders.filesystem.Loader',
+                        'django.template.loaders.app_directories.Loader',
+                        'django.template.loaders.eggs.Loader',
+                        'admin_tools.template_loaders.Loader',
+                    ],
+                    'debug': False,
+                }
+            },
+        ]
+
     # END class ExampleSettings()
 
     docs_settings = DocsSettings()
@@ -290,16 +265,9 @@ if not settings.configured:
         'STATIC_ROOT': docs_settings.STATIC_ROOT,
     }
 
-    if DJANGO_GTE_1_8:
-        django_configuration.update({
-            'TEMPLATES': docs_settings.TEMPLATES
-        })
-    else:
-        django_configuration.update({
-            'TEMPLATE_CONTEXT_PROCESSORS': docs_settings.TEMPLATE_CONTEXT_PROCESSORS,
-            'TEMPLATE_DIRS': docs_settings.TEMPLATE_DIRS,
-            'TEMPLATE_LOADERS': docs_settings.TEMPLATE_LOADERS,
-        })
+    django_configuration.update({
+        'TEMPLATES': docs_settings.TEMPLATES
+    })
 
     settings.configure(**django_configuration)
 

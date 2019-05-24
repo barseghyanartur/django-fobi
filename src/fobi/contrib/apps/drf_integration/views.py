@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.http import HttpRequest
 from django.utils.translation import ugettext
 
-from nine import versions
+from django_nine import versions
 
 from rest_framework import mixins, permissions
 from rest_framework.response import Response
