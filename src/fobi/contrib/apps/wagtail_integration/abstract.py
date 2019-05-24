@@ -8,8 +8,12 @@ from django.utils.translation import ugettext_lazy as _
 
 from fobi.integration.processors import IntegrationProcessor
 
-from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
-from wagtail.wagtailcore.models import Page
+try:
+    from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
+    from wagtail.wagtailcore.models import Page
+except ImportError: # since wagtail 2.x changes
+    from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
+    from wagtail.core.models import Page
 
 from .helpers import (
     get_form_template_choices,
@@ -19,7 +23,7 @@ from .settings import WIDGET_FORM_SENT_GET_PARAM
 
 __title__ = 'fobi.contrib.apps.wagtail_integration.abstract'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2018 Artur Barseghyan'
+__copyright__ = '2014-2019 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('AbstractFobiFormPage',)
 

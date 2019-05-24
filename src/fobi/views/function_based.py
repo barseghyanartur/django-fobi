@@ -23,7 +23,9 @@ from django.template import RequestContext
 from django.utils.datastructures import MultiValueDictKeyError
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from nine import versions
+from formtools.wizard.forms import ManagementForm
+
+from django_nine import versions
 
 from ..base import (
     fire_form_callbacks,
@@ -100,14 +102,9 @@ else:
     from django.core.urlresolvers import reverse
     from django.shortcuts import render_to_response
 
-if versions.DJANGO_GTE_1_8:
-    from formtools.wizard.forms import ManagementForm
-else:
-    from django.contrib.formtools.wizard.forms import ManagementForm
-
 __title__ = 'fobi.views'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2018 Artur Barseghyan'
+__copyright__ = '2014-2019 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'add_form_element_entry',

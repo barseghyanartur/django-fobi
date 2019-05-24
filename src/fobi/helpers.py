@@ -13,8 +13,9 @@ import uuid
 from autoslug.settings import slugify
 
 from django import forms
+import django.apps
 from django.conf import settings
-from django.contrib.auth.models import AnonymousUser
+from django.contrib.auth.models import User, AnonymousUser
 # from django.contrib.contenttypes.models import ContentType
 from django.core.files.base import File
 # from django.db.utils import DatabaseError
@@ -25,10 +26,7 @@ from django.utils.encoding import force_text, smart_text
 from django.utils.html import format_html_join
 from django.utils.translation import ugettext_lazy as _
 
-from nine.user import User
-from nine.versions import DJANGO_GTE_1_8, DJANGO_GTE_1_10
-
-# import simplejson as json
+from django_nine.versions import DJANGO_GTE_1_10
 
 from six import text_type, PY3
 
@@ -39,11 +37,6 @@ from .constants import (
 )
 from .exceptions import ImproperlyConfigured
 
-if DJANGO_GTE_1_8:
-    import django.apps
-else:
-    from django.db import models
-
 if DJANGO_GTE_1_10:
     from django.urls import reverse
 else:
@@ -51,7 +44,7 @@ else:
 
 __title__ = 'fobi.helpers'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2018 Artur Barseghyan'
+__copyright__ = '2014-2019 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'admin_change_url',
@@ -62,6 +55,7 @@ __all__ = (
     'do_slugify',
     'empty_string',
     'ensure_unique_filename',
+    'extract_file_path',
     'flatatt_inverse_quotes',
     'get_app_label_and_model_name',
     'get_form_element_entries_for_form_wizard_entry',
@@ -348,12 +342,6 @@ def get_registered_models(ignore=[]):
     :return list:
     """
     get_models = django.apps.apps.get_models
-    # if DJANGO_GTE_1_7:
-    #     get_models = django.apps.apps.get_models
-    # else:
-    #     def get_models():
-    #         """Get models."""
-    #         return models.get_models(include_auto_created=True)
 
     registered_models = [
         (
@@ -363,22 +351,6 @@ def get_registered_models(ignore=[]):
         for _m
         in get_models()
     ]
-
-    # registered_models = []
-    # try:
-    #     content_types = ContentType._default_manager.all()
-    #
-    #     for content_type in content_types:
-    #         # model = content_type.model_class()
-    #         content_type_id = "{0}.{1}".format(
-    #             content_type.app_label, content_type.model
-    #         )
-    #         if content_type_id not in ignore:
-    #             registered_models.append(
-    #                 (content_type_id, content_type.name)
-    #             )
-    # except DatabaseError as err:
-    #     logger.debug(str(err))
 
     return registered_models
 
@@ -753,11 +725,6 @@ class JSONDataExporter(object):
         :return django.http.HttpResponse:
         """
         response_kwargs = {'content_type': mimetype}
-        # response_kwargs = {}
-        # if DJANGO_GTE_1_7:
-        #     response_kwargs['content_type'] = mimetype
-        # else:
-        #     response_kwargs['mimetype'] = mimetype
         return HttpResponse(**response_kwargs)
 
     def export_to_json(self):
