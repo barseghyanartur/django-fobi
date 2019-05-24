@@ -1,5 +1,5 @@
 # Use in `tox`.
-from nine import versions
+from django_nine import versions
 
 from .base import *
 
@@ -86,11 +86,16 @@ DATABASES = {
         'HOST': '',
         # Set to empty string for default.
         'PORT': '',
+        'TEST': {
+            'NAME': 'fobi_tests',
+            'USER': 'postgres',
+            'PASSWORD': '',  # For travis
+        }
     }
 }
 
 # Conditionally choosing the right postgres engine
-if DJANGO_GTE_1_11:
+if versions.DJANGO_GTE_1_11:
     DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
 else:
     DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'

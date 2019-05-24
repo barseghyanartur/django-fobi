@@ -7,7 +7,7 @@ from .....base import (
     get_form_wizard_handler_plugin_widget,
 )
 
-from nine import versions
+from django_nine import versions
 
 from . import UID
 from .models import SavedFormDataEntry, SavedFormWizardDataEntry
@@ -20,7 +20,7 @@ else:
 
 __title__ = 'fobi.contrib.plugins.form_handlers.db_store.views'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = 'Copyright (c) 2014-2018 Artur Barseghyan'
+__copyright__ = 'Copyright (c) 2014-2019 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'view_saved_form_data_entries',

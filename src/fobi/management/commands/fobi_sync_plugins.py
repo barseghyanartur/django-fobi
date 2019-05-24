@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from nine import versions
+from django_nine import versions
 
 from fobi.utils import sync_plugins
 

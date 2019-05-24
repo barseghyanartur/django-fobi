@@ -3,7 +3,7 @@ from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import ugettext_lazy as _
 
-from nine import versions
+from django_nine import versions
 
 from .helpers import flatatt_inverse_quotes
 
@@ -20,7 +20,7 @@ except ImportError:
 
 __title__ = 'fobi.widgets'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2018 Artur Barseghyan'
+__copyright__ = '2014-2019 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = (
     'BooleanRadioSelect',

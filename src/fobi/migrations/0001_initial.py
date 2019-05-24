@@ -4,17 +4,14 @@ from __future__ import unicode_literals
 from django.db import models, migrations
 import autoslug.fields
 from django.conf import settings
-from nine.versions import DJANGO_GTE_1_8
 
 
 class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('auth', '0006_require_contenttypes_0002')
     ]
-
-    if DJANGO_GTE_1_8:
-        dependencies += [('auth', '0006_require_contenttypes_0002')]
 
     operations = [
         migrations.CreateModel(

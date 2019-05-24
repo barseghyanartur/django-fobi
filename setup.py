@@ -4,7 +4,7 @@ import sys
 from distutils.version import LooseVersion
 from setuptools import setup, find_packages
 
-version = '0.13.6'
+version = '0.14'
 
 # ***************************************************************************
 # ************************** Python version *********************************
@@ -140,6 +140,9 @@ template_dirs = [
     # Mail
     "src/fobi/contrib/plugins/form_handlers/mail/templates/mail",
 
+    # Mail sender
+    "src/fobi/contrib/plugins/form_handlers/mail_sender/templates/mail_sender",
+
     # Http re-post
     "src/fobi/contrib/plugins/form_handlers/http_repost/templates/"
     "http_repost",
@@ -230,25 +233,12 @@ install_requires = []
 # If certain version of Django is already installed, choose version agnostic
 # dependencies.
 if DJANGO_INSTALLED:
-    if DJANGO_1_5 or DJANGO_1_6 or DJANGO_1_7:
+    if DJANGO_1_8:
         install_requires = [
             'bleach',
-            'django-autoslug-iplweb>=1.9.4',
-            'django-nine>=0.1.13',
-            'django-nonefield>=0.1',
-            'Pillow>=2.0.0',
-            'requests>=1.0.0',
-            'six>=1.9',
-            'Unidecode>=0.04.1',
-            'vishap>=0.1.5,<2.0',
-        ]
-
-    elif DJANGO_1_8:
-        install_requires = [
-            'bleach',
-            'django-autoslug-iplweb>=1.9.4',
+            'django-autoslug==1.9.4',
             'django-formtools>=1.0',
-            'django-nine>=0.1.13',
+            'django-nine>=0.2.2',
             'django-nonefield>=0.1',
             'Pillow>=2.0.0',
             'requests>=1.0.0',
@@ -259,9 +249,9 @@ if DJANGO_INSTALLED:
     elif DJANGO_1_9:
         install_requires = [
             'bleach',
-            'django-autoslug-iplweb>=1.9.4',
+            'django-autoslug==1.9.4',
             'django-formtools>=1.0',
-            'django-nine>=0.1.13',
+            'django-nine>=0.2.2',
             'django-nonefield>=0.1',
             'Pillow>=2.0.0',
             'requests>=1.0.0',
@@ -272,9 +262,9 @@ if DJANGO_INSTALLED:
     elif DJANGO_1_10:
         install_requires = [
             'bleach',
-            'django-autoslug-iplweb>=1.9.4',
+            'django-autoslug==1.9.4',
             'django-formtools>=1.0',
-            'django-nine>=0.1.13',
+            'django-nine>=0.2.2',
             'django-nonefield>=0.1',
             'Pillow>=2.0.0',
             'requests>=1.0.0',
@@ -285,9 +275,9 @@ if DJANGO_INSTALLED:
     elif DJANGO_1_11:
         install_requires = [
             'bleach',
-            'django-autoslug-iplweb>=1.9.4',
+            'django-autoslug==1.9.4',
             'django-formtools>=2.0',
-            'django-nine>=0.1.13',
+            'django-nine>=0.2.2',
             'django-nonefield>=0.1',
             'Pillow>=2.0.0',
             'requests>=1.0.0',
@@ -302,9 +292,9 @@ if DJANGO_INSTALLED:
     elif DJANGO_2_0:
         install_requires = [
             'bleach',
-            'django-autoslug-iplweb>=1.9.4',
+            'django-autoslug==1.9.4',
             'django-formtools>=2.0',
-            'django-nine>=0.1.13',
+            'django-nine>=0.2.2',
             'django-nonefield>=0.3',
             'Pillow>=2.0.0',
             'requests>=1.0.0',
@@ -321,9 +311,9 @@ if DJANGO_INSTALLED:
 if not install_requires:
     install_requires = [
         'bleach',
-        'django-autoslug-iplweb>=1.9.4',
+        'django-autoslug>=1.9.4',
         'django-formtools>=2.0',
-        'django-nine>=0.1.13',
+        'django-nine>=0.2.2',
         'django-nonefield>=0.1',
         'Pillow>=2.0.0',
         'requests>=1.0.0',
@@ -347,7 +337,7 @@ tests_require = [
 ]
 
 if PY3:
-    install_requires.append('simplejson>=3.0.0')  # When using Python 3
+    install_requires.append('simplejson>=3.0.0,<=3.8.0')  # When using Python3
     if DJANGO_INSTALLED and not DJANGO_1_11:
         install_requires.append('easy-thumbnails>=2.3')
     else:
@@ -358,7 +348,7 @@ if PY3:
         #     '#egg=easy-thumbnails'
         # )
 else:
-    install_requires.append('simplejson>=2.1.0')  # When using Python 2.*
+    install_requires.append('simplejson>=2.1.0,<=3.8.0')  # When using Python2
     install_requires.append('ordereddict>=1.1')
     if DJANGO_INSTALLED and not DJANGO_1_11:
         install_requires.append('easy-thumbnails>=1.4')

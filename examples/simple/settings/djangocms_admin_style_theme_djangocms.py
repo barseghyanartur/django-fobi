@@ -1,5 +1,3 @@
-from nine.versions import DJANGO_GTE_1_8
-
 from .base import *
 
 INSTALLED_APPS = list(INSTALLED_APPS)
@@ -44,19 +42,12 @@ MIDDLEWARE_CLASSES += [
     # 'django.middleware.cache.FetchFromCacheMiddleware',
 ]
 
-if DJANGO_GTE_1_8:
-    TEMPLATES[0]['OPTIONS']['context_processors'] += [
-        'cms.context_processors.cms_settings',
-        'sekizai.context_processors.sekizai',
-        'cms.context_processors.cms_settings',
-    ]
-else:
-    TEMPLATE_CONTEXT_PROCESSORS = list(TEMPLATE_CONTEXT_PROCESSORS)
-    TEMPLATE_CONTEXT_PROCESSORS += [
-        'cms.context_processors.cms_settings',
-        'sekizai.context_processors.sekizai',
-        'cms.context_processors.cms_settings',
-    ]
+
+TEMPLATES[0]['OPTIONS']['context_processors'] += [
+    'cms.context_processors.cms_settings',
+    'sekizai.context_processors.sekizai',
+    'cms.context_processors.cms_settings',
+]
 
 # FOBI_DEFAULT_THEME = 'bootstrap3'
 # FOBI_DEFAULT_THEME = 'foundation5'

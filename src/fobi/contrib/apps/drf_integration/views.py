@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.http import HttpRequest
 from django.utils.translation import ugettext
 
-from nine import versions
+from django_nine import versions
 
 from rest_framework import mixins, permissions
 from rest_framework.response import Response
@@ -30,7 +30,7 @@ from .utils import get_serializer_class
 
 __title__ = 'fobi.contrib.apps.drf_integration.views'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2018 Artur Barseghyan'
+__copyright__ = '2014-2019 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('FobiFormEntryViewSet',)
 

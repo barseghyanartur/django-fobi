@@ -1,6 +1,6 @@
 # Style checkers
 pydocstyle
-pylint
+pylint==1.9
 pyflakes
 flake8
 isort
