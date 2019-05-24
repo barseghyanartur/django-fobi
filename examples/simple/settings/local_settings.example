@@ -63,6 +63,7 @@ MAILCHIMP_API_KEY = 'your-mailchimp-api-key'
 RECAPTCHA_PUBLIC_KEY = 'your-recaptcha-public-key'
 RECAPTCHA_PRIVATE_KEY = 'your-recaptcha-private-key'
 
+CHROME_DRIVER_EXECUTABLE_PATH = '/usr/bin/chromedriver'
 FIREFOX_BIN_PATH = '/usr/lib/firefox47/firefox'
 PHANTOM_JS_EXECUTABLE_PATH = ''
 

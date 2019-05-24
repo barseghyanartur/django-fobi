@@ -84,6 +84,7 @@ Add ``fobi`` core and the plugins to the ``INSTALLED_APPS`` of the your
 
     'easy_thumbnails',  # Required by `content_image` plugin
     'fobi.contrib.plugins.form_elements.content.content_image',
+    'fobi.contrib.plugins.form_elements.content.content_image_url',
     'fobi.contrib.plugins.form_elements.content.content_text',
     'fobi.contrib.plugins.form_elements.content.content_video',
 
@@ -94,6 +95,7 @@ Add ``fobi`` core and the plugins to the ``INSTALLED_APPS`` of the your
     'fobi.contrib.plugins.form_handlers.db_store',
     'fobi.contrib.plugins.form_handlers.http_repost',
     'fobi.contrib.plugins.form_handlers.mail',
+    'fobi.contrib.plugins.form_handlers.mail_sender',
 
 Putting all together, you would have something like this.
 
@@ -147,6 +149,7 @@ Putting all together, you would have something like this.
         # Form element plugins
         'easy_thumbnails',  # Required by ``content_image`` plugin
         'fobi.contrib.plugins.form_elements.content.content_image',
+        'fobi.contrib.plugins.form_elements.content.content_image_url',
         'fobi.contrib.plugins.form_elements.content.content_text',
         'fobi.contrib.plugins.form_elements.content.content_video',
 
@@ -154,6 +157,7 @@ Putting all together, you would have something like this.
         'fobi.contrib.plugins.form_handlers.db_store',
         'fobi.contrib.plugins.form_handlers.http_repost',
         'fobi.contrib.plugins.form_handlers.mail',
+        'fobi.contrib.plugins.form_handlers.mail_sender',
 
         # ...
     )

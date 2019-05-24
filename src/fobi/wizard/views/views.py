@@ -1,18 +1,9 @@
-from nine import versions
+from formtools.wizard.views import (
+    WizardView as OriginalWizardView,
+    SessionWizardView as OriginalSessionWizardView,
+    CookieWizardView as OriginalCookieWizardView,
 
-if versions.DJANGO_GTE_1_8:
-    from formtools.wizard.views import (
-        WizardView as OriginalWizardView,
-        SessionWizardView as OriginalSessionWizardView,
-        CookieWizardView as OriginalCookieWizardView,
-
-    )
-else:
-    from django.contrib.formtools.wizard.views import (
-        WizardView as OriginalWizardView,
-        SessionWizardView as OriginalSessionWizardView,
-        CookieWizardView as OriginalCookieWizardView,
-    )
+)
 
 __all__ = (
     'WizardView',

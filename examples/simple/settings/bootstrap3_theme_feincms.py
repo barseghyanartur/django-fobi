@@ -1,4 +1,3 @@
-from nine.versions import DJANGO_GTE_1_8
 from .base import *
 
 INSTALLED_APPS = list(INSTALLED_APPS)
@@ -22,9 +21,7 @@ FEINCMS_RICHTEXT_INIT_CONTEXT = {
     'TINYMCE_JS_URL': STATIC_URL + 'tiny_mce/tiny_mce.js',
 }
 
-if DJANGO_GTE_1_8:
-
-    MIGRATION_MODULES = {
-        'fobi': 'fobi.migrations',
-        'db_store': 'fobi.contrib.plugins.form_handlers.db_store.migrations',
-    }
+MIGRATION_MODULES = {
+    'fobi': 'fobi.migrations',
+    'db_store': 'fobi.contrib.plugins.form_handlers.db_store.migrations',
+}

@@ -21,7 +21,7 @@ except ImportError:
 
 __title__ = 'fobi.contrib.plugins.form_handlers.db_store.helpers'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2018 Artur Barseghyan'
+__copyright__ = '2014-2019 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
 __all__ = ('DataExporter',)
 
@@ -43,11 +43,6 @@ class DataExporter(object):
         For compatibility with older versions (`mimetype` vs `content_type`).
         """
         response_kwargs = {'content_type': mimetype}
-        # response_kwargs = {}
-        # if DJANGO_GTE_1_7:
-        #     response_kwargs['content_type'] = mimetype
-        # else:
-        #     response_kwargs['mimetype'] = mimetype
         return HttpResponse(**response_kwargs)
 
     def _get_data_headers(self):

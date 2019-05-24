@@ -133,11 +133,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-
-SOUTH_MIGRATION_MODULES = {
-    'fobi': 'fobi.south_migrations',
-}
-
 MIGRATION_MODULES = {
     'fobi': 'fobi.migrations',
 }
