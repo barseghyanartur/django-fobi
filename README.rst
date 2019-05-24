@@ -707,7 +707,7 @@ Defining the Sample mail handler plugin.
         name = _("Sample mail")
         form = SampleMailForm
 
-        def run(self, form_entry, request, form):
+        def run(self, form_entry, request, form, form_element_entries=None):
             """To be executed by handler."""
             send_mail(
                 self.data.subject,
@@ -716,6 +716,12 @@ Defining the Sample mail handler plugin.
                 [self.data.to_email],
                 fail_silently=True
             )
+
+Register the plugin
+
+.. code-block:: python
+
+    form_handler_plugin_registry.register(SampleMailHandlerPlugin)
 
 Some form handlers are configurable, some others not. In order to
 have a user friendly way of showing the form handler settings, what's
