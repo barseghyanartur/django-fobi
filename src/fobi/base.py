@@ -840,7 +840,7 @@ class IntegrationFormElementPluginDataStorage(BaseDataStorage):
 
 
 class IntegrationFormHandlerPluginDataStorage(BaseDataStorage):
-        """Storage for `IntegrationFormHandlerPlugin`."""
+    """Storage for `IntegrationFormHandlerPlugin`."""
 
 
 class FormWizardHandlerPluginWidgetDataStorage(BaseDataStorage):

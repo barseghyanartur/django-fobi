@@ -541,6 +541,9 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
 
         self._sleep(2)
 
+        footer = self.driver.find_element_by_xpath('//footer')
+        footer.click()
+
         self._scroll_page_bottom()
 
         # Wait until button is there
@@ -551,15 +554,18 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         )
 
         # Click add widget button
-        submit_button = self.driver.find_element_by_xpath('//button[@type="submit"]')
+        submit_button = self.driver.find_element_by_xpath(
+            '//button[@type="submit"]'
+        )
 
-        self._scroll_page_bottom()
+        self._sleep(2)
+
         submit_button.click()
 
         try:
             submit_button.click()
         except Exception as err:
-            import pytest; pytest.set_trace()
+            pass
 
         # Wait until the submit success page opens a clear success message.
         WebDriverWait(self.driver, timeout=TIMEOUT).until(

@@ -712,7 +712,7 @@ from selenium import webdriver
 CHROME_DRIVER_OPTIONS = webdriver.ChromeOptions()
 CHROME_DRIVER_OPTIONS.add_argument('-headless')
 CHROME_DRIVER_OPTIONS.add_argument('-no-sandbox')
-CHROME_DRIVER_OPTIONS.add_argument('-single-process')
+# CHROME_DRIVER_OPTIONS.add_argument('-single-process')
 
 # Testing mode
 TESTING = False

@@ -58,14 +58,14 @@ except ImportError as e:
             )
 
     except ImportError:
-            DJANGO_RECAPTCHA_INSTALLED = False
-            logger.error(
-                "; Likely you didn't yet install the"
-                "`django-simple-captcha` package. Note, that at "
-                "the moment you can't have both `django-recaptcha` "
-                "and `django-simple-captcha` installed alongside "
-                "due to app name collision (captcha)."
-            )
+        DJANGO_RECAPTCHA_INSTALLED = False
+        logger.error(
+            "; Likely you didn't yet install the"
+            "`django-simple-captcha` package. Note, that at "
+            "the moment you can't have both `django-recaptcha` "
+            "and `django-simple-captcha` installed alongside "
+            "due to app name collision (captcha)."
+        )
 
 __title__ = 'fobi.contrib.plugins.form_elements.security.' \
             'recaptcha.base'
@@ -98,7 +98,10 @@ class ReCaptchaInputPlugin(FormElementPlugin):
             'help_text': self.data.help_text,
             # 'initial': self.data.initial,
             'required': self.data.required,
-            'widget': ReCaptchaWidget(public_key=settings.RECAPTCHA_PUBLIC_KEY, attrs=widget_attrs),
+            'widget': ReCaptchaWidget(
+                public_key=settings.RECAPTCHA_PUBLIC_KEY,
+                attrs=widget_attrs
+            ),
         }
 
         return [(self.data.name, ReCaptchaField, field_kwargs)]
