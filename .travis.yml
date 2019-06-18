@@ -50,7 +50,7 @@ before_install:
   - sudo apt-get install -y xvfb libappindicator1 fonts-liberation
 #  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
 #  - sudo dpkg -i google-chrome*.deb
-  - wget wget http://ftp.de.debian.org/debian/pool/main/c/chromium/chromium_74.0.3729.108-1_armhf.deb
+  - wget http://ftp.de.debian.org/debian/pool/main/c/chromium/chromium_74.0.3729.108-1_armhf.deb
   - sudo dpkg -i chromium_74*.deb
 
 install:
