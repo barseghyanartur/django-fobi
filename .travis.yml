@@ -9,6 +9,9 @@ cache: pip
 
 sudo: false
 
+addons:
+  chrome: stable
+
 matrix:
   fast_finish: true
   include:
@@ -44,6 +47,7 @@ matrix:
     python: 3.7
 
 install:
+  - apt install -y chromium-browser
   - wget http://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip
   - unzip chromedriver_linux64.zip -d /home/travis/
   - pip install -r examples/requirements/test.txt
