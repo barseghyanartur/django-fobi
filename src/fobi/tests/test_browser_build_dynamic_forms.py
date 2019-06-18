@@ -33,8 +33,9 @@ __all__ = (
 
 logger = logging.getLogger(__name__)
 
-TIMEOUT = 4
-LONG_TIMEOUT = 8
+TRAVIS_TIMEOUT = 16
+TIMEOUT = TRAVIS_TIMEOUT
+LONG_TIMEOUT = TRAVIS_TIMEOUT
 WAIT = False
 WAIT_FOR = 0
 
