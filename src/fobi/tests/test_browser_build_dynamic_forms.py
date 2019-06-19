@@ -33,7 +33,7 @@ __all__ = (
 
 logger = logging.getLogger(__name__)
 
-TRAVIS_TIMEOUT = 16
+TRAVIS_TIMEOUT = 32
 TIMEOUT = TRAVIS_TIMEOUT
 LONG_TIMEOUT = TRAVIS_TIMEOUT
 WAIT = False
