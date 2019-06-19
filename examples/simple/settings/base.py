@@ -703,10 +703,13 @@ except Exception as e:
     pass
 
 # For Selenium tests
-FIREFOX_BIN_PATH = ''
-PHANTOM_JS_EXECUTABLE_PATH = None
+# FIREFOX_BIN_PATH = ''
+FIREFOX_BIN_PATH = None
+# PHANTOM_JS_EXECUTABLE_PATH = None
+PHANTOM_JS_EXECUTABLE_PATH = ''
 
-CHROME_DRIVER_EXECUTABLE_PATH = os.environ.get('CHROME_BIN', None)
+# CHROME_DRIVER_EXECUTABLE_PATH = os.environ.get('CHROME_BIN', None)
+CHROME_DRIVER_EXECUTABLE_PATH = None
 
 from selenium import webdriver
 CHROME_DRIVER_OPTIONS = webdriver.ChromeOptions()
