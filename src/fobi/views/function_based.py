@@ -1930,7 +1930,9 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
             return render(request, template_name, context)
         else:
             return render_to_response(
-                template_name, context, context_instance=RequestContext(request)
+                template_name,
+                context,
+                context_instance=RequestContext(request)
             )
 
     form_element_entries = form_entry.formelemententry_set.all()[:]

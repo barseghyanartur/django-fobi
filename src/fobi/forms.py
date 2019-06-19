@@ -139,12 +139,14 @@ class FormEntryForm(forms.ModelForm):
                 attrs={'class': theme.form_element_html_class}
             )
         else:
-            self.fields['success_page_message'].widget = forms.widgets.Textarea(
-                attrs={'class': theme.form_element_html_class}
-            )
-            self.fields['inactive_page_message'].widget = forms.widgets.Textarea(
-                attrs={'class': theme.form_element_html_class}
-            )
+            self.fields['success_page_message'].widget = \
+                forms.widgets.Textarea(
+                    attrs={'class': theme.form_element_html_class}
+                )
+            self.fields['inactive_page_message'].widget = \
+                forms.widgets.Textarea(
+                    attrs={'class': theme.form_element_html_class}
+                )
 
         self.fields['action'].widget = forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}

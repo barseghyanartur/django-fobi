@@ -703,16 +703,20 @@ except Exception as e:
     pass
 
 # For Selenium tests
-FIREFOX_BIN_PATH = ''
-PHANTOM_JS_EXECUTABLE_PATH = None
+# FIREFOX_BIN_PATH = ''
+FIREFOX_BIN_PATH = None
+# PHANTOM_JS_EXECUTABLE_PATH = None
+PHANTOM_JS_EXECUTABLE_PATH = ''
 
-CHROME_DRIVER_EXECUTABLE_PATH = os.environ.get('CHROME_BIN', None)
+# CHROME_DRIVER_EXECUTABLE_PATH = os.environ.get('CHROME_BIN', None)
+CHROME_DRIVER_EXECUTABLE_PATH = None
 
 from selenium import webdriver
 CHROME_DRIVER_OPTIONS = webdriver.ChromeOptions()
 CHROME_DRIVER_OPTIONS.add_argument('-headless')
 CHROME_DRIVER_OPTIONS.add_argument('-no-sandbox')
-CHROME_DRIVER_OPTIONS.add_argument('-single-process')
+CHROME_DRIVER_OPTIONS.set_capability('chrome.binary', "/usr/bin/google-chrome")
+# CHROME_DRIVER_OPTIONS.add_argument('-single-process')
 
 # Testing mode
 TESTING = False

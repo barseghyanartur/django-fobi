@@ -2349,6 +2349,12 @@ To test just your working environment type:
 
     ./runtests.py
 
+To run a single test class in a given test module in your working environment type:
+
+.. code-block:: sh
+
+    ./runtests.py src/fobi/tests/test_browser_build_dynamic_forms.py::FobiBrowserBuldDynamicFormsTest -k "test_2004_submit_form"
+
 It's assumed that you have all the requirements installed. If not, first
 install the test requirements:
 

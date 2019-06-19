@@ -7,7 +7,10 @@ language: python
 
 cache: pip
 
-sudo: false
+sudo: true
+
+addons:
+  chrome: stable
 
 matrix:
   fast_finish: true
@@ -43,8 +46,16 @@ matrix:
   - env: TOX_ENV=py37-django22
     python: 3.7
 
+before_install:
+  - sudo apt-get install -y xvfb libappindicator1 fonts-liberation
+#  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+#  - sudo dpkg -i google-chrome*.deb
+#  - wget http://ftp.us.debian.org/debian/pool/main/c/chromium/chromium_75.0.3770.90-1_amd64.deb
+#  - sudo dpkg -i chromium_75.0.3770.90-1_amd64.deb
+
 install:
-  - wget http://chromedriver.storage.googleapis.com/2.42/chromedriver_linux64.zip
+  - wget http://chromedriver.storage.googleapis.com/75.0.3770.90/chromedriver_linux64.zip
+#  - wget http://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip
   - unzip chromedriver_linux64.zip -d /home/travis/
   - pip install -r examples/requirements/test.txt
 
