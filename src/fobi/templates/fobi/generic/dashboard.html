@@ -39,8 +39,8 @@
             </tr>
           </thead>
           <tbody>
-        {% block form_entry_table_row %}
-          {% for form_entry in form_entries %}
+          {% block form_entry_table_row %}
+            {% for form_entry in form_entries %}
             <tr>
               <td><a href="{% url 'fobi.view_form_entry' form_entry.slug %}">{{ form_entry.name }}</a></td>
               <td>{{ form_entry.is_public }}</td>
@@ -67,8 +67,8 @@
               </td>
             </tr>
           {% endfor %}
-        {% endblock form_entry_table_row %}
-        </tbody>
+          {% endblock form_entry_table_row %}
+          </tbody>
         </table>
       </div>
     </div>

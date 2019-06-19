@@ -239,6 +239,51 @@ class BaseTheme(object):
 
     # ***********************************************************************
     # ***********************************************************************
+    # ********************** Theme specific urls*****************************
+    # ***********************************************************************
+    # ***********************************************************************
+
+    # form element entry
+
+    add_form_element_entry = 'fobi.add_form_element_entry'
+
+    add_form_handler_entry = 'fobi.add_form_handler_entry'
+    edit_form_handler_entry = 'fobi.edit_form_handler_entry'
+    delete_form_handler_entry = 'fobi.delete_form_handler_entry'
+
+    # form wizard entry
+
+    create_form_wizard_entry = 'fobi.create_form_wizard_entry'
+    import_form_wizard_entry = 'fobi.import_form_wizard_entry'
+    view_form_wizard_entry = 'fobi.view_form_wizard_entry'
+    edit_form_wizard_entry = 'fobi.edit_form_wizard_entry'
+    delete_form_wizard_entry = 'fobi.delete_form_wizard_entry'
+    export_form_wizard_entry = 'fobi.export_form_wizard_entry'
+
+    add_form_wizard_form_entry = 'fobi.add_form_wizard_form_entry'
+    delete_form_wizard_form_entry = 'fobi.delete_form_wizard_form_entry'
+
+    add_form_wizard_handler_entry = 'fobi.add_form_wizard_handler_entry'
+    edit_form_wizard_handler_entry = 'fobi.edit_form_wizard_handler_entry'
+    delete_form_wizard_handler_entry = 'fobi.delete_form_wizard_handler_entry'
+
+    # form entry
+
+    create_form_entry = 'fobi.create_form_entry'
+    import_form_entry = 'fobi.import_form_entry'
+    export_form_entry = 'fobi.export_form_entry'
+    delete_form_entry = 'fobi.delete_form_entry'
+    edit_form_entry = 'fobi.edit_form_entry'
+    view_form_entry = 'fobi.view_form_entry'
+
+
+    # dashboards
+
+    dashboard = 'fobi.dashboard'
+    form_wizards_dashboard = 'fobi.form_wizards_dashboard'
+
+    # ***********************************************************************
+    # ***********************************************************************
     # ********************** Form HTML specific *****************************
     # ***********************************************************************
     # ***********************************************************************
