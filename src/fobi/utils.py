@@ -44,7 +44,7 @@ from .models import (
     FormElementEntry,
     FormHandler,
     FormHandlerEntry,
-    FormWizardHandler
+    FormWizardHandler,
 )
 from .settings import (
     RESTRICT_PLUGIN_ACCESS,

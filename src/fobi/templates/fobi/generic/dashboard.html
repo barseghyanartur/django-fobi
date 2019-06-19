@@ -39,7 +39,8 @@
             </tr>
           </thead>
           <tbody>
-          {% for form_entry in form_entries %}
+          {% block form_entry_table_row %}
+            {% for form_entry in form_entries %}
             <tr>
               <td><a href="{% url 'fobi.view_form_entry' form_entry.slug %}">{{ form_entry.name }}</a></td>
               <td>{{ form_entry.is_public }}</td>
@@ -66,6 +67,7 @@
               </td>
             </tr>
           {% endfor %}
+          {% endblock form_entry_table_row %}
           </tbody>
         </table>
       </div>
@@ -78,6 +80,7 @@
     </div>
 
     <div class="list-group">
+      {% block form_entry_actions %}
       <a href="{% url 'fobi.create_form_entry' %}" class="list-group-item">
         <span class="glyphicon glyphicon-plus"></span> {% trans "Create form" %}
       </a>
@@ -89,6 +92,7 @@
           <span class="glyphicon glyphicon-import glyphicon-import-{{ form_importer_uid }}"></span> {{ form_importer_name }}
         </a>
       {% endfor %}
+      {% endblock form_entry_actions %}
     </div>
   </div>
 </div>

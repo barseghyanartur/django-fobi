@@ -37,7 +37,7 @@
                   </li>
                 </ul>
 
-                <form method="post" action="{{ request.path }}?active_tab=tab-form-elements" novalidate="novalidate" class="{% block form_elements_html_class %}form-horizontal{% endblock %}">
+                <form id="fobi-form" method="post" action="{{ request.path }}?active_tab=tab-form-elements" novalidate="novalidate" class="{% block form_elements_html_class %}form-horizontal ui-sortable{% endblock %}">
                   {% csrf_token %}
                   <div class="well well-sm">
                       {% blocktrans %}Fields marked with <span class="required-field">*</span> are required{% endblocktrans %}
