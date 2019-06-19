@@ -15,6 +15,24 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.15
+----
+2019-06-20
+
+.. note::
+
+    Although this release does not contain major backwards incompatible
+    changes, some things you have had working in past might break.
+
+- The following settings
+  ``FOBI_FAIL_ON_ERRORS_IN_FORM_ELEMENT_PLUGINS``,
+  ``FOBI_FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS``,
+  ``FOBI_FAIL_ON_MISSING_INTEGRATION_FORM_ELEMENT_PLUGINS`` and
+  ``FOBI_FAIL_ON_MISSING_INTEGRATION_FORM_HANDLER_PLUGINS`` used to be set to
+  ``False`` by default (silencing exceptions). It's no longer so. Exceptions
+  will cause errors from now on (you might get error 500). If you want old
+  behaviour, set them to ``False``.
+
 0.14
 ----
 2019-05-24
