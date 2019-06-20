@@ -31,7 +31,7 @@ are used for versioning (schema follows below):
   ``FOBI_FAIL_ON_MISSING_INTEGRATION_FORM_HANDLER_PLUGINS`` used to be set to
   ``False`` by default (silencing exceptions). It's no longer so. Exceptions
   will cause errors from now on (you might get error 500). If you want old
-  behavior, set them to ``False``.
+  behaviour, set them to ``False``.
 
 0.14
 ----
