@@ -71,6 +71,7 @@ LANGUAGES = (
     ('ru', gettext("Russian")),
     ('de', gettext("German")),
     ('fr', gettext("French")),
+    ('zh_Hans', gettext("Simplified Chinese")),
 )
 
 SITE_ID = 1
