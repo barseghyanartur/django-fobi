@@ -71,7 +71,7 @@ LANGUAGES = (
     ('ru', gettext("Russian")),
     ('de', gettext("German")),
     ('fr', gettext("French")),
-    ('zh_Hans', gettext("Simplified Chinese")),
+    ('zh-hans', gettext("Simplified Chinese")),
 )
 
 SITE_ID = 1
@@ -195,6 +195,7 @@ else:
 # Final declaration of the middleware is done on the bottom of this file
 _MIDDLEWARE = [
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',

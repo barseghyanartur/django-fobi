@@ -156,7 +156,7 @@ if getattr(settings, 'DEBUG', False) and \
 
     if versions.DJANGO_GTE_2_2:
         urlpatterns = [
-            url(r'^__debug__/', debug_toolbar.urls),
+            url(r'^__debug__/', include(debug_toolbar.urls)),
         ] + urlpatterns
     else:
         urlpatterns = [
