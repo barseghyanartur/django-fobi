@@ -7,7 +7,6 @@ from django.core.exceptions import ValidationError as DjangoValidationError
 from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 
-from rest_framework.compat import unicode_to_repr
 from rest_framework.exceptions import ErrorDetail, ValidationError
 from rest_framework.fields import (
     empty,
@@ -448,8 +447,7 @@ def assemble_serializer_class(form_entry,
             return attrs
 
         def __repr__(self):
-            return unicode_to_repr(
-                representation.serializer_repr(self, indent=1))
+            return representation.serializer_repr(self, indent=1)
 
         # The following are used for accessing `BoundField` instances on the
         # serializer, for the purposes of presenting a form-like API onto the
