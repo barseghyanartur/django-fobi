@@ -16,7 +16,7 @@ ordereddict==1.1
 path.py==8.1.2
 pexpect==4.0.1
 pickleshare==0.5
-Pillow==4.2.1
+Pillow==6.2.0
 pluggy==0.7.1
 ptyprocess==0.5
 psycopg2-binary==2.8.2
