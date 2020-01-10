@@ -15,6 +15,14 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.16
+----
+2020-01-xx (not yet released)
+
+- Drop support Django 1.8, 1.9, 1.10. Minimal supported Django version is 1.11.
+- Add support for Django 3.0.
+- Drop Python 3.4 support.
+
 0.15
 ----
 2019-06-20

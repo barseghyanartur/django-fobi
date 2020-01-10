@@ -61,7 +61,7 @@ else:
 
 url_patterns_args += [
     # django-registration URLs:
-    url(r'^accounts/', include('registration.backends.simple.urls')),
+    url(r'^accounts/', include('django_registration.backends.one_step.urls')),
 
     # foo URLs:
     url(r'^foo/', include('foo.urls')),
