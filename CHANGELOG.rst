@@ -19,8 +19,15 @@ are used for versioning (schema follows below):
 ----
 2020-01-xx (not yet released)
 
+.. note::
+
+    This release drops support for Python 2.7 and 3.4 and sets the minimum
+    requirement version for Django to 1.11. If you don't meet these
+    requirements - do not upgrade.
+
 - Drop support Django 1.8, 1.9, 1.10. Minimal supported Django version is 1.11.
 - Add support for Django 3.0.
+- Drop Python 2.7 support.
 - Drop Python 3.4 support.
 
 0.15

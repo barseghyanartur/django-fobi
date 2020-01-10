@@ -150,15 +150,12 @@ if getattr(settings, 'ENABLE_CAPTCHA', False):
         except ImportError:
             pass
 
-if getattr(settings, 'DEBUG', False) and \
-        getattr(settings, 'DEBUG_TOOLBAR', False):
+if (
+    getattr(settings, 'DEBUG', False)
+    and getattr(settings, 'DEBUG_TOOLBAR', False)
+):
     import debug_toolbar
 
-    if versions.DJANGO_GTE_2_2:
-        urlpatterns = [
-            url(r'^__debug__/', debug_toolbar.urls),
-        ] + urlpatterns
-    else:
-        urlpatterns = [
-            url(r'^__debug__/', include(debug_toolbar.urls)),
-        ] + urlpatterns
+    urlpatterns = [
+        url(r'^__debug__/', include(debug_toolbar.urls)),
+    ] + urlpatterns

@@ -15,6 +15,6 @@ fobi_router = DefaultRouter()
 fobi_router.register(
     r'fobi-form-entry',
     FobiFormEntryViewSet,
-    base_name='fobi_form_entry'
+    basename='fobi_form_entry'
 )
 urlpatterns = fobi_router.urls

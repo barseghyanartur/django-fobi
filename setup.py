@@ -7,13 +7,6 @@ from setuptools import setup, find_packages
 version = '0.16'
 
 # ***************************************************************************
-# ************************** Python version *********************************
-# ***************************************************************************
-PY2 = sys.version_info[0] == 2
-PY3 = sys.version_info[0] == 3
-PYPY = hasattr(sys, 'pypy_translation_info')
-
-# ***************************************************************************
 # ************************** Django version *********************************
 # ***************************************************************************
 DJANGO_INSTALLED = False
@@ -251,11 +244,8 @@ install_requires = [
     'Unidecode>=0.04.1',
     'vishap>=0.1.5,<2.0',
     'easy-thumbnails>=2.4.1',
-    'simplejson>=3.0.0;python_version>"3.4"',
-    'simplejson>=2.1.0,<=3.8.0;python_version<"3"',
+    'simplejson>=3.0.0',
 ]
-
-# There are also conditional PY3/PY2 requirements. Scroll down to see them.
 
 tests_require = [
     'selenium',
@@ -276,7 +266,6 @@ setup(
                 "customisable, modular, user- and developer- friendly.",
     long_description="{0}{1}".format(readme, screenshots),
     classifiers=[
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
