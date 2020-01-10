@@ -2,8 +2,7 @@
 import os
 from django_nine.versions import (
     DJANGO_GTE_2_0,
-    DJANGO_GTE_1_10,
-    DJANGO_GTE_1_9,
+    DJANGO_GTE_1_11,
 )
 
 
@@ -130,8 +129,7 @@ try:
 except Exception as err:
     DEBUG_TEMPLATE = False
 
-if DJANGO_GTE_1_10:
-    TEMPLATES = [
+TEMPLATES = [
         {
             'BACKEND': 'django.template.backends.django.DjangoTemplates',
             # 'APP_DIRS': True,
@@ -154,36 +152,6 @@ if DJANGO_GTE_1_10:
                     'django.template.loaders.filesystem.Loader',
                     'django.template.loaders.app_directories.Loader',
                     # 'django.template.loaders.eggs.Loader',
-                    'admin_tools.template_loaders.Loader',
-                ],
-                'debug': DEBUG_TEMPLATE,
-            }
-        },
-    ]
-else:
-    TEMPLATES = [
-        {
-            'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            # 'APP_DIRS': True,
-            'DIRS': [PROJECT_DIR(os.path.join('..', 'templates'))],
-            'OPTIONS': {
-                'context_processors': [
-                    "django.contrib.auth.context_processors.auth",
-                    "django.template.context_processors.debug",
-                    "django.template.context_processors.i18n",
-                    "django.template.context_processors.media",
-                    "django.template.context_processors.static",
-                    "django.template.context_processors.tz",
-                    "django.contrib.messages.context_processors.messages",
-                    "django.template.context_processors.request",
-                    "fobi.context_processors.theme",  # Important!
-                    "fobi.context_processors.dynamic_values",  # Optional
-                    "context_processors.testing",  # Testing
-                ],
-                'loaders': [
-                    'django.template.loaders.filesystem.Loader',
-                    'django.template.loaders.app_directories.Loader',
-                    'django.template.loaders.eggs.Loader',
                     'admin_tools.template_loaders.Loader',
                 ],
                 'debug': DEBUG_TEMPLATE,
@@ -228,7 +196,6 @@ INSTALLED_APPS = [
     'django.contrib.sitemaps',
 
     # Third party apps used in the project
-    # 'tinymce',  # TinyMCE
     'easy_thumbnails',  # Thumbnailer
     'django_registration',  # Auth views and registration app
     'captcha',
