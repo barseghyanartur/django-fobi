@@ -30,7 +30,8 @@ are used for versioning (schema follows below):
 - Drop Python 2.7 support.
 - Drop Python 3.4 support.
 - Tested with Django REST Framework 3.11.x
-- Tested with FeinCMS 1.17.x.
+- Tested with FeinCMS 1.17.x. No code changes at all. All older versions of
+  FeinCMS should still work, although they are no longer tested.
 
 0.15
 ----
