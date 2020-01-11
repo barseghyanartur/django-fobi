@@ -4,8 +4,6 @@ from django.forms.utils import ErrorDict
 from django.template import Library, TemplateSyntaxError, Node
 from django.utils.translation import gettext_lazy as _
 
-from django_nine.versions import DJANGO_GTE_1_10
-
 from ..base import get_theme
 from ..settings import DISPLAY_AUTH_LINK
 

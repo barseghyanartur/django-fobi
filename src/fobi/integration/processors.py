@@ -5,8 +5,6 @@ from django.template import RequestContext
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 
-from django_nine.versions import DJANGO_GTE_1_10
-
 from ..base import (
     fire_form_callbacks,
     get_theme,

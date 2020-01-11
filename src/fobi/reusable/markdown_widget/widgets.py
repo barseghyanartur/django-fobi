@@ -2,8 +2,6 @@ from django.forms.utils import flatatt
 from django.forms.widgets import Textarea
 from django.utils.html import format_html
 
-from django_nine.versions import DJANGO_GTE_1_11
-
 from fobi.helpers import safe_text
 
 __title__ = 'fobi.reusable.markdown_widget.widgets'

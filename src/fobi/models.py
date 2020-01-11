@@ -11,8 +11,6 @@ from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 
-from django_nine.versions import DJANGO_GTE_1_10
-
 from six import python_2_unicode_compatible
 
 from .base import (

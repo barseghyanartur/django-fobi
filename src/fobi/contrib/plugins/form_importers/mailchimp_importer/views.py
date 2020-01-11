@@ -7,8 +7,6 @@ from django.urls import reverse
 
 import mailchimp
 
-from django_nine.versions import DJANGO_GTE_1_10
-
 from .....wizard import SessionWizardView
 
 from .forms import MailchimpAPIKeyForm, MailchimpListIDForm

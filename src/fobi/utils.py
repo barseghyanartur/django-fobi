@@ -15,8 +15,6 @@ from django.utils.encoding import force_text
 from django.utils.translation import gettext
 from django.urls import reverse
 
-from django_nine.versions import DJANGO_GTE_1_10
-
 from six import PY3
 
 from .base import (

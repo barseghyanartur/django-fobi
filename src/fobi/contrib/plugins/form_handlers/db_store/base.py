@@ -5,8 +5,6 @@ import simplejson as json
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 
-from django_nine.versions import DJANGO_GTE_1_10
-
 from .....base import (
     FormHandlerPlugin,
     FormWizardHandlerPlugin,

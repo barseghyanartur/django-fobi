@@ -7,7 +7,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 from fobi.models import FormEntry
 
-from django_nine.versions import DJANGO_GTE_1_10
+from django.urls import reverse
 
 from . import constants
 from .base import BaseFobiBrowserBuldDynamicFormsTest
@@ -18,11 +18,6 @@ from .data import (
     TEST_FORM_HANDLER_PLUGIN_DATA
 )
 from .helpers import db_clean_up
-
-if DJANGO_GTE_1_10:
-    from django.urls import reverse
-else:
-    from django.core.urlresolvers import reverse
 
 __title__ = 'fobi.tests.test_browser_build_dynamic_forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'

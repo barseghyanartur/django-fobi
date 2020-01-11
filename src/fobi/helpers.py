@@ -27,8 +27,6 @@ from django.utils.encoding import force_text, smart_text
 from django.utils.html import format_html_join
 from django.utils.translation import gettext_lazy as _
 
-from django_nine.versions import DJANGO_GTE_1_10
-
 from six import text_type, PY3
 
 from .constants import (
