@@ -1,5 +1,5 @@
 from rest_framework.routers import DefaultRouter
-
+from rest_framework import VERSION
 from .views import FobiFormEntryViewSet
 
 __title__ = 'fobi.contrib.apps.drf_integration.urls'
@@ -11,10 +11,17 @@ __all__ = (
     'fobi_router',
 )
 
+DRF_VERSION = [int(_v) for _v in VERSION.split('.')]
+basename = 'basename'
+if DRF_VERSION[:2] < [3, 10]:
+    basename = 'base_name'
+
+router_kwargs = {basename: 'fobi_form_entry'}
+
 fobi_router = DefaultRouter()
 fobi_router.register(
     r'fobi-form-entry',
     FobiFormEntryViewSet,
-    basename='fobi_form_entry'
+    **router_kwargs
 )
 urlpatterns = fobi_router.urls

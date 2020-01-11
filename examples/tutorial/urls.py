@@ -6,6 +6,8 @@ from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
 
+from django_nine import versions
+
 from fobi.settings import DEFAULT_THEME
 
 admin.autodiscover()
@@ -36,7 +38,7 @@ urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
 
     # django-registration URLs:
-    url(r'^accounts/', include('django_registration.backends.one_step.urls')),
+    url(r'^accounts/', include('django_registration.backends.one_step.urls' if versions.DJANGO_GTE_3_0 else 'registration.backends.simple.urls')),
 
     # foo URLs:
     url(r'^foo/', include('foo.urls')),

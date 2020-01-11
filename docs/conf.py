@@ -68,7 +68,8 @@ except Exception as e:
             # 'south', # Database migration app
             # 'tinymce', # TinyMCE
             'easy_thumbnails', # Thumbnailer
-            'django_registration', # Auth views and registration app
+            # Auth views and registration app
+            'django_registration' if DJANGO_GTE_3_0 else 'registration',
             # 'localeurl', # Locale URL
 
             # *****************************************************************

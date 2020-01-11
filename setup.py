@@ -236,7 +236,7 @@ install_requires = [
     'bleach',
     'django-autoslug>=1.9.4',
     'django-formtools>=2.0',
-    'django-nine>=0.2.2',
+    'django-nine>=0.2.3',
     'django-nonefield>=0.1',
     'Pillow>=2.0.0',
     'requests>=1.0.0',

@@ -157,7 +157,8 @@ INSTALLED_APPS = (
     # Third party apps used in the project
     'tinymce',  # TinyMCE
     'easy_thumbnails',  # Thumbnailer
-    'django_registration',  # Auth views and registration app
+    # Auth views and registration app
+    'django_registration' if DJANGO_GTE_3_0 else 'registration',
 
     # Fobi core
     'fobi',

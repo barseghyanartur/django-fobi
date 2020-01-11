@@ -1,6 +1,7 @@
 # Django settings for example project.
 import os
 from django_nine.versions import (
+    DJANGO_GTE_3_0,
     DJANGO_GTE_2_0,
     DJANGO_GTE_1_11,
 )
@@ -197,7 +198,8 @@ INSTALLED_APPS = [
 
     # Third party apps used in the project
     'easy_thumbnails',  # Thumbnailer
-    'django_registration',  # Auth views and registration app
+    # Auth views and registration app
+    'django_registration' if DJANGO_GTE_3_0 else 'registration',
     'captcha',
     'ckeditor',
     'fobi.reusable.markdown_widget',

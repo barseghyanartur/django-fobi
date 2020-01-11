@@ -66,7 +66,7 @@ else:
 
 url_patterns_args += [
     # django-registration URLs:
-    url(r'^accounts/', include('django_registration.backends.one_step.urls')),
+    url(r'^accounts/', include('django_registration.backends.one_step.urls' if versions.DJANGO_GTE_3_0 else 'registration.backends.simple.urls')),
 
     # foo URLs:
     url(r'^foo/', include('foo.urls')),
