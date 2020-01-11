@@ -48,7 +48,6 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-#            python manage.py test
             python runtests.py
 
       - store_artifacts:
