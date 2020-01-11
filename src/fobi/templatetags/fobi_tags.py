@@ -2,7 +2,7 @@ from django import forms
 from django.conf import settings
 from django.forms.utils import ErrorDict
 from django.template import Library, TemplateSyntaxError, Node
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from django_nine.versions import DJANGO_GTE_1_10
 

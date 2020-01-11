@@ -1,7 +1,7 @@
 # from __future__ import unicode_literals
 from django.contrib import messages
 from django.http import HttpRequest
-from django.utils.translation import ugettext
+from django.utils.translation import gettext
 
 from django_nine import versions
 
@@ -197,7 +197,7 @@ class FobiFormEntryViewSet(
             for handler_error in handler_errors:
                 messages.warning(
                     _request,
-                    ugettext("Error occurred: {0}.").format(handler_error)
+                    gettext("Error occurred: {0}.").format(handler_error)
                 )
 
         # Fire post handler callbacks

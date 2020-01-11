@@ -3,7 +3,7 @@ from __future__ import absolute_import
 from django.apps import apps
 from django.forms.models import ModelMultipleChoiceField
 from django.forms.widgets import SelectMultiple
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 import simplejson as json
 

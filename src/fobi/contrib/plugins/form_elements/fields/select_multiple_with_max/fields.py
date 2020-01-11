@@ -1,6 +1,6 @@
 from django.core.exceptions import ValidationError
 from django.forms.fields import MultipleChoiceField
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 __title__ = 'fobi.contrib.plugins.form_elements.fields.' \
             'select_multiple_with_max.fields'

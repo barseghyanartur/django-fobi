@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 from django.forms.fields import DateTimeField
 from django.forms.widgets import DateTimeInput
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from fobi.base import FormFieldPlugin, get_theme
 

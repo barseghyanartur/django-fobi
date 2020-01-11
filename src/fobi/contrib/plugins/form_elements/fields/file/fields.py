@@ -2,7 +2,7 @@ from os.path import splitext
 
 from django.forms import forms
 from django.forms.fields import FileField
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 __title__ = 'fobi.contrib.plugins.form_elements.fields.file.fields'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'

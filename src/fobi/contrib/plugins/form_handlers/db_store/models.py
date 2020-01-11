@@ -4,7 +4,7 @@ from six import python_2_unicode_compatible, string_types
 
 from django.conf import settings
 from django.db import models
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from .....helpers import two_dicts_to_string
 

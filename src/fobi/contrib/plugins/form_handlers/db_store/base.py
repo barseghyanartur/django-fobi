@@ -2,7 +2,7 @@ import datetime
 
 import simplejson as json
 
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from django_nine.versions import DJANGO_GTE_1_10
 

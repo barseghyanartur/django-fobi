@@ -7,7 +7,7 @@ from django.shortcuts import redirect
 from django.template import RequestContext
 from django.utils.decorators import method_decorator
 from django.utils.html import strip_tags
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from django_nine import versions
 

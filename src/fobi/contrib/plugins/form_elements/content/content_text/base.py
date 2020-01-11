@@ -4,7 +4,7 @@ from collections import OrderedDict
 from uuid import uuid4
 
 from django.utils.encoding import smart_str
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from nonefield.fields import NoneField
 

@@ -20,7 +20,7 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.template import RequestContext
 from django.utils.datastructures import MultiValueDictKeyError
-from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.translation import gettext, gettext_lazy as _
 
 from formtools.wizard.forms import ManagementForm
 
@@ -164,7 +164,7 @@ def _delete_plugin_entry(request,
                                   form_entry__user__pk=request.user.pk)
     except ObjectDoesNotExist as err:
         raise Http404(
-            ugettext("{0} not found.").format(
+            gettext("{0} not found.").format(
                 entry_model_cls._meta.verbose_name
             )
         )
@@ -207,7 +207,7 @@ def _delete_wizard_plugin_entry(request,
                                   form_wizard_entry__user__pk=request.user.pk)
     except ObjectDoesNotExist as err:
         raise Http404(
-            ugettext("{0} not found.").format(
+            gettext("{0} not found.").format(
                 entry_model_cls._meta.verbose_name
             )
         )
@@ -368,7 +368,7 @@ def create_form_entry(request, theme=None, template_name=None):
                 form_entry.save()
                 messages.info(
                     request,
-                    ugettext('Form {0} was created successfully.').format(
+                    gettext('Form {0} was created successfully.').format(
                         form_entry.name
                     )
                 )
@@ -378,7 +378,7 @@ def create_form_entry(request, theme=None, template_name=None):
             except IntegrityError as err:
                 messages.info(
                     request,
-                    ugettext('Errors occurred while saving '
+                    gettext('Errors occurred while saving '
                              'the form: {0}.').format(str(err))
                 )
 
@@ -435,7 +435,7 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
                               .get(pk=form_entry_id, user__pk=request.user.pk)
     # .prefetch_related('formhandlerentry_set') \
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form entry not found."))
+        raise Http404(gettext("Form entry not found."))
 
     if request.method == 'POST':
         # The form entry form (does not contain form elements)
@@ -489,7 +489,7 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
                 obj.save()
                 messages.info(
                     request,
-                    ugettext('Form {0} was edited successfully.').format(
+                    gettext('Form {0} was edited successfully.').format(
                         form_entry.name
                     )
                 )
@@ -502,7 +502,7 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
             except IntegrityError as err:
                 messages.info(
                     request,
-                    ugettext(
+                    gettext(
                         'Errors occurred while saving the form: {0}.'
                     ).format(str(err))
                 )
@@ -615,13 +615,13 @@ def delete_form_entry(request, form_entry_id, template_name=None):
         obj = FormEntry._default_manager \
             .get(pk=form_entry_id, user__pk=request.user.pk)
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form entry not found."))
+        raise Http404(gettext("Form entry not found."))
 
     obj.delete()
 
     messages.info(
         request,
-        ugettext('The form "{0}" was deleted successfully.').format(obj.name)
+        gettext('The form "{0}" was deleted successfully.').format(obj.name)
     )
 
     return redirect('fobi.dashboard')
@@ -652,7 +652,7 @@ def add_form_element_entry(request,
                               .prefetch_related('formelemententry_set') \
                               .get(pk=form_entry_id)
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form entry not found."))
+        raise Http404(gettext("Form entry not found."))
 
     form_elements = form_entry.formelemententry_set.all()
 
@@ -661,7 +661,7 @@ def add_form_element_entry(request,
     )
 
     if form_element_plugin_uid not in user_form_element_plugin_uids:
-        raise Http404(ugettext("Plugin does not exist or you are not allowed "
+        raise Http404(gettext("Plugin does not exist or you are not allowed "
                                "to use this plugin!"))
 
     form_element_plugin_cls = form_element_plugin_registry.get(
@@ -724,7 +724,7 @@ def add_form_element_entry(request,
 
         messages.info(
             request,
-            ugettext('The form element plugin "{0}" was added '
+            gettext('The form element plugin "{0}" was added '
                      'successfully.').format(form_element_plugin.name)
         )
         return redirect(
@@ -783,7 +783,7 @@ def edit_form_element_entry(request,
                               .get(pk=form_element_entry_id,
                                    form_entry__user__pk=request.user.pk)
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form element entry not found."))
+        raise Http404(gettext("Form element entry not found."))
 
     form_entry = obj.form_entry
     form_element_plugin = obj.get_plugin(request=request)
@@ -795,7 +795,7 @@ def edit_form_element_entry(request,
     if not FormElementPluginForm:
         messages.info(
             request,
-            ugettext('The form element plugin "{0}" '
+            gettext('The form element plugin "{0}" '
                      'is not configurable!').format(form_element_plugin.name)
         )
         return redirect('fobi.edit_form_entry', form_entry_id=form_entry.pk)
@@ -826,7 +826,7 @@ def edit_form_element_entry(request,
 
             messages.info(
                 request,
-                ugettext('The form element plugin "{0}" was edited '
+                gettext('The form element plugin "{0}" was edited '
                          'successfully.').format(form_element_plugin.name)
             )
 
@@ -881,7 +881,7 @@ def delete_form_element_entry(request, form_element_entry_id):
         entry_id=form_element_entry_id,
         entry_model_cls=FormElementEntry,
         get_user_plugin_uids_func=get_user_form_field_plugin_uids,
-        message=ugettext(
+        message=gettext(
             'The form element plugin "{0}" was deleted successfully.'
         ),
         html_anchor='?active_tab=tab-form-elements'
@@ -911,14 +911,14 @@ def add_form_handler_entry(request,
     try:
         form_entry = FormEntry._default_manager.get(pk=form_entry_id)
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form entry not found."))
+        raise Http404(gettext("Form entry not found."))
 
     user_form_handler_plugin_uids = get_user_form_handler_plugin_uids(
         request.user
     )
 
     if form_handler_plugin_uid not in user_form_handler_plugin_uids:
-        raise Http404(ugettext("Plugin does not exist or you are not allowed "
+        raise Http404(gettext("Plugin does not exist or you are not allowed "
                                "to use this plugin!"))
 
     form_handler_plugin_cls = form_handler_plugin_registry.get(
@@ -935,7 +935,7 @@ def add_form_handler_entry(request,
             .count()
         if times_used > 0:
             raise Http404(
-                ugettext("The {0} plugin can be used only once in a "
+                gettext("The {0} plugin can be used only once in a "
                          "form.").format(form_handler_plugin_cls.name)
             )
 
@@ -978,7 +978,7 @@ def add_form_handler_entry(request,
 
         messages.info(
             request,
-            ugettext('The form handler plugin "{0}" was added '
+            gettext('The form handler plugin "{0}" was added '
                      'successfully.').format(form_handler_plugin.name)
         )
         return redirect(
@@ -1037,7 +1037,7 @@ def edit_form_handler_entry(request,
                               .select_related('form_entry') \
                               .get(pk=form_handler_entry_id)
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form handler entry not found."))
+        raise Http404(gettext("Form handler entry not found."))
 
     form_entry = obj.form_entry
 
@@ -1050,7 +1050,7 @@ def edit_form_handler_entry(request,
     if not FormHandlerPluginForm:
         messages.info(
             request,
-            ugettext('The form handler plugin "{0}" is not '
+            gettext('The form handler plugin "{0}" is not '
                      'configurable!').format(form_handler_plugin.name)
         )
         return redirect('fobi.edit_form_entry', form_entry_id=form_entry.pk)
@@ -1073,7 +1073,7 @@ def edit_form_handler_entry(request,
 
             messages.info(
                 request,
-                ugettext('The form handler plugin "{0}" was edited '
+                gettext('The form handler plugin "{0}" was edited '
                          'successfully.').format(form_handler_plugin.name)
             )
 
@@ -1125,7 +1125,7 @@ def delete_form_handler_entry(request, form_handler_entry_id):
         entry_id=form_handler_entry_id,
         entry_model_cls=FormHandlerEntry,
         get_user_plugin_uids_func=get_user_form_handler_plugin_uids,
-        message=ugettext(
+        message=gettext(
             'The form handler plugin "{0}" was deleted successfully.'
         ),
         html_anchor='?active_tab=tab-form-handlers'
@@ -1171,7 +1171,7 @@ def create_form_wizard_entry(request, theme=None, template_name=None):
                 form_wizard_entry.save()
                 messages.info(
                     request,
-                    ugettext('Form wizard {0} was created '
+                    gettext('Form wizard {0} was created '
                              'successfully.').format(form_wizard_entry.name)
                 )
                 return redirect(
@@ -1181,7 +1181,7 @@ def create_form_wizard_entry(request, theme=None, template_name=None):
             except IntegrityError as err:
                 messages.info(
                     request,
-                    ugettext('Errors occurred while saving '
+                    gettext('Errors occurred while saving '
                              'the form wizard: {0}.').format(str(err))
                 )
 
@@ -1244,7 +1244,7 @@ def edit_form_wizard_entry(request, form_wizard_entry_id, theme=None,
             .get(pk=form_wizard_entry_id, user__pk=request.user.pk)
     # .prefetch_related('formhandlerentry_set') \
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form wizard entry not found."))
+        raise Http404(gettext("Form wizard entry not found."))
 
     if request.method == 'POST':
         # The form entry form (does not contain form elements)
@@ -1268,7 +1268,7 @@ def edit_form_wizard_entry(request, form_wizard_entry_id, theme=None,
                     form_wizard_form_entry_formset.save()
                     messages.info(
                         request,
-                        ugettext("Forms ordering edited successfully.")
+                        gettext("Forms ordering edited successfully.")
                     )
                     return redirect(
                         reverse(
@@ -1281,7 +1281,7 @@ def edit_form_wizard_entry(request, form_wizard_entry_id, theme=None,
             except MultiValueDictKeyError as err:
                 messages.error(
                     request,
-                    ugettext("Errors occurred while trying to change the "
+                    gettext("Errors occurred while trying to change the "
                              "forms ordering!")
                 )
                 return redirect(
@@ -1303,7 +1303,7 @@ def edit_form_wizard_entry(request, form_wizard_entry_id, theme=None,
                 obj.save()
                 messages.info(
                     request,
-                    ugettext('Form wizard {0} was edited '
+                    gettext('Form wizard {0} was edited '
                              'successfully.').format(form_wizard_entry.name)
                 )
                 return redirect(
@@ -1315,7 +1315,7 @@ def edit_form_wizard_entry(request, form_wizard_entry_id, theme=None,
             except IntegrityError as err:
                 messages.info(
                     request,
-                    ugettext('Errors occurred while saving '
+                    gettext('Errors occurred while saving '
                              'the form wizard: {0}.').format(str(err))
                 )
     else:
@@ -1409,13 +1409,13 @@ def delete_form_wizard_entry(request, form_wizard_entry_id,
         obj = FormWizardEntry._default_manager \
             .get(pk=form_wizard_entry_id, user__pk=request.user.pk)
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form wizard entry not found."))
+        raise Http404(gettext("Form wizard entry not found."))
 
     obj.delete()
 
     messages.info(
         request,
-        ugettext('The form wizard "{0}" was deleted successfully.').format(
+        gettext('The form wizard "{0}" was deleted successfully.').format(
             obj.name
         )
     )
@@ -1470,7 +1470,7 @@ class FormWizardView(DynamicSessionWizardView):
                 .select_related('user') \
                 .get(**qs_kwargs)
         except ObjectDoesNotExist as err:
-            raise Http404(ugettext("Form wizard entry not found."))
+            raise Http404(gettext("Form wizard entry not found."))
 
         form_entries = [
             form_wizard_form_entry.form_entry
@@ -1504,7 +1504,7 @@ class FormWizardView(DynamicSessionWizardView):
 
         if len(form_list) == 0:
             raise Http404(
-                ugettext("Form wizard entry does not contain any forms.")
+                gettext("Form wizard entry does not contain any forms.")
             )
 
         theme = get_theme(request=request, as_instance=True)
@@ -1700,7 +1700,7 @@ class FormWizardView(DynamicSessionWizardView):
                 .select_related('user') \
                 .get(**qs_kwargs)
         except ObjectDoesNotExist as err:
-            raise Http404(ugettext("Form wizard entry not found."))
+            raise Http404(gettext("Form wizard entry not found."))
 
         # Run all handlers
         handler_responses, handler_errors = run_form_wizard_handlers(
@@ -1742,7 +1742,7 @@ def form_wizard_entry_submitted(request, form_wizard_entry_slug=None,
             .select_related('user') \
             .get(**kwargs)
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form wizard entry not found."))
+        raise Http404(gettext("Form wizard entry not found."))
 
     context = {
         'form_wizard_entry_slug': form_wizard_entry_slug,
@@ -1793,7 +1793,7 @@ def add_form_wizard_form_entry(request,
             user=request.user
         )
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form wizard entry not found."))
+        raise Http404(gettext("Form wizard entry not found."))
 
     try:
         form_entry = FormEntry.objects.get(
@@ -1801,7 +1801,7 @@ def add_form_wizard_form_entry(request,
             user=request.user
         )
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form entry not found."))
+        raise Http404(gettext("Form entry not found."))
 
     try:
         obj = FormWizardFormEntry.objects.create(
@@ -1811,7 +1811,7 @@ def add_form_wizard_form_entry(request,
     except IntegrityError as err:
         messages.error(
             request,
-            ugettext(
+            gettext(
                 'The form entry "{0}" could not be added to the '
                 'wizard "{1}" due to the following error "{2}".'
             ).format(form_entry.name, form_wizard_entry.name, str(err))
@@ -1847,7 +1847,7 @@ def add_form_wizard_form_entry(request,
 
     messages.info(
         request,
-        ugettext(
+        gettext(
             'The form entry "{0}" was added successfully to the wizard "{1}".'
         ).format(form_entry.name, form_wizard_entry.name)
     )
@@ -1884,7 +1884,7 @@ def delete_form_wizard_form_entry(request, form_wizard_form_entry_id):
                  form_wizard_entry__user__pk=request.user.pk)
     except ObjectDoesNotExist as err:
         raise Http404(
-            ugettext("{0} not found.").format(
+            gettext("{0} not found.").format(
                 FormWizardFormEntry._meta.verbose_name
             )
         )
@@ -1894,7 +1894,7 @@ def delete_form_wizard_form_entry(request, form_wizard_form_entry_id):
 
     messages.info(
         request,
-        ugettext(
+        gettext(
             'The form wizard form entry "{0}" was deleted successfully.'
         ).format(obj.form_wizard_entry.name)
     )
@@ -1939,7 +1939,7 @@ def add_form_wizard_handler_entry(request,
             pk=form_wizard_entry_id
         )
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form wizard entry not found."))
+        raise Http404(gettext("Form wizard entry not found."))
 
     user_form_wizard_handler_plugin_uids = \
         get_user_form_wizard_handler_plugin_uids(
@@ -1948,7 +1948,7 @@ def add_form_wizard_handler_entry(request,
 
     if form_wizard_handler_plugin_uid not \
             in user_form_wizard_handler_plugin_uids:
-        raise Http404(ugettext("Plugin does not exist or you are not allowed "
+        raise Http404(gettext("Plugin does not exist or you are not allowed "
                                "to use this plugin!"))
 
     form_wizard_handler_plugin_cls = form_wizard_handler_plugin_registry.get(
@@ -1965,7 +1965,7 @@ def add_form_wizard_handler_entry(request,
             .count()
         if times_used > 0:
             raise Http404(
-                ugettext("The {0} plugin can be used only once in a "
+                gettext("The {0} plugin can be used only once in a "
                          "form.").format(form_wizard_handler_plugin_cls.name)
             )
 
@@ -2010,7 +2010,7 @@ def add_form_wizard_handler_entry(request,
 
         messages.info(
             request,
-            ugettext(
+            gettext(
                 'The form wizard handler plugin "{0}" was added '
                 'successfully.'
             ).format(form_wizard_handler_plugin.name)
@@ -2071,7 +2071,7 @@ def edit_form_wizard_handler_entry(request,
             .select_related('form_wizard_entry') \
             .get(pk=form_wizard_handler_entry_id)
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form wizard handler entry not found."))
+        raise Http404(gettext("Form wizard handler entry not found."))
 
     form_wizard_entry = obj.form_wizard_entry
 
@@ -2084,7 +2084,7 @@ def edit_form_wizard_handler_entry(request,
     if not form_wizard_handler_plugin_form_cls:
         messages.info(
             request,
-            ugettext(
+            gettext(
                 'The form wizard handler plugin "{0}" is not '
                 'configurable!'
             ).format(form_wizard_handler_plugin.name)
@@ -2112,7 +2112,7 @@ def edit_form_wizard_handler_entry(request,
 
             messages.info(
                 request,
-                ugettext(
+                gettext(
                     'The form wizard handler plugin "{0}" was edited '
                     'successfully.'
                 ).format(form_wizard_handler_plugin.name)
@@ -2166,7 +2166,7 @@ def delete_form_wizard_handler_entry(request, form_wizard_handler_entry_id):
         entry_id=form_wizard_handler_entry_id,
         entry_model_cls=FormWizardHandlerEntry,
         get_user_plugin_uids_func=get_user_form_wizard_handler_plugin_uids,
-        message=ugettext(
+        message=gettext(
             'The form wizard handler plugin "{0}" was deleted successfully.'
         ),
         html_anchor='?active_tab=tab-form-handlers'
@@ -2203,7 +2203,7 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
         form_entry = FormEntry._default_manager.select_related('user') \
                               .get(**kwargs)
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form entry not found."))
+        raise Http404(gettext("Form entry not found."))
 
     if not form_entry.is_active:
         context = {
@@ -2278,7 +2278,7 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
                 for handler_error in handler_errors:
                     messages.warning(
                         request,
-                        ugettext("Error occurred: {0}.").format(handler_error)
+                        gettext("Error occurred: {0}.").format(handler_error)
                     )
 
             # Fire post handler callbacks
@@ -2291,7 +2291,7 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
 
             messages.info(
                 request,
-                ugettext("Form {0} was submitted successfully.").format(
+                gettext("Form {0} was submitted successfully.").format(
                     form_entry.name
                 )
             )
@@ -2366,13 +2366,13 @@ def form_entry_submitted(request, form_entry_slug=None, template_name=None):
             .select_related('user') \
             .get(**kwargs)
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form entry not found."))
+        raise Http404(gettext("Form entry not found."))
 
     # try:
     #     form_entry = FormEntry._default_manager.get(slug=form_entry_slug,
     #                                                 user__pk=request.user.pk)
     # except ObjectDoesNotExist as err:
-    #     raise Http404(ugettext("Form entry not found."))
+    #     raise Http404(gettext("Form entry not found."))
 
     context = {
         'form_entry_slug': form_entry_slug,
@@ -2412,7 +2412,7 @@ def export_form_entry(request, form_entry_id, template_name=None):
                               .get(pk=form_entry_id, user__pk=request.user.pk)
 
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form entry not found."))
+        raise Http404(gettext("Form entry not found."))
 
     data = prepare_form_entry_export_data(form_entry)
 
@@ -2510,7 +2510,7 @@ def import_form_entry(request, template_name=None):
             #
             # form_entry = FormEntry(**form_data)
             #
-            # form_entry.name += ugettext(" (imported on {0})").format(
+            # form_entry.name += gettext(" (imported on {0})").format(
             #     datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             # )
             # form_entry.save()
@@ -2621,7 +2621,7 @@ def export_form_wizard_entry(request,
             .get(pk=form_wizard_entry_id, user__pk=request.user.pk)
 
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form wizard entry not found."))
+        raise Http404(gettext("Form wizard entry not found."))
 
     data = {
         'name': form_wizard_entry.name,
@@ -2717,7 +2717,7 @@ def import_form_wizard_entry(request, template_name=None):
 
             form_wizard_entry = FormWizardEntry(**form_wizard_data)
 
-            form_wizard_entry.name += ugettext(" (imported on {0})").format(
+            form_wizard_entry.name += gettext(" (imported on {0})").format(
                 datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             )
             form_wizard_entry.save()
@@ -2749,7 +2749,7 @@ def import_form_wizard_entry(request, template_name=None):
                     if form_wizard_handler_data.get('plugin_uid', None):
                         messages.warning(
                             request,
-                            ugettext(
+                            gettext(
                                 'Plugin {0} is missing in the system.'
                             ).format(
                                 form_wizard_handler_data.get('plugin_uid')

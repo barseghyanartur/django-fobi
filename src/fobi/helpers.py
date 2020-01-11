@@ -24,7 +24,7 @@ from django.templatetags.static import static
 from django.test.client import RequestFactory
 from django.utils.encoding import force_text, smart_text
 from django.utils.html import format_html_join
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from django_nine.versions import DJANGO_GTE_1_10
 

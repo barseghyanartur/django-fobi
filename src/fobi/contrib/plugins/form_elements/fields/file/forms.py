@@ -1,6 +1,6 @@
 from django import forms
 from django.core.validators import MinValueValidator
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from fobi.base import BaseFormFieldPluginForm, get_theme
 from fobi.settings import DEFAULT_MAX_LENGTH, DEFAULT_MIN_LENGTH

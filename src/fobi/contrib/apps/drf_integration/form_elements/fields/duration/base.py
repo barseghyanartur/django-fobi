@@ -3,7 +3,7 @@ import datetime
 
 from django.utils.dateparse import parse_duration
 from django.utils.encoding import force_text
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from rest_framework.fields import DurationField
 
