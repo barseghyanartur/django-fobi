@@ -12,13 +12,25 @@ handling the submitted form data).
    :target: https://pypi.python.org/pypi/django-fobi
    :alt: PyPI Version
 
+.. image:: https://img.shields.io/pypi/pyversions/django-fobi.svg
+    :target: https://pypi.python.org/pypi/django-fobi/
+    :alt: Supported Python versions
+
 .. image:: https://img.shields.io/travis/barseghyanartur/django-fobi/master.svg
    :target: http://travis-ci.org/barseghyanartur/django-fobi
    :alt: Build Status
 
+.. image:: https://readthedocs.org/projects/django-fobi/badge/?version=latest
+    :target: http://django-fobi.readthedocs.io/en/latest/?badge=latest
+    :alt: Documentation Status
+
 .. image:: https://img.shields.io/badge/license-GPL--2.0--only%20OR%20LGPL--2.1--or--later-blue.svg
    :target: https://github.com/barseghyanartur/django-fobi/#License
    :alt: GPL-2.0-only OR LGPL-2.1-or-later
+
+.. image:: https://coveralls.io/repos/github/barseghyanartur/django-fobi/badge.svg?branch=master
+    :target: https://coveralls.io/github/barseghyanartur/django-fobi?branch=master
+    :alt: Coverage
 
 Prerequisites
 =============
