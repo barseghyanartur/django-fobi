@@ -17,7 +17,7 @@ are used for versioning (schema follows below):
 
 0.16
 ----
-2020-01-xx (not yet released)
+2020-01-11
 
 .. note::
 
@@ -25,11 +25,13 @@ are used for versioning (schema follows below):
     requirement version for Django to 1.11. If you don't meet these
     requirements - do not upgrade.
 
-- Drop support Django 1.8, 1.9, 1.10. Minimal supported Django version is 1.11.
 - Add support for Django 3.0.
+- Drop support Django 1.8, 1.9, 1.10. Minimal supported Django version is 1.11.
+- Tested against Python 3.8.
 - Drop Python 2.7 support.
 - Drop Python 3.4 support.
-- Tested with Django REST Framework 3.11.x
+- Tested with Django REST Framework 3.11.x. All older versions of
+  Django REST Framework should still work, although they are no longer tested.
 - Tested with FeinCMS 1.17.x. No code changes at all. All older versions of
   FeinCMS should still work, although they are no longer tested.
 
