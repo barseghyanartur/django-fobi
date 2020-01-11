@@ -8,10 +8,9 @@ from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.support.wait import WebDriverWait
 
 from django.core.management import call_command
+from django.urls import reverse
 from django.test import LiveServerTestCase
 from django.conf import settings
-
-from django_nine.versions import DJANGO_GTE_1_10
 
 from . import constants
 from .helpers import (
@@ -19,11 +18,6 @@ from .helpers import (
     get_or_create_admin_user,
     phantom_js_clean_up,
 )
-
-if DJANGO_GTE_1_10:
-    from django.urls import reverse
-else:
-    from django.core.urlresolvers import reverse
 
 __title__ = 'fobi.tests.test_browser_build_dynamic_forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'

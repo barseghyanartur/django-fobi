@@ -8,9 +8,8 @@ from django.conf import settings
 from django.contrib.auth.models import Group
 from django.db import models
 from django.utils import timezone
-from django.utils.translation import ugettext_lazy as _
-
-from django_nine.versions import DJANGO_GTE_1_10
+from django.utils.translation import gettext_lazy as _
+from django.urls import reverse
 
 from six import python_2_unicode_compatible
 
@@ -23,11 +22,6 @@ from .base import (
     get_registered_form_wizard_handler_plugins,
 )
 from .constants import WIZARD_TYPES, DEFAULT_WIZARD_TYPE
-
-if DJANGO_GTE_1_10:
-    from django.urls import reverse
-else:
-    from django.core.urlresolvers import reverse
 
 __title__ = 'fobi.models'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'

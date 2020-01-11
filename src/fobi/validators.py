@@ -1,6 +1,4 @@
-from django.conf import settings
-
-from django_nine import versions
+from django.urls import resolve, Resolver404
 
 import requests
 
@@ -10,18 +8,8 @@ from requests.exceptions import (
     ReadTimeout,
     SSLError,
     ProxyError,
-    RetryError
+    RetryError,
 )
-
-if versions.DJANGO_LTE_1_11:
-    from django.core.urlresolvers import resolve, Resolver404
-else:
-    from django.urls import resolve, Resolver404
-
-try:
-    from localeurl.utils import strip_path
-except ImportError as err:
-    strip_path = None
 
 __title__ = 'fobi.validators'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -46,9 +34,6 @@ def url_exists(url, local=False):
             return False
 
     else:
-        if 'localeurl' in settings.INSTALLED_APPS and callable(strip_path):
-            url = strip_path(url)[1]
-
         try:
             resolve(url)
             return True

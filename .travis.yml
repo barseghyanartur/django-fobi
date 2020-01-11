@@ -15,22 +15,22 @@ addons:
 matrix:
   fast_finish: true
   include:
-  - env: TOX_ENV=py27-django18
-    python: 2.7
-  - env: TOX_ENV=py35-django18
-    python: 3.5
-  - env: TOX_ENV=py36-django18
-    python: 3.6
+#  - env: TOX_ENV=py27-django18
+#    python: 2.7
+#  - env: TOX_ENV=py35-django18
+#    python: 3.5
+#  - env: TOX_ENV=py36-django18
+#    python: 3.6
 
-  - env: TOX_ENV=py27-django111
-    python: 2.7
+#  - env: TOX_ENV=py27-django111
+#    python: 2.7
   - env: TOX_ENV=py35-django111
     python: 3.5
   - env: TOX_ENV=py36-django111
     python: 3.6
 
-  - env: TOX_ENV=py35-django20
-    python: 3.5
+#  - env: TOX_ENV=py35-django20
+#    python: 3.5
   - env: TOX_ENV=py36-django20
     python: 3.6
   - env: TOX_ENV=py37-django22
@@ -44,6 +44,11 @@ matrix:
   - env: TOX_ENV=py36-django22
     python: 3.6
   - env: TOX_ENV=py37-django22
+    python: 3.7
+
+  - env: TOX_ENV=py36-django30
+    python: 3.6
+  - env: TOX_ENV=py37-django30
     python: 3.7
 
 before_install:

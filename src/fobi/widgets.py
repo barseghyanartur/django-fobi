@@ -1,11 +1,7 @@
 from django.forms.widgets import RadioSelect, Select
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
-from django.utils.translation import ugettext_lazy as _
-
-from django_nine import versions
-
-from .helpers import flatatt_inverse_quotes
+from django.utils.translation import gettext_lazy as _
 
 # Safe import of ``NumberInput``
 try:
@@ -109,83 +105,6 @@ class RichSelectInverseQuotes(RichSelect):
 
     Uses inverse quotes.
     """
-    if versions.DJANGO_GTE_1_11:
-        template_name = 'fobi/django/forms/widgets/rich_select_inverse.html'
-        option_template_name = 'fobi/django/forms/widgets/' \
-                               'rich_select_inverse_option.html'
-
-    elif versions.DJANGO_GTE_1_10:
-        def render(self, name, value, attrs=None, **kwargs):
-            if self.override_name is not None:
-                name = self.override_name
-
-            if value is None:
-                value = ''
-
-            if not attrs:
-                attrs = self.attrs
-            else:
-                attrs.update(self.attrs)
-
-            if versions.DJANGO_GTE_1_11:
-                final_attrs = self.build_attrs(
-                    attrs,
-                    extra_attrs={'name': name}
-                )
-            else:
-                final_attrs = self.build_attrs(attrs, name=name)
-
-            output = [
-                format_html('<select{}>', flatatt_inverse_quotes(final_attrs))
-            ]
-            options = self.render_options([value])
-            if options:
-                output.append(options)
-            output.append('</select>')
-            rendered_select = mark_safe('\n'.join(output))
-
-            return mark_safe(
-                '\n'.join([
-                    format_html(self.prepend_html),
-                    rendered_select,
-                    format_html(self.append_html)
-                ])
-            )
-
-    else:
-        def render(self, name, value, attrs=None, choices=()):
-            if self.override_name is not None:
-                name = self.override_name
-
-            if value is None:
-                value = ''
-
-            if not attrs:
-                attrs = self.attrs
-            else:
-                attrs.update(self.attrs)
-
-            if versions.DJANGO_GTE_1_11:
-                final_attrs = self.build_attrs(
-                    attrs,
-                    extra_attrs={'name': name}
-                )
-            else:
-                final_attrs = self.build_attrs(attrs, name=name)
-
-            output = [
-                format_html('<select{}>', flatatt_inverse_quotes(final_attrs))
-            ]
-            options = self.render_options(choices, [value])
-            if options:
-                output.append(options)
-            output.append('</select>')
-            rendered_select = mark_safe('\n'.join(output))
-
-            return mark_safe(
-                '\n'.join([
-                    format_html(self.prepend_html),
-                    rendered_select,
-                    format_html(self.append_html)
-                ])
-            )
+    template_name = 'fobi/django/forms/widgets/rich_select_inverse.html'
+    option_template_name = 'fobi/django/forms/widgets/' \
+                           'rich_select_inverse_option.html'

@@ -16,7 +16,7 @@ from django import forms
 from django.forms import ModelForm
 from django.forms.utils import ErrorList
 from django.http import Http404
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.template import RequestContext, Template
 
 from six import with_metaclass, string_types

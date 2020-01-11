@@ -2,6 +2,8 @@
 omit =
     src/fobi/migrations/*
     src/fobi/south_migrations/*
+    src/fobi/contrib/plugins/form_handlers/db_store/migrations/*
+    src/fobi/contrib/apps/wagtail_integration/migrations/*
     src/fobi/tests/*
     example/simple/settings/*
     example/simple/wsgi.py

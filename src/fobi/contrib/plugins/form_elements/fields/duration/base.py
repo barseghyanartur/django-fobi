@@ -5,7 +5,7 @@ import datetime
 from django.forms.fields import DurationField
 from django.forms.widgets import TextInput
 from django.utils.duration import duration_string
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from fobi.base import FormFieldPlugin, get_theme
 

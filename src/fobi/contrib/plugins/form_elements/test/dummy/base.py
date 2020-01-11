@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 from uuid import uuid4
 
-from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.translation import gettext, gettext_lazy as _
 
 from nonefield.fields import NoneField
 
@@ -37,7 +37,7 @@ class DummyPlugin(FormElementPlugin):
         """Get form field instances."""
         field_kwargs = {
             'initial': "<p>{0}</p>".format(
-                safe_text(ugettext("Dummy content"))
+                safe_text(gettext("Dummy content"))
             ),
             'required': False,
             'label': '',

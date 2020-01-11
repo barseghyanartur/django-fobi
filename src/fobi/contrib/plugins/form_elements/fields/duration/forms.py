@@ -1,7 +1,7 @@
 import datetime
 
 from django import forms
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.utils.dateparse import parse_duration
 from django.utils.duration import duration_string
 from django.utils.encoding import force_text

@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 __title__ = 'fobi.contrib.plugins.form_elements.content.content_image.defaults'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'

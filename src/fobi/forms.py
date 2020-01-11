@@ -4,7 +4,7 @@ from six.moves.urllib.parse import urlparse
 
 from django import forms
 from django.forms.models import modelformset_factory
-from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.translation import gettext, gettext_lazy as _
 
 # from nonefield.fields import NoneField
 
@@ -96,7 +96,7 @@ class FormEntryForm(forms.ModelForm):
         self.request = kwargs.pop('request', None)
         if self.request is None:
             raise ImproperlyConfigured(
-                ugettext(
+                gettext(
                     "The {0} form requires a "
                     "request argument.".format(self.__class__.__name__)
                 )
@@ -195,7 +195,7 @@ class FormEntryForm(forms.ModelForm):
 
             if not url_exists(full_url, local=local):
                 raise forms.ValidationError(
-                    ugettext("Invalid action URL {0}.").format(full_url)
+                    gettext("Invalid action URL {0}.").format(full_url)
                 )
 
         return url
@@ -377,7 +377,7 @@ class FormWizardEntryForm(forms.ModelForm):
         self.request = kwargs.pop('request', None)
         if self.request is None:
             raise ImproperlyConfigured(
-                ugettext(
+                gettext(
                     "The {0} form requires a "
                     "request argument.".format(self.__class__.__name__)
                 )
@@ -458,7 +458,7 @@ class FormWizardEntryForm(forms.ModelForm):
     #
     #         if not url_exists(full_url, local=local):
     #             raise forms.ValidationError(
-    #                 ugettext("Invalid action URL {0}.").format(full_url)
+    #                 gettext("Invalid action URL {0}.").format(full_url)
     #             )
     #
     #     return url

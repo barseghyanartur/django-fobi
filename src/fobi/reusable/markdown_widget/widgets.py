@@ -2,8 +2,6 @@ from django.forms.utils import flatatt
 from django.forms.widgets import Textarea
 from django.utils.html import format_html
 
-from django_nine.versions import DJANGO_GTE_1_11
-
 from fobi.helpers import safe_text
 
 __title__ = 'fobi.reusable.markdown_widget.widgets'
@@ -25,13 +23,11 @@ class MarkdownWidget(Textarea):
         else:
             attrs.update(self.attrs)
 
-        if DJANGO_GTE_1_11:
-            final_attrs = self.build_attrs(
-                attrs,
-                extra_attrs={'name': name}
-            )
-        else:
-            final_attrs = self.build_attrs(attrs, name=name)
+        final_attrs = self.build_attrs(
+            attrs,
+            extra_attrs={'name': name}
+        )
+
         return format_html(
             '<div class="markdown-widget-wrapper">'
             '<textarea{}>\r\n{}</textarea>'

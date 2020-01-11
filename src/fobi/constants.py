@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 __title__ = 'fobi.constants'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'

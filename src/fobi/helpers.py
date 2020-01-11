@@ -18,15 +18,14 @@ from django.conf import settings
 from django.contrib.auth.models import User, AnonymousUser
 # from django.contrib.contenttypes.models import ContentType
 from django.core.files.base import File
+from django.urls import reverse
 # from django.db.utils import DatabaseError
 from django.http import HttpResponse
 from django.templatetags.static import static
 from django.test.client import RequestFactory
 from django.utils.encoding import force_text, smart_text
 from django.utils.html import format_html_join
-from django.utils.translation import ugettext_lazy as _
-
-from django_nine.versions import DJANGO_GTE_1_10
+from django.utils.translation import gettext_lazy as _
 
 from six import text_type, PY3
 
@@ -37,10 +36,7 @@ from .constants import (
 )
 from .exceptions import ImproperlyConfigured
 
-if DJANGO_GTE_1_10:
-    from django.urls import reverse
-else:
-    from django.core.urlresolvers import reverse
+
 
 __title__ = 'fobi.helpers'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -556,10 +552,8 @@ class StrippedUser(object):
         :return:
         """
         self._user = user
-        if DJANGO_GTE_1_10:
-            user_is_anonymous = self._user.is_anonymous
-        else:
-            user_is_anonymous = self._user.is_anonymous()
+        user_is_anonymous = self._user.is_anonymous
+
         if not user_is_anonymous:
             setattr(self._user, User.USERNAME_FIELD, self._user.get_username())
         else:
@@ -572,10 +566,8 @@ class StrippedUser(object):
 
     def get_username(self):
         """Get username."""
-        if DJANGO_GTE_1_10:
-            user_is_anonymous = self._user.is_anonymous
-        else:
-            user_is_anonymous = self._user.is_anonymous()
+        user_is_anonymous = self._user.is_anonymous
+
         if not user_is_anonymous:
             try:
                 return self._user.get_username()
@@ -584,10 +576,8 @@ class StrippedUser(object):
 
     def get_full_name(self):
         """Get full name."""
-        if DJANGO_GTE_1_10:
-            user_is_anonymous = self._user.is_anonymous
-        else:
-            user_is_anonymous = self._user.is_anonymous()
+        user_is_anonymous = self._user.is_anonymous
+
         if not user_is_anonymous:
             try:
                 return self._user.get_full_name()
@@ -596,10 +586,8 @@ class StrippedUser(object):
 
     def get_short_name(self):
         """Get short name."""
-        if DJANGO_GTE_1_10:
-            user_is_anonymous = self._user.is_anonymous
-        else:
-            user_is_anonymous = self._user.is_anonymous()
+        user_is_anonymous = self._user.is_anonymous
+
         if not user_is_anonymous():
             try:
                 return self._user.get_full_name()
@@ -608,10 +596,7 @@ class StrippedUser(object):
 
     def is_anonymous(self):
         """Is anonymous."""
-        if DJANGO_GTE_1_10:
-            return self._user.is_anonymous
-        else:
-            return self._user.is_anonymous()
+        return self._user.is_anonymous
 
 
 class StrippedRequest(object):

@@ -1,5 +1,5 @@
 from django.db import models
-from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.translation import gettext, gettext_lazy as _
 
 from six import python_2_unicode_compatible
 
@@ -105,7 +105,7 @@ class FobiFormWidget(models.Model, IntegrationProcessor):
         # db_table = 'page_page_fobiformwidget'
 
     def __str__(self):
-        return ugettext('Fobi form')
+        return gettext('Fobi form')
 
     def process(self, request, **kwargs):
         """This is where most of the form handling happens.

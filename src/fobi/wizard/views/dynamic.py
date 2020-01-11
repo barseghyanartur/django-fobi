@@ -7,19 +7,16 @@ from django.shortcuts import redirect
 from django.forms import formsets, ValidationError
 from django.views.generic import TemplateView
 from django.utils.decorators import classonlymethod
-from django.utils.translation import ugettext as _
-from django.utils import six
+from django.utils.translation import gettext as _
+from django.urls import reverse
+
+import six
 
 from django_nine import versions
 
 from formtools.wizard.storage import get_storage
 from formtools.wizard.storage.exceptions import NoFileStorageConfigured
 from formtools.wizard.forms import ManagementForm
-
-if versions.DJANGO_GTE_1_10:
-    from django.urls import reverse
-else:
-    from django.core.urlresolvers import reverse
 
 logger = logging.getLogger(__name__)
 

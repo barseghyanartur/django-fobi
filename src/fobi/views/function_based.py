@@ -21,7 +21,9 @@ from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import redirect
 from django.template import RequestContext
 from django.utils.datastructures import MultiValueDictKeyError
-from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.translation import gettext, gettext_lazy as _
+from django.shortcuts import render
+from django.urls import reverse
 
 from formtools.wizard.forms import ManagementForm
 
@@ -94,13 +96,6 @@ from ..wizard import (
     DynamicSessionWizardView,
 )
 
-if versions.DJANGO_GTE_1_10:
-    from django.shortcuts import render
-    from django.urls import reverse
-else:
-    from django.core.urlresolvers import reverse
-    from django.shortcuts import render_to_response
-
 __title__ = 'fobi.views'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2019 Artur Barseghyan'
@@ -167,7 +162,7 @@ def _delete_plugin_entry(request,
                                   form_entry__user__pk=request.user.pk)
     except ObjectDoesNotExist as err:
         raise Http404(
-            ugettext("{0} not found.").format(
+            gettext("{0} not found.").format(
                 entry_model_cls._meta.verbose_name
             )
         )
@@ -210,7 +205,7 @@ def _delete_wizard_plugin_entry(request,
                                   form_wizard_entry__user__pk=request.user.pk)
     except ObjectDoesNotExist as err:
         raise Http404(
-            ugettext("{0} not found.").format(
+            gettext("{0} not found.").format(
                 entry_model_cls._meta.verbose_name
             )
         )
@@ -279,12 +274,7 @@ def dashboard(request, theme=None, template_name=None):
         theme = get_theme(request=request, as_instance=True)
         template_name = theme.dashboard_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 
 # *****************************************************************************
@@ -327,12 +317,7 @@ def form_wizards_dashboard(request, theme=None, template_name=None):
         theme = get_theme(request=request, as_instance=True)
         template_name = theme.form_wizards_dashboard_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 
 # *****************************************************************************
@@ -371,7 +356,7 @@ def create_form_entry(request, theme=None, template_name=None):
                 form_entry.save()
                 messages.info(
                     request,
-                    ugettext('Form {0} was created successfully.').format(
+                    gettext('Form {0} was created successfully.').format(
                         form_entry.name
                     )
                 )
@@ -381,7 +366,7 @@ def create_form_entry(request, theme=None, template_name=None):
             except IntegrityError as err:
                 messages.info(
                     request,
-                    ugettext('Errors occurred while saving '
+                    gettext('Errors occurred while saving '
                              'the form: {0}.').format(str(err))
                 )
 
@@ -400,12 +385,7 @@ def create_form_entry(request, theme=None, template_name=None):
             theme = get_theme(request=request, as_instance=True)
         template_name = theme.create_form_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 
 # **************************************************************************
@@ -438,7 +418,7 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
                               .get(pk=form_entry_id, user__pk=request.user.pk)
     # .prefetch_related('formhandlerentry_set') \
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form entry not found."))
+        raise Http404(gettext("Form entry not found."))
 
     if request.method == 'POST':
         # The form entry form (does not contain form elements)
@@ -492,7 +472,7 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
                 obj.save()
                 messages.info(
                     request,
-                    ugettext('Form {0} was edited successfully.').format(
+                    gettext('Form {0} was edited successfully.').format(
                         form_entry.name
                     )
                 )
@@ -505,7 +485,7 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
             except IntegrityError as err:
                 messages.info(
                     request,
-                    ugettext(
+                    gettext(
                         'Errors occurred while saving the form: {0}.'
                     ).format(str(err))
                 )
@@ -585,12 +565,7 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
     if not template_name:
         template_name = theme.edit_form_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 
 # *****************************************************************************
@@ -618,13 +593,13 @@ def delete_form_entry(request, form_entry_id, template_name=None):
         obj = FormEntry._default_manager \
             .get(pk=form_entry_id, user__pk=request.user.pk)
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form entry not found."))
+        raise Http404(gettext("Form entry not found."))
 
     obj.delete()
 
     messages.info(
         request,
-        ugettext('The form "{0}" was deleted successfully.').format(obj.name)
+        gettext('The form "{0}" was deleted successfully.').format(obj.name)
     )
 
     return redirect('fobi.dashboard')
@@ -655,7 +630,7 @@ def add_form_element_entry(request,
                               .prefetch_related('formelemententry_set') \
                               .get(pk=form_entry_id)
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form entry not found."))
+        raise Http404(gettext("Form entry not found."))
 
     form_elements = form_entry.formelemententry_set.all()
 
@@ -664,7 +639,7 @@ def add_form_element_entry(request,
     )
 
     if form_element_plugin_uid not in user_form_element_plugin_uids:
-        raise Http404(ugettext("Plugin does not exist or you are not allowed "
+        raise Http404(gettext("Plugin does not exist or you are not allowed "
                                "to use this plugin!"))
 
     form_element_plugin_cls = form_element_plugin_registry.get(
@@ -727,7 +702,7 @@ def add_form_element_entry(request,
 
         messages.info(
             request,
-            ugettext('The form element plugin "{0}" was added '
+            gettext('The form element plugin "{0}" was added '
                      'successfully.').format(form_element_plugin.name)
         )
         return redirect(
@@ -753,12 +728,7 @@ def add_form_element_entry(request,
             theme = get_theme(request=request, as_instance=True)
         template_name = theme.add_form_element_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 # *****************************************************************************
 # **************************** Edit form element entry ************************
@@ -786,7 +756,7 @@ def edit_form_element_entry(request,
                               .get(pk=form_element_entry_id,
                                    form_entry__user__pk=request.user.pk)
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form element entry not found."))
+        raise Http404(gettext("Form element entry not found."))
 
     form_entry = obj.form_entry
     form_element_plugin = obj.get_plugin(request=request)
@@ -798,7 +768,7 @@ def edit_form_element_entry(request,
     if not FormElementPluginForm:
         messages.info(
             request,
-            ugettext('The form element plugin "{0}" '
+            gettext('The form element plugin "{0}" '
                      'is not configurable!').format(form_element_plugin.name)
         )
         return redirect('fobi.edit_form_entry', form_entry_id=form_entry.pk)
@@ -829,7 +799,7 @@ def edit_form_element_entry(request,
 
             messages.info(
                 request,
-                ugettext('The form element plugin "{0}" was edited '
+                gettext('The form element plugin "{0}" was edited '
                          'successfully.').format(form_element_plugin.name)
             )
 
@@ -858,12 +828,7 @@ def edit_form_element_entry(request,
             theme = get_theme(request=request, as_instance=True)
         template_name = theme.edit_form_element_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 # *****************************************************************************
 # **************************** Delete form element entry **********************
@@ -884,7 +849,7 @@ def delete_form_element_entry(request, form_element_entry_id):
         entry_id=form_element_entry_id,
         entry_model_cls=FormElementEntry,
         get_user_plugin_uids_func=get_user_form_field_plugin_uids,
-        message=ugettext(
+        message=gettext(
             'The form element plugin "{0}" was deleted successfully.'
         ),
         html_anchor='?active_tab=tab-form-elements'
@@ -914,14 +879,14 @@ def add_form_handler_entry(request,
     try:
         form_entry = FormEntry._default_manager.get(pk=form_entry_id)
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form entry not found."))
+        raise Http404(gettext("Form entry not found."))
 
     user_form_handler_plugin_uids = get_user_form_handler_plugin_uids(
         request.user
     )
 
     if form_handler_plugin_uid not in user_form_handler_plugin_uids:
-        raise Http404(ugettext("Plugin does not exist or you are not allowed "
+        raise Http404(gettext("Plugin does not exist or you are not allowed "
                                "to use this plugin!"))
 
     form_handler_plugin_cls = form_handler_plugin_registry.get(
@@ -938,7 +903,7 @@ def add_form_handler_entry(request,
             .count()
         if times_used > 0:
             raise Http404(
-                ugettext("The {0} plugin can be used only once in a "
+                gettext("The {0} plugin can be used only once in a "
                          "form.").format(form_handler_plugin_cls.name)
             )
 
@@ -981,7 +946,7 @@ def add_form_handler_entry(request,
 
         messages.info(
             request,
-            ugettext('The form handler plugin "{0}" was added '
+            gettext('The form handler plugin "{0}" was added '
                      'successfully.').format(form_handler_plugin.name)
         )
         return redirect(
@@ -1009,12 +974,7 @@ def add_form_handler_entry(request,
             theme = get_theme(request=request, as_instance=True)
         template_name = theme.add_form_handler_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 # *****************************************************************************
 # **************************** Edit form handler entry ************************
@@ -1040,7 +1000,7 @@ def edit_form_handler_entry(request,
                               .select_related('form_entry') \
                               .get(pk=form_handler_entry_id)
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form handler entry not found."))
+        raise Http404(gettext("Form handler entry not found."))
 
     form_entry = obj.form_entry
 
@@ -1053,7 +1013,7 @@ def edit_form_handler_entry(request,
     if not FormHandlerPluginForm:
         messages.info(
             request,
-            ugettext('The form handler plugin "{0}" is not '
+            gettext('The form handler plugin "{0}" is not '
                      'configurable!').format(form_handler_plugin.name)
         )
         return redirect('fobi.edit_form_entry', form_entry_id=form_entry.pk)
@@ -1076,7 +1036,7 @@ def edit_form_handler_entry(request,
 
             messages.info(
                 request,
-                ugettext('The form handler plugin "{0}" was edited '
+                gettext('The form handler plugin "{0}" was edited '
                          'successfully.').format(form_handler_plugin.name)
             )
 
@@ -1102,12 +1062,7 @@ def edit_form_handler_entry(request,
             theme = get_theme(request=request, as_instance=True)
         template_name = theme.edit_form_handler_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 # *****************************************************************************
 # **************************** Delete form handler entry **********************
@@ -1128,7 +1083,7 @@ def delete_form_handler_entry(request, form_handler_entry_id):
         entry_id=form_handler_entry_id,
         entry_model_cls=FormHandlerEntry,
         get_user_plugin_uids_func=get_user_form_handler_plugin_uids,
-        message=ugettext(
+        message=gettext(
             'The form handler plugin "{0}" was deleted successfully.'
         ),
         html_anchor='?active_tab=tab-form-handlers'
@@ -1174,7 +1129,7 @@ def create_form_wizard_entry(request, theme=None, template_name=None):
                 form_wizard_entry.save()
                 messages.info(
                     request,
-                    ugettext('Form wizard {0} was created '
+                    gettext('Form wizard {0} was created '
                              'successfully.').format(form_wizard_entry.name)
                 )
                 return redirect(
@@ -1184,7 +1139,7 @@ def create_form_wizard_entry(request, theme=None, template_name=None):
             except IntegrityError as err:
                 messages.info(
                     request,
-                    ugettext('Errors occurred while saving '
+                    gettext('Errors occurred while saving '
                              'the form wizard: {0}.').format(str(err))
                 )
 
@@ -1203,12 +1158,7 @@ def create_form_wizard_entry(request, theme=None, template_name=None):
             theme = get_theme(request=request, as_instance=True)
         template_name = theme.create_form_wizard_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 
 # **************************************************************************
@@ -1247,7 +1197,7 @@ def edit_form_wizard_entry(request, form_wizard_entry_id, theme=None,
             .get(pk=form_wizard_entry_id, user__pk=request.user.pk)
     # .prefetch_related('formhandlerentry_set') \
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form wizard entry not found."))
+        raise Http404(gettext("Form wizard entry not found."))
 
     if request.method == 'POST':
         # The form entry form (does not contain form elements)
@@ -1271,7 +1221,7 @@ def edit_form_wizard_entry(request, form_wizard_entry_id, theme=None,
                     form_wizard_form_entry_formset.save()
                     messages.info(
                         request,
-                        ugettext("Forms ordering edited successfully.")
+                        gettext("Forms ordering edited successfully.")
                     )
                     return redirect(
                         reverse(
@@ -1284,7 +1234,7 @@ def edit_form_wizard_entry(request, form_wizard_entry_id, theme=None,
             except MultiValueDictKeyError as err:
                 messages.error(
                     request,
-                    ugettext("Errors occurred while trying to change the "
+                    gettext("Errors occurred while trying to change the "
                              "forms ordering!")
                 )
                 return redirect(
@@ -1306,7 +1256,7 @@ def edit_form_wizard_entry(request, form_wizard_entry_id, theme=None,
                 obj.save()
                 messages.info(
                     request,
-                    ugettext('Form wizard {0} was edited '
+                    gettext('Form wizard {0} was edited '
                              'successfully.').format(form_wizard_entry.name)
                 )
                 return redirect(
@@ -1318,7 +1268,7 @@ def edit_form_wizard_entry(request, form_wizard_entry_id, theme=None,
             except IntegrityError as err:
                 messages.info(
                     request,
-                    ugettext('Errors occurred while saving '
+                    gettext('Errors occurred while saving '
                              'the form wizard: {0}.').format(str(err))
                 )
     else:
@@ -1377,12 +1327,7 @@ def edit_form_wizard_entry(request, form_wizard_entry_id, theme=None,
     if not template_name:
         template_name = theme.edit_form_wizard_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 
 # *****************************************************************************
@@ -1412,18 +1357,306 @@ def delete_form_wizard_entry(request, form_wizard_entry_id,
         obj = FormWizardEntry._default_manager \
             .get(pk=form_wizard_entry_id, user__pk=request.user.pk)
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form wizard entry not found."))
+        raise Http404(gettext("Form wizard entry not found."))
 
     obj.delete()
 
     messages.info(
         request,
-        ugettext('The form wizard "{0}" was deleted successfully.').format(
+        gettext('The form wizard "{0}" was deleted successfully.').format(
             obj.name
         )
     )
 
     return redirect('fobi.form_wizards_dashboard')
+
+# *****************************************************************************
+# ************************ View form wizard entry *****************************
+# *****************************************************************************
+
+
+class FormWizardView(DynamicSessionWizardView):
+    """Dynamic form wizard."""
+
+    file_storage = FileSystemStorage(
+        location=get_wizard_files_upload_dir()
+    )
+
+    def get_context_data(self, form, **kwargs):
+        """Get context data."""
+        context_data = super(FormWizardView, self).get_context_data(
+            form=form, **kwargs
+        )
+        form_entry = self.get_form_entry_for_step(self.steps.step0)
+        context_data.update({
+            'form_wizard_entry': self.form_wizard_entry,
+            'form_wizard_mode': True,
+            'fobi_theme': self.fobi_theme,
+            'fobi_form_title': form_entry.title,
+            'fobi_form_wizard_title': self.form_wizard_entry.title,
+            'steps_range': range(1, self.steps.count + 1),
+        })
+
+        return context_data
+
+    def get_form_entry_for_step(self, step):
+        """Get form entry title for step."""
+        form_slug = self.form_list[self.steps.step0][0]
+        return self.form_entry_mapping[form_slug]
+
+    def get_initial_wizard_data(self, request, *args, **kwargs):
+        """Get initial wizard data."""
+        user_is_authenticated = request.user.is_authenticated
+        try:
+            qs_kwargs = {'slug': kwargs.get('form_wizard_entry_slug')}
+            if not user_is_authenticated:
+                kwargs.update({'is_public': True})
+            form_wizard_entry = FormWizardEntry.objects \
+                .select_related('user') \
+                .get(**qs_kwargs)
+        except ObjectDoesNotExist as err:
+            raise Http404(gettext("Form wizard entry not found."))
+
+        form_entries = [
+            form_wizard_form_entry.form_entry
+            for form_wizard_form_entry
+            in form_wizard_entry.formwizardformentry_set
+                                .all()
+                                .select_related('form_entry')
+        ]
+        form_list = []
+        form_entry_mapping = {}
+        form_element_entry_mapping = {}
+        wizard_form_element_entries = []
+        for creation_counter, form_entry in enumerate(form_entries):
+            # Using frozen queryset to minimize query usage
+            form_element_entries = form_entry.formelemententry_set.all()[:]
+            wizard_form_element_entries += form_element_entries
+            form_cls = assemble_form_class(
+                form_entry,
+                request=request,
+                form_element_entries=form_element_entries,
+                get_form_field_instances_kwargs={
+                    'form_wizard_entry': form_wizard_entry,
+                }
+            )
+
+            form_list.append(
+                (form_entry.slug, form_cls)
+            )
+            form_entry_mapping[form_entry.slug] = form_entry
+            form_element_entry_mapping[form_entry.slug] = form_element_entries
+
+        if len(form_list) == 0:
+            raise Http404(
+                gettext("Form wizard entry does not contain any forms.")
+            )
+
+        theme = get_theme(request=request, as_instance=True)
+        theme.collect_plugin_media(wizard_form_element_entries)
+
+        return {
+            'form_list': form_list,
+            'template_name': theme.view_form_wizard_entry_template,
+            'form_wizard_entry': form_wizard_entry,
+            'wizard_form_element_entries': wizard_form_element_entries,
+            'form_entry_mapping': form_entry_mapping,
+            'form_element_entry_mapping': form_element_entry_mapping,
+            'fobi_theme': theme,
+        }
+
+    def post(self, *args, **kwargs):
+        """POST requests.
+
+        This method handles POST requests.
+
+        The wizard will render either the current step (if form validation
+        wasn't successful), the next step (if the current step was stored
+        successful) or the done view (if no more steps are available)
+        """
+        # Without this fix POST actions breaks on Django 1.11. Introduce
+        # a better fix if you can.
+        self.request.POST._mutable = True
+
+        # Look for a wizard_goto_step element in the posted data which
+        # contains a valid step name. If one was found, render the requested
+        # form. (This makes stepping back a lot easier).
+        wizard_goto_step = self.request.POST.get('wizard_goto_step', None)
+        if wizard_goto_step and wizard_goto_step in self.get_form_list():
+            return self.render_goto_step(wizard_goto_step)
+
+        # Check if form was refreshed
+        management_form = ManagementForm(self.request.POST, prefix=self.prefix)
+        if not management_form.is_valid():
+            raise ValidationError(
+                _('ManagementForm data is missing or has been tampered.'),
+                code='missing_management_form',
+            )
+
+        form_current_step = management_form.cleaned_data['current_step']
+        if (form_current_step != self.steps.current and
+                self.storage.current_step is not None):
+            # form refreshed, change current step
+            self.storage.current_step = form_current_step
+
+        # get the form for the current step
+        form = self.get_form(data=self.request.POST, files=self.request.FILES)
+
+        # and try to validate
+        if form.is_valid():
+            # Get current form entry
+            form_entry = self.form_entry_mapping[self.steps.current]
+            # Get form elements for the current form entry
+            form_element_entries = \
+                self.form_element_entry_mapping[self.steps.current]
+            # Fire plugin processors
+            form = submit_plugin_form_data(
+                form_entry=form_entry,
+                request=self.request,
+                form=form,
+                form_element_entries=form_element_entries,
+                **{'form_wizard_entry': self.form_wizard_entry}
+            )
+            # Form wizards make use of form.data instead of form.cleaned_data.
+            # Therefore, we update the form.data with values from
+            # form.cleaned_data.
+            wizard_field_pattern = "{0}-{1}"
+            # We can't update values of a `MultiValueDict`, which `QueryDict`
+            # is, using `update` method. That's why we do it one by one.
+            for field_key, field_value in form.cleaned_data.items():
+                wizard_form_key = wizard_field_pattern.format(
+                    self.steps.current,
+                    field_key
+                )
+                # Do not overwrite field data. Only empty or missing values.
+                if not (
+                    wizard_form_key in form.data
+                    and form.data[wizard_form_key]
+                ):
+                    form.data[wizard_form_key] = field_value
+
+                # This is dirty hack to make wizard validate empty multiple
+                # choice fields. Otherwise it would fail with message
+                # Select a valid choice. [] is not one of the available
+                # choices.
+                if wizard_form_key in form.data:
+                    if not form.data[wizard_form_key]:
+                        if isinstance(form.data[wizard_form_key], list):
+                            del form.data[wizard_form_key]
+
+            # if the form is valid, store the cleaned data and files.
+            self.storage.set_step_data(self.steps.current,
+                                       self.process_step(form))
+
+            self.storage.set_step_files(self.steps.current,
+                                        self.process_step_files(form))
+
+            # check if the current step is the last step
+            if self.steps.current == self.steps.last:
+                # no more steps, render done view
+                return self.render_done(form, **kwargs)
+            else:
+                # proceed to the next step
+                return self.render_next_step(form)
+        return self.render(form)
+
+    def get_ignorable_field_names(self, form_element_entries):
+        """Get ignorable field names."""
+        ignorable_field_names = []
+        for form_element_entry in form_element_entries:
+            plugin = form_element_entry.get_plugin()
+            # If plugin doesn't have a value, we don't need to have it
+            # on the last step (otherwise validation issues may arise, as
+            # it happens with captcha/re-captcha).
+            if not plugin.has_value:
+                ignorable_field_names.append(plugin.data.name)
+        return ignorable_field_names
+
+    def render_done(self, form, **kwargs):
+        """Render done.
+
+        This method gets called when all forms passed. The method should also
+        re-validate all steps to prevent manipulation. If any form fails to
+        validate, `render_revalidation_failure` should get called.
+        If everything is fine call `done`.
+        """
+        final_forms = OrderedDict()
+        # walk through the form list and try to validate the data again.
+        for form_key in self.get_form_list():
+
+            form_obj = self.get_form(
+                step=form_key,
+                data=self.storage.get_step_data(form_key),
+                files=self.storage.get_step_files(form_key)
+            )
+
+            # Get form elements for the current form entry
+            form_element_entries = \
+                self.form_element_entry_mapping[form_key]
+
+            ignorable_field_names = self.get_ignorable_field_names(
+                form_element_entries
+            )
+
+            for ignorable_field_name in ignorable_field_names:
+                if ignorable_field_name in form_obj.fields:
+                    form_obj.fields.pop(ignorable_field_name)
+
+            if not form_obj.is_valid():
+                return self.render_revalidation_failure(form_key,
+                                                        form_obj,
+                                                        **kwargs)
+
+            # Fire plugin processors
+            # Get current form entry
+            form_entry = self.form_entry_mapping[form_key]
+
+            form_obj = submit_plugin_form_data(
+                form_entry=form_entry,
+                request=self.request,
+                form=form_obj,
+                form_element_entries=form_element_entries,
+                **{'form_wizard_entry': self.form_wizard_entry}
+            )
+
+            final_forms[form_key] = form_obj
+
+        # render the done view and reset the wizard before returning the
+        # response. This is needed to prevent from rendering done with the
+        # same data twice.
+        done_response = self.done(final_forms.values(),
+                                  form_dict=final_forms,
+                                  **kwargs)
+        self.storage.reset()
+        return done_response
+
+    def done(self, form_list, **kwargs):
+        """Done."""
+        user_is_authenticated = self.request.user.is_authenticated
+
+        try:
+            qs_kwargs = {'slug': kwargs.get('form_wizard_entry_slug')}
+            if not user_is_authenticated:
+                kwargs.update({'is_public': True})
+            form_wizard_entry = FormWizardEntry.objects \
+                .select_related('user') \
+                .get(**qs_kwargs)
+        except ObjectDoesNotExist as err:
+            raise Http404(gettext("Form wizard entry not found."))
+
+        # Run all handlers
+        handler_responses, handler_errors = run_form_wizard_handlers(
+            form_wizard_entry=form_wizard_entry,
+            request=self.request,
+            form_list=form_list,
+            form_wizard=self,
+            form_element_entries=self.wizard_form_element_entries
+        )
+
+        # do_something_with_the_form_data(form_list)
+        redirect_url = reverse('fobi.form_wizard_entry_submitted',
+                               args=[form_wizard_entry.slug])
+        return HttpResponseRedirect(redirect_url)
 
 # *****************************************************************************
 # ************************** View form wizard entry success *******************
@@ -1439,10 +1672,8 @@ def form_wizard_entry_submitted(request, form_wizard_entry_slug=None,
     :param string template_name:
     :return django.http.HttpResponse:
     """
-    if versions.DJANGO_GTE_1_10:
-        user_is_authenticated = request.user.is_authenticated
-    else:
-        user_is_authenticated = request.user.is_authenticated()
+    user_is_authenticated = request.user.is_authenticated
+
     try:
         kwargs = {'slug': form_wizard_entry_slug}
         if not user_is_authenticated:
@@ -1451,7 +1682,7 @@ def form_wizard_entry_submitted(request, form_wizard_entry_slug=None,
             .select_related('user') \
             .get(**kwargs)
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form wizard entry not found."))
+        raise Http404(gettext("Form wizard entry not found."))
 
     context = {
         'form_wizard_entry_slug': form_wizard_entry_slug,
@@ -1462,12 +1693,7 @@ def form_wizard_entry_submitted(request, form_wizard_entry_slug=None,
         theme = get_theme(request=request, as_instance=True)
         template_name = theme.form_wizard_entry_submitted_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 # *****************************************************************************
 # *****************************************************************************
@@ -1502,7 +1728,7 @@ def add_form_wizard_form_entry(request,
             user=request.user
         )
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form wizard entry not found."))
+        raise Http404(gettext("Form wizard entry not found."))
 
     try:
         form_entry = FormEntry.objects.get(
@@ -1510,7 +1736,7 @@ def add_form_wizard_form_entry(request,
             user=request.user
         )
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form entry not found."))
+        raise Http404(gettext("Form entry not found."))
 
     try:
         obj = FormWizardFormEntry.objects.create(
@@ -1520,7 +1746,7 @@ def add_form_wizard_form_entry(request,
     except IntegrityError as err:
         messages.error(
             request,
-            ugettext(
+            gettext(
                 'The form entry "{0}" could not be added to the '
                 'wizard "{1}" due to the following error "{2}".'
             ).format(form_entry.name, form_wizard_entry.name, str(err))
@@ -1556,7 +1782,7 @@ def add_form_wizard_form_entry(request,
 
     messages.info(
         request,
-        ugettext(
+        gettext(
             'The form entry "{0}" was added successfully to the wizard "{1}".'
         ).format(form_entry.name, form_wizard_entry.name)
     )
@@ -1593,7 +1819,7 @@ def delete_form_wizard_form_entry(request, form_wizard_form_entry_id):
                  form_wizard_entry__user__pk=request.user.pk)
     except ObjectDoesNotExist as err:
         raise Http404(
-            ugettext("{0} not found.").format(
+            gettext("{0} not found.").format(
                 FormWizardFormEntry._meta.verbose_name
             )
         )
@@ -1603,7 +1829,7 @@ def delete_form_wizard_form_entry(request, form_wizard_form_entry_id):
 
     messages.info(
         request,
-        ugettext(
+        gettext(
             'The form wizard form entry "{0}" was deleted successfully.'
         ).format(obj.form_wizard_entry.name)
     )
@@ -1648,7 +1874,7 @@ def add_form_wizard_handler_entry(request,
             pk=form_wizard_entry_id
         )
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form wizard entry not found."))
+        raise Http404(gettext("Form wizard entry not found."))
 
     user_form_wizard_handler_plugin_uids = \
         get_user_form_wizard_handler_plugin_uids(
@@ -1657,7 +1883,7 @@ def add_form_wizard_handler_entry(request,
 
     if form_wizard_handler_plugin_uid not \
             in user_form_wizard_handler_plugin_uids:
-        raise Http404(ugettext("Plugin does not exist or you are not allowed "
+        raise Http404(gettext("Plugin does not exist or you are not allowed "
                                "to use this plugin!"))
 
     form_wizard_handler_plugin_cls = form_wizard_handler_plugin_registry.get(
@@ -1674,7 +1900,7 @@ def add_form_wizard_handler_entry(request,
             .count()
         if times_used > 0:
             raise Http404(
-                ugettext("The {0} plugin can be used only once in a "
+                gettext("The {0} plugin can be used only once in a "
                          "form.").format(form_wizard_handler_plugin_cls.name)
             )
 
@@ -1719,7 +1945,7 @@ def add_form_wizard_handler_entry(request,
 
         messages.info(
             request,
-            ugettext(
+            gettext(
                 'The form wizard handler plugin "{0}" was added '
                 'successfully.'
             ).format(form_wizard_handler_plugin.name)
@@ -1749,12 +1975,7 @@ def add_form_wizard_handler_entry(request,
             theme = get_theme(request=request, as_instance=True)
         template_name = theme.add_form_wizard_handler_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 # *****************************************************************************
 # ************************ Edit form wizard handler entry *********************
@@ -1780,7 +2001,7 @@ def edit_form_wizard_handler_entry(request,
             .select_related('form_wizard_entry') \
             .get(pk=form_wizard_handler_entry_id)
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form wizard handler entry not found."))
+        raise Http404(gettext("Form wizard handler entry not found."))
 
     form_wizard_entry = obj.form_wizard_entry
 
@@ -1793,7 +2014,7 @@ def edit_form_wizard_handler_entry(request,
     if not form_wizard_handler_plugin_form_cls:
         messages.info(
             request,
-            ugettext(
+            gettext(
                 'The form wizard handler plugin "{0}" is not '
                 'configurable!'
             ).format(form_wizard_handler_plugin.name)
@@ -1821,7 +2042,7 @@ def edit_form_wizard_handler_entry(request,
 
             messages.info(
                 request,
-                ugettext(
+                gettext(
                     'The form wizard handler plugin "{0}" was edited '
                     'successfully.'
                 ).format(form_wizard_handler_plugin.name)
@@ -1849,12 +2070,7 @@ def edit_form_wizard_handler_entry(request,
             theme = get_theme(request=request, as_instance=True)
         template_name = theme.edit_form_handler_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 # *****************************************************************************
 # *********************** Delete form wizard handler entry ********************
@@ -1875,7 +2091,7 @@ def delete_form_wizard_handler_entry(request, form_wizard_handler_entry_id):
         entry_id=form_wizard_handler_entry_id,
         entry_model_cls=FormWizardHandlerEntry,
         get_user_plugin_uids_func=get_user_form_wizard_handler_plugin_uids,
-        message=ugettext(
+        message=gettext(
             'The form wizard handler plugin "{0}" was deleted successfully.'
         ),
         html_anchor='?active_tab=tab-form-handlers'
@@ -1901,10 +2117,8 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
     :param string template_name:
     :return django.http.HttpResponse:
     """
-    if versions.DJANGO_GTE_1_10:
-        user_is_authenticated = request.user.is_authenticated
-    else:
-        user_is_authenticated = request.user.is_authenticated()
+    user_is_authenticated = request.user.is_authenticated
+
     try:
         kwargs = {'slug': form_entry_slug}
         if not user_is_authenticated:
@@ -1912,7 +2126,7 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
         form_entry = FormEntry._default_manager.select_related('user') \
                               .get(**kwargs)
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form entry not found."))
+        raise Http404(gettext("Form entry not found."))
 
     if not form_entry.is_active:
         context = {
@@ -1926,14 +2140,7 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
             theme = get_theme(request=request, as_instance=True)
             template_name = theme.form_entry_inactive_template
 
-        if versions.DJANGO_GTE_1_10:
-            return render(request, template_name, context)
-        else:
-            return render_to_response(
-                template_name,
-                context,
-                context_instance=RequestContext(request)
-            )
+        return render(request, template_name, context)
 
     form_element_entries = form_entry.formelemententry_set.all()[:]
 
@@ -1987,7 +2194,7 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
                 for handler_error in handler_errors:
                     messages.warning(
                         request,
-                        ugettext("Error occurred: {0}.").format(handler_error)
+                        gettext("Error occurred: {0}.").format(handler_error)
                     )
 
             # Fire post handler callbacks
@@ -2000,7 +2207,7 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
 
             messages.info(
                 request,
-                ugettext("Form {0} was submitted successfully.").format(
+                gettext("Form {0} was submitted successfully.").format(
                     form_entry.name
                 )
             )
@@ -2043,12 +2250,7 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
     if not template_name:
         template_name = theme.view_form_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 # *****************************************************************************
 # **************************** View form entry success ************************
@@ -2063,10 +2265,8 @@ def form_entry_submitted(request, form_entry_slug=None, template_name=None):
     :param string template_name:
     :return django.http.HttpResponse:
     """
-    if versions.DJANGO_GTE_1_10:
-        user_is_authenticated = request.user.is_authenticated
-    else:
-        user_is_authenticated = request.user.is_authenticated()
+    user_is_authenticated = request.user.is_authenticated
+
     try:
         kwargs = {'slug': form_entry_slug}
         if not user_is_authenticated:
@@ -2075,13 +2275,13 @@ def form_entry_submitted(request, form_entry_slug=None, template_name=None):
             .select_related('user') \
             .get(**kwargs)
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form entry not found."))
+        raise Http404(gettext("Form entry not found."))
 
     # try:
     #     form_entry = FormEntry._default_manager.get(slug=form_entry_slug,
     #                                                 user__pk=request.user.pk)
     # except ObjectDoesNotExist as err:
-    #     raise Http404(ugettext("Form entry not found."))
+    #     raise Http404(gettext("Form entry not found."))
 
     context = {
         'form_entry_slug': form_entry_slug,
@@ -2092,12 +2292,7 @@ def form_entry_submitted(request, form_entry_slug=None, template_name=None):
         theme = get_theme(request=request, as_instance=True)
         template_name = theme.form_entry_submitted_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 # *****************************************************************************
 # *****************************************************************************
@@ -2121,7 +2316,7 @@ def export_form_entry(request, form_entry_id, template_name=None):
                               .get(pk=form_entry_id, user__pk=request.user.pk)
 
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form entry not found."))
+        raise Http404(gettext("Form entry not found."))
 
     data = prepare_form_entry_export_data(form_entry)
     data_exporter = JSONDataExporter(
@@ -2188,7 +2383,7 @@ def import_form_entry(request, template_name=None):
             #
             # form_entry = FormEntry(**form_data)
             #
-            # form_entry.name += ugettext(" (imported on {0})").format(
+            # form_entry.name += gettext(" (imported on {0})").format(
             #     datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             # )
             # form_entry.save()
@@ -2267,12 +2462,7 @@ def import_form_entry(request, template_name=None):
         theme = get_theme(request=request, as_instance=True)
         template_name = theme.import_form_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 # *****************************************************************************
 # *****************************************************************************
@@ -2299,7 +2489,7 @@ def export_form_wizard_entry(request,
             .get(pk=form_wizard_entry_id, user__pk=request.user.pk)
 
     except ObjectDoesNotExist as err:
-        raise Http404(ugettext("Form wizard entry not found."))
+        raise Http404(gettext("Form wizard entry not found."))
 
     data = {
         'name': form_wizard_entry.name,
@@ -2398,7 +2588,7 @@ def import_form_wizard_entry(request, template_name=None):
 
             form_wizard_entry = FormWizardEntry(**form_wizard_data)
 
-            form_wizard_entry.name += ugettext(" (imported on {0})").format(
+            form_wizard_entry.name += gettext(" (imported on {0})").format(
                 datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
             )
             form_wizard_entry.save()
@@ -2430,7 +2620,7 @@ def import_form_wizard_entry(request, template_name=None):
                     if form_wizard_handler_data.get('plugin_uid', None):
                         messages.warning(
                             request,
-                            ugettext(
+                            gettext(
                                 'Plugin {0} is missing in the system.'
                             ).format(
                                 form_wizard_handler_data.get('plugin_uid')
@@ -2476,12 +2666,7 @@ def import_form_wizard_entry(request, template_name=None):
         theme = get_theme(request=request, as_instance=True)
         template_name = theme.import_form_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 
 # *****************************************************************************
