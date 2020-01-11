@@ -32,7 +32,7 @@ jobs:
           command: |
             python3 -m venv venv
             . venv/bin/activate
-            pip install django-nine
+            python setup.py install
             pip install -r examples/requirements/django_3_0.txt
 
       - save_cache:
