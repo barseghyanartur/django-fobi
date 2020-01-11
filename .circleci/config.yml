@@ -49,7 +49,7 @@ jobs:
           command: |
             . venv/bin/activate
 #            python manage.py test
-            ./runtests.py
+            python3 runtests.py
 
       - store_artifacts:
           path: test-reports
