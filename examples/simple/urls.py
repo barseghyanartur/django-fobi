@@ -5,6 +5,7 @@ from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 from django.conf.urls.static import static
 from django.views.generic import TemplateView
+from django.contrib.auth import views as auth_views
 
 from fobi.settings import DEFAULT_THEME
 
@@ -48,6 +49,10 @@ url_patterns_args = [
         include('fobi.urls.edit')),
 
     url(r'^admin_tools/', include('admin_tools.urls')),
+
+    url(r'^login/$',
+        auth_views.LoginView.as_view(template_name='registration/login.html'),
+        name='auth_login'),
 ]
 
 if versions.DJANGO_GTE_2_0:
