@@ -245,10 +245,8 @@ def render_auth_link(context):
         return {}
 
     request = context.get('request', None)
-    if DJANGO_GTE_1_10:
-        user_is_authenticated = request.user.is_authenticated
-    else:
-        user_is_authenticated = request.user.is_authenticated()
+    user_is_authenticated = request.user.is_authenticated
+
     if request and user_is_authenticated:
         try:
             auth_url = settings.LOGOUT_URL

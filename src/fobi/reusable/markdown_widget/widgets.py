@@ -25,13 +25,11 @@ class MarkdownWidget(Textarea):
         else:
             attrs.update(self.attrs)
 
-        if DJANGO_GTE_1_11:
-            final_attrs = self.build_attrs(
-                attrs,
-                extra_attrs={'name': name}
-            )
-        else:
-            final_attrs = self.build_attrs(attrs, name=name)
+        final_attrs = self.build_attrs(
+            attrs,
+            extra_attrs={'name': name}
+        )
+
         return format_html(
             '<div class="markdown-widget-wrapper">'
             '<textarea{}>\r\n{}</textarea>'

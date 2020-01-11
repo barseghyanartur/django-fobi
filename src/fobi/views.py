@@ -21,6 +21,8 @@ from django.shortcuts import redirect
 from django.template import RequestContext
 from django.utils.datastructures import MultiValueDictKeyError
 from django.utils.translation import gettext, gettext_lazy as _
+from django.shortcuts import render
+from django.urls import reverse
 
 from formtools.wizard.forms import ManagementForm
 
@@ -92,13 +94,6 @@ from .wizard import (
     # DynamicCookieWizardView,
     DynamicSessionWizardView,
 )
-
-if versions.DJANGO_GTE_1_10:
-    from django.shortcuts import render
-    from django.urls import reverse
-else:
-    from django.core.urlresolvers import reverse
-    from django.shortcuts import render_to_response
 
 __title__ = 'fobi.views'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -276,12 +271,7 @@ def dashboard(request, theme=None, template_name=None):
         theme = get_theme(request=request, as_instance=True)
         template_name = theme.dashboard_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 
 # *****************************************************************************
@@ -324,12 +314,7 @@ def form_wizards_dashboard(request, theme=None, template_name=None):
         theme = get_theme(request=request, as_instance=True)
         template_name = theme.form_wizards_dashboard_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 
 # *****************************************************************************
@@ -397,12 +382,7 @@ def create_form_entry(request, theme=None, template_name=None):
             theme = get_theme(request=request, as_instance=True)
         template_name = theme.create_form_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 
 # **************************************************************************
@@ -582,12 +562,7 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
     if not template_name:
         template_name = theme.edit_form_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 
 # *****************************************************************************
@@ -750,12 +725,7 @@ def add_form_element_entry(request,
             theme = get_theme(request=request, as_instance=True)
         template_name = theme.add_form_element_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 # *****************************************************************************
 # **************************** Edit form element entry ************************
@@ -855,12 +825,7 @@ def edit_form_element_entry(request,
             theme = get_theme(request=request, as_instance=True)
         template_name = theme.edit_form_element_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 # *****************************************************************************
 # **************************** Delete form element entry **********************
@@ -1006,12 +971,7 @@ def add_form_handler_entry(request,
             theme = get_theme(request=request, as_instance=True)
         template_name = theme.add_form_handler_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 # *****************************************************************************
 # **************************** Edit form handler entry ************************
@@ -1099,12 +1059,7 @@ def edit_form_handler_entry(request,
             theme = get_theme(request=request, as_instance=True)
         template_name = theme.edit_form_handler_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 # *****************************************************************************
 # **************************** Delete form handler entry **********************
@@ -1200,12 +1155,7 @@ def create_form_wizard_entry(request, theme=None, template_name=None):
             theme = get_theme(request=request, as_instance=True)
         template_name = theme.create_form_wizard_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 
 # **************************************************************************
@@ -1374,12 +1324,7 @@ def edit_form_wizard_entry(request, form_wizard_entry_id, theme=None,
     if not template_name:
         template_name = theme.edit_form_wizard_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 
 # *****************************************************************************
@@ -1458,10 +1403,7 @@ class FormWizardView(DynamicSessionWizardView):
 
     def get_initial_wizard_data(self, request, *args, **kwargs):
         """Get initial wizard data."""
-        if versions.DJANGO_GTE_1_10:
-            user_is_authenticated = request.user.is_authenticated
-        else:
-            user_is_authenticated = request.user.is_authenticated()
+        user_is_authenticated = request.user.is_authenticated
         try:
             qs_kwargs = {'slug': kwargs.get('form_wizard_entry_slug')}
             if not user_is_authenticated:
@@ -1531,8 +1473,7 @@ class FormWizardView(DynamicSessionWizardView):
         """
         # Without this fix POST actions breaks on Django 1.11. Introduce
         # a better fix if you can.
-        if versions.DJANGO_GTE_1_11:
-            self.request.POST._mutable = True
+        self.request.POST._mutable = True
 
         # Look for a wizard_goto_step element in the posted data which
         # contains a valid step name. If one was found, render the requested
@@ -1688,10 +1629,8 @@ class FormWizardView(DynamicSessionWizardView):
 
     def done(self, form_list, **kwargs):
         """Done."""
-        if versions.DJANGO_GTE_1_10:
-            user_is_authenticated = self.request.user.is_authenticated
-        else:
-            user_is_authenticated = self.request.user.is_authenticated()
+        user_is_authenticated = self.request.user.is_authenticated
+
         try:
             qs_kwargs = {'slug': kwargs.get('form_wizard_entry_slug')}
             if not user_is_authenticated:
@@ -1730,10 +1669,8 @@ def form_wizard_entry_submitted(request, form_wizard_entry_slug=None,
     :param string template_name:
     :return django.http.HttpResponse:
     """
-    if versions.DJANGO_GTE_1_10:
-        user_is_authenticated = request.user.is_authenticated
-    else:
-        user_is_authenticated = request.user.is_authenticated()
+    user_is_authenticated = request.user.is_authenticated
+
     try:
         kwargs = {'slug': form_wizard_entry_slug}
         if not user_is_authenticated:
@@ -1753,12 +1690,7 @@ def form_wizard_entry_submitted(request, form_wizard_entry_slug=None,
         theme = get_theme(request=request, as_instance=True)
         template_name = theme.form_wizard_entry_submitted_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 # *****************************************************************************
 # *****************************************************************************
@@ -2040,12 +1972,7 @@ def add_form_wizard_handler_entry(request,
             theme = get_theme(request=request, as_instance=True)
         template_name = theme.add_form_wizard_handler_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 # *****************************************************************************
 # ************************ Edit form wizard handler entry *********************
@@ -2140,12 +2067,7 @@ def edit_form_wizard_handler_entry(request,
             theme = get_theme(request=request, as_instance=True)
         template_name = theme.edit_form_handler_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 # *****************************************************************************
 # *********************** Delete form wizard handler entry ********************
@@ -2192,10 +2114,8 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
     :param string template_name:
     :return django.http.HttpResponse:
     """
-    if versions.DJANGO_GTE_1_10:
-        user_is_authenticated = request.user.is_authenticated
-    else:
-        user_is_authenticated = request.user.is_authenticated()
+    user_is_authenticated = request.user.is_authenticated
+
     try:
         kwargs = {'slug': form_entry_slug}
         if not user_is_authenticated:
@@ -2217,14 +2137,7 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
             theme = get_theme(request=request, as_instance=True)
             template_name = theme.form_entry_inactive_template
 
-        if versions.DJANGO_GTE_1_10:
-            return render(request, template_name, context)
-        else:
-            return render_to_response(
-                template_name,
-                context,
-                context_instance=RequestContext(request)
-            )
+        return render(request, template_name, context)
 
     form_element_entries = form_entry.formelemententry_set.all()[:]
 
@@ -2334,12 +2247,7 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
     if not template_name:
         template_name = theme.view_form_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 # *****************************************************************************
 # **************************** View form entry success ************************
@@ -2354,10 +2262,8 @@ def form_entry_submitted(request, form_entry_slug=None, template_name=None):
     :param string template_name:
     :return django.http.HttpResponse:
     """
-    if versions.DJANGO_GTE_1_10:
-        user_is_authenticated = request.user.is_authenticated
-    else:
-        user_is_authenticated = request.user.is_authenticated()
+    user_is_authenticated = request.user.is_authenticated
+
     try:
         kwargs = {'slug': form_entry_slug}
         if not user_is_authenticated:
@@ -2383,12 +2289,7 @@ def form_entry_submitted(request, form_entry_slug=None, template_name=None):
         theme = get_theme(request=request, as_instance=True)
         template_name = theme.form_entry_submitted_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 # *****************************************************************************
 # *****************************************************************************
@@ -2589,12 +2490,7 @@ def import_form_entry(request, template_name=None):
         theme = get_theme(request=request, as_instance=True)
         template_name = theme.import_form_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 # *****************************************************************************
 # *****************************************************************************
@@ -2795,12 +2691,7 @@ def import_form_wizard_entry(request, template_name=None):
         theme = get_theme(request=request, as_instance=True)
         template_name = theme.import_form_entry_template
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 
 # *****************************************************************************

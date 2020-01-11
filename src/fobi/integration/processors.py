@@ -120,10 +120,7 @@ class IntegrationProcessor(object):
         """
         template_name = self.get_form_template_name(request, instance)
 
-        if DJANGO_GTE_1_10:
-            user_is_authenticated = request.user.is_authenticated
-        else:
-            user_is_authenticated = request.user.is_authenticated()
+        user_is_authenticated = request.user.is_authenticated
 
         # Handle public/non-public forms. If form requires user authentication
         # redirect to login form with next parameter set to current request

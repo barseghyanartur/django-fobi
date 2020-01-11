@@ -29,7 +29,7 @@ are used for versioning (schema follows below):
 - Add support for Django 3.0.
 - Drop Python 2.7 support.
 - Drop Python 3.4 support.
-- Tested with Django REST Framework 3.10.x
+- Tested with Django REST Framework 3.11.x
 - Tested with FeinCMS 1.17.x.
 
 0.15

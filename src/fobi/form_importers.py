@@ -1,4 +1,4 @@
-from django_nine.versions import DJANGO_GTE_1_10
+from django.urls import reverse
 
 import simplejson as json
 
@@ -6,11 +6,6 @@ from six import text_type
 
 from .base import BaseRegistry
 from .discover import autodiscover
-
-if DJANGO_GTE_1_10:
-    from django.urls import reverse
-else:
-    from django.core.urlresolvers import reverse
 
 __title__ = 'fobi.form_importers'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'

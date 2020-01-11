@@ -1,19 +1,13 @@
 from __future__ import absolute_import
 
 from django.forms.fields import DateField
+from django.forms.widgets import SelectDateWidget
 from django.utils.translation import gettext_lazy as _
-
-from django_nine import versions
 
 from fobi.base import FormFieldPlugin, get_theme
 
 from . import UID
 from .forms import DateDropDownInputForm
-
-if versions.DJANGO_LTE_1_11:
-    from django.forms.extras.widgets import SelectDateWidget
-else:
-    from django.forms.widgets import SelectDateWidget
 
 __title__ = 'fobi.contrib.plugins.form_elements.fields.' \
             'date_drop_down.base'

@@ -12,10 +12,8 @@ from django.conf import settings
 from django.contrib import messages
 from django.forms.widgets import TextInput
 from django.utils.encoding import force_text
-from django.utils.translation import (
-    gettext,
-    # gettext_lazy as _,
-)
+from django.utils.translation import gettext
+from django.urls import reverse
 
 from django_nine.versions import DJANGO_GTE_1_10
 
@@ -52,11 +50,6 @@ from .settings import (
     WIZARD_FILES_UPLOAD_DIR,
     SORT_PLUGINS_BY_VALUE,
 )
-
-if DJANGO_GTE_1_10:
-    from django.urls import reverse
-else:
-    from django.core.urlresolvers import reverse
 
 __title__ = 'fobi.utils'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
