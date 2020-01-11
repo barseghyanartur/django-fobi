@@ -2,7 +2,7 @@
 -r test.txt
 -r style_checkers.txt
 -r djangorestframework.txt
--r feincms_1_13.txt
+-r feincms_1_17.txt
 
 Django>=1.11,<2.0
 django-admin-tools>=0.8.0
