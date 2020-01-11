@@ -1,5 +1,6 @@
 #-r django_1_11.txt
 
 FeinCMS==1.17.0
-django-mptt==0.9.0
+#django-mptt==0.9.0
+https://github.com/reupen/django-mptt/archive/add-django-3-support.zip
 #django-tinymce==2.6.0
