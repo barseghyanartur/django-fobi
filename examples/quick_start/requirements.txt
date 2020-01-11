@@ -8,7 +8,7 @@ six==1.10.0
 vishap==0.1.5
 
 Django>=1.11,<2.0
-Pillow==4.2.1
+Pillow==6.2.0
 Unidecode==0.04.18
 
 django-admin-tools>=0.8.0
