@@ -9,7 +9,6 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 from django.core.management import call_command
 from django.urls import reverse
-from django.test import LiveServerTestCase
 from django.conf import settings
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
