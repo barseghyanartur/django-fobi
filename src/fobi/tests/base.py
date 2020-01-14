@@ -131,6 +131,11 @@ class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
     # +++++++++++++++++++++++++++ General +++++++++++++++++++++++++++
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+    def _maximize_window(self):
+        self.driver.set_window_position(0, 0)
+        self.driver.set_window_size(1024 * 2, 768 * 2)
+        self.driver.maximize_window()
+
     def _get_live_server_url(self):
         """Get live server URL."""
         return self.LIVE_SERVER_URL \
@@ -148,7 +153,7 @@ class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
                 reverse('auth_login')
             )
         )
-        self.driver.maximize_window()
+        self._maximize_window()
         username_input = self.driver.find_element_by_name("username")
         username_input.send_keys(constants.FOBI_TEST_USER_USERNAME)
         password_input = self.driver.find_element_by_name("password")

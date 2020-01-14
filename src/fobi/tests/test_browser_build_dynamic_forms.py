@@ -225,6 +225,7 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         logger.debug(form_element_name)
 
         # Wait until the fobi page opens with the form element in.
+        self._maximize_window()
         WebDriverWait(self.driver, timeout=LONG_TIMEOUT).until(
             lambda driver: driver.find_element_by_xpath(
                 """//div[contains(text(), 'The form element plugin "{0}" """
