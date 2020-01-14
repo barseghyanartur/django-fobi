@@ -9,8 +9,8 @@ from selenium.webdriver.support.wait import WebDriverWait
 
 from django.core.management import call_command
 from django.urls import reverse
-from django.test import LiveServerTestCase
 from django.conf import settings
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 from . import constants
 from .helpers import (
@@ -35,7 +35,7 @@ WAIT = False
 WAIT_FOR = 0
 
 
-class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
+class BaseFobiBrowserBuldDynamicFormsTest(StaticLiveServerTestCase):
     """Browser tests django-fobi bulding forms functionality.
 
     Backed up by selenium. This test is based on the bootstrap3 theme.
@@ -80,7 +80,7 @@ class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         if chrome_driver_path is not None:
             cls.driver = webdriver.Chrome(
                 executable_path=chrome_driver_path,
-                chrome_options=chrome_driver_options
+                options=chrome_driver_options
             )
         elif phantom_js_executable_path is not None:
             if phantom_js_executable_path:
@@ -131,6 +131,11 @@ class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
     # +++++++++++++++++++++++++++ General +++++++++++++++++++++++++++
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+    def _maximize_window(self):
+        self.driver.set_window_position(0, 0)
+        self.driver.set_window_size(1024 * 2, 768 * 2)
+        self.driver.maximize_window()
+
     def _get_live_server_url(self):
         """Get live server URL."""
         return self.LIVE_SERVER_URL \
@@ -148,7 +153,7 @@ class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
                 reverse('auth_login')
             )
         )
-        self.driver.maximize_window()
+        self._maximize_window()
         username_input = self.driver.find_element_by_name("username")
         username_input.send_keys(constants.FOBI_TEST_USER_USERNAME)
         password_input = self.driver.find_element_by_name("password")

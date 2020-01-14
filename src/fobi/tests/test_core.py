@@ -1,6 +1,7 @@
 import datetime
 import unittest
 
+from django.urls import reverse
 from django.test import TestCase, RequestFactory
 from django.utils import timezone
 
@@ -75,7 +76,7 @@ class FobiCoreTest(TestCase):
         """Test form action URL."""
         request_factory = RequestFactory()
         request = request_factory.post(
-            '/en/fobi/forms/edit/27/',
+            reverse('fobi.edit_form_entry', args=[form_entry.pk]),
             data={
                 'name': "John Doe",
                 'is_public': False,
@@ -85,8 +86,11 @@ class FobiCoreTest(TestCase):
             }
         )
         request.META['SERVER_NAME'] = 'localhost'
-        form = FormEntryForm(request.POST, request=request,
-                             instance=form_entry)
+        form = FormEntryForm(
+            request.POST,
+            request=request,
+            instance=form_entry
+        )
 
         saved = False
         try:
