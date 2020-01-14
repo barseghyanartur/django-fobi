@@ -7,3 +7,8 @@ omit =
     src/fobi/tests/*
     example/simple/settings/*
     example/simple/wsgi.py
+
+[report]
+exclude_lines =
+    pragma: no cover
+    raise NotImplementedError
