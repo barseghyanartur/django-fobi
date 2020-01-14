@@ -59,7 +59,8 @@ before_install:
 #  - sudo dpkg -i chromium_75.0.3770.90-1_amd64.deb
 
 install:
-  - wget http://chromedriver.storage.googleapis.com/75.0.3770.90/chromedriver_linux64.zip
+  - wget https://chromedriver.storage.googleapis.com/79.0.3945.36/chromedriver_linux64.zip
+#  - wget http://chromedriver.storage.googleapis.com/75.0.3770.90/chromedriver_linux64.zip
 #  - wget http://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip
   - unzip chromedriver_linux64.zip -d /home/travis/
   - pip install -r examples/requirements/test.txt

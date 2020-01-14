@@ -2390,22 +2390,24 @@ For PhantomJS you need to have NodeJS installed.
 
 Set up ChromeDriver
 ~~~~~~~~~~~~~~~~~~~
-1. Download ChromeDriver 42:
+1. Download ChromeDriver version matching your browser. You can always find
+   proper version
+   at `chromedriver.chromium.org/downloads <https://chromedriver.chromium.org/downloads>`__:
 
     .. code-block:: sh
 
-        wget https://chromedriver.storage.googleapis.com/2.42/chromedriver_linux64.zip
+        wget https://chromedriver.storage.googleapis.com/79.0.3945.36/chromedriver_linux64.zip
         unzip chromedriver_linux64.zip
-        sudo mv chromedriver /usr/bin/chromedriver42
-        sudo chown root:root /usr/bin/chromedriver42
-        sudo chmod +x /usr/bin/chromedriver42
+        sudo mv chromedriver /usr/bin/chromedriver79
+        sudo chown root:root /usr/bin/chromedriver79
+        sudo chmod +x /usr/bin/chromedriver79
 
 2. Specify the full path to your ChromeDriver in
    ``CHROME_DRIVER_EXECUTABLE_PATH`` setting. Example:
 
     .. code-block:: python
 
-        CHROME_DRIVER_EXECUTABLE_PATH = '/usr/bin/chromedriver42'
+        CHROME_DRIVER_EXECUTABLE_PATH = '/usr/bin/chromedriver79'
 
 After that your Selenium tests would work.
 

@@ -679,6 +679,10 @@ PHANTOM_JS_EXECUTABLE_PATH = ''
 
 # CHROME_DRIVER_EXECUTABLE_PATH = os.environ.get('CHROME_BIN', None)
 CHROME_DRIVER_EXECUTABLE_PATH = None
+IS_TRAVIS = 'TRAVIS' in os.environ
+
+if IS_TRAVIS:
+    CHROME_DRIVER_EXECUTABLE_PATH = '/home/travis/chromedriver'
 
 from selenium import webdriver
 CHROME_DRIVER_OPTIONS = webdriver.ChromeOptions()
