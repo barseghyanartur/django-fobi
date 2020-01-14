@@ -80,7 +80,7 @@ class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
         if chrome_driver_path is not None:
             cls.driver = webdriver.Chrome(
                 executable_path=chrome_driver_path,
-                chrome_options=chrome_driver_options
+                options=chrome_driver_options
             )
         elif phantom_js_executable_path is not None:
             if phantom_js_executable_path:
