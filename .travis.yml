@@ -11,6 +11,9 @@ sudo: true
 
 addons:
   chrome: stable
+  hosts:
+    - localhost
+    - 127.0.0.1
 
 matrix:
   fast_finish: true

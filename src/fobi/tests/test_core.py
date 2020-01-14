@@ -85,7 +85,7 @@ class FobiCoreTest(TestCase):
                 'action': action_url,
             }
         )
-        request.META['SERVER_NAME'] = '127.0.0.1'
+        request.META['SERVER_NAME'] = 'localhost'
         form = FormEntryForm(
             request.POST,
             request=request,
