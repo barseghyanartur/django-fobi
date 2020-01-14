@@ -11,6 +11,7 @@ from django.core.management import call_command
 from django.urls import reverse
 from django.test import LiveServerTestCase
 from django.conf import settings
+from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 
 from . import constants
 from .helpers import (
@@ -35,7 +36,7 @@ WAIT = False
 WAIT_FOR = 0
 
 
-class BaseFobiBrowserBuldDynamicFormsTest(LiveServerTestCase):
+class BaseFobiBrowserBuldDynamicFormsTest(StaticLiveServerTestCase):
     """Browser tests django-fobi bulding forms functionality.
 
     Backed up by selenium. This test is based on the bootstrap3 theme.
