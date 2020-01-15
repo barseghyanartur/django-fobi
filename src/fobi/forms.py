@@ -183,12 +183,15 @@ class FormEntryForm(forms.ModelForm):
             except Exception as err:
                 localhost = '127.0.0.1'
 
-            try:
-                host = socket.gethostbyname(parsed_url.hostname)
+            if parsed_url.hostname == 'testserver':
+                local = True
+            else:
+                try:
+                    host = socket.gethostbyname(parsed_url.hostname)
 
-                local = (localhost == host)
-            except socket.gaierror as err:
-                pass
+                    local = (localhost == host)
+                except socket.gaierror as err:
+                    pass
 
             if local:
                 full_url = parsed_url.path
