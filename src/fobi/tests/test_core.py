@@ -135,7 +135,7 @@ class FobiCoreTest(TestCase):
 
         # Local URL, OK test
         saved = self._test_form_action_url(
-            form_entry, '/en/fobi/forms/edit/27/'
+            form_entry, reverse('fobi.edit_form_entry', args=[27])
         )
         self.assertTrue(saved)
 
