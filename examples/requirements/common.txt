@@ -1,6 +1,3 @@
-#-r test.txt
-#-r style_checkers.txt
-
 alabaster>=0.7.6
 Babel>=2.1.1
 bleach>=2.1.2
