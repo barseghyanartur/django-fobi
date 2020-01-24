@@ -280,6 +280,13 @@ setup(
         "Operating System :: OS Independent",
         "Development Status :: 4 - Beta",
     ],
+    project_urls={
+        "Bug Tracker": "https://github.com/barseghyanartur/django-fobi/issues",
+        "Documentation": "https://django-fobi.readthedocs.io/",
+        "Source Code": "https://github.com/barseghyanartur/django-fobi",
+        "Changelog": "https://django-fobi.readthedocs.io/"
+                     "en/latest/changelog.html",
+    },
     keywords="django, form generator, form builder, visual form designer, "
              "user generated forms",
     author='Artur Barseghyan',
