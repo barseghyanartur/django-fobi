@@ -13,6 +13,3 @@ django-registration-redux>=1.4
 django-simple-captcha==0.5.5
 easy-thumbnails==2.4.1
 sqlparse==0.2.2
-
-# django-formtools, compatible with Django 1.11
-#https://github.com/django/django-formtools/archive/master.tar.gz
