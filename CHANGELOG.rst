@@ -15,6 +15,12 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.16.1
+------
+2020-03-18
+
+- Fix the ``datetime`` is not JSON serializable error.
+
 0.16
 ----
 2020-01-11
