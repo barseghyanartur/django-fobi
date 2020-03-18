@@ -15,6 +15,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.files.storage import FileSystemStorage
+from django.core.serializers.json import DjangoJSONEncoder
 from django.forms import ValidationError
 from django.http import Http404, HttpResponseRedirect
 from django.shortcuts import redirect
@@ -2350,7 +2351,10 @@ def export_form_entry(request, form_entry_id, template_name=None):
     #         }
     #     )
 
-    data_exporter = JSONDataExporter(json.dumps(data), form_entry.slug)
+    data_exporter = JSONDataExporter(
+        json.dumps(data, cls=DjangoJSONEncoder),
+        form_entry.slug
+    )
 
     return data_exporter.export()
 
@@ -2548,7 +2552,10 @@ def export_form_wizard_entry(request,
             }
         )
 
-    data_exporter = JSONDataExporter(json.dumps(data), form_wizard_entry.slug)
+    data_exporter = JSONDataExporter(
+        json.dumps(data, cls=DjangoJSONEncoder),
+        form_wizard_entry.slug
+    )
 
     return data_exporter.export()
 
