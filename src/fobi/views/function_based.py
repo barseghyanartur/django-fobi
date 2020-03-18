@@ -2319,6 +2319,40 @@ def export_form_entry(request, form_entry_id, template_name=None):
         raise Http404(gettext("Form entry not found."))
 
     data = prepare_form_entry_export_data(form_entry)
+
+    # data = {
+    #     'name': form_entry.name,
+    #     'slug': form_entry.slug,
+    #     'is_public': False,
+    #     'is_cloneable': False,
+    #     # 'position': form_entry.position,
+    #     'success_page_title': form_entry.success_page_title,
+    #     'success_page_message': form_entry.success_page_message,
+    #     'action': form_entry.action,
+    #     'form_elements': [],
+    #     'form_handlers': [],
+    # }
+    #
+    # form_element_entries = form_entry.formelemententry_set.all()[:]
+    # form_handler_entries = form_entry.formhandlerentry_set.all()[:]
+    #
+    # for form_element_entry in form_element_entries:
+    #     data['form_elements'].append(
+    #         {
+    #             'plugin_uid': form_element_entry.plugin_uid,
+    #             'position': form_element_entry.position,
+    #             'plugin_data': form_element_entry.plugin_data,
+    #         }
+    #     )
+    #
+    # for form_handler_entry in form_handler_entries:
+    #     data['form_handlers'].append(
+    #         {
+    #             'plugin_uid': form_handler_entry.plugin_uid,
+    #             'plugin_data': form_handler_entry.plugin_data,
+    #         }
+    #     )
+
     data_exporter = JSONDataExporter(
         json.dumps(data, cls=DjangoJSONEncoder),
         form_entry.slug
