@@ -9,7 +9,7 @@ from fobi.base import (
     get_registered_form_element_plugins,
     get_registered_form_handler_plugins,
     get_registered_themes,
-    get_registered_form_callbacks
+    get_registered_form_callbacks,
 )
 from fobi.models import FormEntry, FormWizardEntry
 from fobi.forms import FormEntryForm

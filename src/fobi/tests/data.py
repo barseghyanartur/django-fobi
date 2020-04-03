@@ -592,6 +592,17 @@ TEST_DYNAMIC_FORMS_DEFINITION_DATA = OrderedDict([
             '}'
         )
     ),
+    # (
+    #     'sample_decimal',
+    #     (
+    #         DecimalInputPlugin.uid,
+    #         '{'
+    #         '"name": "sample_decimal", '
+    #         '"required": false, '
+    #         '"label": "Sample decimal"'
+    #         '}'
+    #     )
+    # ),
     (
         'bio',
         (
@@ -636,7 +647,7 @@ TEST_DYNAMIC_FORMS_DEFINITION_DATA = OrderedDict([
     # ),
 ])
 
-TEST_DYNAMIC_FORMS_DEFINITION_DATA_DRF = copy.copy(
+TEST_DYNAMIC_FORMS_DEFINITION_DATA_DRF = copy.deepcopy(
     TEST_DYNAMIC_FORMS_DEFINITION_DATA
 )
 TEST_DYNAMIC_FORMS_DEFINITION_DATA_DRF.pop('ignore_01')
@@ -661,6 +672,11 @@ TEST_DYNAMIC_FORMS_PUT_DATA_ALL = {
     'drivers_license': FAKER.pybool(),
     'special_fields': FAKER.pystr(),
     'number_of_children': FAKER.pyint(),
+    # 'sample_decimal': "%.5f" % FAKER.pydecimal(
+    #     left_digits=3,
+    #     right_digits=5,
+    #     positive=True
+    # ),
     'bio': FAKER.text(),
     # 'unicode_name': u'Անուն',
 }
@@ -697,6 +713,12 @@ TEST_DYNAMIC_FORMS_OPTIONS_RESPONSE = OrderedDict([
                                          (u'required', False),
                                          (u'read_only', False),
                                          (u'label', u'Number of children')])),
+    # (u'sample_decimal', OrderedDict([(u'type', u'decimal'),
+    #                                  (u'required', False),
+    #                                  (u'read_only', False),
+    #                                  (u'label', u'Sample decimal'),
+    #                                  ('max_digits', 10),
+    #                                  ('decimal_places', 5)])),
     (u'bio', OrderedDict([(u'type', u'string'),
                           (u'required', True),
                           (u'read_only', False),
