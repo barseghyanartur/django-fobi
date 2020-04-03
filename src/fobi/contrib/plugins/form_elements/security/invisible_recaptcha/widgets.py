@@ -20,12 +20,13 @@ class InvisibleRecaptchaWidget(HiddenInput):
     """Invisible recaptcha widget."""
 
     def __init__(self, *args, **kwargs):
-        attrs = kwargs.get("attrs", {})
-        attrs["data-customforms"] = "disabled"
-
         site_key = get_setting("SITE_KEY")
         if not site_key:
             raise ValueError("SITE_KEY not set")
+
+        attrs = kwargs.get("attrs", {})
+        attrs["data-customforms"] = "disabled"
+        attrs["data-recaptcha-field"] = "true"
         attrs["value"] = site_key
 
         kwargs["attrs"] = attrs

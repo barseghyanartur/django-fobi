@@ -12,7 +12,7 @@ function g_recaptcha_onSubmit(token) {
 }
 
 $(document).ready(function() {
-    var siteKey = $("#id_captcha").val();
+    var siteKey = $("[data-recaptcha-field]").val();
     if (siteKey) {
         var submitFormButton = $('form#fobi-form button[type=submit]');
         submitFormButton.addClass('g-recaptcha');
