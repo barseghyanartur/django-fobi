@@ -1,7 +1,5 @@
 from django.conf import settings
 
-from . import defaults
-
 __title__ = 'fobi.contrib.plugins.form_elements.security.' \
             'invisible_recaptcha.conf'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -26,8 +24,9 @@ def get_setting(setting, override=None):
     """
     if override is not None:
         return override
-    key = 'FOBI_PLUGIN_INVISIBLE_RECAPTCHA_{0}'.format(setting)
+
+    key = "FOBI_PLUGIN_INVISIBLE_RECAPTCHA_{0}".format(setting)
     if hasattr(settings, key):
         return getattr(settings, key)
-    else:
-        return getattr(defaults, setting)
+
+    return ""
