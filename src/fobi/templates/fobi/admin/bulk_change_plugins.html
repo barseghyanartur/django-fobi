@@ -1,6 +1,9 @@
 {% extends "admin/base_site.html" %}
-{% load i18n l10n admin_static %}
-{% load admin_urls %}
+{% if VERSIONS.DJANGO_GTE_2_1 %}
+    {% load i18n l10n static admin_urls %}
+{% else %}
+    {% load i18n l10n admin_static admin_urls %}
+{% endif %}
 
 {% block title %}{% trans "Edit multiple objects" %} | {% trans 'Django site admin' %}{% endblock %}
 

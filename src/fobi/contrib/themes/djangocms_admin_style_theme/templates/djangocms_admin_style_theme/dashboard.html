@@ -1,6 +1,10 @@
 {% extends fobi_theme.base_edit_template %}
 
-{% load i18n admin_static %}
+{% if VERSIONS.DJANGO_GTE_2_1 %}
+    {% load i18n static %}
+{% else %}
+    {% load i18n admin_static %}
+{% endif %}
 
 {% block page-title %}{% trans "Dashboard" %}{% endblock page-title %}
 
