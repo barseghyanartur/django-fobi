@@ -3,11 +3,7 @@
 {% if VERSIONS.DJANGO_GTE_2_1 %}
     {% load i18n static %}
 {% else %}
-    {% if VERSIONS.DJANGO_GTE_2_1 %}
-    {% load i18n static %}
-{% else %}
     {% load i18n admin_static %}
-{% endif %}
 {% endif %}
 
 {% block page-title %}{% trans "Dashboard" %}{% endblock page-title %}

@@ -15,6 +15,12 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.16.2
+------
+2020-04-03
+
+- Conditional use of deprecated `admin_static` templatetag module.
+
 0.16.1
 ------
 2020-03-18
