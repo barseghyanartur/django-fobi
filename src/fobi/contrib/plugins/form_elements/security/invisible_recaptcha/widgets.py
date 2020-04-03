@@ -1,6 +1,4 @@
-# from django.utils.html import format_html
 from django.forms.widgets import HiddenInput
-from django.utils.safestring import mark_safe
 
 from fobi.base import FormElementPluginWidget
 
@@ -22,23 +20,16 @@ class InvisibleRecaptchaWidget(HiddenInput):
     """Invisible recaptcha widget."""
 
     def __init__(self, *args, **kwargs):
-        attrs = kwargs.get('attrs', {})
-        attrs.update({'data-customforms': 'disabled'})
-        kwargs.update({'attrs': attrs})
-        super(InvisibleRecaptchaWidget, self).__init__(*args, **kwargs)
+        attrs = kwargs.get("attrs", {})
+        attrs["data-customforms"] = "disabled"
 
-    def render(self, *args, **kwargs):
-        """Returns this Widget rendered as HTML, as a Unicode string."""
-        html = super(InvisibleRecaptchaWidget, self).render(*args, **kwargs)
-        g_recaptcha_sitekey = get_setting('SITE_KEY')
-        invisible_recaptcha_html = """
-            <script>
-                var InvisibleRecaptchaSiteKey = "{g_recaptcha_sitekey}";
-            </script>
-        """.format(
-            g_recaptcha_sitekey=g_recaptcha_sitekey
-        )
-        return html + mark_safe(invisible_recaptcha_html)
+        site_key = get_setting("SITE_KEY")
+        if not site_key:
+            raise ValueError("SITE_KEY not set")
+        attrs["value"] = site_key
+
+        kwargs["attrs"] = attrs
+        super(InvisibleRecaptchaWidget, self).__init__(*args, **kwargs)
 
 
 class BaseInvisibleRecaptchaWidget(FormElementPluginWidget):
