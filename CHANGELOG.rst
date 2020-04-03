@@ -15,6 +15,12 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.16.3
+------
+2020-04-04 (not yet released)
+
+- Fixes in ``invisible_recaptcha`` plugin. Treat empty ``SITE_KEY`` as error.
+
 0.16.2
 ------
 2020-04-03
