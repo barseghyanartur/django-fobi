@@ -17,7 +17,7 @@ are used for versioning (schema follows below):
 
 0.16.3
 ------
-2020-04-04 (not yet released)
+2020-04-04
 
 - Fixes in ``invisible_recaptcha`` plugin. Treat empty ``SITE_KEY`` as error.
 

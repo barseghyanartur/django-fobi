@@ -430,7 +430,7 @@ CKEDITOR_CONFIGS = {
 # LOGIN_URL = '/accounts/login/'
 # LOGIN_REDIRECT_URL = '/fobi/' # Important for passing the selenium tests
 
-LOGIN_URL = '/en/accounts/login/'
+LOGIN_URL = '/en/login/'
 LOGIN_REDIRECT_URL = '/en/fobi/'  # Important for passing the selenium tests
 
 # LOGIN_URL = '/accounts/login/'
