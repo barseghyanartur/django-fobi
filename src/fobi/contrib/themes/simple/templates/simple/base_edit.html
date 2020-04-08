@@ -1,8 +1,4 @@
-{% if VERSIONS.DJANGO_GTE_2_1 %}
-    {% load static future_compat %}
-{% else %}
-    {% load admin_static future_compat %}
-{% endif %}<!DOCTYPE html>
+{% load static future_compat %}<!DOCTYPE html>
 <html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}{% block html-attributes %}{% endblock html-attributes %}>
 <head>
 <title>{% block page-title %}{% endblock page-title %} | {% block site-title %}{% endblock site-title %}</title>

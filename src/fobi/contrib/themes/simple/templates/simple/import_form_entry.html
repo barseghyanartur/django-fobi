@@ -1,10 +1,6 @@
 {% extends "fobi/generic/import_form_entry.html" %}
 
-{% if VERSIONS.DJANGO_GTE_2_1 %}
-    {% load i18n static %}
-{% else %}
-    {% load i18n admin_static %}
-{% endif %}
+{% load i18n static %}
 
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="{% static 'admin/css/changelists.css' %}" />

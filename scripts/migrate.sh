@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 cd examples/simple/
-./manage.py migrate  "$@"
+./manage.py migrate "$@"

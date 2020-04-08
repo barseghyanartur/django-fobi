@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.16.4
+------
+2020-04-08
+
+- Replace `admin_static` templatetag module with `static`, since the latter is
+  available in Django 1.11, which is now the minimal supported version.
+
 0.16.3
 ------
 2020-04-04
