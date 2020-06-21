@@ -5,7 +5,7 @@ from django.forms.models import ModelMultipleChoiceField
 from django.forms.widgets import SelectMultiple
 from django.utils.translation import gettext_lazy as _
 
-import simplejson as json
+import json
 
 from fobi.base import FormFieldPlugin, get_theme
 from fobi.constants import (

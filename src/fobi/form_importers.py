@@ -1,6 +1,6 @@
 from django.urls import reverse
 
-import simplejson as json
+import json
 
 from six import text_type
 
