@@ -1,6 +1,6 @@
 import datetime
 
-import json
+import simplejson as json
 
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse

@@ -1,6 +1,6 @@
 import datetime
 
-import json
+import simplejson as json
 
 from fobi.base import (
     FormCallback,

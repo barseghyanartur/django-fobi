@@ -1,7 +1,7 @@
 from __future__ import unicode_literals
 
 import bleach
-import json
+import simplejson as json
 from six import python_2_unicode_compatible, string_types
 
 from django.conf import settings

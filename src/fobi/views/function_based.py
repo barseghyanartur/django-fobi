@@ -6,7 +6,7 @@ import logging
 
 from collections import OrderedDict
 
-import json
+import simplejson as json
 
 # from six import string_types
 

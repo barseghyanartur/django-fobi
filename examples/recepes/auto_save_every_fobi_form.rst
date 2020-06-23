@@ -31,7 +31,7 @@ doesn't yet have it assigned).
             from fobi.models import FormHandlerEntry
             FormHandlerEntry.objects.get_or_create(
                 plugin_uid='db_store',
-                form_entry=instance
+                form_entry=instance     
             )
 
 Solution 2
@@ -46,7 +46,7 @@ plugin (copy-paste mainly).
 
     import datetime
 
-    import json
+    import simplejson as json
 
     from fobi.base import (
         form_callback_registry,

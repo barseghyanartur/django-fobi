@@ -10,7 +10,7 @@ import uuid
 
 from collections import defaultdict, OrderedDict
 
-import json
+import simplejson as json
 
 from django import forms
 from django.forms import ModelForm
