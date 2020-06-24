@@ -5,6 +5,8 @@ import json
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
 
+from django.core.serializers.json import DjangoJSONEncoder  
+
 from .....base import (
     FormHandlerPlugin,
     FormWizardHandlerPlugin,
@@ -25,6 +27,7 @@ __all__ = (
     'DBStoreHandlerPlugin',
     'DBStoreWizardHandlerPlugin',
 )
+
 
 # *****************************************************************************
 # **************************** Form handler ***********************************
@@ -83,7 +86,7 @@ class DBStoreHandlerPlugin(FormHandlerPlugin):
             form_entry=form_entry,
             user=request.user if request.user and request.user.pk else None,
             form_data_headers=json.dumps(field_name_to_label_map),
-            saved_data=json.dumps(cleaned_data)
+            saved_data=json.dumps(cleaned_data, cls=DjangoJSONEncoder)
         )
         saved_form_data_entry.save()
 
