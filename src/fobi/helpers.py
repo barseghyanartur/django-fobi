@@ -26,7 +26,7 @@ from django.test.client import RequestFactory
 from django.utils.encoding import force_text, smart_text
 from django.utils.html import format_html_join
 from django.utils.translation import gettext_lazy as _
-
+from django.conf import settings
 from six import text_type, PY3
 
 from .constants import (
@@ -261,10 +261,22 @@ def handle_uploaded_file(upload_dir, image_file):
             os.path.join(upload_dir_absolute_path, image_file.name)
         )
         image_filename = image_file.name
-        with open(destination_path, 'wb+') as destination:
+
+        with open(destination_path, "wb+") as destination:
             image_filename = os.path.basename(destination.name)
             for chunk in image_file.chunks():
                 destination.write(chunk)
+            if "storages" in settings.INSTALLED_APPS:
+                from .aws_helper import upload_file, ensure_unique_file
+
+                server_file_location = ensure_unique_file(
+                    os.path.join("media/", os.path.join(upload_dir, image_filename))
+                )
+                local_file_location = destination_path
+                upload_file(local_file_location, server_file_location)
+                delete_file(destination_path)
+                server_file_url = server_file_location[6:]
+                return server_file_url
         return os.path.join(upload_dir, image_filename)
     return image_file
 
