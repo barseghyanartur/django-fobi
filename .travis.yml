@@ -66,6 +66,13 @@ matrix:
   - env: TOX_ENV=py38-django30
     python: 3.8
 
+  - env: TOX_ENV=py36-django31
+    python: 3.6
+  - env: TOX_ENV=py37-django31
+    python: 3.7
+  - env: TOX_ENV=py38-django31
+    python: 3.8
+
 before_install:
   - sudo apt-get install -y xvfb libappindicator1 fonts-liberation
 #  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb

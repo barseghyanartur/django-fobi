@@ -3,7 +3,7 @@ import os
 from distutils.version import LooseVersion
 from setuptools import setup, find_packages
 
-version = '0.16.4'
+version = '0.17'
 
 # ***************************************************************************
 # ************************** Django version *********************************
@@ -32,6 +32,12 @@ try:
         '2.1',
         '2.2',
         '3.0',
+        '3.1',
+        '3.2',
+        '4.0',
+        '4.1',
+        '4.2',
+        '5.0',
     )
 
     for v in LOOSE_VERSIONS:

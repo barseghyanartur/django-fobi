@@ -122,14 +122,9 @@ if 'cms' in settings.INSTALLED_APPS:
 # Conditionally including Django REST framework integration app
 if 'fobi.contrib.apps.drf_integration' in settings.INSTALLED_APPS:
     from fobi.contrib.apps.drf_integration.urls import fobi_router
-    if versions.DJANGO_GTE_2_0:
-        urlpatterns += [
-            url(r'^api/', include(fobi_router.urls))
-        ]
-    else:
-        urlpatterns += [
-            url(r'^api/', include(fobi_router.urls))
-        ]
+    urlpatterns += [
+        url(r'^api/', include(fobi_router.urls))
+    ]
 
 # Conditionally including Captcha URls in case if
 # Captcha in installed apps.
