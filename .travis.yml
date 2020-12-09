@@ -81,7 +81,8 @@ before_install:
 #  - sudo dpkg -i chromium_75.0.3770.90-1_amd64.deb
 
 install:
-  - wget https://chromedriver.storage.googleapis.com/81.0.4044.69/chromedriver_linux64.zip
+  - wget https://chromedriver.storage.googleapis.com/87.0.4280.88/chromedriver_linux64.zip
+#  - wget https://chromedriver.storage.googleapis.com/81.0.4044.69/chromedriver_linux64.zip
 #  - wget https://chromedriver.storage.googleapis.com/79.0.3945.36/chromedriver_linux64.zip
 #  - wget http://chromedriver.storage.googleapis.com/75.0.3770.90/chromedriver_linux64.zip
 #  - wget http://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip
