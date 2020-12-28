@@ -35,7 +35,7 @@ handling the submitted form data).
 Prerequisites
 =============
 - Django 2.2, 3.0 and 3.1.
-- Python 3.5, 3.6, 3.7 and 3.8.
+- Python 3.5, 3.6, 3.7, 3.8 and 3.9.
 
 Key concepts
 ============
@@ -6791,6 +6791,9 @@ Install `fobi` ReCAPTCHA plugin
 
        - ``RECAPTCHA_PUBLIC_KEY``
        - ``RECAPTCHA_PRIVATE_KEY``
+
+For testing purposes obtain the keys `here
+<https://developers.google.com/recaptcha/docs/faq#id-like-to-run-automated-tests-with-recaptcha.-what-should-i-do>`_:
 
 Troubleshooting and usage limitations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~

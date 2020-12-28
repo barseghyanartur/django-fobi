@@ -58,6 +58,8 @@ matrix:
     python: 3.7
   - env: TOX_ENV=py38-django22
     python: 3.8
+  - env: TOX_ENV=py39-django22
+    python: 3.9
 
   - env: TOX_ENV=py36-django30
     python: 3.6
@@ -65,6 +67,8 @@ matrix:
     python: 3.7
   - env: TOX_ENV=py38-django30
     python: 3.8
+  - env: TOX_ENV=py39-django30
+    python: 3.9
 
   - env: TOX_ENV=py36-django31
     python: 3.6
@@ -72,6 +76,8 @@ matrix:
     python: 3.7
   - env: TOX_ENV=py38-django31
     python: 3.8
+  - env: TOX_ENV=py39-django31
+    python: 3.9
 
 before_install:
   - sudo apt-get install -y xvfb libappindicator1 fonts-liberation

@@ -17,7 +17,12 @@ are used for versioning (schema follows below):
 
 0.17
 ----
-2020-12-03
+2020-12-28
+
+.. note::
+
+    Release dedicated to defenders of Armenia and Artsakh (Nagorno Karabakh)
+    and all the victims of Turkish and Azerbaijani aggression.
 
 - Deprecate support for the following Django versions: 1.11, 2.0 and 2.1.
 
