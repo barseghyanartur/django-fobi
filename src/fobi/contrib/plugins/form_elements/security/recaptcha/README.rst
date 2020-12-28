@@ -47,6 +47,9 @@ Install `fobi` ReCAPTCHA plugin
        - ``RECAPTCHA_PUBLIC_KEY``
        - ``RECAPTCHA_PRIVATE_KEY``
 
+For testing purposes obtain the keys `here
+<https://developers.google.com/recaptcha/docs/faq#id-like-to-run-automated-tests-with-recaptcha.-what-should-i-do>`_:
+
 Troubleshooting and usage limitations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 In combination with other captcha solutions

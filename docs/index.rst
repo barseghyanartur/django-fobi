@@ -34,8 +34,8 @@ handling the submitted form data).
 
 Prerequisites
 =============
-- Django 1.11, 2.0, 2.1, 2.2 and 3.0.
-- Python 3.5, 3.6, 3.7 and 3.8.
+- Django 2.2, 3.0 and 3.1.
+- Python 3.5, 3.6, 3.7, 3.8 and 3.9.
 
 Key concepts
 ============
@@ -2390,18 +2390,18 @@ Set up ChromeDriver
 
     .. code-block:: sh
 
-        wget https://chromedriver.storage.googleapis.com/79.0.3945.36/chromedriver_linux64.zip
+        wget https://chromedriver.storage.googleapis.com/87.0.4280.88/chromedriver_linux64.zip
         unzip chromedriver_linux64.zip
-        sudo mv chromedriver /usr/bin/chromedriver79
-        sudo chown root:root /usr/bin/chromedriver79
-        sudo chmod +x /usr/bin/chromedriver79
+        sudo mv chromedriver /usr/bin/chromedriver87
+        sudo chown root:root /usr/bin/chromedriver87
+        sudo chmod +x /usr/bin/chromedriver87
 
 2. Specify the full path to your ChromeDriver in
    ``CHROME_DRIVER_EXECUTABLE_PATH`` setting. Example:
 
     .. code-block:: python
 
-        CHROME_DRIVER_EXECUTABLE_PATH = '/usr/bin/chromedriver79'
+        CHROME_DRIVER_EXECUTABLE_PATH = '/usr/bin/chromedriver87'
 
 After that your Selenium tests would work.
 
@@ -6791,6 +6791,9 @@ Install `fobi` ReCAPTCHA plugin
 
        - ``RECAPTCHA_PUBLIC_KEY``
        - ``RECAPTCHA_PRIVATE_KEY``
+
+For testing purposes obtain the keys `here
+<https://developers.google.com/recaptcha/docs/faq#id-like-to-run-automated-tests-with-recaptcha.-what-should-i-do>`_:
 
 Troubleshooting and usage limitations
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
