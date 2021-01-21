@@ -1,7 +1,8 @@
 from django.urls import reverse
 
-import simplejson as json
+import json
 
+from django.core.serializers.json import DjangoJSONEncoder
 from six import text_type
 
 from .base import BaseRegistry
@@ -104,7 +105,8 @@ class BaseFormImporter(object):
 
             # Assign form data
             form_element_entry.plugin_data = json.dumps(
-                self.extract_field_properties(field_data)
+                self.extract_field_properties(field_data),
+                cls=DjangoJSONEncoder
             )
 
             # Assign position in form

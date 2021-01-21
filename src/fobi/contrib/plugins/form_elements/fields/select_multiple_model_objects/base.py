@@ -1,11 +1,12 @@
 from __future__ import absolute_import
 
 from django.apps import apps
+from django.core.serializers.json import DjangoJSONEncoder
 from django.forms.models import ModelMultipleChoiceField
 from django.forms.widgets import SelectMultiple
 from django.utils.translation import gettext_lazy as _
 
-import simplejson as json
+import json
 
 from fobi.base import FormFieldPlugin, get_theme
 from fobi.constants import (
@@ -110,7 +111,10 @@ class SelectMultipleModelObjectsInputPlugin(FormFieldPlugin):
 
         # Overwrite ``cleaned_data`` of the ``form`` with object qualifier.
         if values:
-            form.cleaned_data[self.data.name] = json.dumps(values)
+            form.cleaned_data[self.data.name] = json.dumps(
+                values,
+                cls=DjangoJSONEncoder
+            )
         else:
             del form.cleaned_data[self.data.name]
 

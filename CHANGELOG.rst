@@ -15,6 +15,17 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.17.1
+------
+2021-01-21
+
+.. note::
+
+    Release dedicated to defenders of Armenia and Artsakh (Nagorno Karabakh)
+    and all the victims of Turkish and Azerbaijani aggression.
+
+- Replace outdated `simplejson` with `json`.
+
 0.17
 ----
 2020-12-28

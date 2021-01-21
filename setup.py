@@ -3,7 +3,7 @@ import os
 from distutils.version import LooseVersion
 from setuptools import setup, find_packages
 
-version = '0.17'
+version = '0.17.1'
 
 # ***************************************************************************
 # ************************** Django version *********************************
@@ -249,7 +249,6 @@ install_requires = [
     'Unidecode>=0.04.1',
     'vishap>=0.1.5,<2.0',
     'easy-thumbnails>=2.4.1',
-    'simplejson>=3.0.0',
 ]
 
 tests_require = [
