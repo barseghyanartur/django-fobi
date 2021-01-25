@@ -13,6 +13,7 @@ from collections import defaultdict, OrderedDict
 import json
 
 from django import forms
+from django.core.serializers.json import DjangoJSONEncoder
 from django.forms import ModelForm
 from django.forms.utils import ErrorList
 from django.http import Http404
@@ -802,7 +803,7 @@ class BasePluginForm(object):
         if not json_format:
             return data
 
-        return json.dumps(data)
+        return json.dumps(data, cls=DjangoJSONEncoder)
 
     def get_plugin_data(self, request=None, json_format=True):
         """Get plugin data.
@@ -1404,7 +1405,7 @@ class BasePlugin(object):
         for prop, value in update.items():
             data.update({prop: value})
 
-        return json.dumps(data)
+        return json.dumps(data, cls=DjangoJSONEncoder)
 
     def get_updated_plugin_data(self, update={}):
         """Get updated plugin data.
@@ -1423,7 +1424,7 @@ class BasePlugin(object):
         for prop, value in update.items():
             data.update({prop: value})
 
-        return json.dumps(data)
+        return json.dumps(data, cls=DjangoJSONEncoder)
 
     def pre_processor(self):
         """Pre-processor (callback).

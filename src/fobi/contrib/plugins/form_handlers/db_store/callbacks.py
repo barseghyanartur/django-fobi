@@ -2,6 +2,8 @@ import datetime
 
 import json
 
+from django.core.serializers.json import DjangoJSONEncoder
+
 from fobi.base import (
     FormCallback,
     get_processed_form_data,
@@ -59,7 +61,10 @@ class AutoFormDbStore(FormCallback):
         saved_form_data_entry = SavedFormDataEntry(
             form_entry=form_entry,
             user=request.user if request.user and request.user.pk else None,
-            form_data_headers=json.dumps(field_name_to_label_map),
-            saved_data=json.dumps(cleaned_data)
+            form_data_headers=json.dumps(
+                field_name_to_label_map,
+                cls=DjangoJSONEncoder
+            ),
+            saved_data=json.dumps(cleaned_data, cls=DjangoJSONEncoder)
         )
         saved_form_data_entry.save()

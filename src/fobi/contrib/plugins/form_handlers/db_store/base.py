@@ -2,10 +2,9 @@ import datetime
 
 import json
 
+from django.core.serializers.json import DjangoJSONEncoder
 from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
-
-from django.core.serializers.json import DjangoJSONEncoder  
 
 from .....base import (
     FormHandlerPlugin,
@@ -85,7 +84,10 @@ class DBStoreHandlerPlugin(FormHandlerPlugin):
         saved_form_data_entry = SavedFormDataEntry(
             form_entry=form_entry,
             user=request.user if request.user and request.user.pk else None,
-            form_data_headers=json.dumps(field_name_to_label_map),
+            form_data_headers=json.dumps(
+                field_name_to_label_map,
+                cls=DjangoJSONEncoder
+            ),
             saved_data=json.dumps(cleaned_data, cls=DjangoJSONEncoder)
         )
         saved_form_data_entry.save()
@@ -176,8 +178,11 @@ class DBStoreWizardHandlerPlugin(FormWizardHandlerPlugin):
         saved_form_wizard_data_entry = SavedFormWizardDataEntry(
             form_wizard_entry=form_wizard_entry,
             user=request.user if request.user and request.user.pk else None,
-            form_data_headers=json.dumps(field_name_to_label_map),
-            saved_data=json.dumps(cleaned_data)
+            form_data_headers=json.dumps(
+                field_name_to_label_map,
+                cls=DjangoJSONEncoder
+            ),
+            saved_data=json.dumps(cleaned_data, cls=DjangoJSONEncoder)
         )
         saved_form_wizard_data_entry.save()
 
