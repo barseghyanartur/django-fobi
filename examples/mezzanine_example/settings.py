@@ -155,73 +155,38 @@ except Exception as err:
 
 ########################################################
 
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        # 'APP_DIRS': True,
+        'DIRS': [os.path.join(PROJECT_ROOT, "templates")],
+        'OPTIONS': {
+            'context_processors': [
+                "django.template.context_processors.debug",
+                'django.template.context_processors.request',
+                "django.contrib.auth.context_processors.auth",
+                # "django.template.context_processors.i18n",
+                # "django.template.context_processors.media",
+                # "django.template.context_processors.static",
+                "django.template.context_processors.tz",
+                "django.contrib.messages.context_processors.messages",
 
-if DJANGO_GTE_1_10:
-    TEMPLATES = [
-        {
-            'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            # 'APP_DIRS': True,
-            'DIRS': [os.path.join(PROJECT_ROOT, "templates")],
-            'OPTIONS': {
-                'context_processors': [
-                    "django.template.context_processors.debug",
-                    'django.template.context_processors.request',
-                    "django.contrib.auth.context_processors.auth",
-                    # "django.template.context_processors.i18n",
-                    # "django.template.context_processors.media",
-                    # "django.template.context_processors.static",
-                    "django.template.context_processors.tz",
-                    "django.contrib.messages.context_processors.messages",
+                "mezzanine.conf.context_processors.settings",
+                "mezzanine.pages.context_processors.page",
 
-                    "mezzanine.conf.context_processors.settings",
-                    "mezzanine.pages.context_processors.page",
-
-                    "fobi.context_processors.theme",  # Important!
-                    "fobi.context_processors.dynamic_values",  # Optional
-                    # "context_processors.testing",  # Testing
-                ],
-                'loaders': [
-                    "django.template.loaders.filesystem.Loader",
-                    "django.template.loaders.app_directories.Loader",
-                    'django.template.loaders.eggs.Loader',
-                ],
-                'debug': DEBUG_TEMPLATE,
-            }
-        },
-    ]
-else:  # >= Django 1.8
-    TEMPLATES = [
-        {
-            'BACKEND': 'django.template.backends.django.DjangoTemplates',
-            # 'APP_DIRS': True,
-            'DIRS': [os.path.join(PROJECT_ROOT, "templates")],
-            'OPTIONS': {
-                'context_processors': [
-                    "django.contrib.auth.context_processors.auth",
-                    "django.template.context_processors.debug",
-                    "django.template.context_processors.i18n",
-                    "django.template.context_processors.media",
-                    "django.template.context_processors.static",
-                    "django.template.context_processors.tz",
-                    "django.contrib.messages.context_processors.messages",
-                    "django.template.context_processors.request",
-
-                    "mezzanine.conf.context_processors.settings",
-                    "mezzanine.pages.context_processors.page",
-
-                    "fobi.context_processors.theme",  # Important!
-                    "fobi.context_processors.dynamic_values",  # Optional
-                    # "context_processors.testing",  # Testing
-                ],
-                'loaders': [
-                    "django.template.loaders.filesystem.Loader",
-                    "django.template.loaders.app_directories.Loader",
-                    'django.template.loaders.eggs.Loader',
-                ],
-                'debug': DEBUG_TEMPLATE,
-            }
-        },
-    ]
+                "fobi.context_processors.theme",  # Important!
+                "fobi.context_processors.dynamic_values",  # Optional
+                # "context_processors.testing",  # Testing
+            ],
+            'loaders': [
+                "django.template.loaders.filesystem.Loader",
+                "django.template.loaders.app_directories.Loader",
+                'django.template.loaders.eggs.Loader',
+            ],
+            'debug': DEBUG_TEMPLATE,
+        }
+    },
+]
 
 ########################################################
 

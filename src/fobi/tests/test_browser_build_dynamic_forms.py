@@ -1,12 +1,13 @@
 import logging
 import unittest
 
+# from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.common.action_chains import ActionChains
 
 from fobi.models import FormEntry
 
-from django_nine.versions import DJANGO_GTE_1_10
+from django.urls import reverse
 
 from . import constants
 from .base import BaseFobiBrowserBuldDynamicFormsTest
@@ -18,11 +19,6 @@ from .data import (
 )
 from .helpers import db_clean_up
 
-if DJANGO_GTE_1_10:
-    from django.urls import reverse
-else:
-    from django.core.urlresolvers import reverse
-
 __title__ = 'fobi.tests.test_browser_build_dynamic_forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2019 Artur Barseghyan'
@@ -33,8 +29,9 @@ __all__ = (
 
 logger = logging.getLogger(__name__)
 
-TIMEOUT = 4
-LONG_TIMEOUT = 8
+TRAVIS_TIMEOUT = 32
+TIMEOUT = TRAVIS_TIMEOUT
+LONG_TIMEOUT = TRAVIS_TIMEOUT
 WAIT = False
 WAIT_FOR = 0
 
@@ -121,6 +118,7 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         )
 
         self._sleep(wait)
+        return self.driver.current_url
 
     def _get_form(self):
         """Get form object."""
@@ -136,6 +134,22 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
 
         At this stage we should be in the edit form entry interface.
         """
+        # # Wait until the add widget view opens
+        # WebDriverWait(self.driver, timeout=TIMEOUT).until(
+        #     lambda driver: driver.find_element_by_xpath(
+        #         """//a[contains(text(), 'Choose form element to add') and """
+        #         """contains(@class, "dropdown-toggle")]"""
+        #     )
+        # )
+
+        # try:
+        #     add_form_element_link = self.driver.find_element_by_xpath(
+        #         """//a[contains(text(), 'Choose form element to add') and """
+        #         """contains(@class, "dropdown-toggle")]"""
+        #     )
+        # except Exception as err:
+        #     import pytest; pytest.set_trace()
+
         # Click the add form element button to add a new form element to the
         # form.
         add_form_element_link = self.driver.find_element_by_xpath(
@@ -187,7 +201,12 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
             )
 
             for field_name, field_value in form_element_data.items():
+                # Wait until element is visible
+                WebDriverWait(self.driver, timeout=TIMEOUT).until(
+                    lambda driver: driver.find_element_by_name(field_name)
+                )
                 field_input = self.driver.find_element_by_name(field_name)
+                # field_input.clear()
                 field_input.send_keys(field_value)
 
             # Click add widget button
@@ -202,9 +221,11 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
             except Exception as err:
                 pass
 
+        logger.debug('--------------------------------------')
         logger.debug(form_element_name)
 
         # Wait until the fobi page opens with the form element in.
+        self._maximize_window()
         WebDriverWait(self.driver, timeout=LONG_TIMEOUT).until(
             lambda driver: driver.find_element_by_xpath(
                 """//div[contains(text(), 'The form element plugin "{0}" """
@@ -220,9 +241,10 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
 
         At this point form should be created.
         """
+        edit_form_url = None
         if create_form:
             # Adding a form first
-            self._test_add_form()
+            edit_form_url = self._test_add_form()
 
         # One by one adding form elements with data.
         # Example follows:
@@ -238,6 +260,12 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         # )
 
         for plugin_name, plugin_data in TEST_FORM_ELEMENT_PLUGIN_DATA.items():
+            # TODO: something isn't right here. Adding of a form element
+            # does not go always well in tests and we're not always on the
+            # edit form page initially. Fix that.
+            if edit_form_url is not None:
+                self.driver.get(edit_form_url)
+
             # Add form element to the form
             self._add_form_element(plugin_name, plugin_data)
 
@@ -541,6 +569,9 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
 
         self._sleep(2)
 
+        footer = self.driver.find_element_by_xpath('//footer')
+        footer.click()
+
         self._scroll_page_bottom()
 
         # Wait until button is there
@@ -551,15 +582,18 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         )
 
         # Click add widget button
-        submit_button = self.driver.find_element_by_xpath('//button[@type="submit"]')
+        submit_button = self.driver.find_element_by_xpath(
+            '//button[@type="submit"]'
+        )
 
-        self._scroll_page_bottom()
+        self._sleep(2)
+
         submit_button.click()
 
         try:
             submit_button.click()
         except Exception as err:
-            import pytest; pytest.set_trace()
+            pass
 
         # Wait until the submit success page opens a clear success message.
         WebDriverWait(self.driver, timeout=TIMEOUT).until(

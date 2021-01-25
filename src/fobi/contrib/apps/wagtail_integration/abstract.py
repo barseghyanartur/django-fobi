@@ -4,14 +4,14 @@ import os
 
 from django.db import models
 from django.http import HttpResponse
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from fobi.integration.processors import IntegrationProcessor
 
 try:
     from wagtail.wagtailadmin.edit_handlers import FieldPanel, MultiFieldPanel
     from wagtail.wagtailcore.models import Page
-except ImportError: # since wagtail 2.x changes
+except ImportError:  # since wagtail 2.x changes
     from wagtail.admin.edit_handlers import FieldPanel, MultiFieldPanel
     from wagtail.core.models import Page
 

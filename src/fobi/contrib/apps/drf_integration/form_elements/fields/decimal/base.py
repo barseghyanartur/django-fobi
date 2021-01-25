@@ -1,6 +1,6 @@
 import decimal
 
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from rest_framework.fields import DecimalField
 

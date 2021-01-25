@@ -8,17 +8,12 @@
 ;
 
 function g_recaptcha_onSubmit(token) {
-    console.log("g_recaptcha_onSubmit")
-//    document.getElementById("fobi-form").submit();
-//    document.getElementsByClassName("form-horizontal").submit();
-//    $('form.form-horizontal').submit();
     $('form#fobi-form').submit();
 }
 
 $(document).ready(function() {
-    var siteKey = window.InvisibleRecaptchaSiteKey || "";
+    var siteKey = $("[data-recaptcha-field]").val();
     if (siteKey) {
-//        var submitFormButton = $('form.form-horizontal button[type=submit]');
         var submitFormButton = $('form#fobi-form button[type=submit]');
         submitFormButton.addClass('g-recaptcha');
         submitFormButton.attr('data-sitekey', siteKey);

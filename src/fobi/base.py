@@ -10,13 +10,14 @@ import uuid
 
 from collections import defaultdict, OrderedDict
 
-import simplejson as json
+import json
 
 from django import forms
+from django.core.serializers.json import DjangoJSONEncoder
 from django.forms import ModelForm
 from django.forms.utils import ErrorList
 from django.http import Http404
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 from django.template import RequestContext, Template
 
 from six import with_metaclass, string_types
@@ -189,6 +190,51 @@ class BaseTheme(object):
     # General HTML specific
     project_name = _("Build your forms")  # Project name
     footer_text = ''  # '&copy; Company 2014'
+
+    # ***********************************************************************
+    # ***********************************************************************
+    # ********************** Theme specific urls*****************************
+    # ***********************************************************************
+    # ***********************************************************************
+
+    # form element entry
+
+    add_form_element_entry = 'fobi.add_form_element_entry'
+
+    add_form_handler_entry = 'fobi.add_form_handler_entry'
+    edit_form_handler_entry = 'fobi.edit_form_handler_entry'
+    delete_form_handler_entry = 'fobi.delete_form_handler_entry'
+
+    # form wizard entry
+
+    create_form_wizard_entry = 'fobi.create_form_wizard_entry'
+    import_form_wizard_entry = 'fobi.import_form_wizard_entry'
+    view_form_wizard_entry = 'fobi.view_form_wizard_entry'
+    edit_form_wizard_entry = 'fobi.edit_form_wizard_entry'
+    delete_form_wizard_entry = 'fobi.delete_form_wizard_entry'
+    export_form_wizard_entry = 'fobi.export_form_wizard_entry'
+
+    add_form_wizard_form_entry = 'fobi.add_form_wizard_form_entry'
+    delete_form_wizard_form_entry = 'fobi.delete_form_wizard_form_entry'
+
+    add_form_wizard_handler_entry = 'fobi.add_form_wizard_handler_entry'
+    edit_form_wizard_handler_entry = 'fobi.edit_form_wizard_handler_entry'
+    delete_form_wizard_handler_entry = 'fobi.delete_form_wizard_handler_entry'
+
+    # form entry
+
+    create_form_entry = 'fobi.create_form_entry'
+    import_form_entry = 'fobi.import_form_entry'
+    export_form_entry = 'fobi.export_form_entry'
+    delete_form_entry = 'fobi.delete_form_entry'
+    edit_form_entry = 'fobi.edit_form_entry'
+    view_form_entry = 'fobi.view_form_entry'
+
+
+    # dashboards
+
+    dashboard = 'fobi.dashboard'
+    form_wizards_dashboard = 'fobi.form_wizards_dashboard'
 
     # ***********************************************************************
     # ***********************************************************************
@@ -710,7 +756,7 @@ class BasePluginForm(object):
         if not json_format:
             return data
 
-        return json.dumps(data)
+        return json.dumps(data, cls=DjangoJSONEncoder)
 
     def get_plugin_data(self, request=None, json_format=True):
         """Get plugin data.
@@ -840,7 +886,7 @@ class IntegrationFormElementPluginDataStorage(BaseDataStorage):
 
 
 class IntegrationFormHandlerPluginDataStorage(BaseDataStorage):
-        """Storage for `IntegrationFormHandlerPlugin`."""
+    """Storage for `IntegrationFormHandlerPlugin`."""
 
 
 class FormWizardHandlerPluginWidgetDataStorage(BaseDataStorage):
@@ -1312,7 +1358,7 @@ class BasePlugin(object):
         for prop, value in update.items():
             data.update({prop: value})
 
-        return json.dumps(data)
+        return json.dumps(data, cls=DjangoJSONEncoder)
 
     def get_updated_plugin_data(self, update={}):
         """Get updated plugin data.
@@ -1331,7 +1377,7 @@ class BasePlugin(object):
         for prop, value in update.items():
             data.update({prop: value})
 
-        return json.dumps(data)
+        return json.dumps(data, cls=DjangoJSONEncoder)
 
     def pre_processor(self):
         """Pre-processor (callback).
@@ -3040,7 +3086,12 @@ def get_cleaned_data(form, keys_to_remove=[], values_to_remove=[]):
         values=values_to_remove
     )
 
-    return cleaned_data
+    ordered_cleaned_data = OrderedDict()
+    for key in form.fields.keys():
+        if key in cleaned_data:
+            ordered_cleaned_data[key] = cleaned_data[key]
+
+    return ordered_cleaned_data
 
 
 def get_field_name_to_label_map(form, keys_to_remove=[], values_to_remove=[]):

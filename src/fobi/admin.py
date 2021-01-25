@@ -3,11 +3,12 @@ from django.contrib import admin
 from django.contrib import messages
 from django.contrib.admin import helpers
 from django.contrib.admin.views.decorators import staff_member_required
+from django.shortcuts import render
 from django.shortcuts import redirect
 from django.template import RequestContext
 from django.utils.decorators import method_decorator
 from django.utils.html import strip_tags
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from django_nine import versions
 
@@ -31,11 +32,6 @@ from .models import (
     FormWizardHandler,
     FormWizardHandlerEntry
 )
-
-if versions.DJANGO_GTE_1_10:
-    from django.shortcuts import render
-else:
-    from django.shortcuts import render_to_response
 
 __title__ = 'fobi.admin'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -100,12 +96,7 @@ def base_bulk_change_plugins(PluginForm, named_url, modeladmin, request,
 
     template_name = 'fobi/admin/bulk_change_plugins.html'
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 
 def bulk_change_form_element_plugins(modeladmin, request, queryset):
@@ -524,9 +515,7 @@ class BasePluginModelAdmin(admin.ModelAdmin):
 class FormElementAdmin(BasePluginModelAdmin):
     """FormElement admin."""
 
-    actions = [bulk_change_form_element_plugins]
-    if versions.DJANGO_GTE_2_2:
-        actions += BasePluginModelAdmin.actions
+    actions = [bulk_change_form_element_plugins] + BasePluginModelAdmin.actions
 
     def _get_bulk_change_form_class(self):
         """Get bulk change form class."""
@@ -561,10 +550,7 @@ admin.site.register(FormElement, FormElementAdmin)
 class FormHandlerAdmin(BasePluginModelAdmin):
     """FormHandler admin."""
 
-    actions = [bulk_change_form_handler_plugins]
-
-    if versions.DJANGO_GTE_2_2:
-        actions += BasePluginModelAdmin.actions
+    actions = [bulk_change_form_handler_plugins] + BasePluginModelAdmin.actions
 
     def _get_bulk_change_form_class(self):
         """Get bulk change form class."""
@@ -599,10 +585,7 @@ admin.site.register(FormHandler, FormHandlerAdmin)
 class FormWizardHandlerAdmin(BasePluginModelAdmin):
     """FormHandler admin."""
 
-    actions = [bulk_change_form_wizard_handler_plugins]
-
-    if versions.DJANGO_GTE_2_2:
-        actions += BasePluginModelAdmin.actions
+    actions = [bulk_change_form_wizard_handler_plugins] + BasePluginModelAdmin.actions
 
     def _get_bulk_change_form_class(self):
         """Get bulk change form class."""

@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.template import RequestContext
+from django.shortcuts import render
 
 # from fobi.decorators import permissions_required, SATISFY_ALL, SATISFY_ANY
 from .....base import (
@@ -12,11 +13,6 @@ from django_nine import versions
 from . import UID
 from .models import SavedFormDataEntry, SavedFormWizardDataEntry
 from .helpers import DataExporter
-
-if versions.DJANGO_GTE_1_10:
-    from django.shortcuts import render
-else:
-    from django.shortcuts import render_to_response
 
 __title__ = 'fobi.contrib.plugins.form_handlers.db_store.views'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -74,12 +70,7 @@ def view_saved_form_data_entries(
     if widget and widget.view_saved_form_data_entries_template_name:
         template_name = widget.view_saved_form_data_entries_template_name
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 
 @login_required
@@ -144,12 +135,7 @@ def view_saved_form_wizard_data_entries(
         template_name = \
             widget.view_saved_form_wizard_data_entries_template_name
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)
 
 
 @login_required

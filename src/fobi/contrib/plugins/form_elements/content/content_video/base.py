@@ -3,7 +3,7 @@ from __future__ import absolute_import
 from collections import OrderedDict
 from uuid import uuid4
 
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from vishap import render_video
 

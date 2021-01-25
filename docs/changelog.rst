@@ -15,6 +15,91 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.17.1
+------
+2021-01-25
+
+.. note::
+
+    Release dedicated to defenders of Armenia and Artsakh (Nagorno Karabakh)
+    and all the victims of Turkish and Azerbaijani aggression.
+
+- Replace outdated `simplejson` with `json`.
+
+0.17
+----
+2020-12-28
+
+.. note::
+
+    Release dedicated to defenders of Armenia and Artsakh (Nagorno Karabakh)
+    and all the victims of Turkish and Azerbaijani aggression.
+
+- Deprecate support for the following Django versions: 1.11, 2.0 and 2.1.
+
+0.16.4
+------
+2020-04-08
+
+- Replace `admin_static` templatetag module with `static`, since the latter is
+  available in Django 1.11, which is now the minimal supported version.
+
+0.16.3
+------
+2020-04-04
+
+- Fixes in ``invisible_recaptcha`` plugin. Treat empty ``SITE_KEY`` as error.
+
+0.16.2
+------
+2020-04-03
+
+- Conditional use of deprecated `admin_static` templatetag module.
+
+0.16.1
+------
+2020-03-18
+
+- Fix the ``datetime`` is not JSON serializable error.
+
+0.16
+----
+2020-01-11
+
+.. note::
+
+    This release drops support for Python 2.7 and 3.4 and sets the minimum
+    requirement version for Django to 1.11. If you don't meet these
+    requirements - do not upgrade.
+
+- Add support for Django 3.0.
+- Drop support Django 1.8, 1.9, 1.10. Minimal supported Django version is 1.11.
+- Tested against Python 3.8.
+- Drop Python 2.7 support.
+- Drop Python 3.4 support.
+- Tested with Django REST Framework 3.11.x. All older versions of
+  Django REST Framework should still work, although they are no longer tested.
+- Tested with FeinCMS 1.17.x. No code changes at all. All older versions of
+  FeinCMS should still work, although they are no longer tested.
+
+0.15
+----
+2019-06-20
+
+.. note::
+
+    Although this release does not contain major backwards incompatible
+    changes, some things you have had working in past might break.
+
+- The following settings
+  ``FOBI_FAIL_ON_ERRORS_IN_FORM_ELEMENT_PLUGINS``,
+  ``FOBI_FAIL_ON_ERRORS_IN_FORM_HANDLER_PLUGINS``,
+  ``FOBI_FAIL_ON_MISSING_INTEGRATION_FORM_ELEMENT_PLUGINS`` and
+  ``FOBI_FAIL_ON_MISSING_INTEGRATION_FORM_HANDLER_PLUGINS`` used to be set to
+  ``False`` by default (silencing exceptions). It's no longer so. Exceptions
+  will cause errors from now on (you might get error 500). If you want old
+  behaviour, set them to ``False``.
+
 0.14
 ----
 2019-05-24

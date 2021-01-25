@@ -3,7 +3,7 @@ from __future__ import absolute_import
 import decimal
 
 from django.forms.fields import DecimalField
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from fobi.base import FormFieldPlugin, get_theme
 from fobi.widgets import NumberInput

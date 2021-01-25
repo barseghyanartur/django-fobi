@@ -7,44 +7,91 @@ language: python
 
 cache: pip
 
-sudo: false
+sudo: true
+
+addons:
+  chrome: stable
+  hosts:
+    - localhost
+    - 127.0.0.1
 
 matrix:
   fast_finish: true
   include:
-  - env: TOX_ENV=py27-django18
-    python: 2.7
-  - env: TOX_ENV=py35-django18
-    python: 3.5
-  - env: TOX_ENV=py36-django18
-    python: 3.6
+#  - env: TOX_ENV=py27-django18
+#    python: 2.7
+#  - env: TOX_ENV=py35-django18
+#    python: 3.5
+#  - env: TOX_ENV=py36-django18
+#    python: 3.6
 
-  - env: TOX_ENV=py27-django111
-    python: 2.7
-  - env: TOX_ENV=py35-django111
-    python: 3.5
-  - env: TOX_ENV=py36-django111
-    python: 3.6
+#  - env: TOX_ENV=py27-django111
+#    python: 2.7
+#  - env: TOX_ENV=py35-django111
+#    python: 3.5
+#  - env: TOX_ENV=py36-django111
+#    python: 3.6
+#  - env: TOX_ENV=py37-django111
+#    python: 3.7
+#  - env: TOX_ENV=py38-django111
+#    python: 3.8
 
-  - env: TOX_ENV=py35-django20
-    python: 3.5
-  - env: TOX_ENV=py36-django20
-    python: 3.6
-  - env: TOX_ENV=py37-django22
-    python: 3.7
+#  - env: TOX_ENV=py35-django20
+#    python: 3.5
+#  - env: TOX_ENV=py36-django20
+#    python: 3.6
+#  - env: TOX_ENV=py37-django20
+#    python: 3.7
+#  - env: TOX_ENV=py38-django20
+#    python: 3.8
 
-  - env: TOX_ENV=py36-django21
-    python: 3.6
-  - env: TOX_ENV=py37-django21
-    python: 3.7
+#  - env: TOX_ENV=py36-django21
+#    python: 3.6
+#  - env: TOX_ENV=py37-django21
+#    python: 3.7
+#  - env: TOX_ENV=py38-django21
+#    python: 3.8
 
   - env: TOX_ENV=py36-django22
     python: 3.6
   - env: TOX_ENV=py37-django22
     python: 3.7
+  - env: TOX_ENV=py38-django22
+    python: 3.8
+  - env: TOX_ENV=py39-django22
+    python: 3.9
+
+  - env: TOX_ENV=py36-django30
+    python: 3.6
+  - env: TOX_ENV=py37-django30
+    python: 3.7
+  - env: TOX_ENV=py38-django30
+    python: 3.8
+  - env: TOX_ENV=py39-django30
+    python: 3.9
+
+  - env: TOX_ENV=py36-django31
+    python: 3.6
+  - env: TOX_ENV=py37-django31
+    python: 3.7
+  - env: TOX_ENV=py38-django31
+    python: 3.8
+  - env: TOX_ENV=py39-django31
+    python: 3.9
+
+before_install:
+  - sudo apt-get install -y xvfb libappindicator1 fonts-liberation
+#  - wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+#  - sudo dpkg -i google-chrome*.deb
+#  - wget http://ftp.us.debian.org/debian/pool/main/c/chromium/chromium_75.0.3770.90-1_amd64.deb
+#  - sudo dpkg -i chromium_75.0.3770.90-1_amd64.deb
 
 install:
-  - wget http://chromedriver.storage.googleapis.com/2.42/chromedriver_linux64.zip
+  - wget https://chromedriver.storage.googleapis.com/87.0.4280.88/chromedriver_linux64.zip
+#  - wget https://chromedriver.storage.googleapis.com/81.0.4044.69/chromedriver_linux64.zip
+#  - wget https://chromedriver.storage.googleapis.com/79.0.3945.36/chromedriver_linux64.zip
+#  - wget http://chromedriver.storage.googleapis.com/75.0.3770.90/chromedriver_linux64.zip
+#  - wget http://chromedriver.storage.googleapis.com/74.0.3729.6/chromedriver_linux64.zip
   - unzip chromedriver_linux64.zip -d /home/travis/
   - pip install -r examples/requirements/test.txt
 
@@ -54,3 +101,7 @@ before_script:
   - sleep 2
 
 script: travis_retry tox -e $TOX_ENV
+
+after_success:
+  - pip install coveralls
+  - coveralls

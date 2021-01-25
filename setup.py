@@ -1,18 +1,9 @@
 import os
-import sys
 
 from distutils.version import LooseVersion
 from setuptools import setup, find_packages
 
-version = '0.14'
-
-# ***************************************************************************
-# ************************** Python version *********************************
-# ***************************************************************************
-PY2 = sys.version_info[0] == 2
-PY3 = sys.version_info[0] == 3
-LTE_PY26 = PY2 and (7 > sys.version_info[1])
-PYPY = hasattr(sys, 'pypy_translation_info')
+version = '0.17.1'
 
 # ***************************************************************************
 # ************************** Django version *********************************
@@ -29,8 +20,24 @@ try:
 
     # Loose versions
     LOOSE_VERSIONS = (
-        '1.4', '1.5', '1.6', '1.7', '1.8', '1.9', '1.10', '1.11', '2.0', '2.1',
-        '2.2', '3.0'
+        '1.4',
+        '1.5',
+        '1.6',
+        '1.7',
+        '1.8',
+        '1.9',
+        '1.10',
+        '1.11',
+        '2.0',
+        '2.1',
+        '2.2',
+        '3.0',
+        '3.1',
+        '3.2',
+        '4.0',
+        '4.1',
+        '4.2',
+        '5.0',
     )
 
     for v in LOOSE_VERSIONS:
@@ -229,100 +236,20 @@ for locale_dir in locale_dirs:
 
 dependency_links = []
 
-install_requires = []
-# If certain version of Django is already installed, choose version agnostic
-# dependencies.
-if DJANGO_INSTALLED:
-    if DJANGO_1_8:
-        install_requires = [
-            'bleach',
-            'django-autoslug==1.9.4',
-            'django-formtools>=1.0',
-            'django-nine>=0.2.2',
-            'django-nonefield>=0.1',
-            'Pillow>=2.0.0',
-            'requests>=1.0.0',
-            'six>=1.9',
-            'Unidecode>=0.04.1',
-            'vishap>=0.1.5,<2.0',
-        ]
-    elif DJANGO_1_9:
-        install_requires = [
-            'bleach',
-            'django-autoslug==1.9.4',
-            'django-formtools>=1.0',
-            'django-nine>=0.2.2',
-            'django-nonefield>=0.1',
-            'Pillow>=2.0.0',
-            'requests>=1.0.0',
-            'six>=1.9',
-            'Unidecode>=0.04.1',
-            'vishap>=0.1.5,<2.0',
-        ]
-    elif DJANGO_1_10:
-        install_requires = [
-            'bleach',
-            'django-autoslug==1.9.4',
-            'django-formtools>=1.0',
-            'django-nine>=0.2.2',
-            'django-nonefield>=0.1',
-            'Pillow>=2.0.0',
-            'requests>=1.0.0',
-            'six>=1.9',
-            'Unidecode>=0.04.1',
-            'vishap>=0.1.5,<2.0',
-        ]
-    elif DJANGO_1_11:
-        install_requires = [
-            'bleach',
-            'django-autoslug==1.9.4',
-            'django-formtools>=2.0',
-            'django-nine>=0.2.2',
-            'django-nonefield>=0.1',
-            'Pillow>=2.0.0',
-            'requests>=1.0.0',
-            'six>=1.9',
-            'Unidecode>=0.04.1',
-            'vishap>=0.1.5,<2.0',
-        ]
-        # dependency_links.append(
-        #     'https://github.com/django/django-formtools/archive/master.tar.gz'
-        #     '#egg=django-formtools'
-        # )
-    elif DJANGO_2_0:
-        install_requires = [
-            'bleach',
-            'django-autoslug==1.9.4',
-            'django-formtools>=2.0',
-            'django-nine>=0.2.2',
-            'django-nonefield>=0.3',
-            'Pillow>=2.0.0',
-            'requests>=1.0.0',
-            'six>=1.9',
-            'Unidecode>=0.04.1',
-            'vishap>=0.1.5,<2.0',
-        ]
-        # dependency_links.append(
-        #     'https://github.com/django/django-formtools/archive/master.tar.gz'
-        #     '#egg=django-formtools'
-        # )
-
-# Fall back to the latest dependencies
-if not install_requires:
-    install_requires = [
-        'bleach',
-        'django-autoslug>=1.9.4',
-        'django-formtools>=2.0',
-        'django-nine>=0.2.2',
-        'django-nonefield>=0.1',
-        'Pillow>=2.0.0',
-        'requests>=1.0.0',
-        'six>=1.9',
-        'Unidecode>=0.04.1',
-        'vishap>=0.1.5,<2.0',
-    ]
-
-# There are also conditional PY3/PY2 requirements. Scroll down to see them.
+# Dependencies
+install_requires = [
+    'bleach',
+    'django-autoslug>=1.9.4',
+    'django-formtools>=2.0',
+    'django-nine>=0.2.3',
+    'django-nonefield>=0.1',
+    'Pillow>=2.0.0',
+    'requests>=1.0.0',
+    'six>=1.9',
+    'Unidecode>=0.04.1',
+    'vishap>=0.1.5,<2.0',
+    'easy-thumbnails>=2.4.1',
+]
 
 tests_require = [
     'selenium',
@@ -336,33 +263,6 @@ tests_require = [
     # 'tox',
 ]
 
-if PY3:
-    install_requires.append('simplejson>=3.0.0,<=3.8.0')  # When using Python3
-    if DJANGO_INSTALLED and not DJANGO_1_11:
-        install_requires.append('easy-thumbnails>=2.3')
-    else:
-        install_requires.append('easy-thumbnails>=2.4.1')
-        # dependency_links.append(
-        #     'https://github.com/SmileyChris/easy-thumbnails/archive/'
-        #     'master.tar.gz'
-        #     '#egg=easy-thumbnails'
-        # )
-else:
-    install_requires.append('simplejson>=2.1.0,<=3.8.0')  # When using Python2
-    install_requires.append('ordereddict>=1.1')
-    if DJANGO_INSTALLED and not DJANGO_1_11:
-        install_requires.append('easy-thumbnails>=1.4')
-    else:
-        install_requires.append('easy-thumbnails>=2.4.1')
-        # dependency_links.append(
-        #     'https://github.com/SmileyChris/easy-thumbnails/archive/'
-        #     'master.tar.gz'
-        #     '#egg=easy-thumbnails'
-        # )
-
-# if PYPY:
-#     install_requires.remove('Pillow>=2.0.0')
-
 setup(
     name='django-fobi',
     version=version,
@@ -370,12 +270,11 @@ setup(
                 "customisable, modular, user- and developer- friendly.",
     long_description="{0}{1}".format(readme, screenshots),
     classifiers=[
-        "Programming Language :: Python :: 2.7",
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.4",
         "Programming Language :: Python :: 3.5",
         "Programming Language :: Python :: 3.6",
         "Programming Language :: Python :: 3.7",
+        "Programming Language :: Python :: 3.8",
         "Environment :: Web Environment",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
         "License :: OSI Approved :: GNU Lesser General Public License v2 or "
@@ -385,6 +284,13 @@ setup(
         "Operating System :: OS Independent",
         "Development Status :: 4 - Beta",
     ],
+    project_urls={
+        "Bug Tracker": "https://github.com/barseghyanartur/django-fobi/issues",
+        "Documentation": "https://django-fobi.readthedocs.io/",
+        "Source Code": "https://github.com/barseghyanartur/django-fobi",
+        "Changelog": "https://django-fobi.readthedocs.io/"
+                     "en/latest/changelog.html",
+    },
     keywords="django, form generator, form builder, visual form designer, "
              "user generated forms",
     author='Artur Barseghyan',
@@ -392,7 +298,7 @@ setup(
     url='https://github.com/barseghyanartur/django-fobi/',
     package_dir={'': 'src'},
     packages=find_packages(where='./src'),
-    license='GPL 2.0/LGPL 2.1',
+    license='GPL-2.0-only OR LGPL-2.1-or-later',
     install_requires=install_requires,
     tests_require=tests_require,
     dependency_links=dependency_links,

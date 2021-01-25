@@ -1,10 +1,11 @@
 from __future__ import absolute_import
+from __future__ import unicode_literals
 
 import os
 
 from django.conf import settings
 from django.forms.widgets import ClearableFileInput
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from fobi.base import FormFieldPlugin
 from fobi.helpers import handle_uploaded_file

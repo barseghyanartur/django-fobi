@@ -7,63 +7,6 @@ TESTING = True
 
 INSTALLED_APPS = list(INSTALLED_APPS)
 
-if versions.DJANGO_1_8:
-
-    try:
-        INSTALLED_APPS.remove('tinymce') \
-            if 'tinymce' in INSTALLED_APPS \
-            else None
-    except Exception as err:
-        pass
-
-    try:
-        INSTALLED_APPS.remove('admin_tools') \
-            if 'admin_tools' in INSTALLED_APPS else None
-        INSTALLED_APPS.remove('admin_tools.menu') \
-            if 'admin_tools.menu' in INSTALLED_APPS else None
-        INSTALLED_APPS.remove('admin_tools.dashboard') \
-            if 'admin_tools.dashboard' in INSTALLED_APPS else None
-    except Exception as err:
-        pass
-
-elif versions.DJANGO_1_9:
-
-    try:
-        INSTALLED_APPS.remove('tinymce') \
-            if 'tinymce' in INSTALLED_APPS \
-            else None
-    except Exception as err:
-        pass
-
-    try:
-        INSTALLED_APPS.remove('admin_tools') \
-            if 'admin_tools' in INSTALLED_APPS else None
-        INSTALLED_APPS.remove('admin_tools.menu') \
-            if 'admin_tools.menu' in INSTALLED_APPS else None
-        INSTALLED_APPS.remove('admin_tools.dashboard') \
-            if 'admin_tools.dashboard' in INSTALLED_APPS else None
-    except Exception as err:
-        pass
-
-elif versions.DJANGO_1_10:
-
-    try:
-        INSTALLED_APPS.remove('tinymce') \
-            if 'tinymce' in INSTALLED_APPS \
-            else None
-    except Exception as err:
-        pass
-
-    try:
-        INSTALLED_APPS.remove('admin_tools') \
-            if 'admin_tools' in INSTALLED_APPS else None
-        INSTALLED_APPS.remove('admin_tools.menu') \
-            if 'admin_tools.menu' in INSTALLED_APPS else None
-        INSTALLED_APPS.remove('admin_tools.dashboard') \
-            if 'admin_tools.dashboard' in INSTALLED_APPS else None
-    except Exception as err:
-        pass
-
 LOGGING = {}
 
 DEBUG_TOOLBAR = False
@@ -94,11 +37,7 @@ DATABASES = {
     }
 }
 
-# Conditionally choosing the right postgres engine
-if versions.DJANGO_GTE_1_11:
-    DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
-else:
-    DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql_psycopg2'
+DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
 
 # FeinCMS addons
 
@@ -108,8 +47,6 @@ INSTALLED_APPS += [
     'fobi.contrib.apps.feincms_integration',  # Fobi FeinCMS app
 
     'page',  # Example
-
-    'tinymce',  # TinyMCE
 ]
 
 MIGRATION_MODULES = {
@@ -119,6 +56,6 @@ MIGRATION_MODULES = {
 }
 
 try:
-    from .loca_settings import TEST_DATABASES as DATABASES
+    from .local_settings import TEST_DATABASES as DATABASES
 except:
     pass

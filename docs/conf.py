@@ -22,6 +22,8 @@ sys.path.insert(0, os.path.abspath('../src'))
 sys.path.insert(0, os.path.abspath('../examples'))
 sys.path.insert(0, os.path.abspath('../examples/simple'))
 
+from django_nine.versions import DJANGO_GTE_3_0
+
 import django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'simple.settings.docs')
 django.setup()
@@ -37,7 +39,7 @@ except ImportError as err:
     copyright = u'2014-2018, Artur Barseghyan <artur.barseghyan@gmail.com>'
 
 try:
-    from simple import settings_docs as docs_settings
+    from simple.settings import docs as docs_settings
 except Exception as e:
     PROJECT_DIR = lambda base : os.path.abspath(os.path.join(os.path.dirname(__file__), base).replace('\\','/'))
     gettext = lambda s: s
@@ -65,11 +67,9 @@ except Exception as e:
             'django.contrib.sitemaps',
 
             # Third party apps used in the project
-            # 'south', # Database migration app
-            # 'tinymce', # TinyMCE
             'easy_thumbnails', # Thumbnailer
-            'registration', # Auth views and registration app
-            # 'localeurl', # Locale URL
+            # Auth views and registration app
+            'django_registration' if DJANGO_GTE_3_0 else 'registration',
 
             # *****************************************************************
             # *****************************************************************

@@ -1,6 +1,6 @@
 import logging
 
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from .......base import IntegrationFormElementPlugin
 from .... import UID as INTEGRATE_WITH_UID

@@ -8,7 +8,7 @@ INSTALLED_APPS += [
 
     'page',  # Example
 
-    'tinymce',  # TinyMCE
+    # 'tinymce',  # TinyMCE
 ]
 
 try:

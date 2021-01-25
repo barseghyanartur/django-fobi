@@ -1,4 +1,4 @@
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from .....contrib.plugins.form_elements import fields
 from .....form_importers import BaseFormImporter

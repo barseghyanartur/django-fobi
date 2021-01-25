@@ -4,17 +4,13 @@ import uuid
 from django.http import HttpResponse
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
+from django.shortcuts import render
 
 from fobi.base import get_theme
 from fobi.helpers import handle_uploaded_file
 from fobi.models import FormEntry
 
 from django_nine import versions
-
-if versions.DJANGO_GTE_1_10:
-    from django.shortcuts import render
-else:
-    from django.shortcuts import render_to_response
 
 logger = logging.getLogger('fobi')
 
@@ -60,9 +56,4 @@ def forms_list(request, template_name='foo/forms_list.html'):
         'show_export_link': False,
     }
 
-    if versions.DJANGO_GTE_1_10:
-        return render(request, template_name, context)
-    else:
-        return render_to_response(
-            template_name, context, context_instance=RequestContext(request)
-        )
+    return render(request, template_name, context)

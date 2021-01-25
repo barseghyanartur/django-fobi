@@ -1,6 +1,6 @@
 from django.forms.fields import ChoiceField
 from django.forms.widgets import RadioSelect
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from fobi.base import FormFieldPlugin, form_element_plugin_registry, get_theme
 from fobi.contrib.plugins.form_elements.fields.radio import UID

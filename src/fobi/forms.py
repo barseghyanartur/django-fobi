@@ -4,7 +4,7 @@ from six.moves.urllib.parse import urlparse
 
 from django import forms
 from django.forms.models import modelformset_factory
-from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.translation import gettext, gettext_lazy as _
 
 # from nonefield.fields import NoneField
 
@@ -96,7 +96,7 @@ class FormEntryForm(forms.ModelForm):
         self.request = kwargs.pop('request', None)
         if self.request is None:
             raise ImproperlyConfigured(
-                ugettext(
+                gettext(
                     "The {0} form requires a "
                     "request argument.".format(self.__class__.__name__)
                 )
@@ -139,12 +139,14 @@ class FormEntryForm(forms.ModelForm):
                 attrs={'class': theme.form_element_html_class}
             )
         else:
-            self.fields['success_page_message'].widget = forms.widgets.Textarea(
-                attrs={'class': theme.form_element_html_class}
-            )
-            self.fields['inactive_page_message'].widget = forms.widgets.Textarea(
-                attrs={'class': theme.form_element_html_class}
-            )
+            self.fields['success_page_message'].widget = \
+                forms.widgets.Textarea(
+                    attrs={'class': theme.form_element_html_class}
+                )
+            self.fields['inactive_page_message'].widget = \
+                forms.widgets.Textarea(
+                    attrs={'class': theme.form_element_html_class}
+                )
 
         self.fields['action'].widget = forms.widgets.TextInput(
             attrs={'class': theme.form_element_html_class}
@@ -181,19 +183,22 @@ class FormEntryForm(forms.ModelForm):
             except Exception as err:
                 localhost = '127.0.0.1'
 
-            try:
-                host = socket.gethostbyname(parsed_url.hostname)
+            if parsed_url.hostname == 'testserver':
+                local = True
+            else:
+                try:
+                    host = socket.gethostbyname(parsed_url.hostname)
 
-                local = (localhost == host)
-            except socket.gaierror as err:
-                pass
+                    local = (localhost == host)
+                except socket.gaierror as err:
+                    pass
 
             if local:
                 full_url = parsed_url.path
 
             if not url_exists(full_url, local=local):
                 raise forms.ValidationError(
-                    ugettext("Invalid action URL {0}.").format(full_url)
+                    gettext("Invalid action URL {0}.").format(full_url)
                 )
 
         return url
@@ -375,7 +380,7 @@ class FormWizardEntryForm(forms.ModelForm):
         self.request = kwargs.pop('request', None)
         if self.request is None:
             raise ImproperlyConfigured(
-                ugettext(
+                gettext(
                     "The {0} form requires a "
                     "request argument.".format(self.__class__.__name__)
                 )
@@ -456,7 +461,7 @@ class FormWizardEntryForm(forms.ModelForm):
     #
     #         if not url_exists(full_url, local=local):
     #             raise forms.ValidationError(
-    #                 ugettext("Invalid action URL {0}.").format(full_url)
+    #                 gettext("Invalid action URL {0}.").format(full_url)
     #             )
     #
     #     return url

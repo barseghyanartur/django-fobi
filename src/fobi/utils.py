@@ -12,12 +12,8 @@ from django.conf import settings
 from django.contrib import messages
 from django.forms.widgets import TextInput
 from django.utils.encoding import force_text
-from django.utils.translation import (
-    ugettext,
-    # ugettext_lazy as _,
-)
-
-from django_nine.versions import DJANGO_GTE_1_10
+from django.utils.translation import gettext
+from django.urls import reverse
 
 from six import PY3
 
@@ -52,11 +48,6 @@ from .settings import (
     WIZARD_FILES_UPLOAD_DIR,
     SORT_PLUGINS_BY_VALUE,
 )
-
-if DJANGO_GTE_1_10:
-    from django.urls import reverse
-else:
-    from django.core.urlresolvers import reverse
 
 __title__ = 'fobi.utils'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -593,7 +584,7 @@ def append_edit_and_delete_links_to_field(form_element_plugin,
 
     edit_option_html = theme.edit_form_entry_edit_option_html().format(
         edit_url=edit_url,
-        edit_text=safe_text(ugettext("Edit")),
+        edit_text=safe_text(gettext("Edit")),
     )
     help_text_extra = theme.edit_form_entry_help_text_extra().format(
         edit_option_html=edit_option_html if plugin_form_cls else '',
@@ -601,7 +592,7 @@ def append_edit_and_delete_links_to_field(form_element_plugin,
             'fobi.delete_form_element_entry',
             kwargs={'form_element_entry_id': form_element_entry.pk}
         ),
-        delete_text=safe_text(ugettext("Delete")),
+        delete_text=safe_text(gettext("Delete")),
         form_element_pk=form_element_entry.pk,
         form_element_position=form_element_entry.position,
         counter=counter
@@ -797,7 +788,7 @@ def perform_form_entry_import(request, form_data):
 
     form_entry = FormEntry(**form_data)
 
-    form_entry.name += ugettext(" (imported on {0})").format(
+    form_entry.name += gettext(" (imported on {0})").format(
         datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     )
     form_entry.save()
@@ -813,14 +804,14 @@ def perform_form_entry_import(request, form_data):
             if form_element_data.get('plugin_uid', None):
                 messages.warning(
                     request,
-                    ugettext('Plugin {0} is missing in the system.').format(
+                    gettext('Plugin {0} is missing in the system.').format(
                         form_element_data.get('plugin_uid')
                     )
                 )
             else:
                 messages.warning(
                     request,
-                    ugettext('Some essential plugin data missing in the JSON '
+                    gettext('Some essential plugin data missing in the JSON '
                              'import.')
                 )
 
@@ -835,14 +826,14 @@ def perform_form_entry_import(request, form_data):
             if form_handler_data.get('plugin_uid', None):
                 messages.warning(
                     request,
-                    ugettext('Plugin {0} is missing in the system.').format(
+                    gettext('Plugin {0} is missing in the system.').format(
                         form_handler_data.get('plugin_uid')
                     )
                 )
             else:
                 messages.warning(
                     request,
-                    ugettext('Some essential data missing in the JSON '
+                    gettext('Some essential data missing in the JSON '
                              'import.')
                 )
 

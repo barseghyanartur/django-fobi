@@ -1,6 +1,7 @@
 import datetime
 import unittest
 
+from django.urls import reverse
 from django.test import TestCase, RequestFactory
 from django.utils import timezone
 
@@ -8,14 +9,14 @@ from fobi.base import (
     get_registered_form_element_plugins,
     get_registered_form_handler_plugins,
     get_registered_themes,
-    get_registered_form_callbacks
+    get_registered_form_callbacks,
 )
 from fobi.models import FormEntry, FormWizardEntry
 from fobi.forms import FormEntryForm
 
 from .core import print_info
 from .constants import TEST_FORM_NAME, TEST_FORM_SLUG
-from .helpers import setup_fobi, get_or_create_admin_user
+from .helpers import setup_app, get_or_create_admin_user
 
 __title__ = 'fobi.tests.test_core'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -29,7 +30,7 @@ class FobiCoreTest(TestCase):
 
     def setUp(self):
         """Set up."""
-        setup_fobi(fobi_sync_plugins=True)
+        setup_app(fobi_sync_plugins=True)
 
     @print_info
     def test_01_get_registered_form_element_plugins(self):
@@ -75,7 +76,7 @@ class FobiCoreTest(TestCase):
         """Test form action URL."""
         request_factory = RequestFactory()
         request = request_factory.post(
-            '/en/fobi/forms/edit/27/',
+            reverse('fobi.edit_form_entry', args=[form_entry.pk]),
             data={
                 'name': "John Doe",
                 'is_public': False,
@@ -84,9 +85,11 @@ class FobiCoreTest(TestCase):
                 'action': action_url,
             }
         )
-        request.META['SERVER_NAME'] = 'localhost'
-        form = FormEntryForm(request.POST, request=request,
-                             instance=form_entry)
+        form = FormEntryForm(
+            request.POST,
+            request=request,
+            instance=form_entry
+        )
 
         saved = False
         try:
@@ -132,7 +135,7 @@ class FobiCoreTest(TestCase):
 
         # Local URL, OK test
         saved = self._test_form_action_url(
-            form_entry, '/en/fobi/forms/edit/27/'
+            form_entry, reverse('fobi.edit_form_entry', args=[27])
         )
         self.assertTrue(saved)
 

@@ -2,9 +2,7 @@
 from django.contrib import messages
 from django.http import HttpRequest
 from django.utils.module_loading import import_string
-from django.utils.translation import ugettext
-
-from django_nine import versions
+from django.utils.translation import gettext
 
 from rest_framework import mixins, permissions
 from rest_framework.response import Response
@@ -67,10 +65,8 @@ class FobiFormEntryViewSet(
         We show all forms to authenticated users and show only public forms
         to non-authenticated users.
         """
-        if versions.DJANGO_GTE_1_10:
-            user_is_authenticated = self.request.user.is_authenticated
-        else:
-            user_is_authenticated = self.request.user.is_authenticated()
+        user_is_authenticated = self.request.user.is_authenticated
+
         kwargs = {}
         if not user_is_authenticated:
             kwargs.update({'is_public': True})
@@ -198,7 +194,7 @@ class FobiFormEntryViewSet(
             for handler_error in handler_errors:
                 messages.warning(
                     _request,
-                    ugettext("Error occurred: {0}.").format(handler_error)
+                    gettext("Error occurred: {0}.").format(handler_error)
                 )
 
         # Fire post handler callbacks

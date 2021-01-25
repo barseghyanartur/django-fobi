@@ -2,7 +2,7 @@ from __future__ import absolute_import
 
 from django.forms.fields import CharField
 from django.forms.widgets import PasswordInput
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import gettext_lazy as _
 
 from fobi.base import FormFieldPlugin, get_theme
 
@@ -41,7 +41,7 @@ class PasswordInputPlugin(FormFieldPlugin):
             'required': self.data.required,
             'widget': PasswordInput(attrs=widget_attrs),
         }
-        if self.data.max_length is not None:
+        if self.data.max_length not in (None, ''):
             field_kwargs['max_length'] = self.data.max_length
 
         return [(self.data.name, CharField, field_kwargs)]

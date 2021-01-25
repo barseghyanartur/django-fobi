@@ -1,10 +1,10 @@
 import datetime
 
-import simplejson as json
+import json
 
-from django.utils.translation import ugettext_lazy as _
-
-from django_nine.versions import DJANGO_GTE_1_10
+from django.core.serializers.json import DjangoJSONEncoder
+from django.utils.translation import gettext_lazy as _
+from django.urls import reverse
 
 from .....base import (
     FormHandlerPlugin,
@@ -17,11 +17,6 @@ from .....base import (
 from .....helpers import get_form_element_entries_for_form_wizard_entry
 from . import UID
 from .models import SavedFormDataEntry, SavedFormWizardDataEntry
-
-if DJANGO_GTE_1_10:
-    from django.urls import reverse
-else:
-    from django.core.urlresolvers import reverse
 
 __title__ = 'fobi.contrib.plugins.form_handlers.db_store.base'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -88,8 +83,11 @@ class DBStoreHandlerPlugin(FormHandlerPlugin):
         saved_form_data_entry = SavedFormDataEntry(
             form_entry=form_entry,
             user=request.user if request.user and request.user.pk else None,
-            form_data_headers=json.dumps(field_name_to_label_map),
-            saved_data=json.dumps(cleaned_data)
+            form_data_headers=json.dumps(
+                field_name_to_label_map,
+                cls=DjangoJSONEncoder
+            ),
+            saved_data=json.dumps(cleaned_data, cls=DjangoJSONEncoder)
         )
         saved_form_data_entry.save()
 
@@ -179,8 +177,11 @@ class DBStoreWizardHandlerPlugin(FormWizardHandlerPlugin):
         saved_form_wizard_data_entry = SavedFormWizardDataEntry(
             form_wizard_entry=form_wizard_entry,
             user=request.user if request.user and request.user.pk else None,
-            form_data_headers=json.dumps(field_name_to_label_map),
-            saved_data=json.dumps(cleaned_data)
+            form_data_headers=json.dumps(
+                field_name_to_label_map,
+                cls=DjangoJSONEncoder
+            ),
+            saved_data=json.dumps(cleaned_data, cls=DjangoJSONEncoder)
         )
         saved_form_wizard_data_entry.save()
 

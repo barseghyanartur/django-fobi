@@ -1,14 +1,12 @@
 import datetime
 
 from django import forms
-from django.utils.translation import ugettext_lazy as _
-# from django.core.validators import MinValueValidator
+from django.utils.translation import gettext_lazy as _
 from django.utils.dateparse import parse_duration
 from django.utils.duration import duration_string
 from django.utils.encoding import force_text
 
 from fobi.base import BaseFormFieldPluginForm, get_theme
-# from fobi.widgets import NumberInput
 
 __title__ = 'fobi.contrib.plugins.form_elements.fields.duration.forms'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -75,46 +73,7 @@ class DurationInputForm(forms.Form, BaseFormFieldPluginForm):
             attrs={'class': theme.form_element_checkbox_html_class}
         )
     )
-    # weeks = forms.IntegerField(
-    #     label=_("Weeks"),
-    #     required=False,
-    #     widget=NumberInput(attrs={'class': theme.form_element_html_class,
-    #                               'min': str(DEFAULT_MIN_LENGTH)}),
-    #     initial=DEFAULT_MAX_LENGTH,
-    #     validators=[MinValueValidator(DEFAULT_MIN_LENGTH)]
-    # )
-    # days = forms.IntegerField(
-    #     label=_("Days"),
-    #     required=False,
-    #     widget=NumberInput(attrs={'class': theme.form_element_html_class,
-    #                               'min': str(DEFAULT_MIN_LENGTH)}),
-    #     initial=DEFAULT_MAX_LENGTH,
-    #     validators=[MinValueValidator(DEFAULT_MIN_LENGTH)]
-    # )
-    # hours = forms.IntegerField(
-    #     label=_("Hours"),
-    #     required=False,
-    #     widget=NumberInput(attrs={'class': theme.form_element_html_class,
-    #                               'min': str(DEFAULT_MIN_LENGTH)}),
-    #     initial=DEFAULT_MAX_LENGTH,
-    #     validators=[MinValueValidator(DEFAULT_MIN_LENGTH)]
-    # )
-    # minutes = forms.IntegerField(
-    #     label=_("Minutes"),
-    #     required=False,
-    #     widget=NumberInput(attrs={'class': theme.form_element_html_class,
-    #                               'min': str(DEFAULT_MIN_LENGTH)}),
-    #     initial=DEFAULT_MAX_LENGTH,
-    #     validators=[MinValueValidator(DEFAULT_MIN_LENGTH)]
-    # )
-    # seconds = forms.IntegerField(
-    #     label=_("Seconds"),
-    #     required=False,
-    #     widget=NumberInput(attrs={'class': theme.form_element_html_class,
-    #                               'min': str(DEFAULT_MIN_LENGTH)}),
-    #     initial=DEFAULT_MAX_LENGTH,
-    #     validators=[MinValueValidator(DEFAULT_MIN_LENGTH)]
-    # )
+
     placeholder = forms.CharField(
         label=_("Placeholder"),
         required=False,
@@ -130,12 +89,12 @@ class DurationInputForm(forms.Form, BaseFormFieldPluginForm):
         initial = cleaned_data.get('initial')
 
         if initial not in forms.Field.empty_values:
-                if not isinstance(initial, datetime.timedelta):
-                    if parse_duration(force_text(initial)) is None:
-                        self.add_error(
-                            'initial',
-                            _("Enter a valid duration.")
-                        )
-                else:
-                    cleaned_data['initial'] = duration_string(initial)
+            if not isinstance(initial, datetime.timedelta):
+                if parse_duration(force_text(initial)) is None:
+                    self.add_error(
+                        'initial',
+                        _("Enter a valid duration.")
+                    )
+            else:
+                cleaned_data['initial'] = duration_string(initial)
         return cleaned_data

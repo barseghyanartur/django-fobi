@@ -9,17 +9,11 @@ from django_nine import versions
 
 class Migration(migrations.Migration):
 
-    if versions.DJANGO_LTE_1_9:
-        dependencies = [
-            migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-            ('fobi', '0009_formwizardentry_wizard_type'),
-        ]
-    else:
-        dependencies = [
-            ('auth', '0007_alter_validators_add_error_messages'),
-            migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-            ('fobi', '0009_formwizardentry_wizard_type'),
-        ]
+    dependencies = [
+        ('auth', '0007_alter_validators_add_error_messages'),
+        migrations.swappable_dependency(settings.AUTH_USER_MODEL),
+        ('fobi', '0009_formwizardentry_wizard_type'),
+    ]
 
     operations = [
         migrations.CreateModel(
