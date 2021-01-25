@@ -3,7 +3,7 @@ import logging
 
 from django.http import HttpResponse
 
-import simplejson as json
+import json
 
 from six import StringIO, BytesIO, text_type
 

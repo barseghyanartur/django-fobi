@@ -46,7 +46,7 @@ plugin (copy-paste mainly).
 
     import datetime
 
-    import simplejson as json
+    import json
 
     from fobi.base import (
         form_callback_registry,
