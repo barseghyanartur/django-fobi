@@ -1,4 +1,3 @@
-import gc
 import logging
 
 from selenium import webdriver
@@ -58,7 +57,6 @@ class BaseFobiBrowserBuldDynamicFormsTest(StaticLiveServerTestCase):
                      reset_sequences=True,
                      allow_cascade=True,
                      inhibit_post_migrate=False)
-        # gc.collect()
 
     @classmethod
     def setUpClass(cls):
@@ -117,7 +115,6 @@ class BaseFobiBrowserBuldDynamicFormsTest(StaticLiveServerTestCase):
                      reset_sequences=True,
                      allow_cascade=True,
                      inhibit_post_migrate=False)
-        # gc.collect()
 
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++

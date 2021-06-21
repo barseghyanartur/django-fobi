@@ -1,0 +1,6 @@
+-r common.in
+-r django_2_2.in
+
+django-fobi
+rst2pdf
+reportlab==3.3.0

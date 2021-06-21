@@ -1,0 +1,11 @@
+Faker
+coverage
+factory_boy
+py
+pytest
+pytest-cov
+pytest-django
+pytest-ordering
+pytest-pythonpath
+selenium
+tox

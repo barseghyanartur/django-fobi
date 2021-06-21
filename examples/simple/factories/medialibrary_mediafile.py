@@ -1,4 +1,4 @@
-from factory import DjangoModelFactory
+from factory.django import DjangoModelFactory
 from factory.fuzzy import FuzzyChoice
 
 from feincms.module.medialibrary.models import MediaFile
