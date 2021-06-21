@@ -9,8 +9,8 @@ django-autoslug>=1.9.6
 django-ckeditor>=5.8.0
 django-debug-toolbar>=2.1
 django-formtools>=2.2
-#django-registration>=3.0.1
-https://github.com/ubernostrum/django-registration/archive/master.zip
+django-registration>=3.1.1
+#https://github.com/ubernostrum/django-registration/archive/master.zip
 django-simple-captcha>=0.5.12
 djangorestframework>=3.10
 easy-thumbnails>=2.7.0
