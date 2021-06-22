@@ -4,6 +4,21 @@ on: [push, pull_request]
 
 jobs:
   test:
+    # Service containers to run with `container-job`
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_PASSWORD: postgres
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
 
     runs-on: ubuntu-latest
     strategy:
@@ -68,6 +83,10 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python-version }}
+    - uses: nanasess/setup-chromedriver@master
+      with:
+        # Optional: do not specify to match Chrome's version
+        chromedriver-version: '88.0.4324.96'
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
@@ -76,6 +95,7 @@ jobs:
         pip install -r examples/requirements/${{ matrix.requirements }}.txt
         pip-compile examples/requirements/test.in
         pip install -r examples/requirements/test.txt
+        psql -c 'create database fobi_test;' -U postgres
     - name: Run Tests
       run: tox -e ${{ matrix.tox_env }}
     - name: Coveralls
