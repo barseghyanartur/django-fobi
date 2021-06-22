@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-# from __future__ import unicode_literals
 import copy
 from collections import OrderedDict
 import datetime
@@ -7,7 +5,7 @@ import os
 # from decimal import Decimal
 
 from django.conf import settings
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str as force_text
 
 from faker import Faker
 
