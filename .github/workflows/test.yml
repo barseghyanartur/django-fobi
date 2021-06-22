@@ -1,0 +1,98 @@
+name: test
+
+on: [push, pull_request]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+    strategy:
+      max-parallel: 4
+      matrix:
+        include:
+          - python-version: 3.6
+            requirements: django_2_2
+            tox_env: py36-django22
+          - python-version: 3.7
+            requirements: django_2_2
+            tox_env: py37-django22
+          - python-version: 3.8
+            requirements: django_2_2
+            tox_env: py38-django22
+          - python-version: 3.9
+            requirements: django_2_2
+            tox_env: py39-django22
+
+          - python-version: 3.6
+            requirements: django_3_0
+            tox_env: py36-django30
+          - python-version: 3.7
+            requirements: django_3_0
+            tox_env: py37-django30
+          - python-version: 3.8
+            requirements: django_3_0
+            tox_env: py38-django30
+          - python-version: 3.9
+            requirements: django_3_0
+            tox_env: py39-django30
+
+          - python-version: 3.6
+            requirements: django_3_1
+            tox_env: py36-django31
+          - python-version: 3.7
+            requirements: django_3_1
+            tox_env: py37-django31
+          - python-version: 3.8
+            requirements: django_3_1
+            tox_env: py38-django31
+          - python-version: 3.9
+            requirements: django_3_1
+            tox_env: py39-django31
+
+          - python-version: 3.6
+            requirements: django_3_2
+            tox_env: py36-django32
+          - python-version: 3.7
+            requirements: django_3_2
+            tox_env: py37-django32
+          - python-version: 3.8
+            requirements: django_3_2
+            tox_env: py38-django32
+          - python-version: 3.9
+            requirements: django_3_2
+            tox_env: py39-django32
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pip-tools
+        pip-compile examples/requirements/${{ matrix.requirements }}.in
+        pip install -r examples/requirements/${{ matrix.requirements }}.txt
+        pip-compile examples/requirements/test.in
+        pip install -r examples/requirements/test.txt
+    - name: Run Tests
+      run: tox -e ${{ matrix.tox_env }}
+    - name: Coveralls
+      uses: AndreMiras/coveralls-python-action@develop
+      with:
+        parallel: true
+        flag-name: Run Tests
+
+  coveralls_finish:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - name: Coveralls Finished
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      uses: AndreMiras/coveralls-python-action@develop
+      with:
+        parallel-finished: true
+        debug: True
