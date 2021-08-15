@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: 0.1\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-06-02 14:20+0200\n"
+"POT-Creation-Date: 2021-08-16 01:30+0300\n"
 "PO-Revision-Date: 2015-05-21 22:57+0100\n"
 "Last-Translator: Artur Barseghyan <artur.barseghyan@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -72,276 +72,6 @@ msgstr ""
 msgid "ForeignKey to db_store.SavedFormDataEntry"
 msgstr ""
 
-#: lund/fobi_addons/admin.py:20
-msgid "Fobi addons"
-msgstr ""
-
-#: lund/fobi_addons/models.py:17
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:68
-#: override_radio_plugin/forms.py:32
-#: override_select_model_object_plugin/forms.py:34
-msgid "Name"
-msgstr ""
-
-#: lund/fobi_addons/models.py:18
-msgid "Slug"
-msgstr ""
-
-#: lund/fobi_addons/models.py:25
-msgid "Active"
-msgstr ""
-
-#: lund/fobi_addons/models.py:30
-msgid "Form wizard entry collection"
-msgstr ""
-
-#: lund/fobi_addons/models.py:31
-msgid "Form wizard entry collections"
-msgstr ""
-
-#: lund/fobi_addons/views.py:36 lund/fobi_addons/views.py:93
-msgid "Form wizard entry not found."
-msgstr ""
-
-#: lund/fobi_addons/views.py:68
-msgid "Form wizard entry does not contain any forms."
-msgstr ""
-
-#: lund/fobi_addons/views.py:173
-msgid "No form wizards found!"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/content/form_step_overview/fobi_form_elements.py:77
-msgid "Form step overview plugin"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/content/form_step_overview/fobi_form_elements.py:78
-#: lund/fobi_plugins/form_elements/content/manipulated_sliders_overview/fobi_form_elements.py:68
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/fobi_form_elements.py:63
-msgid "Scientific"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/content/form_step_overview/fobi_form_elements.py:161
-#: lund/fobi_plugins/form_elements/content/manipulated_sliders_overview/fobi_form_elements.py:99
-#, python-brace-format
-msgid "<p>{0}</p>"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/content/form_step_overview/fobi_form_elements.py:162
-msgid "This plugin can only be used within a form wizard."
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/content/form_step_overview/forms.py:30
-#: lund/fobi_plugins/form_elements/content/manipulated_sliders_overview/forms.py:27
-msgid "Text"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/content/form_step_overview/forms.py:36
-#: lund/fobi_plugins/form_elements/content/form_step_overview/forms.py:45
-msgid "Form"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/content/manipulated_sliders_overview/fobi_form_elements.py:67
-msgid "Manipulated sliders overview"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/content/manipulated_sliders_overview/fobi_form_elements.py:96
-msgid "No manipulated entries found!"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/content/manipulated_sliders_overview/forms.py:32
-msgid "No manipulated entries found text"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/constants.py:40
-msgid "Show"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/constants.py:41
-msgid "Hide"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/constants.py:42
-msgid "Always"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/constants.py:51
-msgid "Round"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/constants.py:52
-msgid "Square"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/constants.py:53
-msgid "Triangle"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/constants.py:54
-msgid "Custom"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/constants.py:62
-msgid "Labels"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/constants.py:63
-msgid "Ticks without labels"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/constants.py:64
-msgid "Labeled ticks"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/constants.py:72
-msgid "Positive"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/constants.py:73
-msgid "Negative"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/constants.py:74
-msgid "Random"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/fobi_form_elements.py:62
-msgid "Manipulated slider"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:61
-#: override_radio_plugin/forms.py:25
-#: override_select_model_object_plugin/forms.py:27
-msgid "Label"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:75
-#: override_radio_plugin/forms.py:77
-#: override_select_model_object_plugin/forms.py:56
-msgid "Initial"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:83
-msgid "Min value"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:90
-msgid "Max value"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:97
-msgid "Step"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:99
-msgid "Step size"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:105
-msgid "Deviation type"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:113
-msgid "Probability percentage"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:120
-msgid "Min deviation"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:125
-msgid "Max deviation"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:130
-msgid "Value normalization callback function"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:166
-msgid "Tooltip"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:174
-msgid "Handle"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:182
-msgid "Show endpoints as"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:190
-msgid "Start label"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:191
-msgid "Start endpoint label"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:198
-msgid "End label"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:199
-msgid "End endpoint label"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:206
-msgid "Custom ticks"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:208
-msgid ""
-"Enter single values/pairs per line. Example:<code><br/>&nbsp;&nbsp;&nbsp;"
-"&nbsp;1<br/>&nbsp;&nbsp;&nbsp;&nbsp;2<br/>&nbsp;&nbsp;&nbsp;&nbsp;3, "
-"Alpha<br/>&nbsp;&nbsp;&nbsp;&nbsp;4, Beta<br/></code><br/>It finally "
-"transforms into the following HTML code:<code><br/>&nbsp;&nbsp;&nbsp;&nbsp;"
-"data-slider-ticks=\"[1, 2, 3, 4]\"<br/>&nbsp;&nbsp;&nbsp;&nbsp;data-slider-"
-"ticks-labels='[\"1\", \"2\", \"Alpha\", \"Beta\"]'</code>"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:227
-#: override_radio_plugin/forms.py:70
-#: override_select_model_object_plugin/forms.py:49
-msgid "Help text"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:234
-#: override_radio_plugin/forms.py:84
-#: override_select_model_object_plugin/forms.py:63
-msgid "Required"
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:258
-msgid "`max_value` should be > than `min_value`."
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:264
-msgid "`step` should be > than `max_value` - `min_value`."
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:270
-msgid "`max_value` should be >= than `initial`."
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:276
-msgid "`initial` should be >= than `min_value`."
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:282
-msgid "`max_deviation` should be > than `min_deviation`."
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:293
-msgid ""
-"You are not allowed to use Triangle or Custom handles with ticks enabled."
-msgstr ""
-
-#: lund/fobi_plugins/form_elements/fields/manipulated_slider/forms.py:307
-msgid ""
-"Invalid format. First value should be an integer, second value should be a "
-"string."
-msgstr ""
-
 #: override_radio_plugin/fobi_form_elements.py:20
 msgid "Radio"
 msgstr ""
@@ -349,6 +79,16 @@ msgstr ""
 #: override_radio_plugin/fobi_form_elements.py:21
 #: override_select_model_object_plugin/fobi_form_elements.py:22
 msgid "Fields"
+msgstr ""
+
+#: override_radio_plugin/forms.py:25
+#: override_select_model_object_plugin/forms.py:27
+msgid "Label"
+msgstr ""
+
+#: override_radio_plugin/forms.py:32
+#: override_select_model_object_plugin/forms.py:34
+msgid "Name"
 msgstr ""
 
 #: override_radio_plugin/forms.py:39
@@ -370,6 +110,21 @@ msgid ""
 "&nbsp;&lt;option value=\"beta\"&gt;Beta&lt;/option&gt;<br/>&nbsp;&nbsp;&nbsp;"
 "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&lt;option value=\"omega\"&gt;omega&lt;/"
 "option&gt;<br/>&nbsp;&nbsp;&nbsp;&nbsp;&lt;/select&gt;</code>"
+msgstr ""
+
+#: override_radio_plugin/forms.py:70
+#: override_select_model_object_plugin/forms.py:49
+msgid "Help text"
+msgstr ""
+
+#: override_radio_plugin/forms.py:77
+#: override_select_model_object_plugin/forms.py:56
+msgid "Initial"
+msgstr ""
+
+#: override_radio_plugin/forms.py:84
+#: override_select_model_object_plugin/forms.py:63
+msgid "Required"
 msgstr ""
 
 #: override_select_model_object_plugin/fobi_form_elements.py:21
@@ -412,23 +167,27 @@ msgstr ""
 msgid "German"
 msgstr ""
 
-#: settings/base.py:505 settings/base.py:521
+#: settings/base.py:73
+msgid "French"
+msgstr ""
+
+#: settings/base.py:474 settings/base.py:489
 msgid "Custom bootstrap3 embed form view template"
 msgstr ""
 
-#: settings/base.py:512 settings/base.py:528
+#: settings/base.py:480 settings/base.py:495
 msgid "Custom bootstrap3 embed form entry submitted template"
 msgstr ""
 
-#: settings/base.py:545 settings/base.py:561
+#: settings/base.py:512 settings/base.py:527
 msgid "Custom foundation5 embed form view template"
 msgstr ""
 
-#: settings/base.py:552 settings/base.py:568
+#: settings/base.py:518 settings/base.py:533
 msgid "Custom foundation5 embed form entry submitted template"
 msgstr ""
 
-#: settings/base.py:588
+#: settings/base.py:553
 #, fuzzy
 msgid "&copy; django-fobi example site 2014-2015"
 msgstr "&copy; пример django-fobi сайта 2014"
@@ -460,7 +219,7 @@ msgstr ""
 msgid "DjangoCMS Foundation 5 example"
 msgstr ""
 
-#: templates/cms_page/foundation5/base.html:99 templates/home/base.html:12
+#: templates/cms_page/foundation5/base.html:91 templates/home/base.html:12
 msgid "Home"
 msgstr ""
 
