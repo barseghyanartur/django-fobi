@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2021-08-16 01:30+0300\n"
+"POT-Creation-Date: 2021-08-16 03:25+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,8 +24,8 @@ msgstr ""
 #: contrib/apps/wagtail_integration/abstract.py:86
 #: contrib/plugins/form_handlers/db_store/models.py:90
 #: contrib/plugins/form_handlers/db_store/models.py:114
-#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:39
-#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_wizard_data_entries.html:39
+#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:40
+#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_wizard_data_entries.html:40
 #: contrib/themes/foundation5/templates/foundation5/dashboard.html:34
 #: contrib/themes/foundation5/templates/foundation5/forms_list.html:6
 #: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/view_saved_form_data_entries.html:40
@@ -519,8 +519,8 @@ msgstr ""
 
 #: contrib/apps/drf_integration/form_elements/fields/date/base.py:28
 #: contrib/plugins/form_elements/fields/date/base.py:25
-#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:41
-#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_wizard_data_entries.html:41
+#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:42
+#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_wizard_data_entries.html:42
 #: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/view_saved_form_data_entries.html:42
 msgid "Date"
 msgstr ""
@@ -786,7 +786,7 @@ msgstr ""
 msgid "Size"
 msgstr ""
 
-#: contrib/plugins/form_elements/content/content_image/templates/content_image/render.html:11
+#: contrib/plugins/form_elements/content/content_image/templates/content_image/render.html:12
 #: contrib/plugins/form_elements/content/content_image_url/templates/content_image_url/render.html:6
 msgid "No image provided!"
 msgstr ""
@@ -1262,8 +1262,8 @@ msgstr ""
 
 #: contrib/plugins/form_handlers/db_store/admin.py:71
 #: contrib/plugins/form_handlers/db_store/admin.py:118
-#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:40
-#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_wizard_data_entries.html:40
+#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:41
+#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_wizard_data_entries.html:41
 #: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/view_saved_form_data_entries.html:41
 msgid "Data"
 msgstr ""
@@ -1312,27 +1312,27 @@ msgstr ""
 msgid "Saved form wizard data entries"
 msgstr ""
 
-#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:5
-#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:23
-#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_wizard_data_entries.html:23
+#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:6
+#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:24
+#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_wizard_data_entries.html:24
 #: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/view_saved_form_data_entries.html:5
 #: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/view_saved_form_data_entries.html:24
 msgid "View form data"
 msgstr ""
 
-#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:30
-#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_wizard_data_entries.html:30
+#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:31
+#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_wizard_data_entries.html:31
 #: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/view_saved_form_data_entries.html:31
 msgid "Saved form data"
 msgstr ""
 
-#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:49
-#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_wizard_data_entries.html:49
+#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_data_entries.html:50
+#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_wizard_data_entries.html:50
 #: contrib/themes/foundation5/widgets/form_handlers/db_store_foundation5_widget/templates/db_store_foundation5_widget/view_saved_form_data_entries.html:50
 msgid "Filter"
 msgstr ""
 
-#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_wizard_data_entries.html:5
+#: contrib/plugins/form_handlers/db_store/templates/db_store/view_saved_form_wizard_data_entries.html:6
 msgid "View form wizard data"
 msgstr ""
 
@@ -1564,8 +1564,8 @@ msgstr ""
 #: contrib/themes/simple/templates/simple/forms_list.html:15
 #: templates/fobi/generic/dashboard.html:38
 #: templates/fobi/generic/dashboard.html:79
-#: templates/fobi/generic/edit_form_entry_ajax.html:103
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:122
+#: templates/fobi/generic/edit_form_entry_ajax.html:104
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:123
 #: templates/fobi/generic/form_wizards_dashboard.html:42
 #: templates/fobi/generic/form_wizards_dashboard.html:82
 #: templates/fobi/generic/forms_list.html:7
@@ -1589,10 +1589,10 @@ msgstr ""
 #: contrib/themes/simple/templates/simple/forms_list.html:32
 #: templates/fobi/generic/dashboard.html:53
 #: templates/fobi/generic/edit_form_entry.html:13
-#: templates/fobi/generic/edit_form_entry_ajax.html:121
+#: templates/fobi/generic/edit_form_entry_ajax.html:122
 #: templates/fobi/generic/edit_form_wizard_entry.html:17
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:62
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:140
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:63
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:141
 #: templates/fobi/generic/form_wizards_dashboard.html:55
 #: templates/fobi/generic/forms_list.html:20
 #: templates/fobi/generic/view_form_entry.html:8
@@ -1616,9 +1616,9 @@ msgstr ""
 #: contrib/themes/simple/templates/simple/form_wizards_dashboard.html:96
 #: contrib/themes/simple/templates/simple/forms_list.html:39
 #: templates/fobi/generic/dashboard.html:58
-#: templates/fobi/generic/edit_form_entry_ajax.html:123
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:67
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:142
+#: templates/fobi/generic/edit_form_entry_ajax.html:124
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:68
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:143
 #: templates/fobi/generic/form_wizards_dashboard.html:60
 #: templates/fobi/generic/forms_list.html:27 utils.py:595
 msgid "Delete"
@@ -1647,7 +1647,7 @@ msgstr ""
 #: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/edit_form_entry_ajax.html:3
 #: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:3
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:3
-#: templates/fobi/generic/edit_form_entry_ajax.html:3
+#: templates/fobi/generic/edit_form_entry_ajax.html:4
 msgid "Edit form"
 msgstr ""
 
@@ -1656,8 +1656,8 @@ msgstr ""
 #: contrib/themes/foundation5/templates/foundation5/edit_form_wizard_entry_ajax.html:12
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:7
 #: contrib/themes/simple/templates/simple/edit_form_wizard_entry_ajax.html:7
-#: templates/fobi/generic/edit_form_entry_ajax.html:10
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:10
+#: templates/fobi/generic/edit_form_entry_ajax.html:11
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:11
 msgid "Elements"
 msgstr ""
 
@@ -1666,8 +1666,8 @@ msgstr ""
 #: contrib/themes/foundation5/templates/foundation5/edit_form_wizard_entry_ajax.html:13
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:8
 #: contrib/themes/simple/templates/simple/edit_form_wizard_entry_ajax.html:8
-#: templates/fobi/generic/edit_form_entry_ajax.html:11
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:11
+#: templates/fobi/generic/edit_form_entry_ajax.html:12
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:12
 msgid "Handlers"
 msgstr ""
 
@@ -1676,8 +1676,8 @@ msgstr ""
 #: contrib/themes/foundation5/templates/foundation5/edit_form_wizard_entry_ajax.html:14
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:9
 #: contrib/themes/simple/templates/simple/edit_form_wizard_entry_ajax.html:9
-#: templates/fobi/generic/edit_form_entry_ajax.html:12
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:12
+#: templates/fobi/generic/edit_form_entry_ajax.html:13
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:13
 msgid "Properties"
 msgstr ""
 
@@ -1691,10 +1691,10 @@ msgstr ""
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:177
 #: contrib/themes/simple/templates/simple/edit_form_wizard_entry_ajax.html:10
 #: contrib/themes/simple/templates/simple/edit_form_wizard_entry_ajax.html:201
-#: templates/fobi/generic/edit_form_entry_ajax.html:13
-#: templates/fobi/generic/edit_form_entry_ajax.html:171
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:13
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:191
+#: templates/fobi/generic/edit_form_entry_ajax.html:14
+#: templates/fobi/generic/edit_form_entry_ajax.html:172
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:14
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:192
 msgid "Service"
 msgstr ""
 
@@ -1714,8 +1714,8 @@ msgstr ""
 #: contrib/themes/foundation5/templates/foundation5/edit_form_wizard_entry_ajax.html:82
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:52
 #: contrib/themes/simple/templates/simple/edit_form_wizard_entry_ajax.html:75
-#: templates/fobi/generic/edit_form_entry_ajax.html:64
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:83
+#: templates/fobi/generic/edit_form_entry_ajax.html:65
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:84
 msgid "Save ordering"
 msgstr ""
 
@@ -1735,16 +1735,16 @@ msgstr ""
 #: contrib/themes/foundation5/templates/foundation5/edit_form_wizard_entry_ajax.html:116
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:94
 #: contrib/themes/simple/templates/simple/edit_form_wizard_entry_ajax.html:117
-#: templates/fobi/generic/edit_form_entry_ajax.html:101
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:120
+#: templates/fobi/generic/edit_form_entry_ajax.html:102
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:121
 msgid "Handler"
 msgstr ""
 
 #: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/edit_form_entry_ajax.html:119
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:118
 #: contrib/themes/simple/templates/simple/edit_form_wizard_entry_ajax.html:141
-#: templates/fobi/generic/edit_form_entry_ajax.html:114
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:133
+#: templates/fobi/generic/edit_form_entry_ajax.html:115
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:134
 msgid "Info"
 msgstr ""
 
@@ -1762,7 +1762,7 @@ msgstr ""
 #: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/edit_form_entry_ajax.html:191
 #: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:181
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:191
-#: templates/fobi/generic/edit_form_entry_ajax.html:177
+#: templates/fobi/generic/edit_form_entry_ajax.html:178
 msgid "Export your form as JSON"
 msgstr ""
 
@@ -1770,8 +1770,8 @@ msgstr ""
 #: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:182
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:192
 #: contrib/themes/simple/templates/simple/edit_form_wizard_entry_ajax.html:216
-#: templates/fobi/generic/edit_form_entry_ajax.html:178
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:197
+#: templates/fobi/generic/edit_form_entry_ajax.html:179
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:198
 msgid "Export your form into JSON format and import it again any time!"
 msgstr ""
 
@@ -1779,14 +1779,14 @@ msgstr ""
 #: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:185
 #: contrib/themes/foundation5/templates/foundation5/edit_form_wizard_entry_ajax.html:205
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:195
-#: templates/fobi/generic/edit_form_entry_ajax.html:181
+#: templates/fobi/generic/edit_form_entry_ajax.html:182
 msgid "Export form"
 msgstr ""
 
 #: contrib/themes/djangocms_admin_style_theme/templates/djangocms_admin_style_theme/edit_form_entry_ajax.html:207
 #: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:191
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:207
-#: templates/fobi/generic/edit_form_entry_ajax.html:187
+#: templates/fobi/generic/edit_form_entry_ajax.html:188
 msgid "Delete your form"
 msgstr ""
 
@@ -1795,8 +1795,8 @@ msgstr ""
 #: contrib/themes/foundation5/templates/foundation5/edit_form_wizard_entry_ajax.html:212
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:208
 #: contrib/themes/simple/templates/simple/edit_form_wizard_entry_ajax.html:232
-#: templates/fobi/generic/edit_form_entry_ajax.html:188
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:206
+#: templates/fobi/generic/edit_form_entry_ajax.html:189
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:207
 msgid "Once deleted, can't be undone!"
 msgstr ""
 
@@ -1804,7 +1804,7 @@ msgstr ""
 #: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:195
 #: contrib/themes/foundation5/templates/foundation5/edit_form_wizard_entry_ajax.html:215
 #: contrib/themes/simple/templates/simple/edit_form_entry_ajax.html:211
-#: templates/fobi/generic/edit_form_entry_ajax.html:191
+#: templates/fobi/generic/edit_form_entry_ajax.html:192
 msgid "Delete form"
 msgstr ""
 
@@ -1822,7 +1822,7 @@ msgstr ""
 #: contrib/themes/foundation5/templates/foundation5/dashboard.html:11
 #: contrib/themes/foundation5/templates/foundation5/form_wizards_dashboard.html:11
 #: contrib/themes/simple/templates/simple/form_wizards_dashboard.html:41
-#: templates/fobi/generic/_base.html:108
+#: templates/fobi/generic/_base.html:109
 #: templates/fobi/generic/add_form_element_entry.html:18
 #: templates/fobi/generic/add_form_handler_entry.html:11
 #: templates/fobi/generic/add_form_wizard_handler_entry.html:11
@@ -1848,7 +1848,7 @@ msgstr ""
 #: contrib/themes/foundation5/templates/foundation5/dashboard.html:12
 #: contrib/themes/foundation5/templates/foundation5/form_wizards_dashboard.html:12
 #: contrib/themes/simple/templates/simple/dashboard.html:38
-#: templates/fobi/generic/_base.html:109
+#: templates/fobi/generic/_base.html:110
 #: templates/fobi/generic/add_form_element_entry.html:19
 #: templates/fobi/generic/add_form_handler_entry.html:12
 #: templates/fobi/generic/add_form_wizard_handler_entry.html:12
@@ -1878,52 +1878,52 @@ msgid "Is public"
 msgstr ""
 
 #: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:25
-#: templates/fobi/generic/edit_form_entry_ajax.html:23
+#: templates/fobi/generic/edit_form_entry_ajax.html:24
 msgid "Add elements to your form"
 msgstr ""
 
 #: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:31
-#: templates/fobi/generic/edit_form_entry_ajax.html:31
+#: templates/fobi/generic/edit_form_entry_ajax.html:32
 msgid "Choose form element to add"
 msgstr ""
 
 #: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:76
-#: templates/fobi/generic/edit_form_entry_ajax.html:77
+#: templates/fobi/generic/edit_form_entry_ajax.html:78
 msgid "Add handlers to your form"
 msgstr ""
 
 #: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:82
 #: contrib/themes/foundation5/templates/foundation5/edit_form_wizard_entry_ajax.html:102
-#: templates/fobi/generic/edit_form_entry_ajax.html:85
+#: templates/fobi/generic/edit_form_entry_ajax.html:86
 msgid "Choose form handler to add"
 msgstr ""
 
 #: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:150
-#: templates/fobi/generic/edit_form_entry_ajax.html:147
+#: templates/fobi/generic/edit_form_entry_ajax.html:148
 msgid "Form properties"
 msgstr ""
 
 #: contrib/themes/foundation5/templates/foundation5/edit_form_entry_ajax.html:161
 #: contrib/themes/foundation5/templates/foundation5/edit_form_wizard_entry_ajax.html:181
 #: templates/fobi/admin/bulk_change_plugins.html:75
-#: templates/fobi/generic/edit_form_entry_ajax.html:158
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:177
+#: templates/fobi/generic/edit_form_entry_ajax.html:159
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:178
 msgid "Submit changes"
 msgstr ""
 
 #: contrib/themes/foundation5/templates/foundation5/edit_form_wizard_entry_ajax.html:3
 #: contrib/themes/simple/templates/simple/edit_form_wizard_entry_ajax.html:3
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:3
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:4
 msgid "Edit form wizard"
 msgstr ""
 
 #: contrib/themes/foundation5/templates/foundation5/edit_form_wizard_entry_ajax.html:25
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:22
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:23
 msgid "Add forms to your form wizard"
 msgstr ""
 
 #: contrib/themes/foundation5/templates/foundation5/edit_form_wizard_entry_ajax.html:31
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:30
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:31
 msgid "Choose form to add"
 msgstr ""
 
@@ -1931,11 +1931,11 @@ msgstr ""
 #: contrib/themes/foundation5/templates/foundation5/snippets/form_properties_snippet.html:3
 #: contrib/themes/foundation5/templates/foundation5/snippets/form_snippet.html:3
 #: contrib/themes/foundation5/templates/foundation5/snippets/form_wizard_properties_snippet.html:3
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:43
-#: templates/fobi/generic/snippets/form_properties_snippet.html:5
-#: templates/fobi/generic/snippets/form_snippet.html:5
-#: templates/fobi/generic/snippets/form_wizard_properties_snippet.html:4
-#: templates/fobi/generic/snippets/form_wizard_snippet.html:4
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:44
+#: templates/fobi/generic/snippets/form_properties_snippet.html:6
+#: templates/fobi/generic/snippets/form_snippet.html:6
+#: templates/fobi/generic/snippets/form_wizard_properties_snippet.html:5
+#: templates/fobi/generic/snippets/form_wizard_snippet.html:5
 msgid "Fields marked with <span class=\"required-field\">*</span> are required"
 msgstr ""
 
@@ -1943,25 +1943,25 @@ msgstr ""
 #: contrib/themes/simple/templates/simple/edit_form_wizard_entry_ajax.html:50
 #: templates/fobi/generic/edit_form_entry.html:14
 #: templates/fobi/generic/edit_form_wizard_entry.html:18
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:57
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:58
 #: templates/fobi/generic/view_form_entry.html:9
 #: templates/fobi/generic/view_form_wizard_entry.html:13
 msgid "View"
 msgstr ""
 
 #: contrib/themes/foundation5/templates/foundation5/edit_form_wizard_entry_ajax.html:96
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:96
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:97
 msgid "Add handlers to your form wizard"
 msgstr ""
 
 #: contrib/themes/foundation5/templates/foundation5/edit_form_wizard_entry_ajax.html:170
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:166
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:167
 msgid "Form wizard properties"
 msgstr ""
 
 #: contrib/themes/foundation5/templates/foundation5/edit_form_wizard_entry_ajax.html:201
 #: contrib/themes/simple/templates/simple/edit_form_wizard_entry_ajax.html:215
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:196
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:197
 msgid "Export your form wizard as JSON"
 msgstr ""
 
@@ -1971,7 +1971,7 @@ msgstr ""
 
 #: contrib/themes/foundation5/templates/foundation5/edit_form_wizard_entry_ajax.html:211
 #: contrib/themes/simple/templates/simple/edit_form_wizard_entry_ajax.html:231
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:205
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:206
 msgid "Delete your form wizard"
 msgstr ""
 
@@ -2020,12 +2020,12 @@ msgid "Change form wizard properties"
 msgstr ""
 
 #: contrib/themes/simple/templates/simple/edit_form_wizard_entry_ajax.html:219
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:200
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:201
 msgid "Export form wizard"
 msgstr ""
 
 #: contrib/themes/simple/templates/simple/edit_form_wizard_entry_ajax.html:235
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:209
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:210
 msgid "Delete form wizard"
 msgstr ""
 
@@ -2350,7 +2350,7 @@ msgstr ""
 msgid "Edit form wizard entry"
 msgstr ""
 
-#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:104
+#: templates/fobi/generic/edit_form_wizard_entry_ajax.html:105
 msgid "Choose form wizard handler to add"
 msgstr ""
 
@@ -2397,8 +2397,8 @@ msgstr ""
 msgid "Import form entry"
 msgstr ""
 
-#: templates/fobi/generic/snippets/form_properties_snippet.html:37
-#: templates/fobi/generic/snippets/form_wizard_properties_snippet.html:33
+#: templates/fobi/generic/snippets/form_properties_snippet.html:38
+#: templates/fobi/generic/snippets/form_wizard_properties_snippet.html:34
 msgid "Help"
 msgstr ""
 
