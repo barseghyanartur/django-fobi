@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2021-08-16 01:30+0300\n"
-"PO-Revision-Date: 2018-02-16 13:38+0100\n"
+"PO-Revision-Date: 2021-08-16 01:40+0300\n"
 "Last-Translator: Adrien Delhorme <ad@kapt.mobi>\n"
 "Language-Team: \n"
 "Language: fr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
-"X-Generator: Poedit 1.8.9\n"
+"X-Generator: Poedit 2.2.1\n"
 
 #: admin.py:181 admin.py:253 admin.py:326 admin.py:362
 #: contrib/apps/djangocms_integration/models.py:26
