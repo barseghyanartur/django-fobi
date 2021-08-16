@@ -1,7 +1,7 @@
 {% load i18n %}
 {% load static %}
 <!DOCTYPE html>
-<html lang="en"{% block html-attributes %}{% endblock html-attributes %}>
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}"{% block html-attributes %}{% endblock html-attributes %}>
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
