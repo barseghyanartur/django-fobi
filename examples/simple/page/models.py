@@ -7,7 +7,7 @@ from feincms.module.page.models import Page
 # Import the ``django-fobi`` widget.
 from fobi.contrib.apps.feincms_integration.widgets import FobiFormWidget
 
-Page.register_extensions('feincms.module.extensions.translations',)
+Page.register_extensions('feincms.extensions.translations',)
 
 # Register basic template.
 Page.register_templates(

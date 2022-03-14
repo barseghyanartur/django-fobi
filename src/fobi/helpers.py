@@ -23,7 +23,7 @@ from django.urls import reverse
 from django.http import HttpResponse
 from django.templatetags.static import static
 from django.test.client import RequestFactory
-from django.utils.encoding import force_text, smart_text
+from django.utils.encoding import force_str, smart_str
 from django.utils.html import format_html_join
 from django.utils.translation import gettext_lazy as _
 
@@ -99,7 +99,7 @@ def safe_text(text):
 
     :return str:
     """
-    return smart_text(text)
+    return smart_str(text)
     # if PY3:
     #     return force_text(text, encoding='utf-8')
     # else:

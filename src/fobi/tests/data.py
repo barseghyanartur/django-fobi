@@ -7,7 +7,7 @@ import os
 # from decimal import Decimal
 
 from django.conf import settings
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 
 from faker import Faker
 
@@ -92,42 +92,42 @@ __all__ = (
 
 TEST_FORM_ELEMENT_PLUGIN_DATA = {
     # Add a "Boolean (checkbox)" plugin.
-    force_text(BooleanSelectPlugin.name): {
+    force_str(BooleanSelectPlugin.name): {
         'label': "Test boolean",
         'help_text': "Lorem ipsum boolean",
         'required': False,
     },
 
     # Add a "Date" input form element
-    force_text(DateInputPlugin.name): {
+    force_str(DateInputPlugin.name): {
         'label': "Test date input",
         'help_text': "Lorem ipsum select multiple input",
         'required': False,
     },
 
     # Add a "DateTime" input form element
-    force_text(DateTimeInputPlugin.name): {
+    force_str(DateTimeInputPlugin.name): {
         'label': "Test datetime input",
         'help_text': "Lorem ipsum select multiple input",
         'required': False,
     },
 
     # Add an decimal input plugin
-    force_text(DecimalInputPlugin.name): {
+    force_str(DecimalInputPlugin.name): {
         'label': "Test decimal input",
         'help_text': "Lorem ipsum email",
         'required': True,
     },
 
     # Add an email input plugin
-    force_text(EmailInputPlugin.name): {
+    force_str(EmailInputPlugin.name): {
         'label': "Test email input",
         'help_text': "Lorem ipsum email",
         'required': True,
     },
 
     # Add a "File" (file) form element
-    force_text(FileInputPlugin.name): {
+    force_str(FileInputPlugin.name): {
         'label': "Test file input",
         # 'name': "test_file_input",
         'help_text': "Lorem ipsum file",
@@ -135,7 +135,7 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
         },
 
     # Add an float input plugin
-    force_text(FloatInputPlugin.name): {
+    force_str(FloatInputPlugin.name): {
         'label': "Test float input",
         'help_text': "Lorem ipsum email",
         'required': True,
@@ -151,28 +151,28 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
     #     },
 
     # Add a "Integer" (text input) form element
-    force_text(IntegerInputPlugin.name): {
+    force_str(IntegerInputPlugin.name): {
         'label': "Test integer",
         'help_text': "Lorem ipsum text input",
         'required': True,
     },
 
     # Add a "IP address" (text input) form element
-    force_text(IPAddressInputPlugin.name): {
+    force_str(IPAddressInputPlugin.name): {
         'label': "Test IP address",
         'help_text': "Lorem ipsum text input",
         'required': True,
     },
 
     # Add a "null boolean" form element
-    force_text(NullBooleanSelectPlugin.name): {
+    force_str(NullBooleanSelectPlugin.name): {
         'label': "Test null boolean",
         'help_text': "Lorem ipsum text input",
         'required': True,
     },
 
     # Add a "Select Input" (select input) form element
-    force_text(SelectInputPlugin.name): {
+    force_str(SelectInputPlugin.name): {
         'label': "Test select",
         'help_text': "Lorem ipsum text input",
         'required': False,
@@ -180,14 +180,14 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
     },
 
     # Add a "Select model object" (select input) form element
-    force_text(SelectModelObjectInputPlugin.name): {
+    force_str(SelectModelObjectInputPlugin.name): {
         'label': "Test select model object",
         'help_text': "Lorem ipsum select model object input",
         'required': False,
     },
 
     # Add a "Select multiple" (select multiple input) form element
-    force_text(SelectMultipleInputPlugin.name): {
+    force_str(SelectMultipleInputPlugin.name): {
         'label': "Test select multiple input",
         'help_text': "Lorem ipsum select multiple input",
         'required': False,
@@ -196,7 +196,7 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
 
     # Add a "Select multiple with max" (select multiple with max input) form
     # element
-    force_text(SelectMultipleWithMaxInputPlugin.name): {
+    force_str(SelectMultipleWithMaxInputPlugin.name): {
         'label': "Test select multiple with max input",
         'help_text': "Lorem ipsum select multiple with max input",
         'required': False,
@@ -205,7 +205,7 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
 
     # Add a "Checkbox select multiple" (checkbox select multiple input) form
     # element
-    force_text(CheckboxSelectMultipleInputPlugin.name): {
+    force_str(CheckboxSelectMultipleInputPlugin.name): {
         'label': "Test checkbox select multiple input",
         'help_text': "Lorem ipsum checkbox select multiple input",
         'required': False,
@@ -213,28 +213,28 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
     },
 
     # Add a "Slug" (slug input) form element
-    force_text(SlugInputPlugin.name): {
+    force_str(SlugInputPlugin.name): {
         'label': "Test slug input",
         'help_text': "Lorem ipsum select multiple input",
         'required': False,
     },
 
     # Add a "Text" (text input) form element
-    force_text(TextInputPlugin.name): {
+    force_str(TextInputPlugin.name): {
         'label': "Test text",
         'help_text': "Lorem ipsum text input",
         'required': True,
     },
 
     # Add a "Textarea" (text area) form element
-    force_text(TextareaPlugin.name): {
+    force_str(TextareaPlugin.name): {
         'label': "Test text area",
         'help_text': "Lorem ipsum text area",
         'required': True,
     },
 
     # Add a "URL input" form element
-    force_text(URLInputPlugin.name): {
+    force_str(URLInputPlugin.name): {
         'label': "Test URL input",
         'help_text': "Lorem ipsum text area",
         'required': True,
@@ -283,8 +283,8 @@ TEST_FORM_FIELD_DATA = {
 # Therefore, an ordered dict. Note that `MailSenderHandlerPlugin` shall
 # be placed before the `MailHandlerPlugin`.
 TEST_FORM_HANDLER_PLUGIN_DATA = OrderedDict([
-    (force_text(DBStoreHandlerPlugin.name), None),
-    (force_text(MailSenderHandlerPlugin.name), {
+    (force_str(DBStoreHandlerPlugin.name), None),
+    (force_str(MailSenderHandlerPlugin.name), {
         'from_name': "From me",
         'from_email': "from@example.com",
         'to_name': "To you",
@@ -292,7 +292,7 @@ TEST_FORM_HANDLER_PLUGIN_DATA = OrderedDict([
         'subject': "Test email subject",
         'body': "Test email body",
     }),
-    (force_text(MailHandlerPlugin.name), {
+    (force_str(MailHandlerPlugin.name), {
         'from_name': "From me",
         'from_email': "from@example.com",
         'to_name': "To you",
@@ -300,7 +300,7 @@ TEST_FORM_HANDLER_PLUGIN_DATA = OrderedDict([
         'subject': "Test email subject",
         'body': "Test email body",
     }),
-    (force_text(HTTPRepostHandlerPlugin.name), {
+    (force_str(HTTPRepostHandlerPlugin.name), {
         'endpoint_url': 'http://dev.example.com'
     }),
 ])

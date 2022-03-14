@@ -2,7 +2,7 @@ import copy
 import datetime
 
 from django.utils.dateparse import parse_duration
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.translation import gettext_lazy as _
 
 from rest_framework.fields import DurationField
@@ -47,7 +47,7 @@ class DurationInputPlugin(IntegrationFormFieldPlugin,
         }
 
         if form_element_plugin.data.initial:
-            data_initial = force_text(form_element_plugin.data.initial)
+            data_initial = force_str(form_element_plugin.data.initial)
             if not isinstance(data_initial, datetime.timedelta):
                 parsed_initial = parse_duration(data_initial)
                 if parsed_initial is not None:
