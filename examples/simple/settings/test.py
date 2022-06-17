@@ -14,7 +14,7 @@ DEBUG_TOOLBAR = False
 DATABASES = {
     'default': {
         # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'fobi',
         'USER': 'postgres',
         'PASSWORD': 'test',
@@ -26,18 +26,15 @@ DATABASES = {
 
         # Empty for localhost through domain sockets or '127.0.0.1' for
         # localhost through TCP.
-        'HOST': '',
-        # Set to empty string for default.
-        'PORT': '',
+        'HOST': 'localhost',
         'TEST': {
+            'HOST': 'localhost',
             'NAME': 'fobi_tests',
             'USER': 'postgres',
-            'PASSWORD': '',  # For travis
+            'PASSWORD': 'test',
         }
     }
 }
-
-DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
 
 # FeinCMS addons
 
