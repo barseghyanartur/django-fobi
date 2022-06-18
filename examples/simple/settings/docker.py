@@ -9,12 +9,6 @@ def project_dir(base):
         os.path.join(os.path.dirname(__file__), base).replace('\\', '/')
     )
 
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-#
-# EMAIL_HOST_USER = 'artur.barseghyan.smtp.test@gmail.com'
-# EMAIL_HOST_PASSWORD = 'FreeSMTPRulez999'
 
 def gettext(s):
     return s
@@ -97,13 +91,6 @@ ALLOWED_HOSTS = ['*']
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
 EMAIL_FILE_PATH = PROJECT_DIR('../../tmp')
 
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_USE_TLS = True
-
-EMAIL_HOST_USER = 'artur.barseghyan.smtp.test@gmail.com'
-EMAIL_HOST_PASSWORD = 'FreeSMTPRulez999'
-
 DEFAULT_FROM_EMAIL = '<no-reply@dev.django-fobi.mail.example.com>'
 
 FOBI_DEBUG = True
@@ -123,16 +110,10 @@ FOBI_FAIL_ON_ERRORS_IN_FORM_ELEMENT_PLUGINS = False
 FOBI_FAIL_ON_ERRORS_IN_FORM_WIZARD_HANDLER_PLUGINS = True
 
 # WAIT_BETWEEN_TEST_STEPS = 0
-# FOBI_WAIT_AT_TEST_END = 0
-MAILCHIMP_API_KEY = '186eee04b7eae9b1d9bb61b402c37e52-us7'
-
-
+# FOBI_WAIT_AT_TEST_END = False
 ENABLE_CAPTCHA = True
 
 # LANGUAGE_CODE = 'nl'
-
-RECAPTCHA_PUBLIC_KEY = '6LdSp_8SAAAAAC1Q4ZvbvB9wOfCc92o9EGEcRMpp'
-RECAPTCHA_PRIVATE_KEY = '6LdSp_8SAAAAAAxdzw2U6i3Q46jltXoiSEXAk5wL'
 
 # from fobi.constants import (
 #    SUBMIT_VALUE_AS_VAL, SUBMIT_VALUE_AS_REPR, SUBMIT_VALUE_AS_MIX
@@ -176,11 +157,6 @@ DEBUG_TEMPLATE = True
 #         'NAME': 'your-db-name',
 #     }
 # }
-
-FOBI_PLUGIN_INVISIBLE_RECAPTCHA_SITE_KEY = \
-    '6Lcya0EUAAAAAHfpe9JSmvdy0Ie9SIOtX0Abdn_v'
-FOBI_PLUGIN_INVISIBLE_RECAPTCHA_SITE_SECRET = \
-    '6Lcya0EUAAAAAJQKcPYlOQwghvwaRvShwCrgyU12'
 
 LOGGING = {
     'version': 1,
