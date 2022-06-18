@@ -53,7 +53,8 @@ class MailHandlerMixin(object):
         for key, value in cleaned_data.items():
             if value:
                 if isinstance(value, string_types) \
-                        and value.startswith(settings.MEDIA_URL):
+                    and value.startswith(settings.MEDIA_URL) \
+                    and not value.startswith("http"):
                     cleaned_data[key] = '{base_url}{value}'.format(
                         base_url=base_url, value=value
                     )
