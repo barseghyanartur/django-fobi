@@ -18,7 +18,7 @@ except ImportError:
 
     from django.template import Library
     from django.template.base import Node, TemplateSyntaxError
-    from django.utils.encoding import force_text
+    from django.utils.encoding import force_str
     from django.utils.formats import localize
     from django.utils.html import escape as html_escape
     from django.utils.safestring import mark_safe, EscapeData, SafeData
@@ -35,7 +35,7 @@ except ImportError:
         """
         value = template_localtime(value, use_tz=context.use_tz)
         value = localize(value, use_l10n=context.use_l10n)
-        value = force_text(value)
+        value = force_str(value)
         if ((context.autoescape and not isinstance(value, SafeData)) or
                 isinstance(value, EscapeData)):
             return html_escape(value)

@@ -15,7 +15,7 @@ class SavedFormDataEntryReference(models.Model):
 
     form = models.ForeignKey(
         'fobi_contrib_plugins_form_handlers_db_store.SavedFormDataEntry'
-    )
+    , on_delete=models.CASCADE)
 
     def __str__(self):
         return self.form.name

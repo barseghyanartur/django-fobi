@@ -20,7 +20,7 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.forms import ValidationError
 from django.http import Http404, HttpResponseRedirect
 from django.utils.datastructures import MultiValueDictKeyError
-from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.translation import gettext, gettext_lazy as _
 from django.views.generic import View, RedirectView, TemplateView, FormView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.list import MultipleObjectMixin
@@ -165,7 +165,7 @@ class FormEntryMixin(object):
             )
 
         except ObjectDoesNotExist as err:
-            raise Http404(ugettext("Form Entry Not Found"))
+            raise Http404(gettext("Form Entry Not Found"))
         return super(FormEntryMixin, self).dispatch(request, *args, **kwargs)
 
     def get_context_data(self, **kwargs):
@@ -200,7 +200,7 @@ class DeletePluginMixin(object):
                             )
         except ObjectDoesNotExist as err:
             raise Http404(
-                ugettext(
+                gettext(
                     "{0} not found."
                 ).format(self.get_entry_model_cls()._meta.verbose_name)
             )
@@ -262,7 +262,7 @@ class FobiModelPropertyMixin(object):
                     user=self.request.user,
                 )
             except ObjectDoesNotExist as err:
-                raise Http404(ugettext(self.get_model_missing_message()))
+                raise Http404(gettext(self.get_model_missing_message()))
         prop_name = obj.get_model_property_name()
         setattr(obj.__class__, prop_name, property(tmp))
 
@@ -380,7 +380,7 @@ class FobiFormRedirectMixin(FormMixin):
             self._save_object(form=form)
             messages.info(
                 self.request,
-                ugettext(
+                gettext(
                     self.get_success_message()
                 )
             )
@@ -388,7 +388,7 @@ class FobiFormRedirectMixin(FormMixin):
         except IntegrityError as e:
             messages.info(
                 self.request,
-                ugettext(
+                gettext(
                     self.get_error_message(e)
                 )
             )
@@ -560,7 +560,7 @@ class ViewFormEntryView(FormEntryMixin,FobiThemeRedirectMixin,ProcessFormView):
         return kwargs
 
     def get_success_message(self):
-        return  ugettext("Form {0} was submitted successfully.").format(self.form_entry.name)
+        return  gettext("Form {0} was submitted successfully.").format(self.form_entry.name)
 
     def initial_data_check(self):
         return GET_PARAM_INITIAL_DATA in self.request.GET
@@ -611,7 +611,7 @@ class ViewFormEntryView(FormEntryMixin,FobiThemeRedirectMixin,ProcessFormView):
                 for handler_error in handler_errors:
                     messages.warning(
                         request,
-                        ugettext("Error occurred: {0}.").format(handler_error)
+                        gettext("Error occurred: {0}.").format(handler_error)
                     )
 
         else:
@@ -667,7 +667,7 @@ class FormWizardView(DynamicSessionWizardView):
                 .select_related('user') \
                 .get(**qs_kwargs)
         except ObjectDoesNotExist as err:
-            raise Http404(ugettext("Form wizard entry not found."))
+            raise Http404(gettext("Form wizard entry not found."))
 
         form_entries = [
             form_wizard_form_entry.form_entry
@@ -701,7 +701,7 @@ class FormWizardView(DynamicSessionWizardView):
 
         if len(form_list) == 0:
             raise Http404(
-                ugettext("Form wizard entry does not contain any forms.")
+                gettext("Form wizard entry does not contain any forms.")
             )
 
         theme = get_theme(request=request, as_instance=True)
@@ -897,7 +897,7 @@ class FormWizardView(DynamicSessionWizardView):
                 .select_related('user') \
                 .get(**qs_kwargs)
         except ObjectDoesNotExist as err:
-            raise Http404(ugettext("Form wizard entry not found."))
+            raise Http404(gettext("Form wizard entry not found."))
 
         # Run all handlers
         handler_responses, handler_errors = run_form_wizard_handlers(
@@ -1029,7 +1029,7 @@ class EditFormWizardEntryView(FobiThemeRedirectMixin, PageTitleMixin, FobiFormse
         try:
             return queryset.get(pk=self.form_wizard_entry_id, user__pk=self.request.user.pk)
         except self.model.ObjectDoesNotExist as err:
-            raise Http404(ugettext('not found'))
+            raise Http404(gettext('not found'))
 
     def get_form_kwargs(self):
         kwargs = super(EditFormWizardEntryView, self).get_form_kwargs()
@@ -1206,7 +1206,7 @@ class EditFormEntryView(FobiThemeRedirectMixin, PageTitleMixin, FobiFormsetOrder
         try:
             return queryset.get(pk=self.form_entry_id, user__pk=self.request.user.pk)
         except self.model.DoesNotExist as err:
-            raise Http404(ugettext('{0} not found'.format(self.model.__name__)))
+            raise Http404(gettext('{0} not found'.format(self.model.__name__)))
 
     def get_form_kwargs(self):
         kwargs = super(EditFormEntryView, self).get_form_kwargs()
@@ -1264,7 +1264,7 @@ class AddFormElementEntryView(FobiThemeRedirectMixin, SingleObjectMixin, Redirec
         )
         if self.kwargs.get('form_element_plugin_uid') not in user_form_element_plugin_uids:
             raise Http404(
-                ugettext('plugin does not exist or you are not allowed to use this plugin.'))
+                gettext('plugin does not exist or you are not allowed to use this plugin.'))
         form_element_plugin_cls = form_element_plugin_registry.get(
             self.kwargs.get('form_element_plugin_uid')
         )
@@ -1330,7 +1330,7 @@ class AddFormElementEntryView(FobiThemeRedirectMixin, SingleObjectMixin, Redirec
         return res
 
     def get_success_message(self):
-        return ugettext('The form element plugin "{0}" was added successfully') \
+        return gettext('The form element plugin "{0}" was added successfully') \
             .format(self.form_element_plugin.name)
 
     def post(self, request, *args, **kwargs):
@@ -1368,7 +1368,7 @@ class EditFormElementEntryView(FobiThemeRedirectMixin, UpdateView):
                 form_entry__user__pk=self.request.user.pk
             )
         except ObjectDoesNotExist as err:
-            raise Http404(ugettext("Form element entry not found."))
+            raise Http404(gettext("Form element entry not found."))
         return self.form_element_entry.form_entry
 
     def get_context_data(self, **kwargs):
@@ -1386,7 +1386,7 @@ class EditFormElementEntryView(FobiThemeRedirectMixin, UpdateView):
             if not form_element_plugin_form:
                 messages.info(
                     self.request,
-                    ugettext('The Form Element Plugin"{0}" is not configurable!'.format(form_element_plugin.name))
+                    gettext('The Form Element Plugin"{0}" is not configurable!'.format(form_element_plugin.name))
                 )
                 return redirect(self.get_success_url())
             context['form'] = self.get_form(context)
@@ -1444,7 +1444,7 @@ class AddFormWizardFormEntryView(FobiFormRedirectMixin, FormWizardPropertyMixin,
         except IntegrityError as err:
             messages.error(
                 request,
-                ugettext(
+                gettext(
                     'The form entry "{0}" could not be added to the '
                     'wizard "{1}" due to the following error "{2}".'
                 ).format(self.form_entry.name, self.form_wizard_entry.name, str(err))
@@ -1467,7 +1467,7 @@ class AddFormWizardFormEntryView(FobiFormRedirectMixin, FormWizardPropertyMixin,
 
         messages.info(
             request,
-            ugettext(
+            gettext(
                 'The form entry "{0}" was added successfully to the wizard "{1}".'
             ).format(self.form_entry.name, self.form_wizard_entry.name)
         )
@@ -1475,7 +1475,7 @@ class AddFormWizardFormEntryView(FobiFormRedirectMixin, FormWizardPropertyMixin,
 
 class DeleteFormElementEntryView(DeletePluginMixin, View):
     entry_model_cls = FormElementEntry
-    message = ugettext('The form element plugin "{0}" was deleted successfully.')
+    message = gettext('The form element plugin "{0}" was deleted successfully.')
     html_anchor = '?active_tab=tab-form-elements'
 
     def get_entry_id(self):
@@ -1493,7 +1493,7 @@ class DeleteFormEntryView(DeleteView):
         res = super(DeleteFormElementEntryView).post(*args, **kwargs)
         messages.info(
             request,
-            ugettext('The form "{0}" was deleted successfully.').format(self.object.name)
+            gettext('The form "{0}" was deleted successfully.').format(self.object.name)
         )
 
 
@@ -1538,7 +1538,7 @@ class AddFormHandlerEntryView(FormEntryMixin, FobiThemeRedirectMixin):
                 ).count()
             if times_used > 0:
                 raise Http404(
-                     ugettext("The {0} plugin can be used only once in a form.")
+                     gettext("The {0} plugin can be used only once in a form.")
                     .format(form_handler_plugin_cls.name)
                 )
 
@@ -1547,7 +1547,7 @@ class AddFormHandlerEntryView(FormEntryMixin, FobiThemeRedirectMixin):
             self.request.user
         )
         if self.kwargs.get('form_handler_plugin_uid') not in user_form_handler_plugin_uids:
-             raise Http404(ugettext("Plugin does not exist or you are not allowed "
+             raise Http404(gettext("Plugin does not exist or you are not allowed "
                                     "to use this plugin!"))
 
     def get_form_valid_redirect_kwargs(self):
@@ -1583,6 +1583,6 @@ class AddFormHandlerEntryView(FormEntryMixin, FobiThemeRedirectMixin):
 
             messages.info(
                 self.request,
-                ugettext("The form handler plugin '{0}' was added").format(self._get_form_handler_plugin().name)
+                gettext("The form handler plugin '{0}' was added").format(self._get_form_handler_plugin().name)
             )
             return super(AddFormHandlerEntryView, self).form_valid()

@@ -1,6 +1,6 @@
 from __future__ import unicode_literals
 
-from django.conf.urls import include, url
+from django.urls import include, path, re_path
 from django.conf.urls.i18n import i18n_patterns
 from django.contrib import admin
 
@@ -53,17 +53,17 @@ urlpatterns = []
 # ***********
 
 urlpatterns += [
-    url("^admin/", include(admin.site.urls)),
+    path('admin/', include(admin.site.urls)),
 
     # DB Store plugin URLs
-    url(r'^fobi/plugins/form-handlers/db-store/',
+    path('fobi/plugins/form-handlers/db-store/',
         include('fobi.contrib.plugins.form_handlers.db_store.urls')),
 
     # django-fobi URLs:
-    url(r'^fobi/', include('fobi.urls.view')),
-    url(r'^{0}fobi/'.format(FOBI_EDIT_URLS_PREFIX), include('fobi.urls.edit')),
+    path('fobi/', include('fobi.urls.view')),
+    re_path(r'^{0}fobi/'.format(FOBI_EDIT_URLS_PREFIX), include('fobi.urls.edit')),
 
-    url(r'^fobi-home/$',
+    path('fobi-home/',
         TemplateView.as_view(template_name=fobi_home_template)),
 ]
 
@@ -83,7 +83,7 @@ urlpatterns += [
     # one homepage pattern, so if you use a different one, comment this
     # one out.
 
-    url("^$", direct_to_template, {"template": "index.html"}, name="home"),
+    path('', direct_to_template, {"template": "index.html"}, name="home"),
 
     # HOMEPAGE AS AN EDITABLE PAGE IN THE PAGE TREE
     # ---------------------------------------------
@@ -121,7 +121,7 @@ urlpatterns += [
     # ``mezzanine.urls``, go right ahead and take the parts you want
     # from it, and use them directly below instead of using
     # ``mezzanine.urls``.
-    url("^", include("mezzanine.urls")),
+    path('', include("mezzanine.urls")),
 
     # MOUNTING MEZZANINE UNDER A PREFIX
     # ---------------------------------
