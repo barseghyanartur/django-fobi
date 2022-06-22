@@ -64,10 +64,8 @@ FOBI_FAIL_ON_ERRORS_IN_FORM_ELEMENT_PLUGINS = False
 FOBI_FAIL_ON_ERRORS_IN_FORM_WIZARD_HANDLER_PLUGINS = True
 
 # WAIT_BETWEEN_TEST_STEPS = 0
-# FOBI_WAIT_AT_TEST_END = 0
-
-# LANGUAGE_CODE = 'nl'
-
+# FOBI_WAIT_AT_TEST_END = False
+ENABLE_CAPTCHA = True
 
 CHROME_DRIVER_OPTIONS = webdriver.ChromeOptions()
 CHROME_DRIVER_OPTIONS.add_argument('-headless')
@@ -78,3 +76,4 @@ CHROME_DRIVER_OPTIONS.set_capability('chrome.binary', "/usr/bin/google-chrome")
 
 CHROME_DRIVER_EXECUTABLE_PATH = binary_path  # '/usr/bin/chromedriver'
 FIREFOX_BIN_PATH = '/usr/lib/firefox/firefox'
+PHANTOM_JS_EXECUTABLE_PATH = ''
