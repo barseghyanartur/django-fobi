@@ -77,6 +77,13 @@ jobs:
             requirements: django_3_2
             tox_env: py39-django32
 
+          - python-version: 3.8
+            requirements: django_4_0
+            tox_env: py38-django40
+          - python-version: 3.9
+            requirements: django_4_0
+            tox_env: py39-django40
+
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}

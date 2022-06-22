@@ -17,9 +17,9 @@ are used for versioning (schema follows below):
 
 0.18
 ----
-2021-06-22
+2022-06-23
 
-- Tested against Python 3.9 and Django 3.2.
+- Tested against Python 3.9, Django 3.2 and 4.0.
 
 0.17.1
 ------
