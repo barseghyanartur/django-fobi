@@ -32,6 +32,8 @@ cfgv==3.3.0
     # via pre-commit
 chardet==4.0.0
     # via requests
+chromedriver-py==102.0.5005.61
+    # via -r test.in
 click==8.0.1
     # via black
 confusable-homoglyphs==3.2.0

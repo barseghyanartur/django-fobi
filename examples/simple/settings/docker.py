@@ -42,6 +42,22 @@ TEST_DATABASES = {
     }
 }
 
+# FeinCMS addons
+
+INSTALLED_APPS += [
+    'feincms',  # FeinCMS
+
+    'fobi.contrib.apps.feincms_integration',  # Fobi FeinCMS app
+
+    'page',  # Example
+]
+
+MIGRATION_MODULES = {
+    'fobi': 'fobi.migrations',
+    'db_store': 'fobi.contrib.plugins.form_handlers.db_store.migrations',
+    'page': 'page.migrations',
+}
+
 INTERNAL_IPS = ('127.0.0.1',)
 ALLOWED_HOSTS = ['*']
 

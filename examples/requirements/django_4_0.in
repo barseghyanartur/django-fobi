@@ -1,0 +1,15 @@
+-r common.in
+-r test.in
+-r style_checkers.in
+-r feincms_1_20.in
+
+Django>=4.0,<4.1
+django-admin-tools>=0.8.0
+django-autoslug>=1.9.6
+django-ckeditor>=5.8.0
+django-debug-toolbar>=2.1
+django-formtools>=2.2
+django-registration>=3.1.1
+django-simple-captcha>=0.5.12
+djangorestframework>=3.10
+easy-thumbnails>=2.7.0

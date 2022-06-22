@@ -8,6 +8,8 @@ appdirs==1.4.4
     # via virtualenv
 attrs==21.2.0
     # via pytest
+chromedriver-py==102.0.5005.61
+    # via -r test.in
 coverage==5.5
     # via
     #   -r test.in
