@@ -19,7 +19,7 @@ DATABASES = {
 
         # Empty for localhost through domain sockets or '127.0.0.1' for
         # localhost through TCP.
-        'HOST': 'postgres',
+        'HOST': 'localhost',
         'TEST': {
             'HOST': 'localhost',
             'NAME': 'fobi_tests',

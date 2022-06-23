@@ -19,7 +19,8 @@ jobs:
           --health-interval 10s
           --health-timeout 5s
           --health-retries 5
-
+        ports:
+          - 5432:5432
     runs-on: ubuntu-latest
     strategy:
       max-parallel: 4
@@ -105,6 +106,9 @@ jobs:
         pip install -r examples/requirements/test.txt
     - name: Run Tests
       run: tox -e ${{ matrix.tox_env }}
+      env:
+        POSTGRES_HOST: localhost
+        POSTGRES_PORT: 5432
     - name: Coveralls
       uses: AndreMiras/coveralls-python-action@develop
       with:
