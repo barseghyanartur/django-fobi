@@ -1,4 +1,4 @@
-from django.conf.urls import url
+from django.urls import re_path as url
 from django.utils.translation import gettext_lazy as _
 from fobi.views import (
     form_entry_submitted,

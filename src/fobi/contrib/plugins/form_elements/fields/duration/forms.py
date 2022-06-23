@@ -4,7 +4,7 @@ from django import forms
 from django.utils.translation import gettext_lazy as _
 from django.utils.dateparse import parse_duration
 from django.utils.duration import duration_string
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 
 from fobi.base import BaseFormFieldPluginForm, get_theme
 
@@ -90,7 +90,7 @@ class DurationInputForm(forms.Form, BaseFormFieldPluginForm):
 
         if initial not in forms.Field.empty_values:
             if not isinstance(initial, datetime.timedelta):
-                if parse_duration(force_text(initial)) is None:
+                if parse_duration(force_str(initial)) is None:
                     self.add_error(
                         'initial',
                         _("Enter a valid duration.")

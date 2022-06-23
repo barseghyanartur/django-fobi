@@ -21,6 +21,10 @@ are used for versioning (schema follows below):
 
 - Tested against Python 3.9, Django 3.2 and 4.0.
 
+.. note::
+
+    Release dedicated to my dear son, Tigran, who turned 10 recently.
+
 0.17.1
 ------
 2021-01-25

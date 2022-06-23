@@ -250,7 +250,7 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         # Example follows:
         #
         # self._add_form_element(
-        #     force_text(BooleanSelectPlugin.name),
+        #     force_str(BooleanSelectPlugin.name),
         #     {
         #         'label': "Test boolean",
         #         'name': "test_boolean",
@@ -412,7 +412,7 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         # Example follows:
         #
         # self._add_form_element(
-        #     force_text(BooleanSelectPlugin.name),
+        #     force_str(BooleanSelectPlugin.name),
         #     {
         #         'label': "Test boolean",
         #         'name': "test_boolean",

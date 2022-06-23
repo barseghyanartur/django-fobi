@@ -11,7 +11,7 @@ from collections import OrderedDict
 from django.conf import settings
 from django.contrib import messages
 from django.forms.widgets import TextInput
-from django.utils.encoding import force_text
+from django.utils.encoding import force_str
 from django.utils.translation import gettext
 from django.urls import reverse
 
@@ -189,9 +189,9 @@ def get_user_plugins(get_allowed_plugin_uids_func,
         if uid in allowed_plugin_uids:
             plugin_name = safe_text(plugin.name)
             # if PY3:
-            #    plugin_name = force_text(plugin.name, encoding='utf-8')
+            #    plugin_name = force_str(plugin.name, encoding='utf-8')
             # else:
-            #    plugin_name = force_text(
+            #    plugin_name = force_str(
             #        plugin.name, encoding='utf-8'
             #        ).encode('utf-8')
             registered_plugins.append((uid, plugin_name))
@@ -233,13 +233,13 @@ def get_user_plugins_grouped(get_allowed_plugin_uids_func,
     for uid, plugin in registry._registry.items():
         if uid in allowed_plugin_uids:
             if PY3:
-                plugin_name = force_text(plugin.name, encoding='utf-8')
-                plugin_group = force_text(plugin.group, encoding='utf-8')
+                plugin_name = force_str(plugin.name, encoding='utf-8')
+                plugin_group = force_str(plugin.group, encoding='utf-8')
             else:
-                plugin_name = force_text(
+                plugin_name = force_str(
                     plugin.name, encoding='utf-8'
                 ).encode('utf-8')
-                plugin_group = force_text(
+                plugin_group = force_str(
                     plugin.group, encoding='utf-8'
                 ).encode('utf-8')
 
