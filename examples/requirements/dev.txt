@@ -45,6 +45,8 @@ chardet==4.0.0
     # via
     #   -r django_3_2.txt
     #   requests
+chromedriver-py==102.0.5005.61
+    # via -r django_3_2.txt
 click==8.0.1
     # via
     #   -r django_3_2.txt

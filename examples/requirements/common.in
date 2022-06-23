@@ -16,7 +16,7 @@ pickleshare>=0.5
 Pillow>=4.2.1
 pluggy>=0.7.1
 ptyprocess>=0.5
-psycopg2-binary>=2.8.2
+psycopg2-binary>=2.8.2,<2.9
 Pygments>=2.0.2
 pytz>=2019.1
 #requests==2.8.1

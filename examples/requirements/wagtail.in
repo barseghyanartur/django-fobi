@@ -1,6 +1,6 @@
 -r django_2_2.in
 
-psycopg2>=2.5.2
+psycopg2>=2.8.2,<2.9
 django-compressor>=1.4
 django-modelcluster>=0.4
 wagtail>=0.8.4

@@ -1,4 +1,6 @@
-# Use in `tox`.
+"""
+Used in `tox` on GitHub CI.
+"""
 from chromedriver_py import binary_path
 from .base import *
 
