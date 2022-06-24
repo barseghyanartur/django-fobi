@@ -8,6 +8,8 @@ omit =
     example/simple/settings/*
     example/simple/wsgi.py
 
+relative_files = True
+
 [report]
 exclude_lines =
     pragma: no cover

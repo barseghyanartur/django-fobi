@@ -189,9 +189,9 @@ def get_user_plugins(get_allowed_plugin_uids_func,
         if uid in allowed_plugin_uids:
             plugin_name = safe_text(plugin.name)
             # if PY3:
-            #    plugin_name = force_text(plugin.name, encoding='utf-8')
+            #    plugin_name = force_str(plugin.name, encoding='utf-8')
             # else:
-            #    plugin_name = force_text(
+            #    plugin_name = force_str(
             #        plugin.name, encoding='utf-8'
             #        ).encode('utf-8')
             registered_plugins.append((uid, plugin_name))

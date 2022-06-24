@@ -3,11 +3,11 @@ import logging
 from django.utils.text import slugify
 
 from factory import (
-    DjangoModelFactory,
     LazyAttribute,
     SubFactory,
     post_generation,
 )
+from factory.django import DjangoModelFactory
 from factory.fuzzy import FuzzyChoice
 
 from fobi.tests.helpers import create_form_with_entries

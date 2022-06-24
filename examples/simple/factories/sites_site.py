@@ -1,4 +1,4 @@
-from factory import DjangoModelFactory
+from factory.django import DjangoModelFactory
 
 from django.conf import settings
 from django.contrib.sites.models import Site

@@ -101,9 +101,9 @@ def safe_text(text):
     """
     return smart_str(text)
     # if PY3:
-    #     return force_text(text, encoding='utf-8')
+    #     return force_str(text, encoding='utf-8')
     # else:
-    #     return force_text(text, encoding='utf-8').encode('utf-8')
+    #     return force_str(text, encoding='utf-8').encode('utf-8')
 
 
 def lists_overlap(sub, main):

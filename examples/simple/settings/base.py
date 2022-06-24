@@ -5,6 +5,7 @@ from django_nine.versions import (
     DJANGO_GTE_2_0,
     DJANGO_GTE_1_11,
 )
+from selenium import webdriver
 
 
 def project_dir(base):
@@ -684,7 +685,6 @@ IS_TRAVIS = 'TRAVIS' in os.environ
 if IS_TRAVIS:
     CHROME_DRIVER_EXECUTABLE_PATH = '/home/travis/chromedriver'
 
-from selenium import webdriver
 CHROME_DRIVER_OPTIONS = webdriver.ChromeOptions()
 CHROME_DRIVER_OPTIONS.add_argument('-headless')
 CHROME_DRIVER_OPTIONS.add_argument('-no-sandbox')

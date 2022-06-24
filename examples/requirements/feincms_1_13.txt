@@ -1,5 +1,0 @@
-#-r django_1_11.txt
-
-FeinCMS==1.13.2
-django-mptt==0.8.7
-django-tinymce==2.6.0

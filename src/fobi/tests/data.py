@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-# from __future__ import unicode_literals
 import copy
 from collections import OrderedDict
 import datetime
@@ -143,7 +141,7 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
 
     # TODO: Find out why selenium fails here!
     # Add a "Hidden" (boolean) form element
-    # force_text(HiddenInputPlugin.name): {
+    # force_str(HiddenInputPlugin.name): {
     #     'label': "Test hidden input",
     #     #'name': "test_hidden_input",
     #     'help_text': "Lorem ipsum hidden",
@@ -241,7 +239,7 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
     },
 
     # Add a "Text" (text input) form element
-    # force_text(TextInputPlugin.name): {
+    # force_str(TextInputPlugin.name): {
     #     'label': u"Անուն",
     #     'help_text': u"Անուն",
     #     'required': True,

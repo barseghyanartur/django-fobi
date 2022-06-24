@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+  postgresql:
+    image: postgres
+    restart: always
+#    network_mode: "host"
+    volumes:
+      - ./tmp/postgresql_data:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=test
+      - DJANGO_SETTINGS_MODULE=settings.docker
+    ports:
+      - "5432:5432"
+    healthcheck:
+      test: ["CMD", "pg_isready", "--timeout", "5s"]
+    tty: true
+    stdin_open: true
+
+  backend:
+    container_name: django_fobi_backend
+    image: django_fobi_backend:latest
+    build:
+      context: .
+      dockerfile: ./docker/backend/Dockerfile
+    volumes:
+      - .:/backend
+      - ./docker/backend:/docker/backend
+#    network_mode: "host"
+    ports:
+      - "8000:8000"
+    depends_on:
+    - postgresql
+    links:
+      - postgresql:postgresql
+    entrypoint:
+      - /backend/docker/backend/entrypoint.sh
+    environment:
+      - POSTGRES_NAME=fobi
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=test
+      - DJANGO_SETTINGS_MODULE=settings.docker
+    tty: true
+    stdin_open: true
+
+volumes:
+  postgresql_data:
+    driver: local

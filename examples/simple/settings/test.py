@@ -1,6 +1,7 @@
-# Use in `tox`.
-from django_nine import versions
-
+"""
+Used in `tox` on GitHub CI.
+"""
+from chromedriver_py import binary_path
 from .base import *
 
 TESTING = True
@@ -13,31 +14,22 @@ DEBUG_TOOLBAR = False
 
 DATABASES = {
     'default': {
-        # Add 'postgresql_psycopg2', 'mysql', 'sqlite3' or 'oracle'.
-        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'fobi',
         'USER': 'postgres',
         'PASSWORD': 'test',
 
-        # 'ENGINE': 'django.db.backends.sqlite3',
-        # 'NAME': PROJECT_DIR('../../db/example.db'),
-        # 'USER': '',
-        # 'PASSWORD': '',
-
         # Empty for localhost through domain sockets or '127.0.0.1' for
         # localhost through TCP.
-        'HOST': '',
-        # Set to empty string for default.
-        'PORT': '',
+        'HOST': 'localhost',
         'TEST': {
+            'HOST': 'localhost',
             'NAME': 'fobi_tests',
             'USER': 'postgres',
-            'PASSWORD': '',  # For travis
+            'PASSWORD': 'test',
         }
     }
 }
-
-DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
 
 # FeinCMS addons
 
@@ -54,6 +46,12 @@ MIGRATION_MODULES = {
     'db_store': 'fobi.contrib.plugins.form_handlers.db_store.migrations',
     'page': 'page.migrations',
 }
+
+CHROME_DRIVER_EXECUTABLE_PATH = binary_path  # '/usr/bin/chromedriver'
+CHROME_DRIVER_OPTIONS = webdriver.ChromeOptions()
+CHROME_DRIVER_OPTIONS.add_argument('-headless')
+CHROME_DRIVER_OPTIONS.add_argument('-no-sandbox')
+CHROME_DRIVER_OPTIONS.set_capability('chrome.binary', "/usr/bin/google-chrome")
 
 try:
     from .local_settings import TEST_DATABASES as DATABASES

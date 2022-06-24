@@ -1,9 +1,9 @@
--r django_1_6.txt
+-r django_2_2.txt
 
-django-cms==3.0.6
-#django-cms==2.4.1
+django-cms>=3.8.0,<3.9
+django-filer
 djangocms-picture
 djangocms-snippet
 djangocms-text-ckeditor
-django-mptt
+django-treebeard
 djangocms-admin-style

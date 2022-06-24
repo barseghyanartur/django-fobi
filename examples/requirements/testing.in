@@ -1,0 +1,3 @@
+-r django_3_2.in
+-r test.in
+-r style_checkers.in

@@ -1,0 +1,13 @@
+Faker
+coverage
+factory_boy
+py
+pytest
+pytest-cov
+pytest-django
+pytest-ordering
+pytest-pythonpath
+selenium
+tox
+chromedriver-py==102.0.5005.61
+#geckodriver-autoinstaller
