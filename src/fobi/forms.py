@@ -56,6 +56,7 @@ __all__ = (
     'FormHandlerEntryForm',
     'FormHandlerForm',
     'FormWizardEntryForm',
+    'FormWizardFormEntry',
     'FormWizardFormEntryForm',
     'FormWizardFormEntryFormSet',
     'FormWizardHandlerEntryForm',

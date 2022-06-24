@@ -19,6 +19,9 @@ from django.core.files.storage import FileSystemStorage
 from django.core.serializers.json import DjangoJSONEncoder
 from django.forms import ValidationError
 from django.http import Http404, HttpResponseRedirect
+from django.shortcuts import render, redirect
+from django.template import RequestContext
+from django.urls import reverse, reverse_lazy
 from django.utils.datastructures import MultiValueDictKeyError
 from django.utils.translation import gettext, gettext_lazy as _
 from django.views.generic import View, RedirectView, TemplateView, FormView
@@ -26,8 +29,9 @@ from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.list import MultipleObjectMixin
 from django.views.generic.edit import FormMixin, DeleteView, UpdateView, ProcessFormView
 
+from formtools.wizard.forms import ManagementForm
 
-from nine import versions
+from django_nine import versions
 
 from ..base import (
     fire_form_callbacks,
@@ -95,25 +99,10 @@ from ..wizard import (
     DynamicSessionWizardView,
 )
 
-if versions.DJANGO_GTE_1_10:
-    from django.shortcuts import render, redirect
-    from django.urls import reverse, reverse_lazy
-else:
-    from django.core.urlresolvers import reverse, reverse_lazy
-    from django.shortcuts import render_to_response, redirect
-    from django.template import RequestContext
-
-if versions.DJANGO_GTE_1_8:
-    from formtools.wizard.forms import ManagementForm
-else:
-    from django.contrib.formtools.wizard.forms import ManagementForm
-
 __title__ = 'fobi.views.class_based'
-__author__ = 'Kyle Roux <jstacoder@gmail.com>'
-__copyright__ = '2018 Kyle Roux'
+__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
+__copyright__ = '2014-2022 Artur Barseghyan'
 __license__ = 'GPL 2.0/LGPL 2.1'
-
-
 __all__ = (
     'AddFormElementEntryView',
     'AddFormWizardFormEntryView',
@@ -133,6 +122,9 @@ __all__ = (
     'FormWizardDashboardView',
     'FormDashboardView',
 )
+
+logger = logging.getLogger(__name__)
+
 
 class FormEntryMixin(object):
     """ mixin class to grab the form_entry from kwargs """
@@ -172,6 +164,7 @@ class FormEntryMixin(object):
         kwargs['form_entry'] = self.form_entry
         return super(FormEntryMixin, self).get_context_data(**kwargs)
 
+
 class DeletePluginMixin(object):
     entry_model_cls = None
     get_user_plugin_uids_func = None
@@ -192,12 +185,12 @@ class DeletePluginMixin(object):
     def get_entry_model(self):
         try:
             return self.get_entry_model_cls() \
-                             ._default_manager \
-                             .select_related('form_entry') \
-                             .get(
-                                 pk=self.get_entry_id(),
-                                 form_entry__user__pk=self.request.user.pk
-                            )
+                       ._default_manager \
+                       .select_related('form_entry') \
+                       .get(
+                           pk=self.get_entry_id(),
+                           form_entry__user__pk=self.request.user.pk
+                       )
         except ObjectDoesNotExist as err:
             raise Http404(
                 gettext(
@@ -234,6 +227,7 @@ class DeletePluginMixin(object):
         obj.delete()
         messages.info(self.request, self.get_message().format(plugin.name))
         return self.redirect()
+
 
 class FobiModelPropertyMixin(object):
     model = None
@@ -272,17 +266,20 @@ class FobiModelPropertyMixin(object):
             cls._inject_property(obj)
         return obj
 
+
 class FormWizardPropertyMixin(FobiModelPropertyMixin):
     model = FormWizardEntry
     model_property_name = 'form_wizard_entry'
     model_request_kwarg = 'form_wizard_entry_id'
     model_missing_message = 'Form Wizard Entry Not Found'
 
+
 class FormEntryPropertyMixin(FobiModelPropertyMixin):
     model = FormEntry
     model_property_name = 'form_entry'
     model_request_kwarg = 'form_entry_id'
     model_missing_message = 'Form Entry Not Found'
+
 
 class FobiThemeMixin(TemplateView):
     theme = None
@@ -313,6 +310,7 @@ class FobiThemeMixin(TemplateView):
             self.template_name = getattr(
                 self.theme, self.get_theme_template_name())
         return [self.template_name]
+
 
 class FobiFormRedirectMixin(FormMixin):
     object = None
@@ -394,10 +392,17 @@ class FobiFormRedirectMixin(FormMixin):
             )
             return super(FobiFormRedirectMixin, self).form_invalid(form)
 
+
 class FobiThemeRedirectMixin(FobiThemeMixin, FobiFormRedirectMixin):
     def get_form_valid_redirect(self, *args, **kwargs):
         self.get_theme()
-        return getattr(self.theme, super(FobiThemeRedirectMixin, self).get_form_valid_redirect(*args, **kwargs))
+        return getattr(
+            self.theme,
+            super(FobiThemeRedirectMixin, self).get_form_valid_redirect(
+                *args, **kwargs
+            )
+        )
+
 
 class FobiFormsetMixin(object):
     context_formset_name = None
@@ -451,7 +456,9 @@ class FobiFormsetMixin(object):
 
     def get_context_data(self, *args, **kwargs):
         context = super(FobiFormsetMixin, self).get_context_data(*args, **kwargs)
-        context[self.get_context_formset_name()] = getattr(self, self.get_property_formset_name())
+        context[self.get_context_formset_name()] = getattr(
+            self, self.get_property_formset_name()
+        )
         return context
 
     def process_formset(self, formset=None):
@@ -469,6 +476,7 @@ class FobiFormsetMixin(object):
                 _(self.get_formset_error_message(err))
             )
         return redirect(self.get_success_url())
+
 
 class FobiFormsetOrderingMixin(FobiFormsetMixin):
     def post(self, *args, **kwargs):
@@ -493,7 +501,8 @@ class PageTitleMixin(object):
             context['page_title'] = self.get_page_title(**context)
         return context
 
-class ViewFormEntryView(FormEntryMixin,FobiThemeRedirectMixin,ProcessFormView):
+
+class ViewFormEntryView(FormEntryMixin, FobiThemeRedirectMixin, ProcessFormView):
     form_entry_kwarg = 'form_entry_slug'
     form_entry_query_arg = 'slug'
     form_valid_redirect = 'fobi.form_entry_submitted'
@@ -550,7 +559,7 @@ class ViewFormEntryView(FormEntryMixin,FobiThemeRedirectMixin,ProcessFormView):
         return kwargs
 
     def _get_form_callback_kwargs(self, stage=None):
-        kwargs =  dict(
+        kwargs = dict(
             form_entry=self.form_entry,
             request=self.request,
             form=self.form,
@@ -560,7 +569,7 @@ class ViewFormEntryView(FormEntryMixin,FobiThemeRedirectMixin,ProcessFormView):
         return kwargs
 
     def get_success_message(self):
-        return  gettext("Form {0} was submitted successfully.").format(self.form_entry.name)
+        return gettext("Form {0} was submitted successfully.").format(self.form_entry.name)
 
     def initial_data_check(self):
         return GET_PARAM_INITIAL_DATA in self.request.GET
@@ -569,7 +578,7 @@ class ViewFormEntryView(FormEntryMixin,FobiThemeRedirectMixin,ProcessFormView):
         return self.request.GET
 
     def get_form_kwargs(self, **kwargs):
-         # Providing initial form data by feeding entire GET dictionary
+        # Providing initial form data by feeding entire GET dictionary
         # to the form, if ``GET_PARAM_INITIAL_DATA`` is present in the
         # GET.
         kwargs = super(ViewFormEntryView, self).get_form_kwargs(**kwargs)
@@ -585,7 +594,7 @@ class ViewFormEntryView(FormEntryMixin,FobiThemeRedirectMixin,ProcessFormView):
             )
         )
         if form.is_valid():
-             # Fire form valid callbacks, before handling submitted plugin
+            # Fire form valid callbacks, before handling submitted plugin
             # form data.
             form = fire_form_callbacks(
                 **self._get_form_callback_kwargs(
@@ -610,7 +619,7 @@ class ViewFormEntryView(FormEntryMixin,FobiThemeRedirectMixin,ProcessFormView):
             if handler_errors:
                 for handler_error in handler_errors:
                     messages.warning(
-                        request,
+                        self.request,
                         gettext("Error occurred: {0}.").format(handler_error)
                     )
 
@@ -621,7 +630,6 @@ class ViewFormEntryView(FormEntryMixin,FobiThemeRedirectMixin,ProcessFormView):
                 )
             )
         return super(ViewFormEntryView, self).post(*args, **kwargs)
-
 
 
 class FormWizardView(DynamicSessionWizardView):
@@ -655,10 +663,7 @@ class FormWizardView(DynamicSessionWizardView):
 
     def get_initial_wizard_data(self, request, *args, **kwargs):
         """Get initial wizard data."""
-        if versions.DJANGO_GTE_1_10:
-            user_is_authenticated = request.user.is_authenticated
-        else:
-            user_is_authenticated = request.user.is_authenticated()
+        user_is_authenticated = request.user.is_authenticated
         try:
             qs_kwargs = {'slug': kwargs.get('form_wizard_entry_slug')}
             if not user_is_authenticated:
@@ -728,8 +733,7 @@ class FormWizardView(DynamicSessionWizardView):
         """
         # Without this fix POST actions breaks on Django 1.11. Introduce
         # a better fix if you can.
-        if versions.DJANGO_GTE_1_11:
-            self.request.POST._mutable = True
+        self.request.POST._mutable = True
 
         # Look for a wizard_goto_step element in the posted data which
         # contains a valid step name. If one was found, render the requested
@@ -789,7 +793,7 @@ class FormWizardView(DynamicSessionWizardView):
                     form.data[wizard_form_key] = field_value
 
                 # This is dirty hack to make wizard validate empty multiple
-                # choice fields. Otherwise it would fail with message
+                # choice fields. Otherwise, it would fail with message
                 # Select a valid choice. [] is not one of the available
                 # choices.
                 if wizard_form_key in form.data:
@@ -885,10 +889,7 @@ class FormWizardView(DynamicSessionWizardView):
 
     def done(self, form_list, **kwargs):
         """Done."""
-        if versions.DJANGO_GTE_1_10:
-            user_is_authenticated = self.request.user.is_authenticated
-        else:
-            user_is_authenticated = self.request.user.is_authenticated()
+        user_is_authenticated = self.request.user.is_authenticated
         try:
             qs_kwargs = {'slug': kwargs.get('form_wizard_entry_slug')}
             if not user_is_authenticated:
@@ -912,6 +913,7 @@ class FormWizardView(DynamicSessionWizardView):
         redirect_url = reverse('fobi.form_wizard_entry_submitted',
                                args=[form_wizard_entry.slug])
         return HttpResponseRedirect(redirect_url)
+
 
 class CreateFormWizardEntryView(FobiThemeRedirectMixin, PageTitleMixin, SingleObjectMixin):
     result = None
@@ -955,7 +957,14 @@ class CreateFormWizardEntryView(FobiThemeRedirectMixin, PageTitleMixin, SingleOb
             form_class = self.form_class
         return form_class(*form_args, **form_kwargs)
 
-class EditFormWizardEntryView(FobiThemeRedirectMixin, PageTitleMixin, FobiFormsetOrderingMixin, SingleObjectMixin, View):
+
+class EditFormWizardEntryView(
+    FobiThemeRedirectMixin,
+    PageTitleMixin,
+    FobiFormsetOrderingMixin,
+    SingleObjectMixin,
+    View,
+):
     form_wizard_entry_id = None
     theme = None
     page_title = 'Edit form wizard entry'
@@ -1047,7 +1056,12 @@ class EditFormWizardEntryView(FobiThemeRedirectMixin, PageTitleMixin, FobiFormse
             form_args = [self.request.POST, self.request.FILES]
         return form_class(*form_args, **self.get_form_kwargs())
 
-class FormWizardDashboardView(MultipleObjectMixin, FobiThemeMixin, TemplateView):
+
+class FormWizardDashboardView(
+    MultipleObjectMixin,
+    FobiThemeMixin,
+    TemplateView,
+):
     theme = None
     model = FormWizardEntry
     theme_template_name = 'form_wizards_dashboard_template'
@@ -1063,6 +1077,7 @@ class FormWizardDashboardView(MultipleObjectMixin, FobiThemeMixin, TemplateView)
         context = super(FormWizardDashboardView, self).get_context_data(**kwargs)
         context['form_wizard_entries'] = self.get_queryset()
         return context
+
 
 class FormDashboardView(MultipleObjectMixin, FobiThemeMixin, TemplateView):
     theme = None
@@ -1081,6 +1096,7 @@ class FormDashboardView(MultipleObjectMixin, FobiThemeMixin, TemplateView):
         context[self.context_object_name] = self.object_list[:]
         context['form_importers'] = get_form_importer_plugin_urls()
         return context
+
 
 class CreateFormEntryView(FobiThemeRedirectMixin, PageTitleMixin, View):
     template_name = None
@@ -1118,7 +1134,14 @@ class CreateFormEntryView(FobiThemeRedirectMixin, PageTitleMixin, View):
             form_class = self.form_class
         return form_class(*form_args, **form_kwargs)
 
-class EditFormEntryView(FobiThemeRedirectMixin, PageTitleMixin, FobiFormsetOrderingMixin, SingleObjectMixin, View):
+
+class EditFormEntryView(
+    FobiThemeRedirectMixin,
+    PageTitleMixin,
+    FobiFormsetOrderingMixin,
+    SingleObjectMixin,
+    View,
+):
     form_entry_id = None
     theme = None
     model = FormEntry
@@ -1224,7 +1247,12 @@ class EditFormEntryView(FobiThemeRedirectMixin, PageTitleMixin, FobiFormsetOrder
             form_args = [self.request.POST, self.request.FILES]
         return form_class(*form_args, **self.get_form_kwargs())
 
-class AddFormElementEntryView(FobiThemeRedirectMixin, SingleObjectMixin, RedirectView):
+
+class AddFormElementEntryView(
+    FobiThemeRedirectMixin,
+    SingleObjectMixin,
+    RedirectView,
+):
     obj = None
     form_element_plugin = None
     form_element_entry_class = FormElementEntry
@@ -1345,6 +1373,7 @@ class AddFormElementEntryView(FobiThemeRedirectMixin, SingleObjectMixin, Redirec
             return super(AddFormElementEntryView, self).form_valid(form=form)
         return super(AddFormElementEntryView, self).form_invalid(form=form)
 
+
 class EditFormElementEntryView(FobiThemeRedirectMixin, UpdateView):
     form_valid_redirect = 'edit_form_entry'
     form_valid_redirect_kwargs = (
@@ -1425,7 +1454,13 @@ class EditFormElementEntryView(FobiThemeRedirectMixin, UpdateView):
             return super(EditFormElementEntryView, self).form_valid(form=form)
         return super(EditFormElementEntryView, self).form_invalid(form=form)
 
-class AddFormWizardFormEntryView(FobiFormRedirectMixin, FormWizardPropertyMixin, FormEntryPropertyMixin, View):
+
+class AddFormWizardFormEntryView(
+    FobiFormRedirectMixin,
+    FormWizardPropertyMixin,
+    FormEntryPropertyMixin,
+    View,
+):
     """ Add a form entry to a form wizard """
     form_valid_redirect = 'edit_form_wizard_entry'
 
@@ -1433,7 +1468,9 @@ class AddFormWizardFormEntryView(FobiFormRedirectMixin, FormWizardPropertyMixin,
         return dict(form_wizard_entry_id=self.form_wizard_entry.id)
 
     def get_success_url(self):
-        return  "{0}?active_tab=tab-form-elements".format(super(AddFormWizardFormEntry, self).get_success_url())
+        return "{0}?active_tab=tab-form-elements".format(
+            super(AddFormWizardFormEntryView, self).get_success_url()
+        )
 
     def dispatch(self, request, *args, **kwargs):
         try:
@@ -1473,6 +1510,7 @@ class AddFormWizardFormEntryView(FobiFormRedirectMixin, FormWizardPropertyMixin,
         )
         return self.form_valid(form=None)
 
+
 class DeleteFormElementEntryView(DeletePluginMixin, View):
     entry_model_cls = FormElementEntry
     message = gettext('The form element plugin "{0}" was deleted successfully.')
@@ -1480,6 +1518,7 @@ class DeleteFormElementEntryView(DeletePluginMixin, View):
 
     def get_entry_id(self):
         return self.kwargs.get('form_element_entry_id')
+
 
 class DeleteFormEntryView(DeleteView):
     model = FormEntry
@@ -1495,7 +1534,6 @@ class DeleteFormEntryView(DeleteView):
             request,
             gettext('The form "{0}" was deleted successfully.').format(self.object.name)
         )
-
 
 
 class AddFormHandlerEntryView(FormEntryMixin, FobiThemeRedirectMixin):
@@ -1531,31 +1569,35 @@ class AddFormHandlerEntryView(FormEntryMixin, FobiThemeRedirectMixin):
     def check_multiple(self):
         form_handler_plugin_cls = self._get_form_handler_plugin_cls()
         if not form_handler_plugin_cls.allow_multiple:
-            times_used  = FormHandlerEntry._default_manager \
+            times_used = FormHandlerEntry._default_manager \
                 .filter(
                     form_entry__id=self.kwargs.get('form_entry_id'),
                     plugin_uid=form_handler_plugin_cls.uid
                 ).count()
             if times_used > 0:
                 raise Http404(
-                     gettext("The {0} plugin can be used only once in a form.")
-                    .format(form_handler_plugin_cls.name)
+                     gettext(
+                         "The {0} plugin can be used only once in a form."
+                     ).format(form_handler_plugin_cls.name)
                 )
 
     def check_allowed(self):
-        user_form_handler_plugin_uids =  get_user_form_handler_plugin_uids(
+        user_form_handler_plugin_uids = get_user_form_handler_plugin_uids(
             self.request.user
         )
         if self.kwargs.get('form_handler_plugin_uid') not in user_form_handler_plugin_uids:
-             raise Http404(gettext("Plugin does not exist or you are not allowed "
-                                    "to use this plugin!"))
+            raise Http404(gettext("Plugin does not exist or you are not allowed "
+                                  "to use this plugin!"))
 
     def get_form_valid_redirect_kwargs(self):
         return (
             ('form_entry_id', self.kwargs.get('form_entry_id'))
         )
+
     def get_success_url(self):
-        return "{0}?active_tab=tab-form-handlers".format(super(AddFormHandlerEntryView, self).get_success_url())
+        return "{0}?active_tab=tab-form-handlers".format(
+            super(AddFormHandlerEntryView, self).get_success_url()
+        )
 
     def dispatch(self, request, *args, **kwargs):
         self.check_allowed()
@@ -1563,7 +1605,7 @@ class AddFormHandlerEntryView(FormEntryMixin, FobiThemeRedirectMixin):
         self.check_multiple()
 
         form_handler_plugin_form_cls = self._get_form_handler_plugin().get_form()
-        obj  = FormHandlerEntry()
+        obj = FormHandlerEntry()
         obj.form_entry = self.form_entry
         obj.plugin_uid = self.kwargs.get('form_handler_plugin_uid')
         obj.user = self.request.user
@@ -1583,6 +1625,8 @@ class AddFormHandlerEntryView(FormEntryMixin, FobiThemeRedirectMixin):
 
             messages.info(
                 self.request,
-                gettext("The form handler plugin '{0}' was added").format(self._get_form_handler_plugin().name)
+                gettext("The form handler plugin '{0}' was added").format(
+                    self._get_form_handler_plugin().name
+                )
             )
             return super(AddFormHandlerEntryView, self).form_valid()
