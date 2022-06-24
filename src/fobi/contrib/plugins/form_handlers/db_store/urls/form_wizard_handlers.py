@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import re_path as url
 
 from ..views import (
     view_saved_form_wizard_data_entries,
@@ -23,13 +23,13 @@ urlpatterns = [
     # **************************** Listing **********************************
     # ***********************************************************************
     # Specific form wizard entries listing
-    path('<int:form_wizard_entry_id>/',
+    url(r'^(?P<form_wizard_entry_id>\d+)/$',
         view=view_saved_form_wizard_data_entries,
         name='fobi.contrib.plugins.form_handlers.db_store.'
              'view_saved_form_wizard_data_entries'),
 
     # Form wizard entries listing
-    path('',
+    url(r'^$',
         view=view_saved_form_wizard_data_entries,
         name='fobi.contrib.plugins.form_handlers.db_store.'
              'view_saved_form_wizard_data_entries'),
@@ -38,13 +38,13 @@ urlpatterns = [
     # ***************************** Export **********************************
     # ***********************************************************************
     # Specific form wizard entries export
-    path('export/<int:form_wizard_entry_id>/',
+    url(r'^export/(?P<form_wizard_entry_id>\d+)/$',
         view=export_saved_form_wizard_data_entries,
         name='fobi.contrib.plugins.form_handlers.db_store.'
              'export_saved_form_wizard_data_entries'),
 
     # Form wizard entries export
-    path('export/',
+    url(r'^export/$',
         view=export_saved_form_wizard_data_entries,
         name='fobi.contrib.plugins.form_handlers.db_store.'
              'export_saved_form_wizard_data_entries'),

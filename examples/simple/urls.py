@@ -1,4 +1,4 @@
-from django.urls import include, path, re_path
+from django.urls import include, re_path as url
 from django.conf.urls.i18n import i18n_patterns
 from django.conf import settings
 from django.contrib import admin
@@ -35,46 +35,53 @@ urlpatterns = []
 url_patterns_args = [
     # DB Store plugin URLs
     # namespace='fobi'
-    path('fobi/plugins/form-handlers/db-store/',
+    url(r'^fobi/plugins/form-handlers/db-store/',
         include('fobi.contrib.plugins.form_handlers.db_store.urls')),
-    path('fobi/plugins/form-wizard-handlers/db-store/',
+    url(r'^fobi/plugins/form-wizard-handlers/db-store/',
         include('fobi.contrib.plugins.form_handlers.db_store.urls.'
                 'form_wizard_handlers')),
 
     # django-fobi URLs:
     # namespace='fobi'
-    path('fobi/', include('fobi.urls.view')),
+    url(r'^fobi/', include('fobi.urls.view')),
     # namespace='fobi'
-    re_path(r'^{0}fobi/'.format(FOBI_EDIT_URLS_PREFIX),
+    url(r'^{0}fobi/'.format(FOBI_EDIT_URLS_PREFIX),
         include('fobi.urls.edit')),
 
-    path('admin_tools/', include('admin_tools.urls')),
+    url(r'^admin_tools/', include('admin_tools.urls')),
 
-    path('login/',
+    url(r'^login/$',
         auth_views.LoginView.as_view(template_name='registration/login.html'),
         name='auth_login'),
 ]
 
 if versions.DJANGO_GTE_2_0:
     url_patterns_args += [
-        path('admin/', admin.site.urls),
+        url(r'^admin/', admin.site.urls),
     ]
 else:
     url_patterns_args += [
-        path('admin/', include(admin.site.urls)),
+        url(r'^admin/', include(admin.site.urls)),
     ]
 
 url_patterns_args += [
     # django-registration URLs:
-    path('accounts/', include('django_registration.backends.one_step.urls' if versions.DJANGO_GTE_3_0 else 'registration.backends.simple.urls')),
+    url(
+        r'^accounts/',
+        include(
+            'django_registration.backends.one_step.urls'
+            if versions.DJANGO_GTE_3_0
+            else 'registration.backends.simple.urls'
+        )
+    ),
 
     # foo URLs:
-    path('foo/', include('foo.urls')),
+    url(r'^foo/', include('foo.urls')),
 
     # bar URLs:
     # url(r'^bar/', include('bar.urls')),
 
-    path('', TemplateView.as_view(template_name=fobi_home_template)),
+    url(r'^$', TemplateView.as_view(template_name=fobi_home_template)),
 
     # django-fobi public forms contrib app:
     # url(r'^', include('fobi.contrib.apps.public_forms.urls')),
@@ -94,7 +101,7 @@ if 'feincms' in settings.INSTALLED_APPS:
     from page.models import Page
     Page
     url_patterns_args = [
-        path('pages/', include('feincms.urls')),
+        url(r'^pages/', include('feincms.urls')),
     ]
     urlpatterns += i18n_patterns(*url_patterns_args)
 
@@ -107,7 +114,7 @@ if 'feincms' in settings.INSTALLED_APPS:
 
 if 'ckeditor_uploader' in settings.INSTALLED_APPS:
     url_patterns_args = [
-        path('ckeditor/', include('ckeditor_uploader.urls')),
+        url(r'^ckeditor/', include('ckeditor_uploader.urls')),
     ]
     urlpatterns += i18n_patterns(*url_patterns_args)
 
@@ -115,7 +122,7 @@ if 'ckeditor_uploader' in settings.INSTALLED_APPS:
 # DjangoCMS in installed apps.
 if 'cms' in settings.INSTALLED_APPS:
     url_patterns_args = [
-        path('cms-pages/', include('cms.urls')),
+        url(r'^cms-pages/', include('cms.urls')),
     ]
     urlpatterns += i18n_patterns(*url_patterns_args)
 
@@ -123,7 +130,7 @@ if 'cms' in settings.INSTALLED_APPS:
 if 'fobi.contrib.apps.drf_integration' in settings.INSTALLED_APPS:
     from fobi.contrib.apps.drf_integration.urls import fobi_router
     urlpatterns += [
-        path('api/', include(fobi_router.urls))
+        url(r'^api/', include(fobi_router.urls))
     ]
 
 # Conditionally including Captcha URls in case if
@@ -136,7 +143,7 @@ if getattr(settings, 'ENABLE_CAPTCHA', False):
             from captcha.fields import CaptchaField
             if 'captcha' in settings.INSTALLED_APPS:
                 urlpatterns += [
-                    path('captcha/', include('captcha.urls')),
+                    url(r'^captcha/', include('captcha.urls')),
                 ]
         except ImportError:
             pass
@@ -148,5 +155,5 @@ if (
     import debug_toolbar
 
     urlpatterns = [
-        path('__debug__/', include(debug_toolbar.urls)),
+        url(r'^__debug__/', include(debug_toolbar.urls)),
     ] + urlpatterns

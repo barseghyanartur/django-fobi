@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import re_path as url
 
 from ..views import (
     view_saved_form_data_entries, export_saved_form_data_entries,
@@ -22,13 +22,13 @@ urlpatterns = [
     # **************************** Listing **********************************
     # ***********************************************************************
     # Specific form entries listing
-    path('<int:form_entry_id>/',
+    url(r'^(?P<form_entry_id>\d+)/$',
         view=view_saved_form_data_entries,
         name='fobi.contrib.plugins.form_handlers.db_store.'
              'view_saved_form_data_entries'),
 
     # Form entries listing
-    path('',
+    url(r'^$',
         view=view_saved_form_data_entries,
         name='fobi.contrib.plugins.form_handlers.db_store.'
              'view_saved_form_data_entries'),
@@ -37,13 +37,13 @@ urlpatterns = [
     # ***************************** Export **********************************
     # ***********************************************************************
     # Specific form entries export
-    path('export/<int:form_entry_id>/',
+    url(r'^export/(?P<form_entry_id>\d+)/$',
         view=export_saved_form_data_entries,
         name='fobi.contrib.plugins.form_handlers.db_store.'
              'export_saved_form_data_entries'),
 
     # Form entries export
-    path('export/',
+    url(r'^export/$',
         view=export_saved_form_data_entries,
         name='fobi.contrib.plugins.form_handlers.db_store.'
              'export_saved_form_data_entries'),

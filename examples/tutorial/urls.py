@@ -1,4 +1,4 @@
-from django.urls import include, path
+from django.urls import include, re_path as url
 
 from django.conf import settings
 from django.contrib import admin
@@ -26,24 +26,24 @@ fobi_home_template = fobi_theme_home_template_mapping.get(
 
 urlpatterns = [
     # DB Store plugin URLs
-    path('fobi/plugins/form-handlers/db-store/',
+    url(r'^fobi/plugins/form-handlers/db-store/',
         include('fobi.contrib.plugins.form_handlers.db_store.urls')),
                 #, namespace='fobi'
 
     # django-fobi URLs:
-    path('fobi/', include('fobi.urls')), #, namespace='fobi'
+    url(r'^fobi/', include('fobi.urls')), #, namespace='fobi'
 
-    path('admin_tools/', include('admin_tools.urls')),
+    url(r'^admin_tools/', include('admin_tools.urls')),
 
-    path('admin/', include(admin.site.urls)),
+    url(r'^admin/', include(admin.site.urls)),
 
     # django-registration URLs:
-    path('accounts/', include('django_registration.backends.one_step.urls' if versions.DJANGO_GTE_3_0 else 'registration.backends.simple.urls')),
+    url(r'^accounts/', include('django_registration.backends.one_step.urls' if versions.DJANGO_GTE_3_0 else 'registration.backends.simple.urls')),
 
     # foo URLs:
-    path('foo/', include('foo.urls')),
+    url(r'^foo/', include('foo.urls')),
 
-    path('', TemplateView.as_view(template_name=fobi_home_template)),
+    url(r'^$', TemplateView.as_view(template_name=fobi_home_template)),
 
     # django-fobi public forms contrib app:
     #url(r'^', include('fobi.contrib.apps.public_forms.urls')),
@@ -60,5 +60,5 @@ if 'feincms' in settings.INSTALLED_APPS:
     from page.models import Page
     Page
     urlpatterns += [
-        path('', include('feincms.urls')),
+        url(r'', include('feincms.urls')),
     ]

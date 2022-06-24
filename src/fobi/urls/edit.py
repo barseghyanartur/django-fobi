@@ -1,4 +1,4 @@
-from django.urls import re_path
+from django.urls import re_path as url
 from django.utils.translation import gettext_lazy as _
 
 from fobi.views import (
@@ -41,17 +41,17 @@ urlpatterns = [
     # ***********************************************************************
 
     # Create form entry
-    re_path(_(r'^forms/create/$'),
+    url(_(r'^forms/create/$'),
         view=create_form_entry,
         name='fobi.create_form_entry'),
 
     # Edit form entry
-    re_path(_(r'^forms/edit/(?P<form_entry_id>\d+)/$'),
+    url(_(r'^forms/edit/(?P<form_entry_id>\d+)/$'),
         edit_form_entry,
         name='fobi.edit_form_entry'),
 
     # Delete form entry
-    re_path(_(r'^forms/delete/(?P<form_entry_id>\d+)/$'),
+    url(_(r'^forms/delete/(?P<form_entry_id>\d+)/$'),
         delete_form_entry,
         name='fobi.delete_form_entry'),
 
@@ -60,17 +60,17 @@ urlpatterns = [
     # ***********************************************************************
 
     # Export form entry
-    re_path(_(r'^forms/export/(?P<form_entry_id>\d+)/$'),
+    url(_(r'^forms/export/(?P<form_entry_id>\d+)/$'),
         export_form_entry,
         name='fobi.export_form_entry'),
 
     # Import form entry
-    re_path(_(r'^forms/import/$'),
+    url(_(r'^forms/import/$'),
         import_form_entry,
         name='fobi.import_form_entry'),
 
     # Form importers
-    re_path(_(r'^forms/importer/(?P<form_importer_plugin_uid>[\w_\-]+)/$'),
+    url(_(r'^forms/importer/(?P<form_importer_plugin_uid>[\w_\-]+)/$'),
         form_importer,
         name='fobi.form_importer'),
 
@@ -79,18 +79,18 @@ urlpatterns = [
     # ***********************************************************************
 
     # Add form element entry
-    re_path(_(r'^forms/elements/add/(?P<form_entry_id>\d+)/'
+    url(_(r'^forms/elements/add/(?P<form_entry_id>\d+)/'
           r'(?P<form_element_plugin_uid>[\w_\-]+)/$'),
         add_form_element_entry,
         name='fobi.add_form_element_entry'),
 
     # Edit form element entry
-    re_path(_(r'^forms/elements/edit/(?P<form_element_entry_id>\d+)/$'),
+    url(_(r'^forms/elements/edit/(?P<form_element_entry_id>\d+)/$'),
         edit_form_element_entry,
         name='fobi.edit_form_element_entry'),
 
     # Delete form element entry
-    re_path(_(r'^forms/elements/delete/(?P<form_element_entry_id>\d+)/$'),
+    url(_(r'^forms/elements/delete/(?P<form_element_entry_id>\d+)/$'),
         delete_form_element_entry,
         name='fobi.delete_form_element_entry'),
 
@@ -99,18 +99,18 @@ urlpatterns = [
     # ***********************************************************************
 
     # Add form handler entry
-    re_path(_(r'^forms/handlers/add/(?P<form_entry_id>\d+)/'
+    url(_(r'^forms/handlers/add/(?P<form_entry_id>\d+)/'
           r'(?P<form_handler_plugin_uid>[\w_\-]+)/$'),
         add_form_handler_entry,
         name='fobi.add_form_handler_entry'),
 
     # Edit form handler entry
-    re_path(_(r'^forms/handlers/edit/(?P<form_handler_entry_id>\d+)/$'),
+    url(_(r'^forms/handlers/edit/(?P<form_handler_entry_id>\d+)/$'),
         edit_form_handler_entry,
         name='fobi.edit_form_handler_entry'),
 
     # Delete form handler entry
-    re_path(_(r'^forms/handlers/delete/(?P<form_handler_entry_id>\d+)/$'),
+    url(_(r'^forms/handlers/delete/(?P<form_handler_entry_id>\d+)/$'),
         delete_form_handler_entry,
         name='fobi.delete_form_handler_entry'),
 
@@ -119,17 +119,17 @@ urlpatterns = [
     # ***********************************************************************
 
     # Create form wizard entry
-    re_path(_(r'^wizard/create/$'),
+    url(_(r'^wizard/create/$'),
         view=create_form_wizard_entry,
         name='fobi.create_form_wizard_entry'),
 
     # Edit form wizard entry
-    re_path(_(r'^wizard/edit/(?P<form_wizard_entry_id>\d+)/$'),
+    url(_(r'^wizard/edit/(?P<form_wizard_entry_id>\d+)/$'),
         edit_form_wizard_entry,
         name='fobi.edit_form_wizard_entry'),
 
     # Delete form wizard entry
-    re_path(_(r'^wizard/delete/(?P<form_wizard_entry_id>\d+)/$'),
+    url(_(r'^wizard/delete/(?P<form_wizard_entry_id>\d+)/$'),
         delete_form_wizard_entry,
         name='fobi.delete_form_wizard_entry'),
 
@@ -138,7 +138,7 @@ urlpatterns = [
     # ***********************************************************************
 
     # Add form wizard form entry
-    re_path(_(r'^wizard/forms/add/(?P<form_wizard_entry_id>\d+)/'
+    url(_(r'^wizard/forms/add/(?P<form_wizard_entry_id>\d+)/'
           r'(?P<form_entry_id>[\w_\-]+)/$'),
         add_form_wizard_form_entry,
         name='fobi.add_form_wizard_form_entry'),
@@ -149,7 +149,7 @@ urlpatterns = [
     #     name='fobi.edit_form_wizard_form_entry'),
     #
     # Delete form wizard form entry
-    re_path(_(r'^wizard/elements/delete/(?P<form_wizard_form_entry_id>\d+)/$'),
+    url(_(r'^wizard/elements/delete/(?P<form_wizard_form_entry_id>\d+)/$'),
         delete_form_wizard_form_entry,
         name='fobi.delete_form_wizard_form_entry'),
 
@@ -158,18 +158,18 @@ urlpatterns = [
     # ***********************************************************************
 
     # Add form wizard handler entry
-    re_path(_(r'^wizard/handlers/add/(?P<form_wizard_entry_id>\d+)/'
+    url(_(r'^wizard/handlers/add/(?P<form_wizard_entry_id>\d+)/'
           r'(?P<form_wizard_handler_plugin_uid>[\w_\-]+)/$'),
         add_form_wizard_handler_entry,
         name='fobi.add_form_wizard_handler_entry'),
 
     # Edit form wizard handler entry
-    re_path(_(r'^wizard/handlers/edit/(?P<form_wizard_handler_entry_id>\d+)/$'),
+    url(_(r'^wizard/handlers/edit/(?P<form_wizard_handler_entry_id>\d+)/$'),
         edit_form_wizard_handler_entry,
         name='fobi.edit_form_wizard_handler_entry'),
 
     # Delete form wizard handler entry
-    re_path(_(r'^wizard/handlers/delete/(?P<form_wizard_handler_entry_id>\d+)/$'),
+    url(_(r'^wizard/handlers/delete/(?P<form_wizard_handler_entry_id>\d+)/$'),
         delete_form_wizard_handler_entry,
         name='fobi.delete_form_wizard_handler_entry'),
 
@@ -178,12 +178,12 @@ urlpatterns = [
     # ***********************************************************************
 
     # Export form wizard entry
-    re_path(_(r'^wizard/export/(?P<form_wizard_entry_id>\d+)/$'),
+    url(_(r'^wizard/export/(?P<form_wizard_entry_id>\d+)/$'),
         export_form_wizard_entry,
         name='fobi.export_form_wizard_entry'),
 
     # Import form wizard entry
-    re_path(_(r'^wizard/import/$'),
+    url(_(r'^wizard/import/$'),
         import_form_wizard_entry,
         name='fobi.import_form_wizard_entry'),
 
@@ -192,10 +192,10 @@ urlpatterns = [
     # ***********************************************************************
 
     # Forms dashboard
-    re_path(_(r'^$'), view=dashboard, name='fobi.dashboard'),
+    url(_(r'^$'), view=dashboard, name='fobi.dashboard'),
 
     # Form wizards dashboard
-    re_path(_(r'^wizards/$'),
+    url(_(r'^wizards/$'),
         view=form_wizards_dashboard,
         name='fobi.form_wizards_dashboard'),
 ]

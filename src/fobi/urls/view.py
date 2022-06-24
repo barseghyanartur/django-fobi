@@ -1,4 +1,4 @@
-from django.urls import re_path
+from django.urls import re_path as url
 from django.utils.translation import gettext_lazy as _
 from fobi.views import (
     form_entry_submitted,
@@ -18,17 +18,17 @@ urlpatterns = [
     # ****************************** Form entry *****************************
     # ***********************************************************************
     # Form submitted success page
-    re_path(_(r'^view/submitted/$'),
+    url(_(r'^view/submitted/$'),
         view=form_entry_submitted,
         name='fobi.form_entry_submitted'),
 
     # View form entry
-    re_path(_(r'^view/(?P<form_entry_slug>[\w_\-]+)/$'),
+    url(_(r'^view/(?P<form_entry_slug>[\w_\-]+)/$'),
         view_form_entry,
         name='fobi.view_form_entry'),
 
     # Form submitted success page
-    re_path(_(r'^view/(?P<form_entry_slug>[\w_\-]+)/submitted/$'),
+    url(_(r'^view/(?P<form_entry_slug>[\w_\-]+)/submitted/$'),
         view=form_entry_submitted,
         name='fobi.form_entry_submitted'),
 
@@ -36,17 +36,17 @@ urlpatterns = [
     # *************************** Form wizard entry *************************
     # ***********************************************************************
     # Form wizard submitted success page
-    re_path(_(r'^wizard-view/submitted/$'),
+    url(_(r'^wizard-view/submitted/$'),
         view=form_wizard_entry_submitted,
         name='fobi.form_wizard_entry_submitted'),
 
     # View form wizard entry
-    re_path(_(r'^wizard-view/(?P<form_wizard_entry_slug>[\w_\-]+)/$'),
+    url(_(r'^wizard-view/(?P<form_wizard_entry_slug>[\w_\-]+)/$'),
         FormWizardView.as_view(),
         name='fobi.view_form_wizard_entry'),
 
     # Form wizard submitted success page
-    re_path(_(r'^wizard-view/(?P<form_wizard_entry_slug>[\w_\-]+)/submitted/$'),
+    url(_(r'^wizard-view/(?P<form_wizard_entry_slug>[\w_\-]+)/submitted/$'),
         view=form_wizard_entry_submitted,
         name='fobi.form_wizard_entry_submitted'),
 ]

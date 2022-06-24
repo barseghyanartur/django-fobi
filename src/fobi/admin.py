@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import re_path as url
 from django.contrib import admin
 from django.contrib import messages
 from django.contrib.admin import helpers
@@ -533,7 +533,7 @@ class FormElementAdmin(BasePluginModelAdmin):
         """Get URLs."""
         my_urls = [
             # Bulk change plugins
-            path('bulk-change-form-element-plugins/',
+            url(r'^bulk-change-form-element-plugins/$',
                 self.bulk_change_plugins,
                 name='bulk_change_form_element_plugins'),
         ]
@@ -568,7 +568,7 @@ class FormHandlerAdmin(BasePluginModelAdmin):
         """Get URLs."""
         my_urls = [
             # Bulk change plugins
-            path('bulk-change-form-handler-plugins/',
+            url(r'^bulk-change-form-handler-plugins/$',
                 self.bulk_change_plugins,
                 name='bulk_change_form_handler_plugins'),
         ]
@@ -603,7 +603,7 @@ class FormWizardHandlerAdmin(BasePluginModelAdmin):
         """Get URLs."""
         my_urls = [
             # Bulk change plugins
-            path('bulk-change-form-wizard-handler-plugins/',
+            url(r'^bulk-change-form-wizard-handler-plugins/$',
                 self.bulk_change_plugins,
                 name='bulk_change_form_wizard_handler_plugins'),
         ]
