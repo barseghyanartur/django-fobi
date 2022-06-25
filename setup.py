@@ -210,9 +210,11 @@ static_dirs = [
 ]
 
 locale_dirs = [
+    "src/fobi/locale/de",
+    "src/fobi/locale/fr",
+    "src/fobi/locale/hy",
     "src/fobi/locale/nl",
     "src/fobi/locale/ru",
-    "src/fobi/locale/de",
 ]
 
 templates = []

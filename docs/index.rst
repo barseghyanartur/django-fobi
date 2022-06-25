@@ -322,7 +322,7 @@ And ``fobi.context_processors.theme`` and
         },
     ]
 
-Make sure that ``django.core.context_processors.request`` is in
+Make sure that ``django.template.context_processors.request`` is in
 ``context_processors`` too.
 
 (4) Configure URLs
