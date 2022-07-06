@@ -28,6 +28,11 @@ from fobi.views import (
     import_form_wizard_entry
 )
 
+# Temporary
+from fobi.views.class_based import (
+    CreateFormEntryView,
+)
+
 __title__ = 'fobi.urls.edit'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
 __copyright__ = '2014-2019 Artur Barseghyan'
@@ -42,7 +47,8 @@ urlpatterns = [
 
     # Create form entry
     url(_(r'^forms/create/$'),
-        view=create_form_entry,
+        # view=create_form_entry,
+        view=CreateFormEntryView.as_view(),
         name='fobi.create_form_entry'),
 
     # Edit form entry
