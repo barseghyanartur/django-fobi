@@ -41,7 +41,10 @@ from ..utils import (
     prepare_form_entry_export_data,
 )
 
-__all__ = ("CreateFormEntryView",)
+__all__ = (
+    "CreateFormEntryView",
+    "EditFormEntryView",
+)
 
 logger = logging.getLogger(__name__)
 
@@ -67,6 +70,8 @@ class CreateFormEntryView(CreateView):
         if not template_name:
             if not self.theme:
                 theme = get_theme(request=self.request, as_instance=True)
+            else:
+                theme = self.theme
             template_name = theme.create_form_entry_template
         return [template_name]
 
@@ -115,12 +120,13 @@ class CreateFormEntryView(CreateView):
         """Post hook."""
 
 
-class EditFormEntry(UpdateView):
+class EditFormEntryView(UpdateView):
     """Edit form entry."""
 
     template_name = None
     form_class = FormEntryForm
     theme = None
+    pk_url_kwarg = "form_entry_id"
 
     def get_context_data(self, **kwargs):
         """Get context data."""
@@ -190,7 +196,6 @@ class EditFormEntry(UpdateView):
                 "user_form_element_plugins": user_form_element_plugins,
                 "user_form_handler_plugins": user_form_handler_plugins,
                 "assembled_form": assembled_form,
-                "form_element_entry_formset": form_element_entry_formset,
                 "fobi_theme": self.theme,
             }
         )
@@ -203,6 +208,8 @@ class EditFormEntry(UpdateView):
         if not template_name:
             if not self.theme:
                 theme = get_theme(request=self.request, as_instance=True)
+            else:
+                theme = self.theme
             template_name = theme.edit_form_entry_template
         return [template_name]
 
@@ -211,7 +218,15 @@ class EditFormEntry(UpdateView):
         kwargs["request"] = self.request
         return kwargs
 
+    def _get_queryset(self, request):
+        """Get queryset."""
+        return FormEntry._default_manager \
+            .select_related('user') \
+            .prefetch_related('formelemententry_set') \
+            .filter(user__pk=request.user.pk)
+
     def get(self, request, *args, **kwargs):
+        self.object = self.get_object(queryset=self._get_queryset(request))
         """Handle GET requests: instantiate a blank version of the form."""
         form_element_entry_formset = FormElementEntryFormSet(
             queryset=self.object.formelemententry_set.all(),
@@ -230,6 +245,7 @@ class EditFormEntry(UpdateView):
         Handle POST requests: instantiate a form instance with the passed
         POST variables and then check if it's valid.
         """
+        self.object = self.get_object(queryset=self._get_queryset(request))
         form = self.get_form()
 
         # This is where we save ordering if it has been changed.

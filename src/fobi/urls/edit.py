@@ -31,6 +31,7 @@ from fobi.views import (
 # Temporary
 from fobi.views.class_based import (
     CreateFormEntryView,
+    EditFormEntryView,
 )
 
 __title__ = 'fobi.urls.edit'
@@ -53,7 +54,8 @@ urlpatterns = [
 
     # Edit form entry
     url(_(r'^forms/edit/(?P<form_entry_id>\d+)/$'),
-        edit_form_entry,
+        # edit_form_entry,
+        view=EditFormEntryView.as_view(),
         name='fobi.edit_form_entry'),
 
     # Delete form entry
