@@ -60,8 +60,13 @@ class CreateFormEntryView(CreateView):
         """Get context data."""
         context = super().get_context_data(**kwargs)
         context["form"] = self.get_form()
-        if self.theme:
-            context.update({"fobi_theme": self.theme})
+        if not self.theme:
+            theme = get_theme(request=self.request, as_instance=True)
+        else:
+            theme = self.theme
+
+        if theme:
+            context.update({"fobi_theme": theme})
         return context
 
     def get_template_names(self):
@@ -178,15 +183,15 @@ class EditFormEntryView(UpdateView):
 
         # If no theme provided, pick a default one.
         if not self.theme:
-            self.theme = get_theme(request=self.request, as_instance=True)
+            theme = get_theme(request=self.request, as_instance=True)
+        else:
+            theme = self.theme
 
-        if self.theme:
-            context.update({"fobi_theme": self.theme})
+        if theme:
+            context.update({"fobi_theme": theme})
 
-        self.theme.collect_plugin_media(form_elements)
+        theme.collect_plugin_media(form_elements)
 
-        # context["form"] = self.get_form()
-        # context["form_entry"] = self.object
         context.update(
             {
                 "form": self.get_form(),
@@ -196,7 +201,7 @@ class EditFormEntryView(UpdateView):
                 "user_form_element_plugins": user_form_element_plugins,
                 "user_form_handler_plugins": user_form_handler_plugins,
                 "assembled_form": assembled_form,
-                "fobi_theme": self.theme,
+                "fobi_theme": theme,
             }
         )
 
@@ -234,9 +239,7 @@ class EditFormEntryView(UpdateView):
         )
         return self.render_to_response(
             self.get_context_data(
-                extra_context={
-                    "form_element_entry_formset": form_element_entry_formset,
-                }
+                form_element_entry_formset=form_element_entry_formset,
             )
         )
 
@@ -317,8 +320,6 @@ class EditFormEntryView(UpdateView):
 
         return self.render_to_response(
             self.get_context_data(
-                extra_context={
-                    "form_element_entry_formset": form_element_entry_formset,
-                }
+                form_element_entry_formset=form_element_entry_formset,
             )
         )
