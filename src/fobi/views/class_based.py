@@ -28,6 +28,10 @@ from ..models import (
     FormWizardFormEntry,
     FormWizardHandlerEntry,
 )
+from ..permissions.default import (
+    CreateFormEntryPermission,
+    EditFormEntryPermission,
+)
 from ..settings import DEBUG, GET_PARAM_INITIAL_DATA, SORT_PLUGINS_BY_VALUE
 from ..utils import (
     append_edit_and_delete_links_to_field,
@@ -88,6 +92,7 @@ class CreateFormEntryView(PermissionMixin, CreateView):
     template_name = None
     form_class = FormEntryForm
     theme = None
+    permission_classes = (CreateFormEntryPermission,)
 
     def get_context_data(self, **kwargs):
         """Get context data."""
@@ -165,6 +170,7 @@ class EditFormEntryView(PermissionMixin, UpdateView):
     form_class = FormEntryForm
     theme = None
     pk_url_kwarg = "form_entry_id"
+    permission_classes = (EditFormEntryPermission,)
 
     def get_context_data(self, **kwargs):
         """Get context data."""
