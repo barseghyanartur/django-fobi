@@ -1,6 +1,7 @@
 import logging
 
 from django.contrib import messages
+from django.core.exceptions import PermissionDenied
 from django.db import IntegrityError
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
@@ -49,7 +50,39 @@ __all__ = (
 logger = logging.getLogger(__name__)
 
 
-class CreateFormEntryView(CreateView):
+class PermissionMixin(View):
+    """Mixin for permission-based views."""
+
+    permission_classes: tuple = ()
+
+    def permission_denied(self, request, message=None, code=None):
+        """If request is not permitted, raise."""
+        raise PermissionDenied()
+
+    def get_permissions(self):
+        """Return initialized list of permissions required by this view."""
+        return [permission() for permission in self.permission_classes]
+
+    def dispatch(self, request, *args, **kwargs):
+        """Dispatch the request."""
+        self.check_permissions(request)
+        return super(PermissionMixin, self).dispatch(request, *args, **kwargs)
+
+    def check_permissions(self, request):
+        """Check if the request should be permitted.
+
+        Raises an appropriate exception if the request is not permitted.
+        """
+        for permission in self.get_permissions():
+            if not permission.has_permission(request, self):
+                self.permission_denied(
+                    request,
+                    message=getattr(permission, 'message', None),
+                    code=getattr(permission, 'code', None)
+                )
+
+
+class CreateFormEntryView(PermissionMixin, CreateView):
     """Create form entry view."""
 
     template_name = None
@@ -58,7 +91,7 @@ class CreateFormEntryView(CreateView):
 
     def get_context_data(self, **kwargs):
         """Get context data."""
-        context = super().get_context_data(**kwargs)
+        context = super(CreateFormEntryView, self).get_context_data(**kwargs)
         context["form"] = self.get_form()
         if not self.theme:
             theme = get_theme(request=self.request, as_instance=True)
@@ -81,7 +114,7 @@ class CreateFormEntryView(CreateView):
         return [template_name]
 
     def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
+        kwargs = super(CreateFormEntryView, self).get_form_kwargs()
         kwargs["request"] = self.request
         return kwargs
 
@@ -125,7 +158,7 @@ class CreateFormEntryView(CreateView):
         """Post hook."""
 
 
-class EditFormEntryView(UpdateView):
+class EditFormEntryView(PermissionMixin, UpdateView):
     """Edit form entry."""
 
     template_name = None
@@ -135,7 +168,7 @@ class EditFormEntryView(UpdateView):
 
     def get_context_data(self, **kwargs):
         """Get context data."""
-        context = super().get_context_data(**kwargs)
+        context = super(EditFormEntryView, self).get_context_data(**kwargs)
 
         # In case of success, we don't need this (since redirect would happen).
         # Thus, fetch only if needed.
@@ -219,7 +252,7 @@ class EditFormEntryView(UpdateView):
         return [template_name]
 
     def get_form_kwargs(self):
-        kwargs = super().get_form_kwargs()
+        kwargs = super(EditFormEntryView, self).get_form_kwargs()
         kwargs["request"] = self.request
         return kwargs
 

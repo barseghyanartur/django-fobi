@@ -72,6 +72,27 @@ from ..models import (
     FormWizardFormEntry,
     FormWizardHandlerEntry
 )
+from ..permissions.definitions import (
+    dashboard_permissions,
+    wizards_dashboard_permissions,
+    create_form_entry_permissions,
+    edit_form_entry_permissions,
+    delete_form_entry_permissions,
+    add_form_element_entry_permission,
+    edit_form_element_entry_permission,
+    delete_form_element_entry_permission,
+    add_form_handler_entry_permission,
+    edit_form_handler_entry_permission,
+    delete_form_handler_entry_permission,
+    create_form_wizard_entry_permissions,
+    edit_form_wizard_entry_permissions,
+    delete_form_wizard_entry_permissions,
+    add_form_wizard_form_entry_permission,
+    delete_form_wizard_form_entry_permission,
+    add_form_wizard_handler_entry_permission,
+    edit_form_wizard_handler_entry_permission,
+    delete_form_wizard_handler_entry_permission,
+)
 from ..settings import (
     GET_PARAM_INITIAL_DATA,
     DEBUG,
@@ -132,6 +153,7 @@ __all__ = (
 )
 
 logger = logging.getLogger(__name__)
+
 
 # *****************************************************************************
 # *****************************************************************************
@@ -239,12 +261,12 @@ def _delete_wizard_plugin_entry(request,
 # ********************************** Forms ************************************
 # *****************************************************************************
 
-dashboard_permissions = [
-    # Form
-    'fobi.add_formentry',
-    'fobi.change_formentry',
-    'fobi.delete_formentry',
-]
+# dashboard_permissions = [
+#     # Form
+#     'fobi.add_formentry',
+#     'fobi.change_formentry',
+#     'fobi.delete_formentry',
+# ]
 
 
 @login_required
@@ -282,12 +304,12 @@ def dashboard(request, theme=None, template_name=None):
 # ****************************** Form wizards *********************************
 # *****************************************************************************
 
-wizards_dashboard_permissions = [
-    # Form wizard
-    'fobi.add_formwizardentry',
-    'fobi.change_formwizardentry',
-    'fobi.delete_formwizardentry',
-]
+# wizards_dashboard_permissions = [
+#     # Form wizard
+#     'fobi.add_formwizardentry',
+#     'fobi.change_formwizardentry',
+#     'fobi.delete_formwizardentry',
+# ]
 
 
 @login_required
@@ -331,11 +353,11 @@ def form_wizards_dashboard(request, theme=None, template_name=None):
 # **************************** Create form entry ******************************
 # *****************************************************************************
 
-create_form_entry_permissions = [
-    'fobi.add_formentry',
-    'fobi.add_formelemententry',
-    'fobi.add_formhandlerentry',
-]
+# create_form_entry_permissions = [
+#     'fobi.add_formentry',
+#     'fobi.add_formelemententry',
+#     'fobi.add_formhandlerentry',
+# ]
 
 
 @login_required
@@ -393,12 +415,12 @@ def create_form_entry(request, theme=None, template_name=None):
 # ******************************* Edit form entry **************************
 # **************************************************************************
 
-edit_form_entry_permissions = [
-    'fobi.change_formentry', 'fobi.change_formelemententry',
-    'fobi.change_formhandlerentry',
-    'fobi.add_formelemententry', 'fobi.add_formhandlerentry',
-    'fobi.delete_formelemententry', 'fobi.delete_formhandlerentry',
-]
+# edit_form_entry_permissions = [
+#     'fobi.change_formentry', 'fobi.change_formelemententry',
+#     'fobi.change_formhandlerentry',
+#     'fobi.add_formelemententry', 'fobi.add_formhandlerentry',
+#     'fobi.delete_formelemententry', 'fobi.delete_formhandlerentry',
+# ]
 
 
 @login_required
@@ -573,10 +595,10 @@ def edit_form_entry(request, form_entry_id, theme=None, template_name=None):
 # ********************************* Delete form entry *************************
 # *****************************************************************************
 
-delete_form_entry_permissions = [
-    'fobi.delete_formentry', 'fobi.delete_formelemententry',
-    'fobi.delete_formhandlerentry',
-]
+# delete_form_entry_permissions = [
+#     'fobi.delete_formentry', 'fobi.delete_formelemententry',
+#     'fobi.delete_formhandlerentry',
+# ]
 
 
 @login_required
@@ -609,9 +631,9 @@ def delete_form_entry(request, form_entry_id, template_name=None):
 # **************************** Add form element entry *************************
 # *****************************************************************************
 
-
+# 'fobi.add_formelemententry'
 @login_required
-@permission_required('fobi.add_formelemententry')
+@permission_required(add_form_element_entry_permission)
 def add_form_element_entry(request,
                            form_entry_id,
                            form_element_plugin_uid,
@@ -735,9 +757,10 @@ def add_form_element_entry(request,
 # **************************** Edit form element entry ************************
 # *****************************************************************************
 
+# 'fobi.change_formelemententry'
 
 @login_required
-@permission_required('fobi.change_formelemententry')
+@permission_required(edit_form_element_entry_permission)
 def edit_form_element_entry(request,
                             form_element_entry_id,
                             theme=None,
@@ -835,9 +858,10 @@ def edit_form_element_entry(request,
 # **************************** Delete form element entry **********************
 # *****************************************************************************
 
+# 'fobi.delete_formelemententry'
 
 @login_required
-@permission_required('fobi.delete_formelemententry')
+@permission_required(delete_form_element_entry_permission)
 def delete_form_element_entry(request, form_element_entry_id):
     """Delete form element entry.
 
@@ -860,9 +884,10 @@ def delete_form_element_entry(request, form_element_entry_id):
 # **************************** Add form handler entry *************************
 # *****************************************************************************
 
+# 'fobi.add_formhandlerentry'
 
 @login_required
-@permission_required('fobi.add_formhandlerentry')
+@permission_required(add_form_handler_entry_permission)
 def add_form_handler_entry(request,
                            form_entry_id,
                            form_handler_plugin_uid,
@@ -981,9 +1006,10 @@ def add_form_handler_entry(request,
 # **************************** Edit form handler entry ************************
 # *****************************************************************************
 
+# 'fobi.change_formhandlerentry'
 
 @login_required
-@permission_required('fobi.change_formhandlerentry')
+@permission_required(edit_form_handler_entry_permission)
 def edit_form_handler_entry(request,
                             form_handler_entry_id,
                             theme=None,
@@ -1069,9 +1095,10 @@ def edit_form_handler_entry(request,
 # **************************** Delete form handler entry **********************
 # *****************************************************************************
 
+# 'fobi.delete_formhandlerentry'
 
 @login_required
-@permission_required('fobi.delete_formhandlerentry')
+@permission_required(delete_form_handler_entry_permission)
 def delete_form_handler_entry(request, form_handler_entry_id):
     """Delete form handler entry.
 
@@ -1101,11 +1128,11 @@ def delete_form_handler_entry(request, form_handler_entry_id):
 # ************************* Create form wizard entry **************************
 # *****************************************************************************
 
-create_form_wizard_entry_permissions = [
-    'fobi.add_formwizardentry',
-    'fobi.add_formwizardformentry',
-    'fobi.add_formhandlerentry',
-]
+# create_form_wizard_entry_permissions = [
+#     'fobi.add_formwizardentry',
+#     'fobi.add_formwizardformentry',
+#     'fobi.add_formhandlerentry',
+# ]
 
 
 @login_required
@@ -1166,16 +1193,16 @@ def create_form_wizard_entry(request, theme=None, template_name=None):
 # *************************** Edit form wizard entry ***********************
 # **************************************************************************
 
-edit_form_wizard_entry_permissions = [
-    'fobi.change_formwizardentry',
-
-    'fobi.add_formwizardformentry',
-    'fobi.delete_formewizardformentry',
-
-    'fobi.add_formhandlerentry',
-    'fobi.change_formhandlerentry',
-    'fobi.delete_formhandlerentry',
-]
+# edit_form_wizard_entry_permissions = [
+#     'fobi.change_formwizardentry',
+#
+#     'fobi.add_formwizardformentry',
+#     'fobi.delete_formewizardformentry',
+#
+#     'fobi.add_formhandlerentry',
+#     'fobi.change_formhandlerentry',
+#     'fobi.delete_formhandlerentry',
+# ]
 
 
 @login_required
@@ -1335,11 +1362,11 @@ def edit_form_wizard_entry(request, form_wizard_entry_id, theme=None,
 # **************************** Delete form wizard entry ***********************
 # *****************************************************************************
 
-delete_form_wizard_entry_permissions = [
-    'fobi.delete_formwizardentry',
-    'fobi.delete_formwizardformentry',
-    'fobi.delete_formwizardhandlerentry',
-]
+# delete_form_wizard_entry_permissions = [
+#     'fobi.delete_formwizardentry',
+#     'fobi.delete_formwizardformentry',
+#     'fobi.delete_formwizardhandlerentry',
+# ]
 
 
 @login_required
@@ -1706,9 +1733,10 @@ def form_wizard_entry_submitted(request, form_wizard_entry_slug=None,
 # ************************* Add form wizard form entry ************************
 # *****************************************************************************
 
+# 'fobi.add_formwizardformentry'
 
 @login_required
-@permission_required('fobi.add_formwizardformentry')
+@permission_required(add_form_wizard_form_entry_permission)
 def add_form_wizard_form_entry(request,
                                form_wizard_entry_id,
                                form_entry_id,
@@ -1802,9 +1830,10 @@ def add_form_wizard_form_entry(request,
 # ************************** Delete form wizard form entry ********************
 # *****************************************************************************
 
+# 'fobi.delete_formwizardformentry'
 
 @login_required
-@permission_required('fobi.delete_formwizardformentry')
+@permission_required(delete_form_wizard_form_entry_permission)
 def delete_form_wizard_form_entry(request, form_wizard_form_entry_id):
     """Delete form wizard form entry.
 
@@ -1853,9 +1882,10 @@ def delete_form_wizard_form_entry(request, form_wizard_form_entry_id):
 # **************************** Add form handler entry *************************
 # *****************************************************************************
 
+# 'fobi.add_formwizardhandlerentry'
 
 @login_required
-@permission_required('fobi.add_formwizardhandlerentry')
+@permission_required(add_form_wizard_handler_entry_permission)
 def add_form_wizard_handler_entry(request,
                                   form_wizard_entry_id,
                                   form_wizard_handler_plugin_uid,
@@ -1982,9 +2012,10 @@ def add_form_wizard_handler_entry(request,
 # ************************ Edit form wizard handler entry *********************
 # *****************************************************************************
 
+# 'fobi.change_formwizardhandlerentry'
 
 @login_required
-@permission_required('fobi.change_formwizardhandlerentry')
+@permission_required(edit_form_wizard_handler_entry_permission)
 def edit_form_wizard_handler_entry(request,
                                    form_wizard_handler_entry_id,
                                    theme=None,
@@ -2077,9 +2108,10 @@ def edit_form_wizard_handler_entry(request,
 # *********************** Delete form wizard handler entry ********************
 # *****************************************************************************
 
+# 'fobi.delete_formwizardhandlerentry'
 
 @login_required
-@permission_required('fobi.delete_formwizardhandlerentry')
+@permission_required(delete_form_wizard_handler_entry_permission)
 def delete_form_wizard_handler_entry(request, form_wizard_handler_entry_id):
     """Delete form handler entry.
 
