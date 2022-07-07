@@ -1,15 +1,49 @@
+import logging
+
 from django.contrib import messages
 from django.db import IntegrityError
 from django.shortcuts import redirect
 from django.urls import reverse_lazy
+from django.utils.datastructures import MultiValueDictKeyError
 from django.utils.translation import gettext_lazy as _
 from django.views import View
-from django.views.generic import CreateView
+from django.views.generic import CreateView, UpdateView
 
 from ..base import get_theme
-from ..forms import FormEntryForm
+from ..dynamic import assemble_form_class
+from ..forms import (
+    FormElementEntryFormSet,
+    FormEntryForm,
+    FormWizardEntryForm,
+    FormWizardFormEntryFormSet,
+    ImportFormEntryForm,
+    ImportFormWizardEntryForm,
+)
+from ..models import (
+    FormElementEntry,
+    FormEntry,
+    FormHandlerEntry,
+    FormWizardEntry,
+    FormWizardFormEntry,
+    FormWizardHandlerEntry,
+)
+from ..settings import DEBUG, GET_PARAM_INITIAL_DATA, SORT_PLUGINS_BY_VALUE
+from ..utils import (
+    append_edit_and_delete_links_to_field,
+    get_user_form_element_plugins_grouped,
+    get_user_form_field_plugin_uids,
+    get_user_form_handler_plugin_uids,
+    get_user_form_handler_plugins,
+    get_user_form_wizard_handler_plugin_uids,
+    get_user_form_wizard_handler_plugins,
+    get_wizard_files_upload_dir,
+    perform_form_entry_import,
+    prepare_form_entry_export_data,
+)
 
 __all__ = ("CreateFormEntryView",)
+
+logger = logging.getLogger(__name__)
 
 
 class CreateFormEntryView(CreateView):
@@ -77,5 +111,198 @@ class CreateFormEntryView(CreateView):
 
         return self.render_to_response(self.get_context_data())
 
-    def post_hook(self, form_entry):
+    def run_after_form_create(self, form_entry):
         """Post hook."""
+
+
+class EditFormEntry(UpdateView):
+    """Edit form entry."""
+
+    template_name = None
+    form_class = FormEntryForm
+    theme = None
+
+    def get_context_data(self, **kwargs):
+        """Get context data."""
+        context = super().get_context_data(**kwargs)
+
+        # In case of success, we don't need this (since redirect would happen).
+        # Thus, fetch only if needed.
+        form_elements = self.object.formelemententry_set.all()
+        form_handlers = self.object.formhandlerentry_set.all()[:]
+        used_form_handler_uids = [
+            form_handler.plugin_uid for form_handler in form_handlers
+        ]
+
+        # The code below (two lines below) is not really used at the moment,
+        # thus - comment out, but do not remove, as we might need it later on.
+        # all_form_entries = FormEntry._default_manager \
+        #                            .only('id', 'name', 'slug') \
+        #                            .filter(user__pk=request.user.pk)
+
+        # List of form element plugins allowed to user
+        user_form_element_plugins = get_user_form_element_plugins_grouped(
+            self.request.user, sort_by_value=SORT_PLUGINS_BY_VALUE
+        )
+        # List of form handler plugins allowed to user
+        user_form_handler_plugins = get_user_form_handler_plugins(
+            self.request.user,
+            exclude_used_singles=True,
+            used_form_handler_plugin_uids=used_form_handler_uids,
+        )
+
+        # Assembling the form for preview
+        form_cls = assemble_form_class(
+            self.object,
+            origin="edit_form_entry",
+            origin_kwargs_update_func=append_edit_and_delete_links_to_field,
+            request=self.request,
+        )
+
+        assembled_form = form_cls()
+
+        # In debug mode, try to identify possible problems.
+        if DEBUG:
+            assembled_form.as_p()
+        else:
+            try:
+                assembled_form.as_p()
+            except Exception as err:
+                logger.error(err)
+
+        # If no theme provided, pick a default one.
+        if not self.theme:
+            self.theme = get_theme(request=self.request, as_instance=True)
+
+        if self.theme:
+            context.update({"fobi_theme": self.theme})
+
+        self.theme.collect_plugin_media(form_elements)
+
+        # context["form"] = self.get_form()
+        # context["form_entry"] = self.object
+        context.update(
+            {
+                "form": self.get_form(),
+                "form_entry": self.object,
+                "form_elements": form_elements,
+                "form_handlers": form_handlers,
+                "user_form_element_plugins": user_form_element_plugins,
+                "user_form_handler_plugins": user_form_handler_plugins,
+                "assembled_form": assembled_form,
+                "form_element_entry_formset": form_element_entry_formset,
+                "fobi_theme": self.theme,
+            }
+        )
+
+        return context
+
+    def get_template_names(self):
+        """Get template names."""
+        template_name = self.template_name
+        if not template_name:
+            if not self.theme:
+                theme = get_theme(request=self.request, as_instance=True)
+            template_name = theme.edit_form_entry_template
+        return [template_name]
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs["request"] = self.request
+        return kwargs
+
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests: instantiate a blank version of the form."""
+        form_element_entry_formset = FormElementEntryFormSet(
+            queryset=self.object.formelemententry_set.all(),
+            # prefix='form_element'
+        )
+        return self.render_to_response(
+            self.get_context_data(
+                extra_context={
+                    "form_element_entry_formset": form_element_entry_formset,
+                }
+            )
+        )
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handle POST requests: instantiate a form instance with the passed
+        POST variables and then check if it's valid.
+        """
+        form = self.get_form()
+
+        # This is where we save ordering if it has been changed.
+        # The `FormElementEntryFormSet` contain ids and positions only.
+        if "ordering" in request.POST:
+            form_element_entry_formset = FormElementEntryFormSet(
+                request.POST,
+                request.FILES,
+                queryset=self.object.formelemententry_set.all(),
+                # prefix = 'form_element'
+            )
+            # If form elements aren't properly made (developers's fault)
+            # there might be problems with saving the ordering - likely
+            # in case of hidden elements only. Thus, we want to avoid
+            # errors here.
+            try:
+                if form_element_entry_formset.is_valid():
+                    form_element_entry_formset.save()
+                    messages.info(
+                        request, _("Elements ordering edited successfully.")
+                    )
+                    return redirect(
+                        reverse_lazy(
+                            "fobi.edit_form_entry",
+                            kwargs={"form_entry_id": self.object.pk},
+                        )
+                    )
+            except MultiValueDictKeyError as err:
+                messages.error(
+                    request,
+                    _(
+                        "Errors occurred while trying to change the "
+                        "elements ordering!"
+                    ),
+                )
+                return redirect(
+                    reverse_lazy(
+                        "fobi.edit_form_entry",
+                        kwargs={"form_entry_id": self.object.pk},
+                    )
+                )
+        else:
+            form_element_entry_formset = FormElementEntryFormSet(
+                queryset=self.object.formelemententry_set.all(),
+                # prefix='form_element'
+            )
+
+        if form.is_valid():
+            obj = form.save(commit=False)
+            obj.user = request.user
+            try:
+                obj.save()
+                messages.info(
+                    request,
+                    _("Form {0} was edited successfully.").format(obj.name),
+                )
+                return redirect(
+                    reverse_lazy(
+                        "fobi.edit_form_entry", kwargs={"form_entry_id": obj.pk}
+                    )
+                )
+            except IntegrityError as err:
+                messages.info(
+                    request,
+                    _("Errors occurred while saving the form: {0}.").format(
+                        str(err)
+                    ),
+                )
+
+        return self.render_to_response(
+            self.get_context_data(
+                extra_context={
+                    "form_element_entry_formset": form_element_entry_formset,
+                }
+            )
+        )

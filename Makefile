@@ -94,10 +94,12 @@ pip-list:
 	docker-compose -f docker-compose.yml exec backend pip list
 
 black:
-	docker-compose -f docker-compose.yml exec backend black .
+	ARGS=${*:-"."}
+	docker-compose -f docker-compose.yml exec backend black $ARGS
 
 isort:
-	docker-compose -f docker-compose.yml exec backend isort . --overwrite-in-place
+	ARGS=${*:-"."}
+	docker-compose -f docker-compose.yml exec backend isort $ARGS --overwrite-in-place
 
 bash:
 	docker-compose -f docker-compose.yml run backend /bin/bash
