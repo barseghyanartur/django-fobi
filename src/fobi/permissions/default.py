@@ -24,6 +24,7 @@ from .helpers import (
     login_required,
     all_permissions_required_func,
     any_permission_required_func,
+    permissions_required_func,
 )
 
 __title__ = "fobi.permissions.default"
@@ -34,6 +35,7 @@ __all__ = (
     "CreateFormEntryPermission",
     "EditFormEntryPermission",
     "DeleteFormEntryPermission",
+    "AddFormElementEntryPermission",
 )
 
 
@@ -61,4 +63,13 @@ class DeleteFormEntryPermission(BasePermission):
     def has_permission(self, request, view) -> bool:
         return login_required(request) and all_permissions_required_func(
             delete_form_entry_permissions
+        )(request.user)
+
+
+class AddFormElementEntryPermission(BasePermission):
+    """Permission to add form element entries."""
+
+    def has_permission(self, request, view) -> bool:
+        return login_required(request) and permissions_required_func(
+            add_form_element_entry_permission
         )(request.user)

@@ -663,7 +663,7 @@ def add_form_element_entry(request,
 
     if form_element_plugin_uid not in user_form_element_plugin_uids:
         raise Http404(gettext("Plugin does not exist or you are not allowed "
-                               "to use this plugin!"))
+                              "to use this plugin!"))
 
     form_element_plugin_cls = form_element_plugin_registry.get(
         form_element_plugin_uid
