@@ -31,9 +31,9 @@ __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2022 Artur Barseghyan"
 __license__ = "GPL 2.0/LGPL 2.1"
 __all__ = (
-    "all_permissions_required_func",
     "CreateFormEntryPermission",
     "EditFormEntryPermission",
+    "DeleteFormEntryPermission",
 )
 
 
@@ -52,4 +52,13 @@ class EditFormEntryPermission(BasePermission):
     def has_permission(self, request, view) -> bool:
         return login_required(request) and any_permission_required_func(
             edit_form_entry_permissions
+        )(request.user)
+
+
+class DeleteFormEntryPermission(BasePermission):
+    """Permission to delete form entries."""
+
+    def has_permission(self, request, view) -> bool:
+        return login_required(request) and all_permissions_required_func(
+            delete_form_entry_permissions
         )(request.user)

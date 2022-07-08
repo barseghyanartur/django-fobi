@@ -31,6 +31,7 @@ from ..models import (
 from ..permissions.default import (
     CreateFormEntryPermission,
     EditFormEntryPermission,
+    DeleteFormEntryPermission,
 )
 from ..settings import DEBUG, GET_PARAM_INITIAL_DATA, SORT_PLUGINS_BY_VALUE
 from ..utils import (
@@ -403,11 +404,12 @@ class EditFormEntryView(PermissionMixin, UpdateView):
 # *****************************************************************************
 
 
-class DeleteFormEntry(DeleteView):
+class DeleteFormEntry(PermissionMixin, DeleteView):
     """Delete form entry."""
 
     model = FormEntry
     success_url = reverse_lazy("fobi.dashboard")
+    permission_classes = (DeleteFormEntryPermission,)
 
     def get_object(self, queryset=None):
         """Get object."""
