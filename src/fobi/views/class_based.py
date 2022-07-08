@@ -138,8 +138,10 @@ class CreateFormEntryView(PermissionMixin, CreateView):
         if form.is_valid():
             form_entry = form.save(commit=False)
             form_entry.user = request.user
+            self._run_before_form_create(request, form_entry)
             try:
                 form_entry.save()
+                self._run_after_form_create(request, form_entry)
                 messages.info(
                     request,
                     _("Form {0} was created successfully.").format(
@@ -159,8 +161,27 @@ class CreateFormEntryView(PermissionMixin, CreateView):
 
         return self.render_to_response(self.get_context_data())
 
-    def run_after_form_create(self, form_entry):
-        """Post hook."""
+    def _run_before_form_create(self, request, form_entry):
+        """Run just before form_entry has been created/saved."""
+        try:
+            self.run_before_form_create(request, form_entry)
+            return True
+        except:
+            return False
+
+    def run_before_form_create(self, request, form_entry):
+        """Run just before form_entry has been created/saved."""
+
+    def _run_after_form_create(self, request, form_entry):
+        """Run after form_entry has been created/saved."""
+        try:
+            self.run_after_form_create(request, form_entry)
+            return True
+        except:
+            return False
+
+    def run_after_form_create(self, request, form_entry):
+        """Run after the form_entry has been created/saved."""
 
 
 class EditFormEntryView(PermissionMixin, UpdateView):
