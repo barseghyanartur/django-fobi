@@ -414,7 +414,7 @@ class DeleteFormEntry(PermissionMixin, DeleteView):
     def get_object(self, queryset=None):
         """Get object."""
         return get_object_or_404(
-            FormEntry._default_manager.select_related("user"),
+            FormEntry._default_manager.all(),
             pk=self.kwargs.get("form_entry_id"),
             user__pk=self.request.user.pk
         )
