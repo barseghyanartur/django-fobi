@@ -3,12 +3,12 @@ import logging
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied
 from django.db import IntegrityError
-from django.shortcuts import redirect
+from django.shortcuts import redirect, get_object_or_404
 from django.urls import reverse_lazy
 from django.utils.datastructures import MultiValueDictKeyError
 from django.utils.translation import gettext_lazy as _
 from django.views import View
-from django.views.generic import CreateView, UpdateView
+from django.views.generic import CreateView, UpdateView, DeleteView
 
 from ..base import get_theme
 from ..dynamic import assemble_form_class
@@ -84,6 +84,16 @@ class PermissionMixin(View):
                     message=getattr(permission, 'message', None),
                     code=getattr(permission, 'code', None)
                 )
+
+# *****************************************************************************
+# *****************************************************************************
+# ********************************** Builder **********************************
+# *****************************************************************************
+# *****************************************************************************
+
+# *****************************************************************************
+# **************************** Create form entry ******************************
+# *****************************************************************************
 
 
 class CreateFormEntryView(PermissionMixin, CreateView):
@@ -182,6 +192,10 @@ class CreateFormEntryView(PermissionMixin, CreateView):
 
     def run_after_form_create(self, request, form_entry):
         """Run after the form_entry has been created/saved."""
+
+# **************************************************************************
+# ******************************* Edit form entry **************************
+# **************************************************************************
 
 
 class EditFormEntryView(PermissionMixin, UpdateView):
@@ -383,3 +397,57 @@ class EditFormEntryView(PermissionMixin, UpdateView):
                 form_element_entry_formset=form_element_entry_formset,
             )
         )
+
+# *****************************************************************************
+# ********************************* Delete form entry *************************
+# *****************************************************************************
+
+
+class DeleteFormEntry(DeleteView):
+    """Delete form entry."""
+
+    model = FormEntry
+    success_url = reverse_lazy("fobi.dashboard")
+
+    def get_object(self, queryset=None):
+        """Get object."""
+        return get_object_or_404(
+            FormEntry._default_manager.select_related("user"),
+            pk=self.kwargs.get("form_entry_id"),
+            user__pk=self.request.user.pk
+        )
+
+    def delete(self, request, *args, **kwargs):
+        """Delete."""
+        self.object = self.get_object()
+        success_url = self.get_success_url()
+        self._run_before_form_delete(request, self.object)
+        self.object.delete()
+        self._run_after_form_delete(request, self.kwargs.get("form_entry_id"))
+        messages.info(
+            request,
+            _("Form {0} was deleted successfully.").format(self.object.name),
+        )
+        return redirect(success_url)
+
+    def _run_before_form_delete(self, request, form_entry):
+        """Run just before form_entry has been delete."""
+        try:
+            self.run_before_form_delete(request, form_entry)
+            return True
+        except:
+            return False
+
+    def run_before_form_delete(self, request, form_entry):
+        """Run just before form_entry has been deleted."""
+
+    def _run_after_form_delete(self, request, form_entry_id):
+        """Run after form_entry has been deleted."""
+        try:
+            self.run_after_form_delete(request, form_entry_id)
+            return True
+        except:
+            return False
+
+    def run_after_form_delete(self, request, form_entry_id):
+        """Run after form_entry has been deleted."""
