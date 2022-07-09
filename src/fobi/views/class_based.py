@@ -51,6 +51,7 @@ from ..permissions.default import (
     DeleteFormElementEntryPermission,
     AddFormHandlerEntryPermission,
     EditFormHandlerEntryPermission,
+    DeleteFormHandlerEntryPermission,
 )
 from ..settings import DEBUG, GET_PARAM_INITIAL_DATA, SORT_PLUGINS_BY_VALUE
 from ..utils import (
@@ -76,6 +77,8 @@ __all__ = (
     "EditFormElementEntryView",
     "DeleteFormElementEntryView",
     "AddFormHandlerEntryView",
+    "EditFormHandlerEntryView",
+    "DeleteFormHandlerEntryView",
 )
 
 logger = logging.getLogger(__name__)
@@ -827,7 +830,6 @@ class EditFormElementEntryView(PermissionMixin, UpdateView):
             form_entry,
             form_element_entry_id,
             form_element_plugin,
-            form_element_plugin,
             form_element_plugin_form_cls,
             obj,
         )
@@ -861,7 +863,6 @@ class EditFormElementEntryView(PermissionMixin, UpdateView):
         (
             form_entry,
             form_element_entry_id,
-            form_element_plugin,
             form_element_plugin,
             form_element_plugin_form_cls,
             obj,
@@ -900,7 +901,6 @@ class EditFormElementEntryView(PermissionMixin, UpdateView):
         (
             form_entry,
             form_element_entry_id,
-            form_element_plugin,
             form_element_plugin,
             form_element_plugin_form_cls,
             obj,
@@ -1204,3 +1204,184 @@ class AddFormHandlerEntryView(PermissionMixin, CreateView):
 # *****************************************************************************
 # **************************** Edit form handler entry ************************
 # *****************************************************************************
+
+
+class EditFormHandlerEntryView(PermissionMixin, UpdateView):
+    """Edit form handler entry view."""
+
+    template_name = None
+    form_class = None
+    theme = None
+    pk_url_kwarg = "form_handler_entry_id"
+    permission_classes = (EditFormHandlerEntryPermission,)
+
+    def _get_queryset(self, request):
+        """Get queryset."""
+        # TODO: The form element entry has also `form_entry__user` in
+        #  `seleect_related`. Find out if that something that could
+        #  be also be applied here to improve the performance.
+        return FormHandlerEntry._default_manager \
+            .select_related('form_entry') \
+            .filter(form_entry__user__pk=request.user.pk)
+
+    def get_essential_objects(
+            self,
+            form_handler_entry_id,
+            request,
+    ):
+        """Get essential objects."""
+        try:
+            obj = self.get_object(queryset=self._get_queryset(request))
+        except ObjectDoesNotExist as err:
+            raise Http404(_("Form element entry not found."))
+
+        form_entry = obj.form_entry
+        form_handler_plugin = obj.get_plugin(request=request)
+        form_handler_plugin.request = request
+
+        form_handler_plugin_form_cls = form_handler_plugin.get_form()
+
+        return (
+            form_entry,
+            form_handler_entry_id,
+            form_handler_plugin,
+            form_handler_plugin_form_cls,
+            obj,
+        )
+
+    def get_context_data(self, **kwargs):
+        """Get context data."""
+        context = super(EditFormHandlerEntryView, self).get_context_data(**kwargs)
+
+        if not self.theme:
+            theme = get_theme(request=self.request, as_instance=True)
+        else:
+            theme = self.theme
+
+        if theme:
+            context.update({"fobi_theme": theme})
+        return context
+
+    def get_template_names(self):
+        """Get template names."""
+        template_name = self.template_name
+        if not template_name:
+            if not self.theme:
+                theme = get_theme(request=self.request, as_instance=True)
+            else:
+                theme = self.theme
+            template_name = theme.edit_form_handler_entry_template
+        return [template_name]
+
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests: instantiate a blank version of the form."""
+        (
+            form_entry,
+            form_handler_entry_id,
+            form_handler_plugin,
+            form_handler_plugin_form_cls,
+            obj,
+        ) = self.get_essential_objects(
+            self.kwargs.get("form_handler_entry_id"),
+            self.request,
+        )
+        self.object = obj
+        form = None
+
+        if not form_handler_plugin_form_cls:
+            messages.info(
+                request,
+                _('The form handler plugin "{0}" is not '
+                  'configurable!').format(form_handler_plugin.name)
+            )
+            return redirect('fobi.edit_form_entry', form_entry_id=form_entry.pk)
+
+        else:
+            form = form_handler_plugin.get_initialised_edit_form_or_404()
+
+        return self.render_to_response(
+            self.get_context_data(
+                form=form,
+                form_entry=form_entry,
+                form_handler_plugin=form_handler_plugin,
+            )
+        )
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handle POST requests: instantiate a form instance with the passed
+        POST variables and then check if it's valid.
+        """
+        self.object = None
+        (
+            form_entry,
+            form_handler_entry_id,
+            form_handler_plugin,
+            form_handler_plugin_form_cls,
+            obj,
+        ) = self.get_essential_objects(
+            self.kwargs.get("form_handler_entry_id"),
+            self.request,
+        )
+        self.object = obj
+
+        if not form_handler_plugin_form_cls:
+            messages.info(
+                request,
+                _('The form handler plugin "{0}" is not '
+                  'configurable!').format(form_handler_plugin.name)
+            )
+            return redirect('fobi.edit_form_entry', form_entry_id=form_entry.pk)
+
+        form = form_handler_plugin.get_initialised_edit_form_or_404(
+            data=request.POST,
+            files=request.FILES
+        )
+
+        if form.is_valid():
+            # Saving the plugin form data.
+            form.save_plugin_data(request=request)
+
+            # Getting the plugin data.
+            obj.plugin_data = form.get_plugin_data(request=request)
+
+            # Save the object.
+            obj.save()
+
+            messages.info(
+                request,
+                _('The form handler plugin "{0}" was edited '
+                  'successfully.').format(form_handler_plugin.name)
+            )
+
+            return redirect(
+                "{0}?active_tab=tab-form-handlers".format(
+                    reverse_lazy(
+                        'fobi.edit_form_entry',
+                        kwargs={'form_entry_id': form_entry.pk}
+                    )
+                )
+            )
+
+        return self.render_to_response(
+            self.get_context_data(
+                form=form,
+                form_entry=form_entry,
+                form_handler_plugin=form_handler_plugin,
+            )
+        )
+
+# *****************************************************************************
+# **************************** Delete form handler entry **********************
+# *****************************************************************************
+
+
+class DeleteFormHandlerEntryView(AbstractDeletePluginEntryView):
+    """Delete form handler entry."""
+
+    model = FormHandlerEntry
+    permission_classes = (DeleteFormHandlerEntryPermission,)
+    pk_url_kwarg = "form_handler_entry_id"
+    get_user_plugin_uids_func = get_user_form_handler_plugin_uids
+    message = _('The form handler plugin "{0}" was deleted successfully.')
+    html_anchor = '?active_tab=tab-form-handlers'

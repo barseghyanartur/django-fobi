@@ -1032,18 +1032,17 @@ def edit_form_handler_entry(request,
         raise Http404(gettext("Form handler entry not found."))
 
     form_entry = obj.form_entry
-
     form_handler_plugin = obj.get_plugin(request=request)
     form_handler_plugin.request = request
 
-    FormHandlerPluginForm = form_handler_plugin.get_form()
+    form_handler_plugin_form_cls = form_handler_plugin.get_form()
     form = None
 
-    if not FormHandlerPluginForm:
+    if not form_handler_plugin_form_cls:
         messages.info(
             request,
             gettext('The form handler plugin "{0}" is not '
-                     'configurable!').format(form_handler_plugin.name)
+                    'configurable!').format(form_handler_plugin.name)
         )
         return redirect('fobi.edit_form_entry', form_entry_id=form_entry.pk)
 
