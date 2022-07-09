@@ -91,12 +91,14 @@ urlpatterns = [
     # Add form element entry
     url(_(r'^forms/elements/add/(?P<form_entry_id>\d+)/'
           r'(?P<form_element_plugin_uid>[\w_\-]+)/$'),
+        # view=add_form_element_entry,
         view=AddFormElementEntryView.as_view(),
         name='fobi.add_form_element_entry'),
 
     # Edit form element entry
     url(_(r'^forms/elements/edit/(?P<form_element_entry_id>\d+)/$'),
-        view=EditFormElementEntryView,
+        # view=edit_form_element_entry,
+        view=EditFormElementEntryView.as_view(),
         name='fobi.edit_form_element_entry'),
 
     # Delete form element entry
