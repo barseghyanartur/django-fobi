@@ -12,6 +12,7 @@ from django.utils.datastructures import MultiValueDictKeyError
 from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic.edit import DeletionMixin
 
 from ..base import (
     fire_form_callbacks,
@@ -69,9 +70,17 @@ __all__ = (
     "DeleteFormEntryView",
     "AddFormElementEntryView",
     "EditFormElementEntryView",
+    "DeleteFormElementEntryView",
 )
 
 logger = logging.getLogger(__name__)
+
+
+# *****************************************************************************
+# *****************************************************************************
+# *********************************** Generic *********************************
+# *****************************************************************************
+# *****************************************************************************
 
 
 class PermissionMixin(View):
@@ -104,6 +113,79 @@ class PermissionMixin(View):
                     message=getattr(permission, 'message', None),
                     code=getattr(permission, 'code', None)
                 )
+
+
+class AbstractDeletePluginEntryView(PermissionMixin, DeleteView):
+
+    pk_url_kwarg: str
+    get_user_plugin_uids_func: callable
+    message: str
+    html_anchor: str
+
+    def _get_queryset(self, request):
+        """Get queryset."""
+        return self.model._default_manager \
+            .select_related('form_entry') \
+            .filter(form_entry__user__pk=request.user.pk)
+
+    def get_object(self, queryset=None):
+        """Get object."""
+        # TODO: There's a tiny deviation from `_delete_plugin_entry`
+        #  implementation. The message in the latter is fully custom, while
+        #  in this case we're stuck to Django's own implementation.
+        #  Comment added on 2022-07-10.
+        return get_object_or_404(
+            self._get_queryset(self.request),
+            pk=self.kwargs.get(self.pk_url_kwarg),
+        )
+
+    # Add support for browsers which only accept GET and POST for now.
+    def get(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
+
+    def delete(self, request, *args, **kwargs):
+        """Delete."""
+        self.object = self.get_object()
+        self._run_before_plugin_entry_delete(request, self.object)
+
+        form_entry = self.object.form_entry
+        plugin = self.object.get_plugin(request=request)
+        plugin.request = request
+
+        plugin._delete_plugin_data()
+
+        self.object.delete()
+
+        self._run_after_plugin_entry_delete(
+            request, self.kwargs.get("form_entry_id")
+        )
+        messages.info(request, self.message.format(plugin.name))
+        redirect_url = reverse_lazy(
+            'fobi.edit_form_entry', kwargs={'form_entry_id': form_entry.pk}
+        )
+        return redirect("{0}{1}".format(redirect_url, self.html_anchor))
+
+    def _run_before_plugin_entry_delete(self, request, form_entry):
+        """Run just before plugin entry has been deleted."""
+        try:
+            self.run_before_plugin_entry_delete(request, form_entry)
+            return True
+        except:
+            return False
+
+    def run_before_plugin_entry_delete(self, request, form_entry):
+        """Run just before plugin entry has been deleted."""
+
+    def _run_after_plugin_entry_delete(self, request, form_entry_id):
+        """Run after plugin entry has been deleted."""
+        try:
+            self.run_after_plugin_entry_delete(request, form_entry_id)
+            return True
+        except:
+            return False
+
+    def run_after_plugin_entry_delete(self, request, form_entry_id):
+        """Run after plugin entry has been deleted."""
 
 # *****************************************************************************
 # *****************************************************************************
@@ -423,7 +505,7 @@ class EditFormEntryView(PermissionMixin, UpdateView):
 # *****************************************************************************
 
 
-class DeleteFormEntryView(PermissionMixin, DeleteView):
+class DeleteFormEntryView(PermissionMixin, DeletionMixin):
     """Delete form entry."""
 
     model = FormEntry
@@ -437,6 +519,10 @@ class DeleteFormEntryView(PermissionMixin, DeleteView):
             pk=self.kwargs.get("form_entry_id"),
             user__pk=self.request.user.pk
         )
+
+    # Add support for browsers which only accept GET and POST for now.
+    def get(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
 
     def delete(self, request, *args, **kwargs):
         """Delete."""
@@ -452,7 +538,7 @@ class DeleteFormEntryView(PermissionMixin, DeleteView):
         return redirect(success_url)
 
     def _run_before_form_delete(self, request, form_entry):
-        """Run just before form_entry has been delete."""
+        """Run just before form_entry has been deleted."""
         try:
             self.run_before_form_delete(request, form_entry)
             return True
@@ -869,3 +955,14 @@ class EditFormElementEntryView(PermissionMixin, UpdateView):
 # *****************************************************************************
 # **************************** Delete form element entry **********************
 # *****************************************************************************
+
+
+class DeleteFormElementEntryView(AbstractDeletePluginEntryView):
+    """Delete form element entry."""
+
+    model = FormElementEntry
+    permission_classes = (DeleteFormElementEntryPermission,)
+    pk_url_kwarg = "form_element_entry_id"
+    get_user_plugin_uids_func = get_user_form_field_plugin_uids
+    message = _('The form element plugin "{0}" was deleted successfully.')
+    html_anchor = '?active_tab=tab-form-elements'

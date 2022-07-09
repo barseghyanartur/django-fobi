@@ -34,6 +34,7 @@ from ...views.class_based import (
     DeleteFormEntryView,
     AddFormElementEntryView,
     EditFormElementEntryView,
+    DeleteFormElementEntryView,
 )
 
 __title__ = 'fobi.urls.class_based.edit'
@@ -103,7 +104,8 @@ urlpatterns = [
 
     # Delete form element entry
     url(_(r'^forms/elements/delete/(?P<form_element_entry_id>\d+)/$'),
-        delete_form_element_entry,
+        # view=delete_form_element_entry,
+        view=DeleteFormElementEntryView.as_view(),
         name='fobi.delete_form_element_entry'),
 
     # ***********************************************************************
