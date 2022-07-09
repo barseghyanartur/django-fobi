@@ -50,6 +50,7 @@ from ..permissions.default import (
     EditFormElementEntryPermission,
     DeleteFormElementEntryPermission,
     AddFormHandlerEntryPermission,
+    EditFormHandlerEntryPermission,
 )
 from ..settings import DEBUG, GET_PARAM_INITIAL_DATA, SORT_PLUGINS_BY_VALUE
 from ..utils import (
@@ -1199,3 +1200,7 @@ class AddFormHandlerEntryView(PermissionMixin, CreateView):
                 form_handler_plugin=form_handler_plugin,
             )
         )
+
+# *****************************************************************************
+# **************************** Edit form handler entry ************************
+# *****************************************************************************
