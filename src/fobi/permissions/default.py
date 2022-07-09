@@ -36,6 +36,7 @@ __all__ = (
     "EditFormEntryPermission",
     "DeleteFormEntryPermission",
     "AddFormElementEntryPermission",
+    "EditFormElementEntryPermission",
 )
 
 
@@ -72,4 +73,13 @@ class AddFormElementEntryPermission(BasePermission):
     def has_permission(self, request, view) -> bool:
         return login_required(request) and permissions_required_func(
             add_form_element_entry_permission
+        )(request.user)
+
+
+class EditFormElementEntryPermission(BasePermission):
+    """Permission to edit form element entries."""
+
+    def has_permission(self, request, view) -> bool:
+        return login_required(request) and permissions_required_func(
+            edit_form_element_entry_permission
         )(request.user)
