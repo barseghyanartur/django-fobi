@@ -612,7 +612,14 @@ class AddFormElementEntryView(PermissionMixin, CreateView):
             self.request,
         )
 
+        save_object = False
         if not form_element_plugin_form_cls:
+            save_object = True
+
+        if not save_object:
+            form = form_element_plugin.get_initialised_create_form_or_404()
+
+        if save_object:
             return self.do_save_object(
                 self.kwargs.get("form_entry_id"),
                 form_entry,
@@ -620,8 +627,6 @@ class AddFormElementEntryView(PermissionMixin, CreateView):
                 form_element_plugin,
                 request
             )
-        else:
-            form = form_element_plugin.get_initialised_create_form_or_404()
 
         return self.render_to_response(
             self.get_context_data(
@@ -651,15 +656,11 @@ class AddFormElementEntryView(PermissionMixin, CreateView):
             self.request,
         )
 
+        save_object = False
         if not form_element_plugin_form_cls:
-            return self.do_save_object(
-                self.kwargs.get("form_entry_id"),
-                form_entry,
-                obj,
-                form_element_plugin,
-                request
-            )
-        else:
+            save_object = True
+
+        if not save_object:
             form = form_element_plugin.get_initialised_create_form_or_404(
                 data=request.POST,
                 files=request.FILES
@@ -671,14 +672,16 @@ class AddFormElementEntryView(PermissionMixin, CreateView):
 
                 # Getting the plugin data.
                 obj.plugin_data = form.get_plugin_data(request=request)
+                save_object = True
 
-                return self.do_save_object(
-                    self.kwargs.get("form_entry_id"),
-                    form_entry,
-                    obj,
-                    form_element_plugin,
-                    request
-                )
+        if save_object:
+            return self.do_save_object(
+                self.kwargs.get("form_entry_id"),
+                form_entry,
+                obj,
+                form_element_plugin,
+                request
+            )
 
         return self.render_to_response(
             self.get_context_data(
