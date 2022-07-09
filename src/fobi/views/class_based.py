@@ -47,6 +47,7 @@ from ..permissions.default import (
     DeleteFormEntryPermission,
     AddFormElementEntryPermission,
     EditFormElementEntryPermission,
+    DeleteFormElementEntryPermission,
 )
 from ..settings import DEBUG, GET_PARAM_INITIAL_DATA, SORT_PLUGINS_BY_VALUE
 from ..utils import (
@@ -864,3 +865,7 @@ class EditFormElementEntryView(PermissionMixin, UpdateView):
                 form_element_plugin=form_element_plugin,
             )
         )
+
+# *****************************************************************************
+# **************************** Delete form element entry **********************
+# *****************************************************************************
