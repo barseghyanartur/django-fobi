@@ -67,6 +67,7 @@ __all__ = (
     "EditFormEntryView",
     "DeleteFormEntryView",
     "AddFormElementEntryView",
+    "EditFormElementEntryView",
 )
 
 logger = logging.getLogger(__name__)
@@ -697,218 +698,170 @@ class AddFormElementEntryView(PermissionMixin, CreateView):
 # *****************************************************************************
 
 
-class EditFormElementEntryView(PermissionMixin, CreateView):
+class EditFormElementEntryView(PermissionMixin, UpdateView):
     """Edit form element entry view."""
 
     template_name = None
     form_class = None
     theme = None
+    pk_url_kwarg = "form_element_entry_id"
     permission_classes = (EditFormElementEntryPermission,)
 
-    def get_essential_objects(
-            self,
-            form_entry_id,
-            form_element_plugin_uid,
-            request,
-    ):
-        """Get essential objects."""
-        try:
-            form_entry = FormEntry._default_manager \
-                .prefetch_related('formelemententry_set') \
-                .get(pk=form_entry_id)
-        except ObjectDoesNotExist as err:
-            raise Http404(_("Form entry not found."))
+    # def __init__(self, *args, **kwargs):
+    #     import ipdb; ipdb.set_trace()
+    #     super(EditFormElementEntryView, self).__init__(*args, **kwargs)
 
-        form_elements = form_entry.formelemententry_set.all()
-
-        user_form_element_plugin_uids = get_user_form_field_plugin_uids(
-            request.user
-        )
-
-        if form_element_plugin_uid not in user_form_element_plugin_uids:
-            raise Http404(
-                _("Plugin does not exist or you are not allowed "
-                  "to use this plugin!"))
-
-        form_element_plugin_cls = form_element_plugin_registry.get(
-            form_element_plugin_uid
-        )
-        form_element_plugin = form_element_plugin_cls(user=request.user)
-        form_element_plugin.request = request
-
-        form_element_plugin_form_cls = form_element_plugin.get_form()
-        # form = None
-
-        obj = FormElementEntry()
-        obj.form_entry = form_entry
-        obj.plugin_uid = form_element_plugin_uid
-        obj.user = request.user
-
-        return (
-            form_entry,
-            form_elements,
-            form_element_plugin_cls,
-            form_element_plugin,
-            form_element_plugin_form_cls,
-            user_form_element_plugin_uids,
-            obj,
-        )
-
-    def do_save_object(
-        self,
-        form_entry_id,
-        form_entry,
-        obj,
-        form_element_plugin,
-        request
-    ):
-        """Do save object."""
-        # Handling the position
-        position = 1
-        records = FormElementEntry.objects.filter(form_entry=form_entry) \
-            .aggregate(models.Max('position'))
-        if records:
-            try:
-                position = records['{0}__max'.format('position')] + 1
-
-            except TypeError as err:
-                pass
-
-        obj.position = position
-
-        # Save the object.
-        obj.save()
-
-        messages.info(
-            request,
-            _('The form element plugin "{0}" was added '
-              'successfully.').format(form_element_plugin.name)
-        )
-        return redirect(
-            "{0}?active_tab=tab-form-elements".format(
-                reverse_lazy(
-                    'fobi.edit_form_entry',
-                    kwargs={'form_entry_id': form_entry_id}
-                )
-            )
-        )
-
-    def get_context_data(self, **kwargs):
-        """Get context data."""
-        context = super(AddFormElementEntryView, self).get_context_data(**kwargs)
-
-        if not self.theme:
-            theme = get_theme(request=self.request, as_instance=True)
-        else:
-            theme = self.theme
-
-        if theme:
-            context.update({"fobi_theme": theme})
-        return context
-
-    def get_template_names(self):
-        """Get template names."""
-        template_name = self.template_name
-        if not template_name:
-            if not self.theme:
-                theme = get_theme(request=self.request, as_instance=True)
-            else:
-                theme = self.theme
-            template_name = theme.add_form_element_entry_template
-        return [template_name]
-
-    def get(self, request, *args, **kwargs):
-        """Handle GET requests: instantiate a blank version of the form."""
-        self.object = None
-        (
-            form_entry,
-            form_elements,
-            form_element_plugin_cls,
-            form_element_plugin,
-            form_element_plugin_form_cls,
-            user_form_element_plugin_uids,
-            obj,
-        ) = self.get_essential_objects(
-            self.kwargs.get("form_entry_id"),
-            self.kwargs.get("form_element_plugin_uid"),
-            self.request,
-        )
-
-        save_object = False
-        if not form_element_plugin_form_cls:
-            save_object = True
-
-        if not save_object:
-            form = form_element_plugin.get_initialised_create_form_or_404()
-
-        if save_object:
-            return self.do_save_object(
-                self.kwargs.get("form_entry_id"),
-                form_entry,
-                obj,
-                form_element_plugin,
-                request
-            )
-
-        return self.render_to_response(
-            self.get_context_data(
-                form=form,
-                form_entry=form_entry,
-                form_element_plugin=form_element_plugin,
-            )
-        )
-
-    def post(self, request, *args, **kwargs):
-        """
-        Handle POST requests: instantiate a form instance with the passed
-        POST variables and then check if it's valid.
-        """
-        self.object = None
-        (
-            form_entry,
-            form_elements,
-            form_element_plugin_cls,
-            form_element_plugin,
-            form_element_plugin_form_cls,
-            user_form_element_plugin_uids,
-            obj,
-        ) = self.get_essential_objects(
-            self.kwargs.get("form_entry_id"),
-            self.kwargs.get("form_element_plugin_uid"),
-            self.request,
-        )
-
-        save_object = False
-        if not form_element_plugin_form_cls:
-            save_object = True
-
-        if not save_object:
-            form = form_element_plugin.get_initialised_create_form_or_404(
-                data=request.POST,
-                files=request.FILES
-            )
-            form.validate_plugin_data(form_elements, request=request)
-            if form.is_valid():
-                # Saving the plugin form data.
-                form.save_plugin_data(request=request)
-
-                # Getting the plugin data.
-                obj.plugin_data = form.get_plugin_data(request=request)
-                save_object = True
-
-        if save_object:
-            return self.do_save_object(
-                self.kwargs.get("form_entry_id"),
-                form_entry,
-                obj,
-                form_element_plugin,
-                request
-            )
-
-        return self.render_to_response(
-            self.get_context_data(
-                form=form,
-                form_entry=form_entry,
-                form_element_plugin=form_element_plugin,
-            )
-        )
+    # def _get_queryset(self, request):
+    #     """Get queryset."""
+    #     return FormElementEntry._default_manager \
+    #         .select_related('form_entry', 'form_entry__user') \
+    #         .filter(form_entry__user__pk=request.user.pk)
+    #
+    # def get_essential_objects(
+    #         self,
+    #         form_element_entry_id,
+    #         request,
+    # ):
+    #     """Get essential objects."""
+    #     try:
+    #         obj = self.get_object(queryset=self._get_queryset(request))
+    #     except ObjectDoesNotExist as err:
+    #         raise Http404(_("Form element entry not found."))
+    #
+    #     form_entry = obj.form_entry
+    #     form_element_plugin = obj.get_plugin(request=request)
+    #     form_element_plugin.request = request
+    #
+    #     form_element_plugin_form_cls = form_element_plugin.get_form()
+    #
+    #     return (
+    #         form_entry,
+    #         form_element_entry_id,
+    #         form_element_plugin,
+    #         form_element_plugin,
+    #         form_element_plugin_form_cls,
+    #         obj,
+    #     )
+    #
+    # def get_context_data(self, **kwargs):
+    #     """Get context data."""
+    #     context = super(EditFormElementEntryView, self).get_context_data(**kwargs)
+    #
+    #     if not self.theme:
+    #         theme = get_theme(request=self.request, as_instance=True)
+    #     else:
+    #         theme = self.theme
+    #
+    #     if theme:
+    #         context.update({"fobi_theme": theme})
+    #     return context
+    #
+    # def get_template_names(self):
+    #     """Get template names."""
+    #     template_name = self.template_name
+    #     if not template_name:
+    #         if not self.theme:
+    #             theme = get_theme(request=self.request, as_instance=True)
+    #         else:
+    #             theme = self.theme
+    #         template_name = theme.edit_form_element_entry_template
+    #     return [template_name]
+    #
+    # def get(self, request, *args, **kwargs):
+    #     """Handle GET requests: instantiate a blank version of the form."""
+    #     (
+    #         form_entry,
+    #         form_element_entry_id,
+    #         form_element_plugin,
+    #         form_element_plugin,
+    #         form_element_plugin_form_cls,
+    #         obj,
+    #     ) = self.get_essential_objects(
+    #         self.kwargs.get("form_element_entry_id"),
+    #         self.request,
+    #     )
+    #     self.object = obj
+    #     form = None
+    #
+    #     if not form_element_plugin_form_cls:
+    #         messages.info(
+    #             request,
+    #             _('The form element plugin "{0}" '
+    #               'is not configurable!').format(form_element_plugin.name)
+    #         )
+    #         return redirect('fobi.edit_form_entry', form_entry_id=form_entry.pk)
+    #
+    #     else:
+    #         form = form_element_plugin.get_initialised_edit_form_or_404()
+    #
+    #     return self.render_to_response(
+    #         self.get_context_data(
+    #             form=form,
+    #             form_entry=form_entry,
+    #             form_element_plugin=form_element_plugin,
+    #         )
+    #     )
+    #
+    # def post(self, request, *args, **kwargs):
+    #     """
+    #     Handle POST requests: instantiate a form instance with the passed
+    #     POST variables and then check if it's valid.
+    #     """
+    #     self.object = None
+    #     (
+    #         form_entry,
+    #         form_element_entry_id,
+    #         form_element_plugin,
+    #         form_element_plugin,
+    #         form_element_plugin_form_cls,
+    #         obj,
+    #     ) = self.get_essential_objects(
+    #         self.kwargs.get("form_element_entry_id"),
+    #         self.request,
+    #     )
+    #     self.object = obj
+    #
+    #     if not form_element_plugin_form_cls:
+    #         messages.info(
+    #             request,
+    #             _('The form element plugin "{0}" '
+    #               'is not configurable!').format(form_element_plugin.name)
+    #         )
+    #         return redirect('fobi.edit_form_entry', form_entry_id=form_entry.pk)
+    #
+    #     form = form_element_plugin.get_initialised_edit_form_or_404(
+    #         data=request.POST,
+    #         files=request.FILES
+    #     )
+    #
+    #     form_elements = FormElementEntry._default_manager \
+    #         .select_related('form_entry',
+    #                         'form_entry__user') \
+    #         .exclude(pk=form_element_entry_id) \
+    #         .filter(form_entry=form_entry)
+    #
+    #     form.validate_plugin_data(form_elements, request=request)
+    #
+    #     if form.is_valid():
+    #         # Saving the plugin form data.
+    #         form.save_plugin_data(request=request)
+    #
+    #         # Getting the plugin data.
+    #         obj.plugin_data = form.get_plugin_data(request=request)
+    #
+    #         # Save the object.
+    #         obj.save()
+    #
+    #         messages.info(
+    #             request,
+    #             _('The form element plugin "{0}" was edited '
+    #               'successfully.').format(form_element_plugin.name)
+    #         )
+    #
+    #     return self.render_to_response(
+    #         self.get_context_data(
+    #             form=form,
+    #             form_entry=form_entry,
+    #             form_element_plugin=form_element_plugin,
+    #         )
+    #     )

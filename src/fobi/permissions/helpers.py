@@ -19,6 +19,9 @@ def login_required(request) -> bool:
 def permissions_required_func(perms, satisfy=DEFAULT_SATISFY) -> callable:
     assert satisfy in (SATISFY_ANY, SATISFY_ALL)
 
+    if isinstance(perms, str):
+        perms = (perms,)
+
     if SATISFY_ALL == satisfy:
         # ``SATISFY_ALL`` case
         def check_perms(user):

@@ -786,10 +786,10 @@ def edit_form_element_entry(request,
     form_element_plugin = obj.get_plugin(request=request)
     form_element_plugin.request = request
 
-    FormElementPluginForm = form_element_plugin.get_form()
+    form_element_plugin_form_cls = form_element_plugin.get_form()
     form = None
 
-    if not FormElementPluginForm:
+    if not form_element_plugin_form_cls:
         messages.info(
             request,
             gettext('The form element plugin "{0}" '
@@ -824,7 +824,7 @@ def edit_form_element_entry(request,
             messages.info(
                 request,
                 gettext('The form element plugin "{0}" was edited '
-                         'successfully.').format(form_element_plugin.name)
+                        'successfully.').format(form_element_plugin.name)
             )
 
             return redirect('fobi.edit_form_entry',
@@ -833,8 +833,10 @@ def edit_form_element_entry(request,
     else:
         form = form_element_plugin.get_initialised_edit_form_or_404()
 
-    form_element_plugin = obj.get_plugin(request=request)
-    form_element_plugin.request = request
+    # TODO: Commented out on 2022-07-09 during refactoring. If something
+    #  goes wrong, uncomment it.
+    # form_element_plugin = obj.get_plugin(request=request)
+    # form_element_plugin.request = request
 
     context = {
         'form': form,
@@ -843,7 +845,7 @@ def edit_form_element_entry(request,
     }
 
     # If given, pass to the template (and override the value set by
-    # the context processor.
+    # the context processor).
     if theme:
         context.update({'fobi_theme': theme})
 
