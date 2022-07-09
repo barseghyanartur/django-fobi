@@ -38,6 +38,7 @@ __all__ = (
     "AddFormElementEntryPermission",
     "EditFormElementEntryPermission",
     "DeleteFormElementEntryPermission",
+    "AddFormHandlerEntryPermission",
 )
 
 
@@ -93,3 +94,13 @@ class DeleteFormElementEntryPermission(BasePermission):
         return login_required(request) and permissions_required_func(
             delete_form_element_entry_permission
         )(request.user)
+
+
+class AddFormHandlerEntryPermission(BasePermission):
+    """Permission to add form handler entries."""
+
+    def has_permission(self, request, view) -> bool:
+        return login_required(request) and permissions_required_func(
+            add_form_handler_entry_permission
+        )(request.user)
+

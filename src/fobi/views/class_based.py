@@ -49,6 +49,7 @@ from ..permissions.default import (
     AddFormElementEntryPermission,
     EditFormElementEntryPermission,
     DeleteFormElementEntryPermission,
+    AddFormHandlerEntryPermission,
 )
 from ..settings import DEBUG, GET_PARAM_INITIAL_DATA, SORT_PLUGINS_BY_VALUE
 from ..utils import (
@@ -116,6 +117,7 @@ class PermissionMixin(View):
 
 
 class AbstractDeletePluginEntryView(PermissionMixin, DeleteView):
+    """Abstract delete view for plugin entries."""
 
     pk_url_kwarg: str
     get_user_plugin_uids_func: callable
@@ -966,3 +968,7 @@ class DeleteFormElementEntryView(AbstractDeletePluginEntryView):
     get_user_plugin_uids_func = get_user_form_field_plugin_uids
     message = _('The form element plugin "{0}" was deleted successfully.')
     html_anchor = '?active_tab=tab-form-elements'
+
+# *****************************************************************************
+# **************************** Add form handler entry *************************
+# *****************************************************************************
