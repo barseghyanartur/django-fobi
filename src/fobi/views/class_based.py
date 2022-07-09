@@ -52,6 +52,7 @@ from ..permissions.default import (
     AddFormHandlerEntryPermission,
     EditFormHandlerEntryPermission,
     DeleteFormHandlerEntryPermission,
+    ViewFormEntryPermission,
 )
 from ..settings import DEBUG, GET_PARAM_INITIAL_DATA, SORT_PLUGINS_BY_VALUE
 from ..utils import (
@@ -1385,3 +1386,13 @@ class DeleteFormHandlerEntryView(AbstractDeletePluginEntryView):
     get_user_plugin_uids_func = get_user_form_handler_plugin_uids
     message = _('The form handler plugin "{0}" was deleted successfully.')
     html_anchor = '?active_tab=tab-form-handlers'
+
+# *****************************************************************************
+# *****************************************************************************
+# ******************************** View form entry ****************************
+# *****************************************************************************
+# *****************************************************************************
+
+# *****************************************************************************
+# ******************************** View form entry ****************************
+# *****************************************************************************
