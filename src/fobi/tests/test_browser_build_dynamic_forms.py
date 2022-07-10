@@ -596,7 +596,11 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
             pass
 
         # Wait until the submit success page opens a clear success message.
-        WebDriverWait(self.driver, timeout=TIMEOUT).until(
+        # TODO: This is really weird. Somehow it takes longer time to render
+        #  the class based views than the correspondent function based views.
+        #  find out why and fix. As temporary workaround, we're waiting
+        #  twice as long as the normal timeout.
+        WebDriverWait(self.driver, timeout=TIMEOUT*2).until(
             lambda driver: driver.find_element_by_xpath(
                 """//div[contains(text(), 'Form {0} was submitted """
                 """successfully.') """

@@ -70,7 +70,7 @@ migrate:
 	docker-compose -f docker-compose.yml exec backend ./manage.py migrate $(APP);
 
 test:
-	docker-compose -f docker-compose.yml exec backend pytest /backend/src/ $(APP);
+	docker-compose -f docker-compose.yml exec backend pytest /backend/src/$(TEST_PATH);
 
 show-migrations:
 	docker-compose -f docker-compose.yml exec backend ./manage.py showmigrations

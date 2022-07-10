@@ -8,6 +8,7 @@ from ...views import (
 )
 from ...views.class_based import (
     ViewFormEntryView,
+    ViewFormEntrySubmittedView,
 )
 
 __title__ = 'fobi.urls.class_based.view'
@@ -22,7 +23,8 @@ urlpatterns = [
     # ***********************************************************************
     # Form submitted success page
     url(_(r'^view/submitted/$'),
-        view=form_entry_submitted,
+        # view=form_entry_submitted,
+        view=ViewFormEntrySubmittedView.as_view(),
         name='fobi.form_entry_submitted'),
 
     # View form entry
@@ -33,7 +35,8 @@ urlpatterns = [
 
     # Form submitted success page
     url(_(r'^view/(?P<form_entry_slug>[\w_\-]+)/submitted/$'),
-        view=form_entry_submitted,
+        # view=form_entry_submitted,
+        view=ViewFormEntrySubmittedView.as_view(),
         name='fobi.form_entry_submitted'),
 
     # ***********************************************************************

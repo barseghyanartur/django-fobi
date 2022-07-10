@@ -88,6 +88,7 @@ __all__ = (
     "EditFormHandlerEntryView",
     "DeleteFormHandlerEntryView",
     "ViewFormEntryView",
+    "ViewFormEntrySubmittedView",
 )
 
 logger = logging.getLogger(__name__)
@@ -1406,7 +1407,7 @@ class DeleteFormHandlerEntryView(AbstractDeletePluginEntryView):
 # *****************************************************************************
 
 
-class AbstractViewFormEntryView(DetailView):
+class AbstractViewFormEntryView(PermissionMixin, DetailView):
     """Abstract view form entry."""
 
     model = FormEntry
@@ -1422,7 +1423,7 @@ class AbstractViewFormEntryView(DetailView):
 
     def _get_queryset(self, request):
         """Get queryset."""
-        queryset = FormEntry._default_manager.select_related('user')
+        queryset = FormEntry._default_manager.all().select_related('user')
         if not request.user.is_authenticated:
             queryset = queryset.filter(is_public=True)
         return queryset
@@ -1666,3 +1667,27 @@ class ViewFormEntrySubmittedView(AbstractViewFormEntryView):
                 form_entry=form_entry,
             )
         )
+
+    def get_context_data(self, **kwargs):
+        """Get context data."""
+        context = super(ViewFormEntrySubmittedView, self).get_context_data(**kwargs)
+
+        if not self.theme:
+            theme = get_theme(request=self.request, as_instance=True)
+        else:
+            theme = self.theme
+
+        if theme:
+            context.update({"fobi_theme": theme})
+        return context
+
+    def get_template_names(self):
+        """Get template names."""
+        template_name = self.template_name
+        if not template_name:
+            if not self.theme:
+                theme = get_theme(request=self.request, as_instance=True)
+            else:
+                theme = self.theme
+            template_name = theme.form_entry_submitted_template
+        return [template_name]
