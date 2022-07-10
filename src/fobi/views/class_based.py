@@ -5,13 +5,13 @@ import logging
 from django.contrib import messages
 from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
 from django.db import IntegrityError, models
-from django.shortcuts import redirect, get_object_or_404
+from django.shortcuts import redirect, get_object_or_404, render
 from django.http import Http404
 from django.urls import reverse_lazy
 from django.utils.datastructures import MultiValueDictKeyError
 from django.utils.translation import gettext_lazy as _
 from django.views import View
-from django.views.generic import CreateView, UpdateView, DeleteView
+from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
 from django.views.generic.edit import DeletionMixin
 
 from ..base import (
@@ -24,6 +24,13 @@ from ..base import (
     submit_plugin_form_data,
     get_theme,
     # get_registered_form_handler_plugins
+)
+from ..constants import (
+    CALLBACK_BEFORE_FORM_VALIDATION,
+    CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA,
+    CALLBACK_FORM_VALID,
+    CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS,
+    CALLBACK_FORM_INVALID
 )
 from ..dynamic import assemble_form_class
 from ..forms import (
@@ -80,6 +87,7 @@ __all__ = (
     "AddFormHandlerEntryView",
     "EditFormHandlerEntryView",
     "DeleteFormHandlerEntryView",
+    "ViewFormEntryView",
 )
 
 logger = logging.getLogger(__name__)
@@ -1396,3 +1404,265 @@ class DeleteFormHandlerEntryView(AbstractDeletePluginEntryView):
 # *****************************************************************************
 # ******************************** View form entry ****************************
 # *****************************************************************************
+
+
+class AbstractViewFormEntryView(DetailView):
+    """Abstract view form entry."""
+
+    model = FormEntry
+    slug_url_kwarg = "form_entry_slug"
+    template_name = None
+    theme = None
+    permission_classes = (ViewFormEntryPermission,)
+
+    def get_object(self, queryset=None):
+        if queryset is None:
+            queryset = self._get_queryset(request=self.request)
+        return super(AbstractViewFormEntryView, self).get_object(queryset=queryset)
+
+    def _get_queryset(self, request):
+        """Get queryset."""
+        queryset = FormEntry._default_manager.select_related('user')
+        if not request.user.is_authenticated:
+            queryset = queryset.filter(is_public=True)
+        return queryset
+
+
+class ViewFormEntryView(AbstractViewFormEntryView):
+    """View created form."""
+
+    def get_context_data(self, **kwargs):
+        """Get context data."""
+        context = super(ViewFormEntryView, self).get_context_data(**kwargs)
+
+        if not self.theme:
+            theme = get_theme(request=self.request, as_instance=True)
+        else:
+            theme = self.theme
+
+        if theme:
+            context.update({"fobi_theme": theme})
+        return context
+
+    def get_template_names(self):
+        """Get template names."""
+        template_name = self.template_name
+        if not template_name:
+            if not self.theme:
+                theme = get_theme(request=self.request, as_instance=True)
+            else:
+                theme = self.theme
+            template_name = theme.view_form_entry_template
+        return [template_name]
+
+    def get_essential_objects(
+            self,
+            form_entry,
+            request,
+    ):
+        """Get essential objects."""
+        form_element_entries = form_entry.formelemententry_set.all()[:]
+
+        # This is where the most of the magic happens. Our form is being built
+        # dynamically.
+        form_cls = assemble_form_class(
+            form_entry,
+            form_element_entries=form_element_entries,
+            request=request
+        )
+
+        return (
+            form_element_entries,
+            form_cls,
+        )
+
+    def inactive_form_response(self, request, form_entry):
+        context = {
+            'form_entry': form_entry,
+            'page_header': (form_entry.inactive_page_title
+                            or form_entry.title
+                            or form_entry.name),
+        }
+
+        if not self.template_name:
+            theme = get_theme(request=request, as_instance=True)
+            template_name = theme.form_entry_inactive_template
+        else:
+            template_name = self.template_name
+
+        return render(request, template_name, context)
+
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests: instantiate a blank version of the form."""
+        try:
+            form_entry = self.get_object()
+        except ObjectDoesNotExist as err:
+            raise Http404(_("Form entry not found."))
+
+        self.object = form_entry
+
+        if not form_entry.is_active:
+            return self.inactive_form_response(request, form_entry)
+
+        form_element_entries, form_cls = self.get_essential_objects(
+            form_entry,
+            request,
+        )
+
+        # Providing initial form data by feeding entire GET dictionary
+        # to the form, if ``GET_PARAM_INITIAL_DATA`` is present in the
+        # GET.
+        kwargs = {}
+        if GET_PARAM_INITIAL_DATA in request.GET:
+            kwargs = {'initial': request.GET}
+        form = form_cls(**kwargs)
+
+        # In debug mode, try to identify possible problems.
+        if DEBUG:
+            form.as_p()
+        else:
+            try:
+                form.as_p()
+            except Exception as err:
+                logger.error(err)
+
+        theme = get_theme(request=request, as_instance=True)
+        theme.collect_plugin_media(form_element_entries)
+
+        return self.render_to_response(
+            self.get_context_data(
+                form=form,
+                form_entry=form_entry,
+                fobi_form_title=form_entry.title,
+            )
+        )
+
+    def post(self, request, *args, **kwargs):
+        """
+        Handle POST requests: instantiate a form instance with the passed
+        POST variables and then check if it's valid.
+        """
+        try:
+            form_entry = self.get_object()
+        except ObjectDoesNotExist as err:
+            raise Http404(_("Form entry not found."))
+
+        self.object = form_entry
+
+        if not form_entry.is_active:
+            return self.inactive_form_response(request, form_entry)
+
+        form_element_entries, form_cls = self.get_essential_objects(
+            form_entry,
+            request,
+        )
+
+        form = form_cls(request.POST, request.FILES)
+
+        # Fire pre form validation callbacks
+        fire_form_callbacks(form_entry=form_entry, request=request, form=form,
+                            stage=CALLBACK_BEFORE_FORM_VALIDATION)
+
+        if form.is_valid():
+            # Fire form valid callbacks, before handling submitted plugin
+            # form data.
+            form = fire_form_callbacks(
+                form_entry=form_entry,
+                request=request,
+                form=form,
+                stage=CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA
+            )
+
+            # Fire plugin processors
+            form = submit_plugin_form_data(
+                form_entry=form_entry,
+                request=request,
+                form=form
+            )
+
+            # Fire form valid callbacks
+            form = fire_form_callbacks(form_entry=form_entry,
+                                       request=request, form=form,
+                                       stage=CALLBACK_FORM_VALID)
+
+            # Run all handlers
+            handler_responses, handler_errors = run_form_handlers(
+                form_entry=form_entry,
+                request=request,
+                form=form,
+                form_element_entries=form_element_entries
+            )
+
+            # Warning that not everything went ok.
+            if handler_errors:
+                for handler_error in handler_errors:
+                    messages.warning(
+                        request,
+                        _("Error occurred: {0}.").format(handler_error)
+                    )
+
+            # Fire post handler callbacks
+            fire_form_callbacks(
+                form_entry=form_entry,
+                request=request,
+                form=form,
+                stage=CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS
+            )
+
+            messages.info(
+                request,
+                _("Form {0} was submitted successfully.").format(
+                    form_entry.name
+                )
+            )
+            return redirect(
+                reverse_lazy('fobi.form_entry_submitted', args=[form_entry.slug])
+            )
+        else:
+            # Fire post form validation callbacks
+            fire_form_callbacks(form_entry=form_entry, request=request,
+                                form=form, stage=CALLBACK_FORM_INVALID)
+
+        # In debug mode, try to identify possible problems.
+        if DEBUG:
+            form.as_p()
+        else:
+            try:
+                form.as_p()
+            except Exception as err:
+                logger.error(err)
+
+        theme = get_theme(request=request, as_instance=True)
+        theme.collect_plugin_media(form_element_entries)
+
+        return self.render_to_response(
+            self.get_context_data(
+                form=form,
+                form_entry=form_entry,
+                fobi_form_title=form_entry.title,
+            )
+        )
+
+# *****************************************************************************
+# **************************** View form entry success ************************
+# *****************************************************************************
+
+
+class ViewFormEntrySubmittedView(AbstractViewFormEntryView):
+    """View form entry submitted."""
+
+    def get(self, request, *args, **kwargs):
+        """Handle GET requests: instantiate a blank version of the form."""
+        try:
+            form_entry = self.get_object()
+        except ObjectDoesNotExist as err:
+            raise Http404(_("Form entry not found."))
+
+        self.object = form_entry
+
+        return self.render_to_response(
+            self.get_context_data(
+                form_entry_slug=self.kwargs.get(self.slug_url_kwarg),
+                form_entry=form_entry,
+            )
+        )

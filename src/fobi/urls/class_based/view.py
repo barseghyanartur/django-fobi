@@ -6,6 +6,9 @@ from ...views import (
     form_wizard_entry_submitted,
     FormWizardView
 )
+from ...views.class_based import (
+    ViewFormEntryView,
+)
 
 __title__ = 'fobi.urls.class_based.view'
 __author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
@@ -24,7 +27,8 @@ urlpatterns = [
 
     # View form entry
     url(_(r'^view/(?P<form_entry_slug>[\w_\-]+)/$'),
-        view_form_entry,
+        # view=view_form_entry,
+        view=ViewFormEntryView.as_view(),
         name='fobi.view_form_entry'),
 
     # Form submitted success page

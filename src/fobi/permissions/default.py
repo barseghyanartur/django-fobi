@@ -19,7 +19,7 @@ from .definitions import (
     edit_form_wizard_handler_entry_permission,
     wizards_dashboard_permissions,
 )
-from .generic import BasePermission
+from .generic import BasePermission, AllowAnyPermission
 from .helpers import (
     login_required,
     all_permissions_required_func,
@@ -126,8 +126,5 @@ class DeleteFormHandlerEntryPermission(BasePermission):
         )(request.user)
 
 
-class ViewFormEntryPermission(BasePermission):
+class ViewFormEntryPermission(AllowAnyPermission):
     """Permission to view form entries."""
-
-    def has_permission(self, request, view) -> bool:
-        return login_required(request)

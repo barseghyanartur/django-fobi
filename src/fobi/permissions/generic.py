@@ -16,12 +16,12 @@ __all__ = (
     "NOT",
     "BasePermissionMetaclass",
     "BasePermission",
-    "AllowAny",
-    "DenyAny",
-    "IsAuthenticated",
-    "IsAdminUser",
-    "IsAuthenticatedOrReadOnly",
-    "IsSuperUser",
+    "AllowAnyPermission",
+    "DenyAnyPermission",
+    "IsAuthenticatedPermission",
+    "IsAdminUserPermission",
+    "IsAuthenticatedOrReadOnlyPermission",
+    "IsSuperUserPermission",
 )
 
 SAFE_METHODS = ("GET", "HEAD", "OPTIONS")
@@ -131,7 +131,7 @@ class BasePermission(metaclass=BasePermissionMetaclass):
         return True
 
 
-class AllowAny(BasePermission):
+class AllowAnyPermission(BasePermission):
     """
     Allow any access.
     This isn't strictly required, since you could use an empty
@@ -143,7 +143,7 @@ class AllowAny(BasePermission):
         return True
 
 
-class DenyAny(BasePermission):
+class DenyAnyPermission(BasePermission):
     """
     Deny any access.
     This isn't strictly required, since you could use an empty
@@ -155,7 +155,7 @@ class DenyAny(BasePermission):
         return False
 
 
-class IsAuthenticated(BasePermission):
+class IsAuthenticatedPermission(BasePermission):
     """
     Allows access only to authenticated users.
     """
@@ -164,7 +164,7 @@ class IsAuthenticated(BasePermission):
         return bool(request.user and request.user.is_authenticated)
 
 
-class IsAdminUser(BasePermission):
+class IsAdminUserPermission(BasePermission):
     """
     Allows access only to admin users.
     """
@@ -173,7 +173,7 @@ class IsAdminUser(BasePermission):
         return bool(request.user and request.user.is_staff)
 
 
-class IsSuperUser(BasePermission):
+class IsSuperUserPermission(BasePermission):
     """
     Allows access only to super-users.
     """
@@ -182,7 +182,7 @@ class IsSuperUser(BasePermission):
         return bool(request.user and request.user.is_superuser)
 
 
-class IsAuthenticatedOrReadOnly(BasePermission):
+class IsAuthenticatedOrReadOnlyPermission(BasePermission):
     """
     The request is authenticated as a user, or is a read-only request.
     """
