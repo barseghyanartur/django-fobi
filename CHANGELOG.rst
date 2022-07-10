@@ -15,6 +15,36 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.19
+----
+2022-07-11
+
+- Introduce class based views. Function based views are still supported
+  and will be supported until at least 0.23.
+
+  Migration to class based views is simple. Only your project's ``urls.py``
+  would change:
+
+  .. code-block:: python
+
+      urlpatterns = [
+          # ...
+          url(r'^fobi/', include('fobi.urls.class_based.view')),
+          url(r'^fobi/', include('fobi.urls.class_based.edit')),
+          # ...
+      ]
+
+  To use function based views, simply replace the previous line with:
+
+  .. code-block:: python
+
+      urlpatterns = [
+          # ...
+          url(r'^fobi/', include('fobi.urls.view')),
+          url(r'^fobi/', include('fobi.urls.edit')),
+          # ...
+      ]
+
 0.18
 ----
 2022-06-23
