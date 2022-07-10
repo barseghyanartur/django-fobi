@@ -1065,11 +1065,17 @@ def edit_form_handler_entry(request,
             messages.info(
                 request,
                 gettext('The form handler plugin "{0}" was edited '
-                         'successfully.').format(form_handler_plugin.name)
+                        'successfully.').format(form_handler_plugin.name)
             )
 
-            return redirect('fobi.edit_form_entry',
-                            form_entry_id=form_entry.pk)
+            return redirect(
+                "{0}?active_tab=tab-form-handlers".format(
+                    reverse(
+                        'fobi.edit_form_entry',
+                        kwargs={"form_entry_id": form_entry.pk},
+                    )
+                )
+            )
 
     else:
         form = form_handler_plugin.get_initialised_edit_form_or_404()
