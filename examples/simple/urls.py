@@ -43,10 +43,10 @@ url_patterns_args = [
 
     # django-fobi URLs:
     # namespace='fobi'
-    url(r'^fobi/', include('fobi.urls.view')),
+    url(r'^fobi/', include('fobi.urls.class_based.view')),
     # namespace='fobi'
     url(r'^{0}fobi/'.format(FOBI_EDIT_URLS_PREFIX),
-        include('fobi.urls.edit')),
+        include('fobi.urls.class_based.edit')),
 
     url(r'^admin_tools/', include('admin_tools.urls')),
 

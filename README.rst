@@ -94,6 +94,9 @@ Main features and highlights
 - Developer-friendly API, which allows to edit existing or build new form
   fields and handlers without touching the core.
 - Support for custom user model.
+- Class based views (and class-based permissions). Forms have an
+  owner (``auth.User``). Default permissions are set for the owner, but
+  class-based views provide a lot of freedom and can be easily customized.
 - `Theming`_. There are 4 ready to use `Bundled themes`_: "Bootstrap 3",
   "Foundation 5", "Simple" (with editing interface in style of Django admin)
   and "DjangoCMS admin style" theme (which is another simple theme with editing
@@ -127,7 +130,6 @@ Roadmap
 Some of the upcoming/in-development features/improvements are:
 
 - Implement disabling forms based on dates.
-- Class based views.
 - Cloning of forms.
 - JSON schema support.
 - Webpack integration.
@@ -1178,6 +1180,61 @@ Add the callback module to ``INSTALLED_APPS``.
         'path.to.foo',
         # ...
     )
+
+Class-based views
+=================
+Views
+-----
+Migration to class based views is simple. Only your project's ``urls.py``
+would change:
+
+.. code-block:: python
+
+    urlpatterns = [
+        # ...
+        url(r'^fobi/', include('fobi.urls.class_based.view')),
+        url(r'^fobi/', include('fobi.urls.class_based.edit')),
+        # ...
+    ]
+
+To use function based views, simply replace the previous line with:
+
+.. code-block:: python
+
+    urlpatterns = [
+        # ...
+        url(r'^fobi/', include('fobi.urls.view')),
+        url(r'^fobi/', include('fobi.urls.edit')),
+        # ...
+    ]
+
+Permissions
+-----------
+
+Class-based permissions work only in combination with class-based views.
+
+Example:
+
+.. code-block:: python
+
+    from fobi.permissions.definitions import edit_form_entry_permissions
+    from fobi.permissions.generic import BasePermission
+    from fobi.permissions.helpers import (
+      any_permission_required_func, login_required,
+    )
+
+    class EditFormEntryPermission(BasePermission):
+    """Permission to edit form entries."""
+
+    def has_permission(self, request, view) -> bool:
+      return login_required(request) and any_permission_required_func(
+          edit_form_entry_permissions
+      )(request.user)
+
+    def has_object_permission(self, request, view, obj) -> bool:
+      return login_required(request) and any_permission_required_func(
+          edit_form_entry_permissions
+      )(request.user) and obj.user == request.user
 
 Suggestions
 ===========
