@@ -1,4 +1,6 @@
+import os
 import logging
+from datetime import datetime
 
 from selenium import webdriver
 from selenium.webdriver.common.action_chains import ActionChains
@@ -219,3 +221,13 @@ class BaseFobiBrowserBuldDynamicFormsTest(StaticLiveServerTestCase):
         """Scroll to the page bottom."""
         html = self.driver.find_element_by_tag_name('html')
         html.send_keys(Keys.END)
+
+    def take_screenshot(self, name="screenshot"):
+        now = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
+        filename = os.path.join(
+            settings.STATIC_ROOT, 
+            f"{name}-{now}.png"
+        )
+        self.driver.get_screenshot_as_file(filename)
+        logger.exception(f"!!!!!!!!!! file: {filename}")
+        return filename

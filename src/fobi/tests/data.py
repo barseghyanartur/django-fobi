@@ -249,7 +249,7 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
 TEST_FORM_FIELD_DATA = {
     'test_boolean': True,
     # 'test_checkbox_select_multiple_input': '',
-    'test_date_input': datetime.date.today().strftime("%Y-%m-%d"),
+    'test_date_input': datetime.date.today().strftime("%d-%m-%Y"),
     'test_datetime_input': datetime.datetime.now().strftime(
         "%Y-%m-%d %H:%M:%S"
     ),
