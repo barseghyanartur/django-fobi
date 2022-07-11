@@ -19,11 +19,11 @@ from .definitions import (
     edit_form_wizard_handler_entry_permission,
     wizards_dashboard_permissions,
 )
-from .generic import BasePermission, AllowAnyPermission
+from .generic import AllowAnyPermission, BasePermission
 from .helpers import (
-    login_required,
     all_permissions_required_func,
     any_permission_required_func,
+    login_required,
     permissions_required_func,
 )
 
@@ -63,9 +63,13 @@ class EditFormEntryPermission(BasePermission):
         )(request.user)
 
     def has_object_permission(self, request, view, obj) -> bool:
-        return login_required(request) and any_permission_required_func(
-            edit_form_entry_permissions
-        )(request.user) and obj.user == request.user
+        return (
+            login_required(request)
+            and any_permission_required_func(edit_form_entry_permissions)(
+                request.user
+            )
+            and obj.user == request.user
+        )
 
 
 class DeleteFormEntryPermission(BasePermission):
@@ -77,9 +81,13 @@ class DeleteFormEntryPermission(BasePermission):
         )(request.user)
 
     def has_object_permission(self, request, view, obj) -> bool:
-        return login_required(request) and any_permission_required_func(
-            delete_form_entry_permissions
-        )(request.user) and obj.user == request.user
+        return (
+            login_required(request)
+            and any_permission_required_func(delete_form_entry_permissions)(
+                request.user
+            )
+            and obj.user == request.user
+        )
 
 
 class AddFormElementEntryPermission(BasePermission):
@@ -100,9 +108,13 @@ class EditFormElementEntryPermission(BasePermission):
         )(request.user)
 
     def has_object_permission(self, request, view, obj) -> bool:
-        return login_required(request) and permissions_required_func(
-            edit_form_element_entry_permission
-        )(request.user) and obj.form_entry.user == request.user
+        return (
+            login_required(request)
+            and permissions_required_func(edit_form_element_entry_permission)(
+                request.user
+            )
+            and obj.form_entry.user == request.user
+        )
 
 
 class DeleteFormElementEntryPermission(BasePermission):
@@ -114,9 +126,13 @@ class DeleteFormElementEntryPermission(BasePermission):
         )(request.user)
 
     def has_object_permission(self, request, view, obj) -> bool:
-        return login_required(request) and permissions_required_func(
-            delete_form_element_entry_permission
-        )(request.user) and obj.form_entry.user == request.user
+        return (
+            login_required(request)
+            and permissions_required_func(delete_form_element_entry_permission)(
+                request.user
+            )
+            and obj.form_entry.user == request.user
+        )
 
 
 class AddFormHandlerEntryPermission(BasePermission):
@@ -140,9 +156,13 @@ class EditFormHandlerEntryPermission(BasePermission):
         )(request.user)
 
     def has_object_permission(self, request, view, obj) -> bool:
-        return login_required(request) and permissions_required_func(
-            edit_form_handler_entry_permission
-        )(request.user) and obj.form_entry.user == request.user
+        return (
+            login_required(request)
+            and permissions_required_func(edit_form_handler_entry_permission)(
+                request.user
+            )
+            and obj.form_entry.user == request.user
+        )
 
 
 class DeleteFormHandlerEntryPermission(BasePermission):
@@ -154,9 +174,13 @@ class DeleteFormHandlerEntryPermission(BasePermission):
         )(request.user)
 
     def has_object_permission(self, request, view, obj) -> bool:
-        return login_required(request) and permissions_required_func(
-            delete_form_handler_entry_permission
-        )(request.user) and obj.form_entry.user == request.user
+        return (
+            login_required(request)
+            and permissions_required_func(delete_form_handler_entry_permission)(
+                request.user
+            )
+            and obj.form_entry.user == request.user
+        )
 
 
 class ViewFormEntryPermission(AllowAnyPermission):

@@ -229,5 +229,5 @@ class BaseFobiBrowserBuldDynamicFormsTest(StaticLiveServerTestCase):
             f"{name}-{now}.png"
         )
         self.driver.get_screenshot_as_file(filename)
-        logger.exception(f"!!!!!!!!!! file: {filename}")
+        logger.debug(f"Screenshot saved in: {filename}")
         return filename

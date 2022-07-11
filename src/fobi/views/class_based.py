@@ -3,34 +3,33 @@ import json
 import logging
 
 from django.contrib import messages
-from django.core.exceptions import PermissionDenied, ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
 from django.db import IntegrityError, models
-from django.shortcuts import redirect, get_object_or_404, render
 from django.http import Http404
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.utils.datastructures import MultiValueDictKeyError
 from django.utils.translation import gettext_lazy as _
 from django.views import View
-from django.views.generic import CreateView, UpdateView, DeleteView, DetailView
+from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
 from django.views.generic.edit import DeletionMixin
 
-from ..base import (
+from ..base import (  # get_registered_form_handler_plugins
     fire_form_callbacks,
-    run_form_handlers,
-    run_form_wizard_handlers,
     form_element_plugin_registry,
     form_handler_plugin_registry,
     form_wizard_handler_plugin_registry,
-    submit_plugin_form_data,
     get_theme,
-    # get_registered_form_handler_plugins
+    run_form_handlers,
+    run_form_wizard_handlers,
+    submit_plugin_form_data,
 )
 from ..constants import (
     CALLBACK_BEFORE_FORM_VALIDATION,
-    CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA,
+    CALLBACK_FORM_INVALID,
     CALLBACK_FORM_VALID,
     CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS,
-    CALLBACK_FORM_INVALID
+    CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA,
 )
 from ..dynamic import assemble_form_class
 from ..forms import (
@@ -50,15 +49,15 @@ from ..models import (
     FormWizardHandlerEntry,
 )
 from ..permissions.default import (
-    CreateFormEntryPermission,
-    EditFormEntryPermission,
-    DeleteFormEntryPermission,
     AddFormElementEntryPermission,
-    EditFormElementEntryPermission,
-    DeleteFormElementEntryPermission,
     AddFormHandlerEntryPermission,
-    EditFormHandlerEntryPermission,
+    CreateFormEntryPermission,
+    DeleteFormElementEntryPermission,
+    DeleteFormEntryPermission,
     DeleteFormHandlerEntryPermission,
+    EditFormElementEntryPermission,
+    EditFormEntryPermission,
+    EditFormHandlerEntryPermission,
     ViewFormEntryPermission,
 )
 from ..settings import DEBUG, GET_PARAM_INITIAL_DATA, SORT_PLUGINS_BY_VALUE
@@ -128,8 +127,8 @@ class PermissionMixin(View):
             if not permission.has_permission(request, self):
                 self.permission_denied(
                     request,
-                    message=getattr(permission, 'message', None),
-                    code=getattr(permission, 'code', None)
+                    message=getattr(permission, "message", None),
+                    code=getattr(permission, "code", None),
                 )
 
     def check_object_permissions(self, request, obj):
@@ -141,8 +140,8 @@ class PermissionMixin(View):
             if not permission.has_object_permission(request, self, obj):
                 self.permission_denied(
                     request,
-                    message=getattr(permission, 'message', None),
-                    code=getattr(permission, 'code', None)
+                    message=getattr(permission, "message", None),
+                    code=getattr(permission, "code", None),
                 )
 
 
@@ -156,9 +155,9 @@ class AbstractDeletePluginEntryView(PermissionMixin, DeleteView):
 
     def _get_queryset(self, request):
         """Get queryset."""
-        return self.model._default_manager \
-            .select_related('form_entry') \
-            .filter(form_entry__user__pk=request.user.pk)
+        return self.model._default_manager.select_related("form_entry").filter(
+            form_entry__user__pk=request.user.pk
+        )
 
     def get_object(self, queryset=None):
         """Get object."""
@@ -194,7 +193,7 @@ class AbstractDeletePluginEntryView(PermissionMixin, DeleteView):
         )
         messages.info(request, self.message.format(plugin.name))
         redirect_url = reverse_lazy(
-            'fobi.edit_form_entry', kwargs={'form_entry_id': form_entry.pk}
+            "fobi.edit_form_entry", kwargs={"form_entry_id": form_entry.pk}
         )
         return redirect("{0}{1}".format(redirect_url, self.html_anchor))
 
@@ -219,6 +218,7 @@ class AbstractDeletePluginEntryView(PermissionMixin, DeleteView):
 
     def run_after_plugin_entry_delete(self, request, form_entry_id):
         """Run after plugin entry has been deleted."""
+
 
 # *****************************************************************************
 # *****************************************************************************
@@ -328,6 +328,7 @@ class CreateFormEntryView(PermissionMixin, CreateView):
     def run_after_form_create(self, request, form_entry):
         """Run after the form_entry has been created/saved."""
 
+
 # **************************************************************************
 # ******************************* Edit form entry **************************
 # **************************************************************************
@@ -434,10 +435,11 @@ class EditFormEntryView(PermissionMixin, UpdateView):
 
     def _get_queryset(self, request):
         """Get queryset."""
-        return FormEntry._default_manager \
-            .select_related('user') \
-            .prefetch_related('formelemententry_set') \
+        return (
+            FormEntry._default_manager.select_related("user")
+            .prefetch_related("formelemententry_set")
             .filter(user__pk=request.user.pk)
+        )
 
     def get_object(self, queryset=None):
         """Get object."""
@@ -539,6 +541,7 @@ class EditFormEntryView(PermissionMixin, UpdateView):
             )
         )
 
+
 # *****************************************************************************
 # ********************************* Delete form entry *************************
 # *****************************************************************************
@@ -556,7 +559,7 @@ class DeleteFormEntryView(PermissionMixin, DeletionMixin):
         obj = get_object_or_404(
             FormEntry._default_manager.all(),
             pk=self.kwargs.get("form_entry_id"),
-            user__pk=self.request.user.pk
+            user__pk=self.request.user.pk,
         )
         self.check_object_permissions(self.request, obj)
         return obj
@@ -600,6 +603,7 @@ class DeleteFormEntryView(PermissionMixin, DeletionMixin):
     def run_after_form_delete(self, request, form_entry_id):
         """Run after form_entry has been deleted."""
 
+
 # *****************************************************************************
 # **************************** Add form element entry *************************
 # *****************************************************************************
@@ -614,16 +618,16 @@ class AddFormElementEntryView(PermissionMixin, CreateView):
     permission_classes = (AddFormElementEntryPermission,)
 
     def get_essential_objects(
-            self,
-            form_entry_id,
-            form_element_plugin_uid,
-            request,
+        self,
+        form_entry_id,
+        form_element_plugin_uid,
+        request,
     ):
         """Get essential objects."""
         try:
-            form_entry = FormEntry._default_manager \
-                .prefetch_related('formelemententry_set') \
-                .get(pk=form_entry_id)
+            form_entry = FormEntry._default_manager.prefetch_related(
+                "formelemententry_set"
+            ).get(pk=form_entry_id)
         except ObjectDoesNotExist as err:
             raise Http404(_("Form entry not found."))
 
@@ -635,8 +639,11 @@ class AddFormElementEntryView(PermissionMixin, CreateView):
 
         if form_element_plugin_uid not in user_form_element_plugin_uids:
             raise Http404(
-                _("Plugin does not exist or you are not allowed "
-                  "to use this plugin!"))
+                _(
+                    "Plugin does not exist or you are not allowed "
+                    "to use this plugin!"
+                )
+            )
 
         form_element_plugin_cls = form_element_plugin_registry.get(
             form_element_plugin_uid
@@ -663,21 +670,17 @@ class AddFormElementEntryView(PermissionMixin, CreateView):
         )
 
     def do_save_object(
-        self,
-        form_entry_id,
-        form_entry,
-        obj,
-        form_element_plugin,
-        request
+        self, form_entry_id, form_entry, obj, form_element_plugin, request
     ):
         """Do save object."""
         # Handling the position
         position = 1
-        records = FormElementEntry.objects.filter(form_entry=form_entry) \
-            .aggregate(models.Max('position'))
+        records = FormElementEntry.objects.filter(
+            form_entry=form_entry
+        ).aggregate(models.Max("position"))
         if records:
             try:
-                position = records['{0}__max'.format('position')] + 1
+                position = records["{0}__max".format("position")] + 1
 
             except TypeError as err:
                 pass
@@ -689,21 +692,24 @@ class AddFormElementEntryView(PermissionMixin, CreateView):
 
         messages.info(
             request,
-            _('The form element plugin "{0}" was added '
-              'successfully.').format(form_element_plugin.name)
+            _(
+                'The form element plugin "{0}" was added ' "successfully."
+            ).format(form_element_plugin.name),
         )
         return redirect(
             "{0}?active_tab=tab-form-elements".format(
                 reverse_lazy(
-                    'fobi.edit_form_entry',
-                    kwargs={'form_entry_id': form_entry_id}
+                    "fobi.edit_form_entry",
+                    kwargs={"form_entry_id": form_entry_id},
                 )
             )
         )
 
     def get_context_data(self, **kwargs):
         """Get context data."""
-        context = super(AddFormElementEntryView, self).get_context_data(**kwargs)
+        context = super(AddFormElementEntryView, self).get_context_data(
+            **kwargs
+        )
 
         if not self.theme:
             theme = get_theme(request=self.request, as_instance=True)
@@ -755,7 +761,7 @@ class AddFormElementEntryView(PermissionMixin, CreateView):
                 form_entry,
                 obj,
                 form_element_plugin,
-                request
+                request,
             )
 
         return self.render_to_response(
@@ -792,8 +798,7 @@ class AddFormElementEntryView(PermissionMixin, CreateView):
 
         if not save_object:
             form = form_element_plugin.get_initialised_create_form_or_404(
-                data=request.POST,
-                files=request.FILES
+                data=request.POST, files=request.FILES
             )
             form.validate_plugin_data(form_elements, request=request)
             if form.is_valid():
@@ -810,7 +815,7 @@ class AddFormElementEntryView(PermissionMixin, CreateView):
                 form_entry,
                 obj,
                 form_element_plugin,
-                request
+                request,
             )
 
         return self.render_to_response(
@@ -820,6 +825,7 @@ class AddFormElementEntryView(PermissionMixin, CreateView):
                 form_element_plugin=form_element_plugin,
             )
         )
+
 
 # *****************************************************************************
 # **************************** Edit form element entry ************************
@@ -837,9 +843,9 @@ class EditFormElementEntryView(PermissionMixin, UpdateView):
 
     def _get_queryset(self, request):
         """Get queryset."""
-        return FormElementEntry._default_manager \
-            .select_related('form_entry', 'form_entry__user') \
-            .filter(form_entry__user__pk=request.user.pk)
+        return FormElementEntry._default_manager.select_related(
+            "form_entry", "form_entry__user"
+        ).filter(form_entry__user__pk=request.user.pk)
 
     def get_object(self, queryset=None):
         """Get object."""
@@ -848,9 +854,9 @@ class EditFormElementEntryView(PermissionMixin, UpdateView):
         return obj
 
     def get_essential_objects(
-            self,
-            form_element_entry_id,
-            request,
+        self,
+        form_element_entry_id,
+        request,
     ):
         """Get essential objects."""
         try:
@@ -874,7 +880,9 @@ class EditFormElementEntryView(PermissionMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         """Get context data."""
-        context = super(EditFormElementEntryView, self).get_context_data(**kwargs)
+        context = super(EditFormElementEntryView, self).get_context_data(
+            **kwargs
+        )
 
         if not self.theme:
             theme = get_theme(request=self.request, as_instance=True)
@@ -914,10 +922,11 @@ class EditFormElementEntryView(PermissionMixin, UpdateView):
         if not form_element_plugin_form_cls:
             messages.info(
                 request,
-                _('The form element plugin "{0}" '
-                  'is not configurable!').format(form_element_plugin.name)
+                _(
+                    'The form element plugin "{0}" ' "is not configurable!"
+                ).format(form_element_plugin.name),
             )
-            return redirect('fobi.edit_form_entry', form_entry_id=form_entry.pk)
+            return redirect("fobi.edit_form_entry", form_entry_id=form_entry.pk)
 
         else:
             form = form_element_plugin.get_initialised_edit_form_or_404()
@@ -951,21 +960,23 @@ class EditFormElementEntryView(PermissionMixin, UpdateView):
         if not form_element_plugin_form_cls:
             messages.info(
                 request,
-                _('The form element plugin "{0}" '
-                  'is not configurable!').format(form_element_plugin.name)
+                _(
+                    'The form element plugin "{0}" ' "is not configurable!"
+                ).format(form_element_plugin.name),
             )
-            return redirect('fobi.edit_form_entry', form_entry_id=form_entry.pk)
+            return redirect("fobi.edit_form_entry", form_entry_id=form_entry.pk)
 
         form = form_element_plugin.get_initialised_edit_form_or_404(
-            data=request.POST,
-            files=request.FILES
+            data=request.POST, files=request.FILES
         )
 
-        form_elements = FormElementEntry._default_manager \
-            .select_related('form_entry',
-                            'form_entry__user') \
-            .exclude(pk=form_element_entry_id) \
+        form_elements = (
+            FormElementEntry._default_manager.select_related(
+                "form_entry", "form_entry__user"
+            )
+            .exclude(pk=form_element_entry_id)
             .filter(form_entry=form_entry)
+        )
 
         form.validate_plugin_data(form_elements, request=request)
 
@@ -981,12 +992,12 @@ class EditFormElementEntryView(PermissionMixin, UpdateView):
 
             messages.info(
                 request,
-                _('The form element plugin "{0}" was edited '
-                  'successfully.').format(form_element_plugin.name)
+                _(
+                    'The form element plugin "{0}" was edited ' "successfully."
+                ).format(form_element_plugin.name),
             )
 
-            return redirect('fobi.edit_form_entry',
-                            form_entry_id=form_entry.pk)
+            return redirect("fobi.edit_form_entry", form_entry_id=form_entry.pk)
 
         return self.render_to_response(
             self.get_context_data(
@@ -995,6 +1006,7 @@ class EditFormElementEntryView(PermissionMixin, UpdateView):
                 form_element_plugin=form_element_plugin,
             )
         )
+
 
 # *****************************************************************************
 # **************************** Delete form element entry **********************
@@ -1009,7 +1021,8 @@ class DeleteFormElementEntryView(AbstractDeletePluginEntryView):
     pk_url_kwarg = "form_element_entry_id"
     get_user_plugin_uids_func = get_user_form_field_plugin_uids
     message = _('The form element plugin "{0}" was deleted successfully.')
-    html_anchor = '?active_tab=tab-form-elements'
+    html_anchor = "?active_tab=tab-form-elements"
+
 
 # *****************************************************************************
 # **************************** Add form handler entry *************************
@@ -1025,15 +1038,14 @@ class AddFormHandlerEntryView(PermissionMixin, CreateView):
     permission_classes = (AddFormHandlerEntryPermission,)
 
     def get_essential_objects(
-            self,
-            form_entry_id,
-            form_handler_plugin_uid,
-            request,
+        self,
+        form_entry_id,
+        form_handler_plugin_uid,
+        request,
     ):
         """Get essential objects."""
         try:
-            form_entry = FormEntry._default_manager \
-                .get(pk=form_entry_id)
+            form_entry = FormEntry._default_manager.get(pk=form_entry_id)
         except ObjectDoesNotExist as err:
             raise Http404(_("Form entry not found."))
 
@@ -1048,8 +1060,10 @@ class AddFormHandlerEntryView(PermissionMixin, CreateView):
 
         if form_handler_plugin_uid not in user_form_handler_plugin_uids:
             raise Http404(
-                _("Plugin does not exist or you are not allowed "
-                  "to use this plugin!")
+                _(
+                    "Plugin does not exist or you are not allowed "
+                    "to use this plugin!"
+                )
             )
 
         form_handler_plugin_cls = form_handler_plugin_registry.get(
@@ -1060,14 +1074,15 @@ class AddFormHandlerEntryView(PermissionMixin, CreateView):
         # used once. In that case, check if it has been used already in the
         # current form entry.
         if not form_handler_plugin_cls.allow_multiple:
-            times_used = FormHandlerEntry._default_manager \
-                .filter(form_entry__id=form_entry_id,
-                        plugin_uid=form_handler_plugin_cls.uid) \
-                .count()
+            times_used = FormHandlerEntry._default_manager.filter(
+                form_entry__id=form_entry_id,
+                plugin_uid=form_handler_plugin_cls.uid,
+            ).count()
             if times_used > 0:
                 raise Http404(
-                    _("The {0} plugin can be used only once in a "
-                      "form.").format(form_handler_plugin_cls.name)
+                    _(
+                        "The {0} plugin can be used only once in a " "form."
+                    ).format(form_handler_plugin_cls.name)
                 )
 
         form_handler_plugin = form_handler_plugin_cls(user=request.user)
@@ -1091,12 +1106,7 @@ class AddFormHandlerEntryView(PermissionMixin, CreateView):
         )
 
     def do_save_object(
-        self,
-        form_entry_id,
-        form_entry,
-        obj,
-        form_handler_plugin,
-        request
+        self, form_entry_id, form_entry, obj, form_handler_plugin, request
     ):
         """Do save object."""
         # Save the object.
@@ -1104,21 +1114,24 @@ class AddFormHandlerEntryView(PermissionMixin, CreateView):
 
         messages.info(
             request,
-            _('The form handler plugin "{0}" was added '
-              'successfully.').format(form_handler_plugin.name)
+            _(
+                'The form handler plugin "{0}" was added ' "successfully."
+            ).format(form_handler_plugin.name),
         )
         return redirect(
             "{0}?active_tab=tab-form-handlers".format(
                 reverse_lazy(
-                    'fobi.edit_form_entry',
-                    kwargs={'form_entry_id': form_entry_id}
+                    "fobi.edit_form_entry",
+                    kwargs={"form_entry_id": form_entry_id},
                 )
             )
         )
 
     def get_context_data(self, **kwargs):
         """Get context data."""
-        context = super(AddFormHandlerEntryView, self).get_context_data(**kwargs)
+        context = super(AddFormHandlerEntryView, self).get_context_data(
+            **kwargs
+        )
 
         if not self.theme:
             theme = get_theme(request=self.request, as_instance=True)
@@ -1170,7 +1183,7 @@ class AddFormHandlerEntryView(PermissionMixin, CreateView):
                 form_entry,
                 obj,
                 form_handler_plugin,
-                request
+                request,
             )
 
         return self.render_to_response(
@@ -1207,8 +1220,7 @@ class AddFormHandlerEntryView(PermissionMixin, CreateView):
 
         if not save_object:
             form = form_handler_plugin.get_initialised_create_form_or_404(
-                data=request.POST,
-                files=request.FILES
+                data=request.POST, files=request.FILES
             )
             # TODO: Form handlers don't have this, while form elements do.
             #  Find out whether this is something that could be correct
@@ -1228,7 +1240,7 @@ class AddFormHandlerEntryView(PermissionMixin, CreateView):
                 form_entry,
                 obj,
                 form_handler_plugin,
-                request
+                request,
             )
 
         return self.render_to_response(
@@ -1238,6 +1250,7 @@ class AddFormHandlerEntryView(PermissionMixin, CreateView):
                 form_handler_plugin=form_handler_plugin,
             )
         )
+
 
 # *****************************************************************************
 # **************************** Edit form handler entry ************************
@@ -1258,9 +1271,9 @@ class EditFormHandlerEntryView(PermissionMixin, UpdateView):
         # TODO: The form element entry has also `form_entry__user` in
         #  `seleect_related`. Find out if that something that could
         #  be also be applied here to improve the performance.
-        return FormHandlerEntry._default_manager \
-            .select_related('form_entry') \
-            .filter(form_entry__user__pk=request.user.pk)
+        return FormHandlerEntry._default_manager.select_related(
+            "form_entry"
+        ).filter(form_entry__user__pk=request.user.pk)
 
     def get_object(self, queryset=None):
         """Get object."""
@@ -1269,9 +1282,9 @@ class EditFormHandlerEntryView(PermissionMixin, UpdateView):
         return obj
 
     def get_essential_objects(
-            self,
-            form_handler_entry_id,
-            request,
+        self,
+        form_handler_entry_id,
+        request,
     ):
         """Get essential objects."""
         try:
@@ -1295,7 +1308,9 @@ class EditFormHandlerEntryView(PermissionMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         """Get context data."""
-        context = super(EditFormHandlerEntryView, self).get_context_data(**kwargs)
+        context = super(EditFormHandlerEntryView, self).get_context_data(
+            **kwargs
+        )
 
         if not self.theme:
             theme = get_theme(request=self.request, as_instance=True)
@@ -1335,10 +1350,11 @@ class EditFormHandlerEntryView(PermissionMixin, UpdateView):
         if not form_handler_plugin_form_cls:
             messages.info(
                 request,
-                _('The form handler plugin "{0}" is not '
-                  'configurable!').format(form_handler_plugin.name)
+                _(
+                    'The form handler plugin "{0}" is not ' "configurable!"
+                ).format(form_handler_plugin.name),
             )
-            return redirect('fobi.edit_form_entry', form_entry_id=form_entry.pk)
+            return redirect("fobi.edit_form_entry", form_entry_id=form_entry.pk)
 
         else:
             form = form_handler_plugin.get_initialised_edit_form_or_404()
@@ -1372,14 +1388,14 @@ class EditFormHandlerEntryView(PermissionMixin, UpdateView):
         if not form_handler_plugin_form_cls:
             messages.info(
                 request,
-                _('The form handler plugin "{0}" is not '
-                  'configurable!').format(form_handler_plugin.name)
+                _(
+                    'The form handler plugin "{0}" is not ' "configurable!"
+                ).format(form_handler_plugin.name),
             )
-            return redirect('fobi.edit_form_entry', form_entry_id=form_entry.pk)
+            return redirect("fobi.edit_form_entry", form_entry_id=form_entry.pk)
 
         form = form_handler_plugin.get_initialised_edit_form_or_404(
-            data=request.POST,
-            files=request.FILES
+            data=request.POST, files=request.FILES
         )
 
         if form.is_valid():
@@ -1394,15 +1410,16 @@ class EditFormHandlerEntryView(PermissionMixin, UpdateView):
 
             messages.info(
                 request,
-                _('The form handler plugin "{0}" was edited '
-                  'successfully.').format(form_handler_plugin.name)
+                _(
+                    'The form handler plugin "{0}" was edited ' "successfully."
+                ).format(form_handler_plugin.name),
             )
 
             return redirect(
                 "{0}?active_tab=tab-form-handlers".format(
                     reverse_lazy(
-                        'fobi.edit_form_entry',
-                        kwargs={'form_entry_id': form_entry.pk}
+                        "fobi.edit_form_entry",
+                        kwargs={"form_entry_id": form_entry.pk},
                     )
                 )
             )
@@ -1414,6 +1431,7 @@ class EditFormHandlerEntryView(PermissionMixin, UpdateView):
                 form_handler_plugin=form_handler_plugin,
             )
         )
+
 
 # *****************************************************************************
 # **************************** Delete form handler entry **********************
@@ -1428,7 +1446,8 @@ class DeleteFormHandlerEntryView(AbstractDeletePluginEntryView):
     pk_url_kwarg = "form_handler_entry_id"
     get_user_plugin_uids_func = get_user_form_handler_plugin_uids
     message = _('The form handler plugin "{0}" was deleted successfully.')
-    html_anchor = '?active_tab=tab-form-handlers'
+    html_anchor = "?active_tab=tab-form-handlers"
+
 
 # *****************************************************************************
 # *****************************************************************************
@@ -1462,7 +1481,7 @@ class AbstractViewFormEntryView(PermissionMixin, DetailView):
 
     def _get_queryset(self, request):
         """Get queryset."""
-        queryset = FormEntry._default_manager.all().select_related('user')
+        queryset = FormEntry._default_manager.all().select_related("user")
         if not request.user.is_authenticated:
             queryset = queryset.filter(is_public=True)
         return queryset
@@ -1496,9 +1515,9 @@ class ViewFormEntryView(AbstractViewFormEntryView):
         return [template_name]
 
     def get_essential_objects(
-            self,
-            form_entry,
-            request,
+        self,
+        form_entry,
+        request,
     ):
         """Get essential objects."""
         form_element_entries = form_entry.formelemententry_set.all()[:]
@@ -1508,7 +1527,7 @@ class ViewFormEntryView(AbstractViewFormEntryView):
         form_cls = assemble_form_class(
             form_entry,
             form_element_entries=form_element_entries,
-            request=request
+            request=request,
         )
 
         return (
@@ -1518,10 +1537,12 @@ class ViewFormEntryView(AbstractViewFormEntryView):
 
     def inactive_form_response(self, request, form_entry):
         context = {
-            'form_entry': form_entry,
-            'page_header': (form_entry.inactive_page_title
-                            or form_entry.title
-                            or form_entry.name),
+            "form_entry": form_entry,
+            "page_header": (
+                form_entry.inactive_page_title
+                or form_entry.title
+                or form_entry.name
+            ),
         }
 
         if not self.template_name:
@@ -1560,7 +1581,7 @@ class ViewFormEntryView(AbstractViewFormEntryView):
         # GET.
         kwargs = {}
         if GET_PARAM_INITIAL_DATA in request.GET:
-            kwargs = {'initial': request.GET}
+            kwargs = {"initial": request.GET}
         form = form_cls(**kwargs)
 
         # In debug mode, try to identify possible problems.
@@ -1606,8 +1627,12 @@ class ViewFormEntryView(AbstractViewFormEntryView):
         form = form_cls(request.POST, request.FILES)
 
         # Fire pre form validation callbacks
-        fire_form_callbacks(form_entry=form_entry, request=request, form=form,
-                            stage=CALLBACK_BEFORE_FORM_VALIDATION)
+        fire_form_callbacks(
+            form_entry=form_entry,
+            request=request,
+            form=form,
+            stage=CALLBACK_BEFORE_FORM_VALIDATION,
+        )
 
         if form.is_valid():
             # Fire form valid callbacks, before handling submitted plugin
@@ -1616,35 +1641,35 @@ class ViewFormEntryView(AbstractViewFormEntryView):
                 form_entry=form_entry,
                 request=request,
                 form=form,
-                stage=CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA
+                stage=CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA,
             )
 
             # Fire plugin processors
             form = submit_plugin_form_data(
-                form_entry=form_entry,
-                request=request,
-                form=form
+                form_entry=form_entry, request=request, form=form
             )
 
             # Fire form valid callbacks
-            form = fire_form_callbacks(form_entry=form_entry,
-                                       request=request, form=form,
-                                       stage=CALLBACK_FORM_VALID)
+            form = fire_form_callbacks(
+                form_entry=form_entry,
+                request=request,
+                form=form,
+                stage=CALLBACK_FORM_VALID,
+            )
 
             # Run all handlers
             handler_responses, handler_errors = run_form_handlers(
                 form_entry=form_entry,
                 request=request,
                 form=form,
-                form_element_entries=form_element_entries
+                form_element_entries=form_element_entries,
             )
 
             # Warning that not everything went ok.
             if handler_errors:
                 for handler_error in handler_errors:
                     messages.warning(
-                        request,
-                        _("Error occurred: {0}.").format(handler_error)
+                        request, _("Error occurred: {0}.").format(handler_error)
                     )
 
             # Fire post handler callbacks
@@ -1652,22 +1677,28 @@ class ViewFormEntryView(AbstractViewFormEntryView):
                 form_entry=form_entry,
                 request=request,
                 form=form,
-                stage=CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS
+                stage=CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS,
             )
 
             messages.info(
                 request,
                 _("Form {0} was submitted successfully.").format(
                     form_entry.name
-                )
+                ),
             )
             return redirect(
-                reverse_lazy('fobi.form_entry_submitted', args=[form_entry.slug])
+                reverse_lazy(
+                    "fobi.form_entry_submitted", args=[form_entry.slug]
+                )
             )
         else:
             # Fire post form validation callbacks
-            fire_form_callbacks(form_entry=form_entry, request=request,
-                                form=form, stage=CALLBACK_FORM_INVALID)
+            fire_form_callbacks(
+                form_entry=form_entry,
+                request=request,
+                form=form,
+                stage=CALLBACK_FORM_INVALID,
+            )
 
         # In debug mode, try to identify possible problems.
         if DEBUG:
@@ -1688,6 +1719,7 @@ class ViewFormEntryView(AbstractViewFormEntryView):
                 fobi_form_title=form_entry.title,
             )
         )
+
 
 # *****************************************************************************
 # **************************** View form entry success ************************
@@ -1715,7 +1747,9 @@ class ViewFormEntrySubmittedView(AbstractViewFormEntryView):
 
     def get_context_data(self, **kwargs):
         """Get context data."""
-        context = super(ViewFormEntrySubmittedView, self).get_context_data(**kwargs)
+        context = super(ViewFormEntrySubmittedView, self).get_context_data(
+            **kwargs
+        )
 
         if not self.theme:
             theme = get_theme(request=self.request, as_instance=True)
