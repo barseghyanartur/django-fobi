@@ -37,6 +37,7 @@ from ...views.class_based import (
     EditFormElementEntryView,
     EditFormEntryView,
     EditFormHandlerEntryView,
+    DashboardView,
 )
 
 __title__ = "fobi.urls.class_based.edit"
@@ -230,7 +231,12 @@ urlpatterns = [
     # ****************************** Dashboard ******************************
     # ***********************************************************************
     # Forms dashboard
-    url(_(r"^$"), view=dashboard, name="fobi.dashboard"),
+    url(
+        _(r"^$"),
+        # view=dashboard,
+        view=DashboardView.as_view(),
+        name="fobi.dashboard"
+    ),
     # Form wizards dashboard
     url(
         _(r"^wizards/$"),

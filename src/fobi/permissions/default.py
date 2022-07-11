@@ -19,7 +19,7 @@ from .definitions import (
     edit_form_wizard_handler_entry_permission,
     wizards_dashboard_permissions,
 )
-from .generic import AllowAnyPermission, BasePermission
+from .generic import AllowAnyPermission, BasePermission, IsAuthenticatedPermission
 from .helpers import (
     all_permissions_required_func,
     any_permission_required_func,
@@ -42,6 +42,7 @@ __all__ = (
     "EditFormHandlerEntryPermission",
     "DeleteFormHandlerEntryPermission",
     "ViewFormEntryPermission",
+    "ViewDashboardPermission",
 )
 
 
@@ -191,3 +192,7 @@ class DeleteFormHandlerEntryPermission(BasePermission):
 
 class ViewFormEntryPermission(AllowAnyPermission):
     """Permission to view form entries."""
+
+
+class ViewDashboardPermission(IsAuthenticatedPermission):
+    """Permission to view the dashboard."""

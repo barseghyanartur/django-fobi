@@ -13,6 +13,7 @@ from django.utils.translation import gettext_lazy as _
 from django.views import View
 from django.views.generic import CreateView, DeleteView, DetailView, UpdateView
 from django.views.generic.edit import DeletionMixin
+from django.views.generic.list import ListView
 
 from ..base import (  # get_registered_form_handler_plugins
     fire_form_callbacks,
@@ -40,6 +41,10 @@ from ..forms import (
     ImportFormEntryForm,
     ImportFormWizardEntryForm,
 )
+from ..form_importers import (
+    ensure_autodiscover as ensure_importers_autodiscover,
+    form_importer_plugin_registry, get_form_importer_plugin_urls
+)
 from ..models import (
     FormElementEntry,
     FormEntry,
@@ -59,6 +64,7 @@ from ..permissions.default import (
     EditFormEntryPermission,
     EditFormHandlerEntryPermission,
     ViewFormEntryPermission,
+    ViewDashboardPermission,
 )
 from ..settings import DEBUG, GET_PARAM_INITIAL_DATA, SORT_PLUGINS_BY_VALUE
 from ..utils import (
@@ -88,6 +94,7 @@ __all__ = (
     "DeleteFormHandlerEntryView",
     "ViewFormEntryView",
     "ViewFormEntrySubmittedView",
+    "DashboardView",
 )
 
 logger = logging.getLogger(__name__)
@@ -218,6 +225,69 @@ class AbstractDeletePluginEntryView(PermissionMixin, DeleteView):
 
     def run_after_plugin_entry_delete(self, request, form_entry_id):
         """Run after plugin entry has been deleted."""
+
+# *****************************************************************************
+# *****************************************************************************
+# ******************************** Dashboards *********************************
+# *****************************************************************************
+# *****************************************************************************
+
+# *****************************************************************************
+# ********************************** Forms ************************************
+# *****************************************************************************
+
+
+class DashboardView(ListView):
+    """Dashboard view."""
+
+    template_name = None
+    theme = None
+    permission_classes = (ViewDashboardPermission,)
+
+    def get_queryset(self):
+        """
+        Return the list of items for this view.
+
+        The return value must be an iterable and may be an instance of
+        `QuerySet` in which case `QuerySet` specific behavior will be enabled.
+        """
+        queryset = FormEntry._default_manager.filter(
+            user__pk=self.request.user.pk
+        )
+        ordering = self.get_ordering()
+        if ordering:
+            if isinstance(ordering, str):
+                ordering = (ordering,)
+            queryset = queryset.order_by(*ordering)
+
+        return queryset
+
+    def get_context_data(self, **kwargs):
+        """Get context data."""
+        context = super(DashboardView, self).get_context_data(**kwargs)
+        context.update({
+            "form_entries": self.get_queryset(),
+            'form_importers': get_form_importer_plugin_urls(),
+        })
+        if not self.theme:
+            theme = get_theme(request=self.request, as_instance=True)
+        else:
+            theme = self.theme
+
+        if theme:
+            context.update({"fobi_theme": theme})
+        return context
+
+    def get_template_names(self):
+        """Get template names."""
+        template_name = self.template_name
+        if not template_name:
+            if not self.theme:
+                theme = get_theme(request=self.request, as_instance=True)
+            else:
+                theme = self.theme
+            template_name = theme.dashboard_template
+        return [template_name]
 
 
 # *****************************************************************************
