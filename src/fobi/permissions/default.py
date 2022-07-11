@@ -53,6 +53,9 @@ class CreateFormEntryPermission(BasePermission):
             create_form_entry_permissions
         )(request.user)
 
+    def has_object_permission(self, request, view, obj) -> bool:
+        return self.has_permission(request, view)
+
 
 class EditFormEntryPermission(BasePermission):
     """Permission to edit form entries."""
@@ -97,6 +100,9 @@ class AddFormElementEntryPermission(BasePermission):
         return login_required(request) and permissions_required_func(
             add_form_element_entry_permission
         )(request.user)
+
+    def has_object_permission(self, request, view, obj) -> bool:
+        return self.has_permission(request, view)
 
 
 class EditFormElementEntryPermission(BasePermission):
