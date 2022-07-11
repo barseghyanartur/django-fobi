@@ -132,6 +132,19 @@ class PermissionMixin(View):
                     code=getattr(permission, 'code', None)
                 )
 
+    def check_object_permissions(self, request, obj):
+        """Check if the request should be permitted for a given object.
+
+        Raises an appropriate exception if the request is not permitted.
+        """
+        for permission in self.get_permissions():
+            if not permission.has_object_permission(request, self, obj):
+                self.permission_denied(
+                    request,
+                    message=getattr(permission, 'message', None),
+                    code=getattr(permission, 'code', None)
+                )
+
 
 class AbstractDeletePluginEntryView(PermissionMixin, DeleteView):
     """Abstract delete view for plugin entries."""
@@ -153,10 +166,11 @@ class AbstractDeletePluginEntryView(PermissionMixin, DeleteView):
         #  implementation. The message in the latter is fully custom, while
         #  in this case we're stuck to Django's own implementation.
         #  Comment added on 2022-07-10.
-        return get_object_or_404(
+        obj = get_object_or_404(
             self._get_queryset(self.request),
             pk=self.kwargs.get(self.pk_url_kwarg),
         )
+        self.check_object_permissions(self.request, obj)
 
     # Add support for browsers which only accept GET and POST for now.
     def get(self, request, *args, **kwargs):
@@ -425,6 +439,12 @@ class EditFormEntryView(PermissionMixin, UpdateView):
             .prefetch_related('formelemententry_set') \
             .filter(user__pk=request.user.pk)
 
+    def get_object(self, queryset=None):
+        """Get object."""
+        obj = super(EditFormEntryView, self).get_object(queryset)
+        self.check_object_permissions(self.request, obj)
+        return obj
+
     def get(self, request, *args, **kwargs):
         self.object = self.get_object(queryset=self._get_queryset(request))
         """Handle GET requests: instantiate a blank version of the form."""
@@ -533,11 +553,13 @@ class DeleteFormEntryView(PermissionMixin, DeletionMixin):
 
     def get_object(self, queryset=None):
         """Get object."""
-        return get_object_or_404(
+        obj = get_object_or_404(
             FormEntry._default_manager.all(),
             pk=self.kwargs.get("form_entry_id"),
             user__pk=self.request.user.pk
         )
+        self.check_object_permissions(self.request, obj)
+        return obj
 
     # Add support for browsers which only accept GET and POST for now.
     def get(self, request, *args, **kwargs):
@@ -818,6 +840,12 @@ class EditFormElementEntryView(PermissionMixin, UpdateView):
         return FormElementEntry._default_manager \
             .select_related('form_entry', 'form_entry__user') \
             .filter(form_entry__user__pk=request.user.pk)
+
+    def get_object(self, queryset=None):
+        """Get object."""
+        obj = super(EditFormElementEntryView, self).get_object(queryset)
+        self.check_object_permissions(self.request, obj)
+        return obj
 
     def get_essential_objects(
             self,
@@ -1234,6 +1262,12 @@ class EditFormHandlerEntryView(PermissionMixin, UpdateView):
             .select_related('form_entry') \
             .filter(form_entry__user__pk=request.user.pk)
 
+    def get_object(self, queryset=None):
+        """Get object."""
+        obj = super(EditFormHandlerEntryView, self).get_object(queryset)
+        self.check_object_permissions(self.request, obj)
+        return obj
+
     def get_essential_objects(
             self,
             form_handler_entry_id,
@@ -1417,9 +1451,14 @@ class AbstractViewFormEntryView(PermissionMixin, DetailView):
     permission_classes = (ViewFormEntryPermission,)
 
     def get_object(self, queryset=None):
+        """Get object."""
         if queryset is None:
             queryset = self._get_queryset(request=self.request)
-        return super(AbstractViewFormEntryView, self).get_object(queryset=queryset)
+        obj = super(AbstractViewFormEntryView, self).get_object(
+            queryset=queryset,
+        )
+        self.check_object_permissions(self.request, obj)
+        return obj
 
     def _get_queryset(self, request):
         """Get queryset."""
@@ -1492,6 +1531,12 @@ class ViewFormEntryView(AbstractViewFormEntryView):
             template_name = self.template_name
 
         return render(request, template_name, context)
+
+    def get_object(self, queryset=None):
+        """Get object."""
+        obj = super(ViewFormEntryView, self).get_object(queryset=queryset)
+        self.check_object_permissions(self.request, obj)
+        return obj
 
     def get(self, request, *args, **kwargs):
         """Handle GET requests: instantiate a blank version of the form."""

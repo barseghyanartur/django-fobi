@@ -122,13 +122,13 @@ class BasePermission(metaclass=BasePermissionMetaclass):
         """
         Return `True` if permission is granted, `False` otherwise.
         """
-        return True
+        return False
 
     def has_object_permission(self, request, view, obj):
         """
         Return `True` if permission is granted, `False` otherwise.
         """
-        return True
+        return False
 
 
 class AllowAnyPermission(BasePermission):
@@ -140,6 +140,12 @@ class AllowAnyPermission(BasePermission):
     """
 
     def has_permission(self, request, view):
+        return True
+
+    def has_object_permission(self, request, view, obj):
+        """
+        Return `True` if permission is granted, `False` otherwise.
+        """
         return True
 
 
@@ -154,6 +160,9 @@ class DenyAnyPermission(BasePermission):
     def has_permission(self, request, view):
         return False
 
+    def has_object_permission(self, request, view, obj):
+        return False
+
 
 class IsAuthenticatedPermission(BasePermission):
     """
@@ -162,6 +171,9 @@ class IsAuthenticatedPermission(BasePermission):
 
     def has_permission(self, request, view):
         return bool(request.user and request.user.is_authenticated)
+
+    def has_object_permission(self, request, view, obj):
+        return self.has_permission(request, view)
 
 
 class IsAdminUserPermission(BasePermission):
@@ -172,6 +184,9 @@ class IsAdminUserPermission(BasePermission):
     def has_permission(self, request, view):
         return bool(request.user and request.user.is_staff)
 
+    def has_object_permission(self, request, view, obj):
+        return self.has_permission(request, view)
+
 
 class IsSuperUserPermission(BasePermission):
     """
@@ -180,6 +195,9 @@ class IsSuperUserPermission(BasePermission):
 
     def has_permission(self, request, view):
         return bool(request.user and request.user.is_superuser)
+
+    def has_object_permission(self, request, view, obj):
+        return self.has_permission(request, view)
 
 
 class IsAuthenticatedOrReadOnlyPermission(BasePermission):
@@ -193,3 +211,6 @@ class IsAuthenticatedOrReadOnlyPermission(BasePermission):
             or request.user
             and request.user.is_authenticated
         )
+
+    def has_object_permission(self, request, view, obj):
+        return self.has_permission(request, view)
