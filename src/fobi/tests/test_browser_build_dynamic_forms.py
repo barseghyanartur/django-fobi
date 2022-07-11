@@ -1,5 +1,7 @@
+import os
 import logging
 import unittest
+from datetime import datetime
 
 # from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.wait import WebDriverWait
@@ -7,6 +9,7 @@ from selenium.webdriver.common.action_chains import ActionChains
 
 from fobi.models import FormEntry
 
+from django.conf import settings
 from django.urls import reverse
 
 from . import constants
@@ -600,6 +603,10 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         #  the class based views than the correspondent function based views.
         #  find out why and fix. As temporary workaround, we're waiting
         #  twice as long as the normal timeout.
+        _now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
+        _file = os.path.join(settings.STATIC_ROOT, 'screenshot-%s.png' % _now)
+        logger.exception(f"!!!!!!!!!! file: {_file}")
+        self.driver.get_screenshot_as_file(_file)
         WebDriverWait(self.driver, timeout=TIMEOUT*2).until(
             lambda driver: driver.find_element_by_xpath(
                 """//div[contains(text(), 'Form {0} was submitted """
