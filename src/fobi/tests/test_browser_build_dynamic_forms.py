@@ -569,7 +569,7 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         for field_name, field_value in TEST_FORM_FIELD_DATA.items():
             field_input = self.driver.find_element_by_name(field_name)
             field_input.send_keys(field_value)
-
+            self.take_screenshot("filled_form_page")
         self._sleep(2)
 
         footer = self.driver.find_element_by_xpath('//footer')
@@ -591,6 +591,8 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
 
         self._sleep(2)
 
+        self.take_screenshot("filled_form_page_scroll")
+
         submit_button.click()
 
         try:
@@ -603,10 +605,7 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         #  the class based views than the correspondent function based views.
         #  find out why and fix. As temporary workaround, we're waiting
         #  twice as long as the normal timeout.
-        _now = datetime.now().strftime('%Y-%m-%d_%H-%M-%S')
-        _file = os.path.join(settings.STATIC_ROOT, 'screenshot-%s.png' % _now)
-        logger.exception(f"!!!!!!!!!! file: {_file}")
-        self.driver.get_screenshot_as_file(_file)
+        self.take_screenshot("submit_success_page")
         WebDriverWait(self.driver, timeout=TIMEOUT*2).until(
             lambda driver: driver.find_element_by_xpath(
                 """//div[contains(text(), 'Form {0} was submitted """
