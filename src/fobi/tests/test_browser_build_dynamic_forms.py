@@ -606,7 +606,7 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         #  find out why and fix. As temporary workaround, we're waiting
         #  twice as long as the normal timeout.
         self.take_screenshot("submit_success_page")
-        WebDriverWait(self.driver, timeout=TIMEOUT*2).until(
+        WebDriverWait(self.driver, timeout=TIMEOUT).until(
             lambda driver: driver.find_element_by_xpath(
                 """//div[contains(text(), 'Form {0} was submitted """
                 """successfully.') """

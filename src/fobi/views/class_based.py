@@ -171,6 +171,7 @@ class AbstractDeletePluginEntryView(PermissionMixin, DeleteView):
             pk=self.kwargs.get(self.pk_url_kwarg),
         )
         self.check_object_permissions(self.request, obj)
+        return obj
 
     # Add support for browsers which only accept GET and POST for now.
     def get(self, request, *args, **kwargs):
@@ -180,7 +181,6 @@ class AbstractDeletePluginEntryView(PermissionMixin, DeleteView):
         """Delete."""
         self.object = self.get_object()
         self._run_before_plugin_entry_delete(request, self.object)
-
         form_entry = self.object.form_entry
         plugin = self.object.get_plugin(request=request)
         plugin.request = request

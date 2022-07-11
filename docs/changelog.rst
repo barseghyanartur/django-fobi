@@ -45,6 +45,31 @@ are used for versioning (schema follows below):
           # ...
       ]
 
+- Class-based permissions (work only in combination with class-based views).
+
+  Example:
+
+  .. code-block:: python
+
+      from fobi.permissions.definitions import edit_form_entry_permissions
+      from fobi.permissions.generic import BasePermission
+      from fobi.permissions.helpers import (
+          any_permission_required_func, login_required,
+      )
+
+      class EditFormEntryPermission(BasePermission):
+      """Permission to edit form entries."""
+
+      def has_permission(self, request, view) -> bool:
+          return login_required(request) and any_permission_required_func(
+              edit_form_entry_permissions
+          )(request.user)
+
+      def has_object_permission(self, request, view, obj) -> bool:
+          return login_required(request) and any_permission_required_func(
+              edit_form_entry_permissions
+          )(request.user) and obj.user == request.user
+
 0.18
 ----
 2022-06-23

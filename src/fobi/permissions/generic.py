@@ -1,6 +1,9 @@
 """
 Provides a set of pluggable permission policies.
-Mostly snatched from Django REST Framework.
+
+Inspired by Django REST Framework class-based permissions.
+
+`BasePermissions` forbids everything by default.
 """
 
 __title__ = "fobi.permissions.generic"

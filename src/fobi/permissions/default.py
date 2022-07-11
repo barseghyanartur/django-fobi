@@ -62,6 +62,11 @@ class EditFormEntryPermission(BasePermission):
             edit_form_entry_permissions
         )(request.user)
 
+    def has_object_permission(self, request, view, obj) -> bool:
+        return login_required(request) and any_permission_required_func(
+            edit_form_entry_permissions
+        )(request.user) and obj.user == request.user
+
 
 class DeleteFormEntryPermission(BasePermission):
     """Permission to delete form entries."""
@@ -70,6 +75,11 @@ class DeleteFormEntryPermission(BasePermission):
         return login_required(request) and all_permissions_required_func(
             delete_form_entry_permissions
         )(request.user)
+
+    def has_object_permission(self, request, view, obj) -> bool:
+        return login_required(request) and any_permission_required_func(
+            delete_form_entry_permissions
+        )(request.user) and obj.user == request.user
 
 
 class AddFormElementEntryPermission(BasePermission):
@@ -89,6 +99,11 @@ class EditFormElementEntryPermission(BasePermission):
             edit_form_element_entry_permission
         )(request.user)
 
+    def has_object_permission(self, request, view, obj) -> bool:
+        return login_required(request) and permissions_required_func(
+            edit_form_element_entry_permission
+        )(request.user) and obj.form_entry.user == request.user
+
 
 class DeleteFormElementEntryPermission(BasePermission):
     """Permission to delete form element entries."""
@@ -97,6 +112,11 @@ class DeleteFormElementEntryPermission(BasePermission):
         return login_required(request) and permissions_required_func(
             delete_form_element_entry_permission
         )(request.user)
+
+    def has_object_permission(self, request, view, obj) -> bool:
+        return login_required(request) and permissions_required_func(
+            delete_form_element_entry_permission
+        )(request.user) and obj.form_entry.user == request.user
 
 
 class AddFormHandlerEntryPermission(BasePermission):
@@ -107,6 +127,9 @@ class AddFormHandlerEntryPermission(BasePermission):
             add_form_handler_entry_permission
         )(request.user)
 
+    def has_object_permission(self, request, view, obj) -> bool:
+        return self.has_permission(request, view)
+
 
 class EditFormHandlerEntryPermission(BasePermission):
     """Permission to edit form handler entries."""
@@ -116,6 +139,11 @@ class EditFormHandlerEntryPermission(BasePermission):
             edit_form_handler_entry_permission
         )(request.user)
 
+    def has_object_permission(self, request, view, obj) -> bool:
+        return login_required(request) and permissions_required_func(
+            edit_form_handler_entry_permission
+        )(request.user) and obj.form_entry.user == request.user
+
 
 class DeleteFormHandlerEntryPermission(BasePermission):
     """Permission to delete form handler entries."""
@@ -124,6 +152,11 @@ class DeleteFormHandlerEntryPermission(BasePermission):
         return login_required(request) and permissions_required_func(
             delete_form_handler_entry_permission
         )(request.user)
+
+    def has_object_permission(self, request, view, obj) -> bool:
+        return login_required(request) and permissions_required_func(
+            delete_form_handler_entry_permission
+        )(request.user) and obj.form_entry.user == request.user
 
 
 class ViewFormEntryPermission(AllowAnyPermission):
