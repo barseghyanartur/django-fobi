@@ -253,7 +253,7 @@ class DashboardView(ListView):
         """
         queryset = FormEntry._default_manager.filter(
             user__pk=self.request.user.pk
-        )
+        ).select_related('user')
         ordering = self.get_ordering()
         if ordering:
             if isinstance(ordering, str):
