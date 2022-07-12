@@ -1,21 +1,19 @@
-from django.urls import resolve, Resolver404
-
 import requests
-
+from django.urls import Resolver404, resolve
 from requests.exceptions import (
     ConnectionError,
     ConnectTimeout,
-    ReadTimeout,
-    SSLError,
     ProxyError,
+    ReadTimeout,
     RetryError,
+    SSLError,
 )
 
-__title__ = 'fobi.validators'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2013-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('url_exists',)
+__title__ = "fobi.validators"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2013-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("url_exists",)
 
 
 def url_exists(url, local=False):
@@ -29,8 +27,14 @@ def url_exists(url, local=False):
         try:
             r = requests.head(url)
             return r.status_code == requests.codes.ok
-        except (ConnectionError, ConnectTimeout, ReadTimeout, SSLError,
-                ProxyError, RetryError) as err:
+        except (
+            ConnectionError,
+            ConnectTimeout,
+            ReadTimeout,
+            SSLError,
+            ProxyError,
+            RetryError,
+        ) as err:
             return False
 
     else:

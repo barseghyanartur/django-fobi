@@ -4,17 +4,16 @@ from django.forms.fields import DateTimeField
 from django.forms.widgets import DateTimeInput
 from django.utils.translation import gettext_lazy as _
 
-from fobi.base import FormFieldPlugin, get_theme
-
 from . import UID
 from .forms import DateTimeInputForm
 
-__title__ = 'fobi.contrib.plugins.form_elements.fields.' \
-            'datetime.base'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('DateTimeInputPlugin',)
+from fobi.base import FormFieldPlugin, get_theme
+
+__title__ = "fobi.contrib.plugins.form_elements.fields." "datetime.base"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("DateTimeInputPlugin",)
 
 theme = get_theme(request=None, as_instance=True)
 
@@ -27,29 +26,31 @@ class DateTimeInputPlugin(FormFieldPlugin):
     group = _("Fields")
     form = DateTimeInputForm
 
-    def get_form_field_instances(self, request=None, form_entry=None,
-                                 form_element_entries=None, **kwargs):
+    def get_form_field_instances(
+        self, request=None, form_entry=None, form_element_entries=None, **kwargs
+    ):
         """Get form field instances."""
         widget_attrs = {
-            'class': theme.form_element_html_class,
-            'type': 'datetime',
+            "class": theme.form_element_html_class,
+            "type": "datetime",
         }
 
         field_kwargs = {
-            'label': self.data.label,
-            'help_text': self.data.help_text,
-            'initial': self.data.initial,
+            "label": self.data.label,
+            "help_text": self.data.help_text,
+            "initial": self.data.initial,
             # 'input_formats': self.data.input_formats,
-            'required': self.data.required,
-            'widget': DateTimeInput(attrs=widget_attrs),
+            "required": self.data.required,
+            "widget": DateTimeInput(attrs=widget_attrs),
         }
         # if self.data.input_formats:
         #     kwargs['input_formats'] = self.data.input_formats
 
         return [(self.data.name, DateTimeField, field_kwargs)]
 
-    def submit_plugin_form_data(self, form_entry, request, form,
-                                form_element_entries=None, **kwargs):
+    def submit_plugin_form_data(
+        self, form_entry, request, form, form_element_entries=None, **kwargs
+    ):
         """Submit plugin form data/process.
 
         :param fobi.models.FormEntry form_entry: Instance of

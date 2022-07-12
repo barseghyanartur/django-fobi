@@ -1,10 +1,9 @@
 import datetime
-
 import json
 
 from django.core.serializers.json import DjangoJSONEncoder
-from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
+from django.utils.translation import gettext_lazy as _
 
 from .....base import (
     FormHandlerPlugin,
@@ -18,13 +17,13 @@ from .....helpers import get_form_element_entries_for_form_wizard_entry
 from . import UID
 from .models import SavedFormDataEntry, SavedFormWizardDataEntry
 
-__title__ = 'fobi.contrib.plugins.form_handlers.db_store.base'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
+__title__ = "fobi.contrib.plugins.form_handlers.db_store.base"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
 __all__ = (
-    'DBStoreHandlerPlugin',
-    'DBStoreWizardHandlerPlugin',
+    "DBStoreHandlerPlugin",
+    "DBStoreWizardHandlerPlugin",
 )
 
 # *****************************************************************************
@@ -54,40 +53,33 @@ class DBStoreHandlerPlugin(FormHandlerPlugin):
         """
         # Clean up the values, leave our content fields and empty values.
         field_name_to_label_map, cleaned_data = get_processed_form_data(
-            form,
-            form_element_entries
+            form, form_element_entries
         )
 
         self.save_form_data_entry(
-            form_entry,
-            request,
-            field_name_to_label_map,
-            cleaned_data
+            form_entry, request, field_name_to_label_map, cleaned_data
         )
 
-    def save_form_data_entry(self,
-                             form_entry,
-                             request,
-                             field_name_to_label_map,
-                             cleaned_data):
+    def save_form_data_entry(
+        self, form_entry, request, field_name_to_label_map, cleaned_data
+    ):
         """Save form data entry.
 
         Might be used in integration plugins.
         """
         for key, value in cleaned_data.items():
             if isinstance(value, (datetime.datetime, datetime.date)):
-                cleaned_data[key] = value.isoformat() \
-                    if hasattr(value, 'isoformat') \
-                    else value
+                cleaned_data[key] = (
+                    value.isoformat() if hasattr(value, "isoformat") else value
+                )
 
         saved_form_data_entry = SavedFormDataEntry(
             form_entry=form_entry,
             user=request.user if request.user and request.user.pk else None,
             form_data_headers=json.dumps(
-                field_name_to_label_map,
-                cls=DjangoJSONEncoder
+                field_name_to_label_map, cls=DjangoJSONEncoder
             ),
-            saved_data=json.dumps(cleaned_data, cls=DjangoJSONEncoder)
+            saved_data=json.dumps(cleaned_data, cls=DjangoJSONEncoder),
         )
         saved_form_data_entry.save()
 
@@ -106,23 +98,27 @@ class DBStoreHandlerPlugin(FormHandlerPlugin):
             view_entries_icon_class = widget.view_entries_icon_class
             export_entries_icon_class = widget.export_entries_icon_class
         else:
-            view_entries_icon_class = 'glyphicon glyphicon-list'
-            export_entries_icon_class = 'glyphicon glyphicon-export'
+            view_entries_icon_class = "glyphicon glyphicon-list"
+            export_entries_icon_class = "glyphicon glyphicon-export"
 
         return (
             (
-                reverse('fobi.contrib.plugins.form_handlers.db_store.'
-                        'view_saved_form_data_entries',
-                        args=[form_entry.pk]),
+                reverse(
+                    "fobi.contrib.plugins.form_handlers.db_store."
+                    "view_saved_form_data_entries",
+                    args=[form_entry.pk],
+                ),
                 _("View entries"),
-                view_entries_icon_class
+                view_entries_icon_class,
             ),
             (
-                reverse('fobi.contrib.plugins.form_handlers.db_store.'
-                        'export_saved_form_data_entries',
-                        args=[form_entry.pk]),
+                reverse(
+                    "fobi.contrib.plugins.form_handlers.db_store."
+                    "export_saved_form_data_entries",
+                    args=[form_entry.pk],
+                ),
                 _("Export entries"),
-                export_entries_icon_class
+                export_entries_icon_class,
             ),
         )
 
@@ -142,8 +138,14 @@ class DBStoreWizardHandlerPlugin(FormWizardHandlerPlugin):
     name = _("DB store")
     allow_multiple = False
 
-    def run(self, form_wizard_entry, request, form_list, form_wizard,
-            form_element_entries=None):
+    def run(
+        self,
+        form_wizard_entry,
+        request,
+        form_list,
+        form_wizard,
+        form_element_entries=None,
+    ):
         """Run.
 
         :param fobi.models.FormWizardEntry form_wizard_entry: Instance
@@ -156,32 +158,30 @@ class DBStoreWizardHandlerPlugin(FormWizardHandlerPlugin):
             ``fobi.models.FormElementEntry`` objects.
         """
         if not form_element_entries:
-            form_element_entries = \
+            form_element_entries = (
                 get_form_element_entries_for_form_wizard_entry(
                     form_wizard_entry
                 )
+            )
 
         # Clean up the values, leave our content fields and empty values.
         field_name_to_label_map, cleaned_data = get_processed_form_wizard_data(
-            form_wizard,
-            form_list,
-            form_element_entries
+            form_wizard, form_list, form_element_entries
         )
 
         for key, value in cleaned_data.items():
             if isinstance(value, (datetime.datetime, datetime.date)):
-                cleaned_data[key] = value.isoformat() \
-                    if hasattr(value, 'isoformat') \
-                    else value
+                cleaned_data[key] = (
+                    value.isoformat() if hasattr(value, "isoformat") else value
+                )
 
         saved_form_wizard_data_entry = SavedFormWizardDataEntry(
             form_wizard_entry=form_wizard_entry,
             user=request.user if request.user and request.user.pk else None,
             form_data_headers=json.dumps(
-                field_name_to_label_map,
-                cls=DjangoJSONEncoder
+                field_name_to_label_map, cls=DjangoJSONEncoder
             ),
-            saved_data=json.dumps(cleaned_data, cls=DjangoJSONEncoder)
+            saved_data=json.dumps(cleaned_data, cls=DjangoJSONEncoder),
         )
         saved_form_wizard_data_entry.save()
 
@@ -200,22 +200,26 @@ class DBStoreWizardHandlerPlugin(FormWizardHandlerPlugin):
             view_entries_icon_class = widget.view_entries_icon_class
             export_entries_icon_class = widget.export_entries_icon_class
         else:
-            view_entries_icon_class = 'glyphicon glyphicon-list'
-            export_entries_icon_class = 'glyphicon glyphicon-export'
+            view_entries_icon_class = "glyphicon glyphicon-list"
+            export_entries_icon_class = "glyphicon glyphicon-export"
 
         return (
             (
-                reverse('fobi.contrib.plugins.form_handlers.db_store.'
-                        'view_saved_form_wizard_data_entries',
-                        args=[form_wizard_entry.pk]),
+                reverse(
+                    "fobi.contrib.plugins.form_handlers.db_store."
+                    "view_saved_form_wizard_data_entries",
+                    args=[form_wizard_entry.pk],
+                ),
                 _("View entries"),
-                view_entries_icon_class
+                view_entries_icon_class,
             ),
             (
-                reverse('fobi.contrib.plugins.form_handlers.db_store.'
-                        'export_saved_form_wizard_data_entries',
-                        args=[form_wizard_entry.pk]),
+                reverse(
+                    "fobi.contrib.plugins.form_handlers.db_store."
+                    "export_saved_form_wizard_data_entries",
+                    args=[form_wizard_entry.pk],
+                ),
                 _("Export entries"),
-                export_entries_icon_class
+                export_entries_icon_class,
             ),
         )

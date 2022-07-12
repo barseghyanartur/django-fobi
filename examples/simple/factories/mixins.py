@@ -2,19 +2,18 @@ import datetime
 import random
 
 from django.utils.text import slugify
-
 from factory import LazyAttribute
 from factory.django import DjangoModelFactory
 
 from .factory_faker import Faker
 
 __all__ = (
-    'FeincmsBaseMixinFactory',
-    'TimeStampedMixinFactory',
-    'SortableMixinFactory',
-    'PublishedContentMixinFactory',
-    'OrderedContentMixinFactory',
-    'ContentMixinFactory',
+    "FeincmsBaseMixinFactory",
+    "TimeStampedMixinFactory",
+    "SortableMixinFactory",
+    "PublishedContentMixinFactory",
+    "OrderedContentMixinFactory",
+    "ContentMixinFactory",
 )
 
 
@@ -30,11 +29,10 @@ class FeincmsBaseMixinFactory(DjangoModelFactory):
 class TimeStampedMixinFactory(DjangoModelFactory):
     """Mixin for time stamped model."""
 
-    created_date = Faker('date_time')
+    created_date = Faker("date_time")
     modified_date = LazyAttribute(
-        lambda __x: __x.created_date + datetime.timedelta(
-            days=random.randint(1, 100)
-        )
+        lambda __x: __x.created_date
+        + datetime.timedelta(days=random.randint(1, 100))
     )
     publish_date = datetime.datetime.now() - datetime.timedelta(days=1)
 
@@ -47,7 +45,7 @@ class TimeStampedMixinFactory(DjangoModelFactory):
 class SortableMixinFactory(DjangoModelFactory):
     """Sortable mixin factory."""
 
-    order = Faker('pyint')
+    order = Faker("pyint")
 
     class Meta(object):
         """Meta class."""
@@ -78,12 +76,14 @@ class OrderedContentMixinFactory(DjangoModelFactory):
         abstract = True
 
 
-class BaseContentMixinFactory(FeincmsBaseMixinFactory,
-                              TimeStampedMixinFactory,
-                              PublishedContentMixinFactory):
+class BaseContentMixinFactory(
+    FeincmsBaseMixinFactory,
+    TimeStampedMixinFactory,
+    PublishedContentMixinFactory,
+):
     """BaseContentMixinFactory."""
 
-    title = Faker('text', max_nb_chars=100)
+    title = Faker("text", max_nb_chars=100)
     slug = LazyAttribute(lambda obj: slugify(obj.title)[:100])
 
     class Meta(object):
@@ -101,8 +101,7 @@ class DjangoContentMixinFactory(DjangoModelFactory):
         abstract = True
 
 
-class ContentMixinFactory(BaseContentMixinFactory,
-                          DjangoContentMixinFactory):
+class ContentMixinFactory(BaseContentMixinFactory, DjangoContentMixinFactory):
     """ContentMixinFactory."""
 
     class Meta(object):

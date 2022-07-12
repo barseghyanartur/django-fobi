@@ -1,8 +1,7 @@
+from admin_tools.dashboard.models import DashboardPreferences
 from django.core.management import BaseCommand
 
-from admin_tools.dashboard.models import DashboardPreferences
-
-__all__ = ('Command',)
+__all__ = ("Command",)
 
 
 class Command(BaseCommand):

@@ -1,27 +1,28 @@
-from django.core.exceptions import PermissionDenied
 from django.contrib.auth.decorators import user_passes_test
+from django.core.exceptions import PermissionDenied
 
-SATISFY_ANY = 'any'
-SATISFY_ALL = 'all'
+SATISFY_ANY = "any"
+SATISFY_ALL = "all"
 DEFAULT_SATISFY = SATISFY_ALL
 
 
-__title__ = 'fobi.decorators'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
+__title__ = "fobi.decorators"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
 __all__ = (
-    'SATISFY_ANY',
-    'SATISFY_ALL',
-    'DEFAULT_SATISFY',
-    'permissions_required',
-    'all_permissions_required',
-    'any_permission_required',
+    "SATISFY_ANY",
+    "SATISFY_ALL",
+    "DEFAULT_SATISFY",
+    "permissions_required",
+    "all_permissions_required",
+    "any_permission_required",
 )
 
 
-def permissions_required(perms, satisfy=DEFAULT_SATISFY, login_url=None,
-                         raise_exception=False):
+def permissions_required(
+    perms, satisfy=DEFAULT_SATISFY, login_url=None, raise_exception=False
+):
     """Check for the permissions given based on the strategy chosen.
 
     :param iterable perms:
@@ -57,6 +58,7 @@ def permissions_required(perms, satisfy=DEFAULT_SATISFY, login_url=None,
                 raise PermissionDenied
             # As the last resort, show the login form
             return False
+
     else:
         # ``SATISFY_ANY`` case
         def check_perms(user):
@@ -90,9 +92,12 @@ def all_permissions_required(perms, login_url=None, raise_exception=False):
     >>> def edit_dashboard(request):
     >>>     # your code
     """
-    return permissions_required(perms, satisfy=SATISFY_ALL,
-                                login_url=login_url,
-                                raise_exception=raise_exception)
+    return permissions_required(
+        perms,
+        satisfy=SATISFY_ALL,
+        login_url=login_url,
+        raise_exception=raise_exception,
+    )
 
 
 def any_permission_required(perms, login_url=None, raise_exception=False):
@@ -111,6 +116,9 @@ def any_permission_required(perms, login_url=None, raise_exception=False):
     >>> def edit_dashboard(request):
     >>>     # your code
     """
-    return permissions_required(perms, satisfy=SATISFY_ANY,
-                                login_url=login_url,
-                                raise_exception=raise_exception)
+    return permissions_required(
+        perms,
+        satisfy=SATISFY_ANY,
+        login_url=login_url,
+        raise_exception=raise_exception,
+    )

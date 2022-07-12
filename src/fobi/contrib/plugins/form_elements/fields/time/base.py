@@ -4,16 +4,16 @@ from django.forms.fields import TimeField
 from django.forms.widgets import TextInput
 from django.utils.translation import gettext_lazy as _
 
-from fobi.base import FormFieldPlugin, get_theme
-
 from . import UID
 from .forms import TimeInputForm
 
-__title__ = 'fobi.contrib.plugins.form_elements.fields.time.base'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('TimeInputPlugin',)
+from fobi.base import FormFieldPlugin, get_theme
+
+__title__ = "fobi.contrib.plugins.form_elements.fields.time.base"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("TimeInputPlugin",)
 
 theme = get_theme(request=None, as_instance=True)
 
@@ -26,29 +26,31 @@ class TimeInputPlugin(FormFieldPlugin):
     group = _("Fields")
     form = TimeInputForm
 
-    def get_form_field_instances(self, request=None, form_entry=None,
-                                 form_element_entries=None, **kwargs):
+    def get_form_field_instances(
+        self, request=None, form_entry=None, form_element_entries=None, **kwargs
+    ):
         """Get form field instances."""
         widget_attrs = {
-            'class': theme.form_element_html_class,
-            'type': 'time',
+            "class": theme.form_element_html_class,
+            "type": "time",
         }
 
         field_kwargs = {
-            'label': self.data.label,
-            'help_text': self.data.help_text,
-            'initial': self.data.initial,
+            "label": self.data.label,
+            "help_text": self.data.help_text,
+            "initial": self.data.initial,
             # 'input_formats': self.data.input_formats,
-            'required': self.data.required,
-            'widget': TextInput(attrs=widget_attrs),
+            "required": self.data.required,
+            "widget": TextInput(attrs=widget_attrs),
         }
         # if self.data.input_formats:
         #     kwargs['input_formats'] = self.data.input_formats
 
         return [(self.data.name, TimeField, field_kwargs)]
 
-    def submit_plugin_form_data(self, form_entry, request, form,
-                                form_element_entries=None, **kwargs):
+    def submit_plugin_form_data(
+        self, form_entry, request, form, form_element_entries=None, **kwargs
+    ):
         """Submit plugin form data/process.
 
         :param fobi.models.FormEntry form_entry: Instance of

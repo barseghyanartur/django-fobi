@@ -4,30 +4,29 @@ since it never imports from any of the fobi (sub)modules (except for the
 `fobi.constants` and `fobi.exceptions` modules).
 """
 from __future__ import unicode_literals
+
 import glob
 import logging
 import os
 import shutil
 import uuid
 
-from autoslug.settings import slugify
-
-from django import forms
 import django.apps
+from autoslug.settings import slugify
+from django import forms
 from django.conf import settings
-from django.contrib.auth.models import User, AnonymousUser
+from django.contrib.auth.models import AnonymousUser, User
 # from django.contrib.contenttypes.models import ContentType
 from django.core.files.base import File
-from django.urls import reverse
 # from django.db.utils import DatabaseError
 from django.http import HttpResponse
 from django.templatetags.static import static
 from django.test.client import RequestFactory
+from django.urls import reverse
 from django.utils.encoding import force_str, smart_str
 from django.utils.html import format_html_join
 from django.utils.translation import gettext_lazy as _
-
-from six import text_type, PY3
+from six import PY3, text_type
 
 from .constants import (
     SUBMIT_VALUE_AS_MIX,
@@ -36,46 +35,44 @@ from .constants import (
 )
 from .exceptions import ImproperlyConfigured
 
-
-
-__title__ = 'fobi.helpers'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
+__title__ = "fobi.helpers"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
 __all__ = (
-    'admin_change_url',
-    'clean_dict',
-    'clone_file',
-    'combine_dicts',
-    'delete_file',
-    'do_slugify',
-    'empty_string',
-    'ensure_unique_filename',
-    'extract_file_path',
-    'flatatt_inverse_quotes',
-    'get_app_label_and_model_name',
-    'get_form_element_entries_for_form_wizard_entry',
-    'get_ignorable_form_values',
-    'get_model_name_for_object',
-    'get_registered_models',
-    'get_select_field_choices',
-    'get_wizard_form_field_value_from_post',
-    'get_wizard_form_field_value_from_request',
-    'get_wizard_form_field_value_from_session',
-    'handle_uploaded_file',
-    'iterable_to_dict',
-    'JSONDataExporter',
-    'lists_overlap',
-    'map_field_name_to_label',
-    'safe_text',
-    'StrippedRequest',
-    'StrippedUser',
-    'two_dicts_to_string',
-    'uniquify_sequence',
-    'update_plugin_data',
-    'validate_initial_for_choices',
-    'validate_initial_for_multiple_choices',
-    'validate_submit_value_as',
+    "admin_change_url",
+    "clean_dict",
+    "clone_file",
+    "combine_dicts",
+    "delete_file",
+    "do_slugify",
+    "empty_string",
+    "ensure_unique_filename",
+    "extract_file_path",
+    "flatatt_inverse_quotes",
+    "get_app_label_and_model_name",
+    "get_form_element_entries_for_form_wizard_entry",
+    "get_ignorable_form_values",
+    "get_model_name_for_object",
+    "get_registered_models",
+    "get_select_field_choices",
+    "get_wizard_form_field_value_from_post",
+    "get_wizard_form_field_value_from_request",
+    "get_wizard_form_field_value_from_session",
+    "handle_uploaded_file",
+    "iterable_to_dict",
+    "JSONDataExporter",
+    "lists_overlap",
+    "map_field_name_to_label",
+    "safe_text",
+    "StrippedRequest",
+    "StrippedUser",
+    "two_dicts_to_string",
+    "uniquify_sequence",
+    "update_plugin_data",
+    "validate_initial_for_choices",
+    "validate_initial_for_multiple_choices",
+    "validate_submit_value_as",
 )
 
 logger = logging.getLogger(__name__)
@@ -133,9 +130,12 @@ def map_field_name_to_label(form):
     :param django.forms.Form form: Instance of ``django.forms.Form``.
     :return dict:
     """
-    return dict([(field_name, field.label)
-                 for (field_name, field)
-                 in form.base_fields.items()])
+    return dict(
+        [
+            (field_name, field.label)
+            for (field_name, field) in form.base_fields.items()
+        ]
+    )
 
 
 def clean_dict(source, keys=[], values=[]):
@@ -159,10 +159,10 @@ def combine_dicts(headers, data):
     Takes two dictionaries, assuming one contains a mapping keys to titles
     and another keys to data. Joins as string and returns a result dict.
     """
-    return [(value, data.get(key, '')) for key, value in list(headers.items())]
+    return [(value, data.get(key, "")) for key, value in list(headers.items())]
 
 
-def two_dicts_to_string(headers, data, html_element='p'):
+def two_dicts_to_string(headers, data, html_element="p"):
     """Two dicts to string.
 
     Takes two dictionaries, assuming one contains a mapping keys to titles
@@ -170,16 +170,19 @@ def two_dicts_to_string(headers, data, html_element='p'):
     HTML "p" tag.
     """
     formatted_data = [
-        (value, data.get(key, '')) for key, value in list(headers.items())
+        (value, data.get(key, "")) for key, value in list(headers.items())
     ]
     return "".join(
-        ["<{0}>{1}: {2}</{3}>".format(html_element, safe_text(key),
-                                      safe_text(value), html_element)
-         for key, value in formatted_data]
+        [
+            "<{0}>{1}: {2}</{3}>".format(
+                html_element, safe_text(key), safe_text(value), html_element
+            )
+            for key, value in formatted_data
+        ]
     )
 
 
-empty_string = text_type('')
+empty_string = text_type("")
 
 
 def absolute_path(path):
@@ -188,7 +191,7 @@ def absolute_path(path):
     path. An absolute path will be returned unchanged while a relative path
     will be passed to django.templatetags.static.static().
     """
-    if path.startswith(('http://', 'https://', '/')):
+    if path.startswith(("http://", "https://", "/")):
         return path
     return static(path)
 
@@ -204,8 +207,9 @@ def uniquify_sequence(sequence):
     """
     seen = set()
     seen_add = seen.add
-    return [absolute_path(x)
-            for x in sequence if x not in seen and not seen_add(x)]
+    return [
+        absolute_path(x) for x in sequence if x not in seen and not seen_add(x)
+    ]
 
 
 def get_ignorable_form_values():
@@ -223,6 +227,7 @@ def get_model_name_for_object(obj):
 
     Django version agnostic."""
     return obj._meta.model_name
+
 
 # *****************************************************************************
 # *****************************************************************************
@@ -261,7 +266,7 @@ def handle_uploaded_file(upload_dir, image_file):
             os.path.join(upload_dir_absolute_path, image_file.name)
         )
         image_filename = image_file.name
-        with open(destination_path, 'wb+') as destination:
+        with open(destination_path, "wb+") as destination:
             image_filename = os.path.basename(destination.name)
             for chunk in image_file.chunks():
                 destination.write(chunk)
@@ -306,9 +311,9 @@ def clone_file(upload_dir, source_filename, relative_path=True):
         shutil.copyfile(source_filename, destination_filename)
         if relative_path:
             destination_filename = destination_filename.replace(
-                settings.MEDIA_ROOT, ''
+                settings.MEDIA_ROOT, ""
             )
-            if destination_filename.startswith('/'):
+            if destination_filename.startswith("/"):
                 destination_filename = destination_filename[1:]
         return destination_filename
     except Exception as err:
@@ -322,6 +327,7 @@ def extract_file_path(name):
     :return string:
     """
     return os.path.join(settings.MEDIA_ROOT, name)
+
 
 # *****************************************************************************
 # *****************************************************************************
@@ -342,10 +348,9 @@ def get_registered_models(ignore=[]):
     registered_models = [
         (
             "{0}.{1}".format(_m._meta.app_label, _m._meta.model_name),
-            _m._meta.object_name
+            _m._meta.object_name,
         )
-        for _m
-        in get_models()
+        for _m in get_models()
     ]
 
     return registered_models
@@ -358,8 +363,9 @@ def get_app_label_and_model_name(path):
         in the Django `ContentType` model.
     :return tuple: app_label, model_name
     """
-    parts = path.split('.')
-    return (''.join(parts[:-1]), parts[-1])
+    parts = path.split(".")
+    return ("".join(parts[:-1]), parts[-1])
+
 
 # *****************************************************************************
 # *****************************************************************************
@@ -368,8 +374,9 @@ def get_app_label_and_model_name(path):
 # *****************************************************************************
 
 
-def admin_change_url(app_label, module_name, object_id, extra_path='',
-                     url_title=None):
+def admin_change_url(
+    app_label, module_name, object_id, extra_path="", url_title=None
+):
     """
     Gets an admin change URL for the object given.
 
@@ -382,14 +389,20 @@ def admin_change_url(app_label, module_name, object_id, extra_path='',
     :return str:
     """
     try:
-        url = reverse('admin:{0}_{1}_change'.format(app_label, module_name),
-                      args=[object_id]) + extra_path
+        url = (
+            reverse(
+                "admin:{0}_{1}_change".format(app_label, module_name),
+                args=[object_id],
+            )
+            + extra_path
+        )
         if url_title:
-            return u'<a href="{0}">{1}</a>'.format(url, url_title)
+            return '<a href="{0}">{1}</a>'.format(url, url_title)
         else:
             return url
     except Exception:
         return None
+
 
 # *****************************************************************************
 # *****************************************************************************
@@ -410,10 +423,9 @@ def update_plugin_data(entry, request=None):
             return plugin._update_plugin_data(entry)
 
 
-def get_select_field_choices(raw_choices_data,
-                             key_type=None,
-                             value_type=None,
-                             fail_silently=True):
+def get_select_field_choices(
+    raw_choices_data, key_type=None, value_type=None, fail_silently=True
+):
     """Get select field choices.
 
     Used in ``radio``, ``select`` and other choice based
@@ -430,12 +442,12 @@ def get_select_field_choices(raw_choices_data,
     values = set([])  # For checking uniqueness of values
 
     # Looping through the raw data
-    for choice in raw_choices_data.split('\n'):
+    for choice in raw_choices_data.split("\n"):
         choice = choice.strip()
 
         # If comma separated key, value
-        if ',' in choice:
-            key, value = choice.split(',', 1)
+        if "," in choice:
+            key, value = choice.split(",", 1)
             key = key.strip()
 
             # If type specified, cast to the type
@@ -453,9 +465,7 @@ def get_select_field_choices(raw_choices_data,
                 except (ValueError, TypeError):
                     return [] if fail_silently else None
 
-            if key is not None \
-                    and key not in keys \
-                    and value not in values:
+            if key is not None and key not in keys and value not in values:
                 choices.append((key, value))
                 keys.add(key)
                 values.add(value)
@@ -463,9 +473,11 @@ def get_select_field_choices(raw_choices_data,
         # If key is also the value
         else:
             choice = choice.strip()
-            if choice is not None \
-                    and choice not in keys \
-                    and choice not in values:
+            if (
+                choice is not None
+                and choice not in keys
+                and choice not in values
+            ):
                 choices.append((choice, choice))
                 keys.add(choice)
                 values.add(choice)
@@ -473,8 +485,9 @@ def get_select_field_choices(raw_choices_data,
     return choices
 
 
-def validate_initial_for_choices(plugin_form, field_name_choices='choices',
-                                 field_name_initial='initial'):
+def validate_initial_for_choices(
+    plugin_form, field_name_choices="choices", field_name_initial="initial"
+):
     """Validate init for choices.
     Validates the initial value for the choices given.
 
@@ -487,21 +500,27 @@ def validate_initial_for_choices(plugin_form, field_name_choices='choices',
         get_select_field_choices(plugin_form.cleaned_data[field_name_choices])
     ).keys()
 
-    if plugin_form.cleaned_data[field_name_initial] \
-       and not plugin_form.cleaned_data[field_name_initial] \
-       in available_choices:
+    if (
+        plugin_form.cleaned_data[field_name_initial]
+        and not plugin_form.cleaned_data[field_name_initial]
+        in available_choices
+    ):
         raise forms.ValidationError(
-            _("Invalid value for initial: {0}. Should be any of the following"
-              ": {1}".format(plugin_form.cleaned_data[field_name_initial],
-                             ','.join(available_choices)))
+            _(
+                "Invalid value for initial: {0}. Should be any of the following"
+                ": {1}".format(
+                    plugin_form.cleaned_data[field_name_initial],
+                    ",".join(available_choices),
+                )
+            )
         )
 
     return plugin_form.cleaned_data[field_name_initial]
 
 
-def validate_initial_for_multiple_choices(plugin_form,
-                                          field_name_choices='choices',
-                                          field_name_initial='initial'):
+def validate_initial_for_multiple_choices(
+    plugin_form, field_name_choices="choices", field_name_initial="initial"
+):
     """Validates the initial value for the multiple choices given.
 
     :param fobi.base.BaseFormFieldPluginForm plugin_form:
@@ -510,19 +529,19 @@ def validate_initial_for_multiple_choices(plugin_form,
     :return str:
     """
     available_choices = dict(
-        get_select_field_choices(
-            plugin_form.cleaned_data[field_name_choices]
-        )
+        get_select_field_choices(plugin_form.cleaned_data[field_name_choices])
     ).keys()
 
     if plugin_form.cleaned_data[field_name_initial]:
-        for choice in plugin_form.cleaned_data[field_name_initial].split(','):
+        for choice in plugin_form.cleaned_data[field_name_initial].split(","):
             choice = choice.strip()
             if choice not in available_choices:
                 raise forms.ValidationError(
-                    _("Invalid value for initial: {0}. Should be any "
-                      "of the following: {1}"
-                      "".format(choice, ','.join(available_choices)))
+                    _(
+                        "Invalid value for initial: {0}. Should be any "
+                        "of the following: {1}"
+                        "".format(choice, ",".join(available_choices))
+                    )
                 )
 
     return plugin_form.cleaned_data[field_name_initial]
@@ -533,13 +552,18 @@ def validate_submit_value_as(value):
 
     :param str value:
     """
-    if value not in (SUBMIT_VALUE_AS_VAL, SUBMIT_VALUE_AS_REPR,
-                     SUBMIT_VALUE_AS_MIX):
-        raise ImproperlyConfigured("The `SUBMIT_AS_VALUE` may have one of "
-                                   "the following values: {0}, {1} or {2}"
-                                   "".format(SUBMIT_VALUE_AS_VAL,
-                                             SUBMIT_VALUE_AS_REPR,
-                                             SUBMIT_VALUE_AS_MIX))
+    if value not in (
+        SUBMIT_VALUE_AS_VAL,
+        SUBMIT_VALUE_AS_REPR,
+        SUBMIT_VALUE_AS_MIX,
+    ):
+        raise ImproperlyConfigured(
+            "The `SUBMIT_AS_VALUE` may have one of "
+            "the following values: {0}, {1} or {2}"
+            "".format(
+                SUBMIT_VALUE_AS_VAL, SUBMIT_VALUE_AS_REPR, SUBMIT_VALUE_AS_MIX
+            )
+        )
 
 
 class StrippedUser(object):
@@ -614,9 +638,9 @@ class StrippedRequest(object):
             self._request = request
         else:
             request_factory = RequestFactory()
-            self._request = request_factory.get('/')
+            self._request = request_factory.get("/")
 
-        if hasattr(request, 'user') and request.user:
+        if hasattr(request, "user") and request.user:
             self.user = StrippedUser(self._request.user)
         else:
             self.user = StrippedUser(AnonymousUser())
@@ -668,19 +692,20 @@ class StrippedRequest(object):
             - REMOTE_ADDR: The IP address of the client.
         """
         _meta = {
-            'HTTP_ACCEPT_ENCODING': self._request.META.get(
-                'HTTP_ACCEPT_ENCODING'
+            "HTTP_ACCEPT_ENCODING": self._request.META.get(
+                "HTTP_ACCEPT_ENCODING"
             ),
-            'HTTP_ACCEPT_LANGUAGE': self._request.META.get(
-                'HTTP_ACCEPT_LANGUAGE'
+            "HTTP_ACCEPT_LANGUAGE": self._request.META.get(
+                "HTTP_ACCEPT_LANGUAGE"
             ),
-            'HTTP_HOST': self._request.META.get('HTTP_HOST'),
-            'HTTP_REFERER': self._request.META.get('HTTP_REFERER'),
-            'HTTP_USER_AGENT': self._request.META.get('HTTP_USER_AGENT'),
-            'QUERY_STRING': self._request.META.get('QUERY_STRING'),
-            'REMOTE_ADDR': self._request.META.get('REMOTE_ADDR'),
+            "HTTP_HOST": self._request.META.get("HTTP_HOST"),
+            "HTTP_REFERER": self._request.META.get("HTTP_REFERER"),
+            "HTTP_USER_AGENT": self._request.META.get("HTTP_USER_AGENT"),
+            "QUERY_STRING": self._request.META.get("QUERY_STRING"),
+            "REMOTE_ADDR": self._request.META.get("REMOTE_ADDR"),
         }
         return _meta
+
 
 # *****************************************************************************
 # *****************************************************************************
@@ -709,14 +734,15 @@ class JSONDataExporter(object):
         :param str mimetype:
         :return django.http.HttpResponse:
         """
-        response_kwargs = {'content_type': mimetype}
+        response_kwargs = {"content_type": mimetype}
         return HttpResponse(**response_kwargs)
 
     def export_to_json(self):
         """Export data to JSON."""
         response = self._get_initial_response(mimetype="text/json")
-        response['Content-Disposition'] = \
-            'attachment; filename={0}.json'.format(self.filename)
+        response[
+            "Content-Disposition"
+        ] = "attachment; filename={0}.json".format(self.filename)
 
         response.write(self.data)
         return response
@@ -730,19 +756,18 @@ def get_form_element_entries_for_form_wizard_entry(form_wizard_entry):
     """Get form element entries for the form wizard entry."""
     form_element_entries = []
     # TODO: Perhaps add select related here?
-    for form_wizard_form_entry \
-            in form_wizard_entry.formwizardformentry_set.all():
-        form_element_entries += form_wizard_form_entry \
-                                    .form_entry \
-                                    .formelemententry_set.all()[:]
+    for (
+        form_wizard_form_entry
+    ) in form_wizard_entry.formwizardformentry_set.all():
+        form_element_entries += (
+            form_wizard_form_entry.form_entry.formelemententry_set.all()[:]
+        )
     return form_element_entries
 
 
-def get_wizard_form_field_value_from_session(request,
-                                             wizard_view_name,
-                                             form_key,
-                                             field_name,
-                                             fail_silently=True):
+def get_wizard_form_field_value_from_session(
+    request, wizard_view_name, form_key, field_name, fail_silently=True
+):
     """Get wizard form field value from session.
 
     This is what we could have:
@@ -772,24 +797,24 @@ def get_wizard_form_field_value_from_session(request,
 
     if not fail_silently:
 
-        return request.session[wizard_view_name]['step_data'][form_key][
-            session_field_name][0]
+        return request.session[wizard_view_name]["step_data"][form_key][
+            session_field_name
+        ][0]
 
     else:
 
         try:
-            return request.session[wizard_view_name]['step_data'][form_key][
-                session_field_name][0]
+            return request.session[wizard_view_name]["step_data"][form_key][
+                session_field_name
+            ][0]
         except (KeyError, IndexError) as err:
             logger.error(err)
             return None
 
 
-def get_wizard_form_field_value_from_post(request,
-                                          wizard_view_name,
-                                          form_key,
-                                          field_name,
-                                          fail_silently=True):
+def get_wizard_form_field_value_from_post(
+    request, wizard_view_name, form_key, field_name, fail_silently=True
+):
     """Get wizard form field value from POST.
 
     This is what we could have:
@@ -836,12 +861,14 @@ def get_wizard_form_field_value_from_post(request,
             return None
 
 
-def get_wizard_form_field_value_from_request(request,
-                                             wizard_view_name,
-                                             form_key,
-                                             field_name,
-                                             fail_silently=True,
-                                             session_priority=False):
+def get_wizard_form_field_value_from_request(
+    request,
+    wizard_view_name,
+    form_key,
+    field_name,
+    fail_silently=True,
+    session_priority=False,
+):
     """Get wizard form field value from request.
 
     Note, that we know nothing about the types here, type conversion should
@@ -859,35 +886,23 @@ def get_wizard_form_field_value_from_request(request,
     if session_priority:
         # First try session
         value = get_wizard_form_field_value_from_session(
-            request,
-            wizard_view_name,
-            form_key,
-            field_name,
-            fail_silently
+            request, wizard_view_name, form_key, field_name, fail_silently
         )
 
         if value is not None:
             return value
 
         # Then try POST
-        if request.method == 'POST':
+        if request.method == "POST":
             value = get_wizard_form_field_value_from_post(
-                request,
-                wizard_view_name,
-                form_key,
-                field_name,
-                fail_silently
+                request, wizard_view_name, form_key, field_name, fail_silently
             )
 
     else:
         # First try POST
-        if request.method == 'POST':
+        if request.method == "POST":
             value = get_wizard_form_field_value_from_post(
-                request,
-                wizard_view_name,
-                form_key,
-                field_name,
-                fail_silently
+                request, wizard_view_name, form_key, field_name, fail_silently
             )
 
             if value is not None:
@@ -895,14 +910,11 @@ def get_wizard_form_field_value_from_request(request,
 
         # Then try session
         value = get_wizard_form_field_value_from_session(
-            request,
-            wizard_view_name,
-            form_key,
-            field_name,
-            fail_silently
+            request, wizard_view_name, form_key, field_name, fail_silently
         )
 
     return value
+
 
 # *****************************************************************************
 # *****************************************************************************
@@ -931,7 +943,6 @@ def flatatt_inverse_quotes(attrs):
         else:
             key_value_attrs.append((attr, value))
 
-    return (
-        format_html_join("", " {}='{}'", sorted(key_value_attrs)) +
-        format_html_join("", " {}", sorted(boolean_attrs))
-    )
+    return format_html_join(
+        "", " {}='{}'", sorted(key_value_attrs)
+    ) + format_html_join("", " {}", sorted(boolean_attrs))

@@ -1,21 +1,19 @@
 import logging
 
+import mailchimp
 from django.contrib import messages
 from django.shortcuts import redirect
-from django.utils.translation import gettext_lazy as _
 from django.urls import reverse
-
-import mailchimp
+from django.utils.translation import gettext_lazy as _
 
 from .....wizard import SessionWizardView
-
 from .forms import MailchimpAPIKeyForm, MailchimpListIDForm
 
-__title__ = 'fobi.contrib.plugins.form_importers.mailchimp_importer.views'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('MailchimpImporterWizardView',)
+__title__ = "fobi.contrib.plugins.form_importers.mailchimp_importer.views"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("MailchimpImporterWizardView",)
 
 logger = logging.getLogger(__name__)
 
@@ -27,10 +25,10 @@ class MailchimpImporterWizardView(SessionWizardView):
 
     def get_form_kwargs(self, step):
         """Get form kwargs."""
-        if '1' == step:
-            data = self.get_cleaned_data_for_step('0') or {}
-            api_key = data.get('api_key', None)
-            return {'api_key': api_key}
+        if "1" == step:
+            data = self.get_cleaned_data_for_step("0") or {}
+            api_key = data.get("api_key", None)
+            return {"api_key": api_key}
         return {}
 
     def done(self, form_list, **kwargs):
@@ -41,36 +39,36 @@ class MailchimpImporterWizardView(SessionWizardView):
         # cleaned_data = self.get_all_cleaned_data()
 
         # Connecting to mailchimp
-        client = mailchimp.Mailchimp(cleaned_data['api_key'])
+        client = mailchimp.Mailchimp(cleaned_data["api_key"])
 
         # Fetching the form data
         form_data = client.lists.merge_vars(
-            id={'list_id': cleaned_data['list_id']}
+            id={"list_id": cleaned_data["list_id"]}
         )
 
         # We need the first form only
         try:
-            form_data = form_data['data'][0]
+            form_data = form_data["data"][0]
         except Exception as err:
             messages.warning(
                 self.request,
-                _('Selected form could not be imported due errors.')
+                _("Selected form could not be imported due errors."),
             )
-            return redirect(reverse('fobi.dashboard'))
+            return redirect(reverse("fobi.dashboard"))
 
         # Actually, import the form
         form_entry = self._form_importer.import_data(
-            {'name': form_data['name'], 'user': self.request.user},
-            form_data['merge_vars']
+            {"name": form_data["name"], "user": self.request.user},
+            form_data["merge_vars"],
         )
 
         redirect_url = reverse(
-            'fobi.edit_form_entry', kwargs={'form_entry_id': form_entry.pk}
+            "fobi.edit_form_entry", kwargs={"form_entry_id": form_entry.pk}
         )
 
         messages.info(
             self.request,
-            _('Form {0} imported successfully.').format(form_data['name'])
+            _("Form {0} imported successfully.").format(form_data["name"]),
         )
 
         return redirect("{0}".format(redirect_url))

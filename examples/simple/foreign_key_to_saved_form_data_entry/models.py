@@ -1,8 +1,7 @@
+from django.db import models
 from six import python_2_unicode_compatible
 
-from django.db import models
-
-__all__ = ('SavedFormDataEntryReference',)
+__all__ = ("SavedFormDataEntryReference",)
 
 
 @python_2_unicode_compatible
@@ -14,7 +13,7 @@ class SavedFormDataEntryReference(models.Model):
     """
 
     form = models.ForeignKey(
-        'fobi_contrib_plugins_form_handlers_db_store.SavedFormDataEntry'
+        "fobi_contrib_plugins_form_handlers_db_store.SavedFormDataEntry"
     )
 
     def __str__(self):

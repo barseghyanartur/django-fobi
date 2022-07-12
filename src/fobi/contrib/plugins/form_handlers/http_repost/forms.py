@@ -3,11 +3,11 @@ from django.utils.translation import gettext_lazy as _
 
 from .....base import BasePluginForm, get_theme
 
-__title__ = 'fobi.contrib.plugins.form_handlers.http_repost.forms'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('HTTPRepostForm',)
+__title__ = "fobi.contrib.plugins.form_handlers.http_repost.forms"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("HTTPRepostForm",)
 
 theme = get_theme(request=None, as_instance=True)
 
@@ -23,6 +23,6 @@ class HTTPRepostForm(forms.Form, BasePluginForm):
         label=_("Endpoint URL"),
         required=True,
         widget=forms.widgets.TextInput(
-            attrs={'class': theme.form_element_html_class}
-        )
+            attrs={"class": theme.form_element_html_class}
+        ),
     )

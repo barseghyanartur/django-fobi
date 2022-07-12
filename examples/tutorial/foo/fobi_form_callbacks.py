@@ -1,5 +1,5 @@
-from fobi.constants import CALLBACK_FORM_VALID
 from fobi.base import FormCallback, form_callback_registry
+from fobi.constants import CALLBACK_FORM_VALID
 
 
 class SampleFooCallback(FormCallback):

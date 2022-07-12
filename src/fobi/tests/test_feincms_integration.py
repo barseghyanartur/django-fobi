@@ -1,19 +1,16 @@
 import logging
 import unittest
 
-from selenium.webdriver.support.wait import WebDriverWait
-
 import factories
+from selenium.webdriver.support.wait import WebDriverWait
 
 from .base import BaseFobiBrowserBuldDynamicFormsTest
 
-__title__ = 'fobi.tests.test_browser_build_dynamic_forms'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = (
-    'FeinCMSIntegrationTest',
-)
+__title__ = "fobi.tests.test_browser_build_dynamic_forms"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("FeinCMSIntegrationTest",)
 
 logger = logging.getLogger(__name__)
 
@@ -30,9 +27,8 @@ class FeinCMSIntegrationTest(BaseFobiBrowserBuldDynamicFormsTest):
         super(FeinCMSIntegrationTest, self).setUp()
 
         self.fobi_form_page = factories.FobiFormPageFactory()
-        self.fobi_form_page_url = '{0}{1}'.format(
-            self._get_live_server_url(),
-            self.fobi_form_page.get_absolute_url()
+        self.fobi_form_page_url = "{0}{1}".format(
+            self._get_live_server_url(), self.fobi_form_page.get_absolute_url()
         )
 
     def test_fobi_form_widget_public_form(self):
@@ -58,5 +54,5 @@ class FeinCMSIntegrationTest(BaseFobiBrowserBuldDynamicFormsTest):
     #     # TODO:
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

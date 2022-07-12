@@ -6,24 +6,25 @@ from uuid import uuid4
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
-
 from nonefield.fields import NoneField
-
-from fobi.base import FormElementPlugin
-from fobi.helpers import delete_file, clone_file
 
 from . import UID
 from .forms import ContentImageForm
 from .helpers import get_crop_filter
 from .settings import (
-    FIT_METHOD_FIT_WIDTH, FIT_METHOD_FIT_HEIGHT, IMAGES_UPLOAD_DIR
+    FIT_METHOD_FIT_HEIGHT,
+    FIT_METHOD_FIT_WIDTH,
+    IMAGES_UPLOAD_DIR,
 )
 
-__title__ = 'fobi.contrib.plugins.form_elements.content.content_image.base'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('ContentImagePlugin',)
+from fobi.base import FormElementPlugin
+from fobi.helpers import clone_file, delete_file
+
+__title__ = "fobi.contrib.plugins.form_elements.content.content_image.base"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("ContentImagePlugin",)
 
 
 class ContentImagePlugin(FormElementPlugin):
@@ -55,7 +56,7 @@ class ContentImagePlugin(FormElementPlugin):
         cloned_image = clone_file(
             IMAGES_UPLOAD_DIR, self.data.file, relative_path=True
         )
-        return self.get_cloned_plugin_data(update={'file': cloned_image})
+        return self.get_cloned_plugin_data(update={"file": cloned_image})
 
     def get_raw_data(self):
         """Get raw data.
@@ -64,16 +65,16 @@ class ContentImagePlugin(FormElementPlugin):
         """
         return OrderedDict(
             (
-                ('file', "{}{}".format(settings.MEDIA_URL, self.data.file)),
-                ('alt', self.data.alt),
-                ('fit_method', self.data.fit_method),
-                ('size', self.data.size),
+                ("file", "{}{}".format(settings.MEDIA_URL, self.data.file)),
+                ("alt", self.data.alt),
+                ("fit_method", self.data.fit_method),
+                ("size", self.data.size),
             )
         )
 
     def get_rendered_image(self):
         """Get rendered image."""
-        width, height = self.data.size.split('x')
+        width, height = self.data.size.split("x")
         crop = get_crop_filter(self.data.fit_method)
 
         if FIT_METHOD_FIT_WIDTH == self.data.fit_method:
@@ -84,21 +85,22 @@ class ContentImagePlugin(FormElementPlugin):
             thumb_size = (width, height)
 
         context = {
-            'plugin': self,
-            'MEDIA_URL': settings.MEDIA_URL,
-            'crop': crop,
-            'thumb_size': thumb_size
+            "plugin": self,
+            "MEDIA_URL": settings.MEDIA_URL,
+            "crop": crop,
+            "thumb_size": thumb_size,
         }
-        rendered_image = render_to_string('content_image/render.html', context)
+        rendered_image = render_to_string("content_image/render.html", context)
         return rendered_image
 
-    def get_form_field_instances(self, request=None, form_entry=None,
-                                 form_element_entries=None, **kwargs):
+    def get_form_field_instances(
+        self, request=None, form_entry=None, form_element_entries=None, **kwargs
+    ):
         """Get form field instances."""
         field_kwargs = {
-            'initial': self.get_rendered_image(),
-            'required': False,
-            'label': '',
+            "initial": self.get_rendered_image(),
+            "required": False,
+            "label": "",
         }
 
         return [(self.data.name, NoneField, field_kwargs)]

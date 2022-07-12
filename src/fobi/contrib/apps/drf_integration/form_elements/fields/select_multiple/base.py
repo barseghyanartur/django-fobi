@@ -1,7 +1,6 @@
 import copy
 
 from django.utils.translation import gettext_lazy as _
-
 from rest_framework.fields import MultipleChoiceField
 
 from .......base import IntegrationFormFieldPlugin
@@ -10,19 +9,21 @@ from ....base import (
     DRFIntegrationFormElementPluginProcessor,
     DRFSubmitPluginFormDataMixin,
 )
-
 from . import UID
 
-__title__ = 'fobi.contrib.apps.drf_integration.form_elements.fields.' \
-            'select_multiple.base'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('SelectMultipleInputPlugin',)
+__title__ = (
+    "fobi.contrib.apps.drf_integration.form_elements.fields."
+    "select_multiple.base"
+)
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("SelectMultipleInputPlugin",)
 
 
-class SelectMultipleInputPlugin(IntegrationFormFieldPlugin,
-                                DRFSubmitPluginFormDataMixin):
+class SelectMultipleInputPlugin(
+    IntegrationFormFieldPlugin, DRFSubmitPluginFormDataMixin
+):
     """MultipleChoiceField plugin."""
 
     uid = UID
@@ -30,36 +31,39 @@ class SelectMultipleInputPlugin(IntegrationFormFieldPlugin,
     name = _("Select multiple")
     group = _("Fields")
 
-    def get_custom_field_instances(self,
-                                   form_element_plugin,
-                                   request=None,
-                                   form_entry=None,
-                                   form_element_entries=None,
-                                   **kwargs):
+    def get_custom_field_instances(
+        self,
+        form_element_plugin,
+        request=None,
+        form_entry=None,
+        form_element_entries=None,
+        **kwargs,
+    ):
         """Get form field instances."""
         choices = form_element_plugin.get_choices()
         field_kwargs = {
-            'required': form_element_plugin.data.required,
-            'initial': form_element_plugin.data.initial,
-            'label': form_element_plugin.data.label,
-            'help_text': form_element_plugin.data.help_text,
+            "required": form_element_plugin.data.required,
+            "initial": form_element_plugin.data.initial,
+            "label": form_element_plugin.data.label,
+            "help_text": form_element_plugin.data.help_text,
             # 'max_length': form_element_plugin.data.max_length,
-            'choices': choices,
+            "choices": choices,
         }
         return [
             DRFIntegrationFormElementPluginProcessor(
-                field_class=MultipleChoiceField,
-                field_kwargs=field_kwargs
+                field_class=MultipleChoiceField, field_kwargs=field_kwargs
             )
         ]
 
-    def submit_plugin_form_data(self,
-                                form_element_plugin,
-                                form_entry,
-                                request,
-                                serializer,
-                                form_element_entries=None,
-                                **kwargs):
+    def submit_plugin_form_data(
+        self,
+        form_element_plugin,
+        form_entry,
+        request,
+        serializer,
+        form_element_entries=None,
+        **kwargs,
+    ):
         """Submit plugin form data.
 
         Called on form submission (when user actually

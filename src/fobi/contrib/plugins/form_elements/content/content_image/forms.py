@@ -1,22 +1,22 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
+from .settings import (
+    DEFAULT_FIT_METHOD,
+    DEFAULT_SIZE,
+    FIT_METHODS_CHOICES,
+    IMAGES_UPLOAD_DIR,
+    SIZES,
+)
+
 from fobi.base import BasePluginForm, get_theme
 from fobi.helpers import handle_uploaded_file
 
-from .settings import (
-    FIT_METHODS_CHOICES,
-    DEFAULT_FIT_METHOD,
-    DEFAULT_SIZE,
-    SIZES,
-    IMAGES_UPLOAD_DIR,
-)
-
-__title__ = 'fobi.contrib.plugins.form_elements.content.content_image.forms'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('ContentImageForm',)
+__title__ = "fobi.contrib.plugins.form_elements.content.content_image.forms"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("ContentImageForm",)
 
 theme = get_theme(request=None, as_instance=True)
 
@@ -41,8 +41,8 @@ class ContentImageForm(forms.Form, BasePluginForm):
         label=_("Alt text"),
         required=True,
         widget=forms.widgets.TextInput(
-            attrs={'class': theme.form_element_html_class}
-        )
+            attrs={"class": theme.form_element_html_class}
+        ),
     )
     fit_method = forms.ChoiceField(
         label=_("Fit method"),
@@ -50,8 +50,8 @@ class ContentImageForm(forms.Form, BasePluginForm):
         initial=DEFAULT_FIT_METHOD,
         choices=FIT_METHODS_CHOICES,
         widget=forms.widgets.Select(
-            attrs={'class': theme.form_element_html_class}
-        )
+            attrs={"class": theme.form_element_html_class}
+        ),
     )
     size = forms.ChoiceField(
         label=_("Size"),
@@ -59,13 +59,13 @@ class ContentImageForm(forms.Form, BasePluginForm):
         initial=DEFAULT_SIZE,
         choices=SIZES,
         widget=forms.widgets.Select(
-            attrs={'class': theme.form_element_html_class}
-        )
+            attrs={"class": theme.form_element_html_class}
+        ),
     )
 
     def save_plugin_data(self, request=None):
         """Saving the plugin data and moving the file."""
-        file_path = self.cleaned_data.get('file', None)
+        file_path = self.cleaned_data.get("file", None)
         if file_path:
             saved_image = handle_uploaded_file(IMAGES_UPLOAD_DIR, file_path)
-            self.cleaned_data['file'] = saved_image
+            self.cleaned_data["file"] = saved_image

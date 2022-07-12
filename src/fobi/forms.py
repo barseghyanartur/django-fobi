@@ -1,66 +1,60 @@
 import socket
 
-from six.moves.urllib.parse import urlparse
-
 from django import forms
 from django.forms.models import modelformset_factory
 from django.utils.translation import gettext, gettext_lazy as _
+from six.moves.urllib.parse import urlparse
 
 # from nonefield.fields import NoneField
 
 try:
     from ckeditor.widgets import CKEditorWidget
+
     CKEDITOR_INSTALLED = True
 except ImportError:
     CKEDITOR_INSTALLED = False
 
-from .base import (
+from .base import (  # get_registered_form_wizard_handler_plugins,
     get_registered_form_element_plugins,
     get_registered_form_handler_plugins,
-    # get_registered_form_wizard_handler_plugins,
     get_theme,
 )
 from .constants import ACTION_CHOICES
 from .exceptions import ImproperlyConfigured
-from .models import (
-    # Form plugins
+from .models import (  # Form plugins; Form entries; Form wizard entries
     FormElement,
-    FormHandler,
-    FormWizardHandler,
-
-    # Form entries
+    FormElementEntry,
     FormEntry,
     FormFieldsetEntry,
-    FormElementEntry,
+    FormHandler,
     FormHandlerEntry,
-
-    # Form wizard entries
     FormWizardEntry,
+    FormWizardFormEntry,
+    FormWizardHandler,
     FormWizardHandlerEntry,
-    FormWizardFormEntry
 )
 from .validators import url_exists
 
-__title__ = 'fobi.forms'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
+__title__ = "fobi.forms"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
 __all__ = (
-    'BulkChangeFormElementPluginsForm',
-    'BulkChangeFormHandlerPluginsForm',
-    'BulkChangeFormWizardHandlerPluginsForm',
-    'FormElementEntryForm',
-    'FormElementEntryFormSet',
-    'FormEntryForm',
-    'FormFieldsetEntryForm',
-    'FormHandlerEntryForm',
-    'FormHandlerForm',
-    'FormWizardEntryForm',
-    'FormWizardFormEntryForm',
-    'FormWizardFormEntryFormSet',
-    'FormWizardHandlerEntryForm',
-    'ImportFormEntryForm',
-    'ImportFormWizardEntryForm',
+    "BulkChangeFormElementPluginsForm",
+    "BulkChangeFormHandlerPluginsForm",
+    "BulkChangeFormWizardHandlerPluginsForm",
+    "FormElementEntryForm",
+    "FormElementEntryFormSet",
+    "FormEntryForm",
+    "FormFieldsetEntryForm",
+    "FormHandlerEntryForm",
+    "FormHandlerForm",
+    "FormWizardEntryForm",
+    "FormWizardFormEntryForm",
+    "FormWizardFormEntryFormSet",
+    "FormWizardHandlerEntryForm",
+    "ImportFormEntryForm",
+    "ImportFormWizardEntryForm",
 )
 
 # *****************************************************************************
@@ -78,22 +72,22 @@ class FormEntryForm(forms.ModelForm):
 
         model = FormEntry
         fields = (
-            'name',
-            'title',
-            'is_public',
-            'active_date_from',
-            'active_date_to',
-            'inactive_page_title',
-            'inactive_page_message',
-            'success_page_title',
-            'success_page_message',
-            'action',
+            "name",
+            "title",
+            "is_public",
+            "active_date_from",
+            "active_date_to",
+            "inactive_page_title",
+            "inactive_page_message",
+            "success_page_title",
+            "success_page_message",
+            "action",
             # 'is_cloneable',
         )
 
     def __init__(self, *args, **kwargs):
         """Constructor."""
-        self.request = kwargs.pop('request', None)
+        self.request = kwargs.pop("request", None)
         if self.request is None:
             raise ImproperlyConfigured(
                 gettext(
@@ -105,58 +99,58 @@ class FormEntryForm(forms.ModelForm):
         super(FormEntryForm, self).__init__(*args, **kwargs)
         theme = get_theme(request=None, as_instance=True)
 
-        self.fields['name'].widget = forms.widgets.TextInput(
-            attrs={'class': theme.form_element_html_class}
+        self.fields["name"].widget = forms.widgets.TextInput(
+            attrs={"class": theme.form_element_html_class}
         )
 
-        self.fields['title'].widget = forms.widgets.TextInput(
-            attrs={'class': theme.form_element_html_class}
+        self.fields["title"].widget = forms.widgets.TextInput(
+            attrs={"class": theme.form_element_html_class}
         )
 
-        self.fields['success_page_title'].widget = forms.widgets.TextInput(
-            attrs={'class': theme.form_element_html_class}
+        self.fields["success_page_title"].widget = forms.widgets.TextInput(
+            attrs={"class": theme.form_element_html_class}
         )
 
-        self.fields['inactive_page_title'].widget = forms.widgets.TextInput(
-            attrs={'class': theme.form_element_html_class}
+        self.fields["inactive_page_title"].widget = forms.widgets.TextInput(
+            attrs={"class": theme.form_element_html_class}
         )
 
-        self.fields['active_date_from'].widget = forms.widgets.DateTimeInput(
-            format='%Y-%m-%d %H:%M',
-            attrs={'class': theme.form_element_html_class}
+        self.fields["active_date_from"].widget = forms.widgets.DateTimeInput(
+            format="%Y-%m-%d %H:%M",
+            attrs={"class": theme.form_element_html_class},
         )
 
-        self.fields['active_date_to'].widget = forms.widgets.DateTimeInput(
-            format='%Y-%m-%d %H:%M',
-            attrs={'class': theme.form_element_html_class}
+        self.fields["active_date_to"].widget = forms.widgets.DateTimeInput(
+            format="%Y-%m-%d %H:%M",
+            attrs={"class": theme.form_element_html_class},
         )
 
         if CKEDITOR_INSTALLED:
-            self.fields['success_page_message'].widget = CKEditorWidget(
-                attrs={'class': theme.form_element_html_class}
+            self.fields["success_page_message"].widget = CKEditorWidget(
+                attrs={"class": theme.form_element_html_class}
             )
-            self.fields['inactive_page_message'].widget = CKEditorWidget(
-                attrs={'class': theme.form_element_html_class}
+            self.fields["inactive_page_message"].widget = CKEditorWidget(
+                attrs={"class": theme.form_element_html_class}
             )
         else:
-            self.fields['success_page_message'].widget = \
-                forms.widgets.Textarea(
-                    attrs={'class': theme.form_element_html_class}
-                )
-            self.fields['inactive_page_message'].widget = \
-                forms.widgets.Textarea(
-                    attrs={'class': theme.form_element_html_class}
-                )
+            self.fields["success_page_message"].widget = forms.widgets.Textarea(
+                attrs={"class": theme.form_element_html_class}
+            )
+            self.fields[
+                "inactive_page_message"
+            ].widget = forms.widgets.Textarea(
+                attrs={"class": theme.form_element_html_class}
+            )
 
-        self.fields['action'].widget = forms.widgets.TextInput(
-            attrs={'class': theme.form_element_html_class}
+        self.fields["action"].widget = forms.widgets.TextInput(
+            attrs={"class": theme.form_element_html_class}
         )
 
         # At the moment this is done for Foundation 5 theme. Remove this once
         # it's possible for a theme to override this form. Alternatively, add
         # the attrs to the theme API.
-        self.fields['is_public'].widget = forms.widgets.CheckboxInput(
-            attrs={'data-customforms': 'disabled'}
+        self.fields["is_public"].widget = forms.widgets.CheckboxInput(
+            attrs={"data-customforms": "disabled"}
         )
         # self.fields['is_cloneable'].widget = forms.widgets.CheckboxInput(
         #    attrs={'data-customforms': 'disabled'}
@@ -167,11 +161,11 @@ class FormEntryForm(forms.ModelForm):
 
         Checks if URL exists.
         """
-        url = self.cleaned_data['action']
+        url = self.cleaned_data["action"]
         if url:
             full_url = url
 
-            if not (url.startswith('http://') or url.startswith('https://')):
+            if not (url.startswith("http://") or url.startswith("https://")):
                 full_url = self.request.build_absolute_uri(url)
 
             parsed_url = urlparse(full_url)
@@ -179,17 +173,17 @@ class FormEntryForm(forms.ModelForm):
             local = False
 
             try:
-                localhost = socket.gethostbyname('localhost')
+                localhost = socket.gethostbyname("localhost")
             except Exception as err:
-                localhost = '127.0.0.1'
+                localhost = "127.0.0.1"
 
-            if parsed_url.hostname == 'testserver':
+            if parsed_url.hostname == "testserver":
                 local = True
             else:
                 try:
                     host = socket.gethostbyname(parsed_url.hostname)
 
-                    local = (localhost == host)
+                    local = localhost == host
                 except socket.gaierror as err:
                     pass
 
@@ -211,14 +205,14 @@ class FormFieldsetEntryForm(forms.ModelForm):
         """Meta class."""
 
         model = FormFieldsetEntry
-        fields = ('name',)
+        fields = ("name",)
 
     def __init__(self, *args, **kwargs):
         """Constructor."""
         super(FormFieldsetEntryForm, self).__init__(*args, **kwargs)
         theme = get_theme(request=None, as_instance=True)
-        self.fields['name'].widget = forms.widgets.TextInput(
-            attrs={'class': theme.form_element_html_class}
+        self.fields["name"].widget = forms.widgets.TextInput(
+            attrs={"class": theme.form_element_html_class}
         )
 
 
@@ -233,7 +227,7 @@ class FormElementForm(forms.ModelForm):
         """Meta class."""
 
         model = FormElement
-        fields = ('users', 'groups')
+        fields = ("users", "groups")
 
 
 class FormElementEntryForm(forms.ModelForm):
@@ -247,7 +241,7 @@ class FormElementEntryForm(forms.ModelForm):
         """Meta class."""
 
         model = FormElementEntry
-        fields = ('form_entry', 'plugin_data', 'plugin_uid', 'position')
+        fields = ("form_entry", "plugin_data", "plugin_uid", "position")
 
 
 class _FormElementEntryForm(forms.ModelForm):
@@ -260,14 +254,11 @@ class _FormElementEntryForm(forms.ModelForm):
         """Meta class."""
 
         model = FormElementEntry
-        fields = ('position',)
+        fields = ("position",)
 
 
 FormElementEntryFormSet = modelformset_factory(
-    FormElementEntry,
-    fields=('position',),
-    extra=0,
-    form=_FormElementEntryForm
+    FormElementEntry, fields=("position",), extra=0, form=_FormElementEntryForm
 )
 
 
@@ -282,7 +273,7 @@ class FormHandlerForm(forms.ModelForm):
         """Meta class."""
 
         model = FormHandler
-        fields = ('users', 'groups')
+        fields = ("users", "groups")
 
 
 class FormHandlerEntryForm(forms.ModelForm):
@@ -296,7 +287,7 @@ class FormHandlerEntryForm(forms.ModelForm):
         """Meta class."""
 
         model = FormHandlerEntry
-        fields = ('form_entry', 'plugin_data', 'plugin_uid')
+        fields = ("form_entry", "plugin_data", "plugin_uid")
 
 
 # *****************************************************************************
@@ -305,17 +296,18 @@ class FormHandlerEntryForm(forms.ModelForm):
 # *****************************************************************************
 # *****************************************************************************
 
+
 class FormWizardFormEntryForm(forms.ModelForm):
-    """FormWizardFormEntryForm form.
-
-
-    """
+    """FormWizardFormEntryForm form."""
 
     class Meta(object):
         """Meta class."""
 
         model = FormWizardFormEntry
-        fields = ('form_wizard_entry', 'form_entry',)
+        fields = (
+            "form_wizard_entry",
+            "form_entry",
+        )
 
 
 class _FormWizardFormEntryForm(forms.ModelForm):
@@ -337,7 +329,7 @@ class _FormWizardFormEntryForm(forms.ModelForm):
         """Meta class."""
 
         model = FormWizardFormEntry
-        fields = ('position',)
+        fields = ("position",)
 
     # def __init__(self, *args, **kwargs):
     #     """Constructor."""
@@ -356,9 +348,9 @@ class _FormWizardFormEntryForm(forms.ModelForm):
 
 FormWizardFormEntryFormSet = modelformset_factory(
     FormWizardFormEntry,
-    fields=('position',),
+    fields=("position",),
     extra=0,
-    form=_FormWizardFormEntryForm
+    form=_FormWizardFormEntryForm,
 )
 
 
@@ -369,15 +361,21 @@ class FormWizardEntryForm(forms.ModelForm):
         """Meta class."""
 
         model = FormWizardEntry
-        fields = ('name', 'title', 'is_public', 'success_page_title',
-                  'success_page_message', 'show_all_navigation_buttons',)
+        fields = (
+            "name",
+            "title",
+            "is_public",
+            "success_page_title",
+            "success_page_message",
+            "show_all_navigation_buttons",
+        )
         # 'wizard_type'
         # 'action',
         # 'is_cloneable',
 
     def __init__(self, *args, **kwargs):
         """Constructor."""
-        self.request = kwargs.pop('request', None)
+        self.request = kwargs.pop("request", None)
         if self.request is None:
             raise ImproperlyConfigured(
                 gettext(
@@ -389,25 +387,26 @@ class FormWizardEntryForm(forms.ModelForm):
         super(FormWizardEntryForm, self).__init__(*args, **kwargs)
         theme = get_theme(request=None, as_instance=True)
 
-        self.fields['name'].widget = forms.widgets.TextInput(
-            attrs={'class': theme.form_element_html_class}
+        self.fields["name"].widget = forms.widgets.TextInput(
+            attrs={"class": theme.form_element_html_class}
         )
 
-        self.fields['title'].widget = forms.widgets.TextInput(
-            attrs={'class': theme.form_element_html_class}
+        self.fields["title"].widget = forms.widgets.TextInput(
+            attrs={"class": theme.form_element_html_class}
         )
 
-        self.fields['show_all_navigation_buttons'].widget = \
-            forms.widgets.CheckboxInput(
-                attrs={'data-customforms': 'disabled'}
-            )
-
-        self.fields['success_page_title'].widget = forms.widgets.TextInput(
-            attrs={'class': theme.form_element_html_class}
+        self.fields[
+            "show_all_navigation_buttons"
+        ].widget = forms.widgets.CheckboxInput(
+            attrs={"data-customforms": "disabled"}
         )
 
-        self.fields['success_page_message'].widget = forms.widgets.Textarea(
-            attrs={'class': theme.form_element_html_class}
+        self.fields["success_page_title"].widget = forms.widgets.TextInput(
+            attrs={"class": theme.form_element_html_class}
+        )
+
+        self.fields["success_page_message"].widget = forms.widgets.Textarea(
+            attrs={"class": theme.form_element_html_class}
         )
 
         # self.fields['action'].widget = forms.widgets.TextInput(
@@ -421,8 +420,8 @@ class FormWizardEntryForm(forms.ModelForm):
         # At the moment this is done for Foundation 5 theme. Remove this once
         # it's possible for a theme to override this form. Alternatively, add
         # the attrs to the theme API.
-        self.fields['is_public'].widget = forms.widgets.CheckboxInput(
-            attrs={'data-customforms': 'disabled'}
+        self.fields["is_public"].widget = forms.widgets.CheckboxInput(
+            attrs={"data-customforms": "disabled"}
         )
         # self.fields['is_cloneable'].widget = forms.widgets.CheckboxInput(
         #    attrs={'data-customforms': 'disabled'}
@@ -478,7 +477,8 @@ class FormWizardHandlerEntryForm(forms.ModelForm):
         """Meta class."""
 
         model = FormWizardHandlerEntry
-        fields = ('form_wizard_entry', 'plugin_data', 'plugin_uid')
+        fields = ("form_wizard_entry", "plugin_data", "plugin_uid")
+
 
 # *****************************************************************************
 # *****************************************************************************
@@ -501,35 +501,37 @@ class BaseBulkChangePluginsForm(forms.ModelForm):
     selected_plugins = forms.CharField(
         required=True,
         label=_("Selected plugins"),
-        widget=forms.widgets.HiddenInput
+        widget=forms.widgets.HiddenInput,
     )
     users_action = forms.ChoiceField(
         required=False,
         label=_("Users action"),
         choices=ACTION_CHOICES,
-        help_text=_("If set to ``replace``, the groups are replaced; "
-                    "otherwise - appended.")
+        help_text=_(
+            "If set to ``replace``, the groups are replaced; "
+            "otherwise - appended."
+        ),
     )
     groups_action = forms.ChoiceField(
         required=False,
         label=_("Groups action"),
         choices=ACTION_CHOICES,
-        help_text=_("If set to ``replace``, the groups are replaced; "
-                    "otherwise - appended.")
+        help_text=_(
+            "If set to ``replace``, the groups are replaced; "
+            "otherwise - appended."
+        ),
     )
 
     class Media(object):
         """Media class."""
 
-        css = {
-            'all': ('css/admin_custom.css',)
-        }
+        css = {"all": ("css/admin_custom.css",)}
 
     def __init__(self, *args, **kwargs):
         """Constructor."""
         super(BaseBulkChangePluginsForm, self).__init__(*args, **kwargs)
-        self.fields['users'].required = False
-        self.fields['groups'].required = False
+        self.fields["users"].required = False
+        self.fields["groups"].required = False
 
 
 class BulkChangeFormElementPluginsForm(BaseBulkChangePluginsForm):
@@ -539,7 +541,7 @@ class BulkChangeFormElementPluginsForm(BaseBulkChangePluginsForm):
         """Meta class."""
 
         model = FormElement
-        fields = ['groups', 'groups_action', 'users', 'users_action']
+        fields = ["groups", "groups_action", "users", "users_action"]
 
 
 class BulkChangeFormHandlerPluginsForm(BaseBulkChangePluginsForm):
@@ -549,7 +551,7 @@ class BulkChangeFormHandlerPluginsForm(BaseBulkChangePluginsForm):
         """Meta class."""
 
         model = FormHandler
-        fields = ['groups', 'groups_action', 'users', 'users_action']
+        fields = ["groups", "groups_action", "users", "users_action"]
 
 
 class BulkChangeFormWizardHandlerPluginsForm(BaseBulkChangePluginsForm):
@@ -559,7 +561,8 @@ class BulkChangeFormWizardHandlerPluginsForm(BaseBulkChangePluginsForm):
         """Meta class."""
 
         model = FormWizardHandler
-        fields = ['groups', 'groups_action', 'users', 'users_action']
+        fields = ["groups", "groups_action", "users", "users_action"]
+
 
 # *****************************************************************************
 # *****************************************************************************

@@ -1,18 +1,17 @@
 import unittest
-
 from copy import copy
 
 from django.test import TestCase
 
-from fobi.data_structures import SortableDict
-
 from .core import print_info
 
-__title__ = 'fobi.tests.test_dynamic_forms'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('FobiDataStructuresTest',)
+from fobi.data_structures import SortableDict
+
+__title__ = "fobi.tests.test_dynamic_forms"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("FobiDataStructuresTest",)
 
 
 class FobiDataStructuresTest(TestCase):
@@ -22,16 +21,16 @@ class FobiDataStructuresTest(TestCase):
         """Set up."""
         self.initial = SortableDict(
             [
-                ('b', 1),
-                ('a', 2),
-                ('c', 3),
+                ("b", 1),
+                ("a", 2),
+                ("c", 3),
             ]
         )
         self.expected = SortableDict(
             [
-                ('a', 2),
-                ('b', 1),
-                ('c', 3),
+                ("a", 2),
+                ("b", 1),
+                ("c", 3),
             ]
         )
 
@@ -43,7 +42,7 @@ class FobiDataStructuresTest(TestCase):
         flow.append(copy(self.initial))
 
         # Expected: a, b, c
-        res = self.initial.move_before_key(source_key='a', target_key='b')
+        res = self.initial.move_before_key(source_key="a", target_key="b")
         self.assertTrue(res)
 
         flow.append(copy(self.initial))
@@ -59,7 +58,7 @@ class FobiDataStructuresTest(TestCase):
         flow.append(copy(self.initial))
 
         # Expected: a, b, c
-        res = self.initial.move_after_key(source_key='b', target_key='a')
+        res = self.initial.move_after_key(source_key="b", target_key="a")
         self.assertTrue(res)
 
         flow.append(copy(self.initial))
@@ -68,5 +67,5 @@ class FobiDataStructuresTest(TestCase):
         return flow
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

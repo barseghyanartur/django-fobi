@@ -5,11 +5,11 @@ from fobi.base import BaseFormFieldPluginForm, get_theme
 from fobi.settings import DEFAULT_MAX_LENGTH
 from fobi.widgets import NumberInput
 
-__title__ = 'fobi.contrib.plugins.form_elements.security.honeypot.forms'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('HoneypotInputForm',)
+__title__ = "fobi.contrib.plugins.form_elements.security.honeypot.forms"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("HoneypotInputForm",)
 
 theme = get_theme(request=None, as_instance=True)
 
@@ -31,15 +31,15 @@ class HoneypotInputForm(forms.Form, BaseFormFieldPluginForm):
         label=_("Label"),
         required=True,
         widget=forms.widgets.TextInput(
-            attrs={'class': theme.form_element_html_class}
-        )
+            attrs={"class": theme.form_element_html_class}
+        ),
     )
     name = forms.CharField(
         label=_("Name"),
         required=True,
         widget=forms.widgets.TextInput(
-            attrs={'class': theme.form_element_html_class}
-        )
+            attrs={"class": theme.form_element_html_class}
+        ),
     )
     # help_text = forms.CharField(
     #     label=_("Help text"),
@@ -52,21 +52,21 @@ class HoneypotInputForm(forms.Form, BaseFormFieldPluginForm):
         label=_("Initial"),
         required=False,
         widget=forms.widgets.TextInput(
-            attrs={'class': theme.form_element_html_class}
-        )
+            attrs={"class": theme.form_element_html_class}
+        ),
     )
     max_length = forms.IntegerField(
         label=_("Max length"),
         required=True,
-        widget=NumberInput(attrs={'class': theme.form_element_html_class}),
-        initial=DEFAULT_MAX_LENGTH
+        widget=NumberInput(attrs={"class": theme.form_element_html_class}),
+        initial=DEFAULT_MAX_LENGTH,
     )
     required = forms.BooleanField(
         label=_("Required"),
         required=False,
         widget=forms.widgets.CheckboxInput(
-            attrs={'class': theme.form_element_checkbox_html_class}
-        )
+            attrs={"class": theme.form_element_checkbox_html_class}
+        ),
     )
     # placeholder = forms.CharField(
     #     label=_("Placeholder"),

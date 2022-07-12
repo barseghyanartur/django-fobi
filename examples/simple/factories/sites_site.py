@@ -1,18 +1,20 @@
-from factory.django import DjangoModelFactory
-
 from django.conf import settings
 from django.contrib.sites.models import Site
+from factory.django import DjangoModelFactory
 
 from .factory_faker import Faker
 
-__all__ = ('SiteFactory', 'DefaultSiteFactory',)
+__all__ = (
+    "SiteFactory",
+    "DefaultSiteFactory",
+)
 
 
 class SiteFactory(DjangoModelFactory):
     """Factory for creating a site."""
 
-    domain = Faker('domain_name')
-    name = Faker('domain_name')
+    domain = Faker("domain_name")
+    name = Faker("domain_name")
 
     class Meta:
         model = Site
@@ -27,4 +29,4 @@ class DefaultSiteFactory(SiteFactory):
         """Meta class."""
 
         model = Site
-        django_get_or_create = ('id',)
+        django_get_or_create = ("id",)
