@@ -1,18 +1,18 @@
 # from mezzanine.conf import settings
 from mezzanine.pages.page_processors import processor_for
 
-from fobi.integration.processors import IntegrationProcessor
-
 from .models import FobiFormPage
 from .settings import WIDGET_FORM_SENT_GET_PARAM
 
-__title__ = 'fobi.contrib.apps.mezzanine_integration.page_processors'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
+from fobi.integration.processors import IntegrationProcessor
+
+__title__ = "fobi.contrib.apps.mezzanine_integration.page_processors"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
 __all__ = (
-    'FobiFormProcessor',
-    'process_fobi_form',
+    "FobiFormProcessor",
+    "process_fobi_form",
 )
 
 
@@ -42,5 +42,5 @@ def process_fobi_form(request, page):
         return response
 
     return {
-        'fobi_form_response': getattr(fobi_form_processor, 'rendered_output')
+        "fobi_form_response": getattr(fobi_form_processor, "rendered_output")
     }

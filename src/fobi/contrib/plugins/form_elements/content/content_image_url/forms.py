@@ -1,22 +1,25 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from fobi.base import BasePluginForm, get_theme
-# from fobi.widgets import NumberInput
-
 from .settings import (
-    FIT_METHODS_CHOICES,
     DEFAULT_FIT_METHOD,
     DEFAULT_SIZE,
+    FIT_METHODS_CHOICES,
     SIZES,
 )
 
-__title__ = 'fobi.contrib.plugins.form_elements.content.content_image_url.' \
-            'forms'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('ContentImageURLForm',)
+from fobi.base import BasePluginForm, get_theme
+
+# from fobi.widgets import NumberInput
+
+
+__title__ = (
+    "fobi.contrib.plugins.form_elements.content.content_image_url." "forms"
+)
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("ContentImageURLForm",)
 
 theme = get_theme(request=None, as_instance=True)
 
@@ -35,15 +38,15 @@ class ContentImageURLForm(forms.Form, BasePluginForm):
         label=_("URL"),
         required=True,
         widget=forms.widgets.URLInput(
-            attrs={'class': theme.form_element_html_class}
-        )
+            attrs={"class": theme.form_element_html_class}
+        ),
     )
     alt = forms.CharField(
         label=_("Alt text"),
         required=True,
         widget=forms.widgets.TextInput(
-            attrs={'class': theme.form_element_html_class}
-        )
+            attrs={"class": theme.form_element_html_class}
+        ),
     )
     fit_method = forms.ChoiceField(
         label=_("Fit method"),
@@ -51,8 +54,8 @@ class ContentImageURLForm(forms.Form, BasePluginForm):
         initial=DEFAULT_FIT_METHOD,
         choices=FIT_METHODS_CHOICES,
         widget=forms.widgets.Select(
-            attrs={'class': theme.form_element_html_class}
-        )
+            attrs={"class": theme.form_element_html_class}
+        ),
     )
     # width = forms.IntegerField(
     #     label=_("Width"),
@@ -74,6 +77,6 @@ class ContentImageURLForm(forms.Form, BasePluginForm):
         initial=DEFAULT_SIZE,
         choices=SIZES,
         widget=forms.widgets.Select(
-            attrs={'class': theme.form_element_html_class}
-        )
+            attrs={"class": theme.form_element_html_class}
+        ),
     )

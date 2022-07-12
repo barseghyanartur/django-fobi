@@ -22,11 +22,11 @@ from ..dynamic import assemble_form_class
 from ..exceptions import ImproperlyConfigured
 from ..settings import GET_PARAM_INITIAL_DATA
 
-__title__ = 'fobi.integration.processors'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('IntegrationProcessor',)
+__title__ = "fobi.integration.processors"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("IntegrationProcessor",)
 
 
 class IntegrationProcessor(object):
@@ -45,8 +45,8 @@ class IntegrationProcessor(object):
     """
 
     can_redirect = True
-    form_sent_get_param = 'sent'
-    login_required_template_name = 'fobi/integration/login_required.html'
+    form_sent_get_param = "sent"
+    login_required_template_name = "fobi/integration/login_required.html"
 
     def integration_check(self, instance):
         """Integration check.
@@ -55,15 +55,15 @@ class IntegrationProcessor(object):
         has been implemented according to the expectations.
         """
         expected_fields = (
-            ('form_entry', 'models.ForeignKey("fobi.FormEntry)'),
-            ('form_template_name', 'models.CharField'),
-            ('hide_form_title', 'models.BooleanField'),
-            ('form_title', 'models.CharField'),
-            ('form_submit_button_text', 'models.CharField'),
-            ('success_page_template_name', 'models.CharField'),
-            ('hide_success_page_title', 'models.BooleanField'),
-            ('success_page_title', 'models.CharField'),
-            ('success_page_text', 'models.CharField'),
+            ("form_entry", 'models.ForeignKey("fobi.FormEntry)'),
+            ("form_template_name", "models.CharField"),
+            ("hide_form_title", "models.BooleanField"),
+            ("form_title", "models.CharField"),
+            ("form_submit_button_text", "models.CharField"),
+            ("success_page_template_name", "models.CharField"),
+            ("hide_success_page_title", "models.BooleanField"),
+            ("success_page_title", "models.CharField"),
+            ("success_page_text", "models.CharField"),
         )
 
         for field_name, field_info in expected_fields:
@@ -76,7 +76,7 @@ class IntegrationProcessor(object):
     def get_context_data(self, request, instance, **kwargs):
         """Get context data."""
         context = {
-            'form_entry': instance.form_entry,
+            "form_entry": instance.form_entry,
         }
         context.update(kwargs)
         return context
@@ -101,9 +101,7 @@ class IntegrationProcessor(object):
         :return str:
         """
         return "{0}?{1}={2}".format(
-            request.path,
-            self.form_sent_get_param,
-            instance.form_entry.slug
+            request.path, self.form_sent_get_param, instance.form_entry.slug
         )
 
     def _process_form(self, request, instance, **kwargs):
@@ -123,8 +121,7 @@ class IntegrationProcessor(object):
         # Handle public/non-public forms. If form requires user authentication
         # redirect to login form with next parameter set to current request
         # path.
-        if not user_is_authenticated \
-                and not instance.form_entry.is_public:
+        if not user_is_authenticated and not instance.form_entry.is_public:
             if self.can_redirect:
                 return redirect(
                     "{0}?next={1}".format(settings.LOGIN_URL, request.path)
@@ -134,17 +131,16 @@ class IntegrationProcessor(object):
                     request, instance, **kwargs
                 )
 
-        form_element_entries = instance.form_entry.formelemententry_set.all(
-        )[:]
+        form_element_entries = instance.form_entry.formelemententry_set.all()[:]
         # This is where the most of the magic happens. Our form is being built
         # dynamically.
         form_cls = assemble_form_class(
             instance.form_entry,
             form_element_entries=form_element_entries,
-            request=request
+            request=request,
         )
 
-        if request.method == 'POST':
+        if request.method == "POST":
             form = form_cls(request.POST, request.FILES)
 
             # Fire pre form validation callbacks
@@ -152,7 +148,7 @@ class IntegrationProcessor(object):
                 form_entry=instance.form_entry,
                 request=request,
                 form=form,
-                stage=CALLBACK_BEFORE_FORM_VALIDATION
+                stage=CALLBACK_BEFORE_FORM_VALIDATION,
             )
 
             if form.is_valid():
@@ -162,14 +158,12 @@ class IntegrationProcessor(object):
                     form_entry=instance.form_entry,
                     request=request,
                     form=form,
-                    stage=CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA
+                    stage=CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA,
                 )
 
                 # Fire plugin processors
                 form = submit_plugin_form_data(
-                    form_entry=instance.form_entry,
-                    request=request,
-                    form=form
+                    form_entry=instance.form_entry, request=request, form=form
                 )
 
                 # Fire form valid callbacks
@@ -177,14 +171,12 @@ class IntegrationProcessor(object):
                     form_entry=instance.form_entry,
                     request=request,
                     form=form,
-                    stage=CALLBACK_FORM_VALID
+                    stage=CALLBACK_FORM_VALID,
                 )
 
                 # Run all handlers
                 run_form_handlers(
-                    form_entry=instance.form_entry,
-                    request=request,
-                    form=form
+                    form_entry=instance.form_entry, request=request, form=form
                 )
 
                 # Fire post handler callbacks
@@ -192,13 +184,14 @@ class IntegrationProcessor(object):
                     form_entry=instance.form_entry,
                     request=request,
                     form=form,
-                    stage=CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS
+                    stage=CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS,
                 )
 
                 messages.info(
                     request,
-                    _('Form {0} was submitted '
-                      'successfully.').format(instance.form_entry.name)
+                    _("Form {0} was submitted " "successfully.").format(
+                        instance.form_entry.name
+                    ),
                 )
 
                 if self.can_redirect:
@@ -214,7 +207,7 @@ class IntegrationProcessor(object):
                     form_entry=instance.form_entry,
                     request=request,
                     form=form,
-                    stage=CALLBACK_FORM_INVALID
+                    stage=CALLBACK_FORM_INVALID,
                 )
 
         else:
@@ -223,15 +216,17 @@ class IntegrationProcessor(object):
             # GET.
             kwargs = {}
             if GET_PARAM_INITIAL_DATA in request.GET:
-                kwargs = {'initial': request.GET}
+                kwargs = {"initial": request.GET}
             form = form_cls(**kwargs)
 
         theme = get_theme(request=request, as_instance=True)
         theme.collect_plugin_media(form_element_entries)
 
-        form_title = instance.form_title \
-            if instance.form_title \
+        form_title = (
+            instance.form_title
+            if instance.form_title
             else instance.form_entry.title
+        )
 
         context = self.get_context_data(
             request=request,
@@ -240,16 +235,16 @@ class IntegrationProcessor(object):
             fobi_theme=theme,
             fobi_form_title=form_title,
             fobi_hide_form_title=instance.hide_form_title,
-            fobi_form_submit_button_text=instance.form_submit_button_text
+            fobi_form_submit_button_text=instance.form_submit_button_text,
         )
 
         if not template_name:
             template_name = theme.view_embed_form_entry_ajax_template
 
         render_kwargs = {
-            'template_name': template_name,
-            'context': context,
-            'request': request,
+            "template_name": template_name,
+            "context": context,
+            "request": request,
         }
 
         self.rendered_output = render_to_string(**render_kwargs)
@@ -265,13 +260,12 @@ class IntegrationProcessor(object):
             instance=instance,
             login_url="{0}?next={1}".format(settings.LOGIN_URL, request.path),
         )
-        template_name = self.get_login_required_template_name(request,
-                                                              instance)
+        template_name = self.get_login_required_template_name(request, instance)
 
         render_kwargs = {
-            'template_name': template_name,
-            'context': context,
-            'request': request,
+            "template_name": template_name,
+            "context": context,
+            "request": request,
         }
 
         return render_to_string(**render_kwargs)
@@ -300,9 +294,9 @@ class IntegrationProcessor(object):
             template_name = theme.embed_form_entry_submitted_ajax_template
 
         render_kwargs = {
-            'template_name': template_name,
-            'context': context,
-            'request': request,
+            "template_name": template_name,
+            "context": context,
+            "request": request,
         }
 
         self.rendered_output = render_to_string(**render_kwargs)

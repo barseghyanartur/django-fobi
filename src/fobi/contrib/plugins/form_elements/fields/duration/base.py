@@ -7,16 +7,16 @@ from django.forms.widgets import TextInput
 from django.utils.duration import duration_string
 from django.utils.translation import gettext_lazy as _
 
-from fobi.base import FormFieldPlugin, get_theme
-
 from . import UID
 from .forms import DurationInputForm
 
-__title__ = 'fobi.contrib.plugins.form_elements.fields.duration.base'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('DurationInputPlugin',)
+from fobi.base import FormFieldPlugin, get_theme
+
+__title__ = "fobi.contrib.plugins.form_elements.fields.duration.base"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("DurationInputPlugin",)
 
 theme = get_theme(request=None, as_instance=True)
 
@@ -29,23 +29,21 @@ class DurationInputPlugin(FormFieldPlugin):
     group = _("Fields")
     form = DurationInputForm
 
-    def get_form_field_instances(self,
-                                 request=None,
-                                 form_entry=None,
-                                 form_element_entries=None,
-                                 **kwargs):
+    def get_form_field_instances(
+        self, request=None, form_entry=None, form_element_entries=None, **kwargs
+    ):
         """Get form field instances."""
         widget_attrs = {
-            'class': theme.form_element_html_class,
-            'placeholder': self.data.placeholder,
+            "class": theme.form_element_html_class,
+            "placeholder": self.data.placeholder,
         }
 
         field_kwargs = {
-            'label': self.data.label,
-            'help_text': self.data.help_text,
-            'initial': self.data.initial,
-            'required': self.data.required,
-            'widget': TextInput(attrs=widget_attrs),
+            "label": self.data.label,
+            "help_text": self.data.help_text,
+            "initial": self.data.initial,
+            "required": self.data.required,
+            "widget": TextInput(attrs=widget_attrs),
         }
         # initial_kwargs = {}
         # if self.data.weeks:
@@ -79,12 +77,9 @@ class DurationInputPlugin(FormFieldPlugin):
             # ``cleaned_data``
             return cleaned_data
 
-    def submit_plugin_form_data(self,
-                                form_entry,
-                                request,
-                                form,
-                                form_element_entries=None,
-                                **kwargs):
+    def submit_plugin_form_data(
+        self, form_entry, request, form, form_element_entries=None, **kwargs
+    ):
         """Submit plugin form data/process.
 
         :param fobi.models.FormEntry form_entry: Instance of

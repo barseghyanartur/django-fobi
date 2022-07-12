@@ -1,24 +1,23 @@
-from django.urls import reverse
-
 import json
 
 from django.core.serializers.json import DjangoJSONEncoder
+from django.urls import reverse
 from six import text_type
 
 from .base import BaseRegistry
 from .discover import autodiscover
 
-__title__ = 'fobi.form_importers'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
+__title__ = "fobi.form_importers"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
 __all__ = (
-    'BaseFormImporter',
-    'FormImporterPluginRegistry',
-    'form_importer_plugin_registry',
-    'ensure_autodiscover',
-    'get_form_importer_plugin_uids',
-    'get_form_importer_plugin_urls',
+    "BaseFormImporter",
+    "FormImporterPluginRegistry",
+    "form_importer_plugin_registry",
+    "ensure_autodiscover",
+    "get_form_importer_plugin_uids",
+    "get_form_importer_plugin_urls",
 )
 
 
@@ -41,8 +40,13 @@ class BaseFormImporter(object):
     wizard = None
     templates = None
 
-    def __init__(self, form_entry_cls, form_element_entry_cls,
-                 form_properties=None, form_data=None):
+    def __init__(
+        self,
+        form_entry_cls,
+        form_element_entry_cls,
+        form_properties=None,
+        form_data=None,
+    ):
         """Constructor.
 
         :param django.contrib.auth.models.User user: User importing the form.
@@ -59,7 +63,7 @@ class BaseFormImporter(object):
         assert form_entry_cls is not None
         assert form_element_entry_cls is not None
 
-        for prop in ('name', 'label', 'help_text', 'initial', 'required'):
+        for prop in ("name", "label", "help_text", "initial", "required"):
             assert prop in self.field_properties_mapping
 
         self.form_data = form_data
@@ -84,7 +88,7 @@ class BaseFormImporter(object):
         self.form_properties = form_properties
         self.form_data = form_data
 
-        assert 'name' in self.form_properties
+        assert "name" in self.form_properties
         form_entry = self.form_entry_cls()
         for prop, val in self.form_properties.items():
             setattr(form_entry, prop, val)
@@ -94,19 +98,18 @@ class BaseFormImporter(object):
         data = self.get_form_data()
         for field_data in data:
             # Skip non-existing
-            if field_data[self.field_type_prop_name] \
-                    not in self.fields_mapping:
+            if field_data[self.field_type_prop_name] not in self.fields_mapping:
                 continue
 
             form_element_entry = self.form_element_entry_cls()
             form_element_entry.form_entry = form_entry
             form_element_entry.plugin_uid = self.fields_mapping[
-                field_data[self.field_type_prop_name]]
+                field_data[self.field_type_prop_name]
+            ]
 
             # Assign form data
             form_element_entry.plugin_data = json.dumps(
-                self.extract_field_properties(field_data),
-                cls=DjangoJSONEncoder
+                self.extract_field_properties(field_data), cls=DjangoJSONEncoder
             )
 
             # Assign position in form
@@ -171,8 +174,10 @@ def get_form_importer_plugin_urls():
             (
                 uid,
                 plugin.name,
-                reverse('fobi.form_importer',
-                        kwargs={'form_importer_plugin_uid': uid})
+                reverse(
+                    "fobi.form_importer",
+                    kwargs={"form_importer_plugin_uid": uid},
+                ),
             )
         )
     return urls

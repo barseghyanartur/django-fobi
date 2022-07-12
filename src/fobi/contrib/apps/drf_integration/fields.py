@@ -1,32 +1,29 @@
 import copy
 
 import six
-
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
-
-from rest_framework.fields import (
+from rest_framework.fields import (  # ModelField,
     ChoiceField,
     Field,
-    empty,
-    # ModelField,
     MultipleChoiceField,
+    empty,
 )
 
-__title__ = 'fobi.contrib.apps.drf_integration.fields'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2016-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
+__title__ = "fobi.contrib.apps.drf_integration.fields"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2016-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
 __all__ = (
-    'ContentImageField',
-    'ContentMarkdownField',
-    'ContentRichTextField',
-    'ContentTextField',
-    'ContentVideoField',
-    'ModelChoiceField',
-    'ModelMultipleChoiceField',
-    'MultipleChoiceWithMaxField',
-    'NoneField',
+    "ContentImageField",
+    "ContentMarkdownField",
+    "ContentRichTextField",
+    "ContentTextField",
+    "ContentVideoField",
+    "ModelChoiceField",
+    "ModelMultipleChoiceField",
+    "MultipleChoiceWithMaxField",
+    "NoneField",
 )
 
 # *****************************************************************************
@@ -45,23 +42,22 @@ class MultipleChoiceWithMaxField(MultipleChoiceField):
     default_error_messages = copy.copy(
         MultipleChoiceField.default_error_messages
     )
-    default_error_messages.update({
-        'max_choices': _('Max number of choices reached.'),
-    })
+    default_error_messages.update(
+        {
+            "max_choices": _("Max number of choices reached."),
+        }
+    )
 
     def __init__(self, *args, **kwargs):
-        self.max_choices = kwargs.pop('max_choices', None)
+        self.max_choices = kwargs.pop("max_choices", None)
         super(MultipleChoiceWithMaxField, self).__init__(*args, **kwargs)
 
     def to_internal_value(self, data):
         if self.max_choices:
             if len(data) > self.max_choices:
-                self.fail('max_choices')
+                self.fail("max_choices")
 
-        return super(
-            MultipleChoiceWithMaxField,
-            self
-        ).to_internal_value(data)
+        return super(MultipleChoiceWithMaxField, self).to_internal_value(data)
 
 
 class ModelChoiceFieldMixin(object):
@@ -83,10 +79,10 @@ class ModelChoiceField(ChoiceField, ModelChoiceFieldMixin):
     """Model choice field."""
 
     def __init__(self, *args, **kwargs):
-        self.queryset = kwargs.pop('queryset', None)
-        self.model_attr = kwargs.pop('model_attr', None)
+        self.queryset = kwargs.pop("queryset", None)
+        self.model_attr = kwargs.pop("model_attr", None)
         choices = self.get_choices()
-        kwargs.update({'choices': choices})
+        kwargs.update({"choices": choices})
         super(ModelChoiceField, self).__init__(*args, **kwargs)
 
 
@@ -94,11 +90,12 @@ class ModelMultipleChoiceField(MultipleChoiceField, ModelChoiceFieldMixin):
     """Model choice field."""
 
     def __init__(self, *args, **kwargs):
-        self.queryset = kwargs.pop('queryset', None)
-        self.model_attr = kwargs.pop('model_attr', None)
+        self.queryset = kwargs.pop("queryset", None)
+        self.model_attr = kwargs.pop("model_attr", None)
         choices = self.get_choices()
-        kwargs.update({'choices': choices})
+        kwargs.update({"choices": choices})
         super(ModelMultipleChoiceField, self).__init__(*args, **kwargs)
+
 
 # *****************************************************************************
 # ************************* Presentational fields *****************************
@@ -109,17 +106,17 @@ class NoneField(Field):
     """NoneField."""
 
     default_error_messages = {}
-    initial = ''
-    default_empty_html = ''
+    initial = ""
+    default_empty_html = ""
 
     def __init__(self, **kwargs):
         self.allow_blank = True
-        self.trim_whitespace = kwargs.pop('trim_whitespace', True)
-        self.raw_data = kwargs.pop('raw_data', {})
+        self.trim_whitespace = kwargs.pop("trim_whitespace", True)
+        self.raw_data = kwargs.pop("raw_data", {})
         super(NoneField, self).__init__(**kwargs)
 
     def run_validation(self, data=empty):
-        return ''
+        return ""
 
     def to_internal_value(self, data):
         # We're lenient with allowing basic numerics to be coerced into
@@ -130,7 +127,7 @@ class NoneField(Field):
             data, six.string_types + six.integer_types + (float,)
         )
         if isinstance(data, bool) or _not_isinstance_str_int_float:
-            self.fail('invalid')
+            self.fail("invalid")
         value = six.text_type(data)
         return value.strip() if self.trim_whitespace else value
 

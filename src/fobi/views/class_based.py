@@ -33,6 +33,11 @@ from ..constants import (
     CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA,
 )
 from ..dynamic import assemble_form_class
+from ..form_importers import (
+    ensure_autodiscover as ensure_importers_autodiscover,
+    form_importer_plugin_registry,
+    get_form_importer_plugin_urls,
+)
 from ..forms import (
     FormElementEntryFormSet,
     FormEntryForm,
@@ -40,10 +45,6 @@ from ..forms import (
     FormWizardFormEntryFormSet,
     ImportFormEntryForm,
     ImportFormWizardEntryForm,
-)
-from ..form_importers import (
-    ensure_autodiscover as ensure_importers_autodiscover,
-    form_importer_plugin_registry, get_form_importer_plugin_urls
 )
 from ..models import (
     FormElementEntry,
@@ -63,8 +64,8 @@ from ..permissions.default import (
     EditFormElementEntryPermission,
     EditFormEntryPermission,
     EditFormHandlerEntryPermission,
-    ViewFormEntryPermission,
     ViewDashboardPermission,
+    ViewFormEntryPermission,
 )
 from ..settings import DEBUG, GET_PARAM_INITIAL_DATA, SORT_PLUGINS_BY_VALUE
 from ..utils import (
@@ -226,6 +227,7 @@ class AbstractDeletePluginEntryView(PermissionMixin, DeleteView):
     def run_after_plugin_entry_delete(self, request, form_entry_id):
         """Run after plugin entry has been deleted."""
 
+
 # *****************************************************************************
 # *****************************************************************************
 # ******************************** Dashboards *********************************
@@ -265,10 +267,12 @@ class DashboardView(ListView):
     def get_context_data(self, **kwargs):
         """Get context data."""
         context = super(DashboardView, self).get_context_data(**kwargs)
-        context.update({
-            "form_entries": self.get_queryset(),
-            'form_importers': get_form_importer_plugin_urls(),
-        })
+        context.update(
+            {
+                "form_entries": self.get_queryset(),
+                "form_importers": get_form_importer_plugin_urls(),
+            }
+        )
         if not self.theme:
             theme = get_theme(request=self.request, as_instance=True)
         else:

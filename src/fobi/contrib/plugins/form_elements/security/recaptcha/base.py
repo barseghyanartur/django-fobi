@@ -2,17 +2,14 @@ from __future__ import absolute_import
 
 import logging
 
-from django.utils.translation import gettext_lazy as _
 from django.conf import settings
-
-from fobi.base import (
-    FormElementPlugin,
-    get_theme,
-)
+from django.utils.translation import gettext_lazy as _
 
 from ......pip_helpers import check_if_installed, get_installed_packages
 from . import UID
 from .forms import ReCaptchaInputForm
+
+from fobi.base import FormElementPlugin, get_theme
 
 logger = logging.getLogger(__name__)
 
@@ -67,12 +64,11 @@ except ImportError as e:
             "due to app name collision (captcha)."
         )
 
-__title__ = 'fobi.contrib.plugins.form_elements.security.' \
-            'recaptcha.base'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('ReCaptchaInputPlugin',)
+__title__ = "fobi.contrib.plugins.form_elements.security." "recaptcha.base"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("ReCaptchaInputPlugin",)
 
 theme = get_theme(request=None, as_instance=True)
 
@@ -85,20 +81,21 @@ class ReCaptchaInputPlugin(FormElementPlugin):
     group = _("Security")
     form = ReCaptchaInputForm
 
-    def get_form_field_instances(self, request=None, form_entry=None,
-                                 form_element_entries=None, **kwargs):
+    def get_form_field_instances(
+        self, request=None, form_entry=None, form_element_entries=None, **kwargs
+    ):
         """Get form field instances."""
         widget_attrs = {
-            'class': theme.form_element_html_class,
+            "class": theme.form_element_html_class,
             # 'placeholder': self.data.placeholder,
         }
 
         field_kwargs = {
-            'label': self.data.label,
-            'help_text': self.data.help_text,
+            "label": self.data.label,
+            "help_text": self.data.help_text,
             # 'initial': self.data.initial,
-            'required': self.data.required,
-            'widget': ReCaptchaWidget(attrs=widget_attrs),
+            "required": self.data.required,
+            "widget": ReCaptchaWidget(attrs=widget_attrs),
         }
 
         return [(self.data.name, ReCaptchaField, field_kwargs)]

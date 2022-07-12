@@ -2,12 +2,14 @@ from django.conf import settings
 
 from . import defaults
 
-__title__ = 'fobi.contrib.plugins.form_elements.fields.' \
-            'select_multiple_mptt_model_objects.conf'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('get_setting',)
+__title__ = (
+    "fobi.contrib.plugins.form_elements.fields."
+    "select_multiple_mptt_model_objects.conf"
+)
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("get_setting",)
 
 
 def get_setting(setting, override=None):
@@ -26,16 +28,16 @@ def get_setting(setting, override=None):
     if override is not None:
         return override
     if hasattr(
-            settings,
-            'FOBI_FORM_ELEMENT_SELECT_MULTIPLE_MPTT_MODEL_OBJECTS_{0}'.format(
-                setting
-            )
+        settings,
+        "FOBI_FORM_ELEMENT_SELECT_MULTIPLE_MPTT_MODEL_OBJECTS_{0}".format(
+            setting
+        ),
     ):
         return getattr(
             settings,
-            'FOBI_FORM_ELEMENT_SELECT_MULTIPLE_MPTT_MODEL_OBJECTS_{0}'.format(
+            "FOBI_FORM_ELEMENT_SELECT_MULTIPLE_MPTT_MODEL_OBJECTS_{0}".format(
                 setting
-            )
+            ),
         )
     else:
         return getattr(defaults, setting)

@@ -1,20 +1,20 @@
 from django.db import models
 from django.utils.translation import gettext, gettext_lazy as _
-
 from six import python_2_unicode_compatible
 
-from fobi.integration.processors import IntegrationProcessor
-
 from .helpers import (
-    get_form_template_choices, get_success_page_template_choices
+    get_form_template_choices,
+    get_success_page_template_choices,
 )
 from .settings import WIDGET_FORM_SENT_GET_PARAM
 
-__title__ = 'fobi.contrib.apps.feincms_integration.widgets'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('FobiFormWidget',)
+from fobi.integration.processors import IntegrationProcessor
+
+__title__ = "fobi.contrib.apps.feincms_integration.widgets"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("FobiFormWidget",)
 
 
 @python_2_unicode_compatible
@@ -31,9 +31,7 @@ class FobiFormWidget(models.Model, IntegrationProcessor):
 
     # The configuration fields
     form_entry = models.ForeignKey(
-        'fobi.FormEntry',
-        verbose_name=_("Form"),
-        on_delete=models.CASCADE
+        "fobi.FormEntry", verbose_name=_("Form"), on_delete=models.CASCADE
     )
 
     form_template_name = models.CharField(
@@ -42,13 +40,13 @@ class FobiFormWidget(models.Model, IntegrationProcessor):
         null=True,
         blank=True,
         choices=get_form_template_choices(),
-        help_text=_("Template to render the form with.")
+        help_text=_("Template to render the form with."),
     )
 
     hide_form_title = models.BooleanField(
         _("Hide form title"),
         default=False,
-        help_text=_("If checked, no form title is shown.")
+        help_text=_("If checked, no form title is shown."),
     )
 
     form_title = models.CharField(
@@ -56,7 +54,7 @@ class FobiFormWidget(models.Model, IntegrationProcessor):
         max_length=255,
         null=True,
         blank=True,
-        help_text=_("Overrides the default form title.")
+        help_text=_("Overrides the default form title."),
     )
 
     form_submit_button_text = models.CharField(
@@ -64,7 +62,7 @@ class FobiFormWidget(models.Model, IntegrationProcessor):
         max_length=255,
         null=True,
         blank=True,
-        help_text=_("Overrides the default form submit button text.")
+        help_text=_("Overrides the default form submit button text."),
     )
 
     success_page_template_name = models.CharField(
@@ -73,13 +71,13 @@ class FobiFormWidget(models.Model, IntegrationProcessor):
         null=True,
         blank=True,
         choices=get_success_page_template_choices(),
-        help_text=_("Template to render the success page with.")
+        help_text=_("Template to render the success page with."),
     )
 
     hide_success_page_title = models.BooleanField(
         _("Hide success page title"),
         default=False,
-        help_text=_("If checked, no success page title is shown.")
+        help_text=_("If checked, no success page title is shown."),
     )
 
     success_page_title = models.CharField(
@@ -87,25 +85,25 @@ class FobiFormWidget(models.Model, IntegrationProcessor):
         max_length=255,
         null=True,
         blank=True,
-        help_text=_("Overrides the default success page title.")
+        help_text=_("Overrides the default success page title."),
     )
 
     success_page_text = models.TextField(
         _("Succes page text"),
         null=True,
         blank=True,
-        help_text=_("Overrides the default success page text.")
+        help_text=_("Overrides the default success page text."),
     )
 
     class Meta(object):
         """Meta options."""
 
         abstract = True
-        app_label = 'fobi'
+        app_label = "fobi"
         # db_table = 'page_page_fobiformwidget'
 
     def __str__(self):
-        return gettext('Fobi form')
+        return gettext("Fobi form")
 
     def process(self, request, **kwargs):
         """This is where most of the form handling happens.
@@ -117,9 +115,9 @@ class FobiFormWidget(models.Model, IntegrationProcessor):
 
     def render(self, **kwargs):
         """Render."""
-        return getattr(self, 'rendered_output', '')
+        return getattr(self, "rendered_output", "")
 
     def finalize(self, request, response):
         """Finalize."""
         # Always disable caches if this content type is used somewhere
-        response['Cache-Control'] = 'no-cache, must-revalidate'
+        response["Cache-Control"] = "no-cache, must-revalidate"

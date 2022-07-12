@@ -1,23 +1,23 @@
 from __future__ import unicode_literals
 
-import bleach
 import json
-from six import python_2_unicode_compatible, string_types
 
+import bleach
 from django.conf import settings
 from django.db import models
 from django.utils.translation import gettext_lazy as _
+from six import python_2_unicode_compatible, string_types
 
 from .....helpers import two_dicts_to_string
 
-__title__ = 'fobi.contrib.plugins.form_handlers.db_store.models'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
+__title__ = "fobi.contrib.plugins.form_handlers.db_store.models"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
 __all__ = (
-    'AbstractSavedFormDataEntry',
-    'SavedFormDataEntry',
-    'SavedFormWizardDataEntry',
+    "AbstractSavedFormDataEntry",
+    "SavedFormDataEntry",
+    "SavedFormWizardDataEntry",
 )
 
 # ****************************************************************************
@@ -38,12 +38,10 @@ class AbstractSavedFormDataEntry(models.Model):
         verbose_name=_("User"),
         null=True,
         blank=True,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
     form_data_headers = models.TextField(
-        _("Form data headers"),
-        null=True,
-        blank=True
+        _("Form data headers"), null=True, blank=True
     )
     saved_data = models.TextField(_("Plugin data"), null=True, blank=True)
     created = models.DateTimeField(_("Date created"), auto_now_add=True)
@@ -65,9 +63,11 @@ class AbstractSavedFormDataEntry(models.Model):
 
                 if isinstance(value, string_types):
                     value = bleach.clean(value, strip=True)
-                    if (value.startswith(settings.MEDIA_URL) or
-                            value.startswith('http://') or
-                            value.startswith('https://')):
+                    if (
+                        value.startswith(settings.MEDIA_URL)
+                        or value.startswith("http://")
+                        or value.startswith("https://")
+                    ):
                         value = '<a href="{value}">{value}</a>'.format(
                             value=value
                         )
@@ -75,7 +75,7 @@ class AbstractSavedFormDataEntry(models.Model):
 
             return two_dicts_to_string(headers, data)
         except (ValueError, json.decoder.JSONDecodeError) as err:
-            return ''
+            return ""
 
     formatted_saved_data.allow_tags = True
     formatted_saved_data.short_description = _("Saved data")
@@ -86,11 +86,11 @@ class SavedFormDataEntry(AbstractSavedFormDataEntry):
     """Saved form data."""
 
     form_entry = models.ForeignKey(
-        'fobi.FormEntry',
+        "fobi.FormEntry",
         verbose_name=_("Form"),
         null=True,
         blank=True,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
 
     class Meta(object):
@@ -99,7 +99,7 @@ class SavedFormDataEntry(AbstractSavedFormDataEntry):
         abstract = False
         verbose_name = _("Saved form data entry")
         verbose_name_plural = _("Saved form data entries")
-        db_table = 'db_store_savedformdataentry'
+        db_table = "db_store_savedformdataentry"
 
     def __str__(self):
         return "Saved form data entry from {0}".format(self.created)
@@ -110,11 +110,11 @@ class SavedFormWizardDataEntry(AbstractSavedFormDataEntry):
     """Saved form data."""
 
     form_wizard_entry = models.ForeignKey(
-        'fobi.FormWizardEntry',
+        "fobi.FormWizardEntry",
         verbose_name=_("Form"),
         null=True,
         blank=True,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
 
     class Meta(object):
@@ -123,7 +123,7 @@ class SavedFormWizardDataEntry(AbstractSavedFormDataEntry):
         abstract = False
         verbose_name = _("Saved form wizard data entry")
         verbose_name_plural = _("Saved form wizard data entries")
-        db_table = 'db_store_savedformwizarddataentry'
+        db_table = "db_store_savedformwizarddataentry"
 
     def __str__(self):
         return "Saved form wizard data entry from {0}".format(self.created)

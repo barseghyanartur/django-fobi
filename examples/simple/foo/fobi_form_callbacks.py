@@ -3,12 +3,11 @@ from __future__ import print_function
 import logging
 
 from fobi.base import (
-    form_callback_registry,
     FormCallback,
-    integration_form_callback_registry,
     IntegrationFormCallback,
+    form_callback_registry,
+    integration_form_callback_registry,
 )
-
 from fobi.constants import (
     CALLBACK_BEFORE_FORM_VALIDATION,
     CALLBACK_FORM_INVALID,
@@ -16,8 +15,8 @@ from fobi.constants import (
     CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS,
     CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA,
 )
-
 from fobi.contrib.apps.drf_integration import UID as INTEGRATE_WITH
+
 # from fobi.contrib.plugins.form_handlers.db_store.callbacks import (
 #     AutoFormDbStore
 # )
@@ -25,11 +24,11 @@ from fobi.contrib.apps.drf_integration import UID as INTEGRATE_WITH
 #     AutoFormMail
 # )
 
-logger = logging.getLogger('fobi')
+logger = logging.getLogger("fobi")
 
 __all__ = (
-    'SaveAsFooItem',
-    'DummyInvalidCallback',
+    "SaveAsFooItem",
+    "DummyInvalidCallback",
 )
 
 # *************************************************************

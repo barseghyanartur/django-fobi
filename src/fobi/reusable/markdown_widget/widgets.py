@@ -4,11 +4,11 @@ from django.utils.html import format_html
 
 from fobi.helpers import safe_text
 
-__title__ = 'fobi.reusable.markdown_widget.widgets'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('MarkdownWidget',)
+__title__ = "fobi.reusable.markdown_widget.widgets"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("MarkdownWidget",)
 
 
 class MarkdownWidget(Textarea):
@@ -16,31 +16,28 @@ class MarkdownWidget(Textarea):
 
     def render(self, name, value, attrs=None, **kwargs):
         if value is None:
-            value = ''
+            value = ""
 
         if not attrs:
             attrs = self.attrs
         else:
             attrs.update(self.attrs)
 
-        final_attrs = self.build_attrs(
-            attrs,
-            extra_attrs={'name': name}
-        )
+        final_attrs = self.build_attrs(attrs, extra_attrs={"name": name})
 
         return format_html(
             '<div class="markdown-widget-wrapper">'
-            '<textarea{}>\r\n{}</textarea>'
+            "<textarea{}>\r\n{}</textarea>"
             '<div class="markdown-preview">Preview</div>'
-            '</div>',
+            "</div>",
             flatatt(final_attrs),
-            safe_text(value)
+            safe_text(value),
         )
 
     class Media(object):
         """Media options."""
 
         js = [
-            'markdown_widget/remarkable.min.js',
-            'content_markdown/fobi.plugin.content_markdown.js',
+            "markdown_widget/remarkable.min.js",
+            "content_markdown/fobi.plugin.content_markdown.js",
         ]

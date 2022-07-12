@@ -10,7 +10,7 @@ class SampleTextareaForm(forms.Form, BasePluginForm):
         ("name", ""),
         ("label", ""),
         ("initial", ""),
-        ("required", False)
+        ("required", False),
     ]
 
     name = forms.CharField(label="Name", required=True)

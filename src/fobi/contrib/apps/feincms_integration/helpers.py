@@ -1,14 +1,14 @@
-from fobi.integration.helpers import get_template_choices
-
 from .settings import FORM_TEMPLATE_CHOICES, SUCCESS_PAGE_TEMPLATE_CHOICES
 
-__title__ = 'fobi.contrib.apps.feincms_integration.helpers'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
+from fobi.integration.helpers import get_template_choices
+
+__title__ = "fobi.contrib.apps.feincms_integration.helpers"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
 __all__ = (
-    'get_form_template_choices',
-    'get_success_page_template_choices',
+    "get_form_template_choices",
+    "get_success_page_template_choices",
 )
 
 
@@ -20,9 +20,7 @@ def get_form_template_choices():
     :return list:
     """
     return get_template_choices(
-        'feincms_integration',
-        FORM_TEMPLATE_CHOICES,
-        'form_template_choices'
+        "feincms_integration", FORM_TEMPLATE_CHOICES, "form_template_choices"
     )
 
 
@@ -32,7 +30,7 @@ def get_success_page_template_choices():
     :return list:
     """
     return get_template_choices(
-        'feincms_integration',
+        "feincms_integration",
         SUCCESS_PAGE_TEMPLATE_CHOICES,
-        'success_page_template_choices'
+        "success_page_template_choices",
     )

@@ -12,24 +12,22 @@ except ImportError:
     class NumberInput(TextInput):
         """Number input."""
 
-        input_type = 'number'
+        input_type = "number"
 
-__title__ = 'fobi.widgets'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
+
+__title__ = "fobi.widgets"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
 __all__ = (
-    'BooleanRadioSelect',
-    'NumberInput',
-    'RichSelect',
-    'RichSelectInverseQuotes',
+    "BooleanRadioSelect",
+    "NumberInput",
+    "RichSelect",
+    "RichSelectInverseQuotes",
 )
 
 
-BOOLEAN_CHOICES = (
-    (True, _("Yes")),
-    (False, _("No"))
-)
+BOOLEAN_CHOICES = ((True, _("Yes")), (False, _("No")))
 
 
 class BooleanRadioSelect(RadioSelect):
@@ -46,12 +44,12 @@ class BooleanRadioSelect(RadioSelect):
     def __init__(self, *args, **kwargs):
         """Constructor."""
         # Override the default renderer if we were passed one.
-        renderer = kwargs.pop('renderer', None)
+        renderer = kwargs.pop("renderer", None)
         if renderer:
             self.renderer = renderer
 
-        if 'choices' not in kwargs:
-            kwargs['choices'] = BOOLEAN_CHOICES
+        if "choices" not in kwargs:
+            kwargs["choices"] = BOOLEAN_CHOICES
 
         super(BooleanRadioSelect, self).__init__(*args, **kwargs)
 
@@ -62,8 +60,14 @@ class RichSelect(Select):
     Based on original Select widget and intended to be a drop-off replacement.
     """
 
-    def __init__(self, attrs=None, choices=(), prepend_html=None,
-                 append_html=None, override_name=None):
+    def __init__(
+        self,
+        attrs=None,
+        choices=(),
+        prepend_html=None,
+        append_html=None,
+        override_name=None,
+    ):
         """Constructor.
 
         :param dict attrs:
@@ -74,9 +78,9 @@ class RichSelect(Select):
         """
         self.prepend_html = prepend_html if prepend_html else ""
         self.append_html = append_html if append_html else ""
-        self.override_name = override_name \
-            if override_name is not None \
-            else None
+        self.override_name = (
+            override_name if override_name is not None else None
+        )
         super(RichSelect, self).__init__(attrs=attrs, choices=choices)
 
     def render(self, name, value, attrs=None, **kwargs):
@@ -85,18 +89,17 @@ class RichSelect(Select):
             name = self.override_name
 
         rendered_select = super(RichSelect, self).render(
-            name=name,
-            value=value,
-            attrs=attrs,
-            **kwargs
+            name=name, value=value, attrs=attrs, **kwargs
         )
 
         return mark_safe(
-            '\n'.join([
-                format_html(self.prepend_html),
-                rendered_select,
-                format_html(self.append_html)
-            ])
+            "\n".join(
+                [
+                    format_html(self.prepend_html),
+                    rendered_select,
+                    format_html(self.append_html),
+                ]
+            )
         )
 
 
@@ -105,6 +108,8 @@ class RichSelectInverseQuotes(RichSelect):
 
     Uses inverse quotes.
     """
-    template_name = 'fobi/django/forms/widgets/rich_select_inverse.html'
-    option_template_name = 'fobi/django/forms/widgets/' \
-                           'rich_select_inverse_option.html'
+
+    template_name = "fobi/django/forms/widgets/rich_select_inverse.html"
+    option_template_name = (
+        "fobi/django/forms/widgets/" "rich_select_inverse_option.html"
+    )

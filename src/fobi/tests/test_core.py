@@ -1,28 +1,28 @@
 import datetime
 import unittest
 
+from django.test import RequestFactory, TestCase
 from django.urls import reverse
-from django.test import TestCase, RequestFactory
 from django.utils import timezone
 
+from .constants import TEST_FORM_NAME, TEST_FORM_SLUG
+from .core import print_info
+from .helpers import get_or_create_admin_user, setup_app
+
 from fobi.base import (
+    get_registered_form_callbacks,
     get_registered_form_element_plugins,
     get_registered_form_handler_plugins,
     get_registered_themes,
-    get_registered_form_callbacks,
 )
-from fobi.models import FormEntry, FormWizardEntry
 from fobi.forms import FormEntryForm
+from fobi.models import FormEntry, FormWizardEntry
 
-from .core import print_info
-from .constants import TEST_FORM_NAME, TEST_FORM_SLUG
-from .helpers import setup_app, get_or_create_admin_user
-
-__title__ = 'fobi.tests.test_core'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('FobiCoreTest',)
+__title__ = "fobi.tests.test_core"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("FobiCoreTest",)
 
 
 class FobiCoreTest(TestCase):
@@ -76,20 +76,16 @@ class FobiCoreTest(TestCase):
         """Test form action URL."""
         request_factory = RequestFactory()
         request = request_factory.post(
-            reverse('fobi.edit_form_entry', args=[form_entry.pk]),
+            reverse("fobi.edit_form_entry", args=[form_entry.pk]),
             data={
-                'name': "John Doe",
-                'is_public': False,
-                'success_page_title': '',
-                'success_page_message': '',
-                'action': action_url,
-            }
+                "name": "John Doe",
+                "is_public": False,
+                "success_page_title": "",
+                "success_page_message": "",
+                "action": action_url,
+            },
         )
-        form = FormEntryForm(
-            request.POST,
-            request=request,
-            instance=form_entry
-        )
+        form = FormEntryForm(request.POST, request=request, instance=form_entry)
 
         saved = False
         try:
@@ -108,9 +104,7 @@ class FobiCoreTest(TestCase):
         self.assertTrue(user is not None)
 
         form_entry = FormEntry(
-            name=TEST_FORM_NAME,
-            slug=TEST_FORM_SLUG,
-            user=user
+            name=TEST_FORM_NAME, slug=TEST_FORM_SLUG, user=user
         )
         form_entry.save()
         return form_entry
@@ -121,9 +115,7 @@ class FobiCoreTest(TestCase):
         self.assertTrue(user is not None)
 
         form_wizard_entry = FormWizardEntry(
-            name=TEST_FORM_NAME,
-            slug=TEST_FORM_SLUG,
-            user=user
+            name=TEST_FORM_NAME, slug=TEST_FORM_SLUG, user=user
         )
         form_wizard_entry.save()
         return form_wizard_entry
@@ -135,31 +127,29 @@ class FobiCoreTest(TestCase):
 
         # Local URL, OK test
         saved = self._test_form_action_url(
-            form_entry, reverse('fobi.edit_form_entry', args=[27])
+            form_entry, reverse("fobi.edit_form_entry", args=[27])
         )
         self.assertTrue(saved)
 
         # Local URL, fail test
-        saved = self._test_form_action_url(
-            form_entry, '/en/idontexist/'
-        )
+        saved = self._test_form_action_url(form_entry, "/en/idontexist/")
         self.assertTrue(not saved)
 
         # External URL, OK test
         saved = self._test_form_action_url(
-            form_entry, 'http://delusionalinsanity.com/portfolio/'
+            form_entry, "http://delusionalinsanity.com/portfolio/"
         )
         self.assertTrue(saved)
 
         # External URL, fail test
         saved = self._test_form_action_url(
-            form_entry, 'http://delusionalinsanity.com2/portfolio/'
+            form_entry, "http://delusionalinsanity.com2/portfolio/"
         )
         self.assertTrue(not saved)
 
         # External URL, fail test
         saved = self._test_form_action_url(
-            form_entry, 'http://delusionalinsanity2.com/portfolio/'
+            form_entry, "http://delusionalinsanity2.com/portfolio/"
         )
         self.assertTrue(not saved)
 
@@ -169,8 +159,7 @@ class FobiCoreTest(TestCase):
         form_entry = self._create_form_entry()
         absolute_url = form_entry.get_absolute_url()
         self.assertTrue(
-            absolute_url,
-            '/en/fobi/view/{}/'.format(TEST_FORM_SLUG)
+            absolute_url, "/en/fobi/view/{}/".format(TEST_FORM_SLUG)
         )
 
     @print_info
@@ -179,8 +168,7 @@ class FobiCoreTest(TestCase):
         form_wizard_entry = self._create_form_wizard_entry()
         absolute_url = form_wizard_entry.get_absolute_url()
         self.assertTrue(
-            absolute_url,
-            '/en/fobi/wizard-view/{}/'.format(TEST_FORM_SLUG)
+            absolute_url, "/en/fobi/wizard-view/{}/".format(TEST_FORM_SLUG)
         )
 
     @print_info
@@ -210,5 +198,5 @@ class FobiCoreTest(TestCase):
         self.assertFalse(form_entry.is_active)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()

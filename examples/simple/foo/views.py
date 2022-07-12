@@ -2,21 +2,20 @@ import logging
 import uuid
 
 from django.http import HttpResponse
+from django.shortcuts import render
 from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
-from django.shortcuts import render
+from django_nine import versions
 
 from fobi.base import get_theme
 from fobi.helpers import handle_uploaded_file
 from fobi.models import FormEntry
 
-from django_nine import versions
-
-logger = logging.getLogger('fobi')
+logger = logging.getLogger("fobi")
 
 __all__ = (
-    'endpoint',
-    'forms_list',
+    "endpoint",
+    "forms_list",
 )
 
 
@@ -30,30 +29,31 @@ def endpoint(request):
     logger.debug("POST: {0}\nFILES: {1}".format(request.POST, request.FILES))
 
     for field_name, imf in request.FILES.items():
-        handle_uploaded_file('foo', "{0}".format(uuid.uuid4()))
+        handle_uploaded_file("foo", "{0}".format(uuid.uuid4()))
 
     return HttpResponse(
         "POST: {0}\nFILES: {1}".format(request.POST, request.FILES)
     )
 
 
-def forms_list(request, template_name='foo/forms_list.html'):
+def forms_list(request, template_name="foo/forms_list.html"):
     """Fobi forms list.
 
     :param django.http.HttpRequest request:
     :param string template_name:
     :return django.http.HttpResponse:
     """
-    form_entries = FormEntry._default_manager.filter(is_public=True) \
-                                             .select_related('user')
+    form_entries = FormEntry._default_manager.filter(
+        is_public=True
+    ).select_related("user")
     theme = get_theme(request=request, as_instance=True)
     context = {
-        'form_entries': form_entries,
-        'theme': theme,
-        'show_custom_actions': False,
-        'show_edit_link': False,
-        'show_delete_link': False,
-        'show_export_link': False,
+        "form_entries": form_entries,
+        "theme": theme,
+        "show_custom_actions": False,
+        "show_edit_link": False,
+        "show_delete_link": False,
+        "show_export_link": False,
     }
 
     return render(request, template_name, context)

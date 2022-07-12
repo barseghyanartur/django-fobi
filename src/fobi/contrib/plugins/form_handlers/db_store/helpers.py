@@ -1,29 +1,27 @@
 import csv
+import json
 import logging
 
 from django.http import HttpResponse
-
-import json
-
-from six import StringIO, BytesIO, text_type
+from six import BytesIO, StringIO, text_type
 
 from .....exceptions import ImproperlyConfigured
 from .....helpers import safe_text
-
 from .settings import CSV_DELIMITER, CSV_QUOTECHAR
 
 XLWT_INSTALLED = False
 try:
     import xlwt
+
     XLWT_INSTALLED = True
 except ImportError:
     pass
 
-__title__ = 'fobi.contrib.plugins.form_handlers.db_store.helpers'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('DataExporter',)
+__title__ = "fobi.contrib.plugins.form_handlers.db_store.helpers"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("DataExporter",)
 
 
 LOGGER = logging.getLogger(__name__)
@@ -42,7 +40,7 @@ class DataExporter(object):
 
         For compatibility with older versions (`mimetype` vs `content_type`).
         """
-        response_kwargs = {'content_type': mimetype}
+        response_kwargs = {"content_type": mimetype}
         return HttpResponse(**response_kwargs)
 
     def _get_data_headers(self):
@@ -52,11 +50,11 @@ class DataExporter(object):
         sure that we obtain all the possible headers, so that later on
         we can just fill the slots needed.
         """
-        only_args = ['form_data_headers'] + self.only_args
+        only_args = ["form_data_headers"] + self.only_args
         # Normal RDMBs
         try:
             qs = self.queryset.only(*only_args)
-            qs = qs.distinct('form_data_headers').order_by('form_data_headers')
+            qs = qs.distinct("form_data_headers").order_by("form_data_headers")
             qs = [obj.form_data_headers for obj in qs]
 
         # Engines like SQLite
@@ -83,10 +81,11 @@ class DataExporter(object):
 
         # response = HttpResponse(mimetype="application/csv")
         response = self._get_initial_response(mimetype="application/csv")
-        response['Content-Disposition'] = \
-            'attachment; filename=db_store_export_data.xls'
+        response[
+            "Content-Disposition"
+        ] = "attachment; filename=db_store_export_data.xls"
         wb = xlwt.Workbook(encoding="UTF-8")
-        ws = wb.add_sheet('Data')
+        ws = wb.add_sheet("Data")
 
         algn1 = xlwt.Alignment()
         algn1.wrap = 1
@@ -100,7 +99,7 @@ class DataExporter(object):
         data_values = data_headers.values()
 
         for cell, value in enumerate(data_values):
-            ws.write(row, cell, text_type(value), xlwt.easyxf('font: bold on'))
+            ws.write(row, cell, text_type(value), xlwt.easyxf("font: bold on"))
             ws.col(cell).width = 256 * 20  # about 20 chars wide
             cell += 1
         row += 1
@@ -108,7 +107,7 @@ class DataExporter(object):
         for obj in self.queryset:
             data = json.loads(obj.saved_data)
             for cell, key in enumerate(data_keys):
-                ws.write(row, cell, text_type(data.get(key, '')))
+                ws.write(row, cell, text_type(data.get(key, "")))
                 cell += 1
 
             row += 1
@@ -129,8 +128,9 @@ class DataExporter(object):
         """Export data to CSV."""
         # response = HttpResponse(mimetype="text/csv")
         response = self._get_initial_response(mimetype="text/csv")
-        response['Content-Disposition'] = \
-            'attachment; filename=db_store_export_data.csv'
+        response[
+            "Content-Disposition"
+        ] = "attachment; filename=db_store_export_data.csv"
 
         data_headers = self._get_data_headers()
         data_keys = data_headers.keys()
@@ -152,9 +152,7 @@ class DataExporter(object):
 
             def writerow(row):
                 """Write row."""
-                return csv.writerow(
-                    [safe_text(__cell) for __cell in row]
-                )
+                return csv.writerow([safe_text(__cell) for __cell in row])
 
         data_values = [safe_text(value) for value in data_values]
 
@@ -164,7 +162,7 @@ class DataExporter(object):
             data = json.loads(obj.saved_data)
             row_data = []
             for cell, key in enumerate(data_keys):
-                row_data.append(data.get(key, ''))
+                row_data.append(data.get(key, ""))
 
             writerow(row_data)
 

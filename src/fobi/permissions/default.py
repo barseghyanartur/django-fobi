@@ -19,7 +19,11 @@ from .definitions import (
     edit_form_wizard_handler_entry_permission,
     wizards_dashboard_permissions,
 )
-from .generic import AllowAnyPermission, BasePermission, IsAuthenticatedPermission
+from .generic import (
+    AllowAnyPermission,
+    BasePermission,
+    IsAuthenticatedPermission,
+)
 from .helpers import (
     all_permissions_required_func,
     any_permission_required_func,

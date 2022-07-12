@@ -3,14 +3,12 @@ from __future__ import absolute_import
 import logging
 
 from autoslug import AutoSlugField
-
 from django.conf import settings
 from django.contrib.auth.models import Group
 from django.db import models
+from django.urls import reverse
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
-from django.urls import reverse
-
 from six import python_2_unicode_compatible
 
 from .base import (
@@ -21,30 +19,29 @@ from .base import (
     get_registered_form_handler_plugins,
     get_registered_form_wizard_handler_plugins,
 )
-from .constants import WIZARD_TYPES, DEFAULT_WIZARD_TYPE
+from .constants import DEFAULT_WIZARD_TYPE, WIZARD_TYPES
 
-__title__ = 'fobi.models'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
+__title__ = "fobi.models"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
 __all__ = (
     # Plugins
-    'AbstractPluginModel',
-    'FormElement',
-    'FormHandler',
-    'FormWizardHandler',
-
+    "AbstractPluginModel",
+    "FormElement",
+    "FormHandler",
+    "FormWizardHandler",
     # Entries
-    'AbstractFormWizardPluginEntry',
-    'AbstractPluginEntry',
-    'BaseAbstractPluginEntry',
-    'FormElementEntry',
-    'FormEntry',
-    'FormFieldsetEntry',
-    'FormHandlerEntry',
-    'FormWizardEntry',
-    'FormWizardFormEntry',
-    'FormWizardHandlerEntry',
+    "AbstractFormWizardPluginEntry",
+    "AbstractPluginEntry",
+    "BaseAbstractPluginEntry",
+    "FormElementEntry",
+    "FormEntry",
+    "FormFieldsetEntry",
+    "FormHandlerEntry",
+    "FormWizardEntry",
+    "FormWizardFormEntry",
+    "FormWizardHandlerEntry",
 )
 
 
@@ -83,12 +80,14 @@ class AbstractPluginModel(models.Model):
 
     # plugin_uid = models.CharField(_("Plugin UID"), max_length=255,
     #                              unique=True, editable=False)
-    users = models.ManyToManyField(AUTH_USER_MODEL, verbose_name=_("User"),
-                                   blank=True)
+    users = models.ManyToManyField(
+        AUTH_USER_MODEL, verbose_name=_("User"), blank=True
+    )
     groups = models.ManyToManyField(Group, verbose_name=_("Group"), blank=True)
 
     class Meta(object):
         """Meta class."""
+
         abstract = True
 
     # def __init__(self, *args, **kwargs):
@@ -107,8 +106,8 @@ class AbstractPluginModel(models.Model):
 
     def __str__(self):
         return "{0} ({1})".format(
-            dict(self.get_registered_plugins()).get(self.plugin_uid, ''),
-            self.plugin_uid
+            dict(self.get_registered_plugins()).get(self.plugin_uid, ""),
+            self.plugin_uid,
         )
 
     def plugin_uid_code(self):
@@ -117,8 +116,9 @@ class AbstractPluginModel(models.Model):
         Mainly used in admin.
         """
         return self.plugin_uid
+
     plugin_uid_code.allow_tags = True
-    plugin_uid_code.short_description = _('UID')
+    plugin_uid_code.short_description = _("UID")
 
     def plugin_uid_admin(self):
         """Plugin uid admin.
@@ -126,8 +126,9 @@ class AbstractPluginModel(models.Model):
         Mainly used in admin.
         """
         return self.__str__()
+
     plugin_uid_admin.allow_tags = True
-    plugin_uid_admin.short_description = _('Plugin')
+    plugin_uid_admin.short_description = _("Plugin")
 
     def groups_list(self):
         """Groups list.
@@ -137,9 +138,10 @@ class AbstractPluginModel(models.Model):
 
         :return string:
         """
-        return ', '.join([g.name for g in self.groups.all()])
+        return ", ".join([g.name for g in self.groups.all()])
+
     groups_list.allow_tags = True
-    groups_list.short_description = _('Groups')
+    groups_list.short_description = _("Groups")
 
     def users_list(self):
         """Users list.
@@ -149,9 +151,10 @@ class AbstractPluginModel(models.Model):
 
         :return string:
         """
-        return ', '.join([u.get_username() for u in self.users.all()])
+        return ", ".join([u.get_username() for u in self.users.all()])
+
     users_list.allow_tags = True
-    users_list.short_description = _('Users')
+    users_list.short_description = _("Users")
 
 
 class FormElement(AbstractPluginModel):
@@ -168,14 +171,19 @@ class FormElement(AbstractPluginModel):
         - `groups` (django.contrib.auth.models.Group): White list of the user
           groups allowed to use the form element plugin.
     """
+
     plugin_uid = models.CharField(
-        _("Plugin UID"), max_length=255, unique=True, editable=False,
+        _("Plugin UID"),
+        max_length=255,
+        unique=True,
+        editable=False,
         # choices=get_registered_form_element_plugins()
     )
     # objects = FormFieldPluginModelManager()
 
     class Meta(object):
         """Meta class."""
+
         abstract = False
         verbose_name = _("Form element plugin")
         verbose_name_plural = _("Form element plugins")
@@ -198,14 +206,19 @@ class FormHandler(AbstractPluginModel):
         - `groups` (django.contrib.auth.models.Group): White list of the
           user groups allowed to use the form handler plugin.
     """
+
     plugin_uid = models.CharField(
-        _("Plugin UID"), max_length=255, unique=True, editable=False,
+        _("Plugin UID"),
+        max_length=255,
+        unique=True,
+        editable=False,
         # choices=get_registered_form_handler_plugins()
     )
     # objects = FormHandlerPluginModelManager()
 
     class Meta(object):
         """Class meta."""
+
         abstract = False
         verbose_name = _("Form handler plugin")
         verbose_name_plural = _("Form handler plugins")
@@ -228,8 +241,12 @@ class FormWizardHandler(AbstractPluginModel):
         - `groups` (django.contrib.auth.models.Group): White list of the
           user groups allowed to use the form handler plugin.
     """
+
     plugin_uid = models.CharField(
-        _("Plugin UID"), max_length=255, unique=True, editable=False,
+        _("Plugin UID"),
+        max_length=255,
+        unique=True,
+        editable=False,
         # choices=get_registered_form_handler_plugins()
     )
 
@@ -237,6 +254,7 @@ class FormWizardHandler(AbstractPluginModel):
 
     class Meta(object):
         """Class meta."""
+
         abstract = False
         verbose_name = _("Form wizard handler plugin")
         verbose_name_plural = _("Form wizard handler plugins")
@@ -244,6 +262,7 @@ class FormWizardHandler(AbstractPluginModel):
     def get_registered_plugins(self):
         """Add choices."""
         return get_registered_form_wizard_handler_plugins()
+
 
 # *****************************************************************************
 # *****************************************************************************
@@ -257,9 +276,7 @@ class FormWizardEntry(models.Model):
     """Form wizard entry."""
 
     user = models.ForeignKey(
-        AUTH_USER_MODEL,
-        verbose_name=_("User"),
-        on_delete=models.CASCADE
+        AUTH_USER_MODEL, verbose_name=_("User"), on_delete=models.CASCADE
     )
     name = models.CharField(_("Name"), max_length=255)
     title = models.CharField(
@@ -267,42 +284,42 @@ class FormWizardEntry(models.Model):
         max_length=255,
         null=True,
         blank=True,
-        help_text=_("Shown in templates if available.")
+        help_text=_("Shown in templates if available."),
     )
     slug = AutoSlugField(
-        populate_from='name',
-        verbose_name=_("Slug"),
-        unique=True
+        populate_from="name", verbose_name=_("Slug"), unique=True
     )
     is_public = models.BooleanField(
         _("Is public?"),
         default=False,
-        help_text=_("Makes your form wizard visible to the public.")
+        help_text=_("Makes your form wizard visible to the public."),
     )
     is_cloneable = models.BooleanField(
         _("Is cloneable?"),
         default=False,
-        help_text=_("Makes your form wizard cloneable by other users.")
+        help_text=_("Makes your form wizard cloneable by other users."),
     )
     success_page_title = models.CharField(
         _("Success page title"),
         max_length=255,
         null=True,
         blank=True,
-        help_text=_("Custom message title to display after valid form is "
-                    "submitted")
+        help_text=_(
+            "Custom message title to display after valid form is " "submitted"
+        ),
     )
     success_page_message = models.TextField(
         _("Success page body"),
         null=True,
         blank=True,
-        help_text=_("Custom message text to display after valid form is "
-                    "submitted")
+        help_text=_(
+            "Custom message text to display after valid form is " "submitted"
+        ),
     )
     show_all_navigation_buttons = models.BooleanField(
         _("Show all navigation buttons?"),
         default=False,
-        help_text=_("Show all navigation buttons.")
+        help_text=_("Show all navigation buttons."),
     )
     # action = models.CharField(
     #     _("Action"), max_length=255, null=True, blank=True,
@@ -316,19 +333,13 @@ class FormWizardEntry(models.Model):
         blank=False,
         choices=WIZARD_TYPES,
         default=DEFAULT_WIZARD_TYPE,
-        help_text=_("Type of the form wizard.")
+        help_text=_("Type of the form wizard."),
     )
     created = models.DateTimeField(
-        _("Created"),
-        null=True,
-        blank=True,
-        auto_now_add=True
+        _("Created"), null=True, blank=True, auto_now_add=True
     )
     updated = models.DateTimeField(
-        _("Updated"),
-        null=True,
-        blank=True,
-        auto_now=True
+        _("Updated"), null=True, blank=True, auto_now=True
     )
 
     class Meta(object):
@@ -336,7 +347,10 @@ class FormWizardEntry(models.Model):
 
         verbose_name = _("Form wizard entry")
         verbose_name_plural = _("Form wizard entries")
-        unique_together = (('user', 'slug'), ('user', 'name'),)
+        unique_together = (
+            ("user", "slug"),
+            ("user", "name"),
+        )
 
     def __str__(self):
         return self.name
@@ -349,8 +363,8 @@ class FormWizardEntry(models.Model):
         :return string:
         """
         return reverse(
-            'fobi.view_form_wizard_entry',
-            kwargs={'form_wizard_entry_slug': self.slug}
+            "fobi.view_form_wizard_entry",
+            kwargs={"form_wizard_entry_slug": self.slug},
         )
 
 
@@ -359,9 +373,7 @@ class FormEntry(models.Model):
     """Form entry."""
 
     user = models.ForeignKey(
-        AUTH_USER_MODEL,
-        verbose_name=_("User"),
-        on_delete=models.CASCADE
+        AUTH_USER_MODEL, verbose_name=_("User"), on_delete=models.CASCADE
     )
     name = models.CharField(_("Name"), max_length=255)
     title = models.CharField(
@@ -369,49 +381,53 @@ class FormEntry(models.Model):
         max_length=255,
         null=True,
         blank=True,
-        help_text=_("Shown in templates if available.")
+        help_text=_("Shown in templates if available."),
     )
     slug = AutoSlugField(
-        populate_from='name', verbose_name=_("Slug"), unique=True
+        populate_from="name", verbose_name=_("Slug"), unique=True
     )
     is_public = models.BooleanField(
         _("Public?"),
         default=False,
-        help_text=_("Makes your form visible to the public.")
+        help_text=_("Makes your form visible to the public."),
     )
     active_date_from = models.DateTimeField(
         _("Active from"),
         null=True,
         blank=True,
-        help_text=_("Date and time when the form becomes active "
-                    "in the format: 'YYYY-MM-DD HH:MM'. "
-                    "Leave it blank to activate immediately.")
+        help_text=_(
+            "Date and time when the form becomes active "
+            "in the format: 'YYYY-MM-DD HH:MM'. "
+            "Leave it blank to activate immediately."
+        ),
     )
     active_date_to = models.DateTimeField(
         _("Active until"),
         null=True,
         blank=True,
-        help_text=_("Date and time when the form becomes inactive "
-                    "in the format: 'YYYY-MM-DD HH:MM'. "
-                    "Leave it blank to keep active forever.")
+        help_text=_(
+            "Date and time when the form becomes inactive "
+            "in the format: 'YYYY-MM-DD HH:MM'. "
+            "Leave it blank to keep active forever."
+        ),
     )
     inactive_page_title = models.CharField(
         _("Inactive form page title"),
         max_length=255,
         null=True,
         blank=True,
-        help_text=_("Custom message title to display if form is inactive.")
+        help_text=_("Custom message title to display if form is inactive."),
     )
     inactive_page_message = models.TextField(
         _("Inactive form page body"),
         null=True,
         blank=True,
-        help_text=_("Custom message text to display if form is inactive.")
+        help_text=_("Custom message text to display if form is inactive."),
     )
     is_cloneable = models.BooleanField(
         _("Cloneable?"),
         default=False,
-        help_text=_("Makes your form cloneable by other users.")
+        help_text=_("Makes your form cloneable by other users."),
     )
     # position = models.PositiveIntegerField(
     #     _("Position"), null=True, blank=True
@@ -421,35 +437,33 @@ class FormEntry(models.Model):
         max_length=255,
         null=True,
         blank=True,
-        help_text=_("Custom message title to display after valid form is "
-                    "submitted")
+        help_text=_(
+            "Custom message title to display after valid form is " "submitted"
+        ),
     )
     success_page_message = models.TextField(
         _("Success page body"),
         null=True,
         blank=True,
-        help_text=_("Custom message text to display after valid form is "
-                    "submitted")
+        help_text=_(
+            "Custom message text to display after valid form is " "submitted"
+        ),
     )
     action = models.CharField(
         _("Action"),
         max_length=255,
         null=True,
         blank=True,
-        help_text=_("Custom form action; don't fill this field, unless really "
-                    "necessary.")
+        help_text=_(
+            "Custom form action; don't fill this field, unless really "
+            "necessary."
+        ),
     )
     created = models.DateTimeField(
-        _("Created"),
-        null=True,
-        blank=True,
-        auto_now_add=True
+        _("Created"), null=True, blank=True, auto_now_add=True
     )
     updated = models.DateTimeField(
-        _("Updated"),
-        null=True,
-        blank=True,
-        auto_now=True
+        _("Updated"), null=True, blank=True, auto_now=True
     )
 
     class Meta(object):
@@ -457,7 +471,10 @@ class FormEntry(models.Model):
 
         verbose_name = _("Form entry")
         verbose_name_plural = _("Form entries")
-        unique_together = (('user', 'slug'), ('user', 'name'),)
+        unique_together = (
+            ("user", "slug"),
+            ("user", "name"),
+        )
 
     def __str__(self):
         return self.name
@@ -486,8 +503,7 @@ class FormEntry(models.Model):
         :return string:
         """
         return reverse(
-            'fobi.view_form_entry',
-            kwargs={'form_entry_slug': self.slug}
+            "fobi.view_form_entry", kwargs={"form_entry_slug": self.slug}
         )
 
 
@@ -502,20 +518,16 @@ class FormWizardFormEntry(models.Model):
         verbose_name=_("Form wizard entry"),
         null=False,
         blank=False,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
     form_entry = models.ForeignKey(
         FormEntry,
         verbose_name=_("Form entry"),
         null=False,
         blank=False,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
-    position = models.PositiveIntegerField(
-        _("Position"),
-        null=True,
-        blank=True
-    )
+    position = models.PositiveIntegerField(_("Position"), null=True, blank=True)
 
     class Meta(object):
         """Meta class."""
@@ -523,8 +535,8 @@ class FormWizardFormEntry(models.Model):
         abstract = False
         verbose_name = _("Form wizard form entry")
         verbose_name_plural = _("Form wizard form entries")
-        ordering = ['position']
-        unique_together = (('form_wizard_entry', 'form_entry'),)
+        ordering = ["position"]
+        unique_together = (("form_wizard_entry", "form_entry"),)
 
     def __str__(self):
         return "{0} - {1}".format(self.form_wizard_entry, self.form_entry)
@@ -539,13 +551,13 @@ class FormFieldsetEntry(models.Model):
         verbose_name=_("Form"),
         null=True,
         blank=True,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
     name = models.CharField(_("Name"), max_length=255)
     is_repeatable = models.BooleanField(
         _("Is repeatable?"),
         default=False,
-        help_text=_("Makes your form fieldset repeatable.")
+        help_text=_("Makes your form fieldset repeatable."),
     )
 
     class Meta(object):
@@ -553,7 +565,7 @@ class FormFieldsetEntry(models.Model):
 
         verbose_name = _("Form fieldset entry")
         verbose_name_plural = _("Form fieldset entries")
-        unique_together = (('form_entry', 'name'),)
+        unique_together = (("form_entry", "name"),)
 
     def __str__(self):
         return self.name
@@ -569,9 +581,7 @@ class BaseAbstractPluginEntry(models.Model):
     """
 
     plugin_data = models.TextField(
-        verbose_name=_("Plugin data"),
-        null=True,
-        blank=True
+        verbose_name=_("Plugin data"), null=True, blank=True
     )
 
     class Meta(object):
@@ -612,11 +622,11 @@ class BaseAbstractPluginEntry(models.Model):
         return self.plugin_uid
 
     plugin_uid_code.allow_tags = True
-    plugin_uid_code.short_description = _('UID')
+    plugin_uid_code.short_description = _("UID")
 
     def plugin_name(self):
         """Plugin name."""
-        return dict(self.get_registered_plugins()).get(self.plugin_uid, '')
+        return dict(self.get_registered_plugins()).get(self.plugin_uid, "")
 
     def get_plugin(self, fetch_related_data=False, request=None):
         """Get plugin.
@@ -665,9 +675,7 @@ class AbstractPluginEntry(BaseAbstractPluginEntry):
     """
 
     form_entry = models.ForeignKey(
-        FormEntry,
-        verbose_name=_("Form"),
-        on_delete=models.CASCADE
+        FormEntry, verbose_name=_("Form"), on_delete=models.CASCADE
     )
 
     class Meta(object):
@@ -703,7 +711,8 @@ class FormElementEntry(AbstractPluginEntry):
     """
 
     plugin_uid = models.CharField(
-        _("Plugin name"), max_length=255,
+        _("Plugin name"),
+        max_length=255,
         # choices=get_registered_form_element_plugins()
     )
     form_fieldset_entry = models.ForeignKey(
@@ -711,13 +720,9 @@ class FormElementEntry(AbstractPluginEntry):
         verbose_name=_("Form fieldset"),
         null=True,
         blank=True,
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
     )
-    position = models.PositiveIntegerField(
-        _("Position"),
-        null=True,
-        blank=True
-    )
+    position = models.PositiveIntegerField(_("Position"), null=True, blank=True)
 
     class Meta(object):
         """Meta class."""
@@ -725,7 +730,7 @@ class FormElementEntry(AbstractPluginEntry):
         abstract = False
         verbose_name = _("Form element entry")
         verbose_name_plural = _("Form element entries")
-        ordering = ['position']
+        ordering = ["position"]
 
     def get_registered_plugins(self):
         """Gets registered plugins."""
@@ -781,9 +786,7 @@ class AbstractFormWizardPluginEntry(BaseAbstractPluginEntry):
     """
 
     form_wizard_entry = models.ForeignKey(
-        FormWizardEntry,
-        verbose_name=_("Form wizard"),
-        on_delete=models.CASCADE
+        FormWizardEntry, verbose_name=_("Form wizard"), on_delete=models.CASCADE
     )
 
     class Meta(object):

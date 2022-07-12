@@ -4,14 +4,11 @@ import logging
 
 from django.utils.translation import gettext_lazy as _
 
-from fobi.base import (
-    FormElementPlugin,
-    get_theme
-)
-
 from ......pip_helpers import check_if_installed, get_installed_packages
 from . import UID
 from .forms import CaptchaInputForm
+
+from fobi.base import FormElementPlugin, get_theme
 
 logger = logging.getLogger(__name__)
 
@@ -41,7 +38,7 @@ except ImportError as err:
                 "`django-simple-captcha` if you want to make use of the "
                 "`fobi.contrib.plugins.form_elements.security.captcha` "
                 "package."
-                )
+            )
         if check_if_installed("django-simple-captcha", installed_packages):
             DJANGO_SIMPLE_CAPTCHA_INSTALLED = True
 
@@ -64,12 +61,11 @@ except ImportError as err:
             "due to app name collision (captcha)."
         )
 
-__title__ = 'fobi.contrib.plugins.form_elements.security.' \
-            'captcha.base'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('CaptchaInputPlugin',)
+__title__ = "fobi.contrib.plugins.form_elements.security." "captcha.base"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("CaptchaInputPlugin",)
 
 theme = get_theme(request=None, as_instance=True)
 
@@ -82,20 +78,21 @@ class CaptchaInputPlugin(FormElementPlugin):
     group = _("Security")
     form = CaptchaInputForm
 
-    def get_form_field_instances(self, request=None, form_entry=None,
-                                 form_element_entries=None, **kwargs):
+    def get_form_field_instances(
+        self, request=None, form_entry=None, form_element_entries=None, **kwargs
+    ):
         """Get form field instances."""
         widget_attrs = {
-            'class': theme.form_element_html_class,
+            "class": theme.form_element_html_class,
             # 'placeholder': self.data.placeholder,
         }
 
         field_kwargs = {
-            'label': self.data.label,
-            'help_text': self.data.help_text,
+            "label": self.data.label,
+            "help_text": self.data.help_text,
             # 'initial': self.data.initial,
-            'required': self.data.required,
-            'widget': CaptchaTextInput(attrs=widget_attrs),
+            "required": self.data.required,
+            "widget": CaptchaTextInput(attrs=widget_attrs),
         }
 
         return [(self.data.name, CaptchaField, field_kwargs)]

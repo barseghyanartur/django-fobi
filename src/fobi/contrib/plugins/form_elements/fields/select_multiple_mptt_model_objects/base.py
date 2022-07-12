@@ -1,35 +1,33 @@
 from __future__ import absolute_import
 
+import json
+
 from django.apps import apps
 from django.core.serializers.json import DjangoJSONEncoder
 from django.forms.widgets import SelectMultiple
 from django.utils.translation import gettext_lazy as _
-
 from mptt.fields import TreeNodeMultipleChoiceField
-
-import json
-
-from fobi.base import FormFieldPlugin, get_theme
-from fobi.constants import (
-    SUBMIT_VALUE_AS_VAL,
-    SUBMIT_VALUE_AS_REPR,
-)
-from fobi.helpers import (
-    safe_text,
-    get_app_label_and_model_name,
-    get_model_name_for_object,
-)
 
 from . import UID
 from .forms import SelectMultipleMPTTModelObjectsInputForm
 from .settings import SUBMIT_VALUE_AS
 
-__title__ = 'fobi.contrib.plugins.form_elements.fields.' \
-            'select_multiple_mptt_model_objects.base'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('SelectMultipleMPTTModelObjectsInputPlugin',)
+from fobi.base import FormFieldPlugin, get_theme
+from fobi.constants import SUBMIT_VALUE_AS_REPR, SUBMIT_VALUE_AS_VAL
+from fobi.helpers import (
+    get_app_label_and_model_name,
+    get_model_name_for_object,
+    safe_text,
+)
+
+__title__ = (
+    "fobi.contrib.plugins.form_elements.fields."
+    "select_multiple_mptt_model_objects.base"
+)
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("SelectMultipleMPTTModelObjectsInputPlugin",)
 
 theme = get_theme(request=None, as_instance=True)
 
@@ -42,28 +40,30 @@ class SelectMultipleMPTTModelObjectsInputPlugin(FormFieldPlugin):
     group = _("Fields")
     form = SelectMultipleMPTTModelObjectsInputForm
 
-    def get_form_field_instances(self, request=None, form_entry=None,
-                                 form_element_entries=None, **kwargs):
+    def get_form_field_instances(
+        self, request=None, form_entry=None, form_element_entries=None, **kwargs
+    ):
         """Get form field instances."""
         app_label, model_name = get_app_label_and_model_name(self.data.model)
         model = apps.get_model(app_label, model_name)
         queryset = model._default_manager.all()
 
         field_kwargs = {
-            'label': self.data.label,
-            'help_text': self.data.help_text,
-            'initial': self.data.initial,
-            'required': self.data.required,
-            'queryset': queryset,
-            'widget': SelectMultiple(
-                attrs={'class': theme.form_element_html_class}
+            "label": self.data.label,
+            "help_text": self.data.help_text,
+            "initial": self.data.initial,
+            "required": self.data.required,
+            "queryset": queryset,
+            "widget": SelectMultiple(
+                attrs={"class": theme.form_element_html_class}
             ),
         }
 
         return [(self.data.name, TreeNodeMultipleChoiceField, field_kwargs)]
 
-    def submit_plugin_form_data(self, form_entry, request, form,
-                                form_element_entries=None, **kwargs):
+    def submit_plugin_form_data(
+        self, form_entry, request, form, form_element_entries=None, **kwargs
+    ):
         """Submit plugin form data/process.
 
         :param fobi.models.FormEntry form_entry: Instance of
@@ -86,26 +86,25 @@ class SelectMultipleMPTTModelObjectsInputPlugin(FormFieldPlugin):
                 if SUBMIT_VALUE_AS == SUBMIT_VALUE_AS_REPR:
                     value = safe_text(obj)
                 elif SUBMIT_VALUE_AS == SUBMIT_VALUE_AS_VAL:
-                    value = '{0}.{1}.{2}'.format(
-                        obj._meta.app_label,
-                        get_model_name_for_object(obj),
-                        obj.pk
-                    )
-                else:
-                    # Handle the submitted form value
-                    value = '{0}.{1}.{2}.{3}'.format(
+                    value = "{0}.{1}.{2}".format(
                         obj._meta.app_label,
                         get_model_name_for_object(obj),
                         obj.pk,
-                        safe_text(obj)
+                    )
+                else:
+                    # Handle the submitted form value
+                    value = "{0}.{1}.{2}.{3}".format(
+                        obj._meta.app_label,
+                        get_model_name_for_object(obj),
+                        obj.pk,
+                        safe_text(obj),
                     )
                 values.append(value)
 
         # Overwrite ``cleaned_data`` of the ``form`` with object qualifier.
         if values:
             form.cleaned_data[self.data.name] = json.dumps(
-                values,
-                cls=DjangoJSONEncoder
+                values, cls=DjangoJSONEncoder
             )
         else:
             del form.cleaned_data[self.data.name]
