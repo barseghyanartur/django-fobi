@@ -1,14 +1,13 @@
 from formtools.wizard.views import (
-    WizardView as OriginalWizardView,
-    SessionWizardView as OriginalSessionWizardView,
     CookieWizardView as OriginalCookieWizardView,
-
+    SessionWizardView as OriginalSessionWizardView,
+    WizardView as OriginalWizardView,
 )
 
 __all__ = (
-    'WizardView',
-    'SessionWizardView',
-    'CookieWizardView',
+    "WizardView",
+    "SessionWizardView",
+    "CookieWizardView",
 )
 
 

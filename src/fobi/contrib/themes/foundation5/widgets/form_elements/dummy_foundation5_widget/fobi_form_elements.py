@@ -1,15 +1,17 @@
 from fobi.base import form_element_plugin_widget_registry
 from fobi.contrib.plugins.form_elements.test.dummy.widgets import (
-    BaseDummyPluginWidget
+    BaseDummyPluginWidget,
 )
 from fobi.contrib.themes.foundation5 import UID
 
-__title__ = 'fobi.contrib.themes.foundation5.widgets.form_elements.' \
-            'dummy_foundation5_widget.fobi_form_elements'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('DummyPluginWidget',)
+__title__ = (
+    "fobi.contrib.themes.foundation5.widgets.form_elements."
+    "dummy_foundation5_widget.fobi_form_elements"
+)
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("DummyPluginWidget",)
 
 
 class DummyPluginWidget(BaseDummyPluginWidget):

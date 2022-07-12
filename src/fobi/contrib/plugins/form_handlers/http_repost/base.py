@@ -2,31 +2,28 @@ import logging
 import os
 
 import requests
-
 from django.conf import settings
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
-
 from six import PY3
 
 from .....base import (
-    form_handler_plugin_registry,
-    form_wizard_handler_plugin_registry,
     FormHandlerPlugin,
     FormWizardHandlerPlugin,
+    form_handler_plugin_registry,
+    form_wizard_handler_plugin_registry,
 )
 from .....helpers import extract_file_path
-
 from . import UID
 from .forms import HTTPRepostForm
 
-__title__ = 'fobi.contrib.plugins.form_handlers.http_repost.base'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
+__title__ = "fobi.contrib.plugins.form_handlers.http_repost.base"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
 __all__ = (
-    'HTTPRepostHandlerPlugin',
-    'HTTPRepostWizardHandlerPlugin',
+    "HTTPRepostHandlerPlugin",
+    "HTTPRepostWizardHandlerPlugin",
 )
 
 logger = logging.getLogger(__name__)
@@ -72,7 +69,7 @@ class HTTPRepostHandlerPlugin(FormHandlerPlugin):
                 data=request.POST.dict(),
                 files=files,
                 allow_redirects=True,
-                timeout=5
+                timeout=5,
             )
             return True, response
         except Exception as err:
@@ -89,14 +86,13 @@ class HTTPRepostHandlerPlugin(FormHandlerPlugin):
                 #     file_path = file_path[1:]
                 # file_path = settings.PROJECT_DIR('../{0}'.format(file_path))
                 file_path = file_path.replace(
-                    settings.MEDIA_URL,
-                    os.path.join(settings.MEDIA_ROOT, '')
+                    settings.MEDIA_URL, os.path.join(settings.MEDIA_ROOT, "")
                 )
-                files[field_name] = (imf.name, open(file_path, 'rb'))
+                files[field_name] = (imf.name, open(file_path, "rb"))
 
         for field_name, imf in request.FILES.items():
             try:
-                file_path = form.cleaned_data.get(field_name, '')
+                file_path = form.cleaned_data.get(field_name, "")
                 process_path(file_path, imf)
             except Exception as err:
                 file_path = extract_file_path(imf.name)
@@ -110,9 +106,9 @@ class HTTPRepostHandlerPlugin(FormHandlerPlugin):
         :return string:
         """
         context = {
-            'endpoint_url': self.data.endpoint_url,
+            "endpoint_url": self.data.endpoint_url,
         }
-        return render_to_string('http_repost/plugin_data_repr.html', context)
+        return render_to_string("http_repost/plugin_data_repr.html", context)
 
 
 form_handler_plugin_registry.register(HTTPRepostHandlerPlugin)
@@ -134,8 +130,14 @@ class HTTPRepostWizardHandlerPlugin(FormWizardHandlerPlugin):
     name = _("HTTP Repost")
     form = HTTPRepostForm
 
-    def run(self, form_wizard_entry, request, form_list, form_wizard,
-            form_element_entries=None):
+    def run(
+        self,
+        form_wizard_entry,
+        request,
+        form_list,
+        form_wizard,
+        form_element_entries=None,
+    ):
         """Run.
 
         :param fobi.models.FormWizardEntry form_wizard_entry: Instance
@@ -154,7 +156,7 @@ class HTTPRepostWizardHandlerPlugin(FormWizardHandlerPlugin):
                 data=request.POST.dict(),
                 files=files,
                 allow_redirects=True,
-                timeout=5
+                timeout=5,
             )
             return (True, response)
         except Exception as err:
@@ -171,15 +173,14 @@ class HTTPRepostWizardHandlerPlugin(FormWizardHandlerPlugin):
                 #     file_path = file_path[1:]
                 # file_path = settings.PROJECT_DIR('../{0}'.format(file_path))
                 file_path = file_path.replace(
-                    settings.MEDIA_URL,
-                    os.path.join(settings.MEDIA_ROOT, '')
+                    settings.MEDIA_URL, os.path.join(settings.MEDIA_ROOT, "")
                 )
-                files[field_name] = (imf.name, open(file_path, 'rb'))
+                files[field_name] = (imf.name, open(file_path, "rb"))
 
         for form in form_list:
             for field_name, imf in request.FILES.items():
                 try:
-                    file_path = form.cleaned_data.get(field_name, '')
+                    file_path = form.cleaned_data.get(field_name, "")
                     process_path(file_path, imf)
                 except Exception as err:
                     file_path = extract_file_path(imf.name)
@@ -193,9 +194,9 @@ class HTTPRepostWizardHandlerPlugin(FormWizardHandlerPlugin):
         :return string:
         """
         context = {
-            'endpoint_url': self.data.endpoint_url,
+            "endpoint_url": self.data.endpoint_url,
         }
-        return render_to_string('http_repost/plugin_data_repr.html', context)
+        return render_to_string("http_repost/plugin_data_repr.html", context)
 
 
 form_wizard_handler_plugin_registry.register(HTTPRepostWizardHandlerPlugin)

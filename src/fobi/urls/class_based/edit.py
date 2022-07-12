@@ -31,13 +31,13 @@ from ...views.class_based import (
     AddFormElementEntryView,
     AddFormHandlerEntryView,
     CreateFormEntryView,
+    DashboardView,
     DeleteFormElementEntryView,
     DeleteFormEntryView,
     DeleteFormHandlerEntryView,
     EditFormElementEntryView,
     EditFormEntryView,
     EditFormHandlerEntryView,
-    DashboardView,
 )
 
 __title__ = "fobi.urls.class_based.edit"
@@ -235,7 +235,7 @@ urlpatterns = [
         _(r"^$"),
         # view=dashboard,
         view=DashboardView.as_view(),
-        name="fobi.dashboard"
+        name="fobi.dashboard",
     ),
     # Form wizards dashboard
     url(

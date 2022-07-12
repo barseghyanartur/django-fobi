@@ -1,8 +1,8 @@
-__title__ = 'fobi.templatetags.future_compat'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('firstof',)
+__title__ = "fobi.templatetags.future_compat"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("firstof",)
 
 try:
     # We're using the Django 1.6 admin templates, that make use of new
@@ -12,7 +12,7 @@ try:
     from django.template.defaulttags import firstof
 
     register = Library()
-    register.tag('firstof', firstof)
+    register.tag("firstof", firstof)
 except ImportError:
     import warnings
 
@@ -21,7 +21,7 @@ except ImportError:
     from django.utils.encoding import force_str
     from django.utils.formats import localize
     from django.utils.html import escape as html_escape
-    from django.utils.safestring import mark_safe, EscapeData, SafeData
+    from django.utils.safestring import EscapeData, SafeData, mark_safe
     from django.utils.timezone import template_localtime
 
     register = Library()
@@ -36,8 +36,9 @@ except ImportError:
         value = template_localtime(value, use_tz=context.use_tz)
         value = localize(value, use_l10n=context.use_l10n)
         value = force_str(value)
-        if ((context.autoescape and not isinstance(value, SafeData)) or
-                isinstance(value, EscapeData)):
+        if (
+            context.autoescape and not isinstance(value, SafeData)
+        ) or isinstance(value, EscapeData):
             return html_escape(value)
         else:
             return value
@@ -58,7 +59,7 @@ except ImportError:
                     if not self.escape:
                         value = mark_safe(value)
                     return render_value_in_context(value, context)
-            return ''
+            return ""
 
     @register.tag
     def firstof(parser, token, escape=False):
@@ -102,11 +103,15 @@ except ImportError:
                 "arguments; the non-autoescaping version is deprecated. Load "
                 "it from the `future` tag library to start using the new "
                 "behavior.",
-                DeprecationWarning, stacklevel=2)
+                DeprecationWarning,
+                stacklevel=2,
+            )
 
         bits = token.split_contents()[1:]
         if len(bits) < 1:
-            raise TemplateSyntaxError("'firstof' statement requires at least "
-                                      "one argument")
-        return FirstOfNode([parser.compile_filter(bit) for bit in bits],
-                           escape=escape)
+            raise TemplateSyntaxError(
+                "'firstof' statement requires at least " "one argument"
+            )
+        return FirstOfNode(
+            [parser.compile_filter(bit) for bit in bits], escape=escape
+        )

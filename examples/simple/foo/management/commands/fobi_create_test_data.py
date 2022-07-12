@@ -1,11 +1,11 @@
 from django.core.management.base import BaseCommand
 
 from fobi.tests.helpers import (
+    create_form_with_entries,
     get_or_create_admin_user,
-    create_form_with_entries
 )
 
-__all__ = ('Command',)
+__all__ = ("Command",)
 
 
 class Command(BaseCommand):

@@ -1,41 +1,42 @@
 from django.utils.translation import gettext_lazy as _
 
-__title__ = 'fobi.constants'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
+__title__ = "fobi.constants"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
 __all__ = (
-    'ACTION_CHOICE_REPLACE',
-    'ACTION_CHOICE_APPEND',
-    'ACTION_CHOICES',
-    'CALLBACK_BEFORE_FORM_VALIDATION',
-    'CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA',
-    'CALLBACK_FORM_VALID',
-    'CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS',
-    'CALLBACK_FORM_INVALID',
-    'CALLBACK_STAGES',
-    'SUBMIT_VALUE_AS_VAL',
-    'SUBMIT_VALUE_AS_REPR',
-    'SUBMIT_VALUE_AS_MIX',
-    'WIZARD_TYPE_SESSION',
-    'WIZARD_TYPE_COOKIE',
-    'WIZARD_TYPES',
-    'DEFAULT_WIZARD_TYPE',
+    "ACTION_CHOICE_REPLACE",
+    "ACTION_CHOICE_APPEND",
+    "ACTION_CHOICES",
+    "CALLBACK_BEFORE_FORM_VALIDATION",
+    "CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA",
+    "CALLBACK_FORM_VALID",
+    "CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS",
+    "CALLBACK_FORM_INVALID",
+    "CALLBACK_STAGES",
+    "SUBMIT_VALUE_AS_VAL",
+    "SUBMIT_VALUE_AS_REPR",
+    "SUBMIT_VALUE_AS_MIX",
+    "WIZARD_TYPE_SESSION",
+    "WIZARD_TYPE_COOKIE",
+    "WIZARD_TYPES",
+    "DEFAULT_WIZARD_TYPE",
 )
 
-ACTION_CHOICE_REPLACE = '1'
-ACTION_CHOICE_APPEND = '2'
+ACTION_CHOICE_REPLACE = "1"
+ACTION_CHOICE_APPEND = "2"
 ACTION_CHOICES = (
     (ACTION_CHOICE_APPEND, _("Append")),
     (ACTION_CHOICE_REPLACE, _("Replace")),
 )
 
-CALLBACK_BEFORE_FORM_VALIDATION = 'before_form_validation'
-CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA = \
-    'before_submit_plugin_form_data'
-CALLBACK_FORM_VALID = 'form_valid'
-CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS = 'after_form_handlers'
-CALLBACK_FORM_INVALID = 'form_invalid'
+CALLBACK_BEFORE_FORM_VALIDATION = "before_form_validation"
+CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA = (
+    "before_submit_plugin_form_data"
+)
+CALLBACK_FORM_VALID = "form_valid"
+CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS = "after_form_handlers"
+CALLBACK_FORM_INVALID = "form_invalid"
 
 CALLBACK_STAGES = (
     CALLBACK_BEFORE_FORM_VALIDATION,
@@ -44,12 +45,12 @@ CALLBACK_STAGES = (
     CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS,
 )
 
-SUBMIT_VALUE_AS_VAL = 'val'
-SUBMIT_VALUE_AS_REPR = 'repr'
-SUBMIT_VALUE_AS_MIX = 'mix'
+SUBMIT_VALUE_AS_VAL = "val"
+SUBMIT_VALUE_AS_REPR = "repr"
+SUBMIT_VALUE_AS_MIX = "mix"
 
-WIZARD_TYPE_SESSION = 'SessionWizardView'
-WIZARD_TYPE_COOKIE = 'CookieWizardView'
+WIZARD_TYPE_SESSION = "SessionWizardView"
+WIZARD_TYPE_COOKIE = "CookieWizardView"
 DEFAULT_WIZARD_TYPE = WIZARD_TYPE_SESSION
 WIZARD_TYPES = (
     (WIZARD_TYPE_SESSION, "Session wizard"),

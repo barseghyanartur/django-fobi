@@ -1,21 +1,19 @@
-from six import python_2_unicode_compatible
-
 from django.db import models
 from django.utils.translation import gettext, gettext_lazy as _
-
 from mezzanine.core.models import RichText
 from mezzanine.pages.models import Page
+from six import python_2_unicode_compatible
 
 from .helpers import (
     get_form_template_choices,
     get_success_page_template_choices,
 )
 
-__title__ = 'fobi.contrib.apps.mezzanine_integration.models'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('FobiFormPage',)
+__title__ = "fobi.contrib.apps.mezzanine_integration.models"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("FobiFormPage",)
 
 
 @python_2_unicode_compatible
@@ -27,9 +25,7 @@ class FobiFormPage(Page, RichText):
     """
 
     form_entry = models.ForeignKey(
-        'fobi.FormEntry',
-        verbose_name=_("Form"),
-        on_delete=models.CASCADE
+        "fobi.FormEntry", verbose_name=_("Form"), on_delete=models.CASCADE
     )
 
     form_template_name = models.CharField(
@@ -38,13 +34,13 @@ class FobiFormPage(Page, RichText):
         null=True,
         blank=True,
         choices=get_form_template_choices(),
-        help_text=_("Template to render the form with.")
+        help_text=_("Template to render the form with."),
     )
 
     hide_form_title = models.BooleanField(
         _("Hide form title"),
         default=False,
-        help_text=_("If checked, no form title is shown.")
+        help_text=_("If checked, no form title is shown."),
     )
 
     form_title = models.CharField(
@@ -52,7 +48,7 @@ class FobiFormPage(Page, RichText):
         max_length=255,
         null=True,
         blank=True,
-        help_text=_("Overrides the default form title.")
+        help_text=_("Overrides the default form title."),
     )
 
     form_submit_button_text = models.CharField(
@@ -60,7 +56,7 @@ class FobiFormPage(Page, RichText):
         max_length=255,
         null=True,
         blank=True,
-        help_text=_("Overrides the default form submit button text.")
+        help_text=_("Overrides the default form submit button text."),
     )
 
     success_page_template_name = models.CharField(
@@ -69,13 +65,13 @@ class FobiFormPage(Page, RichText):
         null=True,
         blank=True,
         choices=get_success_page_template_choices(),
-        help_text=_("Template to render the success page with.")
+        help_text=_("Template to render the success page with."),
     )
 
     hide_success_page_title = models.BooleanField(
         _("Hide success page title"),
         default=False,
-        help_text=_("If checked, no success page title is shown.")
+        help_text=_("If checked, no success page title is shown."),
     )
 
     success_page_title = models.CharField(
@@ -83,23 +79,23 @@ class FobiFormPage(Page, RichText):
         max_length=255,
         null=True,
         blank=True,
-        help_text=_("Overrides the default success page title.")
+        help_text=_("Overrides the default success page title."),
     )
 
     success_page_text = models.TextField(
         _("Succes page text"),
         null=True,
         blank=True,
-        help_text=_("Overrides the default success page text.")
+        help_text=_("Overrides the default success page text."),
     )
 
     class Meta(object):
         """Meta options."""
 
-        app_label = 'fobi'
+        app_label = "fobi"
         verbose_name = _("Fobi form")
         verbose_name_plural = _("Fobi forms")
         # db_table = 'fobi_fobiformpage'
 
     def __str__(self):
-        return gettext('Fobi form')
+        return gettext("Fobi form")

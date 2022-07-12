@@ -1,9 +1,8 @@
 from __future__ import absolute_import, unicode_literals
+
 import os
-from django_nine.versions import (
-    DJANGO_GTE_1_10,
-    DJANGO_GTE_1_9,
-)
+
+from django_nine.versions import DJANGO_GTE_1_9, DJANGO_GTE_1_10
 
 # Full filesystem path to the project.
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
@@ -125,9 +124,7 @@ LANGUAGE_CODE = "en"
 
 # Supported languages
 _ = lambda s: s
-LANGUAGES = (
-    ('en', _('English')),
-)
+LANGUAGES = (("en", _("English")),)
 
 # A boolean that turns on/off debug mode. When set to ``True``, stack traces
 # are displayed for error pages. Should always be set to ``False`` in
@@ -157,34 +154,32 @@ except Exception as err:
 
 TEMPLATES = [
     {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        "BACKEND": "django.template.backends.django.DjangoTemplates",
         # 'APP_DIRS': True,
-        'DIRS': [os.path.join(PROJECT_ROOT, "templates")],
-        'OPTIONS': {
-            'context_processors': [
+        "DIRS": [os.path.join(PROJECT_ROOT, "templates")],
+        "OPTIONS": {
+            "context_processors": [
                 "django.template.context_processors.debug",
-                'django.template.context_processors.request',
+                "django.template.context_processors.request",
                 "django.contrib.auth.context_processors.auth",
                 # "django.template.context_processors.i18n",
                 # "django.template.context_processors.media",
                 # "django.template.context_processors.static",
                 "django.template.context_processors.tz",
                 "django.contrib.messages.context_processors.messages",
-
                 "mezzanine.conf.context_processors.settings",
                 "mezzanine.pages.context_processors.page",
-
                 "fobi.context_processors.theme",  # Important!
                 "fobi.context_processors.dynamic_values",  # Optional
                 # "context_processors.testing",  # Testing
             ],
-            'loaders': [
+            "loaders": [
                 "django.template.loaders.filesystem.Loader",
                 "django.template.loaders.app_directories.Loader",
-                'django.template.loaders.eggs.Loader',
+                "django.template.loaders.eggs.Loader",
             ],
-            'debug': DEBUG_TEMPLATE,
-        }
+            "debug": DEBUG_TEMPLATE,
+        },
     },
 ]
 
@@ -283,109 +278,95 @@ INSTALLED_APPS = (
     "mezzanine.twitter",
     # "mezzanine.accounts",
     # "mezzanine.mobile",
-    
     # Third party apps used in the project
-    'tinymce',  # TinyMCE
-    'easy_thumbnails',  # Thumbnailer
+    "tinymce",  # TinyMCE
+    "easy_thumbnails",  # Thumbnailer
     # 'registration', # Auth views and registration app
-
     # ***********************************************************************
     # ***********************************************************************
     # **************************** Fobi core ********************************
     # ***********************************************************************
     # ***********************************************************************
-    'fobi',
-
+    "fobi",
     # ***********************************************************************
     # ***********************************************************************
     # ************************** Fobi themes ********************************
     # ***********************************************************************
     # ***********************************************************************
-
     # ***********************************************************************
     # ************************ Bootstrap 3 theme ****************************
     # ***********************************************************************
-    'fobi.contrib.themes.bootstrap3',  # Bootstrap 3 theme
-
+    "fobi.contrib.themes.bootstrap3",  # Bootstrap 3 theme
     # ***********************************************************************
     # ************************ Foundation 5 theme ***************************
     # ***********************************************************************
-    'fobi.contrib.themes.foundation5',  # Foundation 5 theme
-    'fobi.contrib.themes.foundation5.widgets.form_handlers.db_store_foundation5_widget',
-
+    "fobi.contrib.themes.foundation5",  # Foundation 5 theme
+    "fobi.contrib.themes.foundation5.widgets.form_handlers.db_store_foundation5_widget",
     # ***********************************************************************
     # **************************** Simple theme *****************************
     # ***********************************************************************
-    'fobi.contrib.themes.simple',  # Simple theme
-
+    "fobi.contrib.themes.simple",  # Simple theme
     # ***********************************************************************
     # ***********************************************************************
     # ************************* Fobi form elements **************************
     # ***********************************************************************
     # ***********************************************************************
-
     # ***********************************************************************
     # **************************** Form fields ******************************
     # ***********************************************************************
     #'fobi.contrib.plugins.form_elements.fields.birthday',
-    'fobi.contrib.plugins.form_elements.fields.boolean',
-    'fobi.contrib.plugins.form_elements.fields.date',
-    'fobi.contrib.plugins.form_elements.fields.date_drop_down',
-    'fobi.contrib.plugins.form_elements.fields.datetime',
-    'fobi.contrib.plugins.form_elements.fields.email',
-    'fobi.contrib.plugins.form_elements.fields.file',
-    'fobi.contrib.plugins.form_elements.fields.hidden',
-    'fobi.contrib.plugins.form_elements.fields.input',
-    'fobi.contrib.plugins.form_elements.fields.integer',
-    'fobi.contrib.plugins.form_elements.fields.password',
-    'fobi.contrib.plugins.form_elements.fields.radio',
-    'fobi.contrib.plugins.form_elements.fields.select',
-    'fobi.contrib.plugins.form_elements.fields.select_model_object',
-    'fobi.contrib.plugins.form_elements.fields.select_multiple',
+    "fobi.contrib.plugins.form_elements.fields.boolean",
+    "fobi.contrib.plugins.form_elements.fields.date",
+    "fobi.contrib.plugins.form_elements.fields.date_drop_down",
+    "fobi.contrib.plugins.form_elements.fields.datetime",
+    "fobi.contrib.plugins.form_elements.fields.email",
+    "fobi.contrib.plugins.form_elements.fields.file",
+    "fobi.contrib.plugins.form_elements.fields.hidden",
+    "fobi.contrib.plugins.form_elements.fields.input",
+    "fobi.contrib.plugins.form_elements.fields.integer",
+    "fobi.contrib.plugins.form_elements.fields.password",
+    "fobi.contrib.plugins.form_elements.fields.radio",
+    "fobi.contrib.plugins.form_elements.fields.select",
+    "fobi.contrib.plugins.form_elements.fields.select_model_object",
+    "fobi.contrib.plugins.form_elements.fields.select_multiple",
     # 'fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects',
-    'fobi.contrib.plugins.form_elements.fields.text',
-    'fobi.contrib.plugins.form_elements.fields.textarea',
-    'fobi.contrib.plugins.form_elements.fields.url',
-
+    "fobi.contrib.plugins.form_elements.fields.text",
+    "fobi.contrib.plugins.form_elements.fields.textarea",
+    "fobi.contrib.plugins.form_elements.fields.url",
     # ***********************************************************************
     # ************************ Security elements ****************************
     # ***********************************************************************
-    'fobi.contrib.plugins.form_elements.security.honeypot',
-
+    "fobi.contrib.plugins.form_elements.security.honeypot",
     # ***********************************************************************
     # ************************* Testing elements ****************************
     # ***********************************************************************
-    'fobi.contrib.plugins.form_elements.test.dummy',
-
+    "fobi.contrib.plugins.form_elements.test.dummy",
     # ***********************************************************************
     # ************************* Content elements ****************************
     # ***********************************************************************
-    'fobi.contrib.plugins.form_elements.content.content_image',
-    'fobi.contrib.plugins.form_elements.content.content_text',
-    'fobi.contrib.plugins.form_elements.content.content_video',
-
+    "fobi.contrib.plugins.form_elements.content.content_image",
+    "fobi.contrib.plugins.form_elements.content.content_text",
+    "fobi.contrib.plugins.form_elements.content.content_video",
     # ***********************************************************************
     # ***********************************************************************
     # ************************* Fobi form handlers **************************
     # ***********************************************************************
     # ***********************************************************************
-    'fobi.contrib.plugins.form_handlers.db_store',
-    'fobi.contrib.plugins.form_handlers.http_repost',
-    'fobi.contrib.plugins.form_handlers.mail',
-    
+    "fobi.contrib.plugins.form_handlers.db_store",
+    "fobi.contrib.plugins.form_handlers.http_repost",
+    "fobi.contrib.plugins.form_handlers.mail",
     # ***********************************************************************
     # ***********************************************************************
     # *********************** Mezzanine integration *************************
     # ***********************************************************************
     # ***********************************************************************
-    'fobi.contrib.apps.mezzanine_integration',
-
+    "fobi.contrib.apps.mezzanine_integration",
     # ***********************************************************************
     # ***********************************************************************
     # ****************************** Test app *******************************
     # ***********************************************************************
     # ***********************************************************************
-    'foo',
+    "foo",
 )
 
 # List of middleware classes to use. Order is important; in the request phase,
@@ -412,7 +393,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 MIGRATION_MODULES = {
-    'fobi': 'fobi.migrations',
+    "fobi": "fobi.migrations",
 }
 
 # Store these package names here as they may change in the future since
@@ -421,9 +402,9 @@ PACKAGE_NAME_FILEBROWSER = "filebrowser_safe"
 PACKAGE_NAME_GRAPPELLI = "grappelli_safe"
 
 # Fobi extra configuration
-FOBI_DEFAULT_THEME = 'bootstrap3'
+FOBI_DEFAULT_THEME = "bootstrap3"
 
-FOBI_THEME_FOOTER_TEXT = gettext('&copy; django-fobi example site 2014')
+FOBI_THEME_FOOTER_TEXT = gettext("&copy; django-fobi example site 2014")
 
 
 #########################

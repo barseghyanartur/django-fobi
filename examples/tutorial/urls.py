@@ -1,11 +1,9 @@
-from django.urls import include, re_path as url
-
 from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
-from django.conf.urls.static import static
+from django.urls import include, re_path as url
 from django.views.generic import TemplateView
-
 from django_nine import versions
 
 from fobi.settings import DEFAULT_THEME
@@ -14,39 +12,40 @@ admin.autodiscover()
 
 # Mapping.
 fobi_theme_home_template_mapping = {
-    'bootstrap3': 'home/bootstrap3.html',
-    'foundation5': 'home/foundation5.html',
+    "bootstrap3": "home/bootstrap3.html",
+    "foundation5": "home/foundation5.html",
 }
 
 # Get the template to be used.
 fobi_home_template = fobi_theme_home_template_mapping.get(
-    DEFAULT_THEME,
-    'home/base.html'
-    )
+    DEFAULT_THEME, "home/base.html"
+)
 
 urlpatterns = [
     # DB Store plugin URLs
-    url(r'^fobi/plugins/form-handlers/db-store/',
-        include('fobi.contrib.plugins.form_handlers.db_store.urls')),
-                #, namespace='fobi'
-
+    url(
+        r"^fobi/plugins/form-handlers/db-store/",
+        include("fobi.contrib.plugins.form_handlers.db_store.urls"),
+    ),
+    # , namespace='fobi'
     # django-fobi URLs:
-    url(r'^fobi/', include('fobi.urls')), #, namespace='fobi'
-
-    url(r'^admin_tools/', include('admin_tools.urls')),
-
-    url(r'^admin/', include(admin.site.urls)),
-
+    url(r"^fobi/", include("fobi.urls")),  # , namespace='fobi'
+    url(r"^admin_tools/", include("admin_tools.urls")),
+    url(r"^admin/", include(admin.site.urls)),
     # django-registration URLs:
-    url(r'^accounts/', include('django_registration.backends.one_step.urls' if versions.DJANGO_GTE_3_0 else 'registration.backends.simple.urls')),
-
+    url(
+        r"^accounts/",
+        include(
+            "django_registration.backends.one_step.urls"
+            if versions.DJANGO_GTE_3_0
+            else "registration.backends.simple.urls"
+        ),
+    ),
     # foo URLs:
-    url(r'^foo/', include('foo.urls')),
-
-    url(r'^$', TemplateView.as_view(template_name=fobi_home_template)),
-
+    url(r"^foo/", include("foo.urls")),
+    url(r"^$", TemplateView.as_view(template_name=fobi_home_template)),
     # django-fobi public forms contrib app:
-    #url(r'^', include('fobi.contrib.apps.public_forms.urls')),
+    # url(r'^', include('fobi.contrib.apps.public_forms.urls')),
 ]
 
 # Serving media and static in debug/developer mode.
@@ -56,9 +55,10 @@ if settings.DEBUG:
 
 # Conditionally including FeinCMS URls in case if
 # FeinCMS in installed apps.
-if 'feincms' in settings.INSTALLED_APPS:
+if "feincms" in settings.INSTALLED_APPS:
     from page.models import Page
+
     Page
     urlpatterns += [
-        url(r'', include('feincms.urls')),
+        url(r"", include("feincms.urls")),
     ]

@@ -1,18 +1,17 @@
-from django.utils.translation import gettext_lazy as _
-
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
-
-from fobi.integration.processors import IntegrationProcessor
+from django.utils.translation import gettext_lazy as _
 
 from .models import FobiFormWidget
 from .settings import WIDGET_FORM_SENT_GET_PARAM
 
-__title__ = 'fobi.contrib.apps.djangocms_integration.cms_plugins'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('FobiFormWidgetPlugin',)
+from fobi.integration.processors import IntegrationProcessor
+
+__title__ = "fobi.contrib.apps.djangocms_integration.cms_plugins"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("FobiFormWidgetPlugin",)
 
 
 class FobiFormWidgetPlugin(CMSPluginBase, IntegrationProcessor):
@@ -27,7 +26,7 @@ class FobiFormWidgetPlugin(CMSPluginBase, IntegrationProcessor):
     # Fobi integration processor configuration
     form_sent_get_param = WIDGET_FORM_SENT_GET_PARAM
     can_redirect = False
-    login_required_template_name = 'djangocms_integration/login_required.html'
+    login_required_template_name = "djangocms_integration/login_required.html"
 
     def process(self, request, instance, **kwargs):
         """This is where most of the form handling happens.
@@ -39,14 +38,16 @@ class FobiFormWidgetPlugin(CMSPluginBase, IntegrationProcessor):
 
     def render(self, context, instance, placeholder):
         """Render."""
-        self.process(context['request'], instance)
-        rendered_context = getattr(self, 'rendered_output', '')
-        context.update({
-            'object': instance,
-            'instance': instance,
-            'placeholder': placeholder,
-            'rendered_context': rendered_context
-        })
+        self.process(context["request"], instance)
+        rendered_context = getattr(self, "rendered_output", "")
+        context.update(
+            {
+                "object": instance,
+                "instance": instance,
+                "placeholder": placeholder,
+                "rendered_context": rendered_context,
+            }
+        )
         return context
 
 

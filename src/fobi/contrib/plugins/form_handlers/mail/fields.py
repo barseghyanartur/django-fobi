@@ -3,21 +3,21 @@ from django.core.exceptions import ValidationError
 from django.core.validators import validate_email
 from django.utils.translation import gettext_lazy as _
 
-from .widgets import MultiEmailWidget
 from .settings import MULTI_EMAIL_FIELD_VALUE_SPLITTER
+from .widgets import MultiEmailWidget
 
-__title__ = 'fobi.contrib.plugins.form_handlers.mail.widgets'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('MultiEmailField',)
+__title__ = "fobi.contrib.plugins.form_handlers.mail.widgets"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("MultiEmailField",)
 
 
 class MultiEmailField(forms.Field):
     """MultiEmailField."""
 
-    message = _('Enter valid email addresses.')
-    code = 'invalid'
+    message = _("Enter valid email addresses.")
+    code = "invalid"
     widget = MultiEmailWidget
 
     def to_python(self, value):
@@ -25,9 +25,11 @@ class MultiEmailField(forms.Field):
         # Return None if no input was given.
         if not value:
             return []
-        return [v.strip()
-                for v in value.split(MULTI_EMAIL_FIELD_VALUE_SPLITTER)
-                if v != ""]
+        return [
+            v.strip()
+            for v in value.split(MULTI_EMAIL_FIELD_VALUE_SPLITTER)
+            if v != ""
+        ]
 
     def validate(self, value):
         """Check if value consists only of valid emails."""

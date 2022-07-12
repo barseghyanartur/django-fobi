@@ -1,34 +1,33 @@
 from __future__ import absolute_import
 
+import json
+
 from django.apps import apps
 from django.core.serializers.json import DjangoJSONEncoder
 from django.forms.models import ModelMultipleChoiceField
 from django.forms.widgets import SelectMultiple
 from django.utils.translation import gettext_lazy as _
 
-import json
-
-from fobi.base import FormFieldPlugin, get_theme
-from fobi.constants import (
-    SUBMIT_VALUE_AS_VAL,
-    SUBMIT_VALUE_AS_REPR
-)
-from fobi.helpers import (
-    safe_text,
-    get_app_label_and_model_name,
-    get_model_name_for_object,
-)
-
 from . import UID
 from .forms import SelectMultipleModelObjectsInputForm
 from .settings import SUBMIT_VALUE_AS
 
-__title__ = 'fobi.contrib.plugins.form_elements.fields.' \
-            'select_multiple_model_objects.fobi_form_elements'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('SelectMultipleModelObjectsInputPlugin',)
+from fobi.base import FormFieldPlugin, get_theme
+from fobi.constants import SUBMIT_VALUE_AS_REPR, SUBMIT_VALUE_AS_VAL
+from fobi.helpers import (
+    get_app_label_and_model_name,
+    get_model_name_for_object,
+    safe_text,
+)
+
+__title__ = (
+    "fobi.contrib.plugins.form_elements.fields."
+    "select_multiple_model_objects.fobi_form_elements"
+)
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("SelectMultipleModelObjectsInputPlugin",)
 
 theme = get_theme(request=None, as_instance=True)
 
@@ -51,26 +50,28 @@ class SelectMultipleModelObjectsInputPlugin(FormFieldPlugin):
         queryset = model._default_manager.all()
         return queryset
 
-    def get_form_field_instances(self, request=None, form_entry=None,
-                                 form_element_entries=None, **kwargs):
+    def get_form_field_instances(
+        self, request=None, form_entry=None, form_element_entries=None, **kwargs
+    ):
         """Get form field instances."""
         queryset = self.get_queryset()
 
         field_kwargs = {
-            'label': self.data.label,
-            'help_text': self.data.help_text,
-            'initial': self.data.initial,
-            'required': self.data.required,
-            'queryset': queryset,
-            'widget': SelectMultiple(
-                attrs={'class': theme.form_element_html_class}
+            "label": self.data.label,
+            "help_text": self.data.help_text,
+            "initial": self.data.initial,
+            "required": self.data.required,
+            "queryset": queryset,
+            "widget": SelectMultiple(
+                attrs={"class": theme.form_element_html_class}
             ),
         }
 
         return [(self.data.name, ModelMultipleChoiceField, field_kwargs)]
 
-    def submit_plugin_form_data(self, form_entry, request, form,
-                                form_element_entries=None, **kwargs):
+    def submit_plugin_form_data(
+        self, form_entry, request, form, form_element_entries=None, **kwargs
+    ):
         """
         Submit plugin form data/process.
 
@@ -94,26 +95,25 @@ class SelectMultipleModelObjectsInputPlugin(FormFieldPlugin):
                 if SUBMIT_VALUE_AS == SUBMIT_VALUE_AS_REPR:
                     value = safe_text(obj)
                 elif SUBMIT_VALUE_AS == SUBMIT_VALUE_AS_VAL:
-                    value = '{0}.{1}.{2}'.format(
-                        obj._meta.app_label,
-                        get_model_name_for_object(obj),
-                        obj.pk
-                    )
-                else:
-                    # Handle the submitted form value
-                    value = '{0}.{1}.{2}.{3}'.format(
+                    value = "{0}.{1}.{2}".format(
                         obj._meta.app_label,
                         get_model_name_for_object(obj),
                         obj.pk,
-                        safe_text(obj)
+                    )
+                else:
+                    # Handle the submitted form value
+                    value = "{0}.{1}.{2}.{3}".format(
+                        obj._meta.app_label,
+                        get_model_name_for_object(obj),
+                        obj.pk,
+                        safe_text(obj),
                     )
                 values.append(value)
 
         # Overwrite ``cleaned_data`` of the ``form`` with object qualifier.
         if values:
             form.cleaned_data[self.data.name] = json.dumps(
-                values,
-                cls=DjangoJSONEncoder
+                values, cls=DjangoJSONEncoder
             )
         else:
             del form.cleaned_data[self.data.name]

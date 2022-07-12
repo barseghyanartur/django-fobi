@@ -1,15 +1,12 @@
-from django.urls import re_path as url
-from django.contrib import admin
-from django.contrib import messages
+from django.contrib import admin, messages
 from django.contrib.admin import helpers
 from django.contrib.admin.views.decorators import staff_member_required
-from django.shortcuts import render
-from django.shortcuts import redirect
+from django.shortcuts import redirect, render
 from django.template import RequestContext
+from django.urls import re_path as url
 from django.utils.decorators import method_decorator
 from django.utils.html import strip_tags
 from django.utils.translation import gettext_lazy as _
-
 from django_nine import versions
 
 from .constants import ACTION_CHOICE_REPLACE
@@ -19,7 +16,7 @@ from .forms import (
     BulkChangeFormWizardHandlerPluginsForm,
     FormElementEntryForm,
     FormHandlerEntryForm,
-    FormWizardHandlerEntryForm
+    FormWizardHandlerEntryForm,
 )
 from .models import (
     FormElement,
@@ -30,31 +27,31 @@ from .models import (
     FormWizardEntry,
     FormWizardFormEntry,
     FormWizardHandler,
-    FormWizardHandlerEntry
+    FormWizardHandlerEntry,
 )
 
-__title__ = 'fobi.admin'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
+__title__ = "fobi.admin"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
 __all__ = (
-    'base_bulk_change_plugins',
-    'BasePluginModelAdmin',
-    'bulk_change_form_element_plugins',
-    'bulk_change_form_handler_plugins',
-    'bulk_change_form_wizard_handler_plugins',
-    'FormElementAdmin',
-    'FormElementEntryAdmin',
-    'FormElementEntryInlineAdmin',
-    'FormEntryAdmin',
-    'FormFieldsetEntryAdmin',
-    'FormHandlerAdmin',
-    'FormHandlerEntryAdmin',
-    'FormHandlerEntryInlineAdmin',
-    'FormWizardEntryAdmin',
-    'FormWizardFormEntryInlineAdmin',
-    'FormWizardHandlerAdmin',
-    'FormWizardHandlerEntryInlineAdmin',
+    "base_bulk_change_plugins",
+    "BasePluginModelAdmin",
+    "bulk_change_form_element_plugins",
+    "bulk_change_form_handler_plugins",
+    "bulk_change_form_wizard_handler_plugins",
+    "FormElementAdmin",
+    "FormElementEntryAdmin",
+    "FormElementEntryInlineAdmin",
+    "FormEntryAdmin",
+    "FormFieldsetEntryAdmin",
+    "FormHandlerAdmin",
+    "FormHandlerEntryAdmin",
+    "FormHandlerEntryInlineAdmin",
+    "FormWizardEntryAdmin",
+    "FormWizardFormEntryInlineAdmin",
+    "FormWizardHandlerAdmin",
+    "FormWizardHandlerEntryInlineAdmin",
 )
 
 staff_member_required_m = method_decorator(staff_member_required)
@@ -66,8 +63,9 @@ staff_member_required_m = method_decorator(staff_member_required)
 # *****************************************************************************
 
 
-def base_bulk_change_plugins(PluginForm, named_url, modeladmin, request,
-                             queryset):
+def base_bulk_change_plugins(
+    PluginForm, named_url, modeladmin, request, queryset
+):
     """Bulk change of plugins action additional view."""
 
     opts = modeladmin.model._meta
@@ -76,25 +74,25 @@ def base_bulk_change_plugins(PluginForm, named_url, modeladmin, request,
     selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
     post = dict(request.POST)
     if selected:
-        post['selected_plugins'] = ','.join(selected)
-    if request.method == 'POST':
+        post["selected_plugins"] = ",".join(selected)
+    if request.method == "POST":
         form = PluginForm(
             data=post,
             files=request.FILES,
-            initial={'selected_plugins': ','.join(selected)}
+            initial={"selected_plugins": ",".join(selected)},
         )
     else:
-        form = PluginForm(initial={'selected_plugins': ','.join(selected)})
+        form = PluginForm(initial={"selected_plugins": ",".join(selected)})
 
     context = {
-        'form': form,
-        'app_label': app_label,
-        'opts': opts,
-        'action_checkbox_name': helpers.ACTION_CHECKBOX_NAME,
-        'named_url': named_url,
+        "form": form,
+        "app_label": app_label,
+        "opts": opts,
+        "action_checkbox_name": helpers.ACTION_CHECKBOX_NAME,
+        "named_url": named_url,
     }
 
-    template_name = 'fobi/admin/bulk_change_plugins.html'
+    template_name = "fobi/admin/bulk_change_plugins.html"
 
     return render(request, template_name, context)
 
@@ -103,10 +101,10 @@ def bulk_change_form_element_plugins(modeladmin, request, queryset):
     """Bulk change FormElement plugins."""
     return base_bulk_change_plugins(
         BulkChangeFormElementPluginsForm,
-        'admin:bulk_change_form_element_plugins',
+        "admin:bulk_change_form_element_plugins",
         modeladmin,
         request,
-        queryset
+        queryset,
     )
 
 
@@ -114,10 +112,10 @@ def bulk_change_form_handler_plugins(modeladmin, request, queryset):
     """Bulk change FormHandler plugins."""
     return base_bulk_change_plugins(
         BulkChangeFormHandlerPluginsForm,
-        'admin:bulk_change_form_handler_plugins',
+        "admin:bulk_change_form_handler_plugins",
         modeladmin,
         request,
-        queryset
+        queryset,
     )
 
 
@@ -125,11 +123,12 @@ def bulk_change_form_wizard_handler_plugins(modeladmin, request, queryset):
     """Bulk change FormWizardHandler plugins."""
     return base_bulk_change_plugins(
         BulkChangeFormWizardHandlerPluginsForm,
-        'admin:bulk_change_form_wizard_handler_plugins',
+        "admin:bulk_change_form_wizard_handler_plugins",
         modeladmin,
         request,
-        queryset
+        queryset,
     )
+
 
 # *****************************************************************************
 # *****************************************************************************
@@ -147,7 +146,12 @@ class FormElementEntryInlineAdmin(admin.TabularInline):
 
     model = FormElementEntry
     form = FormElementEntryForm
-    fields = ('form_entry', 'plugin_uid', 'plugin_data', 'position',)
+    fields = (
+        "form_entry",
+        "plugin_uid",
+        "plugin_data",
+        "position",
+    )
     extra = 0
 
 
@@ -156,7 +160,11 @@ class FormHandlerEntryInlineAdmin(admin.TabularInline):
 
     model = FormHandlerEntry
     form = FormHandlerEntryForm
-    fields = ('form_entry', 'plugin_uid', 'plugin_data',)
+    fields = (
+        "form_entry",
+        "plugin_uid",
+        "plugin_data",
+    )
     extra = 0
 
 
@@ -164,54 +172,58 @@ class FormEntryAdmin(admin.ModelAdmin):
     """FormEntry admin."""
 
     list_display = (
-        'name',
-        'slug',
-        'user',
-        'is_public',
-        'is_active',
-        'created',
-        'updated',
-        'is_cloneable',
+        "name",
+        "slug",
+        "user",
+        "is_public",
+        "is_active",
+        "created",
+        "updated",
+        "is_cloneable",
     )
-    list_editable = ('is_public', 'is_cloneable')
-    list_filter = ('is_public', 'is_cloneable')
-    readonly_fields = ('slug',)
+    list_editable = ("is_public", "is_cloneable")
+    list_filter = ("is_public", "is_cloneable")
+    readonly_fields = ("slug",)
     radio_fields = {"user": admin.VERTICAL}
     fieldsets = (
-        (_("Form"), {
-            'fields': (
-                'name',
-                'is_public',
-                'is_cloneable',
-                'active_date_from',
-                'active_date_to',
-                'inactive_page_title',
-                'inactive_page_message',
-            )
-        }),
-        (_("Custom"), {
-            'classes': ('collapse',),
-            'fields': ('success_page_title', 'success_page_message', 'action')
-        }),
+        (
+            _("Form"),
+            {
+                "fields": (
+                    "name",
+                    "is_public",
+                    "is_cloneable",
+                    "active_date_from",
+                    "active_date_to",
+                    "inactive_page_title",
+                    "inactive_page_message",
+                )
+            },
+        ),
+        (
+            _("Custom"),
+            {
+                "classes": ("collapse",),
+                "fields": (
+                    "success_page_title",
+                    "success_page_message",
+                    "action",
+                ),
+            },
+        ),
         # (_("Wizard"), {
         #     'classes': ('collapse',),
         #     'fields': ('form_wizard_entry', 'position',)
         # }),
-        (_("User"), {
-            'classes': ('collapse',),
-            'fields': ('user',)
-        }),
-        (_('Additional'), {
-            'classes': ('collapse',),
-            'fields': ('slug',)
-        }),
+        (_("User"), {"classes": ("collapse",), "fields": ("user",)}),
+        (_("Additional"), {"classes": ("collapse",), "fields": ("slug",)}),
     )
     inlines = [FormElementEntryInlineAdmin, FormHandlerEntryInlineAdmin]
 
     class Meta(object):
         """Meta."""
 
-        app_label = _('Fobi')
+        app_label = _("Fobi")
 
 
 admin.site.register(FormEntry, FormEntryAdmin)
@@ -227,7 +239,10 @@ class FormWizardFormEntryInlineAdmin(admin.TabularInline):
 
     model = FormWizardFormEntry
     # form = FormElementEntryForm
-    fields = ('form_entry', 'position',)
+    fields = (
+        "form_entry",
+        "position",
+    )
     extra = 0
 
 
@@ -236,47 +251,72 @@ class FormWizardHandlerEntryInlineAdmin(admin.TabularInline):
 
     model = FormWizardHandlerEntry
     form = FormWizardHandlerEntryForm
-    fields = ('plugin_uid', 'plugin_data',)
+    fields = (
+        "plugin_uid",
+        "plugin_data",
+    )
     extra = 0
 
 
 class FormWizardEntryAdmin(admin.ModelAdmin):
     """FormWizardEntry admin."""
 
-    list_display = ('name', 'slug', 'user', 'is_public', 'created', 'updated',
-                    'is_cloneable',)
-    list_editable = ('is_public', 'is_cloneable',)
-    list_filter = ('is_public', 'is_cloneable',)
-    readonly_fields = ('slug',)
+    list_display = (
+        "name",
+        "slug",
+        "user",
+        "is_public",
+        "created",
+        "updated",
+        "is_cloneable",
+    )
+    list_editable = (
+        "is_public",
+        "is_cloneable",
+    )
+    list_filter = (
+        "is_public",
+        "is_cloneable",
+    )
+    readonly_fields = ("slug",)
     radio_fields = {"user": admin.VERTICAL}
     fieldsets = (
-        (_("Form"), {
-            'fields': ('name', 'is_public', 'is_cloneable',)
-        }),
-        (_("Custom"), {
-            'classes': ('collapse',),
-            'fields': ('success_page_title', 'success_page_message',)
-        }),
+        (
+            _("Form"),
+            {
+                "fields": (
+                    "name",
+                    "is_public",
+                    "is_cloneable",
+                )
+            },
+        ),
+        (
+            _("Custom"),
+            {
+                "classes": ("collapse",),
+                "fields": (
+                    "success_page_title",
+                    "success_page_message",
+                ),
+            },
+        ),
         # (_("Wizard"), {
         #     'classes': ('collapse',),
         #     'fields': ('form_wizard_entry', 'position',)
         # }),
-        (_("User"), {
-            'classes': ('collapse',),
-            'fields': ('user',)
-        }),
-        (_('Additional'), {
-            'classes': ('collapse',),
-            'fields': ('slug',)
-        }),
+        (_("User"), {"classes": ("collapse",), "fields": ("user",)}),
+        (_("Additional"), {"classes": ("collapse",), "fields": ("slug",)}),
     )
-    inlines = [FormWizardFormEntryInlineAdmin,
-               FormWizardHandlerEntryInlineAdmin]
+    inlines = [
+        FormWizardFormEntryInlineAdmin,
+        FormWizardHandlerEntryInlineAdmin,
+    ]
 
     class Meta(object):
         """Meta."""
 
-        app_label = _('Fobi')
+        app_label = _("Fobi")
 
 
 admin.site.register(FormWizardEntry, FormWizardEntryAdmin)
@@ -289,20 +329,16 @@ admin.site.register(FormWizardEntry, FormWizardEntryAdmin)
 class FormFieldsetEntryAdmin(admin.ModelAdmin):
     """FormEieldsetEntry admin."""
 
-    list_display = ('form_entry', 'name', 'is_repeatable')
-    list_editable = ('is_repeatable',)
-    list_filter = ('is_repeatable',)
+    list_display = ("form_entry", "name", "is_repeatable")
+    list_editable = ("is_repeatable",)
+    list_filter = ("is_repeatable",)
     # readonly_fields = ('slug',)
-    fieldsets = (
-        (None, {
-            'fields': ('form_entry', 'name', 'is_repeatable')
-        }),
-    )
+    fieldsets = ((None, {"fields": ("form_entry", "name", "is_repeatable")}),)
 
     class Meta(object):
         """Meta."""
 
-        app_label = _('Fobi')
+        app_label = _("Fobi")
 
 
 # admin.site.register(FormFieldsetEntry, FormFieldsetEntryAdmin)
@@ -311,33 +347,52 @@ class FormFieldsetEntryAdmin(admin.ModelAdmin):
 # ************************** Form element entry admin *************************
 # *****************************************************************************
 
+
 class FormElementEntryAdmin(admin.ModelAdmin):
     """FormElementEntry admin."""
 
-    list_display = ('plugin_uid', 'plugin_uid_code', 'plugin_data', 'position',
-                    'form_entry',)
-    list_filter = ('form_entry', 'plugin_uid')
-    list_editable = ('position',)
-    readonly_fields = ('plugin_uid_code',)
+    list_display = (
+        "plugin_uid",
+        "plugin_uid_code",
+        "plugin_data",
+        "position",
+        "form_entry",
+    )
+    list_filter = ("form_entry", "plugin_uid")
+    list_editable = ("position",)
+    readonly_fields = ("plugin_uid_code",)
     fieldsets = (
-        (_("Plugin"), {
-            'fields': ('plugin_uid', 'plugin_data',)
-        }),
-        (_("Form"), {
-            'fields': ('form_entry', 'form_fieldset_entry', 'position',)
-        }),
+        (
+            _("Plugin"),
+            {
+                "fields": (
+                    "plugin_uid",
+                    "plugin_data",
+                )
+            },
+        ),
+        (
+            _("Form"),
+            {
+                "fields": (
+                    "form_entry",
+                    "form_fieldset_entry",
+                    "position",
+                )
+            },
+        ),
     )
 
     class Meta(object):
         """Meta."""
 
-        app_label = _('Fobi')
+        app_label = _("Fobi")
 
     def get_queryset(self, request):
         """Get queryset."""
         qs = super(FormElementEntryAdmin, self).get_queryset(request)
 
-        qs = qs.select_related('form_entry', 'form_fieldset_entry')
+        qs = qs.select_related("form_entry", "form_fieldset_entry")
         return qs
 
 
@@ -348,32 +403,43 @@ class FormElementEntryAdmin(admin.ModelAdmin):
 # ************************** Form element entry admin *************************
 # *****************************************************************************
 
+
 class FormHandlerEntryAdmin(admin.ModelAdmin):
     """FormHandlerEntry admin."""
 
-    list_display = ('plugin_uid', 'plugin_uid_code', 'plugin_data',
-                    'form_entry',)
-    list_filter = ('form_entry', 'plugin_uid')
-    readonly_fields = ('plugin_uid_code',)
+    list_display = (
+        "plugin_uid",
+        "plugin_uid_code",
+        "plugin_data",
+        "form_entry",
+    )
+    list_filter = ("form_entry", "plugin_uid")
+    readonly_fields = ("plugin_uid_code",)
     fieldsets = (
-        (_("Plugin"), {
-            'fields': ('plugin_uid', 'plugin_data',)
-        }),
-        (_("Form"), {
-            'fields': ('form_entry',)
-        }),
+        (
+            _("Plugin"),
+            {
+                "fields": (
+                    "plugin_uid",
+                    "plugin_data",
+                )
+            },
+        ),
+        (_("Form"), {"fields": ("form_entry",)}),
     )
 
     class Meta(object):
         """Meta."""
 
-        app_label = _('Form handler entry')
+        app_label = _("Form handler entry")
 
     def get_queryset(self, request):
         """Tweak the queryset."""
         qs = super(FormHandlerEntryAdmin, self).get_queryset(request)
 
-        qs = qs.select_related('form_entry',)
+        qs = qs.select_related(
+            "form_entry",
+        )
         return qs
 
 
@@ -393,19 +459,18 @@ class FormHandlerEntryAdmin(admin.ModelAdmin):
 class BasePluginModelAdmin(admin.ModelAdmin):
     """Base plugin admin."""
 
-    list_display = ('plugin_uid_admin', 'users_list', 'groups_list')
-    readonly_fields = ('plugin_uid', 'plugin_uid_admin')
-    fieldsets = (
-        (None, {
-            'fields': ('plugin_uid', 'users', 'groups')
-        }),
+    list_display = ("plugin_uid_admin", "users_list", "groups_list")
+    readonly_fields = ("plugin_uid", "plugin_uid_admin")
+    fieldsets = ((None, {"fields": ("plugin_uid", "users", "groups")}),)
+    filter_horizontal = (
+        "users",
+        "groups",
     )
-    filter_horizontal = ('users', 'groups',)
 
     class Meta(object):
         """Meta."""
 
-        app_label = _('Fobi')
+        app_label = _("Fobi")
 
     def has_add_permission(self, request):
         """Has add permissions.
@@ -420,7 +485,7 @@ class BasePluginModelAdmin(admin.ModelAdmin):
         """Tweak queryset."""
         qs = super(BasePluginModelAdmin, self).get_queryset(request)
 
-        qs = qs.prefetch_related('users', 'groups')
+        qs = qs.prefetch_related("users", "groups")
         return qs
 
     def _get_bulk_change_form_class(self):
@@ -446,19 +511,16 @@ class BasePluginModelAdmin(admin.ModelAdmin):
         This is where the data is actually processed.
         """
         changelist_named_url = self._get_changelist_named_url()
-        if request.method == 'POST':
+        if request.method == "POST":
             form_cls = self._get_bulk_change_form_class()
-            form = form_cls(
-                data=request.POST,
-                files=request.FILES
-            )
+            form = form_cls(data=request.POST, files=request.FILES)
 
             if form.is_valid():
-                ids = form.cleaned_data.pop('selected_plugins').split(',')
-                users = form.cleaned_data.pop('users')
-                groups = form.cleaned_data.pop('groups')
-                users_action = form.cleaned_data.pop('users_action')
-                groups_action = form.cleaned_data.pop('groups_action')
+                ids = form.cleaned_data.pop("selected_plugins").split(",")
+                users = form.cleaned_data.pop("users")
+                groups = form.cleaned_data.pop("groups")
+                users_action = form.cleaned_data.pop("users_action")
+                groups_action = form.cleaned_data.pop("groups_action")
                 cleaned_data = dict(
                     (key, val)
                     for (key, val) in form.cleaned_data.items()
@@ -489,23 +551,23 @@ class BasePluginModelAdmin(admin.ModelAdmin):
 
                 messages.info(
                     request,
-                    _('{0} plugins were changed '
-                      'successfully.').format(len(ids))
+                    _("{0} plugins were changed " "successfully.").format(
+                        len(ids)
+                    ),
                 )
                 return redirect(changelist_named_url)
             else:
                 messages.warning(
                     request,
-                    _('Form contains '
-                      'errors: {}').format(strip_tags(form.errors))
+                    _("Form contains " "errors: {}").format(
+                        strip_tags(form.errors)
+                    ),
                 )
                 return redirect(changelist_named_url)
         else:
-            messages.warning(
-                request,
-                _('POST required when changing in bulk!')
-            )
+            messages.warning(request, _("POST required when changing in bulk!"))
             return redirect(changelist_named_url)
+
 
 # *****************************************************************************
 # ********************************** Form element *****************************
@@ -527,15 +589,17 @@ class FormElementAdmin(BasePluginModelAdmin):
 
     def _get_changelist_named_url(self):
         """Get changelist named URL."""
-        return 'admin:fobi_formelement_changelist'
+        return "admin:fobi_formelement_changelist"
 
     def get_urls(self):
         """Get URLs."""
         my_urls = [
             # Bulk change plugins
-            url(r'^bulk-change-form-element-plugins/$',
+            url(
+                r"^bulk-change-form-element-plugins/$",
                 self.bulk_change_plugins,
-                name='bulk_change_form_element_plugins'),
+                name="bulk_change_form_element_plugins",
+            ),
         ]
         return my_urls + super(FormElementAdmin, self).get_urls()
 
@@ -562,15 +626,17 @@ class FormHandlerAdmin(BasePluginModelAdmin):
 
     def _get_changelist_named_url(self):
         """Get changelist named URL."""
-        return 'admin:fobi_formhandler_changelist'
+        return "admin:fobi_formhandler_changelist"
 
     def get_urls(self):
         """Get URLs."""
         my_urls = [
             # Bulk change plugins
-            url(r'^bulk-change-form-handler-plugins/$',
+            url(
+                r"^bulk-change-form-handler-plugins/$",
                 self.bulk_change_plugins,
-                name='bulk_change_form_handler_plugins'),
+                name="bulk_change_form_handler_plugins",
+            ),
         ]
         return my_urls + super(FormHandlerAdmin, self).get_urls()
 
@@ -585,7 +651,9 @@ admin.site.register(FormHandler, FormHandlerAdmin)
 class FormWizardHandlerAdmin(BasePluginModelAdmin):
     """FormHandler admin."""
 
-    actions = [bulk_change_form_wizard_handler_plugins] + BasePluginModelAdmin.actions
+    actions = [
+        bulk_change_form_wizard_handler_plugins
+    ] + BasePluginModelAdmin.actions
 
     def _get_bulk_change_form_class(self):
         """Get bulk change form class."""
@@ -597,15 +665,17 @@ class FormWizardHandlerAdmin(BasePluginModelAdmin):
 
     def _get_changelist_named_url(self):
         """Get changelist named URL."""
-        return 'admin:fobi_formwizardhandler_changelist'
+        return "admin:fobi_formwizardhandler_changelist"
 
     def get_urls(self):
         """Get URLs."""
         my_urls = [
             # Bulk change plugins
-            url(r'^bulk-change-form-wizard-handler-plugins/$',
+            url(
+                r"^bulk-change-form-wizard-handler-plugins/$",
                 self.bulk_change_plugins,
-                name='bulk_change_form_wizard_handler_plugins'),
+                name="bulk_change_form_wizard_handler_plugins",
+            ),
         ]
         return my_urls + super(FormWizardHandlerAdmin, self).get_urls()
 

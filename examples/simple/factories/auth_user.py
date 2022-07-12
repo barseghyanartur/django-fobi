@@ -1,36 +1,33 @@
 from django.conf import settings
-
-from factory import (
-    PostGenerationMethodCall, Sequence
-)
+from factory import PostGenerationMethodCall, Sequence
 from factory.django import DjangoModelFactory
 
 from .factory_faker import Faker
 
 __all__ = (
-    'TEST_USERNAME',
-    'TEST_PASSWORD',
-    'AbstractUserFactory',
-    'InactiveUserFactory',
-    'UserFactory',
-    'StaffUserFactory',
-    'SuperuserUserFactory',
-    'SuperAdminUserFactory',
-    'TestUsernameSuperAdminUserFactory',
+    "TEST_USERNAME",
+    "TEST_PASSWORD",
+    "AbstractUserFactory",
+    "InactiveUserFactory",
+    "UserFactory",
+    "StaffUserFactory",
+    "SuperuserUserFactory",
+    "SuperAdminUserFactory",
+    "TestUsernameSuperAdminUserFactory",
 )
 
-TEST_USERNAME = 'test_user'
-TEST_PASSWORD = 'test_password'
+TEST_USERNAME = "test_user"
+TEST_PASSWORD = "test_password"
 
 
 class AbstractUserFactory(DjangoModelFactory):
     """Abstract factory for creating users."""
 
-    password = PostGenerationMethodCall('set_password', TEST_PASSWORD)
-    username = Sequence(lambda n: 'user%d' % n)
-    first_name = Faker('first_name')
-    last_name = Faker('last_name')
-    email = Faker('email')
+    password = PostGenerationMethodCall("set_password", TEST_PASSWORD)
+    username = Sequence(lambda n: "user%d" % n)
+    first_name = Faker("first_name")
+    last_name = Faker("last_name")
+    email = Faker("email")
 
     is_active = False
     is_staff = False
@@ -38,7 +35,7 @@ class AbstractUserFactory(DjangoModelFactory):
 
     class Meta:
         model = settings.AUTH_USER_MODEL
-        django_get_or_create = ('username',)
+        django_get_or_create = ("username",)
         abstract = True
 
 

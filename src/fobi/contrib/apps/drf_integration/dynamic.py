@@ -2,21 +2,16 @@ from __future__ import unicode_literals
 
 import copy
 from collections import Mapping, OrderedDict
-from django.core.exceptions import ValidationError as DjangoValidationError
 
+import six
+from django.core.exceptions import ValidationError as DjangoValidationError
 from django.utils.functional import cached_property
 from django.utils.translation import gettext_lazy as _
-
 from rest_framework.exceptions import ErrorDetail, ValidationError
-from rest_framework.fields import (
-    empty,
-    get_error_detail,
-    set_value,
-    SkipField,
-)
+from rest_framework.fields import SkipField, empty, get_error_detail, set_value
 from rest_framework.relations import PKOnlyObject
-from rest_framework.settings import api_settings
 from rest_framework.serializers import BaseSerializer
+from rest_framework.settings import api_settings
 from rest_framework.utils import html, representation
 from rest_framework.utils.serializer_helpers import (
     BindingDict,
@@ -25,18 +20,15 @@ from rest_framework.utils.serializer_helpers import (
     ReturnDict,
 )
 
-import six
-
 from . import UID as INTEGRATE_WITH_UID
 
-
-__title__ = 'fobi.contrib.apps.drf_integration.dynamic'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
+__title__ = "fobi.contrib.apps.drf_integration.dynamic"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
 __all__ = (
-    'assemble_serializer_class',
-    'get_declared_fields',
+    "assemble_serializer_class",
+    "get_declared_fields",
 )
 
 # ****************************************************************************
@@ -46,40 +38,39 @@ __all__ = (
 # ****************************************************************************
 
 
-def get_declared_fields(form_entry,
-                        request=None,
-                        origin=None,
-                        origin_kwargs_update_func=None,
-                        origin_return_func=None,
-                        form_element_entries=None,
-                        has_value=None):
+def get_declared_fields(
+    form_entry,
+    request=None,
+    origin=None,
+    origin_kwargs_update_func=None,
+    origin_return_func=None,
+    form_element_entries=None,
+    has_value=None,
+):
     """Get declared fields."""
     declared_fields = []
     declared_fields_metadata = []
     if form_element_entries is None:
         form_element_entries = form_entry.formelemententry_set.all()
 
-    for creation_counter, form_element_entry \
-            in enumerate(form_element_entries):
+    for creation_counter, form_element_entry in enumerate(form_element_entries):
         plugin = form_element_entry.get_plugin(request=request)
 
         # We simply make sure the plugin exists. We don't handle
         # exceptions relate to the non-existent plugins here. They
         # are instead handled in registry.
         if plugin:
-            plugin_custom_field_instances = \
-                plugin._get_custom_field_instances(
-                    integrate_with=INTEGRATE_WITH_UID,
-                    form_element_entry=form_element_entry,
-                    origin=origin,
-                    kwargs_update_func=origin_kwargs_update_func,
-                    return_func=origin_return_func,
-                    extra={'counter': creation_counter},
-                    request=request,
-                    has_value=has_value
-                )
-            for plugin_custom_field_instance \
-                    in plugin_custom_field_instances:
+            plugin_custom_field_instances = plugin._get_custom_field_instances(
+                integrate_with=INTEGRATE_WITH_UID,
+                form_element_entry=form_element_entry,
+                origin=origin,
+                kwargs_update_func=origin_kwargs_update_func,
+                return_func=origin_return_func,
+                extra={"counter": creation_counter},
+                request=request,
+                has_value=has_value,
+            )
+            for plugin_custom_field_instance in plugin_custom_field_instances:
 
                 # The serializer field class
                 custom_field_class = plugin_custom_field_instance.field_class(
@@ -92,7 +83,7 @@ def get_declared_fields(form_entry,
                 declared_fields_metadata.append(
                     (
                         plugin_custom_field_instance.data.name,
-                        plugin_custom_field_instance.field_metadata
+                        plugin_custom_field_instance.field_metadata,
                     )
                 )
 
@@ -106,15 +97,17 @@ def get_declared_fields(form_entry,
     return OrderedDict(declared_fields), OrderedDict(declared_fields_metadata)
 
 
-def assemble_serializer_class(form_entry,
-                              request=None,
-                              origin=None,
-                              origin_kwargs_update_func=None,
-                              origin_return_func=None,
-                              form_element_entries=None,
-                              has_value=None,
-                              declared_fields=None,
-                              declared_fields_metadata=None):
+def assemble_serializer_class(
+    form_entry,
+    request=None,
+    origin=None,
+    origin_kwargs_update_func=None,
+    origin_return_func=None,
+    form_element_entries=None,
+    has_value=None,
+    declared_fields=None,
+    declared_fields_metadata=None,
+):
     """Assemble a serializer class by given entry.
 
     :param form_entry:
@@ -177,7 +170,7 @@ def assemble_serializer_class(form_entry,
             origin_return_func=origin_return_func,
             request=request,
             form_element_entries=form_element_entries,
-            has_value=has_value
+            has_value=has_value,
         )
 
     # Most of the code below has been copied from rest_framework.serializers
@@ -198,10 +191,10 @@ def assemble_serializer_class(form_entry,
         def _get_declared_fields(cls, bases, attrs):
             """Modified version of the original _get_declared_fields."""
             fields = [
-                 (field_name, obj) for field_name, obj
-                 in declared_fields.items()
-                 if field_name not in attrs
-             ]
+                (field_name, obj)
+                for field_name, obj in declared_fields.items()
+                if field_name not in attrs
+            ]
 
             return OrderedDict(fields)
 
@@ -209,8 +202,8 @@ def assemble_serializer_class(form_entry,
         def _get_declared_fields_metadata(cls, bases, attrs):
             """Similar to _get_declared_fields, but for metadata."""
             fields = [
-                (field_name, obj) for field_name, obj
-                in declared_fields_metadata.items()
+                (field_name, obj)
+                for field_name, obj in declared_fields_metadata.items()
                 if field_name not in attrs
             ]
 
@@ -218,13 +211,13 @@ def assemble_serializer_class(form_entry,
 
         def __new__(cls, name, bases, attrs):
             """Modified version of the original __new__."""
-            attrs['_declared_fields'] = cls._get_declared_fields(bases, attrs)
-            attrs['_declared_fields_metadata'] = \
-                cls._get_declared_fields_metadata(bases, attrs)
-            return super(SerializerMetaclass, cls).__new__(cls,
-                                                           name,
-                                                           bases,
-                                                           attrs)
+            attrs["_declared_fields"] = cls._get_declared_fields(bases, attrs)
+            attrs[
+                "_declared_fields_metadata"
+            ] = cls._get_declared_fields_metadata(bases, attrs)
+            return super(SerializerMetaclass, cls).__new__(
+                cls, name, bases, attrs
+            )
 
     def as_serializer_error(exc):
         assert isinstance(exc, (ValidationError, DjangoValidationError))
@@ -244,19 +237,16 @@ def assemble_serializer_class(form_entry,
             }
         elif isinstance(detail, list):
             # Errors raised as a list are non-field errors.
-            return {
-                api_settings.NON_FIELD_ERRORS_KEY: detail
-            }
+            return {api_settings.NON_FIELD_ERRORS_KEY: detail}
         # Errors raised as a string are non-field errors.
-        return {
-            api_settings.NON_FIELD_ERRORS_KEY: [detail]
-        }
+        return {api_settings.NON_FIELD_ERRORS_KEY: [detail]}
 
     @six.add_metaclass(SerializerMetaclass)
     class Serializer(BaseSerializer):
         default_error_messages = {
-            'invalid': _(
-                'Invalid data. Expected a dictionary, but got {datatype}.')
+            "invalid": _(
+                "Invalid data. Expected a dictionary, but got {datatype}."
+            )
         }
 
         @property
@@ -267,7 +257,7 @@ def assemble_serializer_class(form_entry,
             # `fields` is evaluated lazily. We do this to ensure that we don't
             # have issues importing modules that use ModelSerializers as
             # fields, even if Django's app-loading stage has not yet run.
-            if not hasattr(self, '_fields'):
+            if not hasattr(self, "_fields"):
                 self._fields = BindingDict(self)
                 for key, value in self.get_fields().items():
                     self._fields[key] = value
@@ -276,7 +266,8 @@ def assemble_serializer_class(form_entry,
         @cached_property
         def _writable_fields(self):
             return [
-                field for field in self.fields.values()
+                field
+                for field in self.fields.values()
                 if (not field.read_only) or (field.default is not empty)
             ]
 
@@ -314,33 +305,25 @@ def assemble_serializer_class(form_entry,
             Returns a list of validator callables.
             """
             # Used by the lazily-evaluated `validators` property.
-            meta = getattr(self, 'Meta', None)
-            validators = getattr(meta, 'validators', None)
+            meta = getattr(self, "Meta", None)
+            validators = getattr(meta, "validators", None)
             return validators[:] if validators else []
 
         def get_initial(self):
-            if hasattr(self, 'initial_data'):
+            if hasattr(self, "initial_data"):
                 return OrderedDict(
                     [
-                        (
-                            field_name,
-                            field.get_value(self.initial_data)
-                        )
-                        for field_name, field
-                        in self.fields.items()
-                        if (
-                            field.get_value(self.initial_data) is not empty
-                        ) and not field.read_only
+                        (field_name, field.get_value(self.initial_data))
+                        for field_name, field in self.fields.items()
+                        if (field.get_value(self.initial_data) is not empty)
+                        and not field.read_only
                     ]
                 )
 
             return OrderedDict(
                 [
-                    (
-                        field.field_name, field.get_initial()
-                    )
-                    for field
-                    in self.fields.values()
+                    (field.field_name, field.get_initial())
+                    for field in self.fields.values()
                     if not field.read_only
                 ]
             )
@@ -349,9 +332,10 @@ def assemble_serializer_class(form_entry,
             # We override the default field access in order to support
             # nested HTML forms.
             if html.is_html_input(dictionary):
-                return html.parse_html_dict(
-                    dictionary, prefix=self.field_name
-                ) or empty
+                return (
+                    html.parse_html_dict(dictionary, prefix=self.field_name)
+                    or empty
+                )
             return dictionary.get(self.field_name, empty)
 
         def run_validation(self, data=empty):
@@ -368,8 +352,9 @@ def assemble_serializer_class(form_entry,
             try:
                 self.run_validators(value)
                 value = self.validate(value)
-                assert value is not None, '.validate() should return the ' \
-                                          'validated data'
+                assert value is not None, (
+                    ".validate() should return the " "validated data"
+                )
             except (ValidationError, DjangoValidationError) as exc:
                 raise ValidationError(detail=as_serializer_error(exc))
 
@@ -380,21 +365,22 @@ def assemble_serializer_class(form_entry,
             Dict of native values <- Dict of primitive datatypes.
             """
             if not isinstance(data, Mapping):
-                message = self.error_messages['invalid'].format(
+                message = self.error_messages["invalid"].format(
                     datatype=type(data).__name__
                 )
-                raise ValidationError({
-                    api_settings.NON_FIELD_ERRORS_KEY: [message]
-                }, code='invalid')
+                raise ValidationError(
+                    {api_settings.NON_FIELD_ERRORS_KEY: [message]},
+                    code="invalid",
+                )
 
             ret = OrderedDict()
             errors = OrderedDict()
             fields = self._writable_fields
 
             for field in fields:
-                validate_method = getattr(self,
-                                          'validate_' + field.field_name,
-                                          None)
+                validate_method = getattr(
+                    self, "validate_" + field.field_name, None
+                )
                 primitive_value = field.get_value(data)
                 try:
                     validated_value = field.run_validation(primitive_value)
@@ -432,9 +418,11 @@ def assemble_serializer_class(form_entry,
                 #
                 # For related fields with `use_pk_only_optimization` we need to
                 # resolve the pk value.
-                check_for_none = attribute.pk \
-                    if isinstance(attribute, PKOnlyObject) \
+                check_for_none = (
+                    attribute.pk
+                    if isinstance(attribute, PKOnlyObject)
                     else attribute
+                )
 
                 if check_for_none is None:
                     ret[field.field_name] = None
@@ -460,7 +448,7 @@ def assemble_serializer_class(form_entry,
         def __getitem__(self, key):
             field = self.fields[key]
             value = self.data.get(key)
-            error = self.errors.get(key) if hasattr(self, '_errors') else None
+            error = self.errors.get(key) if hasattr(self, "_errors") else None
             if isinstance(field, Serializer):
                 return NestedBoundField(field, value, error)
             return BoundField(field, value, error)
@@ -476,13 +464,15 @@ def assemble_serializer_class(form_entry,
         @property
         def errors(self):
             ret = super(Serializer, self).errors
-            if isinstance(ret, list) \
-                    and len(ret) == 1 \
-                    and getattr(ret[0], 'code', None) == 'null':
+            if (
+                isinstance(ret, list)
+                and len(ret) == 1
+                and getattr(ret[0], "code", None) == "null"
+            ):
 
                 # Edge case. Provide a more descriptive error than
                 # "this field may not be null", when no data is passed.
-                detail = ErrorDetail('No data provided', code='null')
+                detail = ErrorDetail("No data provided", code="null")
                 ret = {api_settings.NON_FIELD_ERRORS_KEY: [detail]}
             return ReturnDict(ret, serializer=self)
 

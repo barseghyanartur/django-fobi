@@ -1,10 +1,9 @@
 import json
 
 from django.core.mail import send_mail
+from sample_mail.forms import SampleMailForm
 
 from fobi.base import FormHandlerPlugin, form_handler_plugin_registry
-
-from sample_mail.forms import SampleMailForm
 
 
 class SampleMailHandlerPlugin(FormHandlerPlugin):
@@ -20,7 +19,7 @@ class SampleMailHandlerPlugin(FormHandlerPlugin):
             json.dumps(form.cleaned_data),
             self.data.from_email,
             [self.data.to_email],
-            fail_silently=True
+            fail_silently=True,
         )
 
     def plugin_data_repr(self):

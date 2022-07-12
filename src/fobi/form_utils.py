@@ -4,13 +4,13 @@ from django.forms.utils import (
 )
 from django.utils.encoding import force_str
 
-__title__ = 'fobi.form_utils'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
+__title__ = "fobi.form_utils"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
 __all__ = (
-    'ErrorDict',
-    'ErrorList',
+    "ErrorDict",
+    "ErrorList",
 )
 
 
@@ -19,9 +19,11 @@ class ErrorDict(DjangoErrorDict):
 
     def as_text(self):
         """As text."""
-        return '\n'.join(
-            [' %s\n%s' % (k, '\n'.join([' %s' % force_str(i) for i in v]))
-             for k, v in self.items()]
+        return "\n".join(
+            [
+                " %s\n%s" % (k, "\n".join([" %s" % force_str(i) for i in v]))
+                for k, v in self.items()
+            ]
         )
 
 
@@ -31,5 +33,5 @@ class ErrorList(DjangoErrorList):
     def as_text(self):
         """As text."""
         if not self:
-            return ''
-        return '\n'.join([' %s' % force_str(e) for e in self])
+            return ""
+        return "\n".join([" %s" % force_str(e) for e in self])

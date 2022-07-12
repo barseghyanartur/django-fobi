@@ -4,20 +4,18 @@ from .....helpers import safe_text
 from .helpers import send_mail
 from .mixins import MailHandlerMixin
 from .settings import (
-    AUTO_MAIL_TO,
     AUTO_MAIL_BODY,
     AUTO_MAIL_FROM,
     AUTO_MAIL_SUBJECT,
+    AUTO_MAIL_TO,
     MULTI_EMAIL_FIELD_VALUE_SPLITTER,
 )
 
-__title__ = 'fobi.contrib.plugins.form_handlers.mail.callbacks'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = (
-    'AutoFormMail',
-)
+__title__ = "fobi.contrib.plugins.form_handlers.mail.callbacks"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("AutoFormMail",)
 
 
 class AutoFormMail(FormCallback, MailHandlerMixin):
@@ -50,14 +48,11 @@ class AutoFormMail(FormCallback, MailHandlerMixin):
 
         # Clean up the values, leave our content fields and empty values.
         field_name_to_label_map, cleaned_data = get_processed_form_data(
-            form,
-            form_element_entries
+            form, form_element_entries
         )
 
         rendered_data = self.get_rendered_data(
-            cleaned_data,
-            field_name_to_label_map,
-            base_url
+            cleaned_data, field_name_to_label_map, base_url
         )
 
         files = self._prepare_files(request, form)
@@ -74,18 +69,15 @@ class AutoFormMail(FormCallback, MailHandlerMixin):
             to_email = AUTO_MAIL_TO
         else:
             # Assume that it's string
-            to_email = AUTO_MAIL_TO.split(
-                MULTI_EMAIL_FIELD_VALUE_SPLITTER
-            )
+            to_email = AUTO_MAIL_TO.split(MULTI_EMAIL_FIELD_VALUE_SPLITTER)
 
         send_mail(
             safe_text(AUTO_MAIL_SUBJECT),
             "{0}\n\n{1}".format(
-                safe_text(AUTO_MAIL_BODY),
-                ''.join(rendered_data)
+                safe_text(AUTO_MAIL_BODY), "".join(rendered_data)
             ),
             AUTO_MAIL_FROM,
             to_email,
             fail_silently=False,
-            attachments=files.values()
+            attachments=files.values(),
         )

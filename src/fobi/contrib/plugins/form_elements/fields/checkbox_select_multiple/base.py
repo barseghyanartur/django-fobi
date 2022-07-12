@@ -2,22 +2,24 @@ from django.forms.fields import MultipleChoiceField
 from django.forms.widgets import CheckboxSelectMultiple
 from django.utils.translation import gettext_lazy as _
 
-from fobi.base import FormFieldPlugin, get_theme
-from fobi.constants import SUBMIT_VALUE_AS_VAL, SUBMIT_VALUE_AS_REPR
-from fobi.helpers import get_select_field_choices, safe_text
-
 from . import UID
 from .forms import CheckboxSelectMultipleInputForm
 from .settings import SUBMIT_VALUE_AS
 
+from fobi.base import FormFieldPlugin, get_theme
+from fobi.constants import SUBMIT_VALUE_AS_REPR, SUBMIT_VALUE_AS_VAL
+from fobi.helpers import get_select_field_choices, safe_text
+
 theme = get_theme(request=None, as_instance=True)
 
-__title__ = 'fobi.contrib.plugins.form_elements.fields.' \
-            'checkbox_select_multiple.fobi_form_elements'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('CheckboxSelectMultipleInputPlugin',)
+__title__ = (
+    "fobi.contrib.plugins.form_elements.fields."
+    "checkbox_select_multiple.fobi_form_elements"
+)
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("CheckboxSelectMultipleInputPlugin",)
 
 
 class CheckboxSelectMultipleInputPlugin(FormFieldPlugin):
@@ -28,19 +30,20 @@ class CheckboxSelectMultipleInputPlugin(FormFieldPlugin):
     group = _("Fields")
     form = CheckboxSelectMultipleInputForm
 
-    def get_form_field_instances(self, request=None, form_entry=None,
-                                 form_element_entries=None, **kwargs):
+    def get_form_field_instances(
+        self, request=None, form_entry=None, form_element_entries=None, **kwargs
+    ):
         """Get form field instances."""
         choices = self.get_choices()
 
         field_kwargs = {
-            'label': self.data.label,
-            'help_text': self.data.help_text,
-            'initial': self.data.initial,
-            'required': self.data.required,
-            'choices': choices,
-            'widget': CheckboxSelectMultiple(
-                attrs={'class': theme.form_element_html_class}
+            "label": self.data.label,
+            "help_text": self.data.help_text,
+            "initial": self.data.initial,
+            "required": self.data.required,
+            "choices": choices,
+            "widget": CheckboxSelectMultiple(
+                attrs={"class": theme.form_element_html_class}
             ),
         }
 
@@ -93,12 +96,9 @@ class CheckboxSelectMultipleInputPlugin(FormFieldPlugin):
             # ``cleaned_data``
             return cleaned_data
 
-    def submit_plugin_form_data(self,
-                                form_entry,
-                                request,
-                                form,
-                                form_element_entries=None,
-                                **kwargs):
+    def submit_plugin_form_data(
+        self, form_entry, request, form, form_element_entries=None, **kwargs
+    ):
         """Submit plugin form data/process.
 
         :param fobi.models.FormEntry form_entry: Instance of

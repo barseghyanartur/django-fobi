@@ -99,6 +99,7 @@ templates = {
 # Context for virtualenv and project #
 ######################################
 
+
 @contextmanager
 def virtualenv():
     """
@@ -152,6 +153,7 @@ def update_changed_requirements():
 # Utils and wrappers for various commands #
 ###########################################
 
+
 def _print(output):
     print()
     print(output)
@@ -159,9 +161,11 @@ def _print(output):
 
 
 def print_command(command):
-    _print(blue("$ ", bold=True) +
-           yellow(command, bold=True) +
-           red(" ->", bold=True))
+    _print(
+        blue("$ ", bold=True)
+        + yellow(command, bold=True)
+        + red(" ->", bold=True)
+    )
 
 
 @task
@@ -192,6 +196,7 @@ def log_call(func):
         header = "-" * len(func.__name__)
         _print(green("\n".join([header, func.__name__, header]), bold=True))
         return func(*args, **kawrgs)
+
     return logged
 
 
@@ -308,7 +313,7 @@ def python(code, show=True):
     """
     Runs Python code in the project's virtual environment, with Django loaded.
     """
-    setup = "import os; os.environ[\'DJANGO_SETTINGS_MODULE\']=\'settings\';"
+    setup = "import os; os.environ['DJANGO_SETTINGS_MODULE']='settings';"
     full_code = 'python -c "%s%s"' % (setup, code.replace("`", "\\\`"))
     with project():
         result = run(full_code, show=False)
@@ -321,8 +326,10 @@ def static():
     """
     Returns the live STATIC_ROOT directory.
     """
-    return python("from django.conf import settings;"
-                  "print settings.STATIC_ROOT", show=False).split("\n")[-1]
+    return python(
+        "from django.conf import settings;" "print settings.STATIC_ROOT",
+        show=False,
+    ).split("\n")[-1]
 
 
 @task
@@ -337,6 +344,7 @@ def manage(command):
 # Install and configure #
 #########################
 
+
 @task
 @log_call
 def install():
@@ -349,8 +357,10 @@ def install():
             sudo("update-locale %s" % locale)
             run("exit")
     sudo("apt-get update -y -q")
-    apt("nginx libjpeg-dev python-dev python-setuptools git-core "
-        "postgresql libpq-dev memcached supervisor")
+    apt(
+        "nginx libjpeg-dev python-dev python-setuptools git-core "
+        "postgresql libpq-dev memcached supervisor"
+    )
     sudo("easy_install pip")
     sudo("pip install virtualenv mercurial")
 
@@ -368,9 +378,10 @@ def create():
     # Create virtualenv
     with cd(env.venv_home):
         if exists(env.proj_name):
-            prompt = input("\nVirtualenv exists: %s"
-                           "\nWould you like to replace it? (yes/no) "
-                           % env.proj_name)
+            prompt = input(
+                "\nVirtualenv exists: %s"
+                "\nWould you like to replace it? (yes/no) " % env.proj_name
+            )
             if prompt.lower() != "yes":
                 print("\nAborting!")
                 return False
@@ -381,14 +392,16 @@ def create():
 
     # Create DB and DB user.
     pw = db_pass()
-    user_sql_args = (env.proj_name, pw.replace("'", "\'"))
+    user_sql_args = (env.proj_name, pw.replace("'", "'"))
     user_sql = "CREATE USER %s WITH ENCRYPTED PASSWORD '%s';" % user_sql_args
     psql(user_sql, show=False)
     shadowed = "*" * len(pw)
     print_command(user_sql.replace("'%s'" % pw, "'%s'" % shadowed))
-    psql("CREATE DATABASE %s WITH OWNER %s ENCODING = 'UTF8' "
-         "LC_CTYPE = '%s' LC_COLLATE = '%s' TEMPLATE template0;" %
-         (env.proj_name, env.proj_name, env.locale, env.locale))
+    psql(
+        "CREATE DATABASE %s WITH OWNER %s ENCODING = 'UTF8' "
+        "LC_CTYPE = '%s' LC_COLLATE = '%s' TEMPLATE template0;"
+        % (env.proj_name, env.proj_name, env.locale, env.locale)
+    )
 
     # Set up SSL certificate.
     if not env.ssl_disabled:
@@ -400,12 +413,14 @@ def create():
             key_file = env.proj_name + ".key"
             if not exists(crt_file) and not exists(key_file):
                 try:
-                    crt_local, = glob(join("deploy", "*.crt"))
-                    key_local, = glob(join("deploy", "*.key"))
+                    (crt_local,) = glob(join("deploy", "*.crt"))
+                    (key_local,) = glob(join("deploy", "*.key"))
                 except ValueError:
                     parts = (crt_file, key_file, env.domains[0])
-                    sudo("openssl req -new -x509 -nodes -out %s -keyout %s "
-                         "-subj '/CN=%s' -days 3650" % parts)
+                    sudo(
+                        "openssl req -new -x509 -nodes -out %s -keyout %s "
+                        "-subj '/CN=%s' -days 3650" % parts
+                    )
                 else:
                     upload_template(crt_local, crt_file, use_sudo=True)
                     upload_template(key_local, key_file, use_sudo=True)
@@ -415,24 +430,32 @@ def create():
     with project():
         if env.reqs_path:
             pip("-r %s/%s" % (env.proj_path, env.reqs_path))
-        pip("gunicorn setproctitle south psycopg2 "
-            "django-compressor python-memcached")
+        pip(
+            "gunicorn setproctitle south psycopg2 "
+            "django-compressor python-memcached"
+        )
         manage("createdb --noinput --nodata")
-        python("from django.conf import settings;"
-               "from django.contrib.sites.models import Site;"
-               "Site.objects.filter(id=settings.SITE_ID).update(domain='%s');"
-               % env.domains[0])
+        python(
+            "from django.conf import settings;"
+            "from django.contrib.sites.models import Site;"
+            "Site.objects.filter(id=settings.SITE_ID).update(domain='%s');"
+            % env.domains[0]
+        )
         for domain in env.domains:
-            python("from django.contrib.sites.models import Site;"
-                   "Site.objects.get_or_create(domain='%s');" % domain)
+            python(
+                "from django.contrib.sites.models import Site;"
+                "Site.objects.get_or_create(domain='%s');" % domain
+            )
         if env.admin_pass:
             pw = env.admin_pass
-            user_py = ("from mezzanine.utils.models import get_user_model;"
-                       "User = get_user_model();"
-                       "u, _ = User.objects.get_or_create(username='admin');"
-                       "u.is_staff = u.is_superuser = True;"
-                       "u.set_password('%s');"
-                       "u.save();" % pw)
+            user_py = (
+                "from mezzanine.utils.models import get_user_model;"
+                "User = get_user_model();"
+                "u, _ = User.objects.get_or_create(username='admin');"
+                "u.is_staff = u.is_superuser = True;"
+                "u.set_password('%s');"
+                "u.save();" % pw
+            )
             python(user_py, show=False)
             shadowed = "*" * len(pw)
             print_command(user_py.replace("'%s'" % pw, "'%s'" % shadowed))
@@ -460,6 +483,7 @@ def remove():
 # Deployment #
 ##############
 
+
 @task
 @log_call
 def restart():
@@ -485,9 +509,10 @@ def deploy():
     processes for the project.
     """
     if not exists(env.venv_path):
-        prompt = input("\nVirtualenv doesn't exist: %s"
-                       "\nWould you like to create it? (yes/no) "
-                       % env.proj_name)
+        prompt = input(
+            "\nVirtualenv doesn't exist: %s"
+            "\nWould you like to create it? (yes/no) " % env.proj_name
+        )
         if prompt.lower() != "yes":
             print("\nAborting!")
             return False

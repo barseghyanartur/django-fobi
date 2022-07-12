@@ -4,22 +4,19 @@ from django.forms.fields import ChoiceField
 from django.forms.widgets import Select
 from django.utils.translation import gettext_lazy as _
 
-from fobi.base import FormFieldPlugin, get_theme
-from fobi.constants import (
-    SUBMIT_VALUE_AS_VAL,
-    SUBMIT_VALUE_AS_REPR,
-)
-from fobi.helpers import get_select_field_choices, safe_text
-
 from . import UID
 from .forms import SelectInputForm
 from .settings import SUBMIT_VALUE_AS
 
-__title__ = 'fobi.contrib.plugins.form_elements.fields.select.base'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('SelectInputPlugin',)
+from fobi.base import FormFieldPlugin, get_theme
+from fobi.constants import SUBMIT_VALUE_AS_REPR, SUBMIT_VALUE_AS_VAL
+from fobi.helpers import get_select_field_choices, safe_text
+
+__title__ = "fobi.contrib.plugins.form_elements.fields.select.base"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("SelectInputPlugin",)
 
 theme = get_theme(request=None, as_instance=True)
 
@@ -32,18 +29,19 @@ class SelectInputPlugin(FormFieldPlugin):
     group = _("Fields")
     form = SelectInputForm
 
-    def get_form_field_instances(self, request=None, form_entry=None,
-                                 form_element_entries=None, **kwargs):
+    def get_form_field_instances(
+        self, request=None, form_entry=None, form_element_entries=None, **kwargs
+    ):
         """Get form field instances."""
         choices = self.get_choices()
 
         field_kwargs = {
-            'label': self.data.label,
-            'help_text': self.data.help_text,
-            'initial': self.data.initial,
-            'required': self.data.required,
-            'choices': choices,
-            'widget': Select(attrs={'class': theme.form_element_html_class}),
+            "label": self.data.label,
+            "help_text": self.data.help_text,
+            "initial": self.data.initial,
+            "required": self.data.required,
+            "choices": choices,
+            "widget": Select(attrs={"class": theme.form_element_html_class}),
         }
 
         return [(self.data.name, ChoiceField, field_kwargs)]
@@ -55,8 +53,9 @@ class SelectInputPlugin(FormFieldPlugin):
         """
         return get_select_field_choices(self.data.choices)
 
-    def submit_plugin_form_data(self, form_entry, request, form,
-                                form_element_entries=None, **kwargs):
+    def submit_plugin_form_data(
+        self, form_entry, request, form, form_element_entries=None, **kwargs
+    ):
         """Submit plugin form data/process.
 
         :param fobi.models.FormEntry form_entry: Instance of

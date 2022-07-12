@@ -2,11 +2,11 @@ import copy
 
 import six
 
-__title__ = 'fobi.data_structures'
-__author__ = 'Artur Barseghyan <artur.barseghyan@gmail.com>'
-__copyright__ = '2014-2019 Artur Barseghyan'
-__license__ = 'GPL 2.0/LGPL 2.1'
-__all__ = ('SortableDict', )
+__title__ = "fobi.data_structures"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("SortableDict",)
 
 
 class SortableDict(dict):
@@ -41,8 +41,9 @@ class SortableDict(dict):
                 super_set(key, value)
 
     def __deepcopy__(self, memo):
-        return self.__class__([(key, copy.deepcopy(value, memo))
-                               for key, value in self.items()])
+        return self.__class__(
+            [(key, copy.deepcopy(value, memo)) for key, value in self.items()]
+        )
 
     def __copy__(self):
         # The Python's default copy implementation will alter the state
@@ -152,8 +153,9 @@ class SortableDict(dict):
         Replaces the normal dict.__repr__ with a version that returns the keys
         in their sorted order.
         """
-        return '{%s}' % ', '.join(['%r: %r' % (key, val)
-                                   for key, val in six.iteritems(self)])
+        return "{%s}" % ", ".join(
+            ["%r: %r" % (key, val) for key, val in six.iteritems(self)]
+        )
 
     def clear(self):
         """Clear."""
@@ -164,9 +166,9 @@ class SortableDict(dict):
     # ************************** Additional methods ***************************
     # *************************************************************************
 
-    def insert_before_key(self, target_key, key, value,
-                          fail_silently=True,
-                          offset=0):
+    def insert_before_key(
+        self, target_key, key, value, fail_silently=True, offset=0
+    ):
         """Insert the {``key``: ``value``} before the ``target_key``.
 
         :param immutable target_key:
@@ -197,15 +199,17 @@ class SortableDict(dict):
         :param int offset:
         :return bool:
         """
-        return self.insert_before_key(target_key=target_key,
-                                      key=key,
-                                      value=value,
-                                      fail_silently=fail_silently,
-                                      offset=1)
+        return self.insert_before_key(
+            target_key=target_key,
+            key=key,
+            value=value,
+            fail_silently=fail_silently,
+            offset=1,
+        )
 
-    def move_before_key(self, source_key, target_key,
-                        fail_silently=True,
-                        offset=0):
+    def move_before_key(
+        self, source_key, target_key, fail_silently=True, offset=0
+    ):
         """Move the {``key``: ``value``} before the given ``source_key``.
 
         :param immutable source_key:
@@ -216,12 +220,17 @@ class SortableDict(dict):
         """
         if target_key in self.key_order and source_key in self.key_order:
             source_value = self.pop(source_key)
-            return self.insert_before_key(target_key, source_key, source_value,
-                                          fail_silently=True,
-                                          offset=offset)
+            return self.insert_before_key(
+                target_key,
+                source_key,
+                source_value,
+                fail_silently=True,
+                offset=offset,
+            )
         elif not fail_silently:
-            raise ValueError("Non existing keys: {0}, {1}.".format(source_key,
-                                                                   target_key))
+            raise ValueError(
+                "Non existing keys: {0}, {1}.".format(source_key, target_key)
+            )
         else:
             return False
 
@@ -233,7 +242,9 @@ class SortableDict(dict):
         :param boolean fail_silently:
         :return bool:
         """
-        return self.move_before_key(source_key=source_key,
-                                    target_key=target_key,
-                                    fail_silently=fail_silently,
-                                    offset=1)
+        return self.move_before_key(
+            source_key=source_key,
+            target_key=target_key,
+            fail_silently=fail_silently,
+            offset=1,
+        )
