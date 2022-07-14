@@ -1609,6 +1609,20 @@ class ViewFormEntryView(AbstractViewFormEntryView):
             form_cls,
         )
 
+    def get_initial_data(self, request, form_entry):
+        """Get initial data.
+
+        :param request: HTTP request.
+        :param form_entry: Form entry object.
+        :return: Dictionary with initial form data.
+        """
+        # Providing initial form data by feeding entire GET dictionary
+        # to the form, if ``GET_PARAM_INITIAL_DATA`` is present in the
+        # GET.
+        if GET_PARAM_INITIAL_DATA in request.GET:
+            return {"initial": request.GET}
+        return {}
+
     def inactive_form_response(self, request, form_entry):
         context = {
             "form_entry": form_entry,
@@ -1650,12 +1664,8 @@ class ViewFormEntryView(AbstractViewFormEntryView):
             request,
         )
 
-        # Providing initial form data by feeding entire GET dictionary
-        # to the form, if ``GET_PARAM_INITIAL_DATA`` is present in the
-        # GET.
-        kwargs = {}
-        if GET_PARAM_INITIAL_DATA in request.GET:
-            kwargs = {"initial": request.GET}
+        # Get initial data.
+        kwargs = self.get_initial_data(request, form_entry)
         form = form_cls(**kwargs)
 
         # In debug mode, try to identify possible problems.
