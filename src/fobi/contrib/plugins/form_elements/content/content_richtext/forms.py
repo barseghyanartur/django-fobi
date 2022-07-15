@@ -52,7 +52,8 @@ class ContentRichTextForm(forms.Form, BasePluginForm):
         )
         
         if BLEACH_VERSION > '5.0.0':
-            css_sanitizer = bleach.css_sanitizer.CSSSanitizer(allowed_css_properties=getattr(
+            from bleach.css_sanitizer import CSSSanitizer
+            css_sanitizer = CSSSanitizer(allowed_css_properties=getattr(
                 settings,
                 "FOBI_PLUGIN_CONTENT_RICHTEXT_ALLOWED_STYLES",
                 bleach.css_sanitizer.ALLOWED_CSS_PROPERTIES,
