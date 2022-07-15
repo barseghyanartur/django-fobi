@@ -9,8 +9,11 @@ try:
     import bleach
 
     BLEACH_INSTALLED = True
+    BLEACH_VERSION = bleach.__version__
 except ImportError:
     BLEACH_INSTALLED = False
+    BLEACH_VERSION = False
+   
 
 __title__ = "fobi.contrib.plugins.form_elements.content.content_richtext.forms"
 __author__ = "Frantisek Holop <fholop@ripe.net>"
@@ -47,17 +50,35 @@ class ContentRichTextForm(forms.Form, BasePluginForm):
             "FOBI_PLUGIN_CONTENT_RICHTEXT_ALLOWED_ATTRIBUTES",
             bleach.ALLOWED_ATTRIBUTES,
         )
-        allowed_styles = getattr(
-            settings,
-            "FOBI_PLUGIN_CONTENT_RICHTEXT_ALLOWED_STYLES",
-            bleach.ALLOWED_STYLES,
-        )
+        
+        if BLEACH_VERSION > '5.0.0':
+            css_sanitizer = bleach.css_sanitizer.CSSSanitizer(allowed_css_properties=getattr(
+                settings,
+                "FOBI_PLUGIN_CONTENT_RICHTEXT_ALLOWED_STYLES",
+                bleach.css_sanitizer.ALLOWED_CSS_PROPERTIES,
+            ))
+            return bleach.clean(
+                text=self.cleaned_data["text"],
+                tags=allowed_tags,
+                attributes=allowed_attrs,
+                strip=True,
+                strip_comments=True,
+                css_sanitizer=css_sanitizer
+            )
+            
+        else:
+        
+            allowed_styles = getattr(
+                settings,
+                "FOBI_PLUGIN_CONTENT_RICHTEXT_ALLOWED_STYLES",
+                bleach.ALLOWED_STYLES,
+            )
 
-        return bleach.clean(
-            text=self.cleaned_data["text"],
-            tags=allowed_tags,
-            attributes=allowed_attrs,
-            styles=allowed_styles,
-            strip=True,
-            strip_comments=True,
-        )
+            return bleach.clean(
+                text=self.cleaned_data["text"],
+                tags=allowed_tags,
+                attributes=allowed_attrs,
+                styles=allowed_styles,
+                strip=True,
+                strip_comments=True,
+            )
