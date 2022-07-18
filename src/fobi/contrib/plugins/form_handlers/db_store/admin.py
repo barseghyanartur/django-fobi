@@ -24,7 +24,7 @@ __all__ = (
 class BaseSavedFormDataEntryAdmin(admin.ModelAdmin):
     """Base saved data entry admin."""
 
-    readonly_fields = ("created", "updated", "formatted_saved_data")
+    readonly_fields = ("created", "formatted_saved_data")
 
     actions = ["export_data"]
     only_args = []
@@ -65,13 +65,12 @@ class SavedFormDataEntryAdmin(BaseSavedFormDataEntryAdmin):
         "user",
         "formatted_saved_data",
         "created",
-        "updated"
     )
     list_filter = (
         "form_entry",
         "user",
     )
-    readonly_fields = ("created", "updated", "formatted_saved_data")
+    readonly_fields = ("created", "formatted_saved_data")
     fieldsets = (
         (
             None,
@@ -88,7 +87,6 @@ class SavedFormDataEntryAdmin(BaseSavedFormDataEntryAdmin):
                 "fields": (
                     "formatted_saved_data",
                     "created",
-                    "updated"
                 )
             },
         ),
@@ -139,13 +137,12 @@ class SavedFormWizardDataEntryAdmin(BaseSavedFormDataEntryAdmin):
         "user",
         "formatted_saved_data",
         "created",
-        "updated"
     )
     list_filter = (
         "form_wizard_entry",
         "user",
     )
-    readonly_fields = ("created", "updated", "formatted_saved_data")
+    readonly_fields = ("created", "formatted_saved_data")
     fieldsets = (
         (
             None,
@@ -162,7 +159,6 @@ class SavedFormWizardDataEntryAdmin(BaseSavedFormDataEntryAdmin):
                 "fields": (
                     "formatted_saved_data",
                     "created",
-                    "updated"
                 )
             },
         ),
