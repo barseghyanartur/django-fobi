@@ -46,9 +46,7 @@ class AbstractSavedFormDataEntry(models.Model):
     saved_data = models.TextField(_("Plugin data"), null=True, blank=True)
     
     created = models.DateTimeField(_("Date created"), auto_now_add=True)
-    updated = models.DateTimeField(
-        _("Updated"), null=True, blank=True, auto_now=True
-    )
+
     class Meta(object):
         """Meta options."""
 
