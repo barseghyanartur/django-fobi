@@ -44,7 +44,6 @@ class AbstractSavedFormDataEntry(models.Model):
         _("Form data headers"), null=True, blank=True
     )
     saved_data = models.TextField(_("Plugin data"), null=True, blank=True)
-    
     created = models.DateTimeField(_("Date created"), auto_now_add=True)
 
     class Meta(object):
