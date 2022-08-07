@@ -94,7 +94,7 @@ try:
     screenshots = screenshots.replace(
         ".. image:: _static",
         ".. figure:: https://github.com/barseghyanartur/django-fobi/raw/"
-        "master/docs/_static",
+        "main/docs/_static",
     )
 except:
     readme = ""

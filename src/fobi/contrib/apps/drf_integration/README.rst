@@ -478,13 +478,13 @@ Meta-data is passed to the ``DRFIntegrationFormElementPluginProcessor`` as
 ``field_metadata`` argument, which is supposed to be a dict.
 
 - `Example 1: content_image plugin
-  <https://github.com/barseghyanartur/django-fobi/blob/master/src/fobi/contrib/apps/drf_integration/form_elements/content/content_image/base.py#L54>`_
+  <https://github.com/barseghyanartur/django-fobi/blob/main/src/fobi/contrib/apps/drf_integration/form_elements/content/content_image/base.py#L54>`_
 
 - `Example 2: decimal plugin
-  <https://github.com/barseghyanartur/django-fobi/blob/master/src/fobi/contrib/apps/drf_integration/form_elements/fields/decimal/base.py#L86>`_
+  <https://github.com/barseghyanartur/django-fobi/blob/main/src/fobi/contrib/apps/drf_integration/form_elements/fields/decimal/base.py#L86>`_
 
 - `Example 3: text plugin
-  <https://github.com/barseghyanartur/django-fobi/blob/master/src/fobi/contrib/apps/drf_integration/form_elements/fields/text/base.py#L55>`_
+  <https://github.com/barseghyanartur/django-fobi/blob/main/src/fobi/contrib/apps/drf_integration/form_elements/fields/text/base.py#L55>`_
 
 Private forms would be only visible to authenticated users.
 

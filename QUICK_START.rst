@@ -10,7 +10,7 @@ several parts listed below::
 Part 1: standard Django installation
 ====================================
 Example project code available `here
-<https://github.com/barseghyanartur/django-fobi/tree/master/examples/quick_start>`_.
+<https://github.com/barseghyanartur/django-fobi/tree/main/examples/quick_start>`_.
 
 Installation and configuration
 ------------------------------

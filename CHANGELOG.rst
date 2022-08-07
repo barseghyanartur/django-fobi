@@ -1324,7 +1324,7 @@ Existing files
 2015-03-26
 
 - `Checkbox select multiple
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/checkbox_select_multiple>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/checkbox_select_multiple>`_
   field added.
 - Minor improvements (styling) in the Foundation 5 theme.
 - Initial configuration for tox tests.
@@ -1360,22 +1360,22 @@ Existing files
 2015-03-20
 
 - `Decimal
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/decimal>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/decimal>`_
   field added.
 - `Float
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/float>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/float>`_
   field added.
 - `Slug
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/slug>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/slug>`_
   field added.
 - `IP address
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/ip_address>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/ip_address>`_
   field added.
 - `Null boolean
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/null_boolean>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/null_boolean>`_
   field added.
 - `Time
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/time>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/time>`_
   field added.
 - From now on using `simplejson` package in favour of `json`, since it can
   handle decimal data.
