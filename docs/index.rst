@@ -222,12 +222,3 @@
 .. include:: ../src/fobi/wizard/README.rst
 .. include:: empty.rst
 .. include:: documentation.rst
-.. include:: empty.rst
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
