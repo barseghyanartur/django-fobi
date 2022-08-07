@@ -16,8 +16,8 @@ handling the submitted form data).
     :target: https://pypi.python.org/pypi/django-fobi/
     :alt: Supported Python versions
 
-.. image:: https://img.shields.io/travis/barseghyanartur/django-fobi/master.svg
-   :target: http://travis-ci.org/barseghyanartur/django-fobi
+.. image:: https://github.com/barseghyanartur/django-fobi/workflows/test/badge.svg
+   :target: https://github.com/barseghyanartur/django-fobi/actions?query=workflow%3Atest
    :alt: Build Status
 
 .. image:: https://readthedocs.org/projects/django-fobi/badge/?version=latest
@@ -767,7 +767,7 @@ Required imports.
 .. code-block:: python
 
     from django import forms
-    from django.utils.translation import ugettext_lazy as _
+    from django.utils.translation import gettext_lazy as _
     from fobi.base import BasePluginForm
 
 Defining the form for Sample mail handler plugin.
@@ -919,7 +919,7 @@ Required imports.
 
 .. code-block:: python
 
-    from django.utils.translation import ugettext_lazy as _
+    from django.utils.translation import gettext_lazy as _
     from fobi.form_importers import BaseFormImporter, form_importer_plugin_registry
     from fobi.contrib.plugins.form_elements import fields
     from path.to.sample_importer.views import SampleImporterWizardView
@@ -992,7 +992,7 @@ Required imports.
 .. code-block:: python
 
     from django import forms
-    from django.utils.translation import ugettext_lazy as _
+    from django.utils.translation import gettext_lazy as _
     from sample_service_api import sample_api  # Just an imaginary API client
 
 Defining the form for Sample importer plugin.
@@ -1035,9 +1035,9 @@ Required imports.
     from sample_service_api import sample_api  # Just an imaginary API client
 
     from django.shortcuts import redirect
-    from django.core.urlresolvers import reverse
+    from django.urls import reverse
     from django.contrib import messages
-    from django.utils.translation import ugettext_lazy as _
+    from django.utils.translation import gettext_lazy as _
 
     # For django LTE 1.8 import from `django.contrib.formtools.wizard.views`
     from formtools.wizard.views import SessionWizardView
@@ -1236,6 +1236,17 @@ Example:
           edit_form_entry_permissions
       )(request.user) and obj.user == request.user
 
+And then in your view:
+
+.. code-block:: python
+
+    from fobi.views.class_based import EditFormEntryView
+
+    class MyEditFormEntryView(EditFormEntryView):
+        """EditFormEntryView."""
+
+        permission_classes = (EditFormEntryPermission,)
+
 Suggestions
 ===========
 Custom action for the form
@@ -1328,7 +1339,7 @@ See the theme example below.
 
 .. code-block:: python
 
-    from django.utils.translation import ugettext_lazy as _
+    from django.utils.translation import gettext_lazy as _
 
     from fobi.base import BaseTheme, theme_registry
 
@@ -1667,7 +1678,7 @@ Define the form element plugin.
 
 .. code-block:: python
 
-    from django.utils.translation import ugettext_lazy as _
+    from django.utils.translation import gettext_lazy as _
 
     from rest_framework.fields import EmailField
 
@@ -1739,7 +1750,7 @@ Define the form handler plugin.
     import os
 
     from django.conf import settings
-    from django.utils.translation import ugettext_lazy as _
+    from django.utils.translation import gettext_lazy as _
 
     from fobi.base import IntegrationFormHandlerPlugin
     from fobi.helpers import extract_file_path
@@ -2578,7 +2589,8 @@ GPL-2.0-only OR LGPL-2.1-or-later
 
 Support
 =======
-For any issues contact me at the e-mail given in the `Author`_ section.
+For any security issues contact me at the e-mail given in the `Author`_ section.
+For overall issues, go to `GitHub <https://github.com/barseghyanartur/django-fobi/issues>`_.
 
 Author
 ======
