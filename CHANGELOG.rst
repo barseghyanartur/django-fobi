@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.19.3
+------
+2022-08-08
+
+- Minor fixes in the `rich_text` plugin (`bleach` related).
+- Minor fixes and clean up in docs.
+
 0.19.2
 ------
 2022-07-14
