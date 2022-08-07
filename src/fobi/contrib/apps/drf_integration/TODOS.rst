@@ -40,7 +40,7 @@ Must haves
     + Fixed Python3 issues with max_length for text fields.
     + In decimal plugin, if any of the values are None, don't try to cast them
       into Decimal.
-    + Fix this https://github.com/barseghyanartur/django-fobi/blob/master/src/fobi/contrib/apps/drf_integration/views.py#L151
+    + Fix this https://github.com/barseghyanartur/django-fobi/blob/main/src/fobi/contrib/apps/drf_integration/views.py#L151
       It should not be form = ... but serializer = ...
 
 Should haves
