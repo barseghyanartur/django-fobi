@@ -10,9 +10,9 @@ Install `django-recaptcha`
 ##########################
 (1) Download ``django-recaptcha`` using pip by running:
 
-    .. code-block:: sh
+.. code-block:: sh
 
-        pip install django-recaptcha
+    pip install django-recaptcha
 
 (2) Add ``captcha`` to the ``INSTALLED_APPS`` in your ``settings.py``.
 
@@ -21,31 +21,31 @@ Install `django-recaptcha`
 Install `fobi` ReCAPTCHA plugin
 ###############################
 (1) Add ``fobi.contrib.plugins.form_elements.security.recaptcha`` to the
-   ``INSTALLED_APPS`` in your ``settings.py``.
+``INSTALLED_APPS`` in your ``settings.py``.
 
-    .. code-block:: python
+.. code-block:: python
 
-        INSTALLED_APPS = (
-            # ...
-            'fobi.contrib.plugins.form_elements.security.recaptcha',
-            # ...
-        )
+    INSTALLED_APPS = (
+        # ...
+        'fobi.contrib.plugins.form_elements.security.recaptcha',
+        # ...
+    )
 
 (2) In the terminal type:
 
-    .. code-block:: sh
+.. code-block:: sh
 
-        ./manage.py fobi_sync_plugins
+    ./manage.py fobi_sync_plugins
 
 (3) Assign appropriate permissions to the target users/groups to be using
-   the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
+the plugin if ``FOBI_RESTRICT_PLUGIN_ACCESS`` is set to True.
 
 (4) Specify the following ReCAPTCHA credentials in your settings:
 
-    .. code-block:: text
+.. code-block:: text
 
-       - ``RECAPTCHA_PUBLIC_KEY``
-       - ``RECAPTCHA_PRIVATE_KEY``
+   - ``RECAPTCHA_PUBLIC_KEY``
+   - ``RECAPTCHA_PRIVATE_KEY``
 
 For testing purposes obtain the keys `here
 <https://developers.google.com/recaptcha/docs/faq#id-like-to-run-automated-tests-with-recaptcha.-what-should-i-do>`_:

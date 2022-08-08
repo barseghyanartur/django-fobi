@@ -17,10 +17,10 @@ Thanks to the following people for their contributions:
   <https://github.com/barseghyanartur/django-fobi/commits?author=adrien-delhorme>`_
   for French translations and some minor fixes.
 - `Maximilian Kindshofer
-  <https://github.com/barseghyanartur/django-fobi/commits/master?author=MaximilianKindshofer>`_
+  <https://github.com/barseghyanartur/django-fobi/commits/main?author=MaximilianKindshofer>`_
   for German translations.
 - `Thomas Wajs
-  <https://github.com/barseghyanartur/django-fobi/commits/master?author=thomasWajs>`_
+  <https://github.com/barseghyanartur/django-fobi/commits/main?author=thomasWajs>`_
   for number of minor yet valuable fixes.
 - `garmoncheg
   <https://github.com/barseghyanartur/django-fobi/commits?author=garmoncheg>`_
@@ -29,20 +29,20 @@ Thanks to the following people for their contributions:
   <https://github.com/barseghyanartur/django-fobi/commits?author=jmsfwk>`_
   for number of Django 1.9 support fixes.
 - `Mario Taddei
-  <https://github.com/barseghyanartur/django-fobi/commits/master?author=mariuccio>`_
+  <https://github.com/barseghyanartur/django-fobi/commits/main?author=mariuccio>`_
   for his initiative to make `Select multiple with max` plugin.
 - `Andy Babic
-  <https://github.com/barseghyanartur/django-fobi/commits/master?author=ababic>`_
+  <https://github.com/barseghyanartur/django-fobi/commits/main?author=ababic>`_
   for improvements in the generic integration processor and contributions
   to the ``wagtail_integration`` contrib app.
 - `Heldroe
-  <https://github.com/barseghyanartur/django-fobi/commits/master?author=Heldroe>`_
+  <https://github.com/barseghyanartur/django-fobi/commits/main?author=Heldroe>`_
   for minor fixes.
 - `Michal Dabski
-  <https://github.com/barseghyanartur/django-fobi/commits/master?author=mick88>`_
+  <https://github.com/barseghyanartur/django-fobi/commits/main?author=mick88>`_
   for minor fixes.
 - `Marcos Amorim
-  <https://github.com/barseghyanartur/django-fobi/commits/master?author=marcosamorim>`_
+  <https://github.com/barseghyanartur/django-fobi/commits/main?author=marcosamorim>`_
   for number of validation improvements.
 - `Grzegorz Bialy
   <https://github.com/barseghyanartur/django-fobi/commits?author=grzegorzbialy>`_

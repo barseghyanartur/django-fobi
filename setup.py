@@ -3,7 +3,7 @@ import os
 from distutils.version import LooseVersion
 from setuptools import setup, find_packages
 
-version = "0.19.1"
+version = "0.19.4"
 
 # ***************************************************************************
 # ************************** Django version *********************************
@@ -89,12 +89,12 @@ except Exception as err:
 try:
     readme = open(os.path.join(os.path.dirname(__file__), "README.rst")).read()
     screenshots = open(
-        os.path.join(os.path.dirname(__file__), "docs/screenshots.rst.distrib")
+        os.path.join(os.path.dirname(__file__), "docs/screenshots.rst")
     ).read()
     screenshots = screenshots.replace(
         ".. image:: _static",
         ".. figure:: https://github.com/barseghyanartur/django-fobi/raw/"
-        "master/docs/_static",
+        "main/docs/_static",
     )
 except:
     readme = ""

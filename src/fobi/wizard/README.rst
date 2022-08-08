@@ -1,3 +1,3 @@
 fobi.wizard
 ===========
-Persistent and working form-wizards for Django.
+Persistent and working form-wizards.

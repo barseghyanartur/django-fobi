@@ -16,8 +16,8 @@ handling the submitted form data).
     :target: https://pypi.python.org/pypi/django-fobi/
     :alt: Supported Python versions
 
-.. image:: https://img.shields.io/travis/barseghyanartur/django-fobi/master.svg
-   :target: http://travis-ci.org/barseghyanartur/django-fobi
+.. image:: https://github.com/barseghyanartur/django-fobi/workflows/test/badge.svg
+   :target: https://github.com/barseghyanartur/django-fobi/actions?query=workflow%3Atest
    :alt: Build Status
 
 .. image:: https://readthedocs.org/projects/django-fobi/badge/?version=latest
@@ -28,8 +28,8 @@ handling the submitted form data).
    :target: https://github.com/barseghyanartur/django-fobi/#License
    :alt: GPL-2.0-only OR LGPL-2.1-or-later
 
-.. image:: https://coveralls.io/repos/github/barseghyanartur/django-fobi/badge.svg?branch=master
-    :target: https://coveralls.io/github/barseghyanartur/django-fobi?branch=master
+.. image:: https://coveralls.io/repos/github/barseghyanartur/django-fobi/badge.svg?branch=main
+    :target: https://coveralls.io/github/barseghyanartur/django-fobi?branch=main
     :alt: Coverage
 
 Prerequisites
@@ -138,7 +138,7 @@ Some of the upcoming/in-development features/improvements are:
 - Foundation 6 support.
 
 See the `TODOS
-<https://raw.githubusercontent.com/barseghyanartur/django-fobi/master/TODOS.rst>`_
+<https://raw.githubusercontent.com/barseghyanartur/django-fobi/main/TODOS.rst>`_
 for the full list of planned-, pending- in-development- or to-be-implemented
 features.
 
@@ -767,7 +767,7 @@ Required imports.
 .. code-block:: python
 
     from django import forms
-    from django.utils.translation import ugettext_lazy as _
+    from django.utils.translation import gettext_lazy as _
     from fobi.base import BasePluginForm
 
 Defining the form for Sample mail handler plugin.
@@ -919,7 +919,7 @@ Required imports.
 
 .. code-block:: python
 
-    from django.utils.translation import ugettext_lazy as _
+    from django.utils.translation import gettext_lazy as _
     from fobi.form_importers import BaseFormImporter, form_importer_plugin_registry
     from fobi.contrib.plugins.form_elements import fields
     from path.to.sample_importer.views import SampleImporterWizardView
@@ -992,7 +992,7 @@ Required imports.
 .. code-block:: python
 
     from django import forms
-    from django.utils.translation import ugettext_lazy as _
+    from django.utils.translation import gettext_lazy as _
     from sample_service_api import sample_api  # Just an imaginary API client
 
 Defining the form for Sample importer plugin.
@@ -1035,9 +1035,9 @@ Required imports.
     from sample_service_api import sample_api  # Just an imaginary API client
 
     from django.shortcuts import redirect
-    from django.core.urlresolvers import reverse
+    from django.urls import reverse
     from django.contrib import messages
-    from django.utils.translation import ugettext_lazy as _
+    from django.utils.translation import gettext_lazy as _
 
     # For django LTE 1.8 import from `django.contrib.formtools.wizard.views`
     from formtools.wizard.views import SessionWizardView
@@ -1236,6 +1236,17 @@ Example:
           edit_form_entry_permissions
       )(request.user) and obj.user == request.user
 
+And then in your view:
+
+.. code-block:: python
+
+    from fobi.views.class_based import EditFormEntryView
+
+    class MyEditFormEntryView(EditFormEntryView):
+        """EditFormEntryView."""
+
+        permission_classes = (EditFormEntryPermission,)
+
 Suggestions
 ===========
 Custom action for the form
@@ -1328,7 +1339,7 @@ See the theme example below.
 
 .. code-block:: python
 
-    from django.utils.translation import ugettext_lazy as _
+    from django.utils.translation import gettext_lazy as _
 
     from fobi.base import BaseTheme, theme_registry
 
@@ -1508,10 +1519,10 @@ Make changes to an existing theme
 As said above, making your own theme from scratch could be costly. Instead,
 you can override/reuse an existing one and change it to your needs with
 minimal efforts. See the `override simple theme
-<https://github.com/barseghyanartur/django-fobi/tree/master/examples/simple/override_simple_theme/>`_
+<https://github.com/barseghyanartur/django-fobi/tree/main/examples/simple/override_simple_theme/>`_
 example. In order to see it in action, run the project with
 `settings_override_simple_theme
-<https://github.com/barseghyanartur/django-fobi/blob/master/examples/simple/settings_override_simple_theme.py>`_
+<https://github.com/barseghyanartur/django-fobi/blob/main/examples/simple/settings_override_simple_theme.py>`_
 option:
 
 .. code-block:: sh
@@ -1667,7 +1678,7 @@ Define the form element plugin.
 
 .. code-block:: python
 
-    from django.utils.translation import ugettext_lazy as _
+    from django.utils.translation import gettext_lazy as _
 
     from rest_framework.fields import EmailField
 
@@ -1739,7 +1750,7 @@ Define the form handler plugin.
     import os
 
     from django.conf import settings
-    from django.utils.translation import ugettext_lazy as _
+    from django.utils.translation import gettext_lazy as _
 
     from fobi.base import IntegrationFormHandlerPlugin
     from fobi.helpers import extract_file_path
@@ -1902,59 +1913,67 @@ Fields marked with asterisk (*) fall under the definition of text elements.
 It's possible to provide `Dynamic initial values`_ for text elements.
 
 - `Boolean (checkbox)
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/boolean/>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/boolean/>`_
+- `Checkbox select multiple
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/checkbox_select_multiple/>`_
 - `Date
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/date/>`_
-- `DateTime
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/datetime/>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/date/>`_
 - `Date drop down (year, month, day selection drop-downs)
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/date_drop_down/>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/date_drop_down/>`_
+- `DateTime
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/datetime/>`_
 - `Decimal
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/decimal>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/decimal>`_
 - `Duration
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/duration>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/duration>`_
 - `Email*
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/email/>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/email/>`_
 - `File
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/file/>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/file/>`_
 - `Float
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/float>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/float>`_
 - `Hidden*
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/hidden/>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/hidden/>`_
+- `Hidden model object
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/hidden_model_object/>`_
 - `Input
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/input/>`_
-- `IP address*
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/ip_address>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/input/>`_
 - `Integer
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/integer/>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/integer/>`_
+- `IP address*
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/ip_address>`_
 - `Null boolean
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/null_boolean>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/null_boolean>`_
 - `Password*
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/password/>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/password/>`_
 - `Radio select (radio button)
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/radio/>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/radio/>`_
 - `Range select
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/range_select/>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/range_select/>`_
+- `Regex
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/regex/>`_
 - `Select (drop-down)
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select/>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/select/>`_
 - `Select model object (drop-down)
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_model_object/>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/select_model_object/>`_
 - `Select multiple (drop-down)
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple/>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/select_multiple/>`_
 - `Select multiple model objects (drop-down)
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/select_multiple_model_objects/>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/select_multiple_model_objects/>`_
+- `Select multiple with max (drop-down)
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/select_multiple_with_max/>`_
 - `Slider
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/slider>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/slider>`_
 - `Slug*
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/slug>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/slug>`_
 - `Text*
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/text/>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/text/>`_
 - `Textarea*
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/textarea/>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/textarea/>`_
 - `Time
-  <https://github.com/barseghyanartur/django-fobi/tree/master/src/fobi/contrib/plugins/form_elements/fields/time>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/time>`_
 - `URL*
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/fields/url/>`_
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/url/>`_
 
 Content/presentation
 ~~~~~~~~~~~~~~~~~~~~
@@ -1967,16 +1986,16 @@ complete and content rich.
 - `Content image URL
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_image_url/>`_:
   Insert an image URL.
-- `Content text
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_text/>`_:
-  Add text.
+- `Content markdown
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_markdown/>`_:
+  Add markdown text.
 - `Content richtext
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_richtext/>`_:
   Add rich text (based on `django-ckeditor <https://github.com/django-ckeditor/django-ckeditor>`_
   package).
-- `Content markdown
-  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_markdown/>`_:
-  Add markdown text.
+- `Content text
+  <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_text/>`_:
+  Add text.
 - `Content video
   <https://github.com/barseghyanartur/django-fobi/tree/stable/src/fobi/contrib/plugins/form_elements/content/content_video/>`_:
   Add an embed YouTube or Vimeo video.
@@ -2279,7 +2298,7 @@ Using `django-floppyforms`
     {% form form %}
 
 See how it's done in the `override simple theme
-<https://github.com/barseghyanartur/django-fobi/tree/master/examples/simple/override_simple_theme/>`__
+<https://github.com/barseghyanartur/django-fobi/tree/main/examples/simple/override_simple_theme/>`__
 example.
 
 Import/export forms
@@ -2318,9 +2337,9 @@ easily achievable with introduction of custom locale paths in your project.
 See the following as a good example of overriding some English plugin labels.
 
 - `custom settings
-  <https://raw.githubusercontent.com/barseghyanartur/django-fobi/master/examples/simple/settings/alternative_labels.py>`__
+  <https://raw.githubusercontent.com/barseghyanartur/django-fobi/main/examples/simple/settings/alternative_labels.py>`__
 - `custom locales directory
-  <https://github.com/barseghyanartur/django-fobi/tree/master/examples/simple/fobi_locale/>`__
+  <https://github.com/barseghyanartur/django-fobi/tree/main/examples/simple/fobi_locale/>`__
 
 Run the example project as follows:
 
@@ -2578,7 +2597,8 @@ GPL-2.0-only OR LGPL-2.1-or-later
 
 Support
 =======
-For any issues contact me at the e-mail given in the `Author`_ section.
+For any security issues contact me at the e-mail given in the `Author`_ section.
+For overall issues, go to `GitHub <https://github.com/barseghyanartur/django-fobi/issues>`_.
 
 Author
 ======

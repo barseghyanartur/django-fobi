@@ -57,7 +57,7 @@ Development status
 ~~~~~~~~~~~~~~~~~~
 This part of code is alpha, which means it experimental and needs improvements.
 
-See the `TODOS <https://raw.githubusercontent.com/barseghyanartur/django-fobi/master/TODOS.rst>`_
+See the `TODOS <https://raw.githubusercontent.com/barseghyanartur/django-fobi/main/TODOS.rst>`_
 for the full list of planned-, pending- in-development- or to-be-implemented
 features.
 
