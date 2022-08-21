@@ -4,6 +4,7 @@ import logging
 
 from django.contrib import messages
 from django.core.exceptions import ObjectDoesNotExist, PermissionDenied
+from django.core.serializers.json import DjangoJSONEncoder
 from django.db import IntegrityError, models
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
@@ -46,6 +47,7 @@ from ..forms import (
     ImportFormEntryForm,
     ImportFormWizardEntryForm,
 )
+from ..helpers import JSONDataExporter
 from ..models import (
     FormElementEntry,
     FormEntry,
@@ -1854,3 +1856,55 @@ class ViewFormEntrySubmittedView(AbstractViewFormEntryView):
                 theme = self.theme
             template_name = theme.form_entry_submitted_template
         return [template_name]
+
+# *****************************************************************************
+# *****************************************************************************
+# **************************** Export form entry ******************************
+# *****************************************************************************
+# *****************************************************************************
+
+
+class ExportFormEntryView(PermissionMixin, DetailView):
+    """Export form entry."""
+
+    model = FormEntry
+    pk_url_kwarg = "form_entry_id"
+    template_name = None
+    theme = None
+    permission_classes = (ViewFormEntryPermission,)
+
+    def get_object(self, queryset=None):
+        """Get object."""
+        if queryset is None:
+            queryset = self._get_queryset(request=self.request)
+        obj = super(ExportFormEntryView, self).get_object(
+            queryset=queryset,
+        )
+        self.check_object_permissions(self.request, obj)
+        return obj
+
+    def _get_queryset(self, request):
+        """Get queryset."""
+        if not request.user.is_authenticated:
+            return FormEntry._default_manager.none()
+
+        queryset = FormEntry._default_manager.filter(
+            user__pk=request.user.pk
+        ).select_related("user").prefetch_related(
+            "formelemententry_set",
+            "formhandlerentry_set",
+        )
+        return queryset
+
+    def get(self, request, *args, **kwargs):
+        try:
+            form_entry = self.get_object()
+        except ObjectDoesNotExist as err:
+            raise Http404(_("Form entry not found."))
+
+        data = prepare_form_entry_export_data(form_entry)
+        data_exporter = JSONDataExporter(
+            json.dumps(data, cls=DjangoJSONEncoder), form_entry.slug
+        )
+
+        return data_exporter.export()
