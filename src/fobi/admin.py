@@ -577,7 +577,9 @@ class BasePluginModelAdmin(admin.ModelAdmin):
 class FormElementAdmin(BasePluginModelAdmin):
     """FormElement admin."""
 
-    actions = [bulk_change_form_element_plugins] + BasePluginModelAdmin.actions
+    actions = (bulk_change_form_element_plugins,) + tuple(
+        BasePluginModelAdmin.actions
+    )
 
     def _get_bulk_change_form_class(self):
         """Get bulk change form class."""
@@ -614,7 +616,9 @@ admin.site.register(FormElement, FormElementAdmin)
 class FormHandlerAdmin(BasePluginModelAdmin):
     """FormHandler admin."""
 
-    actions = [bulk_change_form_handler_plugins] + BasePluginModelAdmin.actions
+    actions = (bulk_change_form_handler_plugins,) + tuple(
+        BasePluginModelAdmin.actions
+    )
 
     def _get_bulk_change_form_class(self):
         """Get bulk change form class."""
@@ -651,9 +655,9 @@ admin.site.register(FormHandler, FormHandlerAdmin)
 class FormWizardHandlerAdmin(BasePluginModelAdmin):
     """FormHandler admin."""
 
-    actions = [
-        bulk_change_form_wizard_handler_plugins
-    ] + BasePluginModelAdmin.actions
+    actions = (bulk_change_form_wizard_handler_plugins,) + tuple(
+        BasePluginModelAdmin.actions
+    )
 
     def _get_bulk_change_form_class(self):
         """Get bulk change form class."""
