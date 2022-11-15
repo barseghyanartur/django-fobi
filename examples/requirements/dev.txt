@@ -223,7 +223,7 @@ pluggy==0.13.1
     #   tox
 pre-commit==2.13.0
     # via -r django_3_2.txt
-psycopg2-binary==2.9.1
+psycopg2-binary==2.8.6
     # via -r django_3_2.txt
 ptyprocess==0.7.0
     # via
@@ -300,6 +300,7 @@ six==1.16.0
     # via
     #   -r django_3_2.txt
     #   bleach
+    #   django-simple-captcha
     #   feincms
     #   python-dateutil
     #   tox

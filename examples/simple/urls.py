@@ -60,14 +60,9 @@ url_patterns_args = [
     ),
 ]
 
-if versions.DJANGO_GTE_2_0:
-    url_patterns_args += [
-        url(r"^admin/", admin.site.urls),
-    ]
-else:
-    url_patterns_args += [
-        url(r"^admin/", include(admin.site.urls)),
-    ]
+url_patterns_args += [
+    url(r"^admin/", admin.site.urls),
+]
 
 url_patterns_args += [
     # django-registration URLs:

@@ -18,5 +18,7 @@ pillow==8.2.0
     # via django-simple-captcha
 pytz==2021.1
     # via django
+six==1.16.0
+    # via django-simple-captcha
 sqlparse==0.4.1
     # via django

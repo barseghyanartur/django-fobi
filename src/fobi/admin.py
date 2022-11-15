@@ -2,12 +2,10 @@ from django.contrib import admin, messages
 from django.contrib.admin import helpers
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import redirect, render
-from django.template import RequestContext
 from django.urls import re_path as url
 from django.utils.decorators import method_decorator
 from django.utils.html import strip_tags
 from django.utils.translation import gettext_lazy as _
-from django_nine import versions
 
 from .constants import ACTION_CHOICE_REPLACE
 from .forms import (

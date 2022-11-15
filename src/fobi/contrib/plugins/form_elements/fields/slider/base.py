@@ -5,7 +5,6 @@ from django.forms.utils import flatatt
 from django.utils.html import format_html
 from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
-from django_nine import versions
 from six import PY3, text_type
 
 from . import UID

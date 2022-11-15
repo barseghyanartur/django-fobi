@@ -1,8 +1,6 @@
-# from __future__ import unicode_literals
 from django.contrib import messages
 from django.http import HttpRequest
 from django.utils.translation import gettext
-from django_nine import versions
 from rest_framework import mixins, permissions
 from rest_framework.response import Response
 from rest_framework.viewsets import GenericViewSet
