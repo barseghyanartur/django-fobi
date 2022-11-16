@@ -10,5 +10,5 @@ pytest-ordering
 pytest-pythonpath
 selenium
 tox
-chromedriver-py==102.0.5005.61
+chromedriver-py==107.0.5304.62
 #geckodriver-autoinstaller
