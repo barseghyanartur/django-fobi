@@ -1,6 +1,7 @@
 Faker
 coverage
 factory_boy
+importlib-metadata<5.0.0
 py
 pytest
 pytest-cov
