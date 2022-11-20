@@ -239,7 +239,7 @@ class AbstractDeletePluginEntryView(PermissionMixin, DeleteView):
 # *****************************************************************************
 
 
-class DashboardView(ListView):
+class DashboardView(PermissionMixin, ListView):
     """Dashboard view."""
 
     template_name = None
