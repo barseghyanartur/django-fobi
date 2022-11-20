@@ -30,7 +30,7 @@ RUN pip install virtualenv
 RUN mkdir /backend
 WORKDIR /backend
 ADD examples/requirements/ /backend/requirements/
-RUN pip install -r /backend/requirements/django_3_2.in
+RUN pip install -r /backend/requirements/django_4_1.in
 #RUN python -c "import geckodriver_autoinstaller; print(geckodriver_autoinstaller.install())"
 RUN python -c "from chromedriver_py import binary_path; print(binary_path)"
 COPY . /backend/
