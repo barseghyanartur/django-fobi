@@ -40,11 +40,13 @@ response = urlopen("https://pypi.org/pypi/chromedriver-py/json")
 
 data = json.loads(response.read())
 releases = list(data["releases"].keys())
+logger.info(f"{releases=}")
 
 try_version = ".".join(version.split(".")[:-1])
 logger.info(f"{try_version=}")
 
 grouped_releases = defaultdict(list)
+logger.info(f"{grouped_releases=}")
 
 for __version in releases:
     __key = ".".join(__version.split(".")[:-1])
