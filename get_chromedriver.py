@@ -42,9 +42,6 @@ data = json.loads(response.read())
 releases = list(data["releases"].keys())
 logger.info(f"releases={releases}")
 
-try_version = ".".join(version.split(".")[:-1])
-logger.info(f"try_version={try_version}")
-
 grouped_releases = defaultdict(list)
 logger.info(f"grouped_releases={grouped_releases}")
 
@@ -52,7 +49,22 @@ for __version in releases:
     __key = ".".join(__version.split(".")[:-1])
     grouped_releases[__key].append(__version)
 
-closest_version = grouped_releases.get(try_version)[-1]
-logger.info(f"closest_version={closest_version}")
 
-os.system(f"pip install chromedriver-py=={closest_version}")
+def get_closest_version(try_version):
+    if not try_version:
+        logger.info(f"Exhausted trying to get closest version. Quitting.")
+        return None
+
+    logger.info(f"try_version={try_version}")
+    if try_version not in grouped_releases:
+        try_version = ".".join(try_version.split(".")[:-1])
+        return get_closest_version(try_version)
+    return grouped_releases.get(try_version)[-1]
+
+
+closest_version = get_closest_version(version)
+
+if closest_version:
+    logger.info(f"closest_version={closest_version}")
+    logger.info(f"installing chromedriver-py=={closest_version}")
+    os.system(f"pip install chromedriver-py=={closest_version}")
