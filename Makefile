@@ -72,6 +72,9 @@ migrate:
 test:
 	docker-compose -f docker-compose.yml exec backend pytest /backend/src/$(TEST_PATH);
 
+tox-test:
+	docker-compose -f docker-compose.yml exec backend tox -e $(ARGS);
+
 show-migrations:
 	docker-compose -f docker-compose.yml exec backend ./manage.py showmigrations
 
