@@ -7,6 +7,7 @@ import logging
 import os
 import re
 from collections import defaultdict
+from pprint import pprint
 from shlex import split
 from subprocess import check_output
 from urllib.request import urlopen
@@ -45,24 +46,33 @@ logger.info(f"releases={releases}")
 grouped_releases = defaultdict(list)
 logger.info(f"grouped_releases={grouped_releases}")
 
+releases_tree = {}
 for __version in releases:
     __key = ".".join(__version.split(".")[:-1])
     grouped_releases[__key].append(__version)
+    __t = releases_tree  # noqa
+    for part in __version.split("."):
+        __t = __t.setdefault(part, {"version": __version})
+
+logger.info(f"tree={releases_tree}")
+
+pprint(releases_tree)
 
 
-def get_closest_version(try_version):
+def get_closest_version(try_version, tree):
     if not try_version:
         logger.info(f"Exhausted trying to get closest version. Quitting.")
         return None
 
     logger.info(f"try_version={try_version}")
-    if try_version not in grouped_releases:
-        try_version = ".".join(try_version.split(".")[:-1])
-        return get_closest_version(try_version)
-    return grouped_releases.get(try_version)[-1]
+    _try_version = try_version.split(".")
+    if _try_version[0] in tree:
+        return get_closest_version(".".join(_try_version[1:]), tree[_try_version[0]])
+    else:
+        return tree["version"]
 
 
-closest_version = get_closest_version(version)
+closest_version = get_closest_version(version, releases_tree)
 
 if closest_version:
     logger.info(f"closest_version={closest_version}")
