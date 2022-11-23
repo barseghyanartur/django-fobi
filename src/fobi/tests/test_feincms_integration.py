@@ -2,6 +2,7 @@ import logging
 import unittest
 
 import factories
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 
 from .base import BaseFobiBrowserBuldDynamicFormsTest
