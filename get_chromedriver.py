@@ -6,7 +6,6 @@ import json
 import logging
 import os
 import re
-from collections import defaultdict
 from pprint import pprint
 from shlex import split
 from subprocess import check_output
@@ -43,13 +42,8 @@ data = json.loads(response.read())
 releases = list(data["releases"].keys())
 logger.info(f"releases={releases}")
 
-grouped_releases = defaultdict(list)
-logger.info(f"grouped_releases={grouped_releases}")
-
 releases_tree = {}
 for __version in releases:
-    __key = ".".join(__version.split(".")[:-1])
-    grouped_releases[__key].append(__version)
     __t = releases_tree  # noqa
     for part in __version.split("."):
         __t = __t.setdefault(part, {"version": __version})
