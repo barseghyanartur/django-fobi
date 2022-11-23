@@ -34,25 +34,25 @@ res = check_output(split("chromium --version"))
 
 pattern = re.compile(r".*chromium\s([0-9]+(\.[0-9]+)+)\s.*", re.IGNORECASE)
 version = pattern.match(res.decode()).groups()[0]
-logger.info(f"{version=}")
+logger.info(f"version={version}")
 
 response = urlopen("https://pypi.org/pypi/chromedriver-py/json")
 
 data = json.loads(response.read())
 releases = list(data["releases"].keys())
-logger.info(f"{releases=}")
+logger.info(f"releases={releases}")
 
 try_version = ".".join(version.split(".")[:-1])
-logger.info(f"{try_version=}")
+logger.info(f"try_version={try_version}")
 
 grouped_releases = defaultdict(list)
-logger.info(f"{grouped_releases=}")
+logger.info(f"grouped_releases={grouped_releases}")
 
 for __version in releases:
     __key = ".".join(__version.split(".")[:-1])
     grouped_releases[__key].append(__version)
 
 closest_version = grouped_releases.get(try_version)[-1]
-logger.info(f"{closest_version=}")
+logger.info(f"closest_version={closest_version}")
 
 os.system(f"pip install chromedriver-py=={closest_version}")
