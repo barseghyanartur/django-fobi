@@ -313,7 +313,7 @@ TEST_FORM_HANDLER_PLUGIN_DATA = OrderedDict(
         ),
         (
             force_str(HTTPRepostHandlerPlugin.name),
-            {"endpoint_url": "http://dev.example.com"},
+            {"endpoint_url": "https://webhook.site/a91e7062-83c4"},
         ),
     ]
 )
