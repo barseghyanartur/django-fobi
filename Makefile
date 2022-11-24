@@ -75,6 +75,9 @@ test:
 tox-test:
 	docker-compose -f docker-compose.yml exec backend tox -e $(ARGS);
 
+tox-list:
+	docker-compose -f docker-compose.yml exec backend tox -l;
+
 show-migrations:
 	docker-compose -f docker-compose.yml exec backend ./manage.py showmigrations
 

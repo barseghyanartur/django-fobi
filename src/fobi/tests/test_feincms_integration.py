@@ -1,15 +1,15 @@
 import logging
-import unittest
 
-import factories
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 
+import factories
+
 from .base import BaseFobiBrowserBuldDynamicFormsTest
 
-__title__ = "fobi.tests.test_browser_build_dynamic_forms"
+__title__ = "fobi.tests.test_feincms_integration"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
-__copyright__ = "2014-2019 Artur Barseghyan"
+__copyright__ = "2014-2022 Artur Barseghyan"
 __license__ = "GPL 2.0/LGPL 2.1"
 __all__ = ("FeinCMSIntegrationTest",)
 
@@ -55,7 +55,3 @@ class FeinCMSIntegrationTest(BaseFobiBrowserBuldDynamicFormsTest):
     #         )
     #     )
     #     # TODO:
-
-
-if __name__ == "__main__":
-    unittest.main()

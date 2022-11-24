@@ -1,15 +1,10 @@
 import logging
-import os
-import unittest
-from datetime import datetime
 
-from django.conf import settings
 from django.urls import reverse
-from selenium.webdriver.common.action_chains import ActionChains
-# from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 
+from ..models import FormEntry
 from . import constants
 from .base import BaseFobiBrowserBuldDynamicFormsTest
 from .core import print_info
@@ -20,11 +15,9 @@ from .data import (
 )
 from .helpers import db_clean_up
 
-from fobi.models import FormEntry
-
 __title__ = "fobi.tests.test_browser_build_dynamic_forms"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
-__copyright__ = "2014-2019 Artur Barseghyan"
+__copyright__ = "2014-2022 Artur Barseghyan"
 __license__ = "GPL 2.0/LGPL 2.1"
 __all__ = ("FobiBrowserBuldDynamicFormsTest",)
 
@@ -713,7 +706,3 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
     @print_info
     def test_4003_edit_form_handlers(self):
         """Test edit form handler."""
-
-
-if __name__ == "__main__":
-    unittest.main()
