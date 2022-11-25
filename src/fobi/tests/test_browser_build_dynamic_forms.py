@@ -1,6 +1,7 @@
 import logging
 
 from django.urls import reverse
+from django.test import override_settings
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 
@@ -562,6 +563,7 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         # TODO
 
     @print_info
+    @override_settings(EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend")
     def test_2004_submit_form(self, wait=WAIT_FOR):
         """Test submit form."""
         # Clean up database
