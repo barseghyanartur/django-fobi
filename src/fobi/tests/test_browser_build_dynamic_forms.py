@@ -4,7 +4,8 @@ from django.urls import reverse
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
 
-from ..models import FormEntry
+from fobi.models import FormEntry
+
 from . import constants
 from .base import BaseFobiBrowserBuldDynamicFormsTest
 from .core import print_info
