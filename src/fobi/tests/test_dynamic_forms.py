@@ -1,5 +1,3 @@
-import unittest
-
 from django.test import TestCase
 
 from .core import print_info
@@ -14,7 +12,7 @@ from fobi.dynamic import assemble_form_class
 
 __title__ = "fobi.tests.test_dynamic_forms"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
-__copyright__ = "2014-2019 Artur Barseghyan"
+__copyright__ = "2014-2022 Artur Barseghyan"
 __license__ = "GPL 2.0/LGPL 2.1"
 __all__ = ("FobiDynamicFormsTest",)
 
@@ -51,7 +49,3 @@ class FobiDynamicFormsTest(TestCase):
         flow.append(rendered_form)
 
         return flow
-
-
-if __name__ == "__main__":
-    unittest.main()

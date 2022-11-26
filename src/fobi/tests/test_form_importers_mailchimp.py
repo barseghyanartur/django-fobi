@@ -1,5 +1,3 @@
-import unittest
-
 # from django.contrib.auth import get_user_model
 from django.test import TestCase
 
@@ -14,7 +12,7 @@ from fobi.models import FormElementEntry, FormEntry
 
 __title__ = "fobi.tests.test_form_importers_mailchimp"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
-__copyright__ = "2014-2019 Artur Barseghyan"
+__copyright__ = "2014-2022 Artur Barseghyan"
 __license__ = "GPL 2.0/LGPL 2.1"
 __all__ = ("FormImportersMailchimpTest",)
 
@@ -45,7 +43,3 @@ class FormImportersMailchimpTest(TestCase):
         form_entry = FormEntry.objects.get(**form_properties)
 
         self.assertIsNotNone(form_entry.pk)
-
-
-if __name__ == "__main__":
-    unittest.main()
