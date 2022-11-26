@@ -63,6 +63,9 @@ build-%: prepare-required-files
 stop:
 	docker-compose -f docker-compose.yml stop;
 
+touch:
+	docker-compose -f docker-compose.yml exec backend touch manage.py
+
 make-migrations:
 	docker-compose -f docker-compose.yml exec backend ./manage.py makemigrations $(APP);
 

@@ -252,10 +252,13 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
     # },
 }
 
+# Note, that value of the test_date_input might be the source of failing
+# tests. ATM, system preferences are set to US format (mm/dd/YYYY). That's
+# why we need to format the value here accordingly.
 TEST_FORM_FIELD_DATA = {
     "test_boolean": True,
     # 'test_checkbox_select_multiple_input': '',
-    "test_date_input": datetime.date.today().strftime("%d-%m-%Y"),
+    "test_date_input": datetime.date.today().strftime("%m-%d-%Y"),
     "test_datetime_input": datetime.datetime.now().strftime(
         "%Y-%m-%d %H:%M:%S"
     ),
