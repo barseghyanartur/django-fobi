@@ -69,7 +69,7 @@ def base_bulk_change_plugins(
     opts = modeladmin.model._meta
     app_label = opts.app_label
 
-    selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+    selected = request.POST.getlist(helpers.ACTION_CHECKBOX_NAME)
     post = dict(request.POST)
     if selected:
         post["selected_plugins"] = ",".join(selected)
