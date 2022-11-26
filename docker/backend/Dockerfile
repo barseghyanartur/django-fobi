@@ -1,4 +1,4 @@
-FROM docker.io/python:3.9
+FROM docker.io/python:3.11
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED 1
 
@@ -12,17 +12,9 @@ RUN apt-get update && \
     nano \
     chromium \
     graphviz \
-    libpq-dev
-
-RUN add-apt-repository ppa:deadsnakes/ppa --yes
-
-#RUN apt-get update && \
-#    RUN apt-get install -y  --no-install-recommends \
-#    python3.6-dev \
-#    python3.7-dev \
-#    python3.8-dev
-
-    #RUN apt-get install -y firefox
+    libpq-dev \
+    python3.9 \
+    python3.10
 
 RUN pip install pip --upgrade
 RUN pip install virtualenv

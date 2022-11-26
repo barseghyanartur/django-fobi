@@ -84,6 +84,25 @@ jobs:
           - python-version: 3.9
             requirements: django_4_0
             tox_env: py39-django40
+          - python-version: 3.10
+            requirements: django_4_0
+            tox_env: py310-django40
+          - python-version: 3.11
+            requirements: django_4_0
+            tox_env: py311-django40
+
+          - python-version: 3.8
+            requirements: django_4_1
+            tox_env: py38-django41
+          - python-version: 3.9
+            requirements: django_4_1
+            tox_env: py39-django41
+          - python-version: 3.10
+            requirements: django_4_1
+            tox_env: py310-django41
+          - python-version: 3.11
+            requirements: django_4_1
+            tox_env: py311-django41
 
     steps:
     - uses: actions/checkout@v2
@@ -94,7 +113,7 @@ jobs:
     - uses: nanasess/setup-chromedriver@master
       with:
         # Optional: do not specify to match Chrome's version
-        chromedriver-version: '102.0.5005.61'
+        # chromedriver-version: '102.0.5005.61'
 
     - name: Install Dependencies
       run: |

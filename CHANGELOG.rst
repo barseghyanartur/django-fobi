@@ -15,6 +15,13 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.19.6
+------
+2022-11-26
+
+- Tested against Python 3.10 and 3.11.
+- Tested against Django 4.1.
+
 0.19.5
 ------
 2022-11-20
