@@ -111,10 +111,6 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - uses: nanasess/setup-chromedriver@master
-      with:
-        # Optional: do not specify to match Chrome's version
-        # chromedriver-version: '102.0.5005.61'
-
     - name: Install Dependencies
       run: |
         python -m pip install --upgrade pip
