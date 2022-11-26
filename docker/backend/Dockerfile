@@ -1,4 +1,4 @@
-FROM docker.io/python:3.11
+FROM docker.io/python:3.10
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED 1
 
@@ -13,8 +13,7 @@ RUN apt-get update && \
     chromium \
     graphviz \
     libpq-dev \
-    python3.9 \
-    python3.10
+    python3.9
 
 RUN pip install pip --upgrade
 RUN pip install virtualenv

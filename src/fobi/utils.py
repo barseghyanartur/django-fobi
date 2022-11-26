@@ -48,7 +48,7 @@ from .settings import (
 
 __title__ = "fobi.utils"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
-__copyright__ = "2014-2019 Artur Barseghyan"
+__copyright__ = "2014-2022 Artur Barseghyan"
 __license__ = "GPL 2.0/LGPL 2.1"
 __all__ = (
     "append_edit_and_delete_links_to_field",

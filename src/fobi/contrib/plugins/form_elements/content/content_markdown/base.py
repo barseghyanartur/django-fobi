@@ -14,7 +14,7 @@ from fobi.reusable.markdown_widget.helpers import convert_to_markdown
 
 __title__ = "fobi.contrib.plugins.form_elements.content.content_richtext.base"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
-__copyright__ = "2014-2019 Artur Barseghyan"
+__copyright__ = "2014-2022 Artur Barseghyan"
 __license__ = "GPL 2.0/LGPL 2.1"
 __all__ = ("ContentMarkdownPlugin",)
 
