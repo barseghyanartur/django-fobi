@@ -518,10 +518,20 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
     # +++++++++++++++++++++++++++ General +++++++++++++++++++++++++++
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+    def _test_1001_open_dashboard(self):
+        """Test open dashboard."""
+        self._go_to_dashboard()
+
     @print_info
     def test_1001_open_dashboard(self):
         """Test open dashboard."""
-        self._go_to_dashboard()
+        self._test_1001_open_dashboard()
+
+    @override_settings(ROOT_URLCONF="urls.function_based")
+    @print_info
+    def test_1001_open_dashboard_fbv(self):
+        """Test open dashboard."""
+        self._test_1001_open_dashboard()
 
     # class GeneralFobiBrowserBuldDynamicFormsTest(
     #         BaseFobiBrowserBuldDynamicFormsTest):
@@ -536,8 +546,7 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
     # ++++++++++++++++++++++ Form specific ++++++++++++++++++++++++++
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    @print_info
-    def test_2001_add_form(self):
+    def _test_2001_add_form(self):
         """Test add a new form."""
         # Clean up database
         db_clean_up()
@@ -553,18 +562,47 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         # )
 
     @print_info
+    def test_2001_add_form(self):
+        """Test add a new form."""
+        self._test_2001_add_form()
+
+    @override_settings(ROOT_URLCONF="urls.function_based")
+    @print_info
+    def test_2001_add_form_fbv(self):
+        """Test add a new form."""
+        self._test_2001_add_form()
+
+    def _test_2002_edit_form(self):
+        """Test edit a form."""
+        # TODO
+
+    @print_info
     def test_2002_edit_form(self):
         """Test edit a form."""
+        self._test_2002_edit_form()
+
+    @override_settings(ROOT_URLCONF="urls.function_based")
+    @print_info
+    def test_2002_edit_form_fbv(self):
+        """Test edit a form."""
+        self._test_2002_edit_form()
+
+    def _test_2003_delete_form(self):
+        """Test delete a form."""
         # TODO
 
     @print_info
     def test_2003_delete_form(self):
         """Test delete a form."""
-        # TODO
+        self._test_2003_delete_form()
 
+    @override_settings(ROOT_URLCONF="urls.function_based")
     @print_info
-    @override_settings(EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend")
-    def test_2004_submit_form(self, wait=WAIT_FOR):
+    def test_2003_delete_form_fbv(self):
+        """Test delete a form."""
+        self._test_2003_delete_form()
+
+    def _test_2004_submit_form(self, wait=WAIT_FOR):
         """Test submit form."""
         # Clean up database
         db_clean_up()
@@ -649,12 +687,28 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
     #         BaseFobiBrowserBuldDynamicFormsTest):
     #     """Form element specific."""
 
+    @print_info
+    @override_settings(
+        EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend"
+    )
+    def test_2004_submit_form(self, wait=WAIT_FOR):
+        """Test submit form."""
+        self._test_2004_submit_form()
+
+    @print_info
+    @override_settings(
+        EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend",
+        ROOT_URLCONF="urls.function_based",
+    )
+    def test_2004_submit_form_fbv(self, wait=WAIT_FOR):
+        """Test submit form."""
+        self._test_2004_submit_form()
+
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # ++++++++++++++++++++ Form element specific ++++++++++++++++++++
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    @print_info
-    def test_3001_add_form_elements(self, wait=WAIT_FOR):
+    def _test_3001_add_form_elements(self, wait=WAIT_FOR):
         """Test adding form elements."""
         db_clean_up()  # Clean up database
 
@@ -663,7 +717,17 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         self._sleep(wait)
 
     @print_info
-    def test_3002_remove_form_elements(self):
+    def test_3001_add_form_elements(self, wait=WAIT_FOR):
+        """Test adding form elements."""
+        self._test_3001_add_form_elements()
+
+    @override_settings(ROOT_URLCONF="urls.function_based")
+    @print_info
+    def test_3001_add_form_elements_fbv(self, wait=WAIT_FOR):
+        """Test adding form elements."""
+        self._test_3001_add_form_elements()
+
+    def _test_3002_remove_form_elements(self):
         """Test remove form element."""
         # Clean up database
         db_clean_up()
@@ -673,9 +737,30 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         self._test_remove_form_elements()
 
     @print_info
-    def test_3003_edit_form_elements(self):
+    def test_3002_remove_form_elements(self):
+        """Test remove form element."""
+        self._test_3002_remove_form_elements()
+
+    @override_settings(ROOT_URLCONF="urls.function_based")
+    @print_info
+    def test_3002_remove_form_elements_fbv(self):
+        """Test remove form element."""
+        self._test_3002_remove_form_elements()
+
+    def _test_3003_edit_form_elements(self):
         """Test edit form element."""
         db_clean_up()  # Clean up database
+
+    @print_info
+    def test_3003_edit_form_elements(self):
+        """Test edit form element."""
+        self._test_3003_edit_form_elements()
+
+    @override_settings(ROOT_URLCONF="urls.function_based")
+    @print_info
+    def test_3003_edit_form_elements_fbv(self):
+        """Test edit form element."""
+        self._test_3003_edit_form_elements()
 
     # class FormHandlerSpecificFobiBrowserBuldDynamicFormsTest(
     #         BaseFobiBrowserBuldDynamicFormsTest):
@@ -685,8 +770,7 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
     # ++++++++++++++++++++ Form handler specific ++++++++++++++++++++
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    @print_info
-    def test_4001_add_form_handlers(self, wait=WAIT_FOR):
+    def _test_4001_add_form_handlers(self, wait=WAIT_FOR):
         """Test of adding a single form handler.
 
         At this point, if form isn't created, it should be.
@@ -698,7 +782,23 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         self._sleep(wait)
 
     @print_info
-    def test_4002_remove_form_handlers(self):
+    def test_4001_add_form_handlers(self, wait=WAIT_FOR):
+        """Test of adding a single form handler.
+
+        At this point, if form isn't created, it should be.
+        """
+        self._test_4001_add_form_handlers()
+
+    @override_settings(ROOT_URLCONF="urls.function_based")
+    @print_info
+    def test_4001_add_form_handlers_fbv(self, wait=WAIT_FOR):
+        """Test of adding a single form handler.
+
+        At this point, if form isn't created, it should be.
+        """
+        self._test_4001_add_form_handlers()
+
+    def _test_4002_remove_form_handlers(self):
         """Test remove form handler."""
         db_clean_up()  # Clean up database
 
@@ -707,5 +807,27 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         self._test_remove_form_handlers()
 
     @print_info
+    def test_4002_remove_form_handlers(self):
+        """Test remove form handler."""
+        self._test_4002_remove_form_handlers()
+
+    @override_settings(ROOT_URLCONF="urls.function_based")
+    @print_info
+    def test_4002_remove_form_handlers_fbv(self):
+        """Test remove form handler."""
+        self._test_4002_remove_form_handlers()
+
+    def _test_4003_edit_form_handlers(self):
+        """Test edit form handler."""
+        # TODO
+
+    @print_info
     def test_4003_edit_form_handlers(self):
         """Test edit form handler."""
+        self._test_4003_edit_form_handlers()
+
+    @override_settings(ROOT_URLCONF="urls.function_based")
+    @print_info
+    def test_4003_edit_form_handlers_fbv(self):
+        """Test edit form handler."""
+        self._test_4003_edit_form_handlers()
