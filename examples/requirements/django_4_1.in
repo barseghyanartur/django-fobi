@@ -13,4 +13,3 @@ django-registration>=3.1.1
 django-simple-captcha>=0.5.12
 djangorestframework>=3.10
 easy-thumbnails>=2.7.0
-

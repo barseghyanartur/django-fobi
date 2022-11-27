@@ -105,6 +105,8 @@ jobs:
             tox_env: py311-django41
 
     steps:
+    - name: Install libxml2 and libxslt
+      run: sudo apt-get install -y libxml2 libxslt
     - uses: actions/checkout@v2
     - name: Set up Python ${{ matrix.python-version }}
       uses: actions/setup-python@v1
