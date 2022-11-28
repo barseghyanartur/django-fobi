@@ -48,7 +48,6 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         pip install pip-tools
-#        rm examples/requirements/*.txt
         pip-compile examples/requirements/${{ matrix.requirements }}.in
         pip install -r examples/requirements/${{ matrix.requirements }}.txt
         pip-compile examples/requirements/test.in
