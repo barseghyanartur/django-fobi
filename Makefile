@@ -141,3 +141,8 @@ bash:
 prepare-required-files:
 	mkdir -p examples/logs examples/db examples/media examples/media/static examples/media/fobi_plugins/content_image
 	mkdir -p examples/media/fobi_plugins/file
+
+release:
+	python setup.py register
+	python setup.py sdist bdist_wheel
+	twine upload dist/* --verbose
