@@ -128,6 +128,8 @@ jobs:
         POSTGRES_HOST: localhost
         POSTGRES_PORT: 5432
     - name: Coveralls
+      id: coveralls-setup
+      continue-on-error: true
       uses: AndreMiras/coveralls-python-action@develop
       with:
         parallel: true
@@ -138,6 +140,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Coveralls Finished
+      id: coveralls-finish
+      continue-on-error: true
+      if: strategy.steps.coveralls-setup.outcome == 'success'
       env:
         COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
         GITHUB_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
