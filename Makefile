@@ -102,6 +102,33 @@ pip-install:
 pip-list:
 	docker-compose -f docker-compose.yml exec backend pip list
 
+pip-compile:
+	docker-compose -f docker-compose.yml exec backend pip install --upgrade pip && pip install pip-tools
+	docker-compose -f docker-compose.yml exec backend ls -al /backend/examples/requirements/
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile captcha.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile common.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile debug.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile demo.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile deployment.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile dev.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile django_2_2.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile django_3_0.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile django_3_1.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile django_3_2.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile django_4_0.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile django_4_1.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile djangocms_3_4_3.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile djangorestframework.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile docs.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile feincms_1_17.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile feincms_1_20.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile latest.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile mptt.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile recaptcha.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile style_checkers.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile test.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile testing.in
+
 black:
 	docker-compose -f docker-compose.yml exec backend black .
 

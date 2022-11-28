@@ -17,7 +17,7 @@ are used for versioning (schema follows below):
 
 0.19.6
 ------
-2022-11-26
+2022-11-28
 
 - Tested against Python 3.10 and 3.11. Note that ATM, Python 3.11 tests do
   pass on SQLite only due to Python 3.11 issue with postgres bindings.
