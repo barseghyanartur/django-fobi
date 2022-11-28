@@ -10,7 +10,6 @@ from django.urls import reverse
 from django.utils.decorators import classonlymethod
 from django.utils.translation import gettext as _
 from django.views.generic import TemplateView
-from django_nine import versions
 from formtools.wizard.forms import ManagementForm
 from formtools.wizard.storage import get_storage
 from formtools.wizard.storage.exceptions import NoFileStorageConfigured

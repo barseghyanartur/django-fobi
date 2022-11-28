@@ -1,14 +1,15 @@
 import logging
-import unittest
+
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
 
 import factories
-from selenium.webdriver.support.wait import WebDriverWait
 
 from .base import BaseFobiBrowserBuldDynamicFormsTest
 
-__title__ = "fobi.tests.test_browser_build_dynamic_forms"
+__title__ = "fobi.tests.test_feincms_integration"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
-__copyright__ = "2014-2019 Artur Barseghyan"
+__copyright__ = "2014-2022 Artur Barseghyan"
 __license__ = "GPL 2.0/LGPL 2.1"
 __all__ = ("FeinCMSIntegrationTest",)
 
@@ -36,7 +37,8 @@ class FeinCMSIntegrationTest(BaseFobiBrowserBuldDynamicFormsTest):
         self.driver.get(self.fobi_form_page_url)
         # Wait until the edit widget form opens
         WebDriverWait(self.driver, timeout=TIMEOUT).until(
-            lambda driver: driver.find_element_by_xpath(
+            lambda driver: driver.find_element(
+                By.XPATH,
                 '//body[contains(@class, "theme-bootstrap3")]'
             )
         )
@@ -47,12 +49,9 @@ class FeinCMSIntegrationTest(BaseFobiBrowserBuldDynamicFormsTest):
     #     self.driver.get(self.fobi_form_page_url)
     #     # Wait until the edit widget form opens
     #     WebDriverWait(self.driver, timeout=TIMEOUT).until(
-    #         lambda driver: driver.find_element_by_xpath(
+    #         lambda driver: driver.find_element(
+    #             By.XPATH,
     #             '//body[contains(@class, "theme-bootstrap3")]'
     #         )
     #     )
     #     # TODO:
-
-
-if __name__ == "__main__":
-    unittest.main()

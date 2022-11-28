@@ -19,7 +19,6 @@ from django.template import RequestContext
 from django.urls import reverse
 from django.utils.datastructures import MultiValueDictKeyError
 from django.utils.translation import gettext, gettext_lazy as _
-from django_nine import versions
 from formtools.wizard.forms import ManagementForm
 
 from ..base import (  # get_registered_form_handler_plugins

@@ -99,7 +99,7 @@ from fobi.contrib.plugins.form_handlers.mail_sender.fobi_form_handlers import (
 
 __title__ = "fobi.tests.data"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
-__copyright__ = "2014-2019 Artur Barseghyan"
+__copyright__ = "2014-2022 Artur Barseghyan"
 __license__ = "GPL 2.0/LGPL 2.1"
 __all__ = (
     "TEST_DYNAMIC_FORMS_DEFINITION_DATA",
@@ -252,10 +252,13 @@ TEST_FORM_ELEMENT_PLUGIN_DATA = {
     # },
 }
 
+# Note, that value of the test_date_input might be the source of failing
+# tests. ATM, system preferences are set to US format (mm/dd/YYYY). That's
+# why we need to format the value here accordingly.
 TEST_FORM_FIELD_DATA = {
     "test_boolean": True,
     # 'test_checkbox_select_multiple_input': '',
-    "test_date_input": datetime.date.today().strftime("%d-%m-%Y"),
+    "test_date_input": datetime.date.today().strftime("%m-%d-%Y"),
     "test_datetime_input": datetime.datetime.now().strftime(
         "%Y-%m-%d %H:%M:%S"
     ),
@@ -313,7 +316,7 @@ TEST_FORM_HANDLER_PLUGIN_DATA = OrderedDict(
         ),
         (
             force_str(HTTPRepostHandlerPlugin.name),
-            {"endpoint_url": "http://dev.example.com"},
+            {"endpoint_url": "https://webhook.site/a91e7062-83c4"},
         ),
     ]
 )

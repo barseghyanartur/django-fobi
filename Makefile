@@ -63,6 +63,9 @@ build-%: prepare-required-files
 stop:
 	docker-compose -f docker-compose.yml stop;
 
+touch:
+	docker-compose -f docker-compose.yml exec backend touch manage.py
+
 make-migrations:
 	docker-compose -f docker-compose.yml exec backend ./manage.py makemigrations $(APP);
 
@@ -71,6 +74,12 @@ migrate:
 
 test:
 	docker-compose -f docker-compose.yml exec backend pytest /backend/src/$(TEST_PATH);
+
+tox-test:
+	docker-compose -f docker-compose.yml exec backend tox -e $(ARGS);
+
+tox-list:
+	docker-compose -f docker-compose.yml exec backend tox -l;
 
 show-migrations:
 	docker-compose -f docker-compose.yml exec backend ./manage.py showmigrations
@@ -93,6 +102,33 @@ pip-install:
 pip-list:
 	docker-compose -f docker-compose.yml exec backend pip list
 
+pip-compile:
+	docker-compose -f docker-compose.yml exec backend pip install --upgrade pip && pip install pip-tools
+	docker-compose -f docker-compose.yml exec backend ls -al /backend/examples/requirements/
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile captcha.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile common.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile debug.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile demo.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile deployment.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile dev.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile django_2_2.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile django_3_0.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile django_3_1.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile django_3_2.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile django_4_0.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile django_4_1.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile djangocms_3_4_3.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile djangorestframework.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile docs.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile feincms_1_17.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile feincms_1_20.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile latest.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile mptt.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile recaptcha.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile style_checkers.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile test.in
+	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile testing.in
+
 black:
 	docker-compose -f docker-compose.yml exec backend black .
 
@@ -105,3 +141,8 @@ bash:
 prepare-required-files:
 	mkdir -p examples/logs examples/db examples/media examples/media/static examples/media/fobi_plugins/content_image
 	mkdir -p examples/media/fobi_plugins/file
+
+release:
+	python setup.py register
+	python setup.py sdist bdist_wheel
+	twine upload dist/* --verbose

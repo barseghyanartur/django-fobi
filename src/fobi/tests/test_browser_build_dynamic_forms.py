@@ -1,13 +1,11 @@
 import logging
-import os
-import unittest
-from datetime import datetime
 
-from django.conf import settings
 from django.urls import reverse
-from selenium.webdriver.common.action_chains import ActionChains
-# from selenium.webdriver.common.keys import Keys
+from django.test import override_settings
+from selenium.webdriver.common.by import By
 from selenium.webdriver.support.wait import WebDriverWait
+
+from fobi.models import FormEntry
 
 from . import constants
 from .base import BaseFobiBrowserBuldDynamicFormsTest
@@ -19,11 +17,9 @@ from .data import (
 )
 from .helpers import db_clean_up
 
-from fobi.models import FormEntry
-
 __title__ = "fobi.tests.test_browser_build_dynamic_forms"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
-__copyright__ = "2014-2019 Artur Barseghyan"
+__copyright__ = "2014-2022 Artur Barseghyan"
 __license__ = "GPL 2.0/LGPL 2.1"
 __all__ = ("FobiBrowserBuldDynamicFormsTest",)
 
@@ -57,7 +53,8 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
 
         # Wait until the edit widget form opens
         WebDriverWait(self.driver, timeout=TIMEOUT).until(
-            lambda driver: driver.find_element_by_xpath(
+            lambda driver: driver.find_element(
+                By.XPATH,
                 '//body[contains(@class, "theme-bootstrap3")]'
             )
         )
@@ -71,14 +68,16 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
 
         # Follow the create form link.
         # Click the button to go to dashboard edit
-        self.driver.find_element_by_xpath(
+        self.driver.find_element(
+            By.XPATH,
             '//a[contains(@class, "list-group-item")]'
         ).click()
 
         # Wait until the dashboard edit view opens
         WebDriverWait(self.driver, timeout=TIMEOUT).until(
-            # lambda driver: driver.find_element_by_id('id_main')
-            lambda driver: driver.find_element_by_xpath(
+            # lambda driver: driver.find_element(By.ID, 'id_main')
+            lambda driver: driver.find_element(
+                By.XPATH,
                 '//body[contains(@class, "theme-bootstrap3")]'
             )
         )
@@ -94,11 +93,11 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
 
         if form_data:
             for field_name, field_value in form_data.items():
-                field_input = self.driver.find_element_by_name(field_name)
+                field_input = self.driver.find_element(By.NAME, field_name)
                 field_input.send_keys(field_value)
 
         # Click add widget button
-        self.driver.find_element_by_xpath('//button[@type="submit"]').click()
+        self.driver.find_element(By.XPATH, '//button[@type="submit"]').click()
 
         logger.debug(
             """//div[contains(text(), 'Form {0} was created """
@@ -109,7 +108,8 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
 
         # Wait until the fobi page opens with the form element in
         WebDriverWait(self.driver, timeout=TIMEOUT).until(
-            lambda driver: driver.find_element_by_xpath(
+            lambda driver: driver.find_element(
+                By.XPATH,
                 """//div[contains(text(), 'Form {0} was created """
                 """successfully.') """
                 """and contains(@class, "alert-info")]""".format(
@@ -138,14 +138,16 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         """
         # # Wait until the add widget view opens
         # WebDriverWait(self.driver, timeout=TIMEOUT).until(
-        #     lambda driver: driver.find_element_by_xpath(
+        #     lambda driver: driver.find_element(
+        #         By.XPATH,
         #         """//a[contains(text(), 'Choose form element to add') and """
         #         """contains(@class, "dropdown-toggle")]"""
         #     )
         # )
 
         # try:
-        #     add_form_element_link = self.driver.find_element_by_xpath(
+        #     add_form_element_link = self.driver.find_element(
+        #         By.XPATH,
         #         """//a[contains(text(), 'Choose form element to add') and """
         #         """contains(@class, "dropdown-toggle")]"""
         #     )
@@ -154,7 +156,8 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
 
         # Click the add form element button to add a new form element to the
         # form.
-        add_form_element_link = self.driver.find_element_by_xpath(
+        add_form_element_link = self.driver.find_element(
+            By.XPATH,
             """//a[contains(text(), 'Choose form element to add') and """
             """contains(@class, "dropdown-toggle")]"""
         )
@@ -164,19 +167,21 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
 
         # Find the parent element
         add_form_element_parent_container = (
-            add_form_element_link.find_element_by_xpath("..")
+            add_form_element_link.find_element(By.XPATH, "..")
         )
 
         # Find the container of the available form elements
         add_form_element_available_elements_container = (
-            add_form_element_parent_container.find_element_by_xpath(
+            add_form_element_parent_container.find_element(
+                By.XPATH,
                 '//ul[contains(@class, "dropdown-menu")]'
             )
         )
 
         # Click on the element we want
         form_element_to_add = (
-            add_form_element_available_elements_container.find_element_by_xpath(
+            add_form_element_available_elements_container.find_element(
+                By.XPATH,
                 '//a[text()="{0}"]'.format(form_element_name)
             )
         )
@@ -196,7 +201,8 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         if form_element_data:
             # Wait until the add widget view opens
             WebDriverWait(self.driver, timeout=TIMEOUT).until(
-                lambda driver: driver.find_element_by_xpath(
+                lambda driver: driver.find_element(
+                    By.XPATH,
                     """//h1[contains(text(), 'Add "{0}" element to """
                     """the form')]""".format(form_element_name)
                 )
@@ -205,14 +211,15 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
             for field_name, field_value in form_element_data.items():
                 # Wait until element is visible
                 WebDriverWait(self.driver, timeout=TIMEOUT).until(
-                    lambda driver: driver.find_element_by_name(field_name)
+                    lambda driver: driver.find_element(By.NAME, field_name)
                 )
-                field_input = self.driver.find_element_by_name(field_name)
+                field_input = self.driver.find_element(By.NAME, field_name)
                 # field_input.clear()
                 field_input.send_keys(field_value)
 
             # Click add widget button
-            submit_button = self.driver.find_element_by_xpath(
+            submit_button = self.driver.find_element(
+                By.XPATH,
                 '//button[@type="submit"]'
             )
 
@@ -229,7 +236,8 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         # Wait until the fobi page opens with the form element in.
         self._maximize_window()
         WebDriverWait(self.driver, timeout=LONG_TIMEOUT).until(
-            lambda driver: driver.find_element_by_xpath(
+            lambda driver: driver.find_element(
+                By.XPATH,
                 """//div[contains(text(), 'The form element plugin "{0}" """
                 """was added successfully.') """
                 """and contains(@class, "alert-info")]""".format(
@@ -280,7 +288,8 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         """
         # Get the label of the given form element in order to delete it later
         # from the form.
-        delete_form_element_label = self.driver.find_element_by_xpath(
+        delete_form_element_label = self.driver.find_element(
+            By.XPATH,
             """//label[contains(text(), '({0})') """
             """and contains(@class, "control-label")]""".format(
                 form_element_name
@@ -289,12 +298,13 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
 
         # Get the parent of the label
         delete_form_element_label_parent_container = (
-            delete_form_element_label.find_element_by_xpath("..")
+            delete_form_element_label.find_element(By.XPATH, "..")
         )
 
         # Click the add form element button to add a new form element to the
         # form.
-        delete_form_element_link = delete_form_element_label_parent_container.find_element_by_partial_link_text(
+        delete_form_element_link = delete_form_element_label_parent_container.find_element(
+            By.PARTIAL_LINK_TEXT,
             "Delete"
         )
         # delete_form_element_link.click()
@@ -305,7 +315,8 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
 
         # Wait until the fobi page opens with the form element in.
         WebDriverWait(self.driver, timeout=LONG_TIMEOUT).until(
-            lambda driver: driver.find_element_by_xpath(
+            lambda driver: driver.find_element(
+                By.XPATH,
                 """//div[contains(text(), 'The form element plugin "{0}" """
                 """was deleted successfully.') """
                 """and contains(@class, "alert-info")]""".format(
@@ -338,14 +349,16 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         # tab with form handlers. Otherwise Selenium raises
         # an exception about non-visible element on the page
         # that we're trying to fetch.
-        form_handlers_tab_link = self.driver.find_element_by_xpath(
+        form_handlers_tab_link = self.driver.find_element(
+            By.XPATH,
             """//a[@href="#tab-form-handlers"]"""
         )
         form_handlers_tab_link.click()
 
         # Click the add form element button to add a new form element to the
         # form.
-        add_form_handler_link = self.driver.find_element_by_xpath(
+        add_form_handler_link = self.driver.find_element(
+            By.XPATH,
             """//a[contains(text(), 'Choose form handler to add') """
             """and contains(@class, "dropdown-toggle")]"""
         )
@@ -353,19 +366,21 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
 
         # Find the parent element
         add_form_handler_parent_container = (
-            add_form_handler_link.find_element_by_xpath("..")
+            add_form_handler_link.find_element(By.XPATH, "..")
         )
 
         # Find the container of the available form elements
         add_form_handler_available_elements_container = (
-            add_form_handler_parent_container.find_element_by_xpath(
+            add_form_handler_parent_container.find_element(
+                By.XPATH,
                 '//ul[contains(@class, "dropdown-menu")]'
             )
         )
 
         # Click on the element we want
         form_handler_to_add = (
-            add_form_handler_available_elements_container.find_element_by_xpath(
+            add_form_handler_available_elements_container.find_element(
+                By.XPATH,
                 '//a[text()="{0}"]'.format(form_handler_name)
             )
         )
@@ -375,7 +390,8 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         if form_handler_data:
             # Wait until the add widget view opens
             WebDriverWait(self.driver, timeout=TIMEOUT).until(
-                lambda driver: driver.find_element_by_xpath(
+                lambda driver: driver.find_element(
+                    By.XPATH,
                     """//h1[contains(text(), 'Add "{0}" handler to """
                     """the form')]""".format(form_handler_name)
                 )
@@ -383,17 +399,19 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
 
             # Config
             for field_name, field_value in form_handler_data.items():
-                field_input = self.driver.find_element_by_name(field_name)
+                field_input = self.driver.find_element(By.NAME, field_name)
                 field_input.send_keys(field_value)
 
             # Click add widget button
-            self.driver.find_element_by_xpath(
+            self.driver.find_element(
+                By.XPATH,
                 '//button[@type="submit"]'
             ).click()
 
         # Wait until the fobi page opens with the form element in.
         WebDriverWait(self.driver, timeout=TIMEOUT).until(
-            lambda driver: driver.find_element_by_xpath(
+            lambda driver: driver.find_element(
+                By.XPATH,
                 """//div[contains(text(), 'The form handler plugin "{0}" """
                 """was added successfully.') """
                 """and contains(@class, "alert-info")]""".format(
@@ -439,25 +457,28 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         # tab with form handlers. Otherwise Selenium raises
         # an exception about non-visible element on the page
         # that we're trying to fetch.
-        form_handlers_tab_link = self.driver.find_element_by_xpath(
+        form_handlers_tab_link = self.driver.find_element(
+            By.XPATH,
             """//a[@href="#tab-form-handlers"]"""
         )
         form_handlers_tab_link.click()
 
         # Get the label of the given form element in order to delete it later
         # from the form.
-        delete_form_handler_label = self.driver.find_element_by_xpath(
+        delete_form_handler_label = self.driver.find_element(
+            By.XPATH,
             """//td[contains(text(), '{0}')]""".format(form_handler_name)
         )
 
         # Get the parent of the label
         delete_form_handler_label_parent_container = (
-            delete_form_handler_label.find_element_by_xpath("..")
+            delete_form_handler_label.find_element(By.XPATH, "..")
         )
 
         # Click the add form element button to add a new form element to the
         # form.
-        delete_form_handler_link = delete_form_handler_label_parent_container.find_element_by_partial_link_text(
+        delete_form_handler_link = delete_form_handler_label_parent_container.find_element(
+            By.PARTIAL_LINK_TEXT,
             "Delete"
         )
         delete_form_handler_link.click()
@@ -466,7 +487,8 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
 
         # Wait until the fobi page opens with the form element in.
         WebDriverWait(self.driver, timeout=TIMEOUT).until(
-            lambda driver: driver.find_element_by_xpath(
+            lambda driver: driver.find_element(
+                By.XPATH,
                 """//div[contains(text(), 'The form handler plugin "{0}" """
                 """was deleted successfully.') """
                 """and contains(@class, "alert-info")]""".format(
@@ -496,10 +518,20 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
     # +++++++++++++++++++++++++++ General +++++++++++++++++++++++++++
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
+    def _test_1001_open_dashboard(self):
+        """Test open dashboard."""
+        self._go_to_dashboard()
+
     @print_info
     def test_1001_open_dashboard(self):
         """Test open dashboard."""
-        self._go_to_dashboard()
+        self._test_1001_open_dashboard()
+
+    @override_settings(ROOT_URLCONF="urls.function_based")
+    @print_info
+    def test_1001_open_dashboard_fbv(self):
+        """Test open dashboard."""
+        self._test_1001_open_dashboard()
 
     # class GeneralFobiBrowserBuldDynamicFormsTest(
     #         BaseFobiBrowserBuldDynamicFormsTest):
@@ -514,8 +546,7 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
     # ++++++++++++++++++++++ Form specific ++++++++++++++++++++++++++
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    @print_info
-    def test_2001_add_form(self):
+    def _test_2001_add_form(self):
         """Test add a new form."""
         # Clean up database
         db_clean_up()
@@ -523,24 +554,55 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         self._test_add_form(wait=WAIT_FOR)
 
         # Make sure the success message is there
-        # self.driver.find_element_by_xpath(
+        # self.driver.find_element(
+        #     By.XPATH,
         #     """//div[text()='Form {0} was created successfully.']""".format(
         #         constants.TEST_FORM_NAME
         #     )
         # )
 
     @print_info
+    def test_2001_add_form(self):
+        """Test add a new form."""
+        self._test_2001_add_form()
+
+    @override_settings(ROOT_URLCONF="urls.function_based")
+    @print_info
+    def test_2001_add_form_fbv(self):
+        """Test add a new form."""
+        self._test_2001_add_form()
+
+    def _test_2002_edit_form(self):
+        """Test edit a form."""
+        # TODO
+
+    @print_info
     def test_2002_edit_form(self):
         """Test edit a form."""
+        self._test_2002_edit_form()
+
+    @override_settings(ROOT_URLCONF="urls.function_based")
+    @print_info
+    def test_2002_edit_form_fbv(self):
+        """Test edit a form."""
+        self._test_2002_edit_form()
+
+    def _test_2003_delete_form(self):
+        """Test delete a form."""
         # TODO
 
     @print_info
     def test_2003_delete_form(self):
         """Test delete a form."""
-        # TODO
+        self._test_2003_delete_form()
 
+    @override_settings(ROOT_URLCONF="urls.function_based")
     @print_info
-    def test_2004_submit_form(self, wait=WAIT_FOR):
+    def test_2003_delete_form_fbv(self):
+        """Test delete a form."""
+        self._test_2003_delete_form()
+
+    def _test_2004_submit_form(self, wait=WAIT_FOR):
         """Test submit form."""
         # Clean up database
         db_clean_up()
@@ -560,31 +622,34 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
 
         # Wait until the edit widget form opens
         WebDriverWait(self.driver, timeout=TIMEOUT).until(
-            lambda driver: driver.find_element_by_xpath(
+            lambda driver: driver.find_element(
+                By.XPATH,
                 '//body[contains(@class, "theme-bootstrap3")]'
             )
         )
 
         for field_name, field_value in TEST_FORM_FIELD_DATA.items():
-            field_input = self.driver.find_element_by_name(field_name)
+            field_input = self.driver.find_element(By.NAME, field_name)
             field_input.send_keys(field_value)
             self.take_screenshot("filled_form_page")
         self._sleep(2)
 
-        footer = self.driver.find_element_by_xpath("//footer")
+        footer = self.driver.find_element(By.XPATH, "//footer")
         footer.click()
 
         self._scroll_page_bottom()
 
         # Wait until button is there
         WebDriverWait(self.driver, timeout=TIMEOUT).until(
-            lambda driver: driver.find_element_by_xpath(
+            lambda driver: driver.find_element(
+                By.XPATH,
                 '//button[@type="submit"]'
             )
         )
 
         # Click add widget button
-        submit_button = self.driver.find_element_by_xpath(
+        submit_button = self.driver.find_element(
+            By.XPATH,
             '//button[@type="submit"]'
         )
 
@@ -606,7 +671,8 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         #  twice as long as the normal timeout.
         self.take_screenshot("submit_success_page")
         WebDriverWait(self.driver, timeout=TIMEOUT).until(
-            lambda driver: driver.find_element_by_xpath(
+            lambda driver: driver.find_element(
+                By.XPATH,
                 """//div[contains(text(), 'Form {0} was submitted """
                 """successfully.') """
                 """and contains(@class, "alert-info")]""".format(
@@ -621,12 +687,28 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
     #         BaseFobiBrowserBuldDynamicFormsTest):
     #     """Form element specific."""
 
+    @print_info
+    @override_settings(
+        EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend"
+    )
+    def test_2004_submit_form(self, wait=WAIT_FOR):
+        """Test submit form."""
+        self._test_2004_submit_form()
+
+    @print_info
+    @override_settings(
+        EMAIL_BACKEND="django.core.mail.backends.locmem.EmailBackend",
+        ROOT_URLCONF="urls.function_based",
+    )
+    def test_2004_submit_form_fbv(self, wait=WAIT_FOR):
+        """Test submit form."""
+        self._test_2004_submit_form()
+
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     # ++++++++++++++++++++ Form element specific ++++++++++++++++++++
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    @print_info
-    def test_3001_add_form_elements(self, wait=WAIT_FOR):
+    def _test_3001_add_form_elements(self, wait=WAIT_FOR):
         """Test adding form elements."""
         db_clean_up()  # Clean up database
 
@@ -635,7 +717,17 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         self._sleep(wait)
 
     @print_info
-    def test_3002_remove_form_elements(self):
+    def test_3001_add_form_elements(self, wait=WAIT_FOR):
+        """Test adding form elements."""
+        self._test_3001_add_form_elements()
+
+    @override_settings(ROOT_URLCONF="urls.function_based")
+    @print_info
+    def test_3001_add_form_elements_fbv(self, wait=WAIT_FOR):
+        """Test adding form elements."""
+        self._test_3001_add_form_elements()
+
+    def _test_3002_remove_form_elements(self):
         """Test remove form element."""
         # Clean up database
         db_clean_up()
@@ -645,9 +737,30 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         self._test_remove_form_elements()
 
     @print_info
-    def test_3003_edit_form_elements(self):
+    def test_3002_remove_form_elements(self):
+        """Test remove form element."""
+        self._test_3002_remove_form_elements()
+
+    @override_settings(ROOT_URLCONF="urls.function_based")
+    @print_info
+    def test_3002_remove_form_elements_fbv(self):
+        """Test remove form element."""
+        self._test_3002_remove_form_elements()
+
+    def _test_3003_edit_form_elements(self):
         """Test edit form element."""
         db_clean_up()  # Clean up database
+
+    @print_info
+    def test_3003_edit_form_elements(self):
+        """Test edit form element."""
+        self._test_3003_edit_form_elements()
+
+    @override_settings(ROOT_URLCONF="urls.function_based")
+    @print_info
+    def test_3003_edit_form_elements_fbv(self):
+        """Test edit form element."""
+        self._test_3003_edit_form_elements()
 
     # class FormHandlerSpecificFobiBrowserBuldDynamicFormsTest(
     #         BaseFobiBrowserBuldDynamicFormsTest):
@@ -657,8 +770,7 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
     # ++++++++++++++++++++ Form handler specific ++++++++++++++++++++
     # +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
 
-    @print_info
-    def test_4001_add_form_handlers(self, wait=WAIT_FOR):
+    def _test_4001_add_form_handlers(self, wait=WAIT_FOR):
         """Test of adding a single form handler.
 
         At this point, if form isn't created, it should be.
@@ -670,7 +782,23 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         self._sleep(wait)
 
     @print_info
-    def test_4002_remove_form_handlers(self):
+    def test_4001_add_form_handlers(self, wait=WAIT_FOR):
+        """Test of adding a single form handler.
+
+        At this point, if form isn't created, it should be.
+        """
+        self._test_4001_add_form_handlers()
+
+    @override_settings(ROOT_URLCONF="urls.function_based")
+    @print_info
+    def test_4001_add_form_handlers_fbv(self, wait=WAIT_FOR):
+        """Test of adding a single form handler.
+
+        At this point, if form isn't created, it should be.
+        """
+        self._test_4001_add_form_handlers()
+
+    def _test_4002_remove_form_handlers(self):
         """Test remove form handler."""
         db_clean_up()  # Clean up database
 
@@ -679,9 +807,27 @@ class FobiBrowserBuldDynamicFormsTest(BaseFobiBrowserBuldDynamicFormsTest):
         self._test_remove_form_handlers()
 
     @print_info
+    def test_4002_remove_form_handlers(self):
+        """Test remove form handler."""
+        self._test_4002_remove_form_handlers()
+
+    @override_settings(ROOT_URLCONF="urls.function_based")
+    @print_info
+    def test_4002_remove_form_handlers_fbv(self):
+        """Test remove form handler."""
+        self._test_4002_remove_form_handlers()
+
+    def _test_4003_edit_form_handlers(self):
+        """Test edit form handler."""
+        # TODO
+
+    @print_info
     def test_4003_edit_form_handlers(self):
         """Test edit form handler."""
+        self._test_4003_edit_form_handlers()
 
-
-if __name__ == "__main__":
-    unittest.main()
+    @override_settings(ROOT_URLCONF="urls.function_based")
+    @print_info
+    def test_4003_edit_form_handlers_fbv(self):
+        """Test edit form handler."""
+        self._test_4003_edit_form_handlers()

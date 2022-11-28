@@ -2,12 +2,10 @@ from django.contrib import admin, messages
 from django.contrib.admin import helpers
 from django.contrib.admin.views.decorators import staff_member_required
 from django.shortcuts import redirect, render
-from django.template import RequestContext
 from django.urls import re_path as url
 from django.utils.decorators import method_decorator
 from django.utils.html import strip_tags
 from django.utils.translation import gettext_lazy as _
-from django_nine import versions
 
 from .constants import ACTION_CHOICE_REPLACE
 from .forms import (
@@ -71,7 +69,7 @@ def base_bulk_change_plugins(
     opts = modeladmin.model._meta
     app_label = opts.app_label
 
-    selected = request.POST.getlist(admin.ACTION_CHECKBOX_NAME)
+    selected = request.POST.getlist(helpers.ACTION_CHECKBOX_NAME)
     post = dict(request.POST)
     if selected:
         post["selected_plugins"] = ",".join(selected)
@@ -577,7 +575,9 @@ class BasePluginModelAdmin(admin.ModelAdmin):
 class FormElementAdmin(BasePluginModelAdmin):
     """FormElement admin."""
 
-    actions = [bulk_change_form_element_plugins] + BasePluginModelAdmin.actions
+    actions = (bulk_change_form_element_plugins,) + tuple(
+        BasePluginModelAdmin.actions
+    )
 
     def _get_bulk_change_form_class(self):
         """Get bulk change form class."""
@@ -614,7 +614,9 @@ admin.site.register(FormElement, FormElementAdmin)
 class FormHandlerAdmin(BasePluginModelAdmin):
     """FormHandler admin."""
 
-    actions = [bulk_change_form_handler_plugins] + BasePluginModelAdmin.actions
+    actions = (bulk_change_form_handler_plugins,) + tuple(
+        BasePluginModelAdmin.actions
+    )
 
     def _get_bulk_change_form_class(self):
         """Get bulk change form class."""
@@ -651,9 +653,9 @@ admin.site.register(FormHandler, FormHandlerAdmin)
 class FormWizardHandlerAdmin(BasePluginModelAdmin):
     """FormHandler admin."""
 
-    actions = [
-        bulk_change_form_wizard_handler_plugins
-    ] + BasePluginModelAdmin.actions
+    actions = (bulk_change_form_wizard_handler_plugins,) + tuple(
+        BasePluginModelAdmin.actions
+    )
 
     def _get_bulk_change_form_class(self):
         """Get bulk change form class."""

@@ -271,6 +271,7 @@ six==1.16.0
     #   -r common.in
     #   bleach
     #   django-fobi
+    #   django-simple-captcha
     #   feincms
     #   python-dateutil
     #   tox

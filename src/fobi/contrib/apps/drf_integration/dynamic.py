@@ -1,7 +1,8 @@
 from __future__ import unicode_literals
 
 import copy
-from collections import Mapping, OrderedDict
+from collections import OrderedDict
+from collections.abc import Mapping
 
 import six
 from django.core.exceptions import ValidationError as DjangoValidationError
@@ -24,7 +25,7 @@ from . import UID as INTEGRATE_WITH_UID
 
 __title__ = "fobi.contrib.apps.drf_integration.dynamic"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
-__copyright__ = "2014-2019 Artur Barseghyan"
+__copyright__ = "2014-2022 Artur Barseghyan"
 __license__ = "GPL 2.0/LGPL 2.1"
 __all__ = (
     "assemble_serializer_class",

@@ -1,7 +1,7 @@
 # Django settings for example project.
 import os
 
-from django_nine.versions import DJANGO_GTE_1_11, DJANGO_GTE_2_0, DJANGO_GTE_3_0
+from django_nine.versions import DJANGO_GTE_3_0
 from selenium import webdriver
 
 
@@ -699,10 +699,7 @@ if DEBUG and DEBUG_TOOLBAR:
         pass
 
 # Only now make proper assignments
-if DJANGO_GTE_2_0:
-    MIDDLEWARE = _MIDDLEWARE
-else:
-    MIDDLEWARE_CLASSES = _MIDDLEWARE
+MIDDLEWARE = _MIDDLEWARE
 
 if DEBUG:
     try:

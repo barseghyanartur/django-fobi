@@ -10,6 +10,10 @@ from django_nine import versions
 
 from fobi.settings import DEFAULT_THEME
 
+__all__ = (
+    "urlpatterns",
+)
+
 admin.autodiscover()
 
 # Mapping.
@@ -46,11 +50,11 @@ url_patterns_args = [
     ),
     # django-fobi URLs:
     # namespace='fobi'
-    url(r"^fobi/", include("fobi.urls.class_based.view")),
+    url(r"^fobi/", include("fobi.urls.view")),
     # namespace='fobi'
     url(
         r"^{0}fobi/".format(FOBI_EDIT_URLS_PREFIX),
-        include("fobi.urls.class_based.edit"),
+        include("fobi.urls.edit"),
     ),
     url(r"^admin_tools/", include("admin_tools.urls")),
     url(
@@ -60,14 +64,9 @@ url_patterns_args = [
     ),
 ]
 
-if versions.DJANGO_GTE_2_0:
-    url_patterns_args += [
-        url(r"^admin/", admin.site.urls),
-    ]
-else:
-    url_patterns_args += [
-        url(r"^admin/", include(admin.site.urls)),
-    ]
+url_patterns_args += [
+    url(r"^admin/", admin.site.urls),
+]
 
 url_patterns_args += [
     # django-registration URLs:

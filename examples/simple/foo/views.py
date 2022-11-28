@@ -3,9 +3,7 @@ import uuid
 
 from django.http import HttpResponse
 from django.shortcuts import render
-from django.template import RequestContext
 from django.views.decorators.csrf import csrf_exempt
-from django_nine import versions
 
 from fobi.base import get_theme
 from fobi.helpers import handle_uploaded_file
