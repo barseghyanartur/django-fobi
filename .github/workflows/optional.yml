@@ -1,0 +1,78 @@
+name: Optional
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    # Service containers to run with `container-job`
+    services:
+      # Label used to access the service container
+      postgres:
+        # Docker Hub image
+        image: postgres
+        # Provide the password for postgres
+        env:
+          POSTGRES_PASSWORD: test
+        # Set health checks to wait until postgres has started
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      max-parallel: 4
+      matrix:
+        include:
+          - python-version: '3.11'
+            requirements: django_4_0
+            tox_env: py311-django40
+
+          - python-version: '3.11'
+            requirements: django_4_1
+            tox_env: py311-django41
+
+    steps:
+    - name: Install libxml2 and libxslt
+      run: sudo apt-get install -y libxml2-dev libxslt-dev
+    - uses: actions/checkout@v2
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v1
+      with:
+        python-version: ${{ matrix.python-version }}
+    - uses: nanasess/setup-chromedriver@master
+    - name: Install Dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install pip-tools
+        rm examples/requirements/*.txt
+        pip-compile examples/requirements/${{ matrix.requirements }}.in
+        pip install -r examples/requirements/${{ matrix.requirements }}.txt
+        pip-compile examples/requirements/test.in
+        pip install -r examples/requirements/test.txt
+    - name: Run Tests
+      run: tox -e ${{ matrix.tox_env }}
+      env:
+        POSTGRES_HOST: localhost
+        POSTGRES_PORT: 5432
+    - name: Coveralls
+      uses: AndreMiras/coveralls-python-action@develop
+      with:
+        parallel: true
+        flag-name: Run Tests
+
+  coveralls_finish:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+    - name: Coveralls Finished
+      env:
+        COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+      uses: AndreMiras/coveralls-python-action@develop
+      with:
+        parallel-finished: true
+        debug: True

@@ -19,8 +19,10 @@ are used for versioning (schema follows below):
 ------
 2022-11-26
 
-- Tested against Python 3.10 and 3.11.
+- Tested against Python 3.10 and 3.11. Note that ATM, Python 3.11 tests do
+  pass on SQLite only due to Python 3.11 issue with postgres bindings.
 - Tested against Django 4.1.
+- Drop Python 3.5 support.
 
 0.19.5
 ------
