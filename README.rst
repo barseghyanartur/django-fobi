@@ -16,7 +16,7 @@ handling the submitted form data).
     :target: https://pypi.python.org/pypi/django-fobi/
     :alt: Supported Python versions
 
-.. image:: https://github.com/barseghyanartur/django-fobi/workflows/test/badge.svg
+.. image:: https://github.com/barseghyanartur/django-fobi/workflows/test/badge.svg?branch=main
    :target: https://github.com/barseghyanartur/django-fobi/actions?query=workflow%3Atest
    :alt: Build Status
 
@@ -134,7 +134,7 @@ Some of the upcoming/in-development features/improvements are:
 - JSON schema support.
 - Webpack integration.
 - Improved Django REST framework OPTIONS.
-- Bootstrap 4 support.
+- Bootstrap 5 support.
 - Foundation 6 support.
 
 See the `TODOS
@@ -334,10 +334,10 @@ Installation
     .. code-block:: python
 
         # View URLs
-        url(r'^fobi/', include('fobi.urls.view')),
+        re_path(r'^fobi/', include('fobi.urls.class_based.view')),
 
         # Edit URLs
-        url(r'^fobi/', include('fobi.urls.edit')),
+        re_path(r'^fobi/', include('fobi.urls.class_based.edit')),
 
     Note, that some plugins require additional URL includes. For instance, if
     you listed the ``fobi.contrib.plugins.form_handlers.db_store`` form handler
@@ -347,8 +347,8 @@ Installation
     .. code-block:: python
 
         # DB Store plugin URLs
-        url(r'^fobi/plugins/form-handlers/db-store/',
-            include('fobi.contrib.plugins.form_handlers.db_store.urls')),
+        re_path(r'^fobi/plugins/form-handlers/db-store/',
+                include('fobi.contrib.plugins.form_handlers.db_store.urls')),
 
 View URLs are put separately from edit URLs in order to make it possible
 to prefix the edit URLs differently. For example, if you're using the
@@ -1151,8 +1151,9 @@ Required imports.
     from fobi.constants import (
         CALLBACK_BEFORE_FORM_VALIDATION,
         CALLBACK_FORM_VALID_BEFORE_SUBMIT_PLUGIN_FORM_DATA,
-        CALLBACK_FORM_VALID, CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS,
-        CALLBACK_FORM_INVALID
+        CALLBACK_FORM_VALID,
+        CALLBACK_FORM_VALID_AFTER_FORM_HANDLERS,
+        CALLBACK_FORM_INVALID,
     )
     from fobi.base import FormCallback, form_callback_registry
 
@@ -1192,8 +1193,8 @@ would change:
 
     urlpatterns = [
         # ...
-        url(r'^fobi/', include('fobi.urls.class_based.view')),
-        url(r'^fobi/', include('fobi.urls.class_based.edit')),
+        re_path(r'^fobi/', include('fobi.urls.class_based.view')),
+        re_path(r'^fobi/', include('fobi.urls.class_based.edit')),
         # ...
     ]
 
@@ -1203,8 +1204,8 @@ To use function based views, simply replace the previous line with:
 
     urlpatterns = [
         # ...
-        url(r'^fobi/', include('fobi.urls.view')),
-        url(r'^fobi/', include('fobi.urls.edit')),
+        re_path(r'^fobi/', include('fobi.urls.view')),
+        re_path(r'^fobi/', include('fobi.urls.edit')),
         # ...
     ]
 
@@ -2460,24 +2461,19 @@ For PhantomJS you need to have NodeJS installed.
 
 Set up ChromeDriver
 ~~~~~~~~~~~~~~~~~~~
-1. Download ChromeDriver version matching your browser. You can always find
-   proper version
-   at `chromedriver.chromium.org/downloads <https://chromedriver.chromium.org/downloads>`__:
+1. Download and install ChromeDriver version matching your browser:
 
     .. code-block:: sh
 
-        wget https://chromedriver.storage.googleapis.com/87.0.4280.88/chromedriver_linux64.zip
-        unzip chromedriver_linux64.zip
-        sudo mv chromedriver /usr/bin/chromedriver87
-        sudo chown root:root /usr/bin/chromedriver87
-        sudo chmod +x /usr/bin/chromedriver87
+        pip install get-chromedriver-py
+        get-chromedriver-py
 
 2. Specify the full path to your ChromeDriver in
    ``CHROME_DRIVER_EXECUTABLE_PATH`` setting. Example:
 
     .. code-block:: python
 
-        CHROME_DRIVER_EXECUTABLE_PATH = '/usr/bin/chromedriver87'
+        from chromedriver_py import binary_path as CHROME_DRIVER_EXECUTABLE_PATH
 
 After that your Selenium tests would work.
 
