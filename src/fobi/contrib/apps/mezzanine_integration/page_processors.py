@@ -1,4 +1,3 @@
-# from mezzanine.conf import settings
 from mezzanine.pages.page_processors import processor_for
 
 from .models import FobiFormPage

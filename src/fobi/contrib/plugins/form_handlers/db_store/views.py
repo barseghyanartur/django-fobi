@@ -1,9 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from django.template import RequestContext
-from django_nine import versions
 
-# from fobi.decorators import permissions_required, SATISFY_ALL, SATISFY_ANY
 from .....base import (
     get_form_handler_plugin_widget,
     get_form_wizard_handler_plugin_widget,

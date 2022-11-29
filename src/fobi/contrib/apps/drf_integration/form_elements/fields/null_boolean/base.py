@@ -1,5 +1,5 @@
 from django.utils.translation import gettext_lazy as _
-from rest_framework.fields import NullBooleanField
+from rest_framework.fields import BooleanField
 
 from .......base import IntegrationFormFieldPlugin
 from .... import UID as INTEGRATE_WITH_UID
@@ -43,9 +43,10 @@ class NullBooleanSelectPlugin(
             "initial": form_element_plugin.data.initial,
             "label": form_element_plugin.data.label,
             "help_text": form_element_plugin.data.help_text,
+            "allow_null": True,
         }
         return [
             DRFIntegrationFormElementPluginProcessor(
-                field_class=NullBooleanField, field_kwargs=field_kwargs
+                field_class=BooleanField, field_kwargs=field_kwargs
             )
         ]

@@ -238,6 +238,7 @@ six==1.16.0
     # via
     #   -r common.in
     #   bleach
+    #   django-simple-captcha
     #   feincms
     #   python-dateutil
     #   tox

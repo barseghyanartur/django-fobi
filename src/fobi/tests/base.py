@@ -7,6 +7,7 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.core.management import call_command
 from django.urls import reverse
 from selenium import webdriver
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
@@ -143,16 +144,17 @@ class BaseFobiBrowserBuldDynamicFormsTest(StaticLiveServerTestCase):
             "{0}{1}".format(self._get_live_server_url(), reverse("auth_login"))
         )
         self._maximize_window()
-        username_input = self.driver.find_element_by_name("username")
+        username_input = self.driver.find_element(By.NAME, "username")
         username_input.send_keys(constants.FOBI_TEST_USER_USERNAME)
-        password_input = self.driver.find_element_by_name("password")
+        password_input = self.driver.find_element(By.NAME, "password")
         password_input.send_keys(constants.FOBI_TEST_USER_PASSWORD)
-        self.driver.find_element_by_xpath('//button[@type="submit"]').click()
+        self.driver.find_element(By.XPATH, '//button[@type="submit"]').click()
 
         # Wait until the list view opens
         WebDriverWait(self.driver, timeout=TIMEOUT).until(
-            # lambda driver: driver.find_element_by_id('id_main')
-            lambda driver: driver.find_element_by_xpath(
+            # lambda driver: driver.find_element(By.ID, 'id_main')
+            lambda driver: driver.find_element(
+                By.XPATH,
                 '//body[contains(@class, "theme")]'
             )
         )
@@ -196,12 +198,12 @@ class BaseFobiBrowserBuldDynamicFormsTest(StaticLiveServerTestCase):
 
     def _scroll_page_top(self):
         """Scroll to the page top."""
-        html = self.driver.find_element_by_tag_name("html")
+        html = self.driver.find_element(By.TAG_NAME, "html")
         html.send_keys(Keys.HOME)
 
     def _scroll_page_bottom(self):
         """Scroll to the page bottom."""
-        html = self.driver.find_element_by_tag_name("html")
+        html = self.driver.find_element(By.TAG_NAME, "html")
         html.send_keys(Keys.END)
 
     def take_screenshot(self, name="screenshot"):

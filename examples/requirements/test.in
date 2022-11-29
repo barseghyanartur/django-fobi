@@ -1,6 +1,7 @@
 Faker
 coverage
 factory_boy
+importlib-metadata<5.0.0
 py
 pytest
 pytest-cov
@@ -9,5 +10,5 @@ pytest-ordering
 pytest-pythonpath
 selenium
 tox
-chromedriver-py==102.0.5005.61
+chromedriver-py==107.0.5304.62
 #geckodriver-autoinstaller

@@ -1,5 +1,4 @@
 import datetime
-import unittest
 
 from django.test import RequestFactory, TestCase
 from django.urls import reverse
@@ -20,7 +19,7 @@ from fobi.models import FormEntry, FormWizardEntry
 
 __title__ = "fobi.tests.test_core"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
-__copyright__ = "2014-2019 Artur Barseghyan"
+__copyright__ = "2014-2022 Artur Barseghyan"
 __license__ = "GPL 2.0/LGPL 2.1"
 __all__ = ("FobiCoreTest",)
 
@@ -196,7 +195,3 @@ class FobiCoreTest(TestCase):
         form_entry.active_date_from = None
         form_entry.active_date_to = now
         self.assertFalse(form_entry.is_active)
-
-
-if __name__ == "__main__":
-    unittest.main()
