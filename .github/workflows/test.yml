@@ -27,9 +27,9 @@ jobs:
       max-parallel: 4
       matrix:
         include:
-          - python-version: 3.6
-            requirements: django_2_2
-            tox_env: py36-django22
+#          - python-version: 3.6
+#            requirements: django_2_2
+#            tox_env: py36-django22
           - python-version: 3.7
             requirements: django_2_2
             tox_env: py37-django22
@@ -40,9 +40,9 @@ jobs:
             requirements: django_2_2
             tox_env: py39-django22
 
-          - python-version: 3.6
-            requirements: django_3_0
-            tox_env: py36-django30
+#          - python-version: 3.6
+#            requirements: django_3_0
+#            tox_env: py36-django30
           - python-version: 3.7
             requirements: django_3_0
             tox_env: py37-django30
@@ -53,9 +53,9 @@ jobs:
             requirements: django_3_0
             tox_env: py39-django30
 
-          - python-version: 3.6
-            requirements: django_3_1
-            tox_env: py36-django31
+#          - python-version: 3.6
+#            requirements: django_3_1
+#            tox_env: py36-django31
           - python-version: 3.7
             requirements: django_3_1
             tox_env: py37-django31
@@ -66,9 +66,9 @@ jobs:
             requirements: django_3_1
             tox_env: py39-django31
 
-          - python-version: 3.6
-            requirements: django_3_2
-            tox_env: py36-django32
+#          - python-version: 3.6
+#            requirements: django_3_2
+#            tox_env: py36-django32
           - python-version: 3.7
             requirements: django_3_2
             tox_env: py37-django32
