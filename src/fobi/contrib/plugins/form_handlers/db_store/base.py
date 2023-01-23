@@ -50,15 +50,16 @@ class DBStoreHandlerPlugin(FormHandlerPlugin):
         :param django.forms.Form form:
         :param iterable form_element_entries: Iterable of
             ``fobi.models.FormElementEntry`` objects.
+        :return True, instance of ``fobi.contrib.plugins.form_handler.db_store.models.SavedFormDataEntry`` with saved data.
         """
         # Clean up the values, leave our content fields and empty values.
         field_name_to_label_map, cleaned_data = get_processed_form_data(
             form, form_element_entries
         )
 
-        self.save_form_data_entry(
+        return (True, self.save_form_data_entry(
             form_entry, request, field_name_to_label_map, cleaned_data
-        )
+        ))
 
     def save_form_data_entry(
         self, form_entry, request, field_name_to_label_map, cleaned_data
@@ -82,6 +83,7 @@ class DBStoreHandlerPlugin(FormHandlerPlugin):
             saved_data=json.dumps(cleaned_data, cls=DjangoJSONEncoder),
         )
         saved_form_data_entry.save()
+        return saved_form_data_entry
 
     def custom_actions(self, form_entry, request=None):
         """Custom actions.
