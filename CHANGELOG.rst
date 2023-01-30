@@ -15,6 +15,15 @@ are used for versioning (schema follows below):
   0.3.4 to 0.4).
 - All backwards incompatible changes are mentioned in this document.
 
+0.19.8
+------
+2023-01-30
+
+- Method
+  `fobi.contrib.plugins.form_handlers.db_store.base.DBStoreHandlerPlugin.run`
+  now returns created
+  `fobi.contrib.plugins.form_handlers.db_store.models.SavedFormDataEntry`.
+
 0.19.7
 ------
 2022-12-21
