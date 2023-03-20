@@ -6,10 +6,10 @@ __all__ = (
     "default_app_config",
     "UID",
 )
-
-default_app_config = (
-    "fobi.contrib.plugins.form_elements.content."
-    "content_image_url.apps.Config"
-)
+if django.VERSION < (3, 2): # pragma: no cover
+    default_app_config = (
+        "fobi.contrib.plugins.form_elements.content."
+        "content_image_url.apps.Config"
+    )
 
 UID = "content_image_url"
