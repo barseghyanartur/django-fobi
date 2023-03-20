@@ -7,6 +7,7 @@ __all__ = (
     "UID",
 )
 
-default_app_config = "fobi.contrib.plugins.form_handlers.db_store.apps.Config"
+if django.VERSION < (3, 2): # pragma: no cover
+    default_app_config = "fobi.contrib.plugins.form_handlers.db_store.apps.Config"
 
 UID = "db_store"
