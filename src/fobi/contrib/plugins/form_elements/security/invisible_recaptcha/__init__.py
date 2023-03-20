@@ -6,10 +6,10 @@ __all__ = (
     "default_app_config",
     "UID",
 )
-
-default_app_config = (
-    "fobi.contrib.plugins.form_elements.security."
-    "invisible_recaptcha.apps.Config"
-)
+if django.VERSION < (3, 2): # pragma: no cover
+    default_app_config = (
+        "fobi.contrib.plugins.form_elements.security."
+        "invisible_recaptcha.apps.Config"
+    )
 
 UID = "invisible_recaptcha"

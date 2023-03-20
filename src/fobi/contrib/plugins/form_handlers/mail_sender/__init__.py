@@ -9,8 +9,9 @@ __all__ = (
     "UID",
 )
 
-default_app_config = (
-    "fobi.contrib.plugins.form_handlers.mail_sender.apps." "Config"
-)
+if django.VERSION < (3, 2): # pragma: no cover
+    default_app_config = (
+        "fobi.contrib.plugins.form_handlers.mail_sender.apps." "Config"
+    )
 
 UID = "mail_sender"

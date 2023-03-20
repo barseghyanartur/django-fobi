@@ -7,8 +7,9 @@ __all__ = (
     "UID",
 )
 
-default_app_config = (
-    "fobi.contrib.plugins.form_elements.content." "content_text.apps.Config"
-)
+if django.VERSION < (3, 2): # pragma: no cover
+    default_app_config = (
+        "fobi.contrib.plugins.form_elements.content." "content_text.apps.Config"
+    )
 
 UID = "content_text"
