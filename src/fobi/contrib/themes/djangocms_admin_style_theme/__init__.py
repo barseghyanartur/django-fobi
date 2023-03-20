@@ -7,8 +7,9 @@ __all__ = (
     "UID",
 )
 
-default_app_config = (
-    "fobi.contrib.themes." "djangocms_admin_style_theme.apps.Config"
-)
+if django.VERSION < (3, 2): # pragma: no cover
+    default_app_config = (
+        "fobi.contrib.themes." "djangocms_admin_style_theme.apps.Config"
+    )
 
 UID = "djangocms_admin_style_theme"
