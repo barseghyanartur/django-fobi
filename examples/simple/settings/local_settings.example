@@ -73,6 +73,6 @@ os.environ.setdefault(
 )
 
 try:
-    from .loca_settings import TEST_DATABASES as DATABASES
+    from .local_settings import TEST_DATABASES as DATABASES
 except:
     pass
