@@ -1,0 +1,69 @@
+from django import forms
+from django.core.exceptions import ValidationError
+from django.utils.translation import gettext_lazy as _
+
+from .widget import EmailRepeatWidget
+
+__title__ = "fobi.reusable.email_repeat.field"
+__author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
+__copyright__ = "2014-2019 Artur Barseghyan"
+__license__ = "GPL 2.0/LGPL 2.1"
+__all__ = ("EmailRepeatField",)
+
+
+class EmailRepeatField(forms.MultiValueField):
+    """EmailRepeatField.
+
+    Usage example:
+
+        # *******************
+        # **** forms.py *****
+        # *******************
+        from django import forms
+        from fobi.reusable.email_repeat.fields import EmailRepeatField
+
+        class MyForm(forms.Form):
+            email = EmailRepeatField()
+
+        # *******************
+        # **** views.py *****
+        # *******************
+        from django.shortcuts import render
+        from .forms import MyForm
+
+        def my_view(request):
+            if request.method == 'POST':
+                form = MyForm(request.POST)
+                if form.is_valid():
+                    email = form.cleaned_data['email']
+                    # Do something with email
+            else:
+                form = MyForm()
+
+            return render(request, 'my_template.html', {'form': form})
+
+        # ***************************
+        # **** my_template.html *****
+        # ***************************
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="Submit">
+        </form>
+    """
+    widget = EmailRepeatWidget
+
+    def __init__(self, *args, **kwargs):
+        fields = (
+            forms.EmailField(),
+            forms.EmailField(),
+        )
+        super().__init__(fields, *args, **kwargs)
+
+    def compress(self, data_list):
+        if data_list:
+            email1, email2 = data_list
+            if email1 != email2:
+                raise ValidationError(_("Emails must match"))
+            return email1
+        return None
