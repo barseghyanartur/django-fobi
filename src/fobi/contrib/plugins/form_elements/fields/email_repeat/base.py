@@ -1,7 +1,5 @@
 from __future__ import absolute_import
 
-from django.forms.fields import EmailField
-from django.forms.widgets import TextInput
 from django.utils.translation import gettext_lazy as _
 
 from fobi.base import FormFieldPlugin, get_theme
@@ -46,14 +44,14 @@ class EmailRepeatInputPlugin(FormFieldPlugin):
             "widget": EmailRepeatWidget(attrs=widget_attrs),
         }
 
-        # if self.data.max_length:
-        #     try:
-        #         field_kwargs["max_length"] = int(self.data.max_length)
-        #     except ValueError:
-        #         field_kwargs["max_length"] = None
-        # else:
-        #     field_kwargs["max_length"] = None
-        #
-        # field_kwargs["min_length"] = None
+        if self.data.max_length:
+            try:
+                field_kwargs["max_length"] = int(self.data.max_length)
+            except ValueError:
+                field_kwargs["max_length"] = None
+        else:
+            field_kwargs["max_length"] = None
+
+        field_kwargs["min_length"] = None
 
         return [(self.data.name, EmailRepeatField, field_kwargs)]

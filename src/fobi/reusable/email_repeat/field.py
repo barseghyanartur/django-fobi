@@ -54,10 +54,10 @@ class EmailRepeatField(forms.MultiValueField):
 
     widget = EmailRepeatWidget
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, max_length=None, min_length=None, *args, **kwargs):
         fields = (
-            forms.EmailField(),
-            forms.EmailField(),
+            forms.EmailField(max_length=max_length, min_length=min_length),
+            forms.EmailField(max_length=max_length, min_length=min_length),
         )
         super().__init__(fields, *args, **kwargs)
 
