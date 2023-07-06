@@ -8,6 +8,8 @@ from . import UID
 from .forms import EmailRepeatInputForm
 
 from fobi.base import FormFieldPlugin, get_theme
+from fobi.reusable.email_repeat.field import EmailRepeatField
+from fobi.reusable.email_repeat.widget import EmailRepeatWidget
 
 __title__ = (
     "fobi.contrib.plugins.form_elements.fields.email.fobi_form_elements"
@@ -43,17 +45,17 @@ class EmailRepeatInputPlugin(FormFieldPlugin):
             "help_text": self.data.help_text,
             "initial": self.data.initial,
             "required": self.data.required,
-            "widget": TextInput(attrs=widget_attrs),
+            "widget": EmailRepeatWidget(attrs=widget_attrs),
         }
 
-        if self.data.max_length:
-            try:
-                field_kwargs["max_length"] = int(self.data.max_length)
-            except ValueError:
-                field_kwargs["max_length"] = None
-        else:
-            field_kwargs["max_length"] = None
+        # if self.data.max_length:
+        #     try:
+        #         field_kwargs["max_length"] = int(self.data.max_length)
+        #     except ValueError:
+        #         field_kwargs["max_length"] = None
+        # else:
+        #     field_kwargs["max_length"] = None
+        #
+        # field_kwargs["min_length"] = None
 
-        field_kwargs["min_length"] = None
-
-        return [(self.data.name, EmailField, field_kwargs)]
+        return [(self.data.name, EmailRepeatField, field_kwargs)]
