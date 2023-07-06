@@ -13,7 +13,7 @@ Installation
 
         INSTALLED_APPS = (
             # ...
-            'fobi.contrib.plugins.form_elements.fields.email_repeat',
+            "fobi.contrib.plugins.form_elements.fields.email_repeat",
             # ...
         )
 
