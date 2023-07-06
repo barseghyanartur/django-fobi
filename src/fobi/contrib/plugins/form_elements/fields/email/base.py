@@ -10,7 +10,7 @@ from . import UID
 from .forms import EmailInputForm
 
 __title__ = (
-    "fobi.contrib.plugins.form_elements.fields." "email.fobi_form_elements"
+    "fobi.contrib.plugins.form_elements.fields.email.fobi_form_elements"
 )
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2014-2019 Artur Barseghyan"

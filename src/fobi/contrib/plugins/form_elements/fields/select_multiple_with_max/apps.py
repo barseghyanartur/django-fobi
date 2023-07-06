@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 
 __title__ = (
-    "fobi.contrib.plugins.form_elements.fields." "select_multiple_with_max.apps"
+    "fobi.contrib.plugins.form_elements.fields.select_multiple_with_max.apps"
 )
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2014-2019 Artur Barseghyan"
@@ -13,8 +13,8 @@ class Config(AppConfig):
     """Config."""
 
     name = (
-        "fobi.contrib.plugins.form_elements.fields." "select_multiple_with_max"
+        "fobi.contrib.plugins.form_elements.fields.select_multiple_with_max"
     )
     label = (
-        "fobi_contrib_plugins_form_elements_fields_" "select_multiple_with_max"
+        "fobi_contrib_plugins_form_elements_fields_select_multiple_with_max"
     )

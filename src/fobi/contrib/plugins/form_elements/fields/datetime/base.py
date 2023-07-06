@@ -9,7 +9,7 @@ from fobi.base import FormFieldPlugin, get_theme
 from . import UID
 from .forms import DateTimeInputForm
 
-__title__ = "fobi.contrib.plugins.form_elements.fields." "datetime.base"
+__title__ = "fobi.contrib.plugins.form_elements.fields.datetime.base"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2014-2019 Artur Barseghyan"
 __license__ = "GPL 2.0/LGPL 2.1"

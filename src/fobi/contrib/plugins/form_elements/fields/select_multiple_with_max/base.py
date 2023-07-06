@@ -13,7 +13,7 @@ from .forms import SelectMultipleWithMaxInputForm
 from .settings import SUBMIT_VALUE_AS
 
 __title__ = (
-    "fobi.contrib.plugins.form_elements.fields." "select_multiple_with_max.base"
+    "fobi.contrib.plugins.form_elements.fields.select_multiple_with_max.base"
 )
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2014-2019 Artur Barseghyan"

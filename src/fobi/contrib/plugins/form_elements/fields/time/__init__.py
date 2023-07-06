@@ -10,7 +10,7 @@ __all__ = (
 )
 
 default_app_config = (
-    "fobi.contrib.plugins.form_elements.fields." "time.apps.Config"
+    "fobi.contrib.plugins.form_elements.fields.time.apps.Config"
 )
 
 UID = "time"

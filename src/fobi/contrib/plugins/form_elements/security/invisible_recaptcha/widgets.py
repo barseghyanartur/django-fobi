@@ -6,7 +6,7 @@ from . import UID
 from .conf import get_setting
 
 __title__ = (
-    "fobi.contrib.plugins.form_elements.security." "invisible_recaptcha.widgets"
+    "fobi.contrib.plugins.form_elements.security.invisible_recaptcha.widgets"
 )
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2014-2019 Artur Barseghyan"

@@ -5,7 +5,7 @@ from fobi.base import form_element_plugin_registry
 from .base import TextareaPlugin
 
 __title__ = (
-    "fobi.contrib.plugins.form_elements.fields." "textarea.fobi_form_elements"
+    "fobi.contrib.plugins.form_elements.fields.textarea.fobi_form_elements"
 )
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2014-2019 Artur Barseghyan"

@@ -11,7 +11,7 @@ from .forms import InvisibleRecaptchaInputForm
 from .widgets import InvisibleRecaptchaWidget
 
 __title__ = (
-    "fobi.contrib.plugins.form_elements.security." "invisible_recaptcha.base"
+    "fobi.contrib.plugins.form_elements.security.invisible_recaptcha.base"
 )
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2014-2019 Artur Barseghyan"

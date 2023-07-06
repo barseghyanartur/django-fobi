@@ -8,7 +8,7 @@ __all__ = (
 )
 
 default_app_config = (
-    "fobi.contrib.plugins.form_elements.fields." "slider.apps.Config"
+    "fobi.contrib.plugins.form_elements.fields.slider.apps.Config"
 )
 
 UID = "slider"

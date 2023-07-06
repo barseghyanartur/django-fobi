@@ -8,7 +8,7 @@ __all__ = (
 )
 
 default_app_config = (
-    "fobi.contrib.apps.drf_integration.form_handlers." "http_repost.apps.Config"
+    "fobi.contrib.apps.drf_integration.form_handlers.http_repost.apps.Config"
 )
 
 UID = "http_repost"

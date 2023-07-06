@@ -3,7 +3,7 @@ from fobi.helpers import validate_submit_value_as
 from .conf import get_setting
 
 __title__ = (
-    "fobi.contrib.plugins.form_elements.fields." "select_multiple.settings"
+    "fobi.contrib.plugins.form_elements.fields.select_multiple.settings"
 )
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2014-2019 Artur Barseghyan"

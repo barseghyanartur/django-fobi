@@ -3,7 +3,7 @@ from django.conf import settings
 from . import defaults
 
 __title__ = (
-    "fobi.contrib.plugins.form_elements.fields." "checkbox_select_multiple.conf"
+    "fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple.conf"
 )
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2014-2019 Artur Barseghyan"

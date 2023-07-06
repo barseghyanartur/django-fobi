@@ -8,7 +8,7 @@ __all__ = (
 )
 
 default_app_config = (
-    "fobi.contrib.plugins.form_elements.content." "content_video.apps.Config"
+    "fobi.contrib.plugins.form_elements.content.content_video.apps.Config"
 )
 
 UID = "content_video"

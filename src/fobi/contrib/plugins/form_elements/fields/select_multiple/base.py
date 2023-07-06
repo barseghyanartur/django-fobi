@@ -12,7 +12,7 @@ from . import UID
 from .forms import SelectMultipleInputForm
 from .settings import SUBMIT_VALUE_AS
 
-__title__ = "fobi.contrib.plugins.form_elements.fields." "select_multiple.base"
+__title__ = "fobi.contrib.plugins.form_elements.fields.select_multiple.base"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2014-2019 Artur Barseghyan"
 __license__ = "GPL 2.0/LGPL 2.1"

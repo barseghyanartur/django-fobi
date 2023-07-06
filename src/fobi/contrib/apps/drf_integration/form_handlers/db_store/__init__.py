@@ -8,7 +8,7 @@ __all__ = (
 )
 
 default_app_config = (
-    "fobi.contrib.apps.drf_integration.form_handlers." "db_store.apps.Config"
+    "fobi.contrib.apps.drf_integration.form_handlers.db_store.apps.Config"
 )
 
 UID = "db_store"

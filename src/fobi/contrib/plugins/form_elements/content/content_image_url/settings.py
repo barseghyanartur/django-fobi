@@ -12,7 +12,7 @@
 from .conf import get_setting
 
 __title__ = (
-    "fobi.contrib.plugins.form_elements.content.content_image_url." "settings"
+    "fobi.contrib.plugins.form_elements.content.content_image_url.settings"
 )
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2014-2019 Artur Barseghyan"

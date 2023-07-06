@@ -18,7 +18,7 @@ from .forms import SelectMPTTModelObjectInputForm
 from .settings import SUBMIT_VALUE_AS
 
 __title__ = (
-    "fobi.contrib.plugins.form_elements.fields." "select_mptt_model_object.base"
+    "fobi.contrib.plugins.form_elements.fields.select_mptt_model_object.base"
 )
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2014-2019 Artur Barseghyan"

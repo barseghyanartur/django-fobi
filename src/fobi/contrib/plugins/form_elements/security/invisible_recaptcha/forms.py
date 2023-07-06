@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from fobi.base import BaseFormFieldPluginForm, get_theme
 
 __title__ = (
-    "fobi.contrib.plugins.form_elements.security." "invisible_recaptcha.forms"
+    "fobi.contrib.plugins.form_elements.security.invisible_recaptcha.forms"
 )
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2014-2019 Artur Barseghyan"

@@ -8,7 +8,7 @@ __all__ = (
 )
 
 default_app_config = (
-    "fobi.contrib.plugins.form_importers." "mailchimp_importer.apps.Config"
+    "fobi.contrib.plugins.form_importers.mailchimp_importer.apps.Config"
 )
 
 UID = "mailchimp"

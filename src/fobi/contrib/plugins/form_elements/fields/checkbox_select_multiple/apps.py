@@ -11,7 +11,7 @@ class Config(AppConfig):
     """Config."""
 
     name = (
-        "fobi.contrib.plugins.form_elements.fields." "checkbox_select_multiple"
+        "fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple"
     )
     label = (
         "fobi_contrib_plugins_form_elements_fields_" "checkbox_select_multiple"

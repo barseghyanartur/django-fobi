@@ -1,7 +1,7 @@
 from django.conf import settings
 
 __title__ = (
-    "fobi.contrib.plugins.form_elements.security." "invisible_recaptcha.conf"
+    "fobi.contrib.plugins.form_elements.security.invisible_recaptcha.conf"
 )
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2014-2019 Artur Barseghyan"

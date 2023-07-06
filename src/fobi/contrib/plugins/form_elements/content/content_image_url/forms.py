@@ -14,7 +14,7 @@ from .settings import (
 
 
 __title__ = (
-    "fobi.contrib.plugins.form_elements.content.content_image_url." "forms"
+    "fobi.contrib.plugins.form_elements.content.content_image_url.forms"
 )
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2014-2019 Artur Barseghyan"

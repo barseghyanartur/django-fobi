@@ -1,5 +1,5 @@
 __title__ = (
-    "fobi.contrib.plugins.form_elements.fields." "select_multiple_model_objects"
+    "fobi.contrib.plugins.form_elements.fields.select_multiple_model_objects"
 )
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2014-2019 Artur Barseghyan"

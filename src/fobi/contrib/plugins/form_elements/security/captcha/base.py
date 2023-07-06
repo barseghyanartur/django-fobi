@@ -61,7 +61,7 @@ except ImportError as err:
             "due to app name collision (captcha)."
         )
 
-__title__ = "fobi.contrib.plugins.form_elements.security." "captcha.base"
+__title__ = "fobi.contrib.plugins.form_elements.security.captcha.base"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2014-2019 Artur Barseghyan"
 __license__ = "GPL 2.0/LGPL 2.1"

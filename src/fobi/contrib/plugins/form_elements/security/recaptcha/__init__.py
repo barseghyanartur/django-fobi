@@ -8,7 +8,7 @@ __all__ = (
 )
 
 default_app_config = (
-    "fobi.contrib.plugins.form_elements.security." "recaptcha.apps.Config"
+    "fobi.contrib.plugins.form_elements.security.recaptcha.apps.Config"
 )
 
 UID = "recaptcha"

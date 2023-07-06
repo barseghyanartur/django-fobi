@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 
 __title__ = (
-    "fobi.contrib.plugins.form_elements.fields." "select_model_object.apps"
+    "fobi.contrib.plugins.form_elements.fields.select_model_object.apps"
 )
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2014-2019 Artur Barseghyan"

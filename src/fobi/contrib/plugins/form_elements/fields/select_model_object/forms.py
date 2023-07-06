@@ -7,7 +7,7 @@ from fobi.helpers import get_registered_models
 from .settings import IGNORED_MODELS
 
 __title__ = (
-    "fobi.contrib.plugins.form_elements.fields." "select_model_object.forms"
+    "fobi.contrib.plugins.form_elements.fields.select_model_object.forms"
 )
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2014-2019 Artur Barseghyan"

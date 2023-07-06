@@ -8,7 +8,7 @@ __all__ = (
 )
 
 default_app_config = (
-    "fobi.contrib.themes." "djangocms_admin_style_theme.apps.Config"
+    "fobi.contrib.themes.djangocms_admin_style_theme.apps.Config"
 )
 
 UID = "djangocms_admin_style_theme"

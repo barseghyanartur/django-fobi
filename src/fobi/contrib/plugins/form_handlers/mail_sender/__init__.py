@@ -10,7 +10,7 @@ __all__ = (
 )
 
 default_app_config = (
-    "fobi.contrib.plugins.form_handlers.mail_sender.apps." "Config"
+    "fobi.contrib.plugins.form_handlers.mail_sender.apps.Config"
 )
 
 UID = "mail_sender"

@@ -1,7 +1,7 @@
 from django.utils.translation import gettext_lazy as _
 
 __title__ = (
-    "fobi.contrib.plugins.form_elements.content.content_image_url." "defaults"
+    "fobi.contrib.plugins.form_elements.content.content_image_url.defaults"
 )
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2014-2019 Artur Barseghyan"

@@ -1,5 +1,5 @@
 __title__ = (
-    "fobi.contrib.plugins.form_elements.fields." "checkbox_select_multiple"
+    "fobi.contrib.plugins.form_elements.fields.checkbox_select_multiple"
 )
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2014-2019 Artur Barseghyan"

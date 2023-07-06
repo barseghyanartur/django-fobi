@@ -1,7 +1,7 @@
 from fobi.constants import SUBMIT_VALUE_AS_REPR
 
 __title__ = (
-    "fobi.contrib.plugins.form_elements.fields." "select_multiple.defaults"
+    "fobi.contrib.plugins.form_elements.fields.select_multiple.defaults"
 )
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2014-2019 Artur Barseghyan"

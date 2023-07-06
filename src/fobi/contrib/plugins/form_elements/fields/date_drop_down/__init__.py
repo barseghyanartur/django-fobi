@@ -8,7 +8,7 @@ __all__ = (
 )
 
 default_app_config = (
-    "fobi.contrib.plugins.form_elements.fields." "date_drop_down.apps.Config"
+    "fobi.contrib.plugins.form_elements.fields.date_drop_down.apps.Config"
 )
 
 UID = "date_drop_down"
