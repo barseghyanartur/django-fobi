@@ -10,6 +10,8 @@ __all__ = ("EmailRepeatWidget",)
 class EmailRepeatWidget(forms.MultiWidget):
     """EmailRepeatWidget."""
 
+    template_name = "fobi/django/forms/widgets/email_repeat.html"
+
     def __init__(self, attrs=None):
         widgets = (
             forms.EmailInput(attrs=attrs),
