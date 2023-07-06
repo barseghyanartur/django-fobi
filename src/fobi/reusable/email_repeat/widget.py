@@ -21,8 +21,3 @@ class EmailRepeatWidget(forms.MultiWidget):
         if value:
             return [value, value]
         return ["", ""]
-
-    def value_from_datadict(self, data, files, name):
-        email1 = data.get(f"{name}_0")
-        email2 = data.get(f"{name}_1")
-        return email1, email2

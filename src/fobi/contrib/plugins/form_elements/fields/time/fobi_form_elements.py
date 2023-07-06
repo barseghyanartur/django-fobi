@@ -1,8 +1,8 @@
 from __future__ import absolute_import
 
-from .base import TimeInputPlugin
-
 from fobi.base import form_element_plugin_registry
+
+from .base import TimeInputPlugin
 
 __title__ = (
     "fobi.contrib.plugins.form_elements.fields." "time.fobi_form_elements"

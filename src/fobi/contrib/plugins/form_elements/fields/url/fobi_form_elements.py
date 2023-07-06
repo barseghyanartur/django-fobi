@@ -1,8 +1,8 @@
 from __future__ import absolute_import
 
-from .base import URLInputPlugin
-
 from fobi.base import form_element_plugin_registry
+
+from .base import URLInputPlugin
 
 __title__ = "fobi.contrib.plugins.form_elements.fields.url.fobi_form_elements"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

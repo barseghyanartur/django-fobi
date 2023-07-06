@@ -16,8 +16,10 @@ from autoslug.settings import slugify
 from django import forms
 from django.conf import settings
 from django.contrib.auth.models import AnonymousUser, User
+
 # from django.contrib.contenttypes.models import ContentType
 from django.core.files.base import File
+
 # from django.db.utils import DatabaseError
 from django.http import HttpResponse
 from django.templatetags.static import static

@@ -7,10 +7,10 @@ from django.utils.encoding import smart_str
 from django.utils.translation import gettext_lazy as _
 from nonefield.fields import NoneField
 
+from fobi.base import FormElementPlugin
+
 from . import UID
 from .forms import ContentTextForm
-
-from fobi.base import FormElementPlugin
 
 __title__ = "fobi.contrib.plugins.form_elements.content.content_text.base"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

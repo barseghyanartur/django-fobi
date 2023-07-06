@@ -1,6 +1,6 @@
-from .conf import get_setting
-
 from fobi.helpers import validate_submit_value_as
+
+from .conf import get_setting
 
 __title__ = (
     "fobi.contrib.plugins.form_elements.fields."

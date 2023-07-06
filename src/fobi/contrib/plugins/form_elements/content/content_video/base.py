@@ -7,10 +7,10 @@ from django.utils.translation import gettext_lazy as _
 from nonefield.fields import NoneField
 from vishap import render_video
 
+from fobi.base import FormElementPlugin
+
 from . import UID
 from .forms import ContentVideoForm
-
-from fobi.base import FormElementPlugin
 
 __title__ = "fobi.contrib.plugins.form_elements.content.content_video.base"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

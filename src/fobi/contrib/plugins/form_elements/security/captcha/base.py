@@ -4,11 +4,11 @@ import logging
 
 from django.utils.translation import gettext_lazy as _
 
+from fobi.base import FormElementPlugin, get_theme
+
 from ......pip_helpers import check_if_installed, get_installed_packages
 from . import UID
 from .forms import CaptchaInputForm
-
-from fobi.base import FormElementPlugin, get_theme
 
 logger = logging.getLogger(__name__)
 

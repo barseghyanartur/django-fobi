@@ -1,6 +1,10 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
+from fobi.base import BaseFormFieldPluginForm, get_theme
+from fobi.helpers import get_select_field_choices
+from fobi.widgets import NumberInput
+
 from .constants import (
     SLIDER_DEFAULT_HANDLE,
     SLIDER_DEFAULT_SHOW_ENDPOINTS_AS,
@@ -21,10 +25,6 @@ from .settings import (
     MIN_VALUE,
     STEP,
 )
-
-from fobi.base import BaseFormFieldPluginForm, get_theme
-from fobi.helpers import get_select_field_choices
-from fobi.widgets import NumberInput
 
 __title__ = "fobi.contrib.plugins.form_elements.fields.slider.forms"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

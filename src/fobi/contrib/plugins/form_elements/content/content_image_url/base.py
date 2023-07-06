@@ -7,11 +7,11 @@ from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 from nonefield.fields import NoneField
 
+from fobi.base import FormElementPlugin
+
 from . import UID
 from .forms import ContentImageURLForm
 from .settings import FIT_METHOD_FIT_HEIGHT, FIT_METHOD_FIT_WIDTH
-
-from fobi.base import FormElementPlugin
 
 __title__ = "fobi.contrib.plugins.form_elements.content.content_image_url.base"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

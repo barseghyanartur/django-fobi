@@ -1,8 +1,8 @@
 from __future__ import absolute_import
 
-from .base import ContentVideoPlugin
-
 from fobi.base import form_element_plugin_registry
+
+from .base import ContentVideoPlugin
 
 __title__ = (
     "fobi.contrib.plugins.form_elements.content.content_video."

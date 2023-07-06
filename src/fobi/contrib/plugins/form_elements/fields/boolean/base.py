@@ -1,10 +1,10 @@
 from django.forms.fields import BooleanField
 from django.utils.translation import gettext_lazy as _
 
+from fobi.base import FormFieldPlugin
+
 from . import UID
 from .forms import BooleanSelectForm
-
-from fobi.base import FormFieldPlugin
 
 __title__ = "fobi.contrib.plugins.form_elements.fields.boolean.base"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

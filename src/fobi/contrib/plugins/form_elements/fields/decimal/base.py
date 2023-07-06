@@ -5,11 +5,11 @@ import decimal
 from django.forms.fields import DecimalField
 from django.utils.translation import gettext_lazy as _
 
-from . import UID
-from .forms import DecimalInputForm
-
 from fobi.base import FormFieldPlugin, get_theme
 from fobi.widgets import NumberInput
+
+from . import UID
+from .forms import DecimalInputForm
 
 __title__ = "fobi.contrib.plugins.form_elements.fields." "decimal.base"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

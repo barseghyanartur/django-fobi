@@ -2,10 +2,10 @@ from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 from django.utils.translation import gettext_lazy as _
 
+from fobi.integration.processors import IntegrationProcessor
+
 from .models import FobiFormWidget
 from .settings import WIDGET_FORM_SENT_GET_PARAM
-
-from fobi.integration.processors import IntegrationProcessor
 
 __title__ = "fobi.contrib.apps.djangocms_integration.cms_plugins"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

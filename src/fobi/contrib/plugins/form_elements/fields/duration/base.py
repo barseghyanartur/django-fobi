@@ -7,10 +7,10 @@ from django.forms.widgets import TextInput
 from django.utils.duration import duration_string
 from django.utils.translation import gettext_lazy as _
 
+from fobi.base import FormFieldPlugin, get_theme
+
 from . import UID
 from .forms import DurationInputForm
-
-from fobi.base import FormFieldPlugin, get_theme
 
 __title__ = "fobi.contrib.plugins.form_elements.fields.duration.base"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

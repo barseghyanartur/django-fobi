@@ -3,10 +3,10 @@ import json
 
 from django.core.serializers.json import DjangoJSONEncoder
 
-from .models import SavedFormDataEntry
-
 from fobi.base import FormCallback, get_processed_form_data
 from fobi.constants import CALLBACK_FORM_VALID
+
+from .models import SavedFormDataEntry
 
 __title__ = "fobi.contrib.plugins.form_handlers.db_store.callbacks"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

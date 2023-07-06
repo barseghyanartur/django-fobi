@@ -1,8 +1,8 @@
 from __future__ import absolute_import
 
-from .base import InputPlugin
-
 from fobi.base import form_element_plugin_registry
+
+from .base import InputPlugin
 
 __title__ = (
     "fobi.contrib.plugins.form_elements.fields." "input.fobi_form_elements"

@@ -4,16 +4,14 @@ from django.forms.fields import EmailField
 from django.forms.widgets import TextInput
 from django.utils.translation import gettext_lazy as _
 
-from . import UID
-from .forms import EmailRepeatInputForm
-
 from fobi.base import FormFieldPlugin, get_theme
 from fobi.reusable.email_repeat.field import EmailRepeatField
 from fobi.reusable.email_repeat.widget import EmailRepeatWidget
 
-__title__ = (
-    "fobi.contrib.plugins.form_elements.fields.email.fobi_form_elements"
-)
+from . import UID
+from .forms import EmailRepeatInputForm
+
+__title__ = "fobi.contrib.plugins.form_elements.fields.email.fobi_form_elements"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2014-2019 Artur Barseghyan"
 __license__ = "GPL 2.0/LGPL 2.1"

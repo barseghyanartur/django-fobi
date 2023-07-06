@@ -1,5 +1,7 @@
 from django.test import TestCase
 
+from fobi.dynamic import assemble_form_class
+
 from .core import print_info
 from .data import TEST_DYNAMIC_FORMS_DEFINITION_DATA
 from .helpers import (
@@ -7,8 +9,6 @@ from .helpers import (
     get_or_create_admin_user,
     setup_app,
 )
-
-from fobi.dynamic import assemble_form_class
 
 __title__ = "fobi.tests.test_dynamic_forms"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

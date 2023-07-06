@@ -12,5 +12,6 @@ try:
 
         name = label = "fobi"
 
+
 except ImportError:
     pass

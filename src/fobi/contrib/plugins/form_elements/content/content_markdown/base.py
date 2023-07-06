@@ -6,11 +6,11 @@ from uuid import uuid4
 from django.utils.translation import gettext_lazy as _
 from nonefield.fields import NoneField
 
-from . import UID
-from .forms import ContentMarkdownForm
-
 from fobi.base import FormElementPlugin
 from fobi.reusable.markdown_widget.helpers import convert_to_markdown
+
+from . import UID
+from .forms import ContentMarkdownForm
 
 __title__ = "fobi.contrib.plugins.form_elements.content.content_richtext.base"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

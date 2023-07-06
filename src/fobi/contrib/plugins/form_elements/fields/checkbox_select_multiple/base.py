@@ -2,13 +2,13 @@ from django.forms.fields import MultipleChoiceField
 from django.forms.widgets import CheckboxSelectMultiple
 from django.utils.translation import gettext_lazy as _
 
-from . import UID
-from .forms import CheckboxSelectMultipleInputForm
-from .settings import SUBMIT_VALUE_AS
-
 from fobi.base import FormFieldPlugin, get_theme
 from fobi.constants import SUBMIT_VALUE_AS_REPR, SUBMIT_VALUE_AS_VAL
 from fobi.helpers import get_select_field_choices, safe_text
+
+from . import UID
+from .forms import CheckboxSelectMultipleInputForm
+from .settings import SUBMIT_VALUE_AS
 
 theme = get_theme(request=None, as_instance=True)
 

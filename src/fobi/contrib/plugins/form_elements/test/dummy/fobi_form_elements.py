@@ -1,8 +1,8 @@
 from __future__ import absolute_import
 
-from .base import DummyPlugin
-
 from fobi.base import form_element_plugin_registry
+
+from .base import DummyPlugin
 
 __title__ = "fobi.contrib.plugins.form_elements.test.dummy.fobi_form_elements"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

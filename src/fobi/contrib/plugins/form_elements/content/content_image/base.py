@@ -8,6 +8,9 @@ from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 from nonefield.fields import NoneField
 
+from fobi.base import FormElementPlugin
+from fobi.helpers import clone_file, delete_file
+
 from . import UID
 from .forms import ContentImageForm
 from .helpers import get_crop_filter
@@ -16,9 +19,6 @@ from .settings import (
     FIT_METHOD_FIT_WIDTH,
     IMAGES_UPLOAD_DIR,
 )
-
-from fobi.base import FormElementPlugin
-from fobi.helpers import clone_file, delete_file
 
 __title__ = "fobi.contrib.plugins.form_elements.content.content_image.base"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

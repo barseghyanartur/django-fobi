@@ -1,6 +1,6 @@
-from . import UID
-
 from fobi.base import FormElementPluginWidget
+
+from . import UID
 
 __title__ = "fobi.contrib.plugins.form_elements.test.dummy.widgets"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

@@ -1,9 +1,9 @@
 from django.forms.widgets import HiddenInput
 
+from fobi.base import FormElementPluginWidget
+
 from . import UID
 from .conf import get_setting
-
-from fobi.base import FormElementPluginWidget
 
 __title__ = (
     "fobi.contrib.plugins.form_elements.security." "invisible_recaptcha.widgets"

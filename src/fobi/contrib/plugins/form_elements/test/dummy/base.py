@@ -5,10 +5,10 @@ from uuid import uuid4
 from django.utils.translation import gettext, gettext_lazy as _
 from nonefield.fields import NoneField
 
-from . import UID
-
 from fobi.base import FormElementPlugin
 from fobi.helpers import safe_text
+
+from . import UID
 
 __title__ = "fobi.contrib.plugins.form_elements.test.dummy.base"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

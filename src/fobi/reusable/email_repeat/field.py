@@ -51,6 +51,7 @@ class EmailRepeatField(forms.MultiValueField):
             <input type="submit" value="Submit">
         </form>
     """
+
     widget = EmailRepeatWidget
 
     def __init__(self, *args, **kwargs):
@@ -62,8 +63,11 @@ class EmailRepeatField(forms.MultiValueField):
 
     def compress(self, data_list):
         if data_list:
-            email1, email2 = data_list
-            if email1 != email2:
-                raise ValidationError(_("Emails must match"))
-            return email1
+            return data_list[0]
         return None
+
+    def clean(self, value):
+        super().clean(value)
+        if value[0] != value[1]:
+            raise ValidationError(_("Emails must match."), code="invalid")
+        return value[0]

@@ -1,6 +1,9 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
+from fobi.base import BasePluginForm, get_theme
+from fobi.helpers import handle_uploaded_file
+
 from .settings import (
     DEFAULT_FIT_METHOD,
     DEFAULT_SIZE,
@@ -8,9 +11,6 @@ from .settings import (
     IMAGES_UPLOAD_DIR,
     SIZES,
 )
-
-from fobi.base import BasePluginForm, get_theme
-from fobi.helpers import handle_uploaded_file
 
 __title__ = "fobi.contrib.plugins.form_elements.content.content_image.forms"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

@@ -3,11 +3,11 @@ from __future__ import absolute_import
 from django.forms.widgets import HiddenInput
 from django.utils.translation import gettext_lazy as _
 
+from fobi.base import FormElementPlugin, get_theme
+
 from . import UID
 from .fields import HoneypotField
 from .forms import HoneypotInputForm
-
-from fobi.base import FormElementPlugin, get_theme
 
 __title__ = "fobi.contrib.plugins.form_elements.security.honeypot.base"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

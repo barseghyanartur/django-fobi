@@ -1,10 +1,10 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from .settings import IGNORED_MODELS
-
 from fobi.base import BaseFormFieldPluginForm, get_theme
 from fobi.helpers import get_registered_models
+
+from .settings import IGNORED_MODELS
 
 __title__ = (
     "fobi.contrib.plugins.form_elements.fields."

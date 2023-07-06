@@ -57,9 +57,12 @@ class DBStoreHandlerPlugin(FormHandlerPlugin):
             form, form_element_entries
         )
 
-        return (True, self.save_form_data_entry(
-            form_entry, request, field_name_to_label_map, cleaned_data
-        ))
+        return (
+            True,
+            self.save_form_data_entry(
+                form_entry, request, field_name_to_label_map, cleaned_data
+            ),
+        )
 
     def save_form_data_entry(
         self, form_entry, request, field_name_to_label_map, cleaned_data

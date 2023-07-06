@@ -1,6 +1,6 @@
-from .settings import FORM_TEMPLATE_CHOICES, SUCCESS_PAGE_TEMPLATE_CHOICES
-
 from fobi.integration.helpers import get_template_choices
+
+from .settings import FORM_TEMPLATE_CHOICES, SUCCESS_PAGE_TEMPLATE_CHOICES
 
 __title__ = "fobi.contrib.apps.feincms_integration.helpers"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

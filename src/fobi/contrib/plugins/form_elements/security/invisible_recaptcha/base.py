@@ -2,13 +2,13 @@ from __future__ import absolute_import
 
 from django.utils.translation import gettext_lazy as _
 
+from fobi.base import FormElementPlugin, get_theme
+
 from . import UID
 from .constants import RECAPTCHA_FIELD
 from .fields import InvisibleRecaptchaField
 from .forms import InvisibleRecaptchaInputForm
 from .widgets import InvisibleRecaptchaWidget
-
-from fobi.base import FormElementPlugin, get_theme
 
 __title__ = (
     "fobi.contrib.plugins.form_elements.security." "invisible_recaptcha.base"

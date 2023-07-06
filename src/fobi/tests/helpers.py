@@ -7,14 +7,6 @@ from django.contrib.auth import get_user_model
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.management import call_command
 
-from .constants import (
-    FOBI_TEST_USER_PASSWORD,
-    FOBI_TEST_USER_USERNAME,
-    TEST_FORM_NAME,
-    TEST_FORM_SLUG,
-)
-from .core import is_app_setup_completed, mark_app_setup_as_completed
-
 from fobi.contrib.plugins.form_elements.content.content_image.fobi_form_elements import (
     ContentImagePlugin,
 )
@@ -46,6 +38,14 @@ from fobi.contrib.plugins.form_handlers.mail.fobi_form_handlers import (
     MailHandlerPlugin,
 )
 from fobi.models import FormElementEntry, FormEntry, FormHandlerEntry
+
+from .constants import (
+    FOBI_TEST_USER_PASSWORD,
+    FOBI_TEST_USER_USERNAME,
+    TEST_FORM_NAME,
+    TEST_FORM_SLUG,
+)
+from .core import is_app_setup_completed, mark_app_setup_as_completed
 
 __title__ = "fobi.tests.helpers"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

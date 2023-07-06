@@ -1,8 +1,8 @@
 from __future__ import absolute_import
 
-from .base import InvisibleRecaptchaInputPlugin
-
 from fobi.base import form_element_plugin_registry
+
+from .base import InvisibleRecaptchaInputPlugin
 
 __title__ = (
     "fobi.contrib.plugins.form_elements.security."

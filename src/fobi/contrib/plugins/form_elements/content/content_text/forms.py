@@ -3,9 +3,9 @@ from django.forms.widgets import Textarea
 from django.utils.html import strip_tags
 from django.utils.translation import gettext_lazy as _
 
-from .settings import ALLOWED_ATTRIBUTES, ALLOWED_TAGS
-
 from fobi.base import BasePluginForm, get_theme
+
+from .settings import ALLOWED_ATTRIBUTES, ALLOWED_TAGS
 
 try:
     import bleach

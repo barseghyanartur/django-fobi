@@ -2,11 +2,11 @@ from django import forms
 from django.core.validators import MinValueValidator
 from django.utils.translation import gettext_lazy as _
 
-from .constants import FORM_FIELD_TYPE_CHOICES
-
 from fobi.base import BaseFormFieldPluginForm, get_theme
 from fobi.settings import DEFAULT_MAX_LENGTH, DEFAULT_MIN_LENGTH
 from fobi.widgets import NumberInput
+
+from .constants import FORM_FIELD_TYPE_CHOICES
 
 __title__ = "fobi.contrib.plugins.form_elements.fields.input.forms"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

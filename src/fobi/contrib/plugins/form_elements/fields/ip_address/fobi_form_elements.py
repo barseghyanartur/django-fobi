@@ -1,8 +1,8 @@
 from __future__ import absolute_import
 
-from .base import IPAddressInputPlugin
-
 from fobi.base import form_element_plugin_registry
+
+from .base import IPAddressInputPlugin
 
 __title__ = (
     "fobi.contrib.plugins.form_elements.fields." "ip_address.fobi_form_elements"

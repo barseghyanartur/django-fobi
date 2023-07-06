@@ -2,9 +2,9 @@ from copy import copy
 
 from django.test import TestCase
 
-from .core import print_info
-
 from fobi.data_structures import SortableDict
+
+from .core import print_info
 
 __title__ = "fobi.tests.test_dynamic_forms"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

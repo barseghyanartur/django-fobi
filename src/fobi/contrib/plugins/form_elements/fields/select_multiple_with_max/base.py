@@ -3,14 +3,14 @@ from __future__ import absolute_import
 from django.forms.widgets import SelectMultiple
 from django.utils.translation import gettext_lazy as _
 
+from fobi.base import FormFieldPlugin, get_theme
+from fobi.constants import SUBMIT_VALUE_AS_REPR, SUBMIT_VALUE_AS_VAL
+from fobi.helpers import get_select_field_choices, safe_text
+
 from . import UID
 from .fields import MultipleChoiceWithMaxField
 from .forms import SelectMultipleWithMaxInputForm
 from .settings import SUBMIT_VALUE_AS
-
-from fobi.base import FormFieldPlugin, get_theme
-from fobi.constants import SUBMIT_VALUE_AS_REPR, SUBMIT_VALUE_AS_VAL
-from fobi.helpers import get_select_field_choices, safe_text
 
 __title__ = (
     "fobi.contrib.plugins.form_elements.fields." "select_multiple_with_max.base"

@@ -1,8 +1,8 @@
 from __future__ import absolute_import
 
-from .base import EmailRepeatInputPlugin
-
 from fobi.base import form_element_plugin_registry
+
+from .base import EmailRepeatInputPlugin
 
 __title__ = (
     "fobi.contrib.plugins.form_elements.fields.email_repeat.fobi_form_elements"

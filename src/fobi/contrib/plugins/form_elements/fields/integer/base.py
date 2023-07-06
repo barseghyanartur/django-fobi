@@ -3,11 +3,11 @@ from __future__ import absolute_import
 from django.forms.fields import IntegerField
 from django.utils.translation import gettext_lazy as _
 
-from . import UID
-from .forms import IntegerInputForm
-
 from fobi.base import FormFieldPlugin, get_theme
 from fobi.widgets import NumberInput
+
+from . import UID
+from .forms import IntegerInputForm
 
 __title__ = "fobi.contrib.plugins.form_elements.fields.integer.base"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

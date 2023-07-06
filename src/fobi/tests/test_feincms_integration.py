@@ -38,8 +38,7 @@ class FeinCMSIntegrationTest(BaseFobiBrowserBuldDynamicFormsTest):
         # Wait until the edit widget form opens
         WebDriverWait(self.driver, timeout=TIMEOUT).until(
             lambda driver: driver.find_element(
-                By.XPATH,
-                '//body[contains(@class, "theme-bootstrap3")]'
+                By.XPATH, '//body[contains(@class, "theme-bootstrap3")]'
             )
         )
         # TODO:

@@ -4,10 +4,10 @@ from django.forms.fields import CharField
 from django.forms.widgets import TextInput
 from django.utils.translation import gettext_lazy as _
 
+from fobi.base import FormFieldPlugin, get_theme
+
 from . import UID
 from .forms import TextInputForm
-
-from fobi.base import FormFieldPlugin, get_theme
 
 __title__ = "fobi.contrib.plugins.form_elements.fields.text.base"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

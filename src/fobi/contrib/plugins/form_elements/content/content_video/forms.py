@@ -1,9 +1,9 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
-from .settings import DEFAULT_SIZE, SIZES
-
 from fobi.base import BasePluginForm, get_theme
+
+from .settings import DEFAULT_SIZE, SIZES
 
 __title__ = "fobi.contrib.plugins.form_elements.content.content_video.forms"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

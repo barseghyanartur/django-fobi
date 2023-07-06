@@ -1,8 +1,8 @@
 from __future__ import absolute_import
 
-from .base import FileInputPlugin
-
 from fobi.base import form_element_plugin_registry
+
+from .base import FileInputPlugin
 
 __title__ = "fobi.contrib.plugins.form_elements.fields.file.fobi_form_elements"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

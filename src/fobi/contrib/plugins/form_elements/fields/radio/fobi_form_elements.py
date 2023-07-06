@@ -1,8 +1,8 @@
 from __future__ import absolute_import
 
-from .base import RadioInputPlugin
-
 from fobi.base import form_element_plugin_registry
+
+from .base import RadioInputPlugin
 
 __title__ = (
     "fobi.contrib.plugins.form_elements.fields." "radio.fobi_form_elements"

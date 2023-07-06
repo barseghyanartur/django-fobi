@@ -3,11 +3,11 @@ from __future__ import absolute_import
 from django.forms.fields import FloatField
 from django.utils.translation import gettext_lazy as _
 
-from . import UID
-from .forms import FloatInputForm
-
 from fobi.base import FormFieldPlugin, get_theme
 from fobi.widgets import NumberInput
+
+from . import UID
+from .forms import FloatInputForm
 
 __title__ = "fobi.contrib.plugins.form_elements.fields.float.base"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

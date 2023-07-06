@@ -7,6 +7,10 @@ from django.utils.safestring import mark_safe
 from django.utils.translation import gettext_lazy as _
 from six import PY3, text_type
 
+from fobi.base import FormFieldPlugin, get_theme
+from fobi.helpers import get_select_field_choices
+from fobi.widgets import RichSelectInverseQuotes
+
 from . import UID
 from .constants import (
     SLIDER_DEFAULT_HANDLE,
@@ -23,10 +27,6 @@ from .settings import (  # MAX_VALUE,; MIN_VALUE,
     INITIAL_MIN_VALUE,
     STEP,
 )
-
-from fobi.base import FormFieldPlugin, get_theme
-from fobi.helpers import get_select_field_choices
-from fobi.widgets import RichSelectInverseQuotes
 
 __title__ = "fobi.contrib.plugins.form_elements.fields.slider.base"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

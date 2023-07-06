@@ -4,10 +4,10 @@ from django.forms.fields import CharField
 from django.forms.widgets import HiddenInput
 from django.utils.translation import gettext_lazy as _
 
+from fobi.base import FormFieldPlugin, get_theme
+
 from . import UID
 from .forms import HiddenInputForm
-
-from fobi.base import FormFieldPlugin, get_theme
 
 __title__ = "fobi.contrib.plugins.form_elements.fields.hidden.base"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

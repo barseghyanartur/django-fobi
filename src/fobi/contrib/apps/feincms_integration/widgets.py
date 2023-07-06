@@ -2,13 +2,13 @@ from django.db import models
 from django.utils.translation import gettext, gettext_lazy as _
 from six import python_2_unicode_compatible
 
+from fobi.integration.processors import IntegrationProcessor
+
 from .helpers import (
     get_form_template_choices,
     get_success_page_template_choices,
 )
 from .settings import WIDGET_FORM_SENT_GET_PARAM
-
-from fobi.integration.processors import IntegrationProcessor
 
 __title__ = "fobi.contrib.apps.feincms_integration.widgets"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

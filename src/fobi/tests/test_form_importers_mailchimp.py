@@ -1,14 +1,14 @@
 # from django.contrib.auth import get_user_model
 from django.test import TestCase
 
-from .core import print_info
-from .data import TEST_MAILCHIMP_IMPORTER_FORM_DATA
-from .helpers import get_or_create_admin_user, setup_app
-
 from fobi.contrib.plugins.form_importers.mailchimp_importer.fobi_form_importers import (
     MailChimpImporter,
 )
 from fobi.models import FormElementEntry, FormEntry
+
+from .core import print_info
+from .data import TEST_MAILCHIMP_IMPORTER_FORM_DATA
+from .helpers import get_or_create_admin_user, setup_app
 
 __title__ = "fobi.tests.test_form_importers_mailchimp"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

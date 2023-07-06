@@ -1,14 +1,14 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
+from fobi.base import BasePluginForm, get_theme
+
 from .settings import (
     DEFAULT_FIT_METHOD,
     DEFAULT_SIZE,
     FIT_METHODS_CHOICES,
     SIZES,
 )
-
-from fobi.base import BasePluginForm, get_theme
 
 # from fobi.widgets import NumberInput
 

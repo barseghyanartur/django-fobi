@@ -1,12 +1,12 @@
 from __future__ import absolute_import
 
+from fobi.base import form_element_plugin_registry
+
 from .base import (
     DJANGO_RECAPTCHA_INSTALLED,
     DJANGO_SIMPLE_CAPTCHA_INSTALLED,
     ReCaptchaInputPlugin,
 )
-
-from fobi.base import form_element_plugin_registry
 
 __title__ = (
     "fobi.contrib.plugins.form_elements.security."

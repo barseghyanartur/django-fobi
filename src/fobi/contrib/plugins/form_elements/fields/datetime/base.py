@@ -4,10 +4,10 @@ from django.forms.fields import DateTimeField
 from django.forms.widgets import DateTimeInput
 from django.utils.translation import gettext_lazy as _
 
+from fobi.base import FormFieldPlugin, get_theme
+
 from . import UID
 from .forms import DateTimeInputForm
-
-from fobi.base import FormFieldPlugin, get_theme
 
 __title__ = "fobi.contrib.plugins.form_elements.fields." "datetime.base"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

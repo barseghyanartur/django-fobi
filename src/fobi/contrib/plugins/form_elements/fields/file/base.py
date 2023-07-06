@@ -6,13 +6,13 @@ from django.conf import settings
 from django.forms.widgets import ClearableFileInput
 from django.utils.translation import gettext_lazy as _
 
+from fobi.base import FormFieldPlugin
+from fobi.helpers import handle_uploaded_file
+
 from . import UID
 from .fields import AllowedExtensionsFileField as FileField
 from .forms import FileInputForm
 from .settings import FILES_UPLOAD_DIR
-
-from fobi.base import FormFieldPlugin
-from fobi.helpers import handle_uploaded_file
 
 __title__ = "fobi.contrib.plugins.form_elements.fields.file.base"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

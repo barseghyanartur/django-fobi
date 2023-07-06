@@ -1,8 +1,8 @@
 from __future__ import absolute_import
 
-from .base import RangeSelectInputPlugin
-
 from fobi.base import form_element_plugin_registry
+
+from .base import RangeSelectInputPlugin
 
 __title__ = (
     "fobi.contrib.plugins.form_elements.fields.range_select."

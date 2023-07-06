@@ -7,8 +7,8 @@ from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.core.management import call_command
 from django.urls import reverse
 from selenium import webdriver
-from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.firefox.firefox_binary import FirefoxBinary
 from selenium.webdriver.support.wait import WebDriverWait
@@ -154,8 +154,7 @@ class BaseFobiBrowserBuldDynamicFormsTest(StaticLiveServerTestCase):
         WebDriverWait(self.driver, timeout=TIMEOUT).until(
             # lambda driver: driver.find_element(By.ID, 'id_main')
             lambda driver: driver.find_element(
-                By.XPATH,
-                '//body[contains(@class, "theme")]'
+                By.XPATH, '//body[contains(@class, "theme")]'
             )
         )
 

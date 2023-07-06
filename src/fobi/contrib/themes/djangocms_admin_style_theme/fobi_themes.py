@@ -1,8 +1,8 @@
 from django.utils.translation import gettext_lazy as _
 
-from . import UID
-
 from fobi.base import BaseTheme, theme_registry
+
+from . import UID
 
 __title__ = "fobi.contrib.themes.djangocms_admin_style_theme.fobi_themes"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

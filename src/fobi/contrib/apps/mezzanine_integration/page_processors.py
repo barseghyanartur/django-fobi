@@ -1,9 +1,9 @@
 from mezzanine.pages.page_processors import processor_for
 
+from fobi.integration.processors import IntegrationProcessor
+
 from .models import FobiFormPage
 from .settings import WIDGET_FORM_SENT_GET_PARAM
-
-from fobi.integration.processors import IntegrationProcessor
 
 __title__ = "fobi.contrib.apps.mezzanine_integration.page_processors"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

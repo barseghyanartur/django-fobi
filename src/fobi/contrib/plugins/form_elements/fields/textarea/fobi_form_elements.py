@@ -1,8 +1,8 @@
 from __future__ import absolute_import
 
-from .base import TextareaPlugin
-
 from fobi.base import form_element_plugin_registry
+
+from .base import TextareaPlugin
 
 __title__ = (
     "fobi.contrib.plugins.form_elements.fields." "textarea.fobi_form_elements"

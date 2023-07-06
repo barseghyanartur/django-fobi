@@ -4,10 +4,6 @@ from django.test import RequestFactory, TestCase
 from django.urls import reverse
 from django.utils import timezone
 
-from .constants import TEST_FORM_NAME, TEST_FORM_SLUG
-from .core import print_info
-from .helpers import get_or_create_admin_user, setup_app
-
 from fobi.base import (
     get_registered_form_callbacks,
     get_registered_form_element_plugins,
@@ -16,6 +12,10 @@ from fobi.base import (
 )
 from fobi.forms import FormEntryForm
 from fobi.models import FormEntry, FormWizardEntry
+
+from .constants import TEST_FORM_NAME, TEST_FORM_SLUG
+from .core import print_info
+from .helpers import get_or_create_admin_user, setup_app
 
 __title__ = "fobi.tests.test_core"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"

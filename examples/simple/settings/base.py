@@ -223,6 +223,7 @@ INSTALLED_APPS = [
     "fobi.contrib.plugins.form_elements.fields.decimal",
     "fobi.contrib.plugins.form_elements.fields.duration",
     "fobi.contrib.plugins.form_elements.fields.email",
+    "fobi.contrib.plugins.form_elements.fields.email_repeat",
     "fobi.contrib.plugins.form_elements.fields.file",
     "fobi.contrib.plugins.form_elements.fields.float",
     "fobi.contrib.plugins.form_elements.fields.hidden",
@@ -565,7 +566,7 @@ LOGGING = {
     },
     "root": {
         "level": "INFO",
-        "handlers": ["all_log"],
+        "handlers": ["console"],
     },
     "formatters": {
         "verbose": {
@@ -585,54 +586,27 @@ LOGGING = {
             "class": "logging.StreamHandler",
             "formatter": "verbose",
         },
-        "all_log": {
-            "level": "DEBUG",
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": PROJECT_DIR("../../logs/all.log"),
-            "maxBytes": 1048576,
-            "backupCount": 99,
-            "formatter": "verbose",
-        },
-        "django_log": {
-            "level": "DEBUG",
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": PROJECT_DIR("../../logs/django.log"),
-            "maxBytes": 1048576,
-            "backupCount": 99,
-            "formatter": "verbose",
-        },
-        "django_request_log": {
-            "level": "DEBUG",
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": PROJECT_DIR("../../logs/django_request.log"),
-            "maxBytes": 1048576,
-            "backupCount": 99,
-            "formatter": "verbose",
-        },
-        "fobi_log": {
-            "level": "DEBUG",
-            "class": "logging.handlers.RotatingFileHandler",
-            "filename": PROJECT_DIR("../../logs/fobi.log"),
-            "maxBytes": 1048576,
-            "backupCount": 99,
-            "formatter": "verbose",
-        },
     },
     "loggers": {
         "django.request": {
-            "handlers": ["django_request_log"],
+            "handlers": ["console"],
             "level": "INFO",
             "propagate": True,
         },
         "django": {
-            "handlers": ["django_log"],
+            "handlers": ["console"],
             "level": "ERROR",
             "propagate": False,
         },
         "fobi": {
-            "handlers": ["console", "fobi_log"],
+            "handlers": ["console"],
             "level": "DEBUG",
-            "propagate": True,
+            "propagate": False,
+        },
+        "": {
+            "handlers": ["console"],
+            "level": "DEBUG",
+            "propagate": False,
         },
     },
 }

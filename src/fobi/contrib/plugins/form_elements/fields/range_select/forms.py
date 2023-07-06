@@ -1,6 +1,9 @@
 from django import forms
 from django.utils.translation import gettext_lazy as _
 
+from fobi.base import BaseFormFieldPluginForm, get_theme
+from fobi.widgets import NumberInput
+
 from .settings import (
     INITIAL,
     INITIAL_MAX_VALUE,
@@ -9,9 +12,6 @@ from .settings import (
     MIN_VALUE,
     STEP,
 )
-
-from fobi.base import BaseFormFieldPluginForm, get_theme
-from fobi.widgets import NumberInput
 
 __title__ = "fobi.contrib.plugins.form_elements.fields.range_select.forms"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
