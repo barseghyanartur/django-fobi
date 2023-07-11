@@ -10,14 +10,13 @@ from django.utils.translation import gettext_lazy as _
 from . import UID
 from .fields import AllowedExtensionsMultipleFileField as FileField
 from .forms import FileMultipleInputForm
-from .settings import FILES_MULTIPLE_UPLOAD_DIR
+from .settings import FILE_MULTIPLE_UPLOAD_DIR
 
 from fobi.base import FormFieldPlugin
 from fobi.helpers import handle_uploaded_file
 
-__title__ = "file_multiple.base"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
-__copyright__ = "2014-2019 Artur Barseghyan"
+__copyright__ = "2014-2023 Artur Barseghyan"
 __license__ = "GPL 2.0/LGPL 2.1"
 __all__ = ("FileMultipleInputPlugin",)
 
@@ -69,7 +68,7 @@ class FileMultipleInputPlugin(FormFieldPlugin):
             if isinstance(file_path, (list, tuple)):
                 fs = []
                 for filep in file_path:
-                    saved_file = handle_uploaded_file(FILES_MULTIPLE_UPLOAD_DIR, filep)
+                    saved_file = handle_uploaded_file(FILE_MULTIPLE_UPLOAD_DIR, filep)
                     file_relative_url = saved_file.replace(os.path.sep, "/")
                     fs.append(f"{settings.MEDIA_URL}{file_relative_url}")
 
@@ -77,7 +76,7 @@ class FileMultipleInputPlugin(FormFieldPlugin):
 
             else:
                 # Handle the upload
-                saved_file = handle_uploaded_file(FILES_MULTIPLE_UPLOAD_DIR, file_path)
+                saved_file = handle_uploaded_file(FILE_MULTIPLE_UPLOAD_DIR, file_path)
                 # Overwrite ``cleaned_data`` of the ``form`` with path to moved
                 # file.
                 file_relative_url = saved_file.replace(os.path.sep, "/")
@@ -116,7 +115,7 @@ class FileMultipleInputPlugin(FormFieldPlugin):
         # file_path = form.cleaned_data.get(self.data.name, None)
         # if file_path:
         #     # Handle the upload
-        #     saved_file = handle_uploaded_file(FILES_UPLOAD_DIR, file_path)
+        #     saved_file = handle_uploaded_file(FILE_UPLOAD_DIR, file_path)
         #     # Overwrite ``cleaned_data`` of the ``form`` with path to moved
         #     # file.
         #     file_relative_url = saved_file.replace(os.path.sep, '/')

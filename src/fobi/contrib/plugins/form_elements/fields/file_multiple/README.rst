@@ -1,5 +1,5 @@
-fobi.contrib.plugins.form_elements.fields.file
-----------------------------------------------
+fobi.contrib.plugins.form_elements.fields.file_multiple
+-------------------------------------------------------
 A ``Fobi`` File form field plugin. Makes use of the
 ``django.forms.fields.FileField`` and
 ``django.forms.widgets.ClearableFileInput``.
@@ -13,7 +13,7 @@ Installation
 
         INSTALLED_APPS = (
             # ...
-            'fobi.contrib.plugins.form_elements.fields.file',
+            'fobi.contrib.plugins.form_elements.fields.file_multiple',
             # ...
         )
 
@@ -28,7 +28,7 @@ Installation
 
 (4) By default uploaded files are stored in the "fobi_plugins/file" directory
     of the media root. If you want to change the directory location,
-    set the ``FOBI_PLUGIN_FIELDS_FILE_FILES_UPLOAD_DIR`` value to the desired
+    set the ``FOBI_PLUGIN_FIELDS_FILE_MULTIPLE_UPLOAD_DIR`` value to the desired
     (relative) path.
 
 (5) You may optionally restrict uploaded files extensions by specifying the

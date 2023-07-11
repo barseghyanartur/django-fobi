@@ -4,11 +4,10 @@ from django.forms import forms
 from django.forms.fields import FileField
 from django.utils.translation import gettext_lazy as _
 
-__title__ = "fobi.contrib.plugins.form_elements.fields.file.fields"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
-__copyright__ = "2014-2019 Artur Barseghyan"
+__copyright__ = "2014-2023 Artur Barseghyan"
 __license__ = "GPL 2.0/LGPL 2.1"
-__all__ = ("AllowedExtensionsFileField",)
+__all__ = ("AllowedExtensionsMultipleFileField",)
 
 
 class AllowedExtensionsMultipleFileField(FileField):

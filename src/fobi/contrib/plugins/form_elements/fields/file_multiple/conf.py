@@ -2,9 +2,8 @@ from django.conf import settings
 
 from . import defaults
 
-__title__ = "fobi.contrib.plugins.form_elements.fields.file.conf"
 __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
-__copyright__ = "2014-2019 Artur Barseghyan"
+__copyright__ = "2014-2023 Artur Barseghyan"
 __license__ = "GPL 2.0/LGPL 2.1"
 __all__ = ("get_setting",)
 
@@ -12,7 +11,8 @@ __all__ = ("get_setting",)
 def get_setting(setting, override=None):
     """Get setting.
 
-    Get a setting from ``fobi.contrib.plugins.form_elements.fields.conf``
+    Get a setting from
+    ``fobi.contrib.plugins.form_elements.fields.file_multiple.conf``
     module, falling back to the default.
 
     If override is not None, it will be used instead of the setting.
@@ -24,7 +24,7 @@ def get_setting(setting, override=None):
     """
     if override is not None:
         return override
-    if hasattr(settings, "FOBI_PLUGIN_FIELDS_FILE_{0}".format(setting)):
-        return getattr(settings, "FOBI_PLUGIN_FIELDS_FILE_{0}".format(setting))
+    if hasattr(settings, "FOBI_PLUGIN_FIELDS_FILE_MULTIPLE_{0}".format(setting)):
+        return getattr(settings, "FOBI_PLUGIN_FIELDS_FILE_MULTIPLE_{0}".format(setting))
     else:
         return getattr(defaults, setting)
