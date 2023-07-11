@@ -1929,6 +1929,8 @@ It's possible to provide `Dynamic initial values`_ for text elements.
   <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/duration>`_
 - `Email*
   <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/email/>`_
+- `Email repeat*
+  <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/email_repeat/>`_
 - `File
   <https://github.com/barseghyanartur/django-fobi/tree/main/src/fobi/contrib/plugins/form_elements/fields/file/>`_
 - `Float
