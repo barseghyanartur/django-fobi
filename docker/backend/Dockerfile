@@ -12,8 +12,8 @@ RUN apt-get update && \
     nano \
     chromium \
     graphviz \
-    libpq-dev \
-    python3.9
+    libpq-dev
+#    python3.9
 
 RUN pip install pip --upgrade
 RUN pip install virtualenv

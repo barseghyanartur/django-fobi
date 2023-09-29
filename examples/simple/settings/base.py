@@ -21,8 +21,8 @@ def gettext(s):
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-DEBUG = False
-DEBUG_TOOLBAR = False
+DEBUG = True
+DEBUG_TOOLBAR = True
 DEV = False
 
 ADMINS = (
@@ -310,6 +310,10 @@ INSTALLED_APPS = [
     # **************************** Simple theme *****************************
     # ***********************************************************************
     "fobi.contrib.themes.simple",  # Simple theme
+    # ***********************************************************************
+    # ************************* Bootstrap 5 theme ***************************
+    # ***********************************************************************
+    "fobi.contrib.themes.bootstrap5",  # Bootstrap 5 theme
     # ***********************************************************************
     # ***********************************************************************
     # ************************* Fobi form importers *************************
