@@ -48,7 +48,7 @@
   {% block main-wrapper %}
 
     {% block navbar-wrapper %}
-    <div class="{% block navbar-class %}navbar navbar-expand-lg navbar-fixed-top bg-body-tertiary{% endblock navbar-class %}" role="navigation">
+    <div class="{% block navbar-class %}navbar navbar-expand-lg navbar-fixed-top bg-body-secondary{% endblock navbar-class %}" role="navigation">
       {% block navbar %}
       <div class="{% block navbar-container-class %}container{% endblock navbar-container-class %}">
         {% block navbar-content %}
@@ -101,8 +101,8 @@
           {% block navbar-menu-right %}
           <ul class="navbar-nav navbar-right ms-md-auto">
             {% block navbar-menu-right-content %}
-            <li class="menu-item"><a class="menu-link" href="{% url 'fobi.dashboard' %}">{% trans "Forms" %}</a></li>
-            <li class="menu-item"><a class="menu-link" href="{% url 'fobi.form_wizards_dashboard' %}">{% trans "Wizards" %}</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'fobi.dashboard' %}">{% trans "Forms" %}</a></li>
+            <li class="nav-item"><a class="nav-link" href="{% url 'fobi.form_wizards_dashboard' %}">{% trans "Wizards" %}</a></li>
             {% endblock navbar-menu-right-content %}
           </ul>
           {% endblock navbar-menu-right %}

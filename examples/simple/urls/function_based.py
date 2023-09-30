@@ -19,6 +19,7 @@ admin.autodiscover()
 # Mapping.
 fobi_theme_home_template_mapping = {
     "bootstrap3": "home/bootstrap3.html",
+    "bootstrap5": "home/bootstrap5.html",
     "foundation5": "home/foundation5.html",
     "simple": "home/simple.html",
 }

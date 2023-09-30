@@ -17,6 +17,7 @@ class Bootstrap5Theme(BaseTheme):
 
     media_css = (
         "bootstrap5/css/bootstrap.min.css",
+        "bootstrap5/css/bootstrap-icons.min.css",
         "bootstrap5/css/bootstrap5_fobi_extras.css",
         # "css/fobi.core.css",
     )
@@ -31,6 +32,26 @@ class Bootstrap5Theme(BaseTheme):
 
     # ***********************************************************************
     # ***********************************************************************
+    # ********************** Form HTML specific *****************************
+    # ***********************************************************************
+    # ***********************************************************************
+    form_element_html_class = "form-control"
+    form_element_checkbox_html_class = "checkbox"
+
+    # Important!
+    form_view_form_entry_option_class = "bi bi-list"
+
+    # Important!
+    form_edit_form_entry_option_class = "bi bi-edit"
+
+    # Important!
+    form_delete_form_entry_option_class = "bi bi-remove"
+
+    # Important!
+    form_list_container_class = "list-inline"
+
+    # ***********************************************************************
+    # ***********************************************************************
     # **************************** Templates ********************************
     # ***********************************************************************
     # ***********************************************************************
@@ -41,7 +62,7 @@ class Bootstrap5Theme(BaseTheme):
     master_base_template = "bootstrap5/_base.html"
     base_template = "bootstrap5/base.html"
 
-        # ***********************************************************************
+    # ***********************************************************************
     # ***************************** Snippets ********************************
     # ***********************************************************************
     form_snippet_template_name = "bootstrap5/snippets/form_snippet.html"
@@ -86,7 +107,7 @@ class Bootstrap5Theme(BaseTheme):
         "bootstrap3/embed_form_entry_submitted_ajax.html"
     )
 
-    view_form_entry_template = "bootstrap3/view_form_entry.html"
+    view_form_entry_template = "bootstrap5/view_form_entry.html"
     view_form_entry_ajax_template = "bootstrap3/view_form_entry_ajax.html"
 
     view_embed_form_entry_ajax_template = (
@@ -101,7 +122,7 @@ class Bootstrap5Theme(BaseTheme):
     # ***************************** Dashboard *******************************
     # ***********************************************************************
     dashboard_template = "bootstrap5/dashboard.html"
-    form_wizards_dashboard_template = "bootstrap3/form_wizards_dashboard.html"
+    form_wizards_dashboard_template = "bootstrap5/form_wizards_dashboard.html"
     forms_list_template = "bootstrap3/forms_list.html"
 
 

@@ -61,9 +61,15 @@ MIGRATION_MODULES = {
 
 INTERNAL_IPS = ["127.0.0.1",]
 if DEBUG:
+    # A better way to get the IP address?
+    # import subprocess
+    # cmd = ['hostname', '-I']
+    # result = subprocess.run(cmd, capture_output=True, text=True)
+    # return result.stdout.strip()
     import socket  # only if you haven't already imported this
     hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
-    INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + ["127.0.0.1", "10.0.2.2"]
+    INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + ["127.0.0.1", "10.0.2.2", "10.89.0.3"]
+
 ALLOWED_HOSTS = ["*"]
 
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
