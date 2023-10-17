@@ -1,0 +1,34 @@
+{% extends fobi_theme.base_edit_template %}
+
+{% load i18n %}
+
+{% block page-title %}{% blocktrans with form_element_plugin.name as plugin_name %}Edit "{{ plugin_name }}" element of the form{% endblocktrans %}{% endblock page-title %}
+
+{% block extrahead %}
+    {% if form %}
+        {{ form.media.css }}
+    {% endif %}
+    {{ block.super }}
+{% endblock extrahead %}
+
+{% block navbar-menu-content %}
+{% endblock navbar-menu-content %}
+
+{% block navbar-menu-right-content %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'fobi.dashboard' %}">{% trans "Forms" %}</a></li>
+            <li class="nav-item"><a class="nav-link acitve" href="{% url 'fobi.form_wizards_dashboard' %}">{% trans "Wizards" %}</a></li>
+{% endblock navbar-menu-right-content %}
+
+{% block content %}
+    {% include fobi_theme.edit_form_element_entry_ajax_template %}
+{% endblock content %}
+
+{% block sidebar-content %}
+{% endblock sidebar-content %}
+
+{% block theme-javascripts %}
+    {{ block.super }}
+    {% if form %}
+        {{ form.media.js }}
+    {% endif %}
+{% endblock theme-javascripts %}

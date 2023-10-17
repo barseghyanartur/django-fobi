@@ -14,23 +14,17 @@
   <td>{{ form_entry.is_active }}</td>
   {#<td>{{ form_entry.is_cloneable }}</td>#}
   <td>
-    <ul class="list-inline">
-      <li>
-        <a href="{% url 'fobi.edit_form_entry' form_entry.pk %}">
-          <span class="bi bi-pencil"></span> {% trans "Edit" %}
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'fobi.delete_form_entry' form_entry.pk %}">
-          <span class="bi bi-x"></span> {% trans "Delete" %}
-        </a>
-      </li>
-      <li>
-        <a href="{% url 'fobi.export_form_entry' form_entry.pk %}">
-          <span class="bi bi-file-earmark-arrow-up"></span> {% trans "Export" %}
-        </a>
-      </li>
-    </ul>
+    <div class="btn-group" role="group">
+      <a class="btn btn-outline-secondary btn-sm" href="{% url 'fobi.edit_form_entry' form_entry.pk %}">
+        <i class="bi bi-pencil fs-6"></i> {% trans "Edit" %}
+      </a>
+      <a class="btn btn-outline-secondary btn-sm" href="{% url 'fobi.delete_form_entry' form_entry.pk %}">
+        <i class="bi bi-trash fs-6"></i> {% trans "Delete" %}
+      </a>
+      <a class="btn btn-outline-secondary btn-sm" href="{% url 'fobi.export_form_entry' form_entry.pk %}">
+        <i class="bi bi-file-earmark-arrow-up fs-6"></i> {% trans "Export" %}
+      </a>
+    </div>
   </td>
 </tr>
 {% endfor %}
