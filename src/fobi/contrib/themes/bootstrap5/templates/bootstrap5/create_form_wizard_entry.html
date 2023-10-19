@@ -1,0 +1,24 @@
+{% extends fobi_theme.base_edit_template %}
+
+{% load i18n %}
+
+{% block page-title %}{% trans "Create form wizard entry" %}{% endblock page-title %}
+
+{% block navbar-menu-content %}
+{% endblock navbar-menu-content %}
+
+{% block navbar-menu-right-content %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'fobi.dashboard' %}">{% trans "Forms" %}</a></li>
+            <li class="nav-item"><a class="nav-link acitve" href="{% url 'fobi.form_wizards_dashboard' %}">{% trans "Wizards" %}</a></li>
+{% endblock navbar-menu-right-content %}
+
+{% block dashboard-menu-item %}
+<a class="navbar-brand" href="{% url 'fobi.form_wizards_dashboard' %}">{{ fobi_theme.project_name }}</a>
+{% endblock dashboard-menu-item %}
+
+{% block content %}
+    {% include fobi_theme.create_form_wizard_entry_ajax_template %}
+{% endblock content %}
+
+{% block sidebar-wrapper %}
+{% endblock sidebar-wrapper %}

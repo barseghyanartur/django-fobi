@@ -54,7 +54,9 @@
             </div>
           {% endfor %}
         {% else %}
-          {{ field }}
+          {% block form_element_field %}
+            {{ field }}
+          {% endblock form_element_field %}
         {% endif %}
 
         {% if field.errors %}

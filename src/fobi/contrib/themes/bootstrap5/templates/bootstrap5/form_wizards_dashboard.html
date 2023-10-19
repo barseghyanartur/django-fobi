@@ -1,0 +1,8 @@
+{% extends "fobi/generic/form_wizards_dashboard.html" %}
+
+{% load i18n %}
+
+{% block navbar-menu-right-content %}
+    <li class="nav-item"><a class="nav-link active" href="{% url 'fobi.dashboard' %}">{% trans "Forms" %}</a></li>
+    <li class="nav-item"><a class="nav-link" href="{% url 'fobi.form_wizards_dashboard' %}">{% trans "Wizards" %}</a></li>
+{% endblock navbar-menu-right-content %}

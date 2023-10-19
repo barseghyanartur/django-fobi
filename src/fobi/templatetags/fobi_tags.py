@@ -20,6 +20,7 @@ __all__ = (
     "has_edit_form_entry_permissions",
     "render_auth_link",
     "render_fobi_forms_list",
+    "add_class",
 )
 
 THEME = get_theme(request=None, as_instance=True)
@@ -443,6 +444,15 @@ class GetFormFieldTypeNode(Node):
         if isinstance(field.field.widget, forms.RadioSelect):
             properties.append("is_radio")
 
+        if isinstance(field.field.widget, forms.TextInput):
+            properties.append("is_text")
+        
+        if isinstance(field.field.widget, forms.Textarea):
+            properties.append("is_textarea")
+
+        if isinstance(field.field.widget, forms.HiddenInput):
+            properties.append("is_hidden")
+
         res = FormFieldType(properties)
 
         context[self.as_var] = res
@@ -537,3 +547,18 @@ def get_form_hidden_fields_errors(parser, token):
     form = parser.compile_filter(bits[1])
 
     return GetFormHiddenFieldsErrorsNode(form=form, as_var=as_var)
+
+
+@register.filter
+def add_class(value, arg):
+    """Add class to form field.
+    
+    :example:
+        
+        {{ form.field|add_class:"form-control" }}
+    """
+    new_class = value.field.widget.attrs.get('class', '')
+    if new_class:
+        new_class += ' '
+    new_class += arg
+    return value.as_widget(attrs={'class': new_class})

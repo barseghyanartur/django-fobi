@@ -1,0 +1,28 @@
+{% extends fobi_theme.base_edit_template %}
+
+{% load i18n %}
+
+{% block page-title %}{% trans "Edit form wizard entry" %}{% endblock page-title %}
+
+{% block dashboard-menu-item %}
+<a class="navbar-brand" href="{% url 'fobi.form_wizards_dashboard' %}">{{ fobi_theme.project_name }}</a>
+{% endblock dashboard-menu-item %}
+
+{% block navbar-menu-right-content %}
+            <li class="nav-item"><a class="nav-link" href="{% url 'fobi.dashboard' %}">{% trans "Forms" %}</a></li>
+            <li class="nav-item"><a class="nav-link acitve" href="{% url 'fobi.form_wizards_dashboard' %}">{% trans "Wizards" %}</a></li>
+{% endblock navbar-menu-right-content %}
+
+{% block navbar-menu-content %}
+<li class="nav-item active"><a class="nav-link" href="{% url 'fobi.edit_form_wizard_entry' form_wizard_entry.pk %}">{% trans "Edit" %}</a></li>
+{% if form_wizard_entry_forms %}<li class="nav-item"><a class="nav-link" href="{% url 'fobi.view_form_wizard_entry' form_wizard_entry.slug %}">{% trans "View" %}</a></li>{% endif %}
+{% endblock navbar-menu-content %}
+
+{% block main-content-inner-attrs %}{% endblock main-content-inner-attrs %}
+
+{% block content-wrapper %}
+    {% include fobi_theme.edit_form_wizard_entry_ajax_template %}
+{% endblock content-wrapper %}
+
+{% block sidebar-wrapper %}
+{% endblock sidebar-wrapper %}

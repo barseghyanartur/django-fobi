@@ -3,6 +3,8 @@ from selenium import webdriver
 
 from .bootstrap3_theme import *
 
+from .bootstrap5_theme import *
+
 
 def project_dir(base):
     return os.path.abspath(
@@ -16,7 +18,7 @@ def gettext(s):
 
 PROJECT_DIR = project_dir
 DEBUG = True
-DEBUG_TOOLBAR = False
+DEBUG_TOOLBAR = True
 DEBUG_TEMPLATE = True
 # TEMPLATE_DEBUG = True
 DEV = True
@@ -57,7 +59,17 @@ MIGRATION_MODULES = {
     "page": "page.migrations",
 }
 
-INTERNAL_IPS = ("127.0.0.1",)
+INTERNAL_IPS = ["127.0.0.1",]
+if DEBUG:
+    # A better way to get the IP address?
+    # import subprocess
+    # cmd = ['hostname', '-I']
+    # result = subprocess.run(cmd, capture_output=True, text=True)
+    # return result.stdout.strip()
+    import socket  # only if you haven't already imported this
+    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+    INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + ["127.0.0.1", "10.0.2.2", "10.89.0.3"]
+
 ALLOWED_HOSTS = ["*"]
 
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
