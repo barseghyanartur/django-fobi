@@ -21,30 +21,32 @@
 {% block form_wizard_previous_button_text %}{% trans "Previous" %}{% endblock %}
 
 {% block form_page_sub_title_wrapper %}
-<nav aria-label="...">
+<nav aria-label="Page navigation">
   <ul class="pagination">
-    <li class="disabled">
-      <span>
+    <li class="page-item">
+      <a class="page-link disabled" href="#" aria-label="{% trans 'Previous' %}">
         <span aria-hidden="true">&laquo;</span>
-      </span>
+      </a>
     </li>
     {% for step_index in steps_range %}
       {% if step_index == wizard.steps.step1 %}
-        <li class="active">
-          <span>{{ step_index }} <span class="sr-only">{% trans "(current)" %}</span></span>
+        <li class="page-item">
+          <a class="page-link active disabled" href="#" aria-label="{% trans '(current)' %}">
+            <span aria-hidden="true">{{ step_index }}</span>
+          </a>
         </li>
       {% else %}
-        <li class="disabled">
-          <span>
+        <li class="page-item">
+          <a class="page-link disabled" href="#" aria-label="{{step_index}}">      
             <span aria-hidden="true">{{ step_index }}</span>
-          </span>
+          </a>
         </li>
       {% endif %}
     {% endfor %}
-    <li class="disabled">
-      <span>
+    <li class="page-item">
+      <a class="page-link disabled" href="#" aria-label="{% trans 'Next' %}">
         <span aria-hidden="true">&raquo;</span>
-      </span>
+      </a>
     </li>
   </ul>
 </nav>
