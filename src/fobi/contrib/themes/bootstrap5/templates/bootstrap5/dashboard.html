@@ -6,41 +6,80 @@
             <li class="nav-item"><a class="nav-link" href="{% url 'fobi.form_wizards_dashboard' %}">{% trans "Wizards" %}</a></li>
 {% endblock navbar-menu-right-content %}
 
-{% block form_entry_table_row %}
-{% for form_entry in form_entries %}
-<tr>
-  <td><a href="{% url 'fobi.view_form_entry' form_entry.slug %}">{{ form_entry.name }}</a></td>
-  <td>{{ form_entry.is_public }}</td>
-  <td>{{ form_entry.is_active }}</td>
-  {#<td>{{ form_entry.is_cloneable }}</td>#}
-  <td>
-    <div class="btn-group" role="group">
-      <a class="btn btn-outline-secondary btn-sm" href="{% url 'fobi.edit_form_entry' form_entry.pk %}">
-        <i class="bi bi-pencil fs-6"></i> {% trans "Edit" %}
-      </a>
-      <a class="btn btn-outline-secondary btn-sm" href="{% url 'fobi.delete_form_entry' form_entry.pk %}">
-        <i class="bi bi-trash fs-6"></i> {% trans "Delete" %}
-      </a>
-      <a class="btn btn-outline-secondary btn-sm" href="{% url 'fobi.export_form_entry' form_entry.pk %}">
-        <i class="bi bi-file-earmark-arrow-up fs-6"></i> {% trans "Export" %}
-      </a>
+{% block content-wrapper %}
+<div class="page-header">
+  <h1>{% trans "Dashboard" %}</h1>
+</div>
+
+<div class="row">
+  <div class="col-8 col-sm-8 col-lg-8">
+    <!-- Forms -->
+    <div>
+      <h2 id="form_handlers">{% trans "Your forms" %}</h2>
     </div>
-  </td>
-</tr>
-{% endfor %}
-{% endblock form_entry_table_row %}
 
+    <div class="card">
+      <div class="card-body">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th class="col-sm-3">{% trans "Form" %}</th>
+              <th class="col-sm-1">{% trans "Is public" %}</th>
+              <th class="col-sm-1">{% trans "Is active" %}</th>
+              {#<th class="col-sm-1">{% trans "Is cloneable" %}</th>#}
+              <th class="col-sm-3">{% trans "Actions" %}</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% block form_entry_table_row %}
+            {% for form_entry in form_entries %}
+            <tr>
+              <td><a href="{% url 'fobi.view_form_entry' form_entry.slug %}">{{ form_entry.name }}</a></td>
+              <td>{{ form_entry.is_public }}</td>
+              <td>{{ form_entry.is_active }}</td>
+              {#<td>{{ form_entry.is_cloneable }}</td>#}
+              <td>
+                <div class="btn-group" role="group">
+                  <a class="btn btn-outline-secondary btn-sm" href="{% url 'fobi.edit_form_entry' form_entry.pk %}">
+                    <i class="bi bi-pencil fs-6"></i> {% trans "Edit" %}
+                  </a>
+                  <a class="btn btn-outline-secondary btn-sm" href="{% url 'fobi.delete_form_entry' form_entry.pk %}">
+                    <i class="bi bi-trash fs-6"></i> {% trans "Delete" %}
+                  </a>
+                  <a class="btn btn-outline-secondary btn-sm" href="{% url 'fobi.export_form_entry' form_entry.pk %}">
+                    <i class="bi bi-file-earmark-arrow-up fs-6"></i> {% trans "Export" %}
+                  </a>
+                </div>
+              </td>
+            </tr>
+            {% endfor %}
+            {% endblock form_entry_table_row %}
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
-{% block form_entry_actions %}
-<a href="{% url 'fobi.create_form_entry' %}" class="list-group-item">
-  <span class="bi bi-plus"></span> {% trans "Create form" %}
-</a>
-<a href="{% url 'fobi.import_form_entry' %}" class="list-group-item">
-  <span class="bi bi-upload"></span> {% trans "Import form" %}
-</a>
-{% for form_importer_uid,form_importer_name,form_importer_url in form_importers %}
-  <a href="{{ form_importer_url }}" class="list-group-item">
-    <span class="bi bi-upload glyphicon-import-{{ form_importer_uid }}"></span> {{ form_importer_name }}
-  </a>
-{% endfor %}
-{% endblock form_entry_actions %}
+  <div class="col-4 col-sm-4 col-lg-4">
+    <div>
+      <h2>{% trans "Actions" %}</h2>
+    </div>
+
+    <div class="list-group">
+      {% block form_entry_actions %}
+      <a href="{% url 'fobi.create_form_entry' %}" class="list-group-item">
+        <span class="bi bi-plus"></span> {% trans "Create form" %}
+      </a>
+      <a href="{% url 'fobi.import_form_entry' %}" class="list-group-item">
+        <span class="bi bi-upload"></span> {% trans "Import form" %}
+      </a>
+      {% for form_importer_uid,form_importer_name,form_importer_url in form_importers %}
+        <a href="{{ form_importer_url }}" class="list-group-item">
+          <span class="bi bi-upload glyphicon-import-{{ form_importer_uid }}"></span> {{ form_importer_name }}
+        </a>
+      {% endfor %}
+      {% endblock form_entry_actions %}
+    </div>
+  </div>
+</div>
+{% endblock content-wrapper %}
