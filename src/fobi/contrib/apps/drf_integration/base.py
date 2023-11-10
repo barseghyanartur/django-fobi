@@ -268,7 +268,7 @@ def get_processed_serializer_data(serializer, form_element_entries):
 
 
 def get_field_name_to_label_map(
-    serializer, keys_to_remove=[], values_to_remove=[]
+    serializer, keys_to_remove=None, values_to_remove=None
 ):
     """Get field name to label map.
 
@@ -290,7 +290,7 @@ def get_field_name_to_label_map(
     return field_name_to_label_map
 
 
-def get_cleaned_data(serializer, keys_to_remove=[], values_to_remove=[]):
+def get_cleaned_data(serializer, keys_to_remove=None, values_to_remove=None):
     """Get cleaned data.
 
     Gets cleaned data, having the trash (fields without values) filtered
@@ -301,6 +301,8 @@ def get_cleaned_data(serializer, keys_to_remove=[], values_to_remove=[]):
     :param iterable values_to_remove:
     :return dict:
     """
+    if not keys_to_remove:
+        keys_to_remove = []
     if not values_to_remove:
         values_to_remove = get_ignorable_form_values()
 

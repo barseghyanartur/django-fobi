@@ -411,12 +411,14 @@ class FormFieldType(object):
     is_radio = False
     is_textarea = False
 
-    def __init__(self, properties=[]):
+    def __init__(self, properties=None):
         """Constructor.
 
         By default all of them are false. Provide only property
         names that should be set to True.
         """
+        if not properties:
+            properties = []
         for prop in properties:
             setattr(self, prop, True)
 
@@ -434,13 +436,13 @@ class GetFormFieldTypeNode(Node):
         field = self.field.resolve(context, True)
         properties = []
 
-        if isinstance(field.field.widget, forms.CheckboxInput):
-            properties.append("is_checkbox")
-
         if isinstance(field.field.widget, forms.CheckboxSelectMultiple):
             properties.append("is_checkbox_multiple")
 
-        if isinstance(field.field.widget, forms.RadioSelect):
+        elif isinstance(field.field.widget, forms.CheckboxInput):
+            properties.append("is_checkbox")
+
+        elif isinstance(field.field.widget, forms.RadioSelect):
             properties.append("is_radio")
 
         res = FormFieldType(properties)

@@ -301,7 +301,7 @@ def get_user_handler_plugins(
     handler_plugin_registry,
     user,
     exclude_used_singles=False,
-    used_handler_plugin_uids=[],
+    used_handler_plugin_uids=None,
 ):
     """Get list of plugins allowed for user.
 
@@ -313,6 +313,8 @@ def get_user_handler_plugins(
     :param list used_handler_plugin_uids:
     :return list:
     """
+    if not used_handler_plugin_uids:
+        used_handler_plugin_uids = []
     user_handler_plugins = get_user_plugins(
         get_allowed_handler_plugin_uids,
         get_registered_handler_plugins,
@@ -410,7 +412,7 @@ def get_allowed_form_handler_plugin_uids(user):
 
 
 def get_user_form_handler_plugins(
-    user, exclude_used_singles=False, used_form_handler_plugin_uids=[]
+    user, exclude_used_singles=False, used_form_handler_plugin_uids=None
 ):
     """Get list of plugins allowed for user.
 
@@ -419,6 +421,8 @@ def get_user_form_handler_plugins(
     :param list used_form_handler_plugin_uids:
     :return list:
     """
+    if not used_form_handler_plugin_uids:
+        used_form_handler_plugin_uids = []
     return get_user_handler_plugins(
         get_allowed_form_handler_plugin_uids,
         get_registered_form_handler_plugins,
@@ -431,7 +435,7 @@ def get_user_form_handler_plugins(
 
 # def get_user_form_handler_plugins(user,
 #                                   exclude_used_singles=False,
-#                                   used_form_handler_plugin_uids=[]):
+#                                   used_form_handler_plugin_uids=None):
 #     """Get list of plugins allowed for user.
 #
 #     :param django.contrib.auth.models.User user:
@@ -439,6 +443,8 @@ def get_user_form_handler_plugins(
 #     :param list used_form_handler_plugin_uids:
 #     :return list:
 #     """
+#     if not used_form_handler_plugin_uids:
+#         used_form_handler_plugin_uids = []
 #     user_form_handler_plugins = get_user_plugins(
 #         get_allowed_form_handler_plugin_uids,
 #         get_registered_form_handler_plugins,
@@ -510,7 +516,7 @@ def get_allowed_form_wizard_handler_plugin_uids(user):
 
 
 def get_user_form_wizard_handler_plugins(
-    user, exclude_used_singles=False, used_form_wizard_handler_plugin_uids=[]
+    user, exclude_used_singles=False, used_form_wizard_handler_plugin_uids=None
 ):
     """Get list of plugins allowed for user.
 
@@ -519,6 +525,8 @@ def get_user_form_wizard_handler_plugins(
     :param list used_form_wizard_handler_plugin_uids:
     :return list:
     """
+    if not used_form_wizard_handler_plugin_uids:
+        used_form_wizard_handler_plugin_uids = []
     return get_user_handler_plugins(
         get_allowed_form_wizard_handler_plugin_uids,
         get_registered_form_wizard_handler_plugins,
