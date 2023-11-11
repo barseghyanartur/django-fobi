@@ -1,4 +1,5 @@
 import datetime
+import logging
 
 from django.test import RequestFactory, TestCase
 from django.urls import reverse
@@ -22,6 +23,8 @@ __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2014-2022 Artur Barseghyan"
 __license__ = "GPL 2.0/LGPL 2.1"
 __all__ = ("FobiCoreTest",)
+
+LOGGER = logging.getLogger(__name__)
 
 
 class FobiCoreTest(TestCase):
@@ -92,8 +95,10 @@ class FobiCoreTest(TestCase):
             if form.is_valid():
                 form.save()
                 saved = True
-        except Exception:
-            pass
+            else:
+                LOGGER.debug(form.errors)
+        except Exception as err:
+            LOGGER.error(err)
 
         return saved
 
