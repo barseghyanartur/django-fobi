@@ -8,6 +8,8 @@ alabaster==0.7.13
     # via
     #   -r common.in
     #   sphinx
+asgiref==3.7.2
+    # via django
 babel==2.13.1
     # via
     #   -r common.in
@@ -22,6 +24,14 @@ decorator==5.1.1
     # via -r common.in
 distlib==0.3.7
     # via virtualenv
+django==4.2.7
+    # via django-nine
+django-nine==0.2.7
+    # via
+    #   -r common.in
+    #   django-nonefield
+django-nonefield==0.4
+    # via -r common.in
 docopt==0.4.0
     # via
     #   -r common.in
@@ -54,7 +64,9 @@ markupsafe==2.1.3
 ordereddict==1.1
     # via -r common.in
 packaging==23.2
-    # via sphinx
+    # via
+    #   django-nine
+    #   sphinx
 path==16.7.1
     # via path-py
 path-py==12.5.0
@@ -83,6 +95,7 @@ pytz==2023.3.post1
     # via -r common.in
 requests==2.31.0
     # via
+    #   -r common.in
     #   mailchimp
     #   sphinx
 simplegeneric==0.8.1
@@ -91,6 +104,7 @@ six==1.16.0
     # via
     #   -r common.in
     #   bleach
+    #   vishap
 snowballstemmer==2.2.0
     # via
     #   -r common.in
@@ -121,11 +135,17 @@ sphinxcontrib-qthelp==1.0.6
     # via sphinx
 sphinxcontrib-serializinghtml==1.1.9
     # via sphinx
+sqlparse==0.4.4
+    # via django
 traitlets==5.13.0
+    # via -r common.in
+unidecode==1.3.7
     # via -r common.in
 urllib3==2.0.7
     # via requests
 virtualenv==20.24.6
+    # via -r common.in
+vishap==0.1.5
     # via -r common.in
 webencodings==0.5.1
     # via bleach
