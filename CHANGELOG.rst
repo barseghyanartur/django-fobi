@@ -20,6 +20,8 @@ are used for versioning (schema follows below):
 2023-11-??
 
 - Fixes in the ``select_checkbox_multiple`` plugin.
+- Stop testing against Django 2.2, 3.0, 3.1 and 4.0.
+- Stop testing against Python 3.6 and 3.7.
 
 0.19.9
 ------

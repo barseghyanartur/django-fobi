@@ -39,6 +39,9 @@ try:
         "4.1",
         "4.2",
         "5.0",
+        "5.1",
+        "5.2",
+        "6.0",
     )
 
     for v in LOOSE_VERSIONS:
@@ -229,13 +232,6 @@ install_requires = [
 tests_require = [
     "selenium",
     "Faker",
-    # 'factory_boy',
-    # 'fake-factory',
-    # 'Pillow',
-    # 'pytest',
-    # 'pytest-django',
-    # 'pytest-cov',
-    # 'tox',
 ]
 
 setup(
@@ -246,22 +242,19 @@ setup(
     long_description="{0}{1}".format(readme, screenshots),
     classifiers=[
         "Programming Language :: Python :: 3",
-        "Programming Language :: Python :: 3.7",
         "Programming Language :: Python :: 3.8",
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
         "Environment :: Web Environment",
         "License :: OSI Approved :: GNU General Public License v2 (GPLv2)",
         "License :: OSI Approved :: GNU Lesser General Public License v2 or "
         "later (LGPLv2+)",
         "Framework :: Django",
-        "Framework :: Django :: 2.2",
-        "Framework :: Django :: 3.0",
-        "Framework :: Django :: 3.1",
         "Framework :: Django :: 3.2",
-        "Framework :: Django :: 4.0",
         "Framework :: Django :: 4.1",
+        "Framework :: Django :: 4.2",
         "Intended Audience :: Developers",
         "Operating System :: OS Independent",
         "Development Status :: 4 - Beta",

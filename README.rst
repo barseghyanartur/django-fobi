@@ -34,8 +34,8 @@ handling the submitted form data).
 
 Prerequisites
 =============
-- Django 2.2, 3.0, 3.1, 3.2, 4.0 and 4.1.
-- Python 3.6, 3.7, 3.8, 3.9, 3.10 and 3.11.
+- Django 3.2, 4.1 and 4.2.
+- Python 3.8, 3.9, 3.10, 3.11 and 3.12.
 
 Key concepts
 ============

@@ -27,51 +27,7 @@ jobs:
       max-parallel: 4
       matrix:
         include:
-#          - python-version: 3.6
-#            requirements: django_2_2
-#            tox_env: py36-django22
-          - python-version: 3.7
-            requirements: django_2_2
-            tox_env: py37-django22
-          - python-version: 3.8
-            requirements: django_2_2
-            tox_env: py38-django22
-          - python-version: 3.9
-            requirements: django_2_2
-            tox_env: py39-django22
-
-#          - python-version: 3.6
-#            requirements: django_3_0
-#            tox_env: py36-django30
-          - python-version: 3.7
-            requirements: django_3_0
-            tox_env: py37-django30
-          - python-version: 3.8
-            requirements: django_3_0
-            tox_env: py38-django30
-          - python-version: 3.9
-            requirements: django_3_0
-            tox_env: py39-django30
-
-#          - python-version: 3.6
-#            requirements: django_3_1
-#            tox_env: py36-django31
-          - python-version: 3.7
-            requirements: django_3_1
-            tox_env: py37-django31
-          - python-version: 3.8
-            requirements: django_3_1
-            tox_env: py38-django31
-          - python-version: 3.9
-            requirements: django_3_1
-            tox_env: py39-django31
-
-#          - python-version: 3.6
-#            requirements: django_3_2
-#            tox_env: py36-django32
-          - python-version: 3.7
-            requirements: django_3_2
-            tox_env: py37-django32
+          # Django 3.2
           - python-version: 3.8
             requirements: django_3_2
             tox_env: py38-django32
@@ -79,31 +35,27 @@ jobs:
             requirements: django_3_2
             tox_env: py39-django32
 
-          - python-version: 3.8
-            requirements: django_4_0
-            tox_env: py38-django40
-          - python-version: 3.9
-            requirements: django_4_0
-            tox_env: py39-django40
-          - python-version: '3.10'
-            requirements: django_4_0
-            tox_env: py310-django40
-#          - python-version: '3.11'
-#            requirements: django_4_0
-#            tox_env: py311-django40
-
+          # Django 4.1
           - python-version: 3.8
             requirements: django_4_1
             tox_env: py38-django41
           - python-version: 3.9
             requirements: django_4_1
             tox_env: py39-django41
-          - python-version: '3.10'
+          - python-version: 3.10
             requirements: django_4_1
             tox_env: py310-django41
-#          - python-version: '3.11'
-#            requirements: django_4_1
-#            tox_env: py311-django41
+          - python-version: 3.11
+            requirements: django_4_1
+            tox_env: py311-django41
+
+          # Django 4.2
+          - python-version: 3.10
+            requirements: django_4_2
+            tox_env: py310-django42
+          - python-version: 3.11
+            requirements: django_4_2
+            tox_env: py311-django42
 
     steps:
     - name: Install libxml2 and libxslt
@@ -120,8 +72,8 @@ jobs:
         pip install pip-tools
         pip-compile examples/requirements/${{ matrix.requirements }}.in
         pip install -r examples/requirements/${{ matrix.requirements }}.txt
-        pip-compile examples/requirements/test.in
-        pip install -r examples/requirements/test.txt
+#        pip-compile examples/requirements/test.in
+#        pip install -r examples/requirements/test.txt
     - name: Run Tests
       run: tox -e ${{ matrix.tox_env }}
       env:
