@@ -75,7 +75,7 @@ jobs:
 #        pip-compile examples/requirements/test.in
 #        pip install -r examples/requirements/test.txt
     - name: Run Tests
-      run: tox -e ${{ matrix.tox_env }}
+      run: python -m pytest -vrx
       env:
         POSTGRES_HOST: localhost
         POSTGRES_PORT: 5432
