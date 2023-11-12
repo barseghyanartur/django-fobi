@@ -1,6 +1,16 @@
 from chromedriver_py import binary_path
 from selenium import webdriver
 
+try:
+    from .local_settings_docker import DEBUG
+except Exception as err:
+    DEBUG = True
+
+try:
+    from .local_settings_docker import DEBUG_TOOLBAR
+except Exception as err:
+    DEBUG_TOOLBAR = True
+
 from .bootstrap3_theme import *
 
 
@@ -15,8 +25,8 @@ def gettext(s):
 
 
 PROJECT_DIR = project_dir
-DEBUG = True
-DEBUG_TOOLBAR = False
+
+
 DEBUG_TEMPLATE = True
 # TEMPLATE_DEBUG = True
 DEV = True
@@ -57,7 +67,11 @@ MIGRATION_MODULES = {
     "page": "page.migrations",
 }
 
-INTERNAL_IPS = ("127.0.0.1",)
+if DEBUG:
+    import socket  # only if you haven't already imported this
+    hostname, _, ips = socket.gethostbyname_ex(socket.gethostname())
+    INTERNAL_IPS = [ip[: ip.rfind(".")] + ".1" for ip in ips] + ["127.0.0.1", "10.0.2.2"]
+
 ALLOWED_HOSTS = ["*"]
 
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
@@ -92,3 +106,9 @@ CHROME_DRIVER_OPTIONS.set_capability("chrome.binary", "/usr/bin/google-chrome")
 CHROME_DRIVER_EXECUTABLE_PATH = binary_path  # '/usr/bin/chromedriver'
 FIREFOX_BIN_PATH = "/usr/lib/firefox/firefox"
 PHANTOM_JS_EXECUTABLE_PATH = ""
+
+# Do not put any settings below this line
+try:
+    from .local_settings_docker import *
+except Exception as err:
+    pass

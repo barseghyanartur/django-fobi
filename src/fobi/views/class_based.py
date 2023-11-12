@@ -1586,6 +1586,10 @@ class ViewFormEntryView(AbstractViewFormEntryView):
             else:
                 theme = self.theme
             template_name = theme.view_form_entry_template
+
+        if DEBUG:
+            logger.debug(f"template_name: {template_name}")
+
         return [template_name]
 
     def get_essential_objects(
@@ -1603,7 +1607,6 @@ class ViewFormEntryView(AbstractViewFormEntryView):
             form_element_entries=form_element_entries,
             request=request,
         )
-
         return (
             form_element_entries,
             form_cls,
@@ -1670,7 +1673,7 @@ class ViewFormEntryView(AbstractViewFormEntryView):
 
         # In debug mode, try to identify possible problems.
         if DEBUG:
-            form.as_p()
+            logger.debug(form.as_p())
         else:
             try:
                 form.as_p()
@@ -1679,6 +1682,10 @@ class ViewFormEntryView(AbstractViewFormEntryView):
 
         theme = get_theme(request=request, as_instance=True)
         theme.collect_plugin_media(form_element_entries)
+
+        if DEBUG:
+            logger.debug(f"theme.form_view_ajax: {theme.form_view_ajax}")
+            logger.debug(f"theme.form_snippet_template_name: {theme.form_snippet_template_name}")
 
         return self.render_to_response(
             self.get_context_data(

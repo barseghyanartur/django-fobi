@@ -198,7 +198,7 @@ pluggy==1.0.0
     #   tox
 pre-commit==2.20.0
     # via -r style_checkers.in
-psycopg2-binary==2.8.6
+psycopg2-binary==2.9.9
     # via -r common.in
 ptyprocess==0.7.0
     # via
