@@ -374,6 +374,7 @@ INSTALLED_APPS = [
     # ***********************************************************************
     # Other project specific apps
     "foo",  # Test app
+    "kitchen_sink",  # Test app
 ]
 
 STATIC_ROOT = PROJECT_DIR(os.path.join("..", "..", "static"))

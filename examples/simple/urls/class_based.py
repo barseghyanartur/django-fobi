@@ -82,6 +82,7 @@ url_patterns_args += [
     url(r"^foo/", include("foo.urls")),
     # bar URLs:
     # url(r'^bar/', include('bar.urls')),
+    url(r"^kitchen-sink/", include("kitchen_sink.urls")),
     url(r"^$", TemplateView.as_view(template_name=fobi_home_template)),
     # django-fobi public forms contrib app:
     # url(r'^', include('fobi.contrib.apps.public_forms.urls')),

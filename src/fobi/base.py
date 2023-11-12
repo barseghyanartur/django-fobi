@@ -3149,16 +3149,19 @@ def get_ignorable_form_fields(form_element_entries):
 # *****************************************************************************
 
 
-def get_cleaned_data(form, keys_to_remove=[], values_to_remove=[]):
+def get_cleaned_data(form, keys_to_remove=None, values_to_remove=None):
     """Get cleaned data.
 
     Gets cleaned data, having the trash (fields without values) filtered
     out.
 
     :param form:
+    :param iterable keys_to_remove:
     :param iterable values_to_remove:
     :return dict:
     """
+    if not keys_to_remove:
+        keys_to_remove = []
     if not values_to_remove:
         values_to_remove = get_ignorable_form_values()
 
@@ -3177,7 +3180,7 @@ def get_cleaned_data(form, keys_to_remove=[], values_to_remove=[]):
     return ordered_cleaned_data
 
 
-def get_field_name_to_label_map(form, keys_to_remove=[], values_to_remove=[]):
+def get_field_name_to_label_map(form, keys_to_remove=None, values_to_remove=None):
     """Get field name to label map.
 
     :param form:

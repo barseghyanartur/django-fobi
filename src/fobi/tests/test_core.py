@@ -1,4 +1,5 @@
 import datetime
+import logging
 
 from django.test import RequestFactory, TestCase
 from django.urls import reverse
@@ -22,6 +23,8 @@ __author__ = "Artur Barseghyan <artur.barseghyan@gmail.com>"
 __copyright__ = "2014-2022 Artur Barseghyan"
 __license__ = "GPL 2.0/LGPL 2.1"
 __all__ = ("FobiCoreTest",)
+
+LOGGER = logging.getLogger(__name__)
 
 
 class FobiCoreTest(TestCase):
@@ -86,14 +89,18 @@ class FobiCoreTest(TestCase):
         )
         form = FormEntryForm(request.POST, request=request, instance=form_entry)
 
+        LOGGER.exception(f"action_url: {action_url}")
+
         saved = False
         try:
 
             if form.is_valid():
                 form.save()
                 saved = True
-        except Exception:
-            pass
+            else:
+                LOGGER.exception(form.errors)
+        except Exception as err:
+            LOGGER.exception(err)
 
         return saved
 
@@ -136,19 +143,19 @@ class FobiCoreTest(TestCase):
 
         # External URL, OK test
         saved = self._test_form_action_url(
-            form_entry, "http://delusionalinsanity.com/portfolio/"
+            form_entry, "https://github.com/barseghyanartur/django-fobi/"
         )
         self.assertTrue(saved)
 
         # External URL, fail test
         saved = self._test_form_action_url(
-            form_entry, "http://delusionalinsanity.com2/portfolio/"
+            form_entry, "https://github.com2/barseghyanartur/django-fobi/"
         )
         self.assertTrue(not saved)
 
         # External URL, fail test
         saved = self._test_form_action_url(
-            form_entry, "http://delusionalinsanity2.com/portfolio/"
+            form_entry, "https://github.com/barseghyanartur/django-fobi-i-do-not-exist/"
         )
         self.assertTrue(not saved)
 

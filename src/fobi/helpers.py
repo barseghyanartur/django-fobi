@@ -140,7 +140,7 @@ def map_field_name_to_label(form):
     )
 
 
-def clean_dict(source, keys=[], values=[]):
+def clean_dict(source, keys=None, values=None):
     """Removes given keys and values from dictionary.
 
     :param dict source:
@@ -148,6 +148,10 @@ def clean_dict(source, keys=[], values=[]):
     :param iterable values:
     :return dict:
     """
+    if not keys:
+        keys = []
+    if not values:
+        values = []
     dict_data = {}
     for key, value in source.items():
         if (key not in keys) and (value not in values):
@@ -338,13 +342,15 @@ def extract_file_path(name):
 # *****************************************************************************
 
 
-def get_registered_models(ignore=[]):
+def get_registered_models(ignore=None):
     """Gets registered models as list.
 
     :param iterable ignore: Ignore the following content types (should
         be in ``app_label.model`` format (example ``auth.User``).
     :return list:
     """
+    if not ignore:
+        ignore = []
     get_models = django.apps.apps.get_models
 
     registered_models = [

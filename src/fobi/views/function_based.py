@@ -2317,7 +2317,7 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
 
     # In debug mode, try to identify possible problems.
     if DEBUG:
-        form.as_p()
+        logger.debug(form.as_p())
     else:
         try:
             form.as_p()
@@ -2336,6 +2336,11 @@ def view_form_entry(request, form_entry_slug, theme=None, template_name=None):
 
     if not template_name:
         template_name = theme.view_form_entry_template
+
+    if DEBUG:
+        logger.debug(f"template_name: {template_name}")
+        logger.debug(f"theme.form_view_ajax: {theme.form_view_ajax}")
+        logger.debug(f"theme.form_snippet_template_name: {theme.form_snippet_template_name}")
 
     return render(request, template_name, context)
 
