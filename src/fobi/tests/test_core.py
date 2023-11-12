@@ -89,6 +89,8 @@ class FobiCoreTest(TestCase):
         )
         form = FormEntryForm(request.POST, request=request, instance=form_entry)
 
+        LOGGER.exception(f"action_url: {action_url}")
+
         saved = False
         try:
 
@@ -96,9 +98,9 @@ class FobiCoreTest(TestCase):
                 form.save()
                 saved = True
             else:
-                LOGGER.debug(form.errors)
+                LOGGER.exception(form.errors)
         except Exception as err:
-            LOGGER.error(err)
+            LOGGER.exception(err)
 
         return saved
 
@@ -141,19 +143,19 @@ class FobiCoreTest(TestCase):
 
         # External URL, OK test
         saved = self._test_form_action_url(
-            form_entry, "http://delusionalinsanity.com/portfolio/"
+            form_entry, "https://github.com/barseghyanartur/django-fobi/"
         )
         self.assertTrue(saved)
 
         # External URL, fail test
         saved = self._test_form_action_url(
-            form_entry, "http://delusionalinsanity.com2/portfolio/"
+            form_entry, "https://github.com2/barseghyanartur/django-fobi/"
         )
         self.assertTrue(not saved)
 
         # External URL, fail test
         saved = self._test_form_action_url(
-            form_entry, "http://delusionalinsanity2.com/portfolio/"
+            form_entry, "https://github.com/barseghyanartur/django-fobi-i-do-not-exist/"
         )
         self.assertTrue(not saved)
 
