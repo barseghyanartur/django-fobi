@@ -111,11 +111,11 @@ pip-compile:
 	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile demo.in
 	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile deployment.in
 	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile dev.in
-	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile django_2_2.in
-	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile django_3_0.in
-	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile django_3_1.in
+#	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile django_2_2.in
+#	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile django_3_0.in
+#	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile django_3_1.in
 	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile django_3_2.in
-	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile django_4_0.in
+#	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile django_4_0.in
 	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile django_4_1.in
 	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile django_4_2.in
 	docker-compose -f docker-compose.yml exec -w /backend/examples/requirements/ backend pip-compile djangocms_3_4_3.in

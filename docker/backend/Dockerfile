@@ -16,6 +16,7 @@ RUN apt-get update && \
 
 RUN pip install pip --upgrade
 RUN pip install virtualenv
+RUN pip install pip-tools
 
 RUN mkdir /backend
 WORKDIR /backend

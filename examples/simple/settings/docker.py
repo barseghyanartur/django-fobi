@@ -104,8 +104,8 @@ CHROME_DRIVER_OPTIONS.set_capability("chrome.binary", "/usr/bin/google-chrome")
 # CHROME_DRIVER_OPTIONS.add_argument('-single-process')
 
 CHROME_DRIVER_EXECUTABLE_PATH = binary_path  # '/usr/bin/chromedriver'
-FIREFOX_BIN_PATH = "/usr/lib/firefox/firefox"
-PHANTOM_JS_EXECUTABLE_PATH = ""
+# FIREFOX_BIN_PATH = "/usr/lib/firefox/firefox"
+# PHANTOM_JS_EXECUTABLE_PATH = ""
 
 # Do not put any settings below this line
 try:
