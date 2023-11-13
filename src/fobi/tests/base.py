@@ -6,7 +6,9 @@ from django.conf import settings
 from django.contrib.staticfiles.testing import StaticLiveServerTestCase
 from django.core.management import call_command
 from django.urls import reverse
+from chromedriver_py import binary_path
 from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.by import By
 from selenium.webdriver.common.keys import Keys
@@ -60,19 +62,14 @@ class BaseFobiBrowserBuldDynamicFormsTest(StaticLiveServerTestCase):
     def setUpClass(cls):
         """Set up class."""
         chrome_driver_path = getattr(
-            settings, "CHROME_DRIVER_EXECUTABLE_PATH", None
+            settings, "CHROME_DRIVER_EXECUTABLE_PATH", binary_path
         )
-        chrome_driver_options = getattr(settings, "CHROME_DRIVER_OPTIONS", None)
+        chrome_driver_options = Options()
         firefox_bin_path = getattr(settings, "FIREFOX_BIN_PATH", None)
         phantom_js_executable_path = getattr(
             settings, "PHANTOM_JS_EXECUTABLE_PATH", None
         )
-        if chrome_driver_path is not None:
-            cls.driver = webdriver.Chrome(
-                executable_path=chrome_driver_path,
-                options=chrome_driver_options,
-            )
-        elif phantom_js_executable_path is not None:
+        if phantom_js_executable_path is not None:
             if phantom_js_executable_path:
                 cls.driver = webdriver.PhantomJS(
                     executable_path=phantom_js_executable_path
@@ -82,6 +79,9 @@ class BaseFobiBrowserBuldDynamicFormsTest(StaticLiveServerTestCase):
         elif firefox_bin_path:
             binary = FirefoxBinary(firefox_bin_path)
             cls.driver = webdriver.Firefox(firefox_binary=binary)
+        if chrome_driver_path is not None:
+            chrome_driver_options.binary_location = chrome_driver_path
+            cls.driver = webdriver.Chrome(options=chrome_driver_options)
         else:
             cls.driver = webdriver.Firefox()
 
