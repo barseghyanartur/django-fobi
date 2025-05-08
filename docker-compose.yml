@@ -2,7 +2,7 @@ version: '3'
 
 services:
   postgresql:
-    image: postgres
+    image: postgres:14-bullseye
     restart: always
 #    network_mode: "host"
     volumes:
